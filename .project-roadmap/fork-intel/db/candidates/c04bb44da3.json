@@ -1,0 +1,13 @@
+{
+  "sha": "c04bb44da38996bb3dd364af3908db1acbbd0341",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "fixed a composition bug and created a few tests",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T19:25:42Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c04bb44da38996bb3dd364af3908db1acbbd0341",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

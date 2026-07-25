@@ -1,0 +1,13 @@
+{
+  "sha": "788ca79ece8aa3cfee0af3dc6adc4fb68a09d9c6",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed rdp file importer to support cred manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-20T17:15:33Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/788ca79ece8aa3cfee0af3dc6adc4fb68a09d9c6",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

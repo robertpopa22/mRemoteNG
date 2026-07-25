@@ -1,0 +1,13 @@
+{
+  "sha": "3fb138f24579a0e0e7ed50ef9eca37499aa0bb75",
+  "fork": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "subject": "Merge branch 'dev' into claude/analyze-cross-platform-portability-FndER",
+  "author_name": "Luís Morgado",
+  "author_login": "Morgadoo",
+  "date": "2026-03-17T17:24:16Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3fb138f24579a0e0e7ed50ef9eca37499aa0bb75",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:43Z"
+}

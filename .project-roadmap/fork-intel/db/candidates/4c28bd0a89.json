@@ -1,0 +1,48 @@
+{
+  "sha": "4c28bd0a89c1870df29bd5dc01ad1bc2689d4ba8",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "test(ssh_dotnet): add Dispose + CreateAdapter unit tests (no fakes)",
+  "body": "test(ssh_dotnet): add Dispose + CreateAdapter unit tests (no fakes)\n\n- ProtocolSshDotNet.Dispose: no-throw when never connected + idempotent\n  (validates the canonical IDisposable / ProtocolBase.Dispose fix, 4a).\n- SshConnectionManager.CreateAdapter: returns a non-null unconnected adapter and\n  validates its arguments (validates the ISshClientAdapter seam factory, 4b).\n\nAll exercise real objects -- no test doubles, no SSH server required.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T17:21:36Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4c28bd0a89c1870df29bd5dc01ad1bc2689d4ba8",
+  "stats": {
+    "files": 2,
+    "additions": 49,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/ProtocolSshDotNetTests.cs",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/SshConnectionManagerTests.cs",
+      "status": "modified",
+      "additions": 34,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNGTests/Connection/Protocol/SshDotNet/ProtocolSshDotNetTests.cs\n@@ -22,6 +22,21 @@ public void Setup()\n             _protocol = new ProtocolSshDotNet();\n         }\n \n+        [Test]\n+        public void Dispose_DoesNotThrow_WhenNeverConnected()\n+        {\n+            var protocol = new ProtocolSshDotNet();\n+            Assert.DoesNotThrow(() => protocol.Dispose());\n+        }\n+\n+        [Test]\n+        public void Dispose_IsIdempotent()\n+        {\n+            var protocol = new ProtocolSshDotNet();\n+            protocol.Dispose();\n+            Assert.DoesNotThrow(() => protocol.Dispose());\n+        }\n+\n         [TearDown]\n         public void TearDown()\n         {\n--- mRemoteNGTests/Connection/Protocol/SshDotNet/SshConnectionManagerTests.cs\n@@ -25,6 +25,40 @@ public void TearDown()\n             SshDotNetDiagnostics.TraceLogging = false;\n         }\n \n+        #region CreateAdapter Tests\n+\n+        [Test]\n+        public void CreateAdapter_ReturnsUnconnectedAdapter_WithValidParameters()\n+        {\n+            using var auth = new PasswordAuthenticationMethod(\"testuser\", \"password\");\n+            var authMethods = new[] { auth };\n+\n+            using var adapter = SshConnectionManager.CreateAdapter(\"localhost\", 22, \"testuser\", authMethods);\n+\n+            Assert.That(adapter, Is.Not.Null);\n+            Assert.That(adapter.IsConnected, Is.False);\n+            Assert.That(adapter.UnderlyingClient, Is.Not.Null);\n+        }\n+\n+        [Test]\n+        public void CreateAdapter_ThrowsArgumentException_WhenHostnameIsEmpty()\n+        {\n+            using var auth = new PasswordAuthenticationMethod(\"testuser\", \"password\");\n+            var authMethods = new[] { auth };\n+\n+            Assert.Throws<ArgumentException>(() =>\n+                SshConnectionManager.CreateAdapter(\"\", 22, \"testuser\", authMethods));\n+        }\n+\n+        [Test]\n+        public void CreateAdapter_ThrowsArgumentException_WhenAuthMethodsIsEmpty()\n+        {\n+            Assert.Throws<ArgumentException>(() =>\n+                SshConnectionManager.CreateAdapter(\"localhost\", 22, \"testuser\", Array.Empty<AuthenticationMethod>()));\n+        }\n+\n+        #endregion\n+\n         #region CreateConnection Tests\n \n         [Test]",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:13Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Tests target fork-specific SSH.NET protocol (ProtocolSshDotNet/SshConnectionManager) absent from our fork; we use PuTTY. Nothing to test here.",
+    "agent": "claude",
+    "at": "2026-07-25T16:36:16Z"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "sha": "5dbc11d851a0b96dbcd1188f5680fe9c393cefcf",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "fix(rdp): connection bar mover v2 (geometry-based) + enlarge new menu item",
+  "body": "fix(rdp): connection bar mover v2 (geometry-based) + enlarge new menu item\n\nДоводка после теста на реальных сессиях (все reconnect/VO работают):\n- B5: поиск connection bar по классу OPWindowClass не сработал. Переход\n  на поиск top-level окна по геометрии (узкая полоса у верха экрана) +\n  диагностическое логирование всех top-level окон процесса (1-я попытка).\n- B6: пункт 'Work in Fullscreen (no View Only)' получил тот же увеличенный\n  шрифт, что Fullscreen / View Only.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T14:55:27Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dbc11d851a0b96dbcd1188f5680fe9c393cefcf",
+  "stats": {
+    "files": 3,
+    "additions": 40,
+    "deletions": 18,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 25,
+      "deletions": 13
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -226,10 +226,14 @@ capture асинхронно) во всех путях reconnect.\n - [x] **B4** — Ctrl+Tab / Ctrl+Shift+Tab: `frmMain.ProcessCmdKey` → `ConnectionWindow.SwitchActiveTab`\n   (циклический перебор `connDock.DocumentsToArray`). Активация вкладки триггерит\n   `NotifyPassiveTabActivated` → проверка scroll+VO (A4) выполняется автоматически.\n-- [x] **B5** — Connection bar в правый верхний угол: `StartConnectionBarMover` (таймер\n-  15×200мс из `MarkRdpFullscreenActive`) ищет top-level окно класса `OPWindowClass` в своём\n-  процессе и двигает `SetWindowPos` с `SWP_NOSIZE` (размер не меняется). ⚠️ Класс окна —\n-  **эвристика**: подтвердить по debug-логам на runtime (C1) и при необходимости уточнить.\n+- [~] **B5** — Connection bar в правый верхний угол: `StartConnectionBarMover` (таймер из\n+  `MarkRdpFullscreenActive`). v1 (поиск по классу `OPWindowClass`) на runtime **не сработал**.\n+  v2: поиск top-level окна процесса по **геометрии** (узкая полоса h<70, w≥150, w<ширины\n+  экрана, у верхнего края) + verbose-диагностика всех top-level окон в debug-лог (1-я попытка).\n+  Размер не меняется (SWP_NOSIZE). ⚠️ Если бар окажется дочерним окном (его не будет в\n+  диагностическом списке top-level) — добавить EnumChildWindows-поиск.\n+- [x] **B6** — Новый пункт «Work in Fullscreen (no View Only)» получил тот же увеличенный\n+  Font, что Fullscreen/ViewOnly (`Font = cmenTabViewOnly.Font` в `AddWorkingFullscreenMenuItem`).\n \n ### Фаза C — сборка и проверка\n - [x] **C0** — Установлен .NET 6 SDK 6.0.428 (winget `Microsoft.DotNet.SDK.6`).\n@@ -307,3 +311,6 @@ _Журнал изменений HANDOFF:_\n - _C0 — установлен .NET 6 SDK 6.0.428. C1 — `dotnet build` не подошёл (COM reference), сборка\n   переведена на GitHub Actions (msbuild). Сборка v4 успешна (run 27623988981), portable zip\n   artifact готов. **Все стадии A1–C1 завершены (код компилируется).**_\n+- _Тест на реальных сессиях: reconnect/VO/таймаут-reconnect работают. Доводка: B5 connection\n+  bar (v1 по классу не сработал → v2 по геометрии + диагностика); B6 новый пункт меню укрупнён.\n+  Требуется пересборка и повторный тест connection bar._\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -853,7 +853,7 @@ private void StartConnectionBarMover(string source)\n                 _connectionBarMoveTimer.Tick += ConnectionBarMoveTimerOnTick;\n             }\n \n-            MoveConnectionBarToTopRight(source + \" immediate\");\n+            MoveConnectionBarToTopRight(source + \" immediate\", true);\n \n             _connectionBarMoveTimer.Stop();\n             _connectionBarMoveTimer.Start();\n@@ -862,7 +862,9 @@ private void StartConnectionBarMover(string source)\n         private void ConnectionBarMoveTimerOnTick(object sender, EventArgs e)\n         {\n             _connectionBarMoveAttempts++;\n-            var moved = MoveConnectionBarToTopRight($\"connection bar mover attempt {_connectionBarMoveAttempts}\");\n+            // verbose-диагностику пишем только на 1-й попытке, чтобы не спамить лог.\n+            var moved = MoveConnectionBarToTopRight($\"connection bar mover attempt {_connectionBarMoveAttempts}\",\n+                _connectionBarMoveAttempts == 1);\n \n             // Останавливаемся, когда передвинули бар, вышли из fullscreen или исчерпали попытки.\n             if (moved || !IsFullscreenEffective() || _connectionBarMoveAttempts >= ConnectionBarMoveMaxAttempts)\n@@ -878,7 +880,7 @@ private void StopConnectionBarMover(string source)\n             _connectionBarMoveAttempts = 0;\n         }\n \n-        private bool MoveConnectionBarToTopRight(string source)\n+        private bool MoveConnectionBarToTopRight(string source, bool verbose)\n         {\n             try\n             {\n@@ -889,6 +891,7 @@ private bool MoveConnectionBarToTopRight(string source)\n                 var myPid = (uint)System.Diagnostics.Process.GetCurrentProcess().Id;\n                 var found = IntPtr.Zero;\n                 var foundWidth = 0;\n+                var diag = verbose ? new System.Text.StringBuilder() : null;\n \n                 EnumWindows((hWnd, lParam) =>\n                 {\n@@ -899,22 +902,25 @@ private bool MoveConnectionBarToTopRight(string source)\n                     if (pid != myPid)\n                         return true;\n \n-                    var sb = new System.Text.StringBuilder(256);\n-                    GetClassName(hWnd, sb, sb.Capacity);\n-                    var className = sb.ToString();\n-\n-                    // RDP connection bar в fullscreen — top-level окно класса OPWindowClass.\n-                    if (className.IndexOf(\"OPWindow\", StringComparison.OrdinalIgnoreCase) < 0)\n-                        return true;\n-\n                     if (!GetWindowRect(hWnd, out var rect))\n                         return true;\n \n                     var width = rect.Right - rect.Left;\n                     var height = rect.Bottom - rect.Top;\n \n-                    // Узкая горизонтальная полоса (а не основное полноэкранное окно сессии).\n-                    if (height <= 0 || height > 80 || width < 80)\n+                    if (verbose)\n+                    {\n+                        var sb = new System.Text.StringBuilder(256);\n+                        GetClassName(hWnd, sb, sb.Capacity);\n+                        diag.Append($\"['{sb}' {width}x{height}@{rect.Left},{rect.Top}] \");\n+                    }\n+\n+                    // Connection bar = узкая горизонтальная полоса у верхнего края экрана сессии.\n+                    // Класс окна отличается у разных версий Windows, поэтому ищем по геометрии,\n+                    // а не по имени класса.\n+                    if (height < 8 || height > 70 || width < 150 || width >= bounds.Width)\n+                        return true;\n+                    if (rect.Top < bounds.Top - 8 || rect.Top > bounds.Top + 100)\n                         return true;\n \n                     found = hWnd;\n@@ -923,7 +929,13 @@ private bool MoveConnectionBarToTopRight(string source)\n                 }, IntPtr.Zero);\n \n                 if (found == IntPtr.Zero)\n+                {\n+                    if (verbose)\n+                        Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n+                            $\"RDP connection bar NOT found from {source} for host '{connectionInfo?.Hostname}'; \" +\n+                            $\"screen=({bounds.Left},{bounds.Top} {bounds.Width}x{bounds.Height}); top-level windows: {diag}\");\n                     return false;\n+                }\n \n                 var targetX = bounds.Right - foundWidth;\n                 var targetY = bounds.Top;\n--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -128,7 +128,10 @@ private void AddWorkingFullscreenMenuItem()\n                 var item = new ToolStripMenuItem\n                 {\n                     Name = \"cmenTabWorkFullscreen\",\n-                    Text = \"Work in Fullscreen (no View Only)\"\n+                    Text = \"Work in Fullscreen (no View Only)\",\n+                    // B6: тот же увеличенный шрифт, что у Fullscreen/View Only (EnlargeKeyTabMenuItems\n+                    // вызывается раньше, поэтому cmenTabViewOnly.Font уже укрупнён).\n+                    Font = cmenTabViewOnly.Font\n                 };\n                 item.Click += (sender, args) => EnterWorkingFullscreen();\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:13Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Unrequested passive-RDP feature from a divergent fork; geometry-only window selection can move the wrong window, remains untested, and requires a ground-up design.",
+    "agent": "codex",
+    "at": "2026-07-25T17:30:27Z"
+  }
+}

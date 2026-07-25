@@ -1,0 +1,13 @@
+{
+  "sha": "b810f45806b02d8cd97762515e5b9fccebc8c9bc",
+  "fork": "ratorin/mRemoteNG",
+  "owner": "ratorin",
+  "subject": "Merge PR1: Add UseRedirectionServerName connection property",
+  "author_name": "Taro Kawakami",
+  "author_login": null,
+  "date": "2026-05-15T11:48:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b810f45806b02d8cd97762515e5b9fccebc8c9bc",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:47Z"
+}

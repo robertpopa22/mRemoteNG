@@ -1,0 +1,13 @@
+{
+  "sha": "a3116b79750971424dc4ad1c79dcf30d634d233c",
+  "fork": "BuloZB/mRemoteNG",
+  "owner": "BuloZB",
+  "subject": "code clean up, disconnect checks, updated dll",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2017-03-20T19:38:02Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3116b79750971424dc4ad1c79dcf30d634d233c",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

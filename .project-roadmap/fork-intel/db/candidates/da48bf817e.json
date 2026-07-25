@@ -1,0 +1,48 @@
+{
+  "sha": "da48bf817e021a3fb9aa42e446b45c4fce76b27e",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "去除一些调试日志输出",
+  "body": "去除一些调试日志输出",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2026-02-07T08:51:27Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/da48bf817e021a3fb9aa42e446b45c4fce76b27e",
+  "stats": {
+    "files": 2,
+    "additions": 2,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/App/Info/ConnectionsFileInfo.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/UI/Forms/frmOptions.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/App/Info/ConnectionsFileInfo.cs\n@@ -53,7 +53,7 @@ public static string MakeRelativeIfPossible(string targetFilePath)\n \n                 //Uri 方式\n                 string subPath = new Uri(baseDir).MakeRelativeUri(new Uri(targetPath)).ToString().Replace('/', Path.DirectorySeparatorChar);\n-                Console.WriteLine(subPath);\n+                //Console.WriteLine(subPath);\n \n                 //截取方式：去掉相同前缀，再删掉可能多余的首个分隔符\n                 //string subPath2 = targetPath.Substring(baseDir.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);\n--- mRemoteV1/UI/Forms/frmOptions.cs\n@@ -119,7 +119,7 @@ private void btnOK_Click(object sender, EventArgs e)\n         {\n             foreach (var page in _pages.Values)\n             {\n-                Debug.WriteLine(page.PageName);\n+                //Debug.WriteLine(page.PageName);\n                 page.SaveSettings();\n             }\n             Debug.WriteLine(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:47Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Raw writes and MakeRelativeIfPossible are gone; current options diagnostics use structured logging. This legacy-path patch has no remaining target.",
+    "agent": "codex",
+    "at": "2026-07-25T18:33:22Z"
+  }
+}

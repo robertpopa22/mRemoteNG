@@ -1,0 +1,13 @@
+{
+  "sha": "cc44b830a2d116625147f3f7db234b6ed308b37b",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "scaled images in the unlocker form",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-30T21:28:47Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cc44b830a2d116625147f3f7db234b6ed308b37b",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "d524df631516797b0e923e4c8c8aa664dc36eb8c",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "minor efficiency gain",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-22T19:04:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d524df631516797b0e923e4c8c8aa664dc36eb8c",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

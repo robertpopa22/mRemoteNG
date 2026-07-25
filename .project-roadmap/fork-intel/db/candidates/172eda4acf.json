@@ -1,0 +1,42 @@
+{
+  "sha": "172eda4acfce3e5f09eb99f7c52969c34f933e60",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "搜索结果数量提示优化",
+  "body": "搜索结果数量提示优化",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2026-02-07T15:26:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/172eda4acfce3e5f09eb99f7c52969c34f933e60",
+  "stats": {
+    "files": 1,
+    "additions": 9,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Window/ConnectionTreeWindow.cs",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 5
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Window/ConnectionTreeWindow.cs\n@@ -91,6 +91,7 @@ private void ApplyLanguage()\n \n             txtSearch.Text = Language.strSearchPrompt;\n             PictureBox1ToolTip.SetToolTip(this.PictureBox1, Language.strSearchPrompt);\n+            //RefreshSearchMatchTip(null);\n         }\n \n         private new void ApplyTheme()\n@@ -269,6 +270,8 @@ private void txtSearch_KeyDown(object sender, KeyEventArgs e)\n                 {\n                     e.Handled = true;\n                     olvConnections.Focus();\n+                    PictureBox1ToolTip.SetToolTip(this.PictureBox1, Language.strSearchPrompt);\n+                    //RefreshSearchMatchTip(null);\n                 }\n                 else if (e.KeyCode == Keys.Up)\n                 {\n@@ -321,9 +324,10 @@ private void ApplyFiltering()\n             else\n             {\n                 //if (txtSearch.Text == \"\") return;\n-                olvConnections.NodeSearcher?.SearchByName(txtSearch.Text);\n-                JumpToNode(olvConnections.NodeSearcher?.CurrentMatch);\n-                RefreshSearchMatchTip();\n+                var Matches = olvConnections.NodeSearcher?.SearchByName(txtSearch.Text);//ִ����������\n+                ConnectionInfo CurrentMatch = olvConnections.NodeSearcher?.CurrentMatch;\n+                JumpToNode(CurrentMatch);\n+                RefreshSearchMatchTip(CurrentMatch);\n             }\n         }\n \n@@ -338,10 +342,10 @@ private void JumpToNode(ConnectionInfo connectionInfo)\n             olvConnections.SelectObject(connectionInfo);\n             olvConnections.EnsureModelVisible(connectionInfo);\n         }\n-        private void RefreshSearchMatchTip(ConnectionInfo matchItem = null)//����null��ʾʹ�õ�ǰĬ��\n+        private void RefreshSearchMatchTip(ConnectionInfo matchItem = null)//�����Ϊnull����ʹ��NodeSearcher�еĵ�ǰƥ��ֵ\n         {\n             //PictureBox1ToolTip.SetToolTip(this.PictureBox1, Language.strSearchPrompt);\n-            PictureBox1ToolTip.SetToolTip(this.PictureBox1, olvConnections.NodeSearcher == null ? \"null\" : olvConnections.NodeSearcher.GetItemMatchPositionDesc(matchItem));\n+            PictureBox1ToolTip.SetToolTip(this.PictureBox1, olvConnections.NodeSearcher == null ? \"NodeSearcher is null!\" : olvConnections.NodeSearcher.GetItemMatchPositionDesc(matchItem));\n \n         }\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:49Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Old mRemoteV1 path, garbled GBK comments, depends on fork-private NodeSearcher API (GetItemMatchPositionDesc). Our search UI heavily diverged (#143/#144 work).",
+    "agent": "gemini",
+    "at": "2026-07-25T16:58:24Z"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "bf757e5fb241e1ae7c3fe927f1995c14ac08b5fb",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "feat(ssh_dotnet): add file-picker (\"...\") editor for the private key file property",
+  "body": "feat(ssh_dotnet): add file-picker (\"...\") editor for the private key file property\n\nAdd SshPrivateKeyFileEditor (a UITypeEditor) so the Private Key File property in the\nconnection property grid shows a \"...\" browse button that opens the standard Windows\nOpenFileDialog, filtered to common private-key file types (PEM, *.key, *.ppk, OpenSSH\nid_* keys, plus All files for extensionless keys).\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T18:12:53Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bf757e5fb241e1ae7c3fe927f1995c14ac08b5fb",
+  "stats": {
+    "files": 2,
+    "additions": 58,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/AbstractConnectionRecord.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Tools/SshPrivateKeyFileEditor.cs",
+      "status": "added",
+      "additions": 57,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/AbstractConnectionRecord.cs\n@@ -439,6 +439,7 @@ public string SshDotNetPortForwardRules\n         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),\r\n          LocalizedAttributes.LocalizedDisplayName(nameof(Language.SshDotNetPrivateKeyFile)),\r\n          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionSshDotNetPrivateKeyFile)),\r\n+         Editor(typeof(Tools.SshPrivateKeyFileEditor), typeof(System.Drawing.Design.UITypeEditor)),\r\n          AttributeUsedInProtocol(ProtocolType.SshDotNet)]\r\n         public string SshDotNetPrivateKeyFile\r\n         {\r\n--- mRemoteNG/Tools/SshPrivateKeyFileEditor.cs\n@@ -0,0 +1,57 @@\n+using System;\n+using System.ComponentModel;\n+using System.Drawing.Design;\n+using System.Runtime.Versioning;\n+using System.Windows.Forms;\n+\n+namespace mRemoteNG.Tools\n+{\n+    /// <summary>\n+    /// Property-grid editor that shows a \"...\" button and opens the standard Windows file dialog so the\n+    /// user can browse for an SSH private key file, filtered to the common private-key file types.\n+    /// </summary>\n+    [SupportedOSPlatform(\"windows\")]\n+    public class SshPrivateKeyFileEditor : UITypeEditor\n+    {\n+        private const string KeyFileFilter =\n+            \"Private key files (*.pem, *.key, *.ppk, id_*)|*.pem;*.key;*.ppk;*.openssh;*.id_ed25519;id_rsa;id_dsa;id_ecdsa;id_ed25519;id_xmss|\" +\n+            \"PEM files (*.pem)|*.pem|\" +\n+            \"OpenSSH keys (id_rsa, id_ed25519, ...)|id_rsa;id_dsa;id_ecdsa;id_ed25519;id_xmss;*.openssh|\" +\n+            \"PuTTY private keys (*.ppk)|*.ppk|\" +\n+            \"Key files (*.key)|*.key|\" +\n+            \"All files (*.*)|*.*\";\n+\n+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)\n+            => UITypeEditorEditStyle.Modal;\n+\n+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)\n+        {\n+            string current = value as string ?? string.Empty;\n+\n+            using var dialog = new OpenFileDialog\n+            {\n+                Title = \"Select SSH Private Key File\",\n+                Filter = KeyFileFilter,\n+                CheckFileExists = true,\n+                Multiselect = false,\n+                FileName = current\n+            };\n+\n+            if (!string.IsNullOrEmpty(current))\n+            {\n+                try\n+                {\n+                    string dir = System.IO.Path.GetDirectoryName(current);\n+                    if (!string.IsNullOrEmpty(dir) && System.IO.Directory.Exists(dir))\n+                        dialog.InitialDirectory = dir;\n+                }\n+                catch (ArgumentException)\n+                {\n+                    // Ignore an invalid current path; the dialog just opens at its default location.\n+                }\n+            }\n+\n+            return dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : value;\n+        }\n+    }\n+}",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:17Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Current SSH protocols already use PrivateKeyPath plus an OpenFileDialog editor; the candidate targets absent SshDotNet-specific properties.",
+    "agent": "codex",
+    "at": "2026-07-25T18:19:47Z"
+  }
+}

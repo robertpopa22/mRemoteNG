@@ -1,0 +1,42 @@
+{
+  "sha": "e3eb690eb653368366a6b532e751b48372112598",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "docs: close B3 (performance flags semantics verified, fixed via A5)",
+  "body": "docs: close B3 (performance flags semantics verified, fixed via A5)\n\nСтадия B3. Анализ SetPerformanceFlags: семантика корректна (стандартная\nлогика mRemoteNG). Появление композиции/теней при reconnect устранено\nпереустановкой PerformanceFlags во всех путях reconnect (A5). Правок кода\nне потребовалось; проверка на реальном конфиге — на этапе C1.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T13:59:51Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e3eb690eb653368366a6b532e751b48372112598",
+  "stats": {
+    "files": 1,
+    "additions": 5,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -219,8 +219,10 @@ capture асинхронно) во всех путях reconnect.\n - [x] **B2** — Пункт «Work in Fullscreen (no View Only)» под ViewOnly: `EnterWorkingFullscreen`\n   (RDP6) снимает VO + входит в fullscreen, подавляя авто-VO (manuallyDisabled=true); добавлен\n   через `AddWorkingFullscreenMenuItem` (ConnectionWindow). При выходе VO снова включается (A4).\n-- [ ] **B3** — Проверка семантики performance-флагов (композиция/тени) на реальном конфиге.\n-  Меню Reconnect/Reconnect All уже пересоздают сессию. Основная переустановка pFlags — в A5.\n+- [x] **B3** — Семантика `SetPerformanceFlags` проверена: стандартная логика mRemoteNG\n+  корректна (DisableThemes/Wallpaper/CursorShadow по конфигу; композиция не запрашивается,\n+  если выключена). Появление композиции/теней при reconnect устранено переустановкой pFlags\n+  (A5). Правок кода не потребовалось. Финальная проверка на реальном конфиге — рантайм (C1).\n - [ ] **B4** — Горячие клавиши Ctrl+Tab / Ctrl+Shift+Tab (frmMain, pnlDock). После\n   переключения — проверка scroll+VO (общий механизм с `NotifyPassiveTabActivated`, A4).\n - [ ] **B5** — RDP connection bar в правый верхний угол при входе в fullscreen (нужен уже\n@@ -281,3 +283,4 @@ _Журнал изменений HANDOFF:_\n   tmrReconnect, RDP8 resize); reconnect-финализатор подключён к RDP8 resize. **Фаза A готова.**_\n - _B1 — пункты Fullscreen/ViewOnly увеличены ×2 (Font Bold) через EnlargeKeyTabMenuItems._\n - _B2 — добавлен пункт «Work in Fullscreen (no View Only)» + RDP6.EnterWorkingFullscreen._\n+- _B3 — семантика performance-флагов проверена (корректна); первопричина устранена в A5, правок нет._",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:09Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "This updates HANDOFF.md, which is a file specific to the guvity fork's passive RDP development progress tracking and does not exist here.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:58:31Z"
+  }
+}

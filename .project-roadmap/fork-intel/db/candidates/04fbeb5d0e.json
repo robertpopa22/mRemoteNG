@@ -1,0 +1,42 @@
+{
+  "sha": "04fbeb5d0e3a7067f07204377c97c54b6597d25a",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "added schema for local help files",
+  "body": "added schema for local help files",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-23T21:25:23Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/04fbeb5d0e3a7067f07204377c97c54b6597d25a",
+  "stats": {
+    "files": 1,
+    "additions": 16,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/frmMain.cs\n@@ -30,6 +30,7 @@\n using WeifenLuo.WinFormsUI.Docking;\n using CefSharp;\n using CefSharp.WinForms;\n+using CefSharp.SchemeHandler;\n \n // ReSharper disable MemberCanBePrivate.Global\n \n@@ -156,6 +157,7 @@ private void FrmMain_Load(object sender, EventArgs e)\n \n             SetMenuDependencies();\n \n+            #region CefSharp\n             //Monitor parent process exit and close subprocesses if parent process exits first\n             //This will at some point in the future becomes the default\n             CefSharpSettings.SubprocessExitIfParentProcessClosed = true;\n@@ -174,7 +176,7 @@ private void FrmMain_Load(object sender, EventArgs e)\n                 settings.CachePath = Path.Combine(\n                                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),\n                                            Application.ProductName,\n-                                           \"CEF_Cache\");\n+                                           \"CEFCache\");\n                 settings.LogFile = Path.Combine(Path.GetDirectoryName(Settings.Default.LogFilePath),\"mRemoteNG_cef.log\");\n                 \n             }\n@@ -194,8 +196,20 @@ private void FrmMain_Load(object sender, EventArgs e)\n             {\n                 settings.LogSeverity = LogSeverity.Error;\n             }\n-\n+            \n+            //Implement scheme to be allowed to view local help files\n+            settings.RegisterScheme(new CefCustomScheme\n+            {\n+                SchemeName = Cef.CefCommitHash,\n+                DomainName = \"help\",\n+                SchemeHandlerFactory = new FolderSchemeHandlerFactory(\n+                    rootFolder: $@\"{GeneralAppInfo.HomePath}\\Help\\\",\n+                    defaultPage: \"index.html\"\n+                )\n+            });\n+            \n             Cef.Initialize(settings);\n+            #endregion CefSharp\n \n             var uiLoader = new DockPanelLayoutLoader(this, messageCollector);\n             uiLoader.LoadPanelsFromXml();",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:54Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Targets obsolete mRemoteV1/CefSharp startup. Current Help opens maintained online documentation, WebView2 replaced CefSharp, and no bundled Help tree exists; only a fresh design could apply.",
+    "agent": "codex",
+    "at": "2026-07-25T16:39:19Z"
+  }
+}

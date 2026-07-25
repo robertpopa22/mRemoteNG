@@ -1,0 +1,61 @@
+{
+  "sha": "7ea1eded8cd1d73bea965ff47b14040bdd93f742",
+  "fork": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "subject": "Add setting for opening multiple connections with Enter",
+  "body": "Add setting for opening multiple connections with Enter\n\nAdded ApplyOpenMultipleConnectionsWithEnter to OptRegistryConnectionsPage to support the new OpenMultipleConnectionsWithEnter setting. Updated project file to include UI\\Helpers\\ folder. Replaced window.Close() with window.Dispose() in ConnectionTreeWindowGetDirectChildConnectionsTests for better resource management.",
+  "author_name": "Jules Bobb",
+  "author_login": null,
+  "date": "2026-04-06T15:16:32Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7ea1eded8cd1d73bea965ff47b14040bdd93f742",
+  "stats": {
+    "files": 3,
+    "additions": 17,
+    "deletions": 7,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryConnectionsPage.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/UI/Window/ConnectionTreeWindowGetDirectChildConnectionsTests.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 7
+    }
+  ],
+  "patch": "--- mRemoteNG/Config/Settings/Registry/OptRegistryConnectionsPage.cs\n@@ -123,6 +123,7 @@ private void Apply()\n             ApplyPlaceSearchBarAboveConnectionTree();\n             ApplyDoNotTrimUsername();\n             ApplySlowClickRenameEnabled();\n+            ApplyOpenMultipleConnectionsWithEnter();\n             ApplyRdpReconnectionCount();\n             ApplyConRDPOverallConnectionTimeout();\n             ApplyAutoSaveEveryMinutes();\n@@ -176,6 +177,12 @@ private void ApplySlowClickRenameEnabled()\n                 Properties.Settings.Default.SlowClickRenameEnabled = SlowClickRenameEnabled.Value;\n         }\n \n+        private void ApplyOpenMultipleConnectionsWithEnter()\n+        {\n+            if (OpenMultipleConnectionsWithEnter.IsSet)\n+                Properties.Settings.Default.OpenMultipleConnectionsWithEnter = OpenMultipleConnectionsWithEnter.Value;\n+        }\n+\n         private void ApplyRdpReconnectionCount()\n         {\n             if (RdpReconnectionCount.IsValid)\n--- mRemoteNG/mRemoteNG.csproj\n@@ -551,6 +551,9 @@\n   <ItemGroup>\n     <Service Include=\"{508349b6-6b84-4df5-91f0-309beebad82d}\" />\n   </ItemGroup>\n+  <ItemGroup>\n+    <Folder Include=\"UI\\Helpers\\\" />\n+  </ItemGroup>\n   <PropertyGroup Condition=\"'$(Platform)'=='x64'\">\n     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>\n     <Nullable>enable</Nullable>\n--- mRemoteNGTests/UI/Window/ConnectionTreeWindowGetDirectChildConnectionsTests.cs\n@@ -50,7 +50,7 @@ public void GetDirectChildConnections_WithFolderContainingOnlyConnections_Return\n             }\n             finally\n             {\n-                window.Close();\n+                window.Dispose();\n             }\n         }\n \n@@ -79,7 +79,7 @@ public void GetDirectChildConnections_WithFolderContainingNestedFolders_ReturnsO\n             }\n             finally\n             {\n-                window.Close();\n+                window.Dispose();\n             }\n         }\n \n@@ -99,7 +99,7 @@ public void GetDirectChildConnections_WithEmptyFolder_ReturnsEmpty()\n             }\n             finally\n             {\n-                window.Close();\n+                window.Dispose();\n             }\n         }\n \n@@ -119,7 +119,7 @@ public void GetDirectChildConnections_WithNonContainerNode_ReturnsEmpty()\n             }\n             finally\n             {\n-                window.Close();\n+                window.Dispose();\n             }\n         }\n \n@@ -145,7 +145,7 @@ public void GetDirectChildConnections_WithFolderContainingMixedTypes_ReturnsOnly\n             }\n             finally\n             {\n-                window.Close();\n+                window.Dispose();\n             }\n         }\n \n@@ -175,7 +175,7 @@ public void GetDirectChildConnections_WithDeeplyNestedStructure_ReturnsOnlyDirec\n             }\n             finally\n             {\n-                window.Close();\n+                window.Dispose();\n             }\n         }\n \n@@ -203,7 +203,7 @@ public void GetDirectChildConnections_FiltersOutFolders_OnlyReturnsConnections()\n             }\n             finally\n             {\n-                window.Close();\n+                window.Dispose();\n             }\n         }\n     }",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:23Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 3,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Incomplete commit. It is part of a multi-commit feature (not mapping to any open issue) and contains only settings boilerplate without the actual behavior.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:42:46Z"
+  }
+}

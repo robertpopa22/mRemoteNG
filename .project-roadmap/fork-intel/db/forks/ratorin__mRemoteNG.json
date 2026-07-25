@@ -9,13 +9,59 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 3,
   "behind_by": 167,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "b810f45806b02d8cd97762515e5b9fccebc8c9bc",
+      "subject": "Merge PR1: Add UseRedirectionServerName connection property",
+      "author_name": "Taro Kawakami",
+      "author_login": null,
+      "date": "2026-05-15T11:48:58Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b810f45806b02d8cd97762515e5b9fccebc8c9bc",
+      "branches": [
+        "integration/cw-base"
+      ]
+    },
+    {
+      "sha": "910a2d2c8ceccc803b351aef364e7c3644647a56",
+      "subject": "Merge PR2: Add Clear Cached RDP Credentials action",
+      "author_name": "Taro Kawakami",
+      "author_login": null,
+      "date": "2026-05-15T11:51:33Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/910a2d2c8ceccc803b351aef364e7c3644647a56",
+      "branches": [
+        "integration/cw-base"
+      ]
+    },
+    {
+      "sha": "bc80d729fb2307c8bcb11b7e38317db89d38526a",
+      "subject": "Merge PR3: Japanese localization + Options page label fixes + theme palette names",
+      "author_name": "Taro Kawakami",
+      "author_login": null,
+      "date": "2026-05-15T11:51:41Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bc80d729fb2307c8bcb11b7e38317db89d38526a",
+      "branches": [
+        "integration/cw-base"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "1b2ced3134bdcdbdeaf087f82dbce48c4af7053d",
-  "compared_at": "2026-07-25T10:58:33Z"
+  "compared_at": "2026-07-25T16:25:28Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "feature/clear-cached-credentials",
+    "feature/japanese-localization",
+    "feature/use-redirection-server-name",
+    "integration/cw-base"
+  ],
+  "branches_inherited_from_upstream": 0,
+  "screened_shas": []
 }

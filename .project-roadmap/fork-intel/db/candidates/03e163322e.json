@@ -1,0 +1,42 @@
+{
+  "sha": "03e163322e3c4b6101401436585bcf42ac746a3e",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "优化：重命名节点名称时，使用正则表达式提取IP信息并设为主机名",
+  "body": "优化：重命名节点名称时，使用正则表达式提取IP信息并设为主机名",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-01-24T16:32:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/03e163322e3c4b6101401436585bcf42ac746a3e",
+  "stats": {
+    "files": 1,
+    "additions": 10,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Tree/ConnectionTreeModel.cs",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Tree/ConnectionTreeModel.cs\n@@ -1,6 +1,7 @@\n ﻿using System.Collections.Generic;\n using System.Collections.Specialized;\n using System.ComponentModel;\n+using System.Text.RegularExpressions;\n using mRemoteNG.Connection;\n using mRemoteNG.Container;\n using mRemoteNG.Tree.Root;\n@@ -52,7 +53,15 @@ public void RenameNode(ConnectionInfo connectionInfo, string newName)\n \n             connectionInfo.Name = newName;\n             if (Settings.Default.SetHostnameLikeDisplayName)\n-                connectionInfo.Hostname = newName;\n+            {\n+                string pattern = \"\\\\d{1,3}(\\\\.\\\\d{1,3}){3}\";\n+                Match match = Regex.Match(newName, pattern);\n+                if (match.Success)\n+                {\n+                    connectionInfo.Hostname = match.Value;\n+                }\n+                //connectionInfo.Hostname = newName;\n+            }\n         }\n \n         public void DeleteNode(ConnectionInfo connectionInfo)",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:25Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Faulty logic: comments out the fallback, so renaming to non-IP strings fails to update Hostname entirely. Only matches IPv4, ignoring hostname strings.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:34:12Z"
+  }
+}

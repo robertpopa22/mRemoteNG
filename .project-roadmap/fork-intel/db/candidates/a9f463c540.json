@@ -1,0 +1,48 @@
+{
+  "sha": "a9f463c540eef91e033bff7b4fcbeb9d6598e842",
+  "fork": "VantIer/mRemoteNG",
+  "owner": "VantIer",
+  "subject": "removed resize events of main form",
+  "body": "removed resize events of main form",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2021-12-01T19:09:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9f463c540eef91e033bff7b4fcbeb9d6598e842",
+  "stats": {
+    "files": 2,
+    "additions": 2,
+    "deletions": 67,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Forms/frmMain.Designer.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 64
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Forms/frmMain.Designer.cs\n@@ -205,9 +205,6 @@ private void InitializeComponent()\n             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);\n             this.Load += new System.EventHandler(this.FrmMain_Load);\n             this.Shown += new System.EventHandler(this.frmMain_Shown);\n-            this.ResizeBegin += new System.EventHandler(this.frmMain_ResizeBegin);\n-            this.ResizeEnd += new System.EventHandler(this.frmMain_ResizeEnd);\n-            this.Resize += new System.EventHandler(this.frmMain_Resize);\n             this.msMain.ResumeLayout(false);\n             this.msMain.PerformLayout();\n             this.tsContainer.ContentPanel.ResumeLayout(false);\n--- mRemoteNG/UI/Forms/frmMain.cs\n@@ -23,12 +23,10 @@\n using System.Drawing;\n using System.Globalization;\n using System.IO;\n-using System.Runtime.InteropServices;\n using System.Text;\n using System.Windows.Forms;\n using mRemoteNG.UI.Panels;\n using WeifenLuo.WinFormsUI.Docking;\n-using mRemoteNG.UI.Controls;\n using Settings = mRemoteNG.Properties.Settings;\n using mRemoteNG.Resources.Language;\n \n@@ -38,11 +36,9 @@ namespace mRemoteNG.UI.Forms\n {\n     public partial class FrmMain\n     {\n-        public static FrmMain Default { get; } = new FrmMain();\n+        public static FrmMain Default { get; } = new();\n \n         private static ClipboardchangeEventHandler _clipboardChangedEvent;\n-        private bool _inSizeMove;\n-        private bool _inMouseActivate;\n         private IntPtr _fpChainedWindowHandle;\n         private bool _usingSqlServer;\n         private string _connectionsFileName;\n@@ -51,7 +47,7 @@ public partial class FrmMain\n         private ConnectionInfo _selectedConnection;\n         private readonly IList<IMessageWriter> _messageWriters = new List<IMessageWriter>();\n         private readonly ThemeManager _themeManager;\n-        private readonly FileBackupPruner _backupPruner = new FileBackupPruner();\n+        private readonly FileBackupPruner _backupPruner = new();\n \n         internal FullscreenHandler Fullscreen { get; set; }\n \n@@ -93,21 +89,6 @@ public bool AreWeUsingSqlServerForSavingConnections\n             }\n         }\n \n-        public string ConnectionsFileName\n-        {\n-            get => _connectionsFileName;\n-            set\n-            {\n-                if (_connectionsFileName == value)\n-                {\n-                    return;\n-                }\n-\n-                _connectionsFileName = value;\n-                UpdateWindowTitle();\n-            }\n-        }\n-\n         public bool ShowFullPathInTitle\n         {\n             get => _showFullPathInTitle;\n@@ -476,47 +457,6 @@ private void tmrAutoSave_Tick(object sender, EventArgs e)\n \n         #region Window Overrides and DockPanel Stuff\n \n-        private void frmMain_ResizeBegin(object sender, EventArgs e)\n-        {\n-            _inSizeMove = true;\n-        }\n-\n-        private void frmMain_Resize(object sender, EventArgs e)\n-        {\n-            if (WindowState == FormWindowState.Minimized)\n-            {\n-                if (!Settings.Default.MinimizeToTray) return;\n-                if (Runtime.NotificationAreaIcon == null)\n-                {\n-                    Runtime.NotificationAreaIcon = new NotificationAreaIcon();\n-                }\n-\n-                Hide();\n-            }\n-            else\n-            {\n-                PreviousWindowState = WindowState;\n-            }\n-        }\n-\n-        private void frmMain_ResizeEnd(object sender, EventArgs e)\n-        {\n-            _inSizeMove = false;\n-            // This handles activations from clicks that started a size/move operation\n-            ActivateConnection();\n-        }\n-\n-        private void SimulateClick(Control control)\n-        {\n-            var clientMousePosition = control.PointToClient(MousePosition);\n-            var temp_wLow = clientMousePosition.X;\n-            var temp_wHigh = clientMousePosition.Y;\n-            NativeMethods.SendMessage(control.Handle, NativeMethods.WM_LBUTTONDOWN, (IntPtr)NativeMethods.MK_LBUTTON,\n-                                      (IntPtr)NativeMethods.MAKELPARAM(ref temp_wLow, ref temp_wHigh));\n-            clientMousePosition.X = temp_wLow;\n-            clientMousePosition.Y = temp_wHigh;\n-        }\n-\n         private void ActivateConnection()\n         {\n             var cw = pnlDock.ActiveDocument as ConnectionWindow;\n@@ -700,8 +640,6 @@ public void SetLayout()\n             pnlDock.Visible = true;\n         }\n \n-        public void ShowHideMenu() => tsContainer.TopToolStripPanelVisible = !tsContainer.TopToolStripPanelVisible;\n-\n         #endregion\n \n         #region Events",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:59Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Deletes load-bearing resize, tray, auto-lock, title, menu, focus, and RDP propagation paths. Newer targeted fixes depend on this infrastructure; importing would regress behavior.",
+    "agent": "codex",
+    "at": "2026-07-25T18:08:03Z"
+  }
+}

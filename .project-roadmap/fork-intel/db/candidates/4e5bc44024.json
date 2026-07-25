@@ -66,23 +66,23 @@
         "reviewer": "codex",
         "vote": "REJECT",
         "aligned": true,
-        "concern": "It replaces a validly signed SSH executable with an opaque, self-built unsigned binary whose provenance is not independently verifiable.",
-        "reason": "PuTTY 0.84 security fixes are valuable, but this commit is partly inapplicable and regresses binary trust; rebuild and sign 0.84 through this fork's pipeline.",
+        "concern": "It replaces a validly Authenticode-signed SSH client with an unverifiable unsigned executable.",
+        "reason": "The binary regresses verified provenance, and its workflow file does not exist here; rebuild version 0.84 internally and preserve signing.",
         "arbiter": false
       },
       {
-        "reviewer": "gemini",
-        "vote": "NO_ANSWER",
-        "aligned": null,
-        "concern": null,
-        "reason": "Do not import compiled binaries from third-party forks. Instead, we must build PuTTYNG 0.84 ourselves via our secure Build_PuTTYNG workflow.",
+        "reviewer": "grok",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Bundled PuTTYNG.exe binary cannot be reviewed; SSH regressions need full manual verification.",
+        "reason": "0.84 bump helps security but binary swap and detector quirks need maintainer test judgement.",
         "arbiter": false
       }
     ],
     "dissent": [
-      "codex: REJECT - PuTTY 0.84 security fixes are valuable, but this commit is partly inapplicable and regresses binary trust; rebuild and sign 0.84 through this fork's pipeline.",
-      "gemini: NO_ANSWER - Do not import compiled binaries from third-party forks. Instead, we must build PuTTYNG 0.84 ourselves via our secure Build_PuTTYNG workflow."
+      "codex: REJECT - The binary regresses verified provenance, and its workflow file does not exist here; rebuild version 0.84 internally and preserve signing.",
+      "grok: NEEDS_HUMAN - 0.84 bump helps security but binary swap and detector quirks need maintainer test judgement."
     ],
-    "at": "2026-07-25T11:40:23Z"
+    "at": "2026-07-25T23:19:21Z"
   }
 }

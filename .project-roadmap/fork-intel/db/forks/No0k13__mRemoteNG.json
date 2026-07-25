@@ -10,7 +10,7 @@
   "open_issues": 0,
   "archived": false,
   "status": "screened",
-  "ahead_by": 1,
+  "ahead_by": 3,
   "behind_by": 6,
   "commits": [
     {
@@ -20,13 +20,47 @@
       "author_login": "No0k13",
       "date": "2026-07-24T13:05:21Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f206fe60c6fab8fc8ede461294cbf5dee1f27cb"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f206fe60c6fab8fc8ede461294cbf5dee1f27cb",
+      "branches": [
+        "v1.78.2-dev"
+      ]
+    },
+    {
+      "sha": "f632e80f24e3df9664415df12326883a166bca30",
+      "subject": "Update Language.es.resx",
+      "author_name": "No0k13",
+      "author_login": "No0k13",
+      "date": "2026-07-22T07:52:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f632e80f24e3df9664415df12326883a166bca30",
+      "branches": [
+        "patch-1"
+      ]
+    },
+    {
+      "sha": "be3d66abe365062674cf23a30ba2cc62e97a29ca",
+      "subject": "Update dependency AWSSDK.Core to 4.0.100.7",
+      "author_name": "renovate[bot]",
+      "author_login": "renovate[bot]",
+      "date": "2026-07-21T21:40:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/be3d66abe365062674cf23a30ba2cc62e97a29ca",
+      "branches": [
+        "renovate/aws-sdk-net-monorepo"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:19Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "48723ba0ae30eb44fa58882c9a5eb86e09be75e8",
-  "compared_at": "2026-07-25T10:58:26Z",
-  "screened_shas": []
+  "compared_at": "2026-07-25T16:25:12Z",
+  "screened_shas": [],
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "patch-1",
+    "renovate/aws-sdk-net-monorepo",
+    "renovate/gherkin-42.x"
+  ],
+  "branches_inherited_from_upstream": 22
 }

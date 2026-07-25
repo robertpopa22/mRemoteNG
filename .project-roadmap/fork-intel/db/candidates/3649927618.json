@@ -1,0 +1,13 @@
+{
+  "sha": "36499276189f270670d01f9160255895e13a4e92",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed bug with connection tree not appearing",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-22T18:48:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/36499276189f270670d01f9160255895e13a4e92",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

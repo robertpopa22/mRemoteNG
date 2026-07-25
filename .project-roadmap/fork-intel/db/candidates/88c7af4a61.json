@@ -1,0 +1,42 @@
+{
+  "sha": "88c7af4a61a305d2c0a6a4e90a9e895a4851bb38",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "docs(ssh_dotnet): changelog entry for private-key auth + SQL limitation",
+  "body": "docs(ssh_dotnet): changelog entry for private-key auth + SQL limitation\n\nDocument the SSH_DotNet private-key/certificate authentication feature under #2997,\nincluding the XML/CSV-only persistence note (SQL backend deferred).\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T18:01:57Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88c7af4a61a305d2c0a6a4e90a9e895a4851bb38",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "CHANGELOG.md",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- CHANGELOG.md\n@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\n - #2496: fixed use pwfile instead of cleartext password for putty connections \n \n ### Added\n+- #2997: added SSH_DotNet private-key / certificate authentication — configure a private key file (OpenSSH/PEM) with an optional passphrase (tried before password, OpenSSH-style; passphrase stored encrypted like the connection password). Persisted to the XML and CSV connection files; SQL Server/MySQL storage of these properties is a future enhancement.\n - #2931: added vault openbao connector\n - #2900: added \"Report a Bug\" menu item to Help menu and update bug report URL to GitHub issues \n - #2865: added configurable connection tab colors to distinguish between different environments",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:17Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Changelog entry for the custom SSH_DotNet feature which is not present or desired in our fork.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:43:42Z"
+  }
+}

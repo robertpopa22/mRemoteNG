@@ -1,0 +1,13 @@
+{
+  "sha": "d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "played around with some global and non-global hotkeys",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2017-11-30T22:04:49Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

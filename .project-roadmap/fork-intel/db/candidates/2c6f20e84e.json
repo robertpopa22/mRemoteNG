@@ -1,0 +1,42 @@
+{
+  "sha": "2c6f20e84e95af320c724defdf10165c1f9d553e",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "修复跳转升级选项页时总是跳转到第一页的问题",
+  "body": "修复跳转升级选项页时总是跳转到第一页的问题",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-24T05:34:26Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c6f20e84e95af320c724defdf10165c1f9d553e",
+  "stats": {
+    "files": 1,
+    "additions": 7,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/frmOptions.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/frmOptions.cs\n@@ -31,12 +31,12 @@ private void frmOptions_Load(object sender, EventArgs e)\n             FontOverrider.FontOverride(this);\n             SetImageListForListView();\n             AddOptionsPagesToListView();\n-            SetInitiallyActivatedPage();\n             ApplyLanguage();\n             ApplyTheme();\n             Themes.ThemeManager.getInstance().ThemeChanged += ApplyTheme;\n             lstOptionPages.SelectedIndexChanged += LstOptionPages_SelectedIndexChanged;\n-            lstOptionPages.SelectedIndex = 0;\n+            SetInitiallyActivatedPage();  //CBH 要在语言和主体等初始化后，窗体才能正常显示\n+            //lstOptionPages.SelectedIndex = 0;  //CBH  这个不要，否则总是显示第一个页面\n         }\n         private void ApplyTheme()\n         {\n@@ -103,12 +103,16 @@ private void SetInitiallyActivatedPage()\n             {\n                 if (!lstOptionPages.Items[i].Text.Equals(_pageName)) continue;\n                 lstOptionPages.Items[i].Selected = true;\n+                //lstOptionPages.SelectedIndex = i;\n                 isSet = true;\n                 break;\n             }\n \n-            if(!isSet)\n+            if (!isSet)\n+            {\n                 lstOptionPages.Items[0].Selected = true;\n+                //lstOptionPages.SelectedIndex = 0;\n+            }\n         }\n \n         private void btnOK_Click(object sender, EventArgs e)",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:41Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Already addressed. Our modernized FrmOptions_Load uses SetActivatedPage to select the target page without unconditionally resetting the list view selection to index zero.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:36:08Z"
+  }
+}

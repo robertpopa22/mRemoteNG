@@ -1,0 +1,42 @@
+{
+  "sha": "c32989deb44f412d2b77083fbb57898f7007b1ef",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "docs: record C1 build blocker (needs .NET Framework MSBuild, not dotnet build)",
+  "body": "docs: record C1 build blocker (needs .NET Framework MSBuild, not dotnet build)\n\ndotnet build падает с MSB4803 (ResolveComReference) — проект использует\nCOM reference (mstscax). Нужен MSBuild из VS Build Tools 2022. .NET 6 SDK\nустановлен, но недостаточен. Изменения A2-B5 ещё не проверены компилятором.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T14:11:14Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c32989deb44f412d2b77083fbb57898f7007b1ef",
+  "stats": {
+    "files": 1,
+    "additions": 11,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -232,8 +232,13 @@ capture асинхронно) во всех путях reconnect.\n   **эвристика**: подтвердить по debug-логам на runtime (C1) и при необходимости уточнить.\n \n ### Фаза C — сборка и проверка\n-- [ ] **C0** — Установить .NET 6 SDK (winget) — только перед сборкой.\n-- [ ] **C1** — Собрать Release Portable/x64 → исправить ошибки → portable Zip → проверить запуск.\n+- [x] **C0** — Установлен .NET 6 SDK 6.0.428 (winget `Microsoft.DotNet.SDK.6`).\n+- [~] **C1** — Сборка. ⚠️ ОТКРЫТИЕ: `dotnet build` НЕ работает — проект использует COM\n+  reference (mstscax/MSTSCLib), а MSBuild .NET Core не поддерживает `ResolveComReference`\n+  (error MSB4803). Нужен **MSBuild .NET Framework** (VS Build Tools 2022, как в CI:\n+  `microsoft/setup-msbuild`). .NET 6 SDK установлен (6.0.428), но его недостаточно. Сборка\n+  упала на resolve COM **до** компиляции C# — изменения A2–B5 компилятором ещё НЕ проверены.\n+  Варианты: (A) установить VS Build Tools 2022 локально; (B) собрать через GitHub Actions.\n \n ---\n \n@@ -266,6 +271,10 @@ capture асинхронно) во всех путях reconnect.\n - `InputBlocker` — **static**, общий на все сессии; учитывать при массовых reconnect.\n - Сборка `Release Portable` тянет postbuild PowerShell-скрипт (подпись) — для локальной\n   сборки портабла подпись можно пропустить.\n+- **Сборка требует MSBuild .NET Framework (VS Build Tools 2022), НЕ `dotnet build`** — из-за\n+  COM reference (mstscax). `dotnet build` падает с MSB4803 (ResolveComReference). CI: команда\n+  `msbuild .\\mRemoteNG\\mRemoteNG.csproj /p:Configuration=\"Release Portable\" /p:Platform=x64`.\n+  winget: `Microsoft.VisualStudio.2022.BuildTools` + workload `Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools`.\n \n ---\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:11Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "MSB4803 and full-MSBuild guidance already exists in CLAUDE.md, build.ps1, architecture and troubleshooting docs; HANDOFF.md is absent.",
+    "agent": "codex",
+    "at": "2026-07-25T18:26:22Z"
+  }
+}

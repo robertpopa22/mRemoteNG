@@ -1,0 +1,49 @@
+{
+  "sha": "12887e577db9a75f16d526e0434dd32eedb42a50",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Allow parentheses in executable paths (External Tools, custom PuTTY path)",
+  "body": "Allow parentheses in executable paths (External Tools, custom PuTTY path)\n\nPathValidator.IsValidExecutablePath rejected any path containing '('\nor ')' as a \"dangerous shell metacharacter\", citing command-injection\nrisk. But every path validated here (External Tools FileName,\nIntegratedProgram's executable, PuttyBase.PuttyPath) is launched with\nUseShellExecute=false, going straight to CreateProcess with no shell\nparsing - parentheses in a file path are inert there.\n\nThis made the External Tools feature (and a custom PuTTY path) unusable\nfor anything installed under the standard \"C:\\Program Files (x86)\\...\"\nlocation - e.g. WinSCP. Adding a WinSCP external tool failed with\n\"Invalid executable path: path contains potentially dangerous\ncharacters\" and silently logged the error.\n\nRemoved '(' and ')' from the dangerous-character set; kept the actual\nshell control/redirection characters (&|;<>^ and CR/LF), which have no\nlegitimate place in a file path regardless of how it's launched.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-12T14:19:16Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/12887e577db9a75f16d526e0434dd32eedb42a50",
+  "stats": {
+    "files": 1,
+    "additions": 6,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Tools/PathValidator.cs",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteNG/Tools/PathValidator.cs\n@@ -59,8 +59,12 @@ public static bool IsValidExecutablePath(string filePath)\n                 return false;\n \n             // Check for shell metacharacters that could be used for command injection\n-            // These characters are dangerous when UseShellExecute is true\n-            char[] dangerousChars = ['&', '|', ';', '<', '>', '(', ')', '^', '\\n', '\\r'];\n+            // when UseShellExecute is true (cmd.exe argument parsing). '(' and ')' are\n+            // deliberately excluded: with UseShellExecute=false the path goes straight\n+            // to CreateProcess (no shell parsing), and parentheses are common in\n+            // legitimate paths (e.g. \"C:\\Program Files (x86)\\...\"). Excluding them\n+            // here was breaking any executable installed under Program Files (x86).\n+            char[] dangerousChars = ['&', '|', ';', '<', '>', '^', '\\n', '\\r'];\n             if (filePath.Any(c => dangerousChars.Contains(c)))\n                 return false;\n ",
+  "security_flags": [
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG/Tools/PathValidator.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:32Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 3,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Our PathValidator.cs:65 already excludes parentheses with identical char set and same Program Files (x86) rationale. Fully covered.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:58:24Z"
+  }
+}

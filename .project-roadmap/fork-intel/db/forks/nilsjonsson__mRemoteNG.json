@@ -10,7 +10,7 @@
   "open_issues": 0,
   "archived": false,
   "status": "screened",
-  "ahead_by": 15,
+  "ahead_by": 17,
   "behind_by": 1359,
   "commits": [
     {
@@ -20,7 +20,10 @@
       "author_login": "Kvarkas",
       "date": "2025-02-05T14:24:53Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5c431b8e7779b6f7c6d3af7745352a9069ed7bb"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5c431b8e7779b6f7c6d3af7745352a9069ed7bb",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "e89b1f4139a9b7a7467042b152f1b0a5d4c9842a",
@@ -29,7 +32,10 @@
       "author_login": "Kvarkas",
       "date": "2025-02-11T11:18:10Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e89b1f4139a9b7a7467042b152f1b0a5d4c9842a"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e89b1f4139a9b7a7467042b152f1b0a5d4c9842a",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "d3f497bfbc36c19b1a5dcac7b8f1b5ba18564db9",
@@ -38,7 +44,10 @@
       "author_login": null,
       "date": "2025-04-04T22:11:07Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d3f497bfbc36c19b1a5dcac7b8f1b5ba18564db9"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d3f497bfbc36c19b1a5dcac7b8f1b5ba18564db9",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "ebe782e5a416bf03c05f2ec301d16d33f76cfef7",
@@ -47,7 +56,10 @@
       "author_login": null,
       "date": "2025-04-05T03:31:44Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ebe782e5a416bf03c05f2ec301d16d33f76cfef7"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ebe782e5a416bf03c05f2ec301d16d33f76cfef7",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "389776ae645c61599b56eeeaa3596f9122da7dac",
@@ -56,7 +68,10 @@
       "author_login": null,
       "date": "2025-05-01T06:34:56Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/389776ae645c61599b56eeeaa3596f9122da7dac"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/389776ae645c61599b56eeeaa3596f9122da7dac",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "f38dc8655191320ade1f053d8ad8f936a0de39a7",
@@ -65,7 +80,10 @@
       "author_login": null,
       "date": "2025-05-01T06:37:17Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f38dc8655191320ade1f053d8ad8f936a0de39a7"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f38dc8655191320ade1f053d8ad8f936a0de39a7",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "c90beb66a09d60f114d4306a06208b7d14fdb1bc",
@@ -74,7 +92,10 @@
       "author_login": null,
       "date": "2025-05-01T08:32:28Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c90beb66a09d60f114d4306a06208b7d14fdb1bc"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c90beb66a09d60f114d4306a06208b7d14fdb1bc",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "fe063a98cd49cc7f114eb13e72b816b24e8af437",
@@ -83,7 +104,10 @@
       "author_login": "Kvarkas",
       "date": "2025-05-01T10:07:35Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fe063a98cd49cc7f114eb13e72b816b24e8af437"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fe063a98cd49cc7f114eb13e72b816b24e8af437",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "c682b603e71ed974aef7e663265319f30ea99dbd",
@@ -92,7 +116,10 @@
       "author_login": null,
       "date": "2025-05-01T10:22:06Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c682b603e71ed974aef7e663265319f30ea99dbd"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c682b603e71ed974aef7e663265319f30ea99dbd",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "0eedfab5b1152477ae5519d1ebaf1990867148ea",
@@ -101,7 +128,10 @@
       "author_login": null,
       "date": "2025-05-01T10:32:27Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0eedfab5b1152477ae5519d1ebaf1990867148ea"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0eedfab5b1152477ae5519d1ebaf1990867148ea",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "e1023a6aed95be55e3a5807a5fdac9d56824fa50",
@@ -110,7 +140,10 @@
       "author_login": null,
       "date": "2025-05-02T12:29:46Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e1023a6aed95be55e3a5807a5fdac9d56824fa50"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e1023a6aed95be55e3a5807a5fdac9d56824fa50",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "737df595df3559547bc45bf9b9da2ad9868b8aed",
@@ -119,7 +152,10 @@
       "author_login": "TamilNeram",
       "date": "2025-05-02T12:33:38Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/737df595df3559547bc45bf9b9da2ad9868b8aed"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/737df595df3559547bc45bf9b9da2ad9868b8aed",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "2ead94a74069c4b8f6a4052654538f5ce9d0cd51",
@@ -128,7 +164,10 @@
       "author_login": "Kvarkas",
       "date": "2025-05-06T09:30:44Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ead94a74069c4b8f6a4052654538f5ce9d0cd51"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ead94a74069c4b8f6a4052654538f5ce9d0cd51",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "a7e8d8523a517d62d716d0346f348432e723f4a5",
@@ -137,7 +176,10 @@
       "author_login": "Neptunium931",
       "date": "2025-11-13T08:50:59Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a7e8d8523a517d62d716d0346f348432e723f4a5"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a7e8d8523a517d62d716d0346f348432e723f4a5",
+      "branches": [
+        "v1.77.3-dev"
+      ]
     },
     {
       "sha": "b5c156e0b1e09d5dcaa52719c33ea46b4dcb6d9a",
@@ -146,13 +188,50 @@
       "author_login": "Kvarkas",
       "date": "2025-11-13T10:56:52Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5c156e0b1e09d5dcaa52719c33ea46b4dcb6d9a"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5c156e0b1e09d5dcaa52719c33ea46b4dcb6d9a",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "390ec3e076cf1343ae8ec7ebcc358cf1fb5fb13e",
+      "subject": "added postbuild cleanup script",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-16T01:47:13Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/390ec3e076cf1343ae8ec7ebcc358cf1fb5fb13e",
+      "branches": [
+        "build_folder"
+      ]
+    },
+    {
+      "sha": "2b9effdf714afc9a8f25bffdaa8deefa1097eeae",
+      "subject": "updated script",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-16T15:44:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2b9effdf714afc9a8f25bffdaa8deefa1097eeae",
+      "branches": [
+        "build_folder"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:39Z",
   "last_seen": "2026-07-25T10:56:39Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "3746ba1819b75959ae848f4fc153b72a8dbb97f3",
-  "compared_at": "2026-07-25T10:58:25Z",
-  "screened_shas": []
+  "compared_at": "2026-07-25T16:25:06Z",
+  "screened_shas": [
+    "390ec3e076cf1343ae8ec7ebcc358cf1fb5fb13e",
+    "2b9effdf714afc9a8f25bffdaa8deefa1097eeae"
+  ],
+  "branches_scanned": [
+    "v1.77.3-dev",
+    "build_folder",
+    "new-lang",
+    "v1.78.2-dev"
+  ],
+  "branches_inherited_from_upstream": 13
 }

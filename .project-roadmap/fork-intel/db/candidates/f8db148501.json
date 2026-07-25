@@ -1,0 +1,55 @@
+{
+  "sha": "f8db1485015a13560706a2e423752a2a7a593bb6",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "ci: add GitHub Actions workflow for v4 build (Release Portable x64)",
+  "body": "ci: add GitHub Actions workflow for v4 build (Release Portable x64)\n\nСтадия C1 (вариант B). Workflow для ветки v4: setup-msbuild + msbuild\nRelease Portable x64 -> portable zip artifact. Триггер на push в v4.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T14:15:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f8db1485015a13560706a2e423752a2a7a593bb6",
+  "stats": {
+    "files": 2,
+    "additions": 54,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-1772-v4.yml",
+      "status": "added",
+      "additions": 52,
+      "deletions": 0
+    },
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-1772-v4.yml\n@@ -0,0 +1,52 @@\n+name: Passive RDP Monitor 1.77.2 v4\n+\n+on:\n+  workflow_dispatch:\n+  push:\n+    branches:\n+      - passive-rdp-monitor-1772-v4\n+\n+jobs:\n+  build:\n+    runs-on: windows-2022\n+\n+    steps:\n+      - name: Checkout\n+        uses: actions/checkout@v4\n+\n+      - name: Setup .NET 6\n+        uses: actions/setup-dotnet@v4\n+        with:\n+          dotnet-version: '6.0.x'\n+\n+      - name: Setup MSBuild\n+        uses: microsoft/setup-msbuild@v2\n+\n+      - name: Restore main project only\n+        shell: pwsh\n+        run: dotnet restore .\\mRemoteNG\\mRemoteNG.csproj\n+\n+      - name: Build portable x64\n+        shell: pwsh\n+        run: msbuild .\\mRemoteNG\\mRemoteNG.csproj /m /p:Configuration=\"Release Portable\" /p:Platform=\"x64\" /p:SolutionDir=\"$env:GITHUB_WORKSPACE\\\" /verbosity:minimal\n+\n+      - name: Prepare artifact directory\n+        shell: pwsh\n+        run: |\n+          $source = Join-Path $env:GITHUB_WORKSPACE \"mRemoteNG\\bin\\x64\\Release Portable\"\n+          $out = Join-Path $env:GITHUB_WORKSPACE \"_publish\\mRemoteNG-passive-rdp-1772-v4-win-x64\"\n+          if (!(Test-Path $source)) {\n+            Write-Host \"Build output not found at $source\"\n+            if (Test-Path .\\mRemoteNG\\bin) { Get-ChildItem -Recurse .\\mRemoteNG\\bin | Select-Object FullName }\n+            exit 1\n+          }\n+          New-Item -ItemType Directory -Force -Path $out | Out-Null\n+          Copy-Item -Path (Join-Path $source \"*\") -Destination $out -Recurse -Force\n+          Compress-Archive -Path (Join-Path $out \"*\") -DestinationPath \"$out.zip\" -Force\n+\n+      - name: Upload portable zip\n+        uses: actions/upload-artifact@v4\n+        with:\n+          name: mRemoteNG-passive-rdp-1772-v4-win-x64\n+          path: _publish/mRemoteNG-passive-rdp-1772-v4-win-x64.zip\n+          if-no-files-found: error\n--- HANDOFF.md\n@@ -238,7 +238,8 @@ capture асинхронно) во всех путях reconnect.\n   (error MSB4803). Нужен **MSBuild .NET Framework** (VS Build Tools 2022, как в CI:\n   `microsoft/setup-msbuild`). .NET 6 SDK установлен (6.0.428), но его недостаточно. Сборка\n   упала на resolve COM **до** компиляции C# — изменения A2–B5 компилятором ещё НЕ проверены.\n-  Варианты: (A) установить VS Build Tools 2022 локально; (B) собрать через GitHub Actions.\n+  **Выбрано (B): GitHub Actions** — добавлен workflow `passive-rdp-monitor-1772-v4.yml`\n+  (триггер push в v4; msbuild Release Portable x64), ветка v4 запушена в origin для сборки.\n \n ---\n ",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-1772-v4.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:11Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "CI workflow specific to a third-party passive RDP branch; irrelevant to our existing .NET 10 pipeline.",
+    "agent": "gemini",
+    "at": "2026-07-25T17:02:23Z"
+  }
+}

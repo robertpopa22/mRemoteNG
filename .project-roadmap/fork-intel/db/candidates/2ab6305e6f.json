@@ -1,0 +1,54 @@
+{
+  "sha": "2ab6305e6f46d55661fc6a655bbea0047c5e180d",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "fix(rdp): rebind input blocker on auto-reconnect",
+  "body": "fix(rdp): rebind input blocker on auto-reconnect\n\nСтадия A3. mstscax при reconnect пересоздаёт дочерние окна (новые HWND),\nиз-за чего сабкласс-блокировка ввода устаревала и ввод проходил.\n\n- PassiveRdpInputBlocker.Rebind: сброс + повторное навешивание сабклассов\n  на текущие окна контрола.\n- Reconnect-финализатор форсит ViewOnly (независимо от scroll) и вызывает\n  Rebind на каждой итерации, покрывая асинхронное пересоздание окон.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T13:46:14Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ab6305e6f46d55661fc6a655bbea0047c5e180d",
+  "stats": {
+    "files": 3,
+    "additions": 37,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpInputBlocker.cs",
+      "status": "modified",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -200,7 +200,9 @@ capture асинхронно) во всех путях reconnect.\n - [x] **A2** — Reconnect-финализатор: выделен `ReleaseRdpInputCaptureOnce`, добавлен таймерный\n   `StartReconnectInputFinalizer` (20×150мс), вызывается из `RDPEvent_OnAutoReconnected`;\n   в fullscreen не вмешивается. `FinalizeRdpFullscreenExitOnce` отрефакторен на общий метод.\n-- [ ] **A3** — Надёжная переустановка блокировки ввода (re-subclass новых окон mstscax).\n+- [x] **A3** — Надёжная переустановка блокировки: `PassiveRdpInputBlocker.Rebind` (release+\n+  refresh сабклассов) + в reconnect-финализаторе форс VO и `Rebind` каждый тик (покрывает\n+  позднее пересоздание окон mstscax).\n - [ ] **A4** — Политика ViewOnly по чек-листу: **вход в fullscreen не меняет VO** (первый\n   коннект=выкл=работа; VO в fullscreen вручную); **выход**=VO принудительно ВКЛ + scroll;\n   **reconnect**=VO ВКЛ; **переключение вкладок** (клик/Ctrl+Tab)=довести scroll + VO ВКЛ.\n@@ -266,3 +268,5 @@ _Журнал изменений HANDOFF:_\n   `NotifyPassiveTabActivated`; connection bar — размер не менять._\n - _A2 — реализован reconnect-финализатор (release-capture при OnAutoReconnected);\n   `FinalizeRdpFullscreenExitOnce` отрефакторен на общий `ReleaseRdpInputCaptureOnce`._\n+- _A3 — добавлен `InputBlocker.Rebind` (полный re-subclass); reconnect-финализатор форсит\n+  VO + Rebind на пересозданные окна mstscax._\n--- mRemoteNG/Connection/Protocol/RDP/RdpInputBlocker.cs\n@@ -58,6 +58,24 @@ public int SetBlocked(Control control, bool blocked)\n             }\n         }\n \n+        /// <summary>\n+        /// Принудительно пере-навешивает сабклассы на дочерние окна RDP-контрола.\n+        /// Нужно после reconnect: mstscax пересоздаёт внутренние окна (новые HWND), и старые\n+        /// сабклассы устаревают (ввод проходит сквозь них). Сбрасывает их и навешивает заново.\n+        /// </summary>\n+        public int Rebind(Control control)\n+        {\n+            if (control == null)\n+                return 0;\n+\n+            if (!_blockedControls.TryGetValue(control, out var blockedControl))\n+                return 0;\n+\n+            blockedControl.RebindSubclassedWindows();\n+            blockedControl.ScheduleRefreshRetries();\n+            return blockedControl.SubclassedWindowCount;\n+        }\n+\n         public bool PreFilterMessage(ref Message m)\n         {\n             if (!IsInputMessage(m.Msg))\n@@ -214,6 +232,12 @@ public void RefreshSubclassedWindows()\n                 }\n             }\n \n+            public void RebindSubclassedWindows()\n+            {\n+                ReleaseSubclassedWindows();\n+                RefreshSubclassedWindows();\n+            }\n+\n             public void ScheduleRefreshRetries()\n             {\n                 if (IsDisposed)\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -746,6 +746,14 @@ private void FinalizeRdpReconnectInputOnce(string source)\n                     return;\n \n                 ReleaseRdpInputCaptureOnce(source);\n+\n+                // Оконный reconnect = пассивный мониторинг: ViewOnly включаем независимо от\n+                // успеха scroll, а блокировку пере-навешиваем на пересозданные mstscax окна\n+                // (иначе ввод проходит сквозь устаревший сабкласс — мышь «летает»).\n+                if (!_viewOnly)\n+                    SetViewOnly(true, source);\n+\n+                InputBlocker.Rebind(Control);\n             }\n             catch (Exception ex)\n             {",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:06Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fix for fork-specific PassiveRdpInputBlocker/view-only infrastructure we don't have. No corresponding subsystem in our fork; not applicable.",
+    "agent": "claude",
+    "at": "2026-07-25T16:33:59Z"
+  }
+}

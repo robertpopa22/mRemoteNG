@@ -9,13 +9,352 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 26,
   "behind_by": 287,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "a6fc7447b4e54f969b6028213684bc7c99a08a6b",
+      "subject": "Initial plan",
+      "author_name": "copilot-swe-agent[bot]",
+      "author_login": "Copilot",
+      "date": "2025-11-03T19:23:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a6fc7447b4e54f969b6028213684bc7c99a08a6b",
+      "branches": [
+        "copilot/remove-exposed-secret-security-page"
+      ]
+    },
+    {
+      "sha": "7225da5f6795da86376b608ab52a9a30c8d4b938",
+      "subject": "Add .aikidoignore to suppress false positive for Designer.cs files",
+      "author_name": "copilot-swe-agent[bot]",
+      "author_login": "Copilot",
+      "date": "2025-11-03T19:28:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7225da5f6795da86376b608ab52a9a30c8d4b938",
+      "branches": [
+        "copilot/remove-exposed-secret-security-page"
+      ]
+    },
+    {
+      "sha": "a4d14235124910d6a8c0b34664b15187c4a15ec5",
+      "subject": "Enable path pattern to ignore all Designer.cs files",
+      "author_name": "copilot-swe-agent[bot]",
+      "author_login": "Copilot",
+      "date": "2025-11-03T19:29:55Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a4d14235124910d6a8c0b34664b15187c4a15ec5",
+      "branches": [
+        "copilot/remove-exposed-secret-security-page"
+      ]
+    },
+    {
+      "sha": "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+      "subject": "postregsql database support",
+      "author_name": "Sylvain LAFFONT",
+      "author_login": "s-laffont-vsa",
+      "date": "2022-07-30T13:06:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "82a4fdd662b36af0a4486f04c9a921c6658cc04e",
+      "subject": "Merge pull request #2268 from s-laffont/postgresql",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2022-07-30T17:48:35Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/82a4fdd662b36af0a4486f04c9a921c6658cc04e",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+      "subject": "fixed WinSCP extended arguments",
+      "author_name": "radiosti",
+      "author_login": "radiosti",
+      "date": "2023-04-11T13:18:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "d19b99511f516b32c672e3858777e4ecec9e0109",
+      "subject": "Merge pull request #2423 from radiosti/develop",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2023-04-11T21:51:18Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d19b99511f516b32c672e3858777e4ecec9e0109",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "006f651ddc4f02d36163b53f55197cf696c8632f",
+      "subject": "Fix misleading version label",
+      "author_name": "Manuel Thalmann",
+      "author_login": "neurolag",
+      "date": "2023-08-15T06:45:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/006f651ddc4f02d36163b53f55197cf696c8632f",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "d51d9c1ca77ef7ec278c4a135e0302b141bb0dc3",
+      "subject": "Merge pull request #2475 from manuth/manuth-patch-1",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2023-08-15T08:50:48Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d51d9c1ca77ef7ec278c4a135e0302b141bb0dc3",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "e188292570f959747c5b1ee03761f8aa8906c9ce",
+      "subject": "fix(security): autofix Possible command injection via Process.Start",
+      "author_name": "aikido-autofix[bot]",
+      "author_login": "aikido-autofix[bot]",
+      "date": "2025-10-03T21:23:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e188292570f959747c5b1ee03761f8aa8906c9ce",
+      "branches": [
+        "fix/aikido-security-sast-8173791-qfK7"
+      ]
+    },
+    {
+      "sha": "750bc497e656d616960dca231b5895eb854f6415",
+      "subject": "Update dependency AWSSDK.EC2 to 4.0.56",
+      "author_name": "renovate[bot]",
+      "author_login": "renovate[bot]",
+      "date": "2025-11-18T03:10:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/750bc497e656d616960dca231b5895eb854f6415",
+      "branches": [
+        "renovate/aws-sdk-net-monorepo"
+      ]
+    },
+    {
+      "sha": "b5c431b8e7779b6f7c6d3af7745352a9069ed7bb",
+      "subject": "fix ssh quickconnect exception #2668",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2025-02-05T14:24:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5c431b8e7779b6f7c6d3af7745352a9069ed7bb",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "e89b1f4139a9b7a7467042b152f1b0a5d4c9842a",
+      "subject": "Update to PuTTYNG 83.0.1 #2670",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2025-02-11T11:18:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e89b1f4139a9b7a7467042b152f1b0a5d4c9842a",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "d3f497bfbc36c19b1a5dcac7b8f1b5ba18564db9",
+      "subject": "templated added",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-04-04T22:11:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d3f497bfbc36c19b1a5dcac7b8f1b5ba18564db9",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "ebe782e5a416bf03c05f2ec301d16d33f76cfef7",
+      "subject": "1128 lines updated",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-04-05T03:31:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ebe782e5a416bf03c05f2ec301d16d33f76cfef7",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "389776ae645c61599b56eeeaa3596f9122da7dac",
+      "subject": "updated",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-05-01T06:34:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/389776ae645c61599b56eeeaa3596f9122da7dac",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "f38dc8655191320ade1f053d8ad8f936a0de39a7",
+      "subject": "2371- Backwards",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-05-01T06:37:17Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f38dc8655191320ade1f053d8ad8f936a0de39a7",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "c90beb66a09d60f114d4306a06208b7d14fdb1bc",
+      "subject": "updated",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-05-01T08:32:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c90beb66a09d60f114d4306a06208b7d14fdb1bc",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "fe063a98cd49cc7f114eb13e72b816b24e8af437",
+      "subject": "Merge pull request #2690 from Nizhal/v1.77.3-dev",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2025-05-01T10:07:35Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fe063a98cd49cc7f114eb13e72b816b24e8af437",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "c682b603e71ed974aef7e663265319f30ea99dbd",
+      "subject": "1868",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-05-01T10:22:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c682b603e71ed974aef7e663265319f30ea99dbd",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "0eedfab5b1152477ae5519d1ebaf1990867148ea",
+      "subject": "1448",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-05-01T10:32:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0eedfab5b1152477ae5519d1ebaf1990867148ea",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "e1023a6aed95be55e3a5807a5fdac9d56824fa50",
+      "subject": "done",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": null,
+      "date": "2025-05-02T12:29:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e1023a6aed95be55e3a5807a5fdac9d56824fa50",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "737df595df3559547bc45bf9b9da2ad9868b8aed",
+      "subject": "Merge branch 'mRemoteNG:v1.77.3-dev' into v1.77.3-dev",
+      "author_name": "தமிழ் நேரம்",
+      "author_login": "TamilNeram",
+      "date": "2025-05-02T12:33:38Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/737df595df3559547bc45bf9b9da2ad9868b8aed",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "2ead94a74069c4b8f6a4052654538f5ce9d0cd51",
+      "subject": "Merge pull request #2691 from Nizhal/v1.77.3-dev",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2025-05-06T09:30:44Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ead94a74069c4b8f6a4052654538f5ce9d0cd51",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "a7e8d8523a517d62d716d0346f348432e723f4a5",
+      "subject": "fix(doc): the list format in the command_line_switches.rst is incorrect.",
+      "author_name": "Neptunium93",
+      "author_login": "Neptunium931",
+      "date": "2025-11-13T08:50:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a7e8d8523a517d62d716d0346f348432e723f4a5",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    },
+    {
+      "sha": "b5c156e0b1e09d5dcaa52719c33ea46b4dcb6d9a",
+      "subject": "Merge pull request #3013 from Neptunium931/patch-1",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2025-11-13T10:56:52Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5c156e0b1e09d5dcaa52719c33ea46b4dcb6d9a",
+      "branches": [
+        "v1.77.3-dev"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:28Z",
   "last_seen": "2026-07-25T10:56:28Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "9aeaca5486a4786c29c0ddf272f50f7edeb1b16d",
-  "compared_at": "2026-07-25T10:58:18Z"
+  "compared_at": "2026-07-25T16:24:24Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "copilot/fix-3abc8ac6-985e-4856-8afb-a91a0dca6d12",
+    "copilot/fix-3efd67f4-15e3-43e9-9b58-50941b183621",
+    "copilot/fix-login-name-display-issue",
+    "copilot/fix-object-deserialization-vulnerability",
+    "copilot/fix-username-field-visibility",
+    "copilot/refactor-settings-popup-to-panel",
+    "copilot/remove-exposed-secret-security-page",
+    "develop",
+    "fix/aikido-security-sast-8173791-qfK7",
+    "fix/aikido-security-sast--7464163-cUFL",
+    "fix/aikido-security-sast--7464234-hobo",
+    "fix/aikido-security-sast--7464275-6ovw",
+    "fix/aikido-security-sast--7464375-mF7U",
+    "fix/aikido-security-sast--7464399-kZ9j",
+    "fix/aikido-security-sast--7464421-c51u",
+    "renovate/aws-sdk-net-monorepo",
+    "v1.77.3-dev"
+  ],
+  "branches_inherited_from_upstream": 14,
+  "screened_shas": [
+    "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+    "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+    "006f651ddc4f02d36163b53f55197cf696c8632f"
+  ]
 }

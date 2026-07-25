@@ -1,0 +1,13 @@
+{
+  "sha": "753ea9b4211bb845e6fc40f01f321d695d289e4c",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "connections now correctly use default cred if no credential is supplied",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-13T20:42:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/753ea9b4211bb845e6fc40f01f321d695d289e4c",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

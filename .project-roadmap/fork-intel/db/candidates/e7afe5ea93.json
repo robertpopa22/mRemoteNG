@@ -1,0 +1,13 @@
+{
+  "sha": "e7afe5ea93c2644584dd2a7fac6f792386eb60e1",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "made some references to the connection service non static",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T23:34:45Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e7afe5ea93c2644584dd2a7fac6f792386eb60e1",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

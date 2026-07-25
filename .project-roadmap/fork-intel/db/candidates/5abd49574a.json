@@ -1,0 +1,13 @@
+{
+  "sha": "5abd49574a53c817c6cd5615ffcb54a17fb81a04",
+  "fork": "BuloZB/mRemoteNG",
+  "owner": "BuloZB",
+  "subject": "Add .whitesource configuration file",
+  "author_name": "whitesource-bolt-for-github[bot]",
+  "author_login": "mend-bolt-for-github[bot]",
+  "date": "2021-01-21T03:56:37Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5abd49574a53c817c6cd5615ffcb54a17fb81a04",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

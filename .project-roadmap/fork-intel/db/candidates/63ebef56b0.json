@@ -1,0 +1,13 @@
+{
+  "sha": "63ebef56b068e8ddfa0f7ae82a257a30036852c5",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "updated cred manager upgrade text with correct version",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-30T17:32:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/63ebef56b068e8ddfa0f7ae82a257a30036852c5",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

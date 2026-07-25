@@ -1,0 +1,13 @@
+{
+  "sha": "8906e087044816c64c697e4a81a250e9421015ec",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "made the rdcm 2.7 importer compatible with credential management",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-20T18:38:39Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8906e087044816c64c697e4a81a250e9421015ec",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

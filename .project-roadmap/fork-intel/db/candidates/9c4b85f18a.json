@@ -1,0 +1,69 @@
+{
+  "sha": "9c4b85f18ab51f04b455d198cbf86b284dd6c3f8",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "fix: set temp key-file attribute via File.SetAttributes",
+  "body": "fix: set temp key-file attribute via File.SetAttributes\n\nReplace the bare `new FileInfo(path) { Attributes = ... }` statement\nwith `File.SetAttributes` — the discarded FileInfo instantiation tripped\nSonarCloud S1848 (a reliability bug). Behaviour is unchanged.\n\nBuild clean; full suite 2003/83, identical to baseline.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-05-21T15:59:51Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c4b85f18ab51f04b455d198cbf86b284dd6c3f8",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/PuttyBase.cs\n@@ -417,7 +417,7 @@ private static string WriteTemporaryPrivateKeyFile(string privateKey)\n                         writer.Write(privateKey);\n                     }\n \n-                    new FileInfo(candidatePath) { Attributes = FileAttributes.Temporary };\n+                    File.SetAttributes(candidatePath, FileAttributes.Temporary);\n                     return candidatePath;\n                 }\n                 catch (IOException) when (File.Exists(candidatePath))",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:48Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REIMPLEMENT",
+    "rationale": "Replaces redundant throwaway FileInfo instantiation with clean, direct File.SetAttributes call in two PuttyBase temp key generation paths.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:52:04Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "The commit fixes Sonar S1848 in an absent helper; this fork's equivalent code is already warning-free and behaviorally identical.",
+        "reason": "It provides no correctness or stability gain; reimplementation would be churn because both APIs set the same attribute and current code has zero warnings.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "No functional change; FileInfo.Attributes setter already applies the flag.",
+        "reason": "Original object-initializer already sets attributes on disk; pure idiom tweak, not a real fix.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - It provides no correctness or stability gain; reimplementation would be churn because both APIs set the same attribute and current code has zero warnings.",
+      "grok: REJECT - Original object-initializer already sets attributes on disk; pure idiom tweak, not a real fix."
+    ],
+    "at": "2026-07-25T22:31:51Z"
+  }
+}

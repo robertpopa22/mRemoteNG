@@ -17,5 +17,9 @@
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "22f14aa1eb67902d299f90a63bd621e37c144cb8",
-  "compared_at": "2026-07-25T10:58:30Z"
+  "compared_at": "2026-07-25T16:25:22Z",
+  "branches_scanned": [
+    "v1.78.2-dev"
+  ],
+  "branches_inherited_from_upstream": 0
 }

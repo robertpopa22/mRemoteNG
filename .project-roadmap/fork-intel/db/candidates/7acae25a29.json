@@ -1,0 +1,13 @@
+{
+  "sha": "7acae25a29a785774fc7f59f1269c1a73f0792bf",
+  "fork": "Ahmed-ElHamidy/mRemoteNG",
+  "owner": "Ahmed-ElHamidy",
+  "subject": "Add clarifying comment about escaping behavior when using ArgumentList",
+  "author_name": "copilot-swe-agent[bot]",
+  "author_login": "Copilot",
+  "date": "2025-12-19T22:51:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7acae25a29a785774fc7f59f1269c1a73f0792bf",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:28:09Z"
+}

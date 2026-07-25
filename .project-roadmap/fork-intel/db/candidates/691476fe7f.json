@@ -1,0 +1,66 @@
+{
+  "sha": "691476fe7fede603caf1ce1dd0249c0f17507901",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Fix connection tree jumping to a random \"...Research\" connection",
+  "body": "Fix connection tree jumping to a random \"...Research\" connection\n\nConnectionTreeWindow.txtSearch defaults to the localized placeholder\ntext \"Search\" (Language.SearchPrompt). ApplyFiltering()'s\nUseFilterSearch branch correctly treats that placeholder as \"no\nsearch\", but the non-filter (NodeSearcher) branch did not - so with\nUseFilterSearch off (the default), the literal string \"Search\" was\nused as a search term.\n\nNodeSearcher.SearchByName does a case-insensitive substring match, and\n\"Search\" is a substring of \"Research\" - so this silently matched the\nfirst connection in the tree with \"research\" in its name/description/\nhostname and called JumpToNode on it, expanding its parent folders and\nselecting it. The result becomes visible whenever the connection tree\npanel repaints (e.g. after closing Options), even though nothing was\nactually searched for.\n\nAdd the same placeholder check the filter-search branch already has.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-12T12:39:35Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/691476fe7fede603caf1ce1dd0249c0f17507901",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionTreeWindow.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Window/ConnectionTreeWindow.cs\n@@ -315,7 +315,7 @@ private void ApplyFiltering()\n             }\n             else\n             {\n-                if (txtSearch.Text == \"\") return;\n+                if (txtSearch.Text == \"\" || txtSearch.Text == Language.SearchPrompt) return;\n                 ConnectionTree.NodeSearcher?.SearchByName(txtSearch.Text);\n                 JumpToNode(ConnectionTree.NodeSearcher?.CurrentMatch);\n             }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:31Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 4,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "IMPORT",
+    "rationale": "Prevents the tree view from jumping to a matching node (like 'Research') when the search text is empty or shows the 'Search' placeholder.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:40:44Z"
+  },
+  "preapproval": {
+    "decision": "pre-approved",
+    "tier": "A",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "APPROVE",
+        "aligned": true,
+        "concern": "Exact placeholder comparison prevents searching for a connection named exactly like the localized prompt.",
+        "reason": "Current code still searches the placeholder in non-filter mode, causing unintended selection; this one-line guard matches existing filter behavior and is low-risk.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "APPROVE",
+        "aligned": true,
+        "concern": "None. Extremely low risk change that prevents searching for the placeholder text.",
+        "reason": "Prevents the connection tree from jumping to a matching node when the search prompt placeholder text is active and filter-search is disabled.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [],
+    "at": "2026-07-25T19:37:31Z"
+  }
+}

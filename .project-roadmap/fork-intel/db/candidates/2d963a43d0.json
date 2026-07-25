@@ -1,0 +1,42 @@
+{
+  "sha": "2d963a43d070e5e043ba366e3cb9612e57616d62",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "Updated for serena and claude",
+  "body": "Updated for serena and claude",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-03-07T09:33:17Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2d963a43d070e5e043ba366e3cb9612e57616d62",
+  "stats": {
+    "files": 1,
+    "additions": 7,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".gitignore",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- .gitignore\n@@ -285,4 +285,10 @@ InstallerProjects/Installer/Resources/License.rtf\n \n # mRemoteNG\n **/mRemoteNG/Properties/AssemblyInfo.tt\n-**/mRemoteNG/Properties/AssemblyInfo.cs\n\\ No newline at end of file\n+**/mRemoteNG/Properties/AssemblyInfo.cs\n+\n+# Claude\n+CLAUDE.md\n+.claude\n+.serena\n+*.bat\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:01Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Already handled. Our customized .gitignore already ignores CLAUDE.md, GEMINI.md, and local Claude settings, while preserving team-shared configuration.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:36:08Z"
+  }
+}

@@ -10,7 +10,7 @@
   "open_issues": 8,
   "archived": false,
   "status": "screened",
-  "ahead_by": 40,
+  "ahead_by": 170,
   "behind_by": 215,
   "commits": [
     {
@@ -20,7 +20,37 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-20T11:01:22Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e7c66de0986dfbb193d375a0e16ea079f2cd6be2"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e7c66de0986dfbb193d375a0e16ea079f2cd6be2",
+      "branches": [
+        "develop",
+        "feat/multi-select-enter-open-17331034413887212566",
+        "feature/content-based-import-detection-10491940046281214640",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-key-13111995687834212777",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-select-enter-open-connections-11705643404611443427",
+        "feature/multi-select-enter-open-connections-4506036823273326779",
+        "feature/multi-select-enter-open-connections-5805895064529176360",
+        "feature/multi-select-enter-support-16125265594145425176",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-11812080304878045516",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-serialization-and-localization-bugs-8213730634601306085",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-4684259080988359548",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475",
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
     },
     {
       "sha": "691bbeea7edb043ea08620dbcbb4efab81c22095",
@@ -29,7 +59,36 @@
       "author_login": "suleyman-shb",
       "date": "2026-04-20T11:01:42Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/691bbeea7edb043ea08620dbcbb4efab81c22095"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/691bbeea7edb043ea08620dbcbb4efab81c22095",
+      "branches": [
+        "develop",
+        "feat/multi-select-enter-open-17331034413887212566",
+        "feature/content-based-import-detection-10491940046281214640",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-key-13111995687834212777",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-select-enter-open-connections-11705643404611443427",
+        "feature/multi-select-enter-open-connections-4506036823273326779",
+        "feature/multi-select-enter-open-connections-5805895064529176360",
+        "feature/multi-select-enter-support-16125265594145425176",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-11812080304878045516",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-4684259080988359548",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475",
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
     },
     {
       "sha": "0768b807276907f4242c26cbff9ccdbd8cbf0ac4",
@@ -38,7 +97,37 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-20T11:16:00Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0768b807276907f4242c26cbff9ccdbd8cbf0ac4"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0768b807276907f4242c26cbff9ccdbd8cbf0ac4",
+      "branches": [
+        "develop",
+        "feat/multi-select-enter-open-17331034413887212566",
+        "feature/content-based-import-detection-10491940046281214640",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-key-13111995687834212777",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-select-enter-open-connections-11705643404611443427",
+        "feature/multi-select-enter-open-connections-4506036823273326779",
+        "feature/multi-select-enter-open-connections-5805895064529176360",
+        "feature/multi-select-enter-support-16125265594145425176",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-build-environment-v2-16267754017608674559",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-11812080304878045516",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-4684259080988359548",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475",
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
     },
     {
       "sha": "2ee17a3b84172602533d4ac6ae35094af324514f",
@@ -47,7 +136,37 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-20T11:39:49Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ee17a3b84172602533d4ac6ae35094af324514f"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ee17a3b84172602533d4ac6ae35094af324514f",
+      "branches": [
+        "develop",
+        "feat/multi-select-enter-open-17331034413887212566",
+        "feature/content-based-import-detection-10491940046281214640",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-key-13111995687834212777",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-select-enter-open-connections-11705643404611443427",
+        "feature/multi-select-enter-open-connections-4506036823273326779",
+        "feature/multi-select-enter-open-connections-5805895064529176360",
+        "feature/multi-select-enter-support-16125265594145425176",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-build-environment-v2-16267754017608674559",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-11812080304878045516",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-4684259080988359548",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475",
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
     },
     {
       "sha": "9086e0f8b11f1daeebe7ee47d18c2c2bab8902fa",
@@ -56,7 +175,36 @@
       "author_login": "suleyman-shb",
       "date": "2026-04-20T13:33:53Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9086e0f8b11f1daeebe7ee47d18c2c2bab8902fa"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9086e0f8b11f1daeebe7ee47d18c2c2bab8902fa",
+      "branches": [
+        "develop",
+        "feat/multi-select-enter-open-17331034413887212566",
+        "feature/content-based-import-detection-10491940046281214640",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-key-13111995687834212777",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-select-enter-open-connections-11705643404611443427",
+        "feature/multi-select-enter-open-connections-4506036823273326779",
+        "feature/multi-select-enter-open-connections-5805895064529176360",
+        "feature/multi-select-enter-support-16125265594145425176",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-11812080304878045516",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-4684259080988359548",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475",
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
     },
     {
       "sha": "164fde80a6638521db06f1c1e51f6462a6ae4610",
@@ -65,7 +213,27 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-20T23:14:10Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/164fde80a6638521db06f1c1e51f6462a6ae4610"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/164fde80a6638521db06f1c1e51f6462a6ae4610",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-select-enter-open-connections-11705643404611443427",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "ce496c3893c506a0f43878754ad6fe1a3628b032",
@@ -74,7 +242,20 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-21T23:35:41Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce496c3893c506a0f43878754ad6fe1a3628b032"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce496c3893c506a0f43878754ad6fe1a3628b032",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "5dc7b609641ea7ba15d0855d7d955cca801c4e0b",
@@ -83,7 +264,25 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-23T23:45:38Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dc7b609641ea7ba15d0855d7d955cca801c4e0b"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dc7b609641ea7ba15d0855d7d955cca801c4e0b",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "4a75e6258e51a5edf918aff7e78024d011435902",
@@ -92,7 +291,22 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-25T23:28:53Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4a75e6258e51a5edf918aff7e78024d011435902"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4a75e6258e51a5edf918aff7e78024d011435902",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "d1ae90bf8c358387849e03326bedcf3319127730",
@@ -101,7 +315,24 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-28T23:19:57Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d1ae90bf8c358387849e03326bedcf3319127730"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d1ae90bf8c358387849e03326bedcf3319127730",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "216622022753052ea49bd7eb83edc9d74ebbd86e",
@@ -110,7 +341,19 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-04-30T23:28:15Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/216622022753052ea49bd7eb83edc9d74ebbd86e"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/216622022753052ea49bd7eb83edc9d74ebbd86e",
+      "branches": [
+        "develop",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "21d6e49eff7d1648d31746da2cd5aaf76d8c8de2",
@@ -119,7 +362,21 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-02T23:41:09Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/21d6e49eff7d1648d31746da2cd5aaf76d8c8de2"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/21d6e49eff7d1648d31746da2cd5aaf76d8c8de2",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "ca9326e43fba5dfeab12a4722e04a23f0a8458b7",
@@ -128,7 +385,23 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-03T23:30:12Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca9326e43fba5dfeab12a4722e04a23f0a8458b7"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca9326e43fba5dfeab12a4722e04a23f0a8458b7",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "1d7827d6eae7e04e58a91efd6217ff6c2e3e0e1c",
@@ -137,7 +410,27 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-04T23:36:39Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1d7827d6eae7e04e58a91efd6217ff6c2e3e0e1c"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1d7827d6eae7e04e58a91efd6217ff6c2e3e0e1c",
+      "branches": [
+        "develop",
+        "feature/content-based-import-detection-10491940046281214640",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "4d05815a6cc2e7aedb385454082d8017e822c3a0",
@@ -146,7 +439,27 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-06T23:33:34Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4d05815a6cc2e7aedb385454082d8017e822c3a0"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4d05815a6cc2e7aedb385454082d8017e822c3a0",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-11812080304878045516",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "d30aa2e9333565f6a0403b551c6bf471e228a2ba",
@@ -155,7 +468,26 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:28:56Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d30aa2e9333565f6a0403b551c6bf471e228a2ba"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d30aa2e9333565f6a0403b551c6bf471e228a2ba",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "27ddebed64ff292456a8207239e451e24e55a654",
@@ -164,7 +496,26 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:34:24Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/27ddebed64ff292456a8207239e451e24e55a654"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/27ddebed64ff292456a8207239e451e24e55a654",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "2e41c782353de4b37edcc25dfe99cc04fd318499",
@@ -173,7 +524,26 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:35:04Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2e41c782353de4b37edcc25dfe99cc04fd318499"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2e41c782353de4b37edcc25dfe99cc04fd318499",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-connections-10750512084068105273",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "d96de9a8695821202fd7dca6843ae6b5f0012b2b",
@@ -182,7 +552,20 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:36:24Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d96de9a8695821202fd7dca6843ae6b5f0012b2b"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d96de9a8695821202fd7dca6843ae6b5f0012b2b",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "c639695a358bcc2f5f5f401b29573b4934a84aa0",
@@ -191,7 +574,25 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:42:11Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c639695a358bcc2f5f5f401b29573b4934a84aa0"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c639695a358bcc2f5f5f401b29573b4934a84aa0",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "85f66159541b8a140f993ec65d521872727bd8cf",
@@ -200,7 +601,24 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:42:49Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/85f66159541b8a140f993ec65d521872727bd8cf"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/85f66159541b8a140f993ec65d521872727bd8cf",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "168532e51f2dbf94040a29195c2b50ec1fa9eaff",
@@ -209,7 +627,23 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:42:56Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/168532e51f2dbf94040a29195c2b50ec1fa9eaff"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/168532e51f2dbf94040a29195c2b50ec1fa9eaff",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "068ce8db749a548fcc7496ab84c9cbdb5f384355",
@@ -218,7 +652,20 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:45:00Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/068ce8db749a548fcc7496ab84c9cbdb5f384355"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/068ce8db749a548fcc7496ab84c9cbdb5f384355",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "ae62022053d81b64af312385ec541ece6cf4eb43",
@@ -227,7 +674,22 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:46:34Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ae62022053d81b64af312385ec541ece6cf4eb43"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ae62022053d81b64af312385ec541ece6cf4eb43",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "746474dd54e8561d6a5f7029d90b188812b78afd",
@@ -236,7 +698,25 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:46:37Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/746474dd54e8561d6a5f7029d90b188812b78afd"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/746474dd54e8561d6a5f7029d90b188812b78afd",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "multi-selection-enter-support-6528758530502572424",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "cecfd2ada2be3d9672644bfbb0a69fffe449ebc7",
@@ -245,7 +725,24 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:46:48Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cecfd2ada2be3d9672644bfbb0a69fffe449ebc7"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cecfd2ada2be3d9672644bfbb0a69fffe449ebc7",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "f6d99f6910382f4566b8f281b9b153edf1ba4aea",
@@ -254,7 +751,24 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:47:29Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f6d99f6910382f4566b8f281b9b153edf1ba4aea"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f6d99f6910382f4566b8f281b9b153edf1ba4aea",
+      "branches": [
+        "develop",
+        "feature/multi-select-enter-open-2125888325479306262",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "a41bc352906c98ceacbd289d20bbfecaa2bf0554",
@@ -263,7 +777,23 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:47:36Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a41bc352906c98ceacbd289d20bbfecaa2bf0554"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a41bc352906c98ceacbd289d20bbfecaa2bf0554",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "a9292982f2b334aff59380530c4eab1b0893f7cd",
@@ -272,7 +802,21 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:47:57Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9292982f2b334aff59380530c4eab1b0893f7cd"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9292982f2b334aff59380530c4eab1b0893f7cd",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "88359683c93d10100edc2ca56eebec69d912cba9",
@@ -281,7 +825,23 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:48:04Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88359683c93d10100edc2ca56eebec69d912cba9"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88359683c93d10100edc2ca56eebec69d912cba9",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "multi-selection-enter-open-connections-5733313433497900038",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "5e2fcc578f717a1d1263d70378e0ded505271070",
@@ -290,7 +850,22 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:48:13Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e2fcc578f717a1d1263d70378e0ded505271070"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e2fcc578f717a1d1263d70378e0ded505271070",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "fcd2b8223ddb1e9e38853169c7db3ee29e2f17b6",
@@ -299,7 +874,22 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:50:06Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fcd2b8223ddb1e9e38853169c7db3ee29e2f17b6"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fcd2b8223ddb1e9e38853169c7db3ee29e2f17b6",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-rdp-error-2825-nla-4958572924990496218",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "b8cc3c370676ebbbc3ac06abd37a30d1f28f9e73",
@@ -308,7 +898,21 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:50:13Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b8cc3c370676ebbbc3ac06abd37a30d1f28f9e73"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b8cc3c370676ebbbc3ac06abd37a30d1f28f9e73",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "86429a1ad9b9016111571515402b551a996bb13f",
@@ -317,7 +921,21 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:51:09Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/86429a1ad9b9016111571515402b551a996bb13f"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/86429a1ad9b9016111571515402b551a996bb13f",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/rdp-error-2825-message-11677157769299200714",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "3e668e6dcc41470b3f197724b798a83b6e9d1b74",
@@ -326,7 +944,20 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:51:40Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e668e6dcc41470b3f197724b798a83b6e9d1b74"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e668e6dcc41470b3f197724b798a83b6e9d1b74",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "e94b1042d598288ce8f7a5f3446f00c4b9756e1f",
@@ -335,7 +966,20 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:52:16Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e94b1042d598288ce8f7a5f3446f00c4b9756e1f"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e94b1042d598288ce8f7a5f3446f00c4b9756e1f",
+      "branches": [
+        "develop",
+        "feature/multi-selection-enter-key-15762117081734358401",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "3fcd3b1c5557019ce11a62f0c03db26ea91315fb",
@@ -344,7 +988,19 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T15:52:24Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3fcd3b1c5557019ce11a62f0c03db26ea91315fb"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3fcd3b1c5557019ce11a62f0c03db26ea91315fb",
+      "branches": [
+        "develop",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "8e3bcd5d0b0d3556bec17e88e9ce02a25f661793",
@@ -353,7 +1009,19 @@
       "author_login": "google-labs-jules[bot]",
       "date": "2026-05-08T15:55:07Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8e3bcd5d0b0d3556bec17e88e9ce02a25f661793"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8e3bcd5d0b0d3556bec17e88e9ce02a25f661793",
+      "branches": [
+        "develop",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "f4702e3442a39d988a3c243bb66151e8883aaf8a",
@@ -362,7 +1030,19 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T16:02:00Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f4702e3442a39d988a3c243bb66151e8883aaf8a"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f4702e3442a39d988a3c243bb66151e8883aaf8a",
+      "branches": [
+        "develop",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
     },
     {
       "sha": "a09e5e4db835b03230df5ac117ec43af0b7c88d1",
@@ -371,13 +1051,1649 @@
       "author_login": "suleyman-shb",
       "date": "2026-05-08T16:02:10Z",
       "parents": 2,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a09e5e4db835b03230df5ac117ec43af0b7c88d1"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a09e5e4db835b03230df5ac117ec43af0b7c88d1",
+      "branches": [
+        "develop",
+        "fix/sql-connection-crash-loop-3249-3172555354014692286",
+        "fix-disposed-object-exceptions-4316951144513459009",
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+        "fix-sql-crash-loop-3249-8308516374739479481",
+        "improve-rdp-error-messages-885-7013951999980722374",
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
+    },
+    {
+      "sha": "faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+      "subject": "Catch error in RDP tab focus",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T01:17:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "b2546cebab48e554b94ec2f8b4c611c5b60ea030",
+      "subject": "focus improvements",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T16:58:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b2546cebab48e554b94ec2f8b4c611c5b60ea030",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+      "subject": "Prevent current tab edge cases",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T17:58:08Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "b1baa8910846e37ccb8bbfaca648e0925babeed9",
+      "subject": "Fixed incorrect menu showed on left click",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T23:45:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b1baa8910846e37ccb8bbfaca648e0925babeed9",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "4e04f5ca22d9fdaab85535c9a3eda6a282854266",
+      "subject": "removed option to hide connection tab when only one connection is open.",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-05-30T12:45:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4e04f5ca22d9fdaab85535c9a3eda6a282854266",
+      "branches": [
+        "always_show_tabs"
+      ]
+    },
+    {
+      "sha": "14041a13c9e7f0f0f78519c74e6270ded48ed78c",
+      "subject": "moved to .net core and fixed all compiler errors",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-02T17:42:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/14041a13c9e7f0f0f78519c74e6270ded48ed78c",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "4579d98600528691c456315c847b1b913dd497ab",
+      "subject": "jk theres more",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-02T20:51:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4579d98600528691c456315c847b1b913dd497ab",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "34cf25fa379fe02c63a49041b2dd6f441d20bc65",
+      "subject": "Added back System.Configuration.ConfigurationManager nuget",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-07T14:54:25Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/34cf25fa379fe02c63a49041b2dd6f441d20bc65",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "502f42596cbba2b50938be00b8328bcae73976b5",
+      "subject": "removed obsolete System.web configuration",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-07T14:54:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/502f42596cbba2b50938be00b8328bcae73976b5",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "2496cc24b51abab98a50697bc6d6e2506d751394",
+      "subject": "removed old project backup files",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-07T15:17:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2496cc24b51abab98a50697bc6d6e2506d751394",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "54a4f01241d3c7cc1378a4b556703ff09b2042be",
+      "subject": "changed project framework to .net5",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-07T16:26:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/54a4f01241d3c7cc1378a4b556703ff09b2042be",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "6ec578b3b6e2d668fc042c8eda3d5c3c98788165",
+      "subject": "added 32 and 64 bit build configs",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-08T08:24:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6ec578b3b6e2d668fc042c8eda3d5c3c98788165",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "57f6569a1bce59cb4172ee9c6bd1e0dac6fc6f8a",
+      "subject": "updated project information (license, icon)",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-08T10:39:38Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/57f6569a1bce59cb4172ee9c6bd1e0dac6fc6f8a",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "fc51c5978156146be09a9b86cc5ce1f8c7a5c4c6",
+      "subject": "manually added cefsharp dependencies back to project",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-06-11T20:45:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fc51c5978156146be09a9b86cc5ce1f8c7a5c4c6",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "95b551f4df490c57125afe1c7909a55b47dff4f1",
+      "subject": "merged develop into dotnet5",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-07-25T17:56:55Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/95b551f4df490c57125afe1c7909a55b47dff4f1",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "fc076999ca59f4253638bd172b49e763e1201618",
+      "subject": "added missing usings",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-07-26T14:00:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fc076999ca59f4253638bd172b49e763e1201618",
+      "branches": [
+        "dotnet5"
+      ]
+    },
+    {
+      "sha": "3a0e00d246b7b5e2ef6669e45a0dbac2fd42c370",
+      "subject": "Support multi-selection Enter key to open multiple connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-07T23:25:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3a0e00d246b7b5e2ef6669e45a0dbac2fd42c370",
+      "branches": [
+        "feat/multi-select-enter-open-17331034413887212566"
+      ]
+    },
+    {
+      "sha": "a888fe3542ed51ddd57dc19fee39b904c368407f",
+      "subject": "Support multi-selection Enter key to open multiple connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:52:32Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a888fe3542ed51ddd57dc19fee39b904c368407f",
+      "branches": [
+        "feat/multi-select-enter-open-17331034413887212566"
+      ]
+    },
+    {
+      "sha": "8ddfcd9f15fc3f01009c7dc5c10586aaa5c4a03e",
+      "subject": "Support multi-selection Enter key to open multiple connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-05T23:22:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ddfcd9f15fc3f01009c7dc5c10586aaa5c4a03e",
+      "branches": [
+        "feature/multi-select-enter-connections-10750512084068105273"
+      ]
+    },
+    {
+      "sha": "dfde1d0f3e4e1172532d27bc13e5bad42ab694cf",
+      "subject": "Support multi-selection Enter key to open multiple connections (Rebased)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:42:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dfde1d0f3e4e1172532d27bc13e5bad42ab694cf",
+      "branches": [
+        "feature/multi-select-enter-connections-10750512084068105273"
+      ]
+    },
+    {
+      "sha": "d1dd520079445a10bc0e0de018e31db13bbe16d2",
+      "subject": "Merge branch 'develop' into feature/multi-select-enter-connections-10750512084068105273",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:45:17Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d1dd520079445a10bc0e0de018e31db13bbe16d2",
+      "branches": [
+        "feature/multi-select-enter-connections-10750512084068105273"
+      ]
+    },
+    {
+      "sha": "e911fec8b40f6bd7ae8d289e52d6f0f2cc6c604c",
+      "subject": "Reset to develop as feature is already implemented",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:57:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e911fec8b40f6bd7ae8d289e52d6f0f2cc6c604c",
+      "branches": [
+        "feature/multi-select-enter-connections-10750512084068105273"
+      ]
+    },
+    {
+      "sha": "6bad945f6a370a6e605e8c6449b91bc33973f1cf",
+      "subject": "Support multi-selection Enter key to open multiple connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-27T23:48:13Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6bad945f6a370a6e605e8c6449b91bc33973f1cf",
+      "branches": [
+        "feature/multi-select-enter-key-13111995687834212777"
+      ]
+    },
+    {
+      "sha": "bf8b8d92018884639b4f51555d8638ea26aff565",
+      "subject": "Support multi-selection Enter key and resolve conflict",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:50:04Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bf8b8d92018884639b4f51555d8638ea26aff565",
+      "branches": [
+        "feature/multi-select-enter-key-13111995687834212777"
+      ]
+    },
+    {
+      "sha": "36b2098c3ce73f56835827250b66c4c7351c3b78",
+      "subject": "Merge develop and synchronize multi-selection Enter key support",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T16:09:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/36b2098c3ce73f56835827250b66c4c7351c3b78",
+      "branches": [
+        "feature/multi-select-enter-key-13111995687834212777"
+      ]
+    },
+    {
+      "sha": "a4699c8d2d4ea96e42e40a7a0b0edf93e1d5d52c",
+      "subject": "Support multi-selection Enter key to open multiple connections (#3252)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-24T23:31:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a4699c8d2d4ea96e42e40a7a0b0edf93e1d5d52c",
+      "branches": [
+        "feature/multi-select-enter-open-connections-4506036823273326779"
+      ]
+    },
+    {
+      "sha": "cceff2cf2d03cdcc383cdb9dbec4cbb99712a879",
+      "subject": "Support multi-selection Enter key to open multiple connections (#3252)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:41:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cceff2cf2d03cdcc383cdb9dbec4cbb99712a879",
+      "branches": [
+        "feature/multi-select-enter-open-connections-4506036823273326779"
+      ]
+    },
+    {
+      "sha": "591a825b8ef4b24ca5ad01be4c9cac583639874b",
+      "subject": "Support multi-selection Enter key to open connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-26T23:43:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/591a825b8ef4b24ca5ad01be4c9cac583639874b",
+      "branches": [
+        "feature/multi-select-enter-open-connections-5805895064529176360"
+      ]
+    },
+    {
+      "sha": "844b268afa5e1fd5a936e5704d456c3b42c0a294",
+      "subject": "Resolve conflict and implement multi-selection Enter support with cap",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:51:38Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/844b268afa5e1fd5a936e5704d456c3b42c0a294",
+      "branches": [
+        "feature/multi-select-enter-open-connections-5805895064529176360"
+      ]
+    },
+    {
+      "sha": "4f7d73aff0c9f5d60970ae818f22914519d46fab",
+      "subject": "feat: support multi-selection Enter key in Connection Tree",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-29T23:39:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4f7d73aff0c9f5d60970ae818f22914519d46fab",
+      "branches": [
+        "feature/multi-select-enter-support-16125265594145425176"
+      ]
+    },
+    {
+      "sha": "032e5086280d56ba2981a035f38e18128731e394",
+      "subject": "fix: prevent permanent crash loop on invalid SQL Server settings",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T23:08:05Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/032e5086280d56ba2981a035f38e18128731e394",
+      "branches": [
+        "fix/sql-connection-crash-loop-3249-3172555354014692286"
+      ]
+    },
+    {
+      "sha": "093d796092a6b86c6a30d4a50aa36d6f94ac2264",
+      "subject": "Fix potential ObjectDisposedException in ConnectionWindow and ConfigWindow",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-22T23:29:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/093d796092a6b86c6a30d4a50aa36d6f94ac2264",
+      "branches": [
+        "fix-disposed-object-exceptions-4316951144513459009"
+      ]
+    },
+    {
+      "sha": "5d4f228fa9c6974a9735f179a4925d14aa39830a",
+      "subject": "Clarify SSH transfer direction and add download support (#3336)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-06-26T23:53:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5d4f228fa9c6974a9735f179a4925d14aa39830a",
+      "branches": [
+        "fix-issue-3336-ssh-transfer-direction-562548235098817995"
+      ]
+    },
+    {
+      "sha": "0b00d0121f14a686016901074ee0d527807479f3",
+      "subject": "Harden cross-thread UI calls against ObjectDisposedException",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-06-12T23:38:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0b00d0121f14a686016901074ee0d527807479f3",
+      "branches": [
+        "fix-object-disposed-exception-ui-invoke-3415726580259725887"
+      ]
+    },
+    {
+      "sha": "a9616f400de57d1103679eea502e9b635d996daf",
+      "subject": "Improve RDP error 2825 message and add focus indication to TaskDialog buttons",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-15T23:37:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9616f400de57d1103679eea502e9b635d996daf",
+      "branches": [
+        "fix-rdp-error-2825-and-focus-indication-15903742789207845751"
+      ]
+    },
+    {
+      "sha": "ce559a6cb36b01d935d31a5c829e57f9680c5c96",
+      "subject": "Fix permanent crash loop on invalid SQL Server settings (#3249)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-06-05T23:21:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce559a6cb36b01d935d31a5c829e57f9680c5c96",
+      "branches": [
+        "fix-sql-crash-loop-3249-8308516374739479481"
+      ]
+    },
+    {
+      "sha": "d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "subject": "played around with some global and non-global hotkeys",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-30T22:04:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "branches": [
+        "hotkeys"
+      ]
+    },
+    {
+      "sha": "7171bee6c3579b07202bd5e1927ae07c620df40b",
+      "subject": "Improve RDP error message for NLA (error 2825) and enhance general connection error messages",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-29T23:34:35Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7171bee6c3579b07202bd5e1927ae07c620df40b",
+      "branches": [
+        "improve-rdp-error-messages-885-7013951999980722374"
+      ]
+    },
+    {
+      "sha": "545fb9efae62e83f08493cae12fb60fd011404bd",
+      "subject": "initial support for mono",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-02T14:51:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/545fb9efae62e83f08493cae12fb60fd011404bd",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "60d6440b7f85b575f81c5e621c2f0285d481ec14",
+      "subject": "more mono fixes",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-02T16:03:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/60d6440b7f85b575f81c5e621c2f0285d481ec14",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "f39495493d7ef4ced84d3186153df85f04b1ce30",
+      "subject": "Pull latest code from develop",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-04T02:49:48Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f39495493d7ef4ced84d3186153df85f04b1ce30",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "3c0b76d9375ef03a8ce28d043ab16f94c7e6675e",
+      "subject": "mono/wine updates",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-04T04:42:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3c0b76d9375ef03a8ce28d043ab16f94c7e6675e",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "6925ae1c367c065d74abbfd6a430ae6c13dd111a",
+      "subject": "Create LICENSE.md",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-05-24T00:27:30Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6925ae1c367c065d74abbfd6a430ae6c13dd111a",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "731d7a0ad12d317aacec95fb1c79fc7d77012829",
+      "subject": "Rename LICENSE.md to LICENSE.txt",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-05-24T00:29:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/731d7a0ad12d317aacec95fb1c79fc7d77012829",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "37bc079c10e13f2a4fcae9c971374f3f764b3f79",
+      "subject": "Rename COPYING.TXT to COPYING.txt",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2020-05-24T00:31:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/37bc079c10e13f2a4fcae9c971374f3f764b3f79",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "18437bafc7afd726affe195720de0ac0c6168a1f",
+      "subject": "feat: support multi-selection Enter key to open multiple connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-01T23:19:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/18437bafc7afd726affe195720de0ac0c6168a1f",
+      "branches": [
+        "multi-selection-enter-support-4684259080988359548"
+      ]
+    },
+    {
+      "sha": "7a69d2235dd0b2018e21d5d4f4fb95b8fe1d5e2e",
+      "subject": "feat: support multi-selection Enter key to open multiple connections (resolved conflicts)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:46:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7a69d2235dd0b2018e21d5d4f4fb95b8fe1d5e2e",
+      "branches": [
+        "multi-selection-enter-support-4684259080988359548"
+      ]
+    },
+    {
+      "sha": "42f3f651639ed6188ba67eb4dea62307a9a17986",
+      "subject": "chore: sync with develop (feature already implemented upstream)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T16:56:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/42f3f651639ed6188ba67eb4dea62307a9a17986",
+      "branches": [
+        "multi-selection-enter-support-4684259080988359548"
+      ]
+    },
+    {
+      "sha": "af41612576cacde226674e3263fd2245edac8695",
+      "subject": "Merge branch 'custom-workdir-external-tool' of https://github.com/pedro2555/mRemoteNG into pedro2555-custom-workdir-external-tool",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-09T21:33:38Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/af41612576cacde226674e3263fd2245edac8695",
+      "branches": [
+        "pedro2555-custom-workdir-external-tool"
+      ]
+    },
+    {
+      "sha": "1e66787422af401404ed1b547e7d3df6a14af5f3",
+      "subject": "readded the credential record property to the connection info class",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T19:53:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1e66787422af401404ed1b547e7d3df6a14af5f3",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "22ecf0d06f063e7e733364488351be17bdd4fc3c",
+      "subject": "readded forms and controls for the credential manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T20:13:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/22ecf0d06f063e7e733364488351be17bdd4fc3c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b4dfe5beb6f2faf765b7ef0c1273821c11960e77",
+      "subject": "hooked up tools menu button for cred manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T20:27:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4dfe5beb6f2faf765b7ef0c1273821c11960e77",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ce8ada05f5833b4ddcbc849f3add9fea04514267",
+      "subject": "hooked up the credential manager upgrader",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T21:14:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce8ada05f5833b4ddcbc849f3add9fea04514267",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ce03b74d48826a6771e11e00700c99b0e80a4998",
+      "subject": "serialization is now working as expected",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T23:50:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce03b74d48826a6771e11e00700c99b0e80a4998",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a4faaa20c314f59e119ec54ea3ed95d7e75ef15a",
+      "subject": "cred manager upgrader now correctly uses custom password provided during upgrade",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T00:03:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a4faaa20c314f59e119ec54ea3ed95d7e75ef15a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "0c0740d488506f879c866d7621ca75eeeec4148c",
+      "subject": "cred upgrade form now only lets you upgrade if all required fields are filled in",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T00:37:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0c0740d488506f879c866d7621ca75eeeec4148c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f1797282d92654cc7146d87230321156843fe645",
+      "subject": "readded option to unlock cred repos on startup",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T00:51:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1797282d92654cc7146d87230321156843fe645",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "23eb9cc44be0271ca1505cf2b8118ae76cb69cfe",
+      "subject": "added option to auto close the cred unlocker form when all repos are unlocked",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T01:27:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/23eb9cc44be0271ca1505cf2b8118ae76cb69cfe",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "44aa100566b672c9e9908548df2190a88fa80159",
+      "subject": "minor change to chkbox location",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T01:33:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/44aa100566b672c9e9908548df2190a88fa80159",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "29d44d103d410b3e6fc24cdf693fbe62ac6c4c61",
+      "subject": "fixed bug preventing FullyObservableCollection from generating events",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T17:44:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/29d44d103d410b3e6fc24cdf693fbe62ac6c4c61",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "e0486bec7df8daa2c519d83cff7b53fe2f026228",
+      "subject": "simplified some of the credential management classes",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T17:45:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e0486bec7df8daa2c519d83cff7b53fe2f026228",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "2277e95dd2e4e843f2771b8a10f281c05dccf38b",
+      "subject": "fixed tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T20:12:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2277e95dd2e4e843f2771b8a10f281c05dccf38b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b09fdcd5f5f54a220ca12460a33158fa8586a469",
+      "subject": "credential objects now used when establishing connections",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T21:57:21Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b09fdcd5f5f54a220ca12460a33158fa8586a469",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "258093e52a3573a90f89b53c7d7ae52cfd22778f",
+      "subject": "when harvesting creds, consider Password when determining if a credential set is a duplicate",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T22:23:52Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/258093e52a3573a90f89b53c7d7ae52cfd22778f",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "63ebef56b068e8ddfa0f7ae82a257a30036852c5",
+      "subject": "updated cred manager upgrade text with correct version",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T17:32:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/63ebef56b068e8ddfa0f7ae82a257a30036852c5",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "15f028157e69e5bea39ce8ae1aaea148fed70f31",
+      "subject": "inserted a new page in the upgrade process to view harvested credentials",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T20:33:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15f028157e69e5bea39ce8ae1aaea148fed70f31",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "687cb6c7bc26c9d2c0431749211843223364a88d",
+      "subject": "cred unlocker wont appear if there are no repos to unlock",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T20:42:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/687cb6c7bc26c9d2c0431749211843223364a88d",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "cc44b830a2d116625147f3f7db234b6ed308b37b",
+      "subject": "scaled images in the unlocker form",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T21:28:47Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cc44b830a2d116625147f3f7db234b6ed308b37b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "e2ebf25b7bc1d2c9ae332565126a59cb549ca43e",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T15:32:47Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e2ebf25b7bc1d2c9ae332565126a59cb549ca43e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "2e0979dc5ab52858ca4973e01e51e2946ec5e664",
+      "subject": "simplified screens for creating and editing creds",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T17:05:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2e0979dc5ab52858ca4973e01e51e2946ec5e664",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a2542f1b18ae6181b2fb52f20829b74090d958c7",
+      "subject": "rearranged some cred manager UI files",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T17:13:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a2542f1b18ae6181b2fb52f20829b74090d958c7",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "25aa815a82191083d42a7d236df40c23b2d2e4db",
+      "subject": "began reworking the repo list management screen",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T20:17:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/25aa815a82191083d42a7d236df40c23b2d2e4db",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "1c44fcb070bd1fda1644682828cc74a9d427ed7b",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-05T13:48:43Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1c44fcb070bd1fda1644682828cc74a9d427ed7b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "45766b8c127a9bfccfe90d843d1c47d288add8d1",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-09T13:32:09Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/45766b8c127a9bfccfe90d843d1c47d288add8d1",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "e89c77a1bc27a49d777637cea983a62379b4c80c",
+      "subject": "fixed mis-merge",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-09T16:26:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e89c77a1bc27a49d777637cea983a62379b4c80c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f60a4819028ce115304e29ac1d2f58f01918e949",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-09T16:27:26Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f60a4819028ce115304e29ac1d2f58f01918e949",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "75cfc9c75cba1466581e2984b2f472faa4a8c8d0",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T14:52:51Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/75cfc9c75cba1466581e2984b2f472faa4a8c8d0",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "fbea9d1ede7024fd9368d817e1a86076998fc433",
+      "subject": "hooked up remaining cred repo management buttons",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T16:57:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fbea9d1ede7024fd9368d817e1a86076998fc433",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "aab1fb1dd218cffe19d7e7c745baec3ccb1e25d8",
+      "subject": "minor cleanup",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:05:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aab1fb1dd218cffe19d7e7c745baec3ccb1e25d8",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ee1db6ff8bf7a6bd4f754a2a9bc9e20d6a2aa312",
+      "subject": "refactored some methods/fields to be more descriptive",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:07:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ee1db6ff8bf7a6bd4f754a2a9bc9e20d6a2aa312",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b8298ecb14380ea7d1d7d39f4d96da3105aa0cf3",
+      "subject": "minor display changes of the repo manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:19:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b8298ecb14380ea7d1d7d39f4d96da3105aa0cf3",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "80228966f952c142451d2abf210fde0feed28af4",
+      "subject": "double clicking cred repo tree item opens editor page",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:27:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/80228966f952c142451d2abf210fde0feed28af4",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a5ea867b6d6bd785f6b2181c40e03869c3476fdb",
+      "subject": "began hooking up the default credential to the manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T18:14:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a5ea867b6d6bd785f6b2181c40e03869c3476fdb",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "753ea9b4211bb845e6fc40f01f321d695d289e4c",
+      "subject": "connections now correctly use default cred if no credential is supplied",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T20:42:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/753ea9b4211bb845e6fc40f01f321d695d289e4c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "6f8cde4d8e6266219073ae5743392c30d2e07d0f",
+      "subject": "added a method comment",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T20:45:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6f8cde4d8e6266219073ae5743392c30d2e07d0f",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "569cf38f24a4420b185c6ddf6e2ced8c735fcd99",
+      "subject": "fixed a cred harvester test",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:35:13Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/569cf38f24a4420b185c6ddf6e2ced8c735fcd99",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "4bba05f737ddb7b46433c53f3efba84a5c5b9924",
+      "subject": "minor cleanup of cred harvester, slightly more efficient",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:35:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4bba05f737ddb7b46433c53f3efba84a5c5b9924",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ea59f6ad9daf5b2a34e7965e9f0de2e3c247991c",
+      "subject": "centralized credential lookup logic",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:56:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ea59f6ad9daf5b2a34e7965e9f0de2e3c247991c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f4904f350e9c1f6e6df5109cfe62895702ebf19e",
+      "subject": "minor cleanup",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:59:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f4904f350e9c1f6e6df5109cfe62895702ebf19e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "159f25b8a18426fae1e660b1870fa912952d16df",
+      "subject": "fixed exttools arg parser tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T15:54:19Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/159f25b8a18426fae1e660b1870fa912952d16df",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "53c26d8a91a42928f1e3b5cd5e16e3fec8c6ad9a",
+      "subject": "updated tests and references to using cred records rather than user/domain/pass of the connection",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T20:02:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/53c26d8a91a42928f1e3b5cd5e16e3fec8c6ad9a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "187ca5e55b08f19b851364828739f97558a0294b",
+      "subject": "started to redo how cred harvesting works in order to apply it to all importers/deserializers",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T22:32:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/187ca5e55b08f19b851364828739f97558a0294b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b029b35df71b845dcc16177afa1c80ae6096ef4e",
+      "subject": "Merge remote-tracking branch 'origin/develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-19T18:51:43Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b029b35df71b845dcc16177afa1c80ae6096ef4e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "7fd9abbbc83ed16c282bf5b4cdb2875e74f1cdf6",
+      "subject": "resolved csv deserializer test",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-19T19:19:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7fd9abbbc83ed16c282bf5b4cdb2875e74f1cdf6",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "88558a353cf276af7b96405383ed1bcb2a89d1b2",
+      "subject": "fixed putty connection manager credential serialization",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-19T20:22:04Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88558a353cf276af7b96405383ed1bcb2a89d1b2",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "788ca79ece8aa3cfee0af3dc6adc4fb68a09d9c6",
+      "subject": "fixed rdp file importer to support cred manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T17:15:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/788ca79ece8aa3cfee0af3dc6adc4fb68a09d9c6",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "9ead7e8e16fd87c184a9073bb0e7f8ddbd769799",
+      "subject": "fixed an issue with putty session importing",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T17:18:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9ead7e8e16fd87c184a9073bb0e7f8ddbd769799",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "8906e087044816c64c697e4a81a250e9421015ec",
+      "subject": "made the rdcm 2.7 importer compatible with credential management",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T18:38:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8906e087044816c64c697e4a81a250e9421015ec",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f0d0b5ae2157d26827686ed098b5b08aa3cc12e5",
+      "subject": "reduced duplication in rdcm tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T19:46:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0d0b5ae2157d26827686ed098b5b08aa3cc12e5",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "923b9efd400b91206e795026358a51141ad4236f",
+      "subject": "began converting the database serializers to work with cred manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T20:51:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/923b9efd400b91206e795026358a51141ad4236f",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "739112a3ff5d101c243490f03305dd805648e314",
+      "subject": "added tests for SaveConnectionsOnEdit",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T21:45:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/739112a3ff5d101c243490f03305dd805648e314",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f78ca1e9fd9ed9939c5923851d1cf47609abdceb",
+      "subject": "some more deserialization refactoring",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-21T23:52:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f78ca1e9fd9ed9939c5923851d1cf47609abdceb",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "4b736176bf9286aa20e4d9ec303ee2cae7389209",
+      "subject": "request iconnectiontree interface in more places",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T12:01:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4b736176bf9286aa20e4d9ec303ee2cae7389209",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "36499276189f270670d01f9160255895e13a4e92",
+      "subject": "fixed bug with connection tree not appearing",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T18:48:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/36499276189f270670d01f9160255895e13a4e92",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "5e224f5b5bf6f3f1828289f26c30450100ccd334",
+      "subject": "ensure assigned cred id property cannot be null",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T18:51:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e224f5b5bf6f3f1828289f26c30450100ccd334",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "d524df631516797b0e923e4c8c8aa664dc36eb8c",
+      "subject": "minor efficiency gain",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T19:04:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d524df631516797b0e923e4c8c8aa664dc36eb8c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "9e217dba79d0fb60bef75049bcdb1519d68700d8",
+      "subject": "began creating cred import form",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-24T04:16:08Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9e217dba79d0fb60bef75049bcdb1519d68700d8",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "530a4e165d2342caece996b6c936cbc42171d16a",
+      "subject": "extracted interface from credential service to make testing easier",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T15:58:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/530a4e165d2342caece996b6c936cbc42171d16a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f3a7d97016b1b7e8e4b7bc3bdb959a6f8ab022af",
+      "subject": "allow specifying specific credential record in external tool arguments",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T17:31:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f3a7d97016b1b7e8e4b7bc3bdb959a6f8ab022af",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "6e417ed47ec8c03ef6b84113f36b790ce0756a29",
+      "subject": "ensure specified creds can be parsed even if no connectioninfo is selected",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T18:33:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6e417ed47ec8c03ef6b84113f36b790ce0756a29",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "89bb4d45b3434631dea6a98f259459636c709802",
+      "subject": "minor tweaks to the import form",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T22:58:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/89bb4d45b3434631dea6a98f259459636c709802",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "1f296f2f7266644ab48c77b1d9a83aced98b4235",
+      "subject": "slight fix to the optional<T> tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T22:59:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1f296f2f7266644ab48c77b1d9a83aced98b4235",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ba62c17ea2e66444a47c75a8a77de78d41e4252b",
+      "subject": "added some interface documentation",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-28T00:01:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba62c17ea2e66444a47c75a8a77de78d41e4252b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "95859b96ff8df6e22f52b4b8ee924b28edce477d",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-02-17T17:21:22Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/95859b96ff8df6e22f52b4b8ee924b28edce477d",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "c065b86dbdd001f2c52ec1c5788e1de360ca4e91",
+      "subject": "revised credential manager forms design",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-19T21:38:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c065b86dbdd001f2c52ec1c5788e1de360ca4e91",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "953ddaa292a29a39a667dbc17adcbeb1ba917a0a",
+      "subject": "merged develop",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-19T21:39:58Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/953ddaa292a29a39a667dbc17adcbeb1ba917a0a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "33a6dbb4c375f322704b763330850aa299022b1e",
+      "subject": "made more hardcoded strings translateable",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T17:32:35Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/33a6dbb4c375f322704b763330850aa299022b1e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "052796c794d1d62838efb52a332ac1c929119a63",
+      "subject": "adjusted text box positioning",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T18:08:25Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/052796c794d1d62838efb52a332ac1c929119a63",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "3bb285d180841b37fd4c0db798889471ac953553",
+      "subject": "removed unused form",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T18:42:30Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3bb285d180841b37fd4c0db798889471ac953553",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "8779776ad577808e6a25203b1ba3ab3fe45634df",
+      "subject": "removed minimize button from credentials manager",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T18:45:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8779776ad577808e6a25203b1ba3ab3fe45634df",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "93d50b0818a4cf8ac1163569c4f6f4de96019826",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-09T19:49:23Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/93d50b0818a4cf8ac1163569c4f6f4de96019826",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "355cd63acb10b388412efba9df3afad30de83688",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-19T23:01:37Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/355cd63acb10b388412efba9df3afad30de83688",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a3aa323cceebc21ac1d5eda02dd71cacffa2088d",
+      "subject": "updated html documentation for #680",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-20T01:15:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3aa323cceebc21ac1d5eda02dd71cacffa2088d",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "294bd2f7a42d2793fc7305740a63817715eb63dd",
+      "subject": "fixed event invocator warnings",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-20T01:25:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/294bd2f7a42d2793fc7305740a63817715eb63dd",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "bb04605dc3d78b7076b1086828c4ffcbf906f144",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-05-19T21:19:18Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bb04605dc3d78b7076b1086828c4ffcbf906f144",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "4349b1b65b1684dc40bcbc98bb49bcae056d27ee",
+      "subject": "dont save settings on individual settings pages",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-05-19T21:23:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4349b1b65b1684dc40bcbc98bb49bcae056d27ee",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f947a715f3f1fb2e9eeaec7ebf6fa8e47efe4666",
+      "subject": "Clarify SSH transfer direction and implement Download functionality",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-06-19T23:30:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f947a715f3f1fb2e9eeaec7ebf6fa8e47efe4666",
+      "branches": [
+        "ssh-transfer-improvements-3336-11180962861145985475"
+      ]
+    },
+    {
+      "sha": "667aafc647c40b9d1ac045d2ff1bc4ea48d7b39f",
+      "subject": "[Enhancement] Support multi-selection Enter key in Connection Tree (#3252)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-22T23:35:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/667aafc647c40b9d1ac045d2ff1bc4ea48d7b39f",
+      "branches": [
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
+    },
+    {
+      "sha": "fb0189a0871e95c5d70cf371e8aaa8a24109d4c6",
+      "subject": "[Enhancement] Support multi-selection Enter key in Connection Tree (#3252)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:45:21Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fb0189a0871e95c5d70cf371e8aaa8a24109d4c6",
+      "branches": [
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
+    },
+    {
+      "sha": "7ec87aabd6ec91e0610da82270129f615e34514f",
+      "subject": "Merge branch 'develop' into support-multiselect-enter-connection-tree",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T16:24:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7ec87aabd6ec91e0610da82270129f615e34514f",
+      "branches": [
+        "support-multiselect-enter-connection-tree-10657828934051604614"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:47Z",
   "last_seen": "2026-07-25T10:56:47Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "c84abb179c3ca223d42144460c7cd6c4474d8e02",
-  "compared_at": "2026-07-25T10:58:42Z",
-  "screened_shas": []
+  "compared_at": "2026-07-25T16:26:07Z",
+  "screened_shas": [
+    "faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+    "b2546cebab48e554b94ec2f8b4c611c5b60ea030",
+    "2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+    "b1baa8910846e37ccb8bbfaca648e0925babeed9",
+    "4e04f5ca22d9fdaab85535c9a3eda6a282854266",
+    "14041a13c9e7f0f0f78519c74e6270ded48ed78c",
+    "4579d98600528691c456315c847b1b913dd497ab",
+    "34cf25fa379fe02c63a49041b2dd6f441d20bc65",
+    "502f42596cbba2b50938be00b8328bcae73976b5",
+    "2496cc24b51abab98a50697bc6d6e2506d751394",
+    "54a4f01241d3c7cc1378a4b556703ff09b2042be",
+    "6ec578b3b6e2d668fc042c8eda3d5c3c98788165",
+    "57f6569a1bce59cb4172ee9c6bd1e0dac6fc6f8a",
+    "fc51c5978156146be09a9b86cc5ce1f8c7a5c4c6",
+    "fc076999ca59f4253638bd172b49e763e1201618",
+    "6925ae1c367c065d74abbfd6a430ae6c13dd111a",
+    "731d7a0ad12d317aacec95fb1c79fc7d77012829",
+    "37bc079c10e13f2a4fcae9c971374f3f764b3f79"
+  ],
+  "branches_scanned": [
+    "develop",
+    "Features_Jo",
+    "always_show_tabs",
+    "dotnet5",
+    "feat/multi-select-enter-open-17331034413887212566",
+    "feature/content-based-import-detection-10491940046281214640",
+    "feature/multi-select-enter-connections-10750512084068105273",
+    "feature/multi-select-enter-key-13111995687834212777",
+    "feature/multi-select-enter-open-2125888325479306262",
+    "feature/multi-select-enter-open-connections-11705643404611443427",
+    "feature/multi-select-enter-open-connections-4506036823273326779",
+    "feature/multi-select-enter-open-connections-5805895064529176360",
+    "feature/multi-select-enter-support-16125265594145425176",
+    "feature/multi-selection-enter-key-15762117081734358401",
+    "fix/rdp-error-2825-message-11677157769299200714",
+    "fix/sql-connection-crash-loop-3249-3172555354014692286",
+    "fix-build-environment-v2-16267754017608674559",
+    "fix-disposed-object-exceptions-4316951144513459009",
+    "fix-issue-3336-ssh-transfer-direction-562548235098817995",
+    "fix-object-disposed-exception-ui-invoke-3415726580259725887",
+    "fix-rdp-error-2825-11812080304878045516",
+    "fix-rdp-error-2825-and-focus-indication-15903742789207845751",
+    "fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+    "fix-rdp-error-2825-nla-4958572924990496218",
+    "fix-serialization-and-localization-bugs-8213730634601306085",
+    "fix-sql-crash-loop-3249-8308516374739479481",
+    "gh-pages",
+    "hotkeys",
+    "improve-rdp-error-messages-885-7013951999980722374",
+    "issue_420_proxy_aka_jumphost_support",
+    "master",
+    "mono_support",
+    "multi-selection-enter-open-connections-5733313433497900038",
+    "multi-selection-enter-support-4684259080988359548",
+    "multi-selection-enter-support-6528758530502572424",
+    "pedro2555-custom-workdir-external-tool",
+    "push_settings_recursively",
+    "reapply_credential_manager",
+    "release/v1.76",
+    "removecitrix",
+    "ssh-transfer-improvements-3336-11180962861145985475",
+    "support-multiselect-enter-connection-tree-10657828934051604614",
+    "update-asset-labels"
+  ],
+  "branches_inherited_from_upstream": 4
 }

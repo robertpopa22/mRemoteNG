@@ -1,0 +1,13 @@
+{
+  "sha": "b48f4afd00141c13e2a1d8f337115fa025ed1426",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "fixed failing tests",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-22T20:44:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b48f4afd00141c13e2a1d8f337115fa025ed1426",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T16:30:51Z"
+}

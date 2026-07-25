@@ -1,0 +1,13 @@
+{
+  "sha": "bc80d729fb2307c8bcb11b7e38317db89d38526a",
+  "fork": "ratorin/mRemoteNG",
+  "owner": "ratorin",
+  "subject": "Merge PR3: Japanese localization + Options page label fixes + theme palette names",
+  "author_name": "Taro Kawakami",
+  "author_login": null,
+  "date": "2026-05-15T11:51:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bc80d729fb2307c8bcb11b7e38317db89d38526a",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:47Z"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "6d3b170f0e4c688deeb3e1ca44c1843184d7e092",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Apply theme changes immediately, no restart required",
+  "body": "Apply theme changes immediately, no restart required\n\nThemePage.SaveSettings() previously just persisted ThemeName and\nshowed a \"restart required\" dialog. ThemeManager.ActiveTheme's setter\nalready persists ThemeName and raises ThemeChanged, which every themed\nform/control is subscribed to - so assigning it is sufficient to\nre-theme the running application immediately.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-11T21:24:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6d3b170f0e4c688deeb3e1ca44c1843184d7e092",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 4,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Forms/OptionsPages/ThemePage.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Forms/OptionsPages/ThemePage.cs\n@@ -91,15 +91,15 @@ public override void SaveSettings()\n \n             Properties.OptionsThemePage.Default.ThemingActive = true;\n \n-            // Save the theme settings form close so we don't run into unexpected results while modifying...\n-            // Prompt the user that a restart is required to apply the new theme...\n+            // Apply the selected theme immediately. ActiveTheme's setter persists\n+            // ThemeName and raises ThemeChanged, which all themed forms/controls\n+            // are subscribed to, so no restart is required.\n             if (cboTheme.SelectedItem != null\n             ) // LoadSettings calls SaveSettings, so these might be null the first time around\n             {\n                 if (!Properties.OptionsThemePage.Default.ThemeName.Equals(((ThemeInfo)cboTheme.SelectedItem).Name))\n                 {\n-                    Properties.OptionsThemePage.Default.ThemeName = ((ThemeInfo)cboTheme.SelectedItem).Name;\n-                    CTaskDialog.MessageBox(\"Theme Changed\", \"Restart Required.\", \"Please restart mRemoteNG to apply the selected theme.\", ETaskDialogButtons.Ok, ESysIcons.Information);\n+                    _themeManager.ActiveTheme = (ThemeInfo)cboTheme.SelectedItem;\n                 }\n             }\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:26Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 5,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Our fork already supports live theme changes immediately without requiring a restart, making this change redundant.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:40:44Z"
+  }
+}

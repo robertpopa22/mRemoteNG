@@ -1,0 +1,13 @@
+{
+  "sha": "a4faaa20c314f59e119ec54ea3ed95d7e75ef15a",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "cred manager upgrader now correctly uses custom password provided during upgrade",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T00:03:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a4faaa20c314f59e119ec54ea3ed95d7e75ef15a",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

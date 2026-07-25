@@ -1,0 +1,42 @@
+{
+  "sha": "108b95a586e5197d94123762c21e04f7d25049f2",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "refactor(ssh_dotnet): make FormatBytes static (S2325)",
+  "body": "refactor(ssh_dotnet): make FormatBytes static (S2325)\n\nFormatBytes uses no instance state; make it static.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T17:04:06Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/108b95a586e5197d94123762c21e04f7d25049f2",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs\n@@ -722,7 +722,7 @@ private void LogSessionStatistics()\n         /// <summary>\n         /// Format bytes into human-readable format (KB, MB, GB)\n         /// </summary>\n-        private string FormatBytes(long bytes)\n+        private static string FormatBytes(long bytes)\n         {\n             if (bytes < 1024)\n                 return $\"{bytes} B\";",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:12Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Touches fork-specific ProtocolSshDotNet.cs (joubertdj SSH.NET protocol); file does not exist in our fork. Trivial static modifier.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:58:24Z"
+  }
+}

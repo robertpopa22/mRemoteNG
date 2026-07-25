@@ -20,15 +20,22 @@
       "author_login": "nathanlin-autodevteam",
       "date": "2026-07-25T06:49:05Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b03292708796b64ab08f2b230ff0521aeefe6208"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b03292708796b64ab08f2b230ff0521aeefe6208",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:19Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "fde6b483c7661edb895d116e014d54c62801cc47",
-  "compared_at": "2026-07-25T10:58:53Z",
+  "compared_at": "2026-07-25T16:27:41Z",
   "screened_shas": [
     "b03292708796b64ab08f2b230ff0521aeefe6208"
-  ]
+  ],
+  "branches_scanned": [
+    "v1.78.2-dev"
+  ],
+  "branches_inherited_from_upstream": 0
 }

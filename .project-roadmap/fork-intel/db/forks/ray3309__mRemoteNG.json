@@ -17,5 +17,11 @@
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "48723ba0ae30eb44fa58882c9a5eb86e09be75e8",
-  "compared_at": "2026-07-25T10:58:34Z"
+  "compared_at": "2026-07-25T16:25:35Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "renovate/aws-sdk-net-monorepo",
+    "renovate/gherkin-42.x"
+  ],
+  "branches_inherited_from_upstream": 22
 }

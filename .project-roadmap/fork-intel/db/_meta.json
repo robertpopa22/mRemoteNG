@@ -14,47 +14,50 @@
       "skipped_excluded": 0
     },
     "diverge": {
-      "at": "2026-07-25T10:58:57Z",
-      "api_calls": 128,
-      "processed": 127,
-      "diverged": 24,
-      "no_divergence": 102,
-      "failed": 1
+      "at": "2026-07-25T16:27:52Z",
+      "api_calls": 558,
+      "processed": 126,
+      "diverged": 58,
+      "no_divergence": 68,
+      "failed": 0,
+      "all_branches": true,
+      "side_branch_commits": 1488
     },
     "screen": {
-      "at": "2026-07-25T11:00:29Z",
-      "api_calls": 45,
-      "commits_seen": 306,
-      "dropped": 137,
-      "quarantined": 25,
-      "clean": 20,
-      "reused": 124
+      "at": "2026-07-25T16:31:04Z",
+      "api_calls": 255,
+      "commits_seen": 1794,
+      "dropped": 204,
+      "quarantined": 89,
+      "clean": 166,
+      "reused": 1335
     },
     "triage": {
-      "at": "2026-07-25T11:15:15Z",
+      "at": "2026-07-25T18:56:07Z",
       "api_calls": 0,
-      "judged": 8,
+      "judged": 80,
       "failed": 0,
-      "agent": "claude"
+      "agent": "codex"
     },
     "preapprove": {
-      "at": "2026-07-25T12:11:11Z",
+      "at": "2026-07-25T23:53:37Z",
       "api_calls": 0,
       "pre_approved": 0,
-      "manual": 12,
+      "manual": 1,
       "reviewers": [
         "codex",
-        "gemini"
-      ]
+        "grok"
+      ],
+      "arbiter": "claude"
     },
     "report": {
-      "at": "2026-07-25T12:11:29Z",
+      "at": "2026-07-25T23:53:59Z",
       "api_calls": 0,
-      "A": 0,
-      "B": 2,
+      "A": 2,
+      "B": 14,
       "C": 1,
-      "Q": 10,
-      "D": 32
+      "Q": 20,
+      "D": 262
     }
   }
 }

@@ -1,0 +1,42 @@
+{
+  "sha": "51eadbb85eb92b7944a2afa60749f45c7ba458c7",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "多选删除提示语（暂未使用）",
+  "body": "多选删除提示语（暂未使用）",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-21T12:46:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51eadbb85eb92b7944a2afa60749f45c7ba458c7",
+  "stats": {
+    "files": 1,
+    "additions": 15,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Tree/SelectedConnectionDeletionConfirmer.cs",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteV1/Tree/SelectedConnectionDeletionConfirmer.cs\n@@ -1,4 +1,5 @@\n ﻿using System;\n+using System.Collections.Generic;\n using System.Windows.Forms;\n using mRemoteNG.Connection;\n using mRemoteNG.Container;\n@@ -28,6 +29,15 @@ public bool Confirm(ConnectionInfo deletionTarget)\n             return UserConfirmsConnectionDeletion(deletionTarget);\n         }\n \n+        //CBH 暂未使用\n+        public bool Confirm(IReadOnlyList<ConnectionInfo> deletionTargets) //Collection\n+        {\n+            if (deletionTargets == null)\n+                return false;\n+\n+            return UserConfirmsSelectedNodeDeletion();\n+        }\n+\n         private bool UserConfirmsEmptyFolderDeletion(AbstractConnectionRecord deletionTarget)\n         {\n             var messagePrompt = string.Format(Language.strConfirmDeleteNodeFolder, deletionTarget.Name);\n@@ -45,6 +55,11 @@ private bool UserConfirmsConnectionDeletion(AbstractConnectionRecord deletionTar\n             var messagePrompt = string.Format(Language.strConfirmDeleteNodeConnection, deletionTarget.Name);\n             return PromptUser(messagePrompt);\n         }\n+        private bool UserConfirmsSelectedNodeDeletion()\n+        {\n+            var messagePrompt = Language.strConfirmDeleteNodeSelected;\n+            return PromptUser(messagePrompt);\n+        }\n \n         private bool PromptUser(string promptMessage)\n         {",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:33Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Multi-selection deletion already works through GetSelectedNodes; this explicitly unused bulk-confirmation overload has no caller, tests, or current-path compatibility.",
+    "agent": "codex",
+    "at": "2026-07-25T17:23:43Z"
+  }
+}

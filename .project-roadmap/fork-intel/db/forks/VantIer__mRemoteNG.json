@@ -9,13 +9,141 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 9,
   "behind_by": 49,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "subject": "played around with some global and non-global hotkeys",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-30T22:04:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "branches": [
+        "hotkeys"
+      ]
+    },
+    {
+      "sha": "6d677a494a6a017df9185f8121dd08321fa31fa4",
+      "subject": "removed WndProc override",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-01T18:58:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6d677a494a6a017df9185f8121dd08321fa31fa4",
+      "branches": [
+        "no_wndproc"
+      ]
+    },
+    {
+      "sha": "a9f463c540eef91e033bff7b4fcbeb9d6598e842",
+      "subject": "removed resize events of main form",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-01T19:09:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9f463c540eef91e033bff7b4fcbeb9d6598e842",
+      "branches": [
+        "no_wndproc"
+      ]
+    },
+    {
+      "sha": "e759c1c0ccb8f338b58c19562e3d21c9de2e0df8",
+      "subject": "Merge branch 'develop' into no_wndproc",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-05T22:50:59Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e759c1c0ccb8f338b58c19562e3d21c9de2e0df8",
+      "branches": [
+        "no_wndproc"
+      ]
+    },
+    {
+      "sha": "af41612576cacde226674e3263fd2245edac8695",
+      "subject": "Merge branch 'custom-workdir-external-tool' of https://github.com/pedro2555/mRemoteNG into pedro2555-custom-workdir-external-tool",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-09T21:33:38Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/af41612576cacde226674e3263fd2245edac8695",
+      "branches": [
+        "pedro2555-custom-workdir-external-tool"
+      ]
+    },
+    {
+      "sha": "0bff034d49b5021c6650200112a6027e39e60076",
+      "subject": "added button for import from rdm (#887)",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-09T10:16:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0bff034d49b5021c6650200112a6027e39e60076",
+      "branches": [
+        "rdm_import"
+      ]
+    },
+    {
+      "sha": "b801a78ca0edaa024ad83bd8a1dfee74d9562cb9",
+      "subject": "added custom action to check if .net 6 is installed",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-09T20:02:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b801a78ca0edaa024ad83bd8a1dfee74d9562cb9",
+      "branches": [
+        "wix_net6_check"
+      ]
+    },
+    {
+      "sha": "5e5122dfe900359b84b840aee5a302d509abdce6",
+      "subject": "added custom action for .net 6 check",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-09T21:17:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e5122dfe900359b84b840aee5a302d509abdce6",
+      "branches": [
+        "wix_net6_check"
+      ]
+    },
+    {
+      "sha": "db8bc6a87b13f8473d71c821f196f9d69f030c0f",
+      "subject": "moved .net 6 check custom action to its own class",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-09T21:35:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/db8bc6a87b13f8473d71c821f196f9d69f030c0f",
+      "branches": [
+        "wix_net6_check"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:40Z",
   "last_seen": "2026-07-25T10:56:40Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "ea1f87d228d692e686aee9edb1677fafa8ee9b7f",
-  "compared_at": "2026-07-25T10:58:44Z"
+  "compared_at": "2026-07-25T16:27:05Z",
+  "branches_scanned": [
+    "develop",
+    "gh-pages",
+    "hotkeys",
+    "no_wndproc",
+    "pedro2555-custom-workdir-external-tool",
+    "push_settings_recursively",
+    "rdm_import",
+    "wix_net6_check"
+  ],
+  "branches_inherited_from_upstream": 8,
+  "screened_shas": [
+    "6d677a494a6a017df9185f8121dd08321fa31fa4",
+    "a9f463c540eef91e033bff7b4fcbeb9d6598e842",
+    "0bff034d49b5021c6650200112a6027e39e60076",
+    "b801a78ca0edaa024ad83bd8a1dfee74d9562cb9",
+    "5e5122dfe900359b84b840aee5a302d509abdce6",
+    "db8bc6a87b13f8473d71c821f196f9d69f030c0f"
+  ]
 }

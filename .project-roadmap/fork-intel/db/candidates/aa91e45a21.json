@@ -1,0 +1,48 @@
+{
+  "sha": "aa91e45a21329c22564f495d7ce8e1473e84321d",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "UpdateChannel默认配置值修正",
+  "body": "UpdateChannel默认配置值修正",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-20T01:17:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aa91e45a21329c22564f495d7ce8e1473e84321d",
+  "stats": {
+    "files": 2,
+    "additions": 6,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Properties/Settings.settings",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/app.config",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Properties/Settings.settings\n@@ -504,7 +504,7 @@\n       <Value Profile=\"(Default)\">False</Value>\n     </Setting>\n     <Setting Name=\"UpdateChannel\" Type=\"System.String\" Scope=\"User\">\n-      <Value Profile=\"(Default)\">release</Value>\n+      <Value Profile=\"(Default)\">Stable</Value>\n     </Setting>\n     <Setting Name=\"ThemeName\" Type=\"System.String\" Scope=\"User\">\n       <Value Profile=\"(Default)\" />\n--- mRemoteV1/app.config\n@@ -706,6 +706,7 @@\n   <applicationSettings>\n     <mRemoteNG.Settings>\n         <setting name=\"UpdateAddress\" serializeAs=\"String\">\n+            <!-- <value>https://mremoteng.org/</value> -->\n             <value>https://gcstoragedownload.blob.core.windows.net/download/mRemoteNG/</value>\n         </setting>\n         <setting name=\"SupportedUICultures\" serializeAs=\"String\">\n@@ -732,4 +733,7 @@\n        </assemblyBinding>\n   \n   </runtime>\n-<startup><supportedRuntime version=\"v4.0\" sku=\".NETFramework,Version=v4.6\"/></startup></configuration>\n\\ No newline at end of file\n+  <startup>\n+    <supportedRuntime version=\"v4.0\" sku=\".NETFramework,Version=v4.6\"/>\n+  </startup>\n+</configuration>\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:33Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Tweaks UpdateChannel default in legacy mRemoteV1 config. Our fork removed update channels entirely (#136, 8fa29117e/3e9f8a7bc) — GitHub-releases-only. Obsolete.",
+    "agent": "claude",
+    "at": "2026-07-25T16:41:20Z"
+  }
+}

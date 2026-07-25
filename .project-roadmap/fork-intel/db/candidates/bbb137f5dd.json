@@ -1,0 +1,42 @@
+{
+  "sha": "bbb137f5ddce916359b3587fd696501e3a7feec4",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "add serial locale",
+  "body": "add serial locale",
+  "author_name": "Aaron Zauner",
+  "author_login": "azet",
+  "date": "2020-03-11T16:21:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbb137f5ddce916359b3587fd696501e3a7feec4",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Connection/Protocol/ProtocolType.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Connection/Protocol/ProtocolType.cs\n@@ -36,8 +36,11 @@ public enum ProtocolType\n \n         [LocalizedAttributes.LocalizedDescription(nameof(Language.strPowerShell))]\n         PowerShell = 10,\n+        \n+        [LocalizedAttributes.LocalizedDescription(nameof(Language.strSerial))]\n+        Serial = 11,\n \n         [LocalizedAttributes.LocalizedDescription(nameof(Language.strExtApp))]\n         IntApp = 20\n     }\n-}\n\\ No newline at end of file\n+}",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:19Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 3,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Serial localization and support already exist at Serial=9; importing legacy value 11 would collide with current ARD serialization.",
+    "agent": "codex",
+    "at": "2026-07-25T18:19:47Z"
+  }
+}

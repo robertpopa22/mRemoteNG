@@ -1,0 +1,13 @@
+{
+  "sha": "a3aa323cceebc21ac1d5eda02dd71cacffa2088d",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "updated html documentation for #680",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-03-20T01:15:16Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3aa323cceebc21ac1d5eda02dd71cacffa2088d",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

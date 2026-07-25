@@ -1,0 +1,49 @@
+{
+  "sha": "5e5122dfe900359b84b840aee5a302d509abdce6",
+  "fork": "VantIer/mRemoteNG",
+  "owner": "VantIer",
+  "subject": "added custom action for .net 6 check",
+  "body": "added custom action for .net 6 check",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2021-12-09T21:17:34Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e5122dfe900359b84b840aee5a302d509abdce6",
+  "stats": {
+    "files": 1,
+    "additions": 32,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGInstaller/CustomActions/CustomActions.cs",
+      "status": "modified",
+      "additions": 32,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNGInstaller/CustomActions/CustomActions.cs\n@@ -1,4 +1,8 @@\n-﻿using Microsoft.Deployment.WindowsInstaller;\n+﻿using System;\n+using System.IO;\n+using System.Linq;\n+using Microsoft.Deployment.WindowsInstaller;\n+using Microsoft.Win32;\n \n namespace CustomActions\n {\n@@ -52,5 +56,32 @@ public static ActionResult UninstallLegacyVersion(Session session)\n             session.Log(\"End UninstallLegacyVersion\");\n             return ActionResult.Success;\n         }\n+\n+\n+        [CustomAction]\n+        public static ActionResult IsMinimumDotNetVersionInstalled(Session session)\n+        {\n+            session.Log(\"Begin IsMinimumDotNetVersionInstalled\");\n+\n+\n+            using (var root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))\n+            {\n+                using (var key = root.OpenSubKey(@\"SOFTWARE\\WOW6432Node\\dotnet\\Setup\\InstalledVersions\\x64\\sharedfx\\Microsoft.WindowsDesktop.App\", false))\n+                {\n+                    foreach (var subkey in key.GetSubKeyNames())\n+                    {\n+                        if (subkey.StartsWith(\"6.0\"))\n+                            session[\"MINIMUM_DOTNET_VERSION_INSTALLED\"] = \"1\";\n+                        else\n+                            session[\"MINIMUM_DOTNET_VERSION_INSTALLED\"] = \"0\";\n+                    }\n+                };\n+            };\n+\n+            session.Log(\"End IsMinimumDotNetVersionInstalled\");\n+\n+            return ActionResult.Success;\n+        }\n+\n     }\n }\n\\ No newline at end of file",
+  "security_flags": [
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "mRemoteNGInstaller/CustomActions/CustomActions.cs",
+      "reason": "installer content ships signed to end users"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:31:01Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Legacy CustomActions installer deleted in our WiX 6 MSI rework; .NET 6 check moot (self-contained builds). Loop logic also buggy (last subkey wins).",
+    "agent": "claude",
+    "at": "2026-07-25T16:36:48Z"
+  }
+}

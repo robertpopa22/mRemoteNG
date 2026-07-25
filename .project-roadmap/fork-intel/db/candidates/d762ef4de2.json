@@ -1,0 +1,91 @@
+{
+  "sha": "d762ef4de265f09ebba6c1ad0f4e4d5f66540524",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "log4net版本更新至2.0.17",
+  "body": "log4net版本更新至2.0.17",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-21T12:50:47Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d762ef4de265f09ebba6c1ad0f4e4d5f66540524",
+  "stats": {
+    "files": 5,
+    "additions": 11,
+    "deletions": 8,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGTests/mRemoteNGTests.csproj",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/packages.config",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/app.config",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/mRemoteV1.csproj",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteV1/packages.config",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNGTests/mRemoteNGTests.csproj\n@@ -63,8 +63,8 @@\n     <Reference Include=\"Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL\">\n       <HintPath>..\\packages\\Castle.Core.4.2.0\\lib\\net45\\Castle.Core.dll</HintPath>\n     </Reference>\n-    <Reference Include=\"log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL\">\n-      <HintPath>..\\packages\\log4net.2.0.8\\lib\\net45-full\\log4net.dll</HintPath>\n+    <Reference Include=\"log4net, Version=2.0.17.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL\">\n+      <HintPath>..\\packages\\log4net.2.0.17\\lib\\net45\\log4net.dll</HintPath>\n     </Reference>\n     <Reference Include=\"Microsoft.CSharp\" />\n     <Reference Include=\"NSubstitute, Version=3.1.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL\">\n@@ -87,6 +87,7 @@\n     <Reference Include=\"System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL\">\n       <HintPath>..\\packages\\System.Threading.Tasks.Extensions.4.4.0\\lib\\portable-net45+win8+wp8+wpa81\\System.Threading.Tasks.Extensions.dll</HintPath>\n     </Reference>\n+    <Reference Include=\"System.Web\" />\n     <Reference Include=\"System.Windows.Forms\" />\n     <Reference Include=\"System.Xml\" />\n     <Reference Include=\"System.Xml.Linq\" />\n--- mRemoteNGTests/packages.config\n@@ -3,7 +3,7 @@\n   <package id=\"BouncyCastle\" version=\"1.8.1\" targetFramework=\"net46\" />\r\n   <package id=\"Castle.Core\" version=\"4.2.0\" targetFramework=\"net46\" />\r\n   <package id=\"DockPanelSuite\" version=\"2.16.1\" targetFramework=\"net46\" />\r\n-  <package id=\"log4net\" version=\"2.0.8\" targetFramework=\"net46\" />\r\n+  <package id=\"log4net\" version=\"2.0.17\" targetFramework=\"net46\" />\r\n   <package id=\"NSubstitute\" version=\"3.1.0\" targetFramework=\"net46\" />\r\n   <package id=\"NUnit\" version=\"3.9.0\" targetFramework=\"net46\" />\r\n   <package id=\"NUnit.Console\" version=\"3.7.0\" targetFramework=\"net46\" />\r\n--- mRemoteV1/app.config\n@@ -724,7 +724,8 @@\n              <assemblyIdentity name=\"WeifenLuo.WinFormsUI.Docking\" publicKeyToken=\"5cded1a1a0a7b481\" culture=\"neutral\"/>\n              <bindingRedirect oldVersion=\"0.0.0.0-2.16.0.0\" newVersion=\"2.16.0.0\"/>\n            </dependentAssembly>\n-           <!-- log4net 版本更新，修复漏洞\n+           <!-- log4net 版本更新，修复漏洞 (代码原生引用已更新，后续如需手动更新，参考如下) -->\n+\t\t   <!--\n            <dependentAssembly>\n                <assemblyIdentity name=\"log4net\" publicKeyToken=\"669e0ddf0bb1aa2a\" culture=\"neutral\" />\n                <bindingRedirect oldVersion=\"2.0.8.0-2.0.17.0\" newVersion=\"2.0.17.0\" />\n--- mRemoteV1/mRemoteV1.csproj\n@@ -62,8 +62,8 @@\n     <Reference Include=\"Geckofx-Winforms, Version=45.0.34.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=x86\">\r\n       <HintPath>..\\packages\\Geckofx45.45.0.34\\lib\\net45\\Geckofx-Winforms.dll</HintPath>\r\n     </Reference>\r\n-    <Reference Include=\"log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL\">\r\n-      <HintPath>..\\packages\\log4net.2.0.8\\lib\\net45-full\\log4net.dll</HintPath>\r\n+    <Reference Include=\"log4net, Version=2.0.17.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL\">\r\n+      <HintPath>..\\packages\\log4net.2.0.17\\lib\\net45\\log4net.dll</HintPath>\r\n     </Reference>\r\n     <Reference Include=\"mscorlib\" />\r\n     <Reference Include=\"MagicLibrary, Version=1.7.4.0, Culture=neutral, PublicKeyToken=3a6eb82f876a49bc\">\r\n@@ -1609,7 +1609,8 @@ powershell.exe -ExecutionPolicy Bypass -File \"%25psScriptsDir%25\\postbuild_mremo\n     <TargetZone>LocalIntranet</TargetZone>\r\n   </PropertyGroup>\r\n   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.\r\n-       Other similar extension points exist, see Microsoft.Common.targets.\r\n+       Other similar extension points exist, see Microsoft.Common.targets. -->\r\n+  <!-- \r\n   <Target Name=\"BeforeBuild\">\r\n   </Target>\r\n   <Target Name=\"AfterBuild\">\r\n--- mRemoteV1/packages.config\n@@ -8,7 +8,7 @@\n   <package id=\"DockPanelSuite.ThemeVS2015\" version=\"3.0.6\" targetFramework=\"net46\" />\r\n   <package id=\"Geckofx45\" version=\"45.0.34\" targetFramework=\"net46\" />\r\n   <package id=\"Greycorbel.AdmPwd-E.PDSWrapper\" version=\"7.7.2\" targetFramework=\"net46\" />\r\n-  <package id=\"log4net\" version=\"2.0.8\" targetFramework=\"net46\" />\r\n+  <package id=\"log4net\" version=\"2.0.17\" targetFramework=\"net46\" />\r\n   <package id=\"ObjectListView.Official\" version=\"2.9.1\" targetFramework=\"net46\" />\r\n   <package id=\"SSH.NET\" version=\"2016.1.0\" targetFramework=\"net46\" />\r\n </packages>\n\\ No newline at end of file",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNGTests/mRemoteNGTests.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNGTests/packages.config",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/mRemoteV1.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/packages.config",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:34Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Our fork has already modernized to log4net 3.3.2 via central package management and does not use the legacy mRemoteV1 codebase.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:58:31Z"
+  }
+}

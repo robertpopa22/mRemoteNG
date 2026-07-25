@@ -1,0 +1,13 @@
+{
+  "sha": "948788d26daadf767cb8d948ff7feba58b2cb4af",
+  "fork": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "subject": "Merge pull request #1 from Morgadoo/codex/analyze-and-continue-migration-plan-for-cross-platform-app",
+  "author_name": "Luís Morgado",
+  "author_login": "Morgadoo",
+  "date": "2026-03-10T15:12:50Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/948788d26daadf767cb8d948ff7feba58b2cb4af",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:42Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "89bb4d45b3434631dea6a98f259459636c709802",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "minor tweaks to the import form",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-27T22:58:39Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/89bb4d45b3434631dea6a98f259459636c709802",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

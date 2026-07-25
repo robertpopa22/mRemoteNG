@@ -1,0 +1,48 @@
+{
+  "sha": "8cf5980b54389c19162a23091ec9096cac8612e9",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "refactor(ssh_dotnet): replace reflection pty-resize with public API (S3011 hotspot)",
+  "body": "refactor(ssh_dotnet): replace reflection pty-resize with public API (S3011 hotspot)\n\nSSH.NET 2025.1.0 exposes a public ShellStream.ChangeWindowSize(uint,uint,uint,uint)\n(verified against the pinned assembly) with the exact signature the reflection was\ninvoking. Replace the reflection-based _channel/SendWindowChangeRequest workaround\nwith a direct call, eliminating the SonarCloud accessibility-bypass security hotspot\nat the source. The extension is kept as a thin, intent-revealing wrapper that logs\nand swallows ObjectDisposedException/SshException (a resize racing a disconnect must\nnot crash the terminal) -- and uses specific catches, not catch(Exception).\n\nAlso remove the now-unused 'using System.Reflection;' from SshTerminalControl\n(its .Invoke calls are event/Control.Invoke, not reflection) -- confirming no\nreflection remains in the SSH_DotNet code.\n\nNote: SonarCloud reported 2 hotspots but only 1 was confirmable from cached\nannotations; both reflection operations (GetField + GetMethod/Invoke) are now gone.\nRe-run analysis on the PR to confirm 0 remaining hotspots.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T16:02:09Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8cf5980b54389c19162a23091ec9096cac8612e9",
+  "stats": {
+    "files": 2,
+    "additions": 16,
+    "deletions": 42,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SSH_DotNet/ShellStreamExtensions.cs",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 41
+    },
+    {
+      "filename": "mRemoteNG/UI/Controls/SshTerminalControl.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SSH_DotNet/ShellStreamExtensions.cs\n@@ -1,69 +1,44 @@\n-// Design Note: Generic catch clause (catch Exception) is used intentionally in this file.\n-// This code uses reflection to access internal SSH.NET APIs, where any reflection-related\n-// exception type may occur. The catch logs the error and fails gracefully.\n using System;\n-using System.Reflection;\n using Renci.SshNet;\n+using Renci.SshNet.Common;\n \n namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n {\n     /// <summary>\n-    /// Extension methods for Renci.SshNet.ShellStream to support dynamic terminal resizing\n+    /// Extension methods for Renci.SshNet.ShellStream to support dynamic terminal resizing.\n     /// </summary>\n     public static class ShellStreamExtensions\n     {\n         /// <summary>\n         /// Sends a window change request to the SSH server to update the terminal size.\n-        /// Uses reflection to access the internal _channel field and invoke SendWindowChangeRequest.\n         /// </summary>\n         /// <param name=\"stream\">The ShellStream to resize</param>\n         /// <param name=\"columns\">New terminal width in columns</param>\n         /// <param name=\"rows\">New terminal height in rows</param>\n         /// <param name=\"width\">New terminal width in pixels (0 = auto)</param>\n         /// <param name=\"height\">New terminal height in pixels (0 = auto)</param>\n         /// <remarks>\n-        /// This is a workaround because Renci.SshNet.ShellStream doesn't expose a public method\n-        /// for changing terminal dimensions after creation. The method uses reflection to access\n-        /// the private _channel field (ChannelSession) and calls its SendWindowChangeRequest method.\n+        /// Thin, intent-revealing wrapper over <see cref=\"ShellStream.ChangeWindowSize\"/> (a public\n+        /// API since SSH.NET 2024+). Resize failures are logged but non-fatal: a resize racing with a\n+        /// disconnect must never crash the terminal. (Previously this used reflection to reach an\n+        /// internal channel method, which SonarCloud flagged as an accessibility-bypass hotspot.)\n         /// </remarks>\n         public static void SendWindowChangeRequest(this ShellStream stream,\n             uint columns, uint rows, uint width, uint height)\n         {\n+            if (stream == null)\n+                return;\n+\n             try\n             {\n-                // Access private _channel field via reflection\n-                var channelField = stream.GetType().GetField(\"_channel\",\n-                    BindingFlags.NonPublic | BindingFlags.Instance);\n-\n-                if (channelField == null)\n-                {\n-                    SSHDotNetDiagnostics.LogWarning(\"ShellStreamExtensions: Could not find _channel field via reflection\");\n-                    return;\n-                }\n-\n-                var channel = channelField.GetValue(stream);\n-                if (channel == null)\n-                {\n-                    SSHDotNetDiagnostics.LogWarning(\"ShellStreamExtensions: _channel field is null\");\n-                    return;\n-                }\n-\n-                // Retrieve SendWindowChangeRequest method from _channel\n-                var method = channel.GetType().GetMethod(\"SendWindowChangeRequest\",\n-                    BindingFlags.Public | BindingFlags.Instance);\n-\n-                if (method == null)\n-                {\n-                    SSHDotNetDiagnostics.LogWarning(\"ShellStreamExtensions: Could not find SendWindowChangeRequest method via reflection\");\n-                    return;\n-                }\n-\n-                // Invoke method to update terminal dimensions\n-                method.Invoke(channel, new object[] { columns, rows, width, height });\n-\n-                SSHDotNetDiagnostics.LogDebug($\"ShellStreamExtensions: Successfully sent window change request: {columns}x{rows}\");\n+                stream.ChangeWindowSize(columns, rows, width, height);\n+                SSHDotNetDiagnostics.LogDebug($\"ShellStreamExtensions: Sent window change request: {columns}x{rows}\");\n+            }\n+            catch (ObjectDisposedException)\n+            {\n+                // Stream already closed (resize raced a disconnect) — nothing to resize.\n             }\n-            catch (Exception ex)\n+            catch (SshException ex)\n             {\n                 SSHDotNetDiagnostics.LogException(\"ShellStreamExtensions: Error sending window change request\", ex);\n             }\n--- mRemoteNG/UI/Controls/SshTerminalControl.cs\n@@ -14,7 +14,6 @@\n using System.Runtime.Versioning;\n using System.Collections.Generic;\n using System.Linq;\n-using System.Reflection;\n using mRemoteNG.Connection.Protocol.SSH_DotNet;\n using VtNetCore.VirtualTerminal;\n using VtNetCore.XTermParser;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:06Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "SSH.NET terminal protocol (SSH_DotNet) is not implemented in our fork, which continues to use PuTTY/PuTTYNG for SSH connections.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:49:17Z"
+  }
+}

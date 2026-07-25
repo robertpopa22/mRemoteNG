@@ -1,0 +1,93 @@
+{
+  "sha": "0d8b8f6c56485861217abdc30a25ae0420827ccf",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Add \"Copy All to Clipboard\" to PuTTY connection tab context menu",
+  "body": "Add \"Copy All to Clipboard\" to PuTTY connection tab context menu\n\nPosts WM_SYSCOMMAND with IDM_COPYALL (0x170) to the embedded PuTTY\nwindow, the same technique already used for the PuTTY Settings menu\nitem (IDM_RECONF). Dumps the entire scrollback to the clipboard in\none click, useful for grabbing full Cisco config output.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-12T20:52:21Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0d8b8f6c56485861217abdc30a25ae0420827ccf",
+  "stats": {
+    "files": 5,
+    "additions": 67,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.Designer.cs",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.resx",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.Designer.cs",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/PuttyBase.cs\n@@ -28,6 +28,7 @@ namespace mRemoteNG.Connection.Protocol\n     public class PuttyBase : ProtocolBase\n     {\n         private const int IDM_RECONF = 0x50; // PuTTY Settings Menu ID\n+        private const int IDM_COPYALL = 0x170; // PuTTY \"Copy All to Clipboard\" Menu ID\n         private bool _isPuttyNg;\n         private readonly DisplayProperties _display = new();\n \n@@ -461,6 +462,18 @@ public void ShowSettingsDialog()\n             }\n         }\n \n+        public void CopyAllToClipboard()\n+        {\n+            try\n+            {\n+                NativeMethods.PostMessage(PuttyHandle, NativeMethods.WM_SYSCOMMAND, (IntPtr)IDM_COPYALL, (IntPtr)0);\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.PuttyCopyAllToClipboardFailed + Environment.NewLine + ex.Message, true);\n+            }\n+        }\n+\n         #endregion\n \n         #region Enums\n--- mRemoteNG/Language/Language.Designer.cs\n@@ -5412,6 +5412,24 @@ internal static string PsLoginAttempts {\n             }\n         }\n         \n+        /// <summary>\n+        ///   Looks up a localized string similar to Copy All to Clipboard.\n+        /// </summary>\n+        internal static string PuttyCopyAllToClipboard {\n+            get {\n+                return ResourceManager.GetString(\"PuttyCopyAllToClipboard\", resourceCulture);\n+            }\n+        }\n+\n+        /// <summary>\n+        ///   Looks up a localized string similar to Copy All to Clipboard failed!.\n+        /// </summary>\n+        internal static string PuttyCopyAllToClipboardFailed {\n+            get {\n+                return ResourceManager.GetString(\"PuttyCopyAllToClipboardFailed\", resourceCulture);\n+            }\n+        }\n+\n         /// <summary>\n         ///   Looks up a localized string similar to Dispose of Putty process failed!.\n         /// </summary>\n--- mRemoteNG/Language/Language.resx\n@@ -1380,6 +1380,12 @@ If you run into such an error, please create a new connection file!</value>\n   <data name=\"PuttyResizeFailed\" xml:space=\"preserve\">\n     <value>Putty Resize Failed!</value>\n   </data>\n+  <data name=\"PuttyCopyAllToClipboard\" xml:space=\"preserve\">\n+    <value>Copy All to Clipboard</value>\n+  </data>\n+  <data name=\"PuttyCopyAllToClipboardFailed\" xml:space=\"preserve\">\n+    <value>Copy All to Clipboard failed!</value>\n+  </data>\n   <data name=\"PuttySavedSessionsRootName\" xml:space=\"preserve\">\n     <value>PuTTY Saved Sessions</value>\n   </data>\n--- mRemoteNG/UI/Window/ConnectionWindow.Designer.cs\n@@ -27,6 +27,7 @@ public partial class ConnectionWindow\n         private ToolStripMenuItem cmenTabStartChat;\n         private ToolStripMenuItem cmenTabRefreshScreen;\n         private ToolStripMenuItem cmenTabPuttySettings;\n+        private ToolStripMenuItem cmenTabPuttyCopyAll;\n \n \n         private void InitializeComponent()\n@@ -53,6 +54,7 @@ private void InitializeComponent()\n             this.cmenTabSendSpecialKeysCtrlEsc = new System.Windows.Forms.ToolStripMenuItem();\n             this.cmenTabSep2 = new System.Windows.Forms.ToolStripSeparator();\n             this.cmenTabPuttySettings = new System.Windows.Forms.ToolStripMenuItem();\n+            this.cmenTabPuttyCopyAll = new System.Windows.Forms.ToolStripMenuItem();\n             this.cmenTabExternalApps = new System.Windows.Forms.ToolStripMenuItem();\n             this.cmenTab.SuspendLayout();\n             this.SuspendLayout();\n@@ -87,6 +89,7 @@ private void InitializeComponent()\n             this.cmenTabSendSpecialKeys,\n             this.cmenTabSep2,\n             this.cmenTabPuttySettings,\n+            this.cmenTabPuttyCopyAll,\n             this.cmenTabExternalApps});\n             this.cmenTab.Name = \"cmenTab\";\n             this.cmenTab.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;\n@@ -210,12 +213,19 @@ private void InitializeComponent()\n             this.cmenTabSep2.Size = new System.Drawing.Size(227, 6);\n             // \n             // cmenTabPuttySettings\n-            // \n+            //\n             this.cmenTabPuttySettings.Image = global::mRemoteNG.Properties.Resources.PuttyConfig;\n             this.cmenTabPuttySettings.Name = \"cmenTabPuttySettings\";\n             this.cmenTabPuttySettings.Size = new System.Drawing.Size(230, 22);\n             this.cmenTabPuttySettings.Text = \"PuTTY Settings\";\n-            // \n+            //\n+            // cmenTabPuttyCopyAll\n+            //\n+            this.cmenTabPuttyCopyAll.Image = global::mRemoteNG.Properties.Resources.Copy_16x;\n+            this.cmenTabPuttyCopyAll.Name = \"cmenTabPuttyCopyAll\";\n+            this.cmenTabPuttyCopyAll.Size = new System.Drawing.Size(230, 22);\n+            this.cmenTabPuttyCopyAll.Text = \"Copy All to Clipboard\";\n+            //\n             // cmenTabExternalApps\n             // \n             this.cmenTabExternalApps.Image = ((System.Drawing.Image)(resources.GetObject(\"cmenTabExternalApps.Image\")));\n--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -91,6 +91,7 @@ private void SetContextMenuEventHandlers()\n             cmenTabDisconnectOthers.Click += (sender, args) => CloseOtherTabs();\n             cmenTabDisconnectOthersRight.Click += (sender, args) => CloseOtherTabsToTheRight();\n             cmenTabPuttySettings.Click += (sender, args) => ShowPuttySettingsDialog();\n+            cmenTabPuttyCopyAll.Click += (sender, args) => CopyAllPuttyToClipboard();\n             GotFocus += ConnectionWindow_GotFocus;\n         }\n \n@@ -485,6 +486,7 @@ private void ShowHideMenuButtons(object sender, CancelEventArgs e)\n                 }\n \n                 cmenTabPuttySettings.Visible = interfaceControl.Protocol is PuttyBase;\n+                cmenTabPuttyCopyAll.Visible = interfaceControl.Protocol is PuttyBase;\n \n                 AddExternalApps();\n             }\n@@ -662,6 +664,22 @@ private void ShowPuttySettingsDialog()\n             }\n         }\n \n+        private void CopyAllPuttyToClipboard()\n+        {\n+            try\n+            {\n+                InterfaceControl interfaceControl = GetInterfaceControl();\n+                PuttyBase puttyBase = interfaceControl?.Protocol as PuttyBase;\n+                puttyBase?.CopyAllToClipboard();\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddExceptionMessage(\n+                                                             \"CopyAllPuttyToClipboard (UI.Window.ConnectionWindow) failed\",\n+                                                             ex);\n+            }\n+        }\n+\n         private void AddExternalApps()\n         {\n             try",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:33Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REIMPLEMENT",
+    "rationale": "The backend exists, but the requested tab action does not. Add only UI wiring using the existing method and resource, avoiding duplicate backend and localization.",
+    "agent": "codex",
+    "at": "2026-07-25T16:44:23Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "The patch duplicates the fork's existing PuttyBase.CopyAllToClipboard method, so direct import conflicts and cannot compile.",
+        "reason": "Menu exposure is useful, but only its UI wiring should be reimplemented against the existing method; this commit is not directly landable.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Duplication of PuttyBase.CopyAllToClipboard.",
+        "reason": "The backend method already exists in our fork. This commit would cause merge conflicts and code duplication, requiring a clean manual reimplementation.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Menu exposure is useful, but only its UI wiring should be reimplemented against the existing method; this commit is not directly landable.",
+      "gemini: REJECT - The backend method already exists in our fork. This commit would cause merge conflicts and code duplication, requiring a clean manual reimplementation."
+    ],
+    "at": "2026-07-25T19:03:35Z"
+  }
+}

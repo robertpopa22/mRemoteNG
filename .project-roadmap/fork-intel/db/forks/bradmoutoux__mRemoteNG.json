@@ -17,5 +17,13 @@
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "964d7c299702ff5adeca3c87f37efeabdea4d284",
-  "compared_at": "2026-07-25T10:57:32Z"
+  "compared_at": "2026-07-25T16:21:27Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "renovate/aws-sdk-net-monorepo",
+    "renovate/chromiumembeddedframework.runtime.win-arm64-150.x",
+    "renovate/chromiumembeddedframework.runtime.win-x64-150.x",
+    "renovate/gherkin-42.x"
+  ],
+  "branches_inherited_from_upstream": 22
 }

@@ -1,0 +1,13 @@
+{
+  "sha": "5e224f5b5bf6f3f1828289f26c30450100ccd334",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "ensure assigned cred id property cannot be null",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-22T18:51:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e224f5b5bf6f3f1828289f26c30450100ccd334",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

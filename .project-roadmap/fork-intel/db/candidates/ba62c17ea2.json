@@ -1,0 +1,13 @@
+{
+  "sha": "ba62c17ea2e66444a47c75a8a77de78d41e4252b",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "added some interface documentation",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-28T00:01:34Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba62c17ea2e66444a47c75a8a77de78d41e4252b",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

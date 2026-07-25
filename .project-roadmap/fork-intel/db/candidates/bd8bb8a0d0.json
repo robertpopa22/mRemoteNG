@@ -1,0 +1,42 @@
+{
+  "sha": "bd8bb8a0d08671e7af045f093e887a8c85420bf7",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "优化：外部工具图标未能从文件获取时，可从Icons目录获取",
+  "body": "优化：外部工具图标未能从文件获取时，可从Icons目录获取",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-01-24T16:20:36Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bd8bb8a0d08671e7af045f093e887a8c85420bf7",
+  "stats": {
+    "files": 1,
+    "additions": 12,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Tools/ExternalTool.cs",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Tools/ExternalTool.cs\n@@ -90,7 +90,18 @@ public bool RunElevated\n \t\t\n         public Icon Icon\n         {\n-            get { return File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) : Resources.mRemote_Icon; }\n+            get {\n+                if (File.Exists(this.FileName))\n+                {\n+                    return MiscTools.GetIconFromFile(this.FileName);\n+                }\n+                Icon icon = ConnectionIcon.FromString(Path.GetFileNameWithoutExtension(this.FileName));\n+                if (icon != null)\n+                {\n+                    return icon;\n+                }\n+                return Resources.mRemote_Icon;\n+\t\t\t}\n         }\n \n \t    public Image Image",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:24Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Cosmetic external-tool icon fallback from ancient mRemoteV1 layout; no user demand in our tracker; would need reimplementation for marginal benefit.",
+    "agent": "claude",
+    "at": "2026-07-25T16:42:43Z"
+  }
+}

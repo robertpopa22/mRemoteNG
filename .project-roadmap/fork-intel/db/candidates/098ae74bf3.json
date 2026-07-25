@@ -1,0 +1,61 @@
+{
+  "sha": "098ae74bf3b504e09e7dcc2bc193cd5d788ad383",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "Citrix资源更新",
+  "body": "Citrix资源更新",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-24T04:06:02Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/098ae74bf3b504e09e7dcc2bc193cd5d788ad383",
+  "stats": {
+    "files": 2,
+    "additions": 0,
+    "deletions": 0,
+    "binary_files": 2
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Resources/CitrixReceiver_v4.10.exe",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Resources/CitrixReceiver_v4.12.exe",
+      "status": "added",
+      "additions": 0,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteV1/Resources/CitrixReceiver_v4.10.exe\n(no text diff)\n--- mRemoteV1/Resources/CitrixReceiver_v4.12.exe\n(no text diff)",
+  "security_flags": [
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Resources/CitrixReceiver_v4.10.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Resources/CitrixReceiver_v4.12.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:39Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Adds Citrix Receiver .exe binaries. Citrix support removed upstream (PR #1763, in our history). Untrusted binaries, zero value.",
+    "agent": "claude",
+    "at": "2026-07-25T16:32:11Z"
+  }
+}

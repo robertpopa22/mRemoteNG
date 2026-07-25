@@ -1,0 +1,106 @@
+{
+  "sha": "197f6fbc91c7053fa489096293df61e7909985fd",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Fix SonarCloud vulnerabilities and critical bugs on develop branch",
+  "body": "Fix SonarCloud vulnerabilities and critical bugs on develop branch\n\nSecurity fixes (4 CRITICAL vulnerabilities):\n- PuttyBase.cs: Replace insecure Path.GetTempFileName() with\n  Path.Combine(GetTempPath(), GetRandomFileName()) (S5445, 2 instances)\n- PasswordstateInterface.cs: Specify 2048-bit key size for\n  RSACryptoServiceProvider (S4426)\n- SecretServerInterface.cs: Specify 2048-bit key size for\n  RSACryptoServiceProvider (S4426)\n\nCI fix (1 MAJOR vulnerability):\n- Build_mR-NB.yml: Move write permission from workflow level\n  to job level (S8233)\n\nBug fixes (2 CRITICAL bugs):\n- ToolTipControl.cs: HasBorder setter now assigns backing field\n  hasBorder after updating window style (S4275)\n- ToolTipControl.cs: Font getter returns backing field instead\n  of re-reading from native handle, ensuring consistency (S4275)\n\nThese fixes address all CRITICAL/BLOCKER issues on the v1.78.2-dev\nbranch, improving reliability rating from D to A and security\nrating from D to A.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-04-07T14:04:01Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/197f6fbc91c7053fa489096293df61e7909985fd",
+  "stats": {
+    "files": 5,
+    "additions": 8,
+    "deletions": 12,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/Build_mR-NB.yml",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 3
+    },
+    {
+      "filename": "ExternalConnectors/CPS/PasswordstateInterface.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "ExternalConnectors/DSS/SecretServerInterface.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "ObjectListView/SubControls/ToolTipControl.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- .github/workflows/Build_mR-NB.yml\n@@ -11,11 +11,10 @@ on:\n         required: false\n         default: 'true'\n \n-permissions:\n-  contents: write\n-  \n jobs:\n   NB-Build-and-Release:\n+    permissions:\n+      contents: write\n     strategy:\n       matrix:\n         include:\n--- ExternalConnectors/CPS/PasswordstateInterface.cs\n@@ -273,7 +273,7 @@ public static RSACryptoServiceProvider ImportPrivateKey(string pem)\n         PemReader pr = new PemReader(new StringReader(pem));\n         AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();\n         RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);\n-        RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();\n+        RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);\n         rsa.ImportParameters(rsaParams);\n         return rsa;\n     }\n--- ExternalConnectors/DSS/SecretServerInterface.cs\n@@ -239,7 +239,7 @@ public static RSACryptoServiceProvider ImportPrivateKey(string pem)\n             PemReader pr = new(new StringReader(pem));\n             AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();\n             RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);\n-            RSACryptoServiceProvider rsa = new();\n+            RSACryptoServiceProvider rsa = new(2048);\n             rsa.ImportParameters(rsaParams);\n             return rsa;\n         }\n--- ObjectListView/SubControls/ToolTipControl.cs\n@@ -220,6 +220,7 @@ public bool HasBorder {\n                 } else {\n                     this.WindowStyle &= ~WS_BORDER;\n                 }\n+                this.hasBorder = value;\n             }\n         }\n         private bool hasBorder = true;\n@@ -302,11 +303,7 @@ public StandardIcons StandardIcon {\n         /// <remarks>Setting this to null reverts to the default font.</remarks>\n         public Font Font {\n             get {\n-                IntPtr hfont = NativeMethods.SendMessage(this.Handle, WM_GETFONT, 0, 0);\n-                if (hfont == IntPtr.Zero)\n-                    return Control.DefaultFont;\n-                else\n-                    return Font.FromHfont(hfont);\n+                return this.font ?? Control.DefaultFont;\n             }\n             set {\n                 Font newFont = value ?? Control.DefaultFont;\n--- mRemoteNG/Connection/Protocol/PuttyBase.cs\n@@ -121,7 +121,7 @@ public override bool Connect()\n \n                                 if (!string.IsNullOrEmpty(privatekey))\n                                 {\n-                                    optionalTemporaryPrivateKeyPath = Path.GetTempFileName();\n+                                    optionalTemporaryPrivateKeyPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());\n                                     File.WriteAllText(optionalTemporaryPrivateKeyPath, privatekey);\n                                     FileInfo fileInfo = new(optionalTemporaryPrivateKeyPath)\n                                     {\n@@ -142,7 +142,7 @@ public override bool Connect()\n \n                                 if (!string.IsNullOrEmpty(privatekey))\n                                 {\n-                                    optionalTemporaryPrivateKeyPath = Path.GetTempFileName();\n+                                    optionalTemporaryPrivateKeyPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());\n                                     File.WriteAllText(optionalTemporaryPrivateKeyPath, privatekey);\n                                     FileInfo fileInfo = new(optionalTemporaryPrivateKeyPath)\n                                     {",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_mR-NB.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "ExternalConnectors/CPS/PasswordstateInterface.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:46Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REIMPLEMENT",
+    "rationale": "CI workflow already scoped better; RSA 2048 cosmetic. Reimplement: ToolTipControl.HasBorder missing backing field write and PuttyBase insecure temp file paths.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:58:24Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "PuTTY private-key change abandons pre-created unique files for name-only generation plus nonexclusive WriteAllText, weakening credential-file race safety.",
+        "reason": "Reject wholesale: workflow hardening already exists, RSA sizing is ineffective after immediate import, and only the tooltip fixes merit isolated reimplementation.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Forcing RSACryptoServiceProvider(2048) crashes on 4096-bit private keys, and replacing GetTempFileName with GetRandomFileName introduces file-creation race conditions.",
+        "reason": "This commit blindly fixes static analyzer warnings, introducing critical regressions for non-2048-bit keys and weaker temporary file creation.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Reject wholesale: workflow hardening already exists, RSA sizing is ineffective after immediate import, and only the tooltip fixes merit isolated reimplementation.",
+      "gemini: REJECT - This commit blindly fixes static analyzer warnings, introducing critical regressions for non-2048-bit keys and weaker temporary file creation."
+    ],
+    "at": "2026-07-25T19:07:15Z"
+  }
+}

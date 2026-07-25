@@ -1,0 +1,13 @@
+{
+  "sha": "2e0979dc5ab52858ca4973e01e51e2946ec5e664",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "simplified screens for creating and editing creds",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-31T17:05:36Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2e0979dc5ab52858ca4973e01e51e2946ec5e664",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

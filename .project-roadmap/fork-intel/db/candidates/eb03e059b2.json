@@ -1,0 +1,111 @@
+{
+  "sha": "eb03e059b2ecc1a1b00dc70056b70cdb348a2195",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Add configurable interface font (Options > Appearance)",
+  "body": "Add configurable interface font (Options > Appearance)\n\nAdds a \"Choose Font\" button on the Appearance options page that opens\nthe standard Windows FontDialog (family, style and size, 6-24pt, no\nstrikeout/underline). The selection is stored as three new settings\n(OptionsAppearancePage.UIFontFamily/UIFontSize/UIFontStyle, default\nSegoe UI 8.25 Regular) and applied immediately on save.\n\nNew Themes/UIFontManager recursively applies the configured font to\nevery open form, control, and menu/toolstrip item (including nested\nToolStripDropDownItems), skipping controls that already match to avoid\nredundant Font assignments. Applied once at startup from\nFrmMain_Load and live on save from AppearancePage.SaveSettings.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-11T21:29:34Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eb03e059b2ecc1a1b00dc70056b70cdb348a2195",
+  "stats": {
+    "files": 8,
+    "additions": 224,
+    "deletions": 4,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Language/Language.Designer.cs",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.resx",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Properties/OptionsAppearancePage.Designer.cs",
+      "status": "modified",
+      "additions": 36,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Properties/OptionsAppearancePage.settings",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Themes/UIFontManager.cs",
+      "status": "added",
+      "additions": 90,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/OptionsPages/AppearancePage.Designer.cs",
+      "status": "modified",
+      "additions": 30,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/OptionsPages/AppearancePage.cs",
+      "status": "modified",
+      "additions": 44,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Language/Language.Designer.cs\n@@ -6556,7 +6556,16 @@ internal static string ShowDescriptionTooltips {\n                 return ResourceManager.GetString(\"ShowDescriptionTooltips\", resourceCulture);\n             }\n         }\n-        \n+\n+        /// <summary>\n+        ///   Looks up a localized string similar to Interface font.\n+        /// </summary>\n+        internal static string UIFont {\n+            get {\n+                return ResourceManager.GetString(\"UIFont\", resourceCulture);\n+            }\n+        }\n+\n         /// <summary>\n         ///   Looks up a localized string similar to Show for user.\n         /// </summary>\n--- mRemoteNG/Language/Language.resx\n@@ -1626,6 +1626,9 @@ If you run into such an error, please create a new connection file!</value>\n   <data name=\"ShowDescriptionTooltips\" xml:space=\"preserve\">\n     <value>Show description tooltips in connection tree</value>\n   </data>\n+  <data name=\"UIFont\" xml:space=\"preserve\">\n+    <value>Interface font</value>\n+  </data>\n   <data name=\"ShowFullConsFilePath\" xml:space=\"preserve\">\n     <value>Show full connections file path in window title</value>\n   </data>\n--- mRemoteNG/Properties/OptionsAppearancePage.Designer.cs\n@@ -94,5 +94,41 @@ public bool cbAppearancePageInOptionMenu {\n                 this[\"cbAppearancePageInOptionMenu\"] = value;\n             }\n         }\n+\n+        [global::System.Configuration.UserScopedSettingAttribute()]\n+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\n+        [global::System.Configuration.DefaultSettingValueAttribute(\"8.25\")]\n+        public float UIFontSize {\n+            get {\n+                return ((float)(this[\"UIFontSize\"]));\n+            }\n+            set {\n+                this[\"UIFontSize\"] = value;\n+            }\n+        }\n+\n+        [global::System.Configuration.UserScopedSettingAttribute()]\n+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\n+        [global::System.Configuration.DefaultSettingValueAttribute(\"Segoe UI\")]\n+        public string UIFontFamily {\n+            get {\n+                return ((string)(this[\"UIFontFamily\"]));\n+            }\n+            set {\n+                this[\"UIFontFamily\"] = value;\n+            }\n+        }\n+\n+        [global::System.Configuration.UserScopedSettingAttribute()]\n+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\n+        [global::System.Configuration.DefaultSettingValueAttribute(\"Regular\")]\n+        public string UIFontStyle {\n+            get {\n+                return ((string)(this[\"UIFontStyle\"]));\n+            }\n+            set {\n+                this[\"UIFontStyle\"] = value;\n+            }\n+        }\n     }\n }\n--- mRemoteNG/Properties/OptionsAppearancePage.settings\n@@ -20,5 +20,14 @@\n     <Setting Name=\"cbAppearancePageInOptionMenu\" Type=\"System.Boolean\" Scope=\"User\">\n       <Value Profile=\"(Default)\">True</Value>\n     </Setting>\n+    <Setting Name=\"UIFontSize\" Type=\"System.Single\" Scope=\"User\">\n+      <Value Profile=\"(Default)\">8.25</Value>\n+    </Setting>\n+    <Setting Name=\"UIFontFamily\" Type=\"System.String\" Scope=\"User\">\n+      <Value Profile=\"(Default)\">Segoe UI</Value>\n+    </Setting>\n+    <Setting Name=\"UIFontStyle\" Type=\"System.String\" Scope=\"User\">\n+      <Value Profile=\"(Default)\">Regular</Value>\n+    </Setting>\n   </Settings>\n </SettingsFile>\n\\ No newline at end of file\n--- mRemoteNG/Themes/UIFontManager.cs\n@@ -0,0 +1,90 @@\n+using System;\n+using System.Drawing;\n+using System.Windows.Forms;\n+using mRemoteNG.Properties;\n+\n+namespace mRemoteNG.Themes\n+{\n+    /// <summary>\n+    /// Applies the user-configured interface font (Options > Appearance)\n+    /// across open forms, controls and menus, without requiring a restart.\n+    /// </summary>\n+    public static class UIFontManager\n+    {\n+        public static Font Font\n+        {\n+            get\n+            {\n+                FontStyle style;\n+                if (!Enum.TryParse(OptionsAppearancePage.Default.UIFontStyle, out style))\n+                {\n+                    style = FontStyle.Regular;\n+                }\n+\n+                return new Font(OptionsAppearancePage.Default.UIFontFamily, OptionsAppearancePage.Default.UIFontSize, style);\n+            }\n+        }\n+\n+        public static void ApplyToOpenForms()\n+        {\n+            Font font = Font;\n+\n+            foreach (Form form in Application.OpenForms)\n+            {\n+                Apply(form, font);\n+            }\n+        }\n+\n+        public static void Apply(Control control)\n+        {\n+            Apply(control, Font);\n+        }\n+\n+        private static void Apply(Control control, Font font)\n+        {\n+            ApplyFont(control, font);\n+\n+            foreach (Control child in control.Controls)\n+            {\n+                Apply(child, font);\n+            }\n+\n+            if (control is ToolStrip toolStrip)\n+            {\n+                Apply(toolStrip.Items, font);\n+            }\n+        }\n+\n+        private static void Apply(ToolStripItemCollection items, Font font)\n+        {\n+            foreach (ToolStripItem item in items)\n+            {\n+                ApplyFont(item, font);\n+\n+                if (item is ToolStripDropDownItem dropDownItem)\n+                {\n+                    Apply(dropDownItem.DropDownItems, font);\n+                }\n+            }\n+        }\n+\n+        private static void ApplyFont(Control control, Font font)\n+        {\n+            if (FontsMatch(control.Font, font)) return;\n+            control.Font = font;\n+        }\n+\n+        private static void ApplyFont(ToolStripItem item, Font font)\n+        {\n+            if (FontsMatch(item.Font, font)) return;\n+            item.Font = font;\n+        }\n+\n+        private static bool FontsMatch(Font a, Font b)\n+        {\n+            return a.FontFamily.Equals(b.FontFamily)\n+                && a.Style == b.Style\n+                && Math.Abs(a.Size - b.Size) < 0.01f;\n+        }\n+    }\n+}\n--- mRemoteNG/UI/Forms/OptionsPages/AppearancePage.Designer.cs\n@@ -42,6 +42,8 @@ private void InitializeComponent()\n             chkShowSystemTrayIcon = new MrngCheckBox();\n             chkMinimizeToSystemTray = new MrngCheckBox();\n             chkCloseToSystemTray = new MrngCheckBox();\n+            lblUIFont = new MrngLabel();\n+            btnUIFont = new MrngButton();\n             pnlOptions = new System.Windows.Forms.Panel();\n             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();\n             pnlOptions.SuspendLayout();\n@@ -135,9 +137,30 @@ private void InitializeComponent()\n             chkCloseToSystemTray.TabIndex = 7;\n             chkCloseToSystemTray.Text = \"Close to System Tray\";\n             chkCloseToSystemTray.UseVisualStyleBackColor = true;\n-            // \n+            //\n+            // lblUIFont\n+            //\n+            lblUIFont.AutoSize = true;\n+            lblUIFont.Font = new System.Drawing.Font(\"Segoe UI\", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);\n+            lblUIFont.Location = new System.Drawing.Point(3, 247);\n+            lblUIFont.Name = \"lblUIFont\";\n+            lblUIFont.Size = new System.Drawing.Size(72, 13);\n+            lblUIFont.TabIndex = 8;\n+            lblUIFont.Text = \"Interface font\";\n+            //\n+            // btnUIFont\n+            //\n+            btnUIFont._mice = MrngButton.MouseState.OUT;\n+            btnUIFont.Location = new System.Drawing.Point(3, 270);\n+            btnUIFont.Name = \"btnUIFont\";\n+            btnUIFont.Size = new System.Drawing.Size(220, 23);\n+            btnUIFont.TabIndex = 9;\n+            btnUIFont.Text = \"Segoe UI, 8.25pt\";\n+            btnUIFont.UseVisualStyleBackColor = true;\n+            btnUIFont.Click += btnUIFont_Click;\n+            //\n             // pnlOptions\n-            // \n+            //\n             pnlOptions.Controls.Add(cboLanguage);\n             pnlOptions.Controls.Add(chkCloseToSystemTray);\n             pnlOptions.Controls.Add(chkMinimizeToSystemTray);\n@@ -146,10 +169,12 @@ private void InitializeComponent()\n             pnlOptions.Controls.Add(chkShowDescriptionTooltipsInTree);\n             pnlOptions.Controls.Add(lblLanguage);\n             pnlOptions.Controls.Add(chkShowFullConnectionsFilePathInTitle);\n+            pnlOptions.Controls.Add(lblUIFont);\n+            pnlOptions.Controls.Add(btnUIFont);\n             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;\n             pnlOptions.Location = new System.Drawing.Point(0, 30);\n             pnlOptions.Name = \"pnlOptions\";\n-            pnlOptions.Size = new System.Drawing.Size(610, 267);\n+            pnlOptions.Size = new System.Drawing.Size(610, 297);\n             pnlOptions.TabIndex = 8;\n             // \n             // lblRegistrySettingsUsedInfo\n@@ -186,6 +211,8 @@ private void InitializeComponent()\n         internal MrngCheckBox chkShowSystemTrayIcon;\n         internal MrngCheckBox chkMinimizeToSystemTray;\n         internal MrngCheckBox chkCloseToSystemTray;\n+        internal Controls.MrngLabel lblUIFont;\n+        internal MrngButton btnUIFont;\n         private System.Windows.Forms.Panel pnlOptions;\n         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;\n     }\n--- mRemoteNG/UI/Forms/OptionsPages/AppearancePage.cs\n@@ -1,7 +1,9 @@\n ﻿using System;\n+using System.Drawing;\n using System.Windows.Forms;\n using mRemoteNG.App;\n using mRemoteNG.Properties;\n+using mRemoteNG.Themes;\n using mRemoteNG.Tools;\n using mRemoteNG.Resources.Language;\n using System.Runtime.Versioning;\n@@ -13,6 +15,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages\n     public sealed partial class AppearancePage\n     {\n         private OptRegistryAppearancePage pageRegSettingsInstance;\n+        private Font _selectedUIFont;\n+\n         public AppearancePage()\n         {\n             InitializeComponent();\n@@ -38,6 +42,7 @@ public override void ApplyLanguage()\n             chkShowSystemTrayIcon.Text = Language.AlwaysShowSysTrayIcon;\n             chkMinimizeToSystemTray.Text = Language.MinimizeToSysTray;\n             chkCloseToSystemTray.Text = Language.CloseToSysTray;\n+            lblUIFont.Text = Language.UIFont;\n             lblRegistrySettingsUsedInfo.Text = Language.OptionsCompanyPolicyMessage;\n         }\n \n@@ -67,6 +72,9 @@ public override void LoadSettings()\n             chkShowSystemTrayIcon.Checked = Properties.OptionsAppearancePage.Default.ShowSystemTrayIcon;\n             chkMinimizeToSystemTray.Checked = Properties.OptionsAppearancePage.Default.MinimizeToTray;\n             chkCloseToSystemTray.Checked = Properties.OptionsAppearancePage.Default.CloseToTray;\n+\n+            _selectedUIFont = UIFontManager.Font;\n+            btnUIFont.Text = FontDescription(_selectedUIFont);\n         }\n \n         public override void SaveSettings()\n@@ -104,6 +112,42 @@ public override void SaveSettings()\n \n             Properties.OptionsAppearancePage.Default.MinimizeToTray = chkMinimizeToSystemTray.Checked;\n             Properties.OptionsAppearancePage.Default.CloseToTray = chkCloseToSystemTray.Checked;\n+\n+            if (_selectedUIFont != null && !FontEquals(_selectedUIFont, UIFontManager.Font))\n+            {\n+                Properties.OptionsAppearancePage.Default.UIFontFamily = _selectedUIFont.FontFamily.Name;\n+                Properties.OptionsAppearancePage.Default.UIFontSize = _selectedUIFont.Size;\n+                Properties.OptionsAppearancePage.Default.UIFontStyle = _selectedUIFont.Style.ToString();\n+                UIFontManager.ApplyToOpenForms();\n+            }\n+        }\n+\n+        private void btnUIFont_Click(object sender, EventArgs e)\n+        {\n+            using FontDialog fontDlg = new()\n+            {\n+                Font = _selectedUIFont,\n+                ShowEffects = false,\n+                MinSize = 6,\n+                MaxSize = 24\n+            };\n+\n+            if (fontDlg.ShowDialog() != DialogResult.OK) return;\n+\n+            _selectedUIFont = fontDlg.Font;\n+            btnUIFont.Text = FontDescription(_selectedUIFont);\n+        }\n+\n+        private static string FontDescription(Font font)\n+        {\n+            return font.Style == FontStyle.Regular\n+                ? string.Format(\"{0}, {1}pt\", font.Name, font.Size)\n+                : string.Format(\"{0}, {1}pt, {2}\", font.Name, font.Size, font.Style);\n+        }\n+\n+        private static bool FontEquals(Font a, Font b)\n+        {\n+            return a.FontFamily.Equals(b.FontFamily) && a.Style == b.Style && Math.Abs(a.Size - b.Size) < 0.01f;\n         }\n \n         public override void LoadRegistrySettings()\n--- mRemoteNG/UI/Forms/frmMain.cs\n@@ -262,6 +262,8 @@ private void FrmMain_Load(object sender, EventArgs e)\n             SystemEvents.DisplaySettingsChanged += _advancedWindowMenu.OnDisplayChanged;\n             ApplyLanguage();\n \n+            UIFontManager.Apply(this);\n+\n             Opacity = 1;\n             //Fix MagicRemove , revision on panel strategy for mdi\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:27Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 4,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "IMPORT",
+    "rationale": "Adds a highly useful, clean accessibility feature allowing user-customized interface fonts without restarting. Worth importing.",
+    "agent": "gemini",
+    "at": "2026-07-25T17:00:00Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Recursive font replacement erases intentional typography and can destabilize DPI-scaled layouts across the entire WinForms interface.",
+        "reason": "The accessibility idea is useful, but this untested global override conflicts with existing font behavior and requires target-specific redesign, not direct import.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "NEEDS_HUMAN",
+        "aligned": false,
+        "concern": "Blanket font apply may break terminals/themed controls; Font instances leak without cache/dispose.",
+        "reason": "Nice accessibility tweak, but side effects on panels/DPI and leaks need maintainer review first.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The accessibility idea is useful, but this untested global override conflicts with existing font behavior and requires target-specific redesign, not direct import.",
+      "grok: NEEDS_HUMAN - Nice accessibility tweak, but side effects on panels/DPI and leaks need maintainer review first."
+    ],
+    "at": "2026-07-25T23:07:45Z"
+  }
+}

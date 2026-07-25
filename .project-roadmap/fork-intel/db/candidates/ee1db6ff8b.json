@@ -1,0 +1,13 @@
+{
+  "sha": "ee1db6ff8bf7a6bd4f754a2a9bc9e20d6a2aa312",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "refactored some methods/fields to be more descriptive",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-13T17:07:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ee1db6ff8bf7a6bd4f754a2a9bc9e20d6a2aa312",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

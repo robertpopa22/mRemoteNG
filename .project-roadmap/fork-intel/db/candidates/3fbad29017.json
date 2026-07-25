@@ -1,0 +1,13 @@
+{
+  "sha": "3fbad29017b29ab72695de67c30dfdab063b5b60",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "removed a reference to static FrmMain",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-13T02:43:01Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3fbad29017b29ab72695de67c30dfdab063b5b60",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

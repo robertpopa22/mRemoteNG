@@ -1,0 +1,13 @@
+{
+  "sha": "cbcc637f85e73dac82e802b6183096f28f02c9b1",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Merge branch 'mRemoteNG:v1.78.2-dev' into feature/embedded-sftp-xterm-terminal",
+  "author_name": "Eran",
+  "author_login": "eran132",
+  "date": "2026-05-31T11:54:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cbcc637f85e73dac82e802b6183096f28f02c9b1",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:28:46Z"
+}

@@ -1,0 +1,87 @@
+{
+  "sha": "004526376515164a858c98a9a1c782d04a28c33c",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Show auto-detected PuTTY path on Advanced options page",
+  "body": "Show auto-detected PuTTY path on Advanced options page\n\nAdds a read-only \"Detected PuTTY:\" field above the custom-path\ncheckbox, displaying what PuttyLocator found on the system (or a\nnot-detected message), so the user can confirm what mRemoteNG will\nactually launch independent of the custom-path override. Updated on\npage load and whenever the custom-path setting changes.\n\nAll controls below the custom-path checkbox shift down 28px to make\nroom for the new field.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-12T12:04:29Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/004526376515164a858c98a9a1c782d04a28c33c",
+  "stats": {
+    "files": 4,
+    "additions": 79,
+    "deletions": 11,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Language/Language.Designer.cs",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.resx",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/OptionsPages/AdvancedPage.Designer.cs",
+      "status": "modified",
+      "additions": 39,
+      "deletions": 11
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/OptionsPages/AdvancedPage.cs",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Language/Language.Designer.cs\n@@ -771,6 +771,24 @@ internal static string DownloadPutty {\n             }\n         }\n \n+        /// <summary>\n+        ///   Looks up a localized string similar to Detected PuTTY:.\n+        /// </summary>\n+        internal static string DetectedPutty {\n+            get {\n+                return ResourceManager.GetString(\"DetectedPutty\", resourceCulture);\n+            }\n+        }\n+\n+        /// <summary>\n+        ///   Looks up a localized string similar to (not detected - configure a custom path below or install PuTTY).\n+        /// </summary>\n+        internal static string PuttyNotDetected {\n+            get {\n+                return ResourceManager.GetString(\"PuttyNotDetected\", resourceCulture);\n+            }\n+        }\n+\n         /// <summary>\n         ///   Looks up a localized string similar to Select the folder containing putty.exe.\n         /// </summary>\n--- mRemoteNG/Language/Language.resx\n@@ -279,6 +279,12 @@\n   <data name=\"DownloadPutty\" xml:space=\"preserve\">\n     <value>Download official PuTTY</value>\n   </data>\n+  <data name=\"DetectedPutty\" xml:space=\"preserve\">\n+    <value>Detected PuTTY:</value>\n+  </data>\n+  <data name=\"PuttyNotDetected\" xml:space=\"preserve\">\n+    <value>(not detected - configure a custom path below or install PuTTY)</value>\n+  </data>\n   <data name=\"SelectPuttyFolder\" xml:space=\"preserve\">\n     <value>Select the folder containing putty.exe</value>\n   </data>\n--- mRemoteNG/UI/Forms/OptionsPages/AdvancedPage.Designer.cs\n@@ -43,6 +43,8 @@ private void InitializeComponent()\n             lblUVNCSCPort = new MrngLabel();\n             lblSeconds = new MrngLabel();\n             btnBrowseCustomPuttyPath = new MrngButton();\n+            lblDetectedPutty = new MrngLabel();\n+            txtDetectedPuttyPath = new MrngTextBox();\n             lnkPuttyDownload = new System.Windows.Forms.LinkLabel();\n             chkLoadBalanceInfoUseUtf8 = new MrngCheckBox();\n             chkNoReconnect = new MrngCheckBox();\n@@ -52,7 +54,7 @@ private void InitializeComponent()\n             // \n             // lblMaximumPuttyWaitTime\n             // \n-            lblMaximumPuttyWaitTime.Location = new System.Drawing.Point(9, 174);\n+            lblMaximumPuttyWaitTime.Location = new System.Drawing.Point(9, 202);\n             lblMaximumPuttyWaitTime.Name = \"lblMaximumPuttyWaitTime\";\n             lblMaximumPuttyWaitTime.Size = new System.Drawing.Size(364, 20);\n             lblMaximumPuttyWaitTime.TabIndex = 7;\n@@ -75,20 +77,42 @@ private void InitializeComponent()\n             // numPuttyWaitTime\n             // \n             numPuttyWaitTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;\n-            numPuttyWaitTime.Location = new System.Drawing.Point(379, 175);\n+            numPuttyWaitTime.Location = new System.Drawing.Point(379, 203);\n             numPuttyWaitTime.Margin = new System.Windows.Forms.Padding(6);\n             numPuttyWaitTime.Maximum = new decimal(new int[] { 999, 0, 0, 0 });\n             numPuttyWaitTime.Name = \"numPuttyWaitTime\";\n             numPuttyWaitTime.Size = new System.Drawing.Size(64, 22);\n             numPuttyWaitTime.TabIndex = 7;\n             numPuttyWaitTime.Value = new decimal(new int[] { 5, 0, 0, 0 });\n             //\n+            // lblDetectedPutty\n+            //\n+            lblDetectedPutty.AutoSize = true;\n+            lblDetectedPutty.Font = new System.Drawing.Font(\"Segoe UI\", 8.25F);\n+            lblDetectedPutty.Location = new System.Drawing.Point(9, 80);\n+            lblDetectedPutty.Name = \"lblDetectedPutty\";\n+            lblDetectedPutty.Size = new System.Drawing.Size(86, 13);\n+            lblDetectedPutty.TabIndex = 13;\n+            lblDetectedPutty.Text = \"Detected PuTTY:\";\n+            //\n+            // txtDetectedPuttyPath\n+            //\n+            txtDetectedPuttyPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;\n+            txtDetectedPuttyPath.Enabled = false;\n+            txtDetectedPuttyPath.Font = new System.Drawing.Font(\"Segoe UI\", 8.25F);\n+            txtDetectedPuttyPath.Location = new System.Drawing.Point(125, 76);\n+            txtDetectedPuttyPath.Name = \"txtDetectedPuttyPath\";\n+            txtDetectedPuttyPath.ReadOnly = true;\n+            txtDetectedPuttyPath.Size = new System.Drawing.Size(376, 22);\n+            txtDetectedPuttyPath.TabIndex = 14;\n+            txtDetectedPuttyPath.TabStop = false;\n+            //\n             // chkUseCustomPuttyPath\n             //\n             chkUseCustomPuttyPath._mice = MrngCheckBox.MouseState.OUT;\n             chkUseCustomPuttyPath.AutoSize = true;\n             chkUseCustomPuttyPath.Font = new System.Drawing.Font(\"Segoe UI\", 8.25F);\n-            chkUseCustomPuttyPath.Location = new System.Drawing.Point(9, 78);\n+            chkUseCustomPuttyPath.Location = new System.Drawing.Point(9, 106);\n             chkUseCustomPuttyPath.Name = \"chkUseCustomPuttyPath\";\n             chkUseCustomPuttyPath.Size = new System.Drawing.Size(146, 17);\n             chkUseCustomPuttyPath.TabIndex = 3;\n@@ -98,7 +122,7 @@ private void InitializeComponent()\n             // \n             // lblConfigurePuttySessions\n             // \n-            lblConfigurePuttySessions.Location = new System.Drawing.Point(9, 138);\n+            lblConfigurePuttySessions.Location = new System.Drawing.Point(9, 166);\n             lblConfigurePuttySessions.Name = \"lblConfigurePuttySessions\";\n             lblConfigurePuttySessions.Size = new System.Drawing.Size(364, 25);\n             lblConfigurePuttySessions.TabIndex = 5;\n@@ -108,7 +132,7 @@ private void InitializeComponent()\n             // numUVNCSCPort\n             // \n             numUVNCSCPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;\n-            numUVNCSCPort.Location = new System.Drawing.Point(379, 202);\n+            numUVNCSCPort.Location = new System.Drawing.Point(379, 230);\n             numUVNCSCPort.Margin = new System.Windows.Forms.Padding(6);\n             numUVNCSCPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });\n             numUVNCSCPort.Name = \"numUVNCSCPort\";\n@@ -122,7 +146,7 @@ private void InitializeComponent()\n             txtCustomPuttyPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;\n             txtCustomPuttyPath.Enabled = false;\n             txtCustomPuttyPath.Font = new System.Drawing.Font(\"Segoe UI\", 8.25F);\n-            txtCustomPuttyPath.Location = new System.Drawing.Point(27, 100);\n+            txtCustomPuttyPath.Location = new System.Drawing.Point(27, 128);\n             txtCustomPuttyPath.Name = \"txtCustomPuttyPath\";\n             txtCustomPuttyPath.Size = new System.Drawing.Size(346, 22);\n             txtCustomPuttyPath.TabIndex = 4;\n@@ -133,7 +157,7 @@ private void InitializeComponent()\n             btnLaunchPutty._mice = MrngButton.MouseState.OUT;\n             btnLaunchPutty.Image = Properties.Resources.PuttyConfig;\n             btnLaunchPutty.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;\n-            btnLaunchPutty.Location = new System.Drawing.Point(379, 138);\n+            btnLaunchPutty.Location = new System.Drawing.Point(379, 166);\n             btnLaunchPutty.Name = \"btnLaunchPutty\";\n             btnLaunchPutty.Size = new System.Drawing.Size(122, 25);\n             btnLaunchPutty.TabIndex = 6;\n@@ -144,7 +168,7 @@ private void InitializeComponent()\n             // \n             // lblUVNCSCPort\n             // \n-            lblUVNCSCPort.Location = new System.Drawing.Point(9, 202);\n+            lblUVNCSCPort.Location = new System.Drawing.Point(9, 230);\n             lblUVNCSCPort.Name = \"lblUVNCSCPort\";\n             lblUVNCSCPort.Size = new System.Drawing.Size(364, 19);\n             lblUVNCSCPort.TabIndex = 10;\n@@ -155,7 +179,7 @@ private void InitializeComponent()\n             // lblSeconds\n             // \n             lblSeconds.AutoSize = true;\n-            lblSeconds.Location = new System.Drawing.Point(445, 178);\n+            lblSeconds.Location = new System.Drawing.Point(445, 206);\n             lblSeconds.Name = \"lblSeconds\";\n             lblSeconds.Size = new System.Drawing.Size(49, 13);\n             lblSeconds.TabIndex = 9;\n@@ -165,7 +189,7 @@ private void InitializeComponent()\n             // \n             btnBrowseCustomPuttyPath._mice = MrngButton.MouseState.OUT;\n             btnBrowseCustomPuttyPath.Enabled = false;\n-            btnBrowseCustomPuttyPath.Location = new System.Drawing.Point(379, 99);\n+            btnBrowseCustomPuttyPath.Location = new System.Drawing.Point(379, 127);\n             btnBrowseCustomPuttyPath.Name = \"btnBrowseCustomPuttyPath\";\n             btnBrowseCustomPuttyPath.Size = new System.Drawing.Size(122, 25);\n             btnBrowseCustomPuttyPath.TabIndex = 5;\n@@ -177,7 +201,7 @@ private void InitializeComponent()\n             //\n             lnkPuttyDownload.AutoSize = true;\n             lnkPuttyDownload.Font = new System.Drawing.Font(\"Segoe UI\", 8.25F);\n-            lnkPuttyDownload.Location = new System.Drawing.Point(27, 124);\n+            lnkPuttyDownload.Location = new System.Drawing.Point(27, 152);\n             lnkPuttyDownload.Name = \"lnkPuttyDownload\";\n             lnkPuttyDownload.Size = new System.Drawing.Size(150, 13);\n             lnkPuttyDownload.TabIndex = 12;\n@@ -228,6 +252,8 @@ private void InitializeComponent()\n             Controls.Add(lblSeconds);\n             Controls.Add(btnBrowseCustomPuttyPath);\n             Controls.Add(lnkPuttyDownload);\n+            Controls.Add(lblDetectedPutty);\n+            Controls.Add(txtDetectedPuttyPath);\n             Margin = new System.Windows.Forms.Padding(4);\n             Name = \"AdvancedPage\";\n             Size = new System.Drawing.Size(589, 440);\n@@ -249,6 +275,8 @@ private void InitializeComponent()\n         internal Controls.MrngLabel lblSeconds;\n         internal MrngButton btnBrowseCustomPuttyPath;\n         internal System.Windows.Forms.LinkLabel lnkPuttyDownload;\n+        internal Controls.MrngLabel lblDetectedPutty;\n+        internal Controls.MrngTextBox txtDetectedPuttyPath;\n         private MrngCheckBox chkLoadBalanceInfoUseUtf8;\n         internal MrngCheckBox chkNoReconnect;\n     }\n--- mRemoteNG/UI/Forms/OptionsPages/AdvancedPage.cs\n@@ -47,6 +47,7 @@ public override void ApplyLanguage()\n             btnLaunchPutty.Text = Language.ButtonLaunchPutty;\n             btnBrowseCustomPuttyPath.Text = Language._Browse;\n             chkUseCustomPuttyPath.Text = Language.CheckboxPuttyPath;\n+            lblDetectedPutty.Text = Language.DetectedPutty;\n             lnkPuttyDownload.Text = Language.DownloadPutty;\n             lblUVNCSCPort.Text = Language.UltraVNCSCListeningPort;\n         }\n@@ -63,6 +64,7 @@ public override void LoadSettings()\n             chkUseCustomPuttyPath.Checked = Properties.OptionsAdvancedPage.Default.UseCustomPuttyPath;\n             txtCustomPuttyPath.Text = Properties.OptionsAdvancedPage.Default.CustomPuttyPath;\n             SetPuttyLaunchButtonEnabled();\n+            UpdateDetectedPuttyPath();\n \n             numUVNCSCPort.Value = Properties.OptionsAdvancedPage.Default.UVNCSCPort;\n         }\n@@ -93,6 +95,7 @@ public override void SaveSettings()\n                 GeneralAppInfo.ResetDetectedPuttyPath();\n                 PuttyBase.PuttyPath = Properties.OptionsAdvancedPage.Default.UseCustomPuttyPath ? Properties.OptionsAdvancedPage.Default.CustomPuttyPath : GeneralAppInfo.PuttyPath;\n                 PuttySessionsManager.Instance.AddSessions();\n+                UpdateDetectedPuttyPath();\n             }\n \n             Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime = (int)numPuttyWaitTime.Value;\n@@ -202,6 +205,19 @@ private void SetPuttyLaunchButtonEnabled()\n             btnLaunchPutty.Enabled = exists;\n         }\n \n+        /// <summary>\n+        /// Shows the auto-detected official PuTTY path (independent of the\n+        /// custom path setting) so the user can confirm what mRemoteNG found\n+        /// on their system.\n+        /// </summary>\n+        private void UpdateDetectedPuttyPath()\n+        {\n+            string detected = GeneralAppInfo.PuttyPath;\n+            txtDetectedPuttyPath.Text = string.IsNullOrEmpty(detected)\n+                ? Language.PuttyNotDetected\n+                : detected;\n+        }\n+\n         private void chkNoReconnect_CheckedChanged(object sender, EventArgs e)\n         {\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:29Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REIMPLEMENT",
+    "rationale": "Small UX win: shows auto-detected PuTTY path in options. Our Designer/options pages diverged heavily; re-do by hand, not cherry-pick.",
+    "agent": "claude",
+    "at": "2026-07-25T16:32:11Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "It falsely labels the fork's fixed bundled PuTTYNG.exe path as auto-detected; its source design depends on absent PuttyLocator state.",
+        "reason": "The fork already exposes the custom override and otherwise always launches bundled PuTTYNG.exe, so this UI is redundant, misleading, and upstream-specific.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Relies on unbundled PuTTY and auto-detection logic (`PuttyLocator`) that our fork does not have, since we still bundle `PuTTYNG.exe` directly.",
+        "reason": "Our fork bundles `PuTTYNG.exe` and has not imported the unbundling candidate. This change is redundant and will break the build due to missing auto-detection dependencies.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The fork already exposes the custom override and otherwise always launches bundled PuTTYNG.exe, so this UI is redundant, misleading, and upstream-specific.",
+      "gemini: REJECT - Our fork bundles `PuTTYNG.exe` and has not imported the unbundling candidate. This change is redundant and will break the build due to missing auto-detection dependencies."
+    ],
+    "at": "2026-07-25T18:59:53Z"
+  }
+}

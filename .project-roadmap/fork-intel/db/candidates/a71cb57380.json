@@ -1,0 +1,42 @@
+{
+  "sha": "a71cb573806a810ae689bb8b8129ed09e0d15c60",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "input.cs UI细节调整2",
+  "body": "input.cs UI细节调整2",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-17T07:14:37Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a71cb573806a810ae689bb8b8129ed09e0d15c60",
+  "stats": {
+    "files": 1,
+    "additions": 2,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/Input/input.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/Input/input.cs\n@@ -42,7 +42,7 @@ public static DialogResult InputBox(string title, string promptText, ref string\n \n             form.Text = title;\n             form.ClientSize = new Size(400, 110);\n-            form.Controls.AddRange(new Control[] {label, textBox, buttonOk, buttonCancel});\n+            form.Controls.AddRange(new Control[] {label, textBox, buttonCancel, buttonOk});\n             form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);\n             form.FormBorderStyle = FormBorderStyle.FixedDialog;\n             form.StartPosition = FormStartPosition.CenterScreen;\n@@ -52,7 +52,7 @@ public static DialogResult InputBox(string title, string promptText, ref string\n             form.CancelButton = buttonCancel;\n             form.BackColor = Themes.ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor(\"Dialog_Background\");\n             form.ForeColor = Themes.ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor(\"Dialog_Foreground\");\n-            form.Font = new Font(\"Segoe UI\", 8.25f, FontStyle.Regular, GraphicsUnit.Point);\n+            form.Font = new Font(\"Segoe UI\", 8.25f);\n             //form.Font = new Font(\"Segoe UI\", 8.25f, FontStyle.Regular, GraphicsUnit.Point, Convert.ToByte(0));\n \n             var dialogResult = form.ShowDialog();",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:29Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Cosmetic adjustments to programmatic legacy form `input.cs` from `mRemoteV1`, which was replaced in our fork by designer-based `FrmInputBox`.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:52:04Z"
+  }
+}

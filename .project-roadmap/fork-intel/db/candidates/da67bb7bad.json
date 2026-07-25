@@ -1,0 +1,82 @@
+{
+  "sha": "da67bb7bad76f1fe41528297583dc5eba6bd006a",
+  "fork": "MyLabs-LLC/mRemoteNG",
+  "owner": "MyLabs-LLC",
+  "subject": "Fix PowerShell credential exposure and increase PBKDF2 iterations",
+  "body": "Fix PowerShell credential exposure and increase PBKDF2 iterations\n\nSecurity fixes:\n- PowerShell protocol: pass password via environment variable instead of CLI args\n  * Passwords were previously visible in 'tasklist' and Process Explorer\n  * Now set MREMOTENG_PS_CRED env var, start process, then immediately clear it\n  * Environment variables are inherited but not visible in process command line\n\n- Increase default PBKDF2 iterations from 1,000 to 100,000\n  * OWASP recommends 600,000+ for PBKDF2-SHA256\n  * 100,000 is a reasonable balance of security and performance\n  * Existing data encrypted with lower iterations can still be decrypted\n  * Only new encryptions use the higher iteration count\n\nCo-authored-by: Ryan Lence <lenceai@users.noreply.github.com>",
+  "author_name": "Cursor Agent",
+  "author_login": "cursoragent",
+  "date": "2026-02-13T14:48:18Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/da67bb7bad76f1fe41528297583dc5eba6bd006a",
+  "stats": {
+    "files": 2,
+    "additions": 16,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PowerShell/Connection.Protocol.PowerShell.cs",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Security/SymmetricEncryption/AeadCryptographyProvider.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/PowerShell/Connection.Protocol.PowerShell.cs\n@@ -1,4 +1,4 @@\n-﻿using System;\n+using System;\n using System.Drawing;\n using System.Runtime.Versioning;\n using System.Windows.Forms;\n@@ -187,16 +187,27 @@ This approach avoids possible string conversion problems caused by double quotes\n                 \";\n \n                 // Setup process for script with arguments\n-                //* The -NoProfile parameter would be a valuable addition but should be able to be deactivated.\n-                string arguments = $@\"-NoExit -Command \"\"& {{ {psScriptBlock} }}\"\" -Hostname \"\"'{_connectionInfo.Hostname}'\"\" -Username \"\"'{psUsername}'\"\" -Password \"\"'{_connectionInfo.Password}'\"\" -LoginAttempts {psLoginAttempts}\";\n+                // Password is passed via environment variable to avoid exposure in process command line\n+                string arguments = $@\"-NoExit -Command \"\"& {{ {psScriptBlock} }}\"\" -Hostname \"\"'{_connectionInfo.Hostname}'\"\" -Username \"\"'{psUsername}'\"\" -Password \"\"$env:MREMOTENG_PS_CRED\"\" -LoginAttempts {psLoginAttempts}\";\n                 string hostname = _connectionInfo.Hostname.Trim().ToLower();\n                 bool useLocalHost = hostname == \"\" || hostname.Equals(\"localhost\");\n                 if (useLocalHost)\n                 {\n                     arguments = $@\"-NoExit\";\n                 }\n+\n+                // Set password via environment variable instead of command line to prevent exposure\n+                // in process listings. The environment variable is inherited by the child process.\n+                if (!useLocalHost && !string.IsNullOrEmpty(_connectionInfo.Password))\n+                {\n+                    Environment.SetEnvironmentVariable(\"MREMOTENG_PS_CRED\", _connectionInfo.Password);\n+                }\n+\n                 _consoleControl.StartProcess(psExe, arguments);\n \n+                // Clear the environment variable immediately after process start\n+                Environment.SetEnvironmentVariable(\"MREMOTENG_PS_CRED\", null);\n+\n                 while (!_consoleControl.IsHandleCreated) break;\n                 _handle = _consoleControl.Handle;\n                 NativeMethods.SetParent(_handle, InterfaceControl.Handle);\n--- mRemoteNG/Security/SymmetricEncryption/AeadCryptographyProvider.cs\n@@ -1,4 +1,4 @@\n-﻿/*\n+/*\n  * Initial work:\n  * This work (Modern Encryption of a String C#, by James Tuley), \n  * identified by James Tuley, is free of known copyright restrictions.\n@@ -35,7 +35,7 @@ public class AeadCryptographyProvider : ICryptographyProvider\n \n         //Preconfigured Password Key Derivation Parameters\n         protected virtual int SaltBitSize { get; set; } = 128;\n-        public virtual int KeyDerivationIterations { get; set; } = 1000;\n+        public virtual int KeyDerivationIterations { get; set; } = 100000;\n         protected virtual int MinPasswordLength { get; set; } = 1;\n \n ",
+  "security_flags": [
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/SymmetricEncryption/AeadCryptographyProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:46Z",
+  "triage": {
+    "category": "security",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 5,
+    "effort": 3,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REIMPLEMENT",
+    "rationale": "PBKDF2 is already 600,000, but PowerShell passwords remain in argv. Reimplement per-child secret transfer; this process-global environment patch races and leaks across launches.",
+    "agent": "codex",
+    "at": "2026-07-25T18:33:22Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Process-wide environment mutation can cross-wire or leak passwords across concurrent launches and remains uncleared if process startup throws.",
+        "reason": "Current code already uses 600,000 iterations; the [candidate diff](https://github.com/MyLabs-LLC/mRemoteNG/commit/da67bb7bad76f1fe41528297583dc5eba6bd006a) needs a target-specific, per-child credential channel instead of direct import.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "PBKDF2 jump may break existing secrets; process-level env password is racy/global.",
+        "reason": "Security intent fits, but direct import is unsafe; needs redesign, not this patch.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Current code already uses 600,000 iterations; the [candidate diff](https://github.com/MyLabs-LLC/mRemoteNG/commit/da67bb7bad76f1fe41528297583dc5eba6bd006a) needs a target-specific, per-child credential channel instead of direct import.",
+      "grok: REJECT - Security intent fits, but direct import is unsafe; needs redesign, not this patch."
+    ],
+    "at": "2026-07-25T23:01:22Z"
+  }
+}

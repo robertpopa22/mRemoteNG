@@ -9,13 +9,99 @@
   "stars": 0,
   "open_issues": 1,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 6,
   "behind_by": 458,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "5bf814447e401f9a381bcc0d66f4bc896d52051d",
+      "subject": "Add comprehensive codebase review with improvement recommendations",
+      "author_name": "Cursor Agent",
+      "author_login": "cursoragent",
+      "date": "2026-02-13T14:24:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5bf814447e401f9a381bcc0d66f4bc896d52051d",
+      "branches": [
+        "cursor/codebase-improvement-review-892b"
+      ]
+    },
+    {
+      "sha": "707aa11f897caf10b49b97ce6f6887328aae3ba7",
+      "subject": "Fix critical bugs identified in codebase review",
+      "author_name": "Cursor Agent",
+      "author_login": "cursoragent",
+      "date": "2026-02-13T14:40:35Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/707aa11f897caf10b49b97ce6f6887328aae3ba7",
+      "branches": [
+        "cursor/codebase-improvement-review-892b"
+      ]
+    },
+    {
+      "sha": "62252cb2ee79b0ba3bceb83b2dee84186b41db1d",
+      "subject": "Add RDP multi-monitor spanning and credential resolver",
+      "author_name": "Cursor Agent",
+      "author_login": "cursoragent",
+      "date": "2026-02-13T14:43:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/62252cb2ee79b0ba3bceb83b2dee84186b41db1d",
+      "branches": [
+        "cursor/codebase-improvement-review-892b"
+      ]
+    },
+    {
+      "sha": "f5858ce19b7c288e7d124a9ee8151ff89f18157f",
+      "subject": "Add AI-powered security scanner with multi-LLM support",
+      "author_name": "Cursor Agent",
+      "author_login": "cursoragent",
+      "date": "2026-02-13T14:47:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f5858ce19b7c288e7d124a9ee8151ff89f18157f",
+      "branches": [
+        "cursor/codebase-improvement-review-892b"
+      ]
+    },
+    {
+      "sha": "da67bb7bad76f1fe41528297583dc5eba6bd006a",
+      "subject": "Fix PowerShell credential exposure and increase PBKDF2 iterations",
+      "author_name": "Cursor Agent",
+      "author_login": "cursoragent",
+      "date": "2026-02-13T14:48:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/da67bb7bad76f1fe41528297583dc5eba6bd006a",
+      "branches": [
+        "cursor/codebase-improvement-review-892b"
+      ]
+    },
+    {
+      "sha": "62a651edd3b87a94bb6fbf68c231ce5985934981",
+      "subject": "Update CODEBASE_REVIEW.md with implementation status for all fixes and new features",
+      "author_name": "Cursor Agent",
+      "author_login": "cursoragent",
+      "date": "2026-02-13T14:48:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/62a651edd3b87a94bb6fbf68c231ce5985934981",
+      "branches": [
+        "cursor/codebase-improvement-review-892b"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "db1496d4a29174d0b00df31dd8a331556197ae69",
-  "compared_at": "2026-07-25T10:58:21Z"
+  "compared_at": "2026-07-25T16:24:56Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "cursor/codebase-improvement-review-892b"
+  ],
+  "branches_inherited_from_upstream": 0,
+  "screened_shas": [
+    "5bf814447e401f9a381bcc0d66f4bc896d52051d",
+    "707aa11f897caf10b49b97ce6f6887328aae3ba7",
+    "62252cb2ee79b0ba3bceb83b2dee84186b41db1d",
+    "f5858ce19b7c288e7d124a9ee8151ff89f18157f",
+    "da67bb7bad76f1fe41528297583dc5eba6bd006a",
+    "62a651edd3b87a94bb6fbf68c231ce5985934981"
+  ]
 }

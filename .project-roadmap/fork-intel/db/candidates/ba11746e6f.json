@@ -1,0 +1,13 @@
+{
+  "sha": "ba11746e6f64ed6066fb55a375e08d82e125bd2b",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "removed ExternalToolsService var from Runtime",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T18:47:37Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba11746e6f64ed6066fb55a375e08d82e125bd2b",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

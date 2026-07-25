@@ -1,0 +1,49 @@
+{
+  "sha": "3b345ef4a681623b0e84bc5e88b6f78ebcfae5f2",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "added request handler to differentiate between local and remote sites",
+  "body": "added request handler to differentiate between local and remote sites",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-23T21:23:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3b345ef4a681623b0e84bc5e88b6f78ebcfae5f2",
+  "stats": {
+    "files": 1,
+    "additions": 64,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTP.RequestHandler.cs",
+      "status": "added",
+      "additions": 64,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTP.RequestHandler.cs\n@@ -0,0 +1,64 @@\n+﻿using CefSharp;\n+using System.Diagnostics;\n+using System.Security.Cryptography.X509Certificates;\n+\n+namespace mRemoteNG.Connection.Protocol.Http\n+{\n+    partial class RequestHandler : IRequestHandler\n+    {\n+        public bool GetAuthCredentials(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)\n+        {\n+            return false;\n+        }\n+\n+        public IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)\n+        {\n+            return null;\n+        }\n+\n+        public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)\n+        {\n+            if (request.Url.StartsWith(Cef.CefCommitHash))\n+            {\n+                return false;\n+            }\n+            else\n+            {\n+                Process.Start(request.Url);\n+                return true;\n+            }\n+        }\n+\n+        public bool OnCertificateError(IWebBrowser chromiumWebBrowser, IBrowser browser, CefErrorCode errorCode, string requestUrl, ISslInfo sslInfo, IRequestCallback callback)\n+        {\n+            return false;\n+        }\n+\n+        public bool OnOpenUrlFromTab(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, string targetUrl, WindowOpenDisposition targetDisposition, bool userGesture)\n+        {\n+            return false;\n+        }\n+\n+        public void OnPluginCrashed(IWebBrowser chromiumWebBrowser, IBrowser browser, string pluginPath)\n+        {\n+        }\n+\n+        public bool OnQuotaRequest(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)\n+        {\n+            return true;\n+        }\n+\n+        public void OnRenderProcessTerminated(IWebBrowser chromiumWebBrowser, IBrowser browser, CefTerminationStatus status)\n+        {\n+        }\n+\n+        public void OnRenderViewReady(IWebBrowser chromiumWebBrowser, IBrowser browser)\n+        {\n+        }\n+\n+        public bool OnSelectClientCertificate(IWebBrowser chromiumWebBrowser, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)\n+        {\n+            return true;\n+        }\n+    }\n+}",
+  "security_flags": [
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTP.RequestHandler.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:53Z",
+  "triage": {
+    "category": "security",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Introduces a critical arbitrary command execution vulnerability via Process.Start and depends on CefSharp, which our codebase does not use.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:37:21Z"
+  }
+}

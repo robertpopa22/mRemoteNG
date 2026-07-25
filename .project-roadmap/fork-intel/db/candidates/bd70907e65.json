@@ -1,0 +1,85 @@
+{
+  "sha": "bd70907e65b0790c80f931e957f4ec03160cd681",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "BouncyCastle.Crypto版本升级至1.8.9",
+  "body": "BouncyCastle.Crypto版本升级至1.8.9",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-21T14:35:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bd70907e65b0790c80f931e957f4ec03160cd681",
+  "stats": {
+    "files": 4,
+    "additions": 6,
+    "deletions": 6,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGTests/mRemoteNGTests.csproj",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/packages.config",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/mRemoteV1.csproj",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/packages.config",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNGTests/mRemoteNGTests.csproj\n@@ -57,8 +57,8 @@\n     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>\n   </PropertyGroup>\n   <ItemGroup>\n-    <Reference Include=\"BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942\">\n-      <HintPath>..\\packages\\BouncyCastle.1.8.1\\lib\\BouncyCastle.Crypto.dll</HintPath>\n+    <Reference Include=\"BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942\">\n+      <HintPath>..\\packages\\BouncyCastle.1.8.9\\lib\\BouncyCastle.Crypto.dll</HintPath>\n     </Reference>\n     <Reference Include=\"Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL\">\n       <HintPath>..\\packages\\Castle.Core.4.2.0\\lib\\net45\\Castle.Core.dll</HintPath>\n--- mRemoteNGTests/packages.config\n@@ -1,6 +1,6 @@\n ﻿<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n <packages>\r\n-  <package id=\"BouncyCastle\" version=\"1.8.1\" targetFramework=\"net46\" />\r\n+  <package id=\"BouncyCastle\" version=\"1.8.9\" targetFramework=\"net46\" />\r\n   <package id=\"Castle.Core\" version=\"4.2.0\" targetFramework=\"net46\" />\r\n   <package id=\"DockPanelSuite\" version=\"2.16.1\" targetFramework=\"net46\" />\r\n   <package id=\"log4net\" version=\"2.0.17\" targetFramework=\"net46\" />\r\n--- mRemoteV1/mRemoteV1.csproj\n@@ -53,8 +53,8 @@\n     <Reference Include=\"ADTree\">\r\n       <HintPath>References\\ADTree.dll</HintPath>\r\n     </Reference>\r\n-    <Reference Include=\"BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942\">\r\n-      <HintPath>..\\packages\\BouncyCastle.1.8.5\\lib\\BouncyCastle.Crypto.dll</HintPath>\r\n+    <Reference Include=\"BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942\">\r\n+      <HintPath>..\\packages\\BouncyCastle.1.8.9\\lib\\BouncyCastle.Crypto.dll</HintPath>\r\n     </Reference>\r\n     <Reference Include=\"Geckofx-Core, Version=45.0.34.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=x86\">\r\n       <HintPath>..\\packages\\Geckofx45.45.0.34\\lib\\net45\\Geckofx-Core.dll</HintPath>\r\n--- mRemoteV1/packages.config\n@@ -1,6 +1,6 @@\n ﻿<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n <packages>\r\n-  <package id=\"BouncyCastle\" version=\"1.8.5\" targetFramework=\"net46\" />\r\n+  <package id=\"BouncyCastle\" version=\"1.8.9\" targetFramework=\"net46\" />\r\n   <package id=\"DockPanelSuite\" version=\"3.0.6\" targetFramework=\"net46\" />\r\n   <package id=\"DockPanelSuite.ThemeVS2003\" version=\"3.0.6\" targetFramework=\"net46\" />\r\n   <package id=\"DockPanelSuite.ThemeVS2012\" version=\"3.0.6\" targetFramework=\"net46\" />\r",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNGTests/mRemoteNGTests.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNGTests/packages.config",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/mRemoteV1.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/packages.config",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:36Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Legacy projects are gone, and BouncyCastle.Cryptography 2.6.2 supersedes 1.8.9; translating this would be a security-relevant downgrade.",
+    "agent": "codex",
+    "at": "2026-07-25T18:19:47Z"
+  }
+}

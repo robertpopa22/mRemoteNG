@@ -1,0 +1,13 @@
+{
+  "sha": "e209b990c392d5da28c7b37bbc2771b34d960d30",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "Merge remote-tracking branch 'joubertdj/v1.78.2-dev' into feature/ssh_dotnet_terminal",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T11:06:03Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e209b990c392d5da28c7b37bbc2771b34d960d30",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:03Z"
+}

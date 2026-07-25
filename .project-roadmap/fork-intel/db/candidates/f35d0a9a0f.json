@@ -1,0 +1,156 @@
+{
+  "sha": "f35d0a9a0fb10aec84f73f53bc290991a2973ffe",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "refactor(ssh_dotnet): rename SSH_DotNet enum value + namespace/folder to SshDotNet",
+  "body": "refactor(ssh_dotnet): rename SSH_DotNet enum value + namespace/folder to SshDotNet\n\nUnreleased feature, so the persisted format can change freely (no migration shim):\n - ProtocolType.SSH_DotNet -> ProtocolType.SshDotNet (the serialized Protocol=\"...\"\n   value changes accordingly; enum is name-serialized via GetAttributeAsEnum).\n - namespace + folder mRemoteNG[.|/]Connection.Protocol.SSH_DotNet -> SshDotNet\n   (production + tests); updated every using/namespace.\n - SshDotNetDiagnostics log prefixes \"[SSH_DotNet ...]\" -> \"[SshDotNet ...]\"\n   (and the matching TextLogMessageWriter test assertion).\n\nLeft untouched: Language.resx display strings (user-facing text, separate concern)\nand the generated Language.Designer.cs. Other released protocols' enum values and\nserialized strings are unchanged.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T16:24:23Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f35d0a9a0fb10aec84f73f53bc290991a2973ffe",
+  "stats": {
+    "files": 20,
+    "additions": 44,
+    "deletions": 44,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/AbstractConnectionRecord.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionInitiator.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolFactory.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolType.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/PortForwardRuleParser.cs",
+      "status": "renamed",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs",
+      "status": "renamed",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ShellStreamExtensions.cs",
+      "status": "renamed",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/SshAuthenticationProvider.cs",
+      "status": "renamed",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/SshConnectionManager.cs",
+      "status": "renamed",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/SshDotNetDiagnostics.cs",
+      "status": "renamed",
+      "additions": 9,
+      "deletions": 9
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/SshTunnelManager.cs",
+      "status": "renamed",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Tools/SSHTunnelTypeConverter.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/UI/Controls/SshTerminalControl.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/ProtocolSshDotNetTests.cs",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/ShellStreamExtensionsTests.cs",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/SshAuthenticationProviderTests.cs",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/SshConnectionManagerTests.cs",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/SshDotNetDiagnosticsTests.cs",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/SshTerminalControlTests.cs",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGTests/Messages/MessageWriters/TextLogMessageWriterTests.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/AbstractConnectionRecord.cs\n@@ -1,4 +1,4 @@\n-﻿using System.Collections.Generic;\r\n+using System.Collections.Generic;\r\n using System.ComponentModel;\r\n using System.Drawing;\r\n using mRemoteNG.Connection.Protocol;\r\n@@ -244,7 +244,7 @@ public virtual string UserViaAPI\n         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),\r\n          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Username)),\r\n          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionUsername)),\r\n-         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH1, ProtocolType.SSH2, ProtocolType.SSH_DotNet, ProtocolType.HTTP, ProtocolType.HTTPS, ProtocolType.IntApp)]\r\n+         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH1, ProtocolType.SSH2, ProtocolType.SshDotNet, ProtocolType.HTTP, ProtocolType.HTTPS, ProtocolType.IntApp)]\r\n         public virtual string Username\r\n         {\r\n             get => GetPropertyValue(\"Username\", _username);\r\n@@ -427,7 +427,7 @@ public virtual string SSHOptions\n         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),\r\n          LocalizedAttributes.LocalizedDisplayName(nameof(Language.SshPortForwardRules)),\r\n          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionSshPortForwardRules)),\r\n-         AttributeUsedInProtocol(ProtocolType.SSH_DotNet)]\r\n+         AttributeUsedInProtocol(ProtocolType.SshDotNet)]\r\n         public string SSHDotNetPortForwardRules\r\n         {\r\n             get => GetPropertyValue(\"SSHDotNetPortForwardRules\", _sshDotNetPortForwardRules);\r\n--- mRemoteNG/Connection/ConnectionInitiator.cs\n@@ -1,4 +1,4 @@\n-﻿using System;\n+using System;\n using System.Collections.Generic;\n using System.Windows.Forms;\n using mRemoteNG.App;\n@@ -12,7 +12,7 @@\n using mRemoteNG.UI.Window;\n using WeifenLuo.WinFormsUI.Docking;\n using mRemoteNG.Resources.Language;\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using System.Runtime.Versioning;\n \n namespace mRemoteNG.Connection\n@@ -213,7 +213,7 @@ public async void OpenConnection(\n                     }\n                     else if (protocolSshTunnel is ProtocolSshDotNet sshDotNetTunnel)\n                     {\n-                        // === SSH_DotNet BRANCH (new) ===\n+                        // === SshDotNet BRANCH (new) ===\n                         // No clone needed — we don't modify SSHOptions\n                         // No TcpListener needed — SSH.NET auto-assigns port with boundPort: 0\n \n@@ -329,7 +329,7 @@ private ConnectionInfo getSSHConnectionInfoByName(IEnumerable<ConnectionInfo> ro\n                 }\n                 else\n                 {\n-                    if (node.Name == SSHTunnelConnectionName && (node.Protocol == ProtocolType.SSH1 || node.Protocol == ProtocolType.SSH2 || node.Protocol == ProtocolType.SSH_DotNet)) result = node;\n+                    if (node.Name == SSHTunnelConnectionName && (node.Protocol == ProtocolType.SSH1 || node.Protocol == ProtocolType.SSH2 || node.Protocol == ProtocolType.SshDotNet)) result = node;\n                 }\n                 if (result != null) break;\n             }\n--- mRemoteNG/Connection/Protocol/ProtocolFactory.cs\n@@ -1,9 +1,9 @@\n-﻿using mRemoteNG.Connection.Protocol.Http;\n+using mRemoteNG.Connection.Protocol.Http;\n using mRemoteNG.Connection.Protocol.RAW;\n using mRemoteNG.Connection.Protocol.RDP;\n using mRemoteNG.Connection.Protocol.Rlogin;\n using mRemoteNG.Connection.Protocol.SSH;\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using mRemoteNG.Connection.Protocol.Telnet;\n using mRemoteNG.Connection.Protocol.VNC;\n using mRemoteNG.Connection.Protocol.ARD;\n@@ -39,7 +39,7 @@ public ProtocolBase CreateProtocol(ConnectionInfo connectionInfo)\n                     return new ProtocolSSH1();\n                 case ProtocolType.SSH2:\n                     return new ProtocolSSH2();\n-                case ProtocolType.SSH_DotNet:\n+                case ProtocolType.SshDotNet:\n                     return new ProtocolSshDotNet();\n                 case ProtocolType.Telnet:\n                     return new ProtocolTelnet();\n--- mRemoteNG/Connection/Protocol/ProtocolType.cs\n@@ -1,4 +1,4 @@\n-﻿using mRemoteNG.Tools;\n+using mRemoteNG.Tools;\n using mRemoteNG.Resources.Language;\n \n namespace mRemoteNG.Connection.Protocol\n@@ -48,7 +48,7 @@ public enum ProtocolType\n         AnyDesk = 14,\n \n         [LocalizedAttributes.LocalizedDescription(nameof(Language.SshDotNet))]\n-        SSH_DotNet = 15,\n+        SshDotNet = 15,\n \n         [LocalizedAttributes.LocalizedDescription(nameof(Language.ExternalTool))]\n         IntApp = 20\n--- mRemoteNG/Connection/Protocol/SshDotNet/PortForwardRuleParser.cs\n@@ -1,6 +1,6 @@\n using System;\n \n-namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n {\n     /// <summary>\n     /// Parses port forwarding rules from the semicolon-separated string format.\n--- mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs\n@@ -18,7 +18,7 @@\n using mRemoteNG.UI.TaskDialog;\n using mRemoteNG.UI.Tabs;\n \n-namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n {\n     [SupportedOSPlatform(\"windows\")]\n     public class ProtocolSshDotNet : ProtocolBase\n--- mRemoteNG/Connection/Protocol/SshDotNet/ShellStreamExtensions.cs\n@@ -2,7 +2,7 @@\n using Renci.SshNet;\n using Renci.SshNet.Common;\n \n-namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n {\n     /// <summary>\n     /// Extension methods for Renci.SshNet.ShellStream to support dynamic terminal resizing.\n--- mRemoteNG/Connection/Protocol/SshDotNet/SshAuthenticationProvider.cs\n@@ -9,7 +9,7 @@\n using Renci.SshNet;\n using Renci.SshNet.Common;\n \n-namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n {\n     public static class SshAuthenticationProvider\n     {\n--- mRemoteNG/Connection/Protocol/SshDotNet/SshConnectionManager.cs\n@@ -5,7 +5,7 @@\n using Renci.SshNet;\n using Renci.SshNet.Common;\n \n-namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n {\n     public static class SshConnectionManager\n     {\n--- mRemoteNG/Connection/Protocol/SshDotNet/SshDotNetDiagnostics.cs\n@@ -3,7 +3,7 @@\n using System;\n using System.Diagnostics;\n \n-namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n {\n     public static class SshDotNetDiagnostics\n     {\n@@ -68,7 +68,7 @@ public static void LogTrace(string message)\n \n             Runtime.MessageCollector.AddMessage(\n                 MessageClass.TraceMsg,\n-                $\"[SSH_DotNet TRACE] {message}\");\n+                $\"[SshDotNet TRACE] {message}\");\n         }\n \n         /// <summary>\n@@ -81,7 +81,7 @@ public static void LogDebug(string message)\n             if (!VerboseLogging) return;\n             Runtime.MessageCollector.AddMessage(\n                 MessageClass.DebugMsg,\n-                $\"[SSH_DotNet DEBUG] {message}\");\n+                $\"[SshDotNet DEBUG] {message}\");\n         }\n \n         /// <summary>\n@@ -94,7 +94,7 @@ public static void LogInfo(string message)\n         {\n             Runtime.MessageCollector.AddMessage(\n                 MessageClass.InformationMsg,\n-                $\"[SSH_DotNet] {message}\");\n+                $\"[SshDotNet] {message}\");\n         }\n \n         /// <summary>\n@@ -104,7 +104,7 @@ public static void LogWarning(string message)\n         {\n             Runtime.MessageCollector.AddMessage(\n                 MessageClass.WarningMsg,\n-                $\"[SSH_DotNet WARNING] {message}\");\n+                $\"[SshDotNet WARNING] {message}\");\n         }\n \n         /// <summary>\n@@ -114,7 +114,7 @@ public static void LogError(string message)\n         {\n             Runtime.MessageCollector.AddMessage(\n                 MessageClass.ErrorMsg,\n-                $\"[SSH_DotNet ERROR] {message}\");\n+                $\"[SshDotNet ERROR] {message}\");\n         }\n \n         /// <summary>\n@@ -123,7 +123,7 @@ public static void LogError(string message)\n         public static void LogException(string context, Exception ex)\n         {\n             Runtime.MessageCollector.AddExceptionStackTrace(\n-                $\"[SSH_DotNet] {context}\",\n+                $\"[SshDotNet] {context}\",\n                 ex,\n                 MessageClass.ErrorMsg);\n         }\n@@ -155,7 +155,7 @@ public static void LogRawDataBinary(byte[] data, int length, string context)\n \n             Runtime.MessageCollector.AddMessage(\n                 MessageClass.TraceMsg,\n-                $\"[SSH_DotNet TRACE] {context}: [{length} bytes] {hex}\");\n+                $\"[SshDotNet TRACE] {context}: [{length} bytes] {hex}\");\n         }\n \n         /// <summary>\n@@ -176,7 +176,7 @@ public static void LogEscapeSequence(string sequence, string interpretation)\n \n             Runtime.MessageCollector.AddMessage(\n                 MessageClass.TraceMsg,\n-                $\"[SSH_DotNet ESC] {sequence} → {interpretation}\");\n+                $\"[SshDotNet ESC] {sequence} → {interpretation}\");\n         }\n \n         #endregion\n--- mRemoteNG/Connection/Protocol/SshDotNet/SshTunnelManager.cs\n@@ -6,7 +6,7 @@\n using Renci.SshNet;\n using Renci.SshNet.Common;\n \n-namespace mRemoteNG.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n {\n     /// <summary>\n     /// Manages SSH port forwarding (local, remote, dynamic) on an SshClient.\n--- mRemoteNG/Tools/SSHTunnelTypeConverter.cs\n@@ -1,4 +1,4 @@\n-﻿using mRemoteNG.App;\n+using mRemoteNG.App;\n using mRemoteNG.Connection;\n using mRemoteNG.Connection.Protocol;\n using mRemoteNG.Container;\n@@ -36,7 +36,7 @@ private static IEnumerable<string> GetSshConnectionNames(IEnumerable<ConnectionI\n                 {\n                     if (node is PuttySessionInfo) continue;\n                     if (node.Protocol == ProtocolType.SSH1 || node.Protocol == ProtocolType.SSH2\n-                        || node.Protocol == ProtocolType.SSH_DotNet)\n+                        || node.Protocol == ProtocolType.SshDotNet)\n                         result.Add(node.Name);\n                 }\n \n--- mRemoteNG/UI/Controls/SshTerminalControl.cs\n@@ -14,7 +14,7 @@\n using System.Runtime.Versioning;\n using System.Collections.Generic;\n using System.Linq;\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using VtNetCore.VirtualTerminal;\n using VtNetCore.XTermParser;\n \n--- mRemoteNGTests/Connection/Protocol/SshDotNet/ProtocolSshDotNetTests.cs\n@@ -1,9 +1,9 @@\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using NUnit.Framework;\n using System;\n using mRemoteNG.Connection;\n \n-namespace mRemoteNGTests.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNGTests.Connection.Protocol.SshDotNet\n {\n     [TestFixture]\n     [Category(\"Unit\")]\n--- mRemoteNGTests/Connection/Protocol/SshDotNet/ShellStreamExtensionsTests.cs\n@@ -1,10 +1,10 @@\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using NUnit.Framework;\n using System;\n using Renci.SshNet;\n using NSubstitute;\n \n-namespace mRemoteNGTests.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNGTests.Connection.Protocol.SshDotNet\n {\n     [TestFixture]\n     [Category(\"Unit\")]\n--- mRemoteNGTests/Connection/Protocol/SshDotNet/SshAuthenticationProviderTests.cs\n@@ -1,10 +1,10 @@\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using NUnit.Framework;\n using System;\n using System.IO;\n using Renci.SshNet;\n \n-namespace mRemoteNGTests.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNGTests.Connection.Protocol.SshDotNet\n {\n     [TestFixture]\n     [Category(\"Unit\")]\n--- mRemoteNGTests/Connection/Protocol/SshDotNet/SshConnectionManagerTests.cs\n@@ -1,9 +1,9 @@\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using NUnit.Framework;\n using System;\n using Renci.SshNet;\n \n-namespace mRemoteNGTests.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNGTests.Connection.Protocol.SshDotNet\n {\n     [TestFixture]\n     [Category(\"Unit\")]\n--- mRemoteNGTests/Connection/Protocol/SshDotNet/SshDotNetDiagnosticsTests.cs\n@@ -1,9 +1,9 @@\n using System.Linq;\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using mRemoteNG.Messages;\n using NUnit.Framework;\n \n-namespace mRemoteNGTests.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNGTests.Connection.Protocol.SshDotNet\n {\n     [TestFixture]\n     [Category(\"Unit\")]\n--- mRemoteNGTests/Connection/Protocol/SshDotNet/SshTerminalControlTests.cs\n@@ -1,12 +1,12 @@\n using mRemoteNG.UI.Controls;\n-using mRemoteNG.Connection.Protocol.SSH_DotNet;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n using NUnit.Framework;\n using System;\n using System.Drawing;\n using System.Threading;\n using System.Threading.Tasks;\n \n-namespace mRemoteNGTests.Connection.Protocol.SSH_DotNet\n+namespace mRemoteNGTests.Connection.Protocol.SshDotNet\n {\n     [TestFixture]\n     [Apartment(ApartmentState.STA)]  // Required for Windows Forms controls\n--- mRemoteNGTests/Messages/MessageWriters/TextLogMessageWriterTests.cs\n@@ -73,11 +73,11 @@ public void ErrorMessageCallsLogError()\n         public void TraceMessageCallsLogDebugWithTracePrefix()\n         {\n             _message.Class.Returns(MessageClass.TraceMsg);\n-            _message.Text.Returns(\"[SSH_DotNet TRACE] Some trace info\");\n+            _message.Text.Returns(\"[SshDotNet TRACE] Some trace info\");\n \n             _sut.Write(_message);\n \n-            _mockLog.Received(1).Debug(\"TRACE - [SSH_DotNet TRACE] Some trace info\");\n+            _mockLog.Received(1).Debug(\"TRACE - [SshDotNet TRACE] Some trace info\");\n         }\n \n         [Test]",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:08Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Refactors the unreleased SshDotNet protocol, which does not exist in our fork (we use PuTTY for SSH). No target exists.",
+    "agent": "gemini",
+    "at": "2026-07-25T17:01:53Z"
+  }
+}

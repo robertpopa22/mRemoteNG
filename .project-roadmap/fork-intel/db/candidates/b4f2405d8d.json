@@ -1,0 +1,49 @@
+{
+  "sha": "b4f2405d8d566372b374e886d61b72d953e1b5d6",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "fix: build only main project to avoid test restore error",
+  "body": "fix: build only main project to avoid test restore error",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-16T01:14:56Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4f2405d8d566372b374e886d61b72d953e1b5d6",
+  "stats": {
+    "files": 1,
+    "additions": 13,
+    "deletions": 6,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-1772-direct.yml",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 6
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-1772-direct.yml\n@@ -20,18 +20,25 @@ jobs:\n     - name: Setup MSBuild\n       uses: microsoft/setup-msbuild@v2\n \n-    - name: Restore\n-      run: dotnet restore mRemoteNG.sln\n+    - name: Restore main project only\n+      run: dotnet restore mRemoteNG/mRemoteNG.csproj\n \n-    - name: Build Release Portable x64\n-      run: msbuild mRemoteNG.sln /p:Configuration=\"Release Portable\" /p:Platform=x64 /t:Build /m\n+    - name: Build Release Portable x64 (main project only)\n+      run: |\n+        msbuild mRemoteNG/mRemoteNG.csproj `\n+          /p:Configuration=\"Release Portable\" `\n+          /p:Platform=x64 `\n+          /t:Build `\n+          /m\n \n-    - name: Zip portable build\n+    - name: Create portable ZIP\n       run: |\n-        Compress-Archive -Path \"mRemoteNG\\bin\\x64\\Release Portable\\*\" -DestinationPath \"mRemoteNG-passive-rdp-1772-win-x64.zip\" -Force\n+        $out = \"mRemoteNG\\bin\\x64\\Release Portable\"\n+        Compress-Archive -Path \"$out\\*\" -DestinationPath \"mRemoteNG-passive-rdp-1772-win-x64.zip\" -Force\n \n     - name: Upload Artifact\n       uses: actions/upload-artifact@v4\n       with:\n         name: mRemoteNG-passive-rdp-1772-win-x64\n         path: mRemoteNG-passive-rdp-1772-win-x64.zip\n+        retention-days: 30",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-1772-direct.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:50Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fork-specific CI workflow (passive-rdp-monitor) that doesn't exist here; our CI uses build.ps1/MSBuild full-solution model. Irrelevant.",
+    "agent": "claude",
+    "at": "2026-07-25T16:41:46Z"
+  }
+}

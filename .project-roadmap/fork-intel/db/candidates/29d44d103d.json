@@ -1,0 +1,13 @@
+{
+  "sha": "29d44d103d410b3e6fc24cdf693fbe62ac6c4c61",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed bug preventing FullyObservableCollection from generating events",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T17:44:39Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/29d44d103d410b3e6fc24cdf693fbe62ac6c4c61",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

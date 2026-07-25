@@ -1,0 +1,13 @@
+{
+  "sha": "0b00d0121f14a686016901074ee0d527807479f3",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Harden cross-thread UI calls against ObjectDisposedException",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-06-12T23:38:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0b00d0121f14a686016901074ee0d527807479f3",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:58Z"
+}

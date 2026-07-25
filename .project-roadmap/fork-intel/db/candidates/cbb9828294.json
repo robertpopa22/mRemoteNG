@@ -1,0 +1,48 @@
+{
+  "sha": "cbb98282944e4a03c921e68aa6b9deeb6da3634a",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Fix 2 remaining SonarCloud bugs for quality gate",
+  "body": "Fix 2 remaining SonarCloud bugs for quality gate\n\n- Remove unreachable code: methods.Count == 0 check after always\n  adding kbInteractive (S2583 - condition always false)\n- Change UploadEditedFile from async void to async Task (S3168)\n- Remove unused assemblyWriteTime variable\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-04-07T11:33:49Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cbb98282944e4a03c921e68aa6b9deeb6da3634a",
+  "stats": {
+    "files": 2,
+    "additions": 1,
+    "deletions": 7,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SSH/SSHTerminalBase.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteNG/UI/Controls/SftpBrowserPanel.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SSH/SSHTerminalBase.cs\n@@ -196,9 +196,6 @@ private static AuthenticationMethod[] BuildAuthMethods(string username, string p\n             };\n             methods.Add(kbInteractive);\n \n-            if (methods.Count == 0)\n-                methods.Add(new PasswordAuthenticationMethod(username, \"\"));\n-\n             return methods.ToArray();\n         }\n \n@@ -470,9 +467,6 @@ private void ExtractResources()\n             string[] resourceNames = { \"xterm-terminal.html\", \"xterm.min.js\", \"xterm.css\", \"addon-fit.min.js\" };\n \n             var assembly = Assembly.GetExecutingAssembly();\n-            var assemblyWriteTime = File.Exists(assembly.Location)\n-                ? File.GetLastWriteTimeUtc(assembly.Location)\n-                : DateTime.UtcNow;\n \n             foreach (var fileName in resourceNames)\n             {\n--- mRemoteNG/UI/Controls/SftpBrowserPanel.cs\n@@ -684,7 +684,7 @@ private FileSystemWatcher CreateEditWatcher(string tempFile, string remotePath,\n             return watcher;\n         }\n \n-        private async void UploadEditedFile(string tempFile, string remotePath, string displayName)\n+        private async System.Threading.Tasks.Task UploadEditedFile(string tempFile, string remotePath, string displayName)\n         {\n             if (_service?.IsConnected != true) return;\n             try",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:38Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Touches SSHTerminalBase.cs and SftpBrowserPanel.cs — fork-private features that do not exist in our tree. Nothing to apply.",
+    "agent": "claude",
+    "at": "2026-07-25T16:43:09Z"
+  }
+}

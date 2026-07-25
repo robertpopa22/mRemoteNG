@@ -1,0 +1,13 @@
+{
+  "sha": "b029b35df71b845dcc16177afa1c80ae6096ef4e",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Merge remote-tracking branch 'origin/develop' into reapply_credential_manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-19T18:51:43Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b029b35df71b845dcc16177afa1c80ae6096ef4e",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

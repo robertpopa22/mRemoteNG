@@ -1,0 +1,42 @@
+{
+  "sha": "faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Catch error in RDP tab focus",
+  "body": "Catch error in RDP tab focus\n\nUnder certain conditions the focusing method generates an error",
+  "author_name": "Camilo Alvarez",
+  "author_login": "jotatsu",
+  "date": "2019-02-18T01:17:16Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+  "stats": {
+    "files": 1,
+    "additions": 10,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Connection/Protocol/RDP/RdpClientWrap.cs",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Connection/Protocol/RDP/RdpClientWrap.cs\n@@ -18,7 +18,16 @@ public RdpClientWrap()\n \n         private void RdpClientWrap_GotFocus(object sender, EventArgs e)\n         {\n-            ((ConnectionTab)Parent.Parent).Focus();\n+            try\n+            {\n+                ((ConnectionTab)Parent.Parent).Focus();\n+            }\n+            catch(Exception ex)\n+            {\n+                Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg,\n+                                                  \"Error focusing RDB tab: \" + ex);\n+            }\n+            \n         }\n     }\n }\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:16Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Superseded: current handler safely pattern-matches the tab and updates tracking without stealing RDP focus; the old broad catch masks faults and targets removed code.",
+    "agent": "codex",
+    "at": "2026-07-25T18:56:06Z"
+  }
+}

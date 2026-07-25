@@ -1,0 +1,42 @@
+{
+  "sha": "8f3746d650bc67fdee183d84a1e4ba413b1ecb2f",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "调整：外部工具默认不显示在外部工具栏",
+  "body": "调整：外部工具默认不显示在外部工具栏",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-01-24T16:25:06Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f3746d650bc67fdee183d84a1e4ba413b1ecb2f",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Tools/ExternalTool.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Tools/ExternalTool.cs\n@@ -21,7 +21,7 @@ public class ExternalTool : INotifyPropertyChanged\n \t    private string _arguments;\n \t    private string _workingDir;\n \t    private bool _tryIntegrate;\n-\t    private bool _showOnToolbar = true;\n+\t    private bool _showOnToolbar = false;\n \t    private bool _runElevated;\n \n \t    #region Public Properties",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:25Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Subjective UX preference change. Standard expected behavior in mRemoteNG is to display newly created external tools on the toolbar by default.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:49:17Z"
+  }
+}

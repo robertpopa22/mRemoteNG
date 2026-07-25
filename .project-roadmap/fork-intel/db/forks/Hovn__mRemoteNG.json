@@ -9,13 +9,751 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 57,
   "behind_by": 1365,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+      "subject": "postregsql database support",
+      "author_name": "Sylvain LAFFONT",
+      "author_login": "s-laffont-vsa",
+      "date": "2022-07-30T13:06:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "82a4fdd662b36af0a4486f04c9a921c6658cc04e",
+      "subject": "Merge pull request #2268 from s-laffont/postgresql",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2022-07-30T17:48:35Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/82a4fdd662b36af0a4486f04c9a921c6658cc04e",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+      "subject": "fixed WinSCP extended arguments",
+      "author_name": "radiosti",
+      "author_login": "radiosti",
+      "date": "2023-04-11T13:18:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "d19b99511f516b32c672e3858777e4ecec9e0109",
+      "subject": "Merge pull request #2423 from radiosti/develop",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2023-04-11T21:51:18Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d19b99511f516b32c672e3858777e4ecec9e0109",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "006f651ddc4f02d36163b53f55197cf696c8632f",
+      "subject": "Fix misleading version label",
+      "author_name": "Manuel Thalmann",
+      "author_login": "neurolag",
+      "date": "2023-08-15T06:45:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/006f651ddc4f02d36163b53f55197cf696c8632f",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "d51d9c1ca77ef7ec278c4a135e0302b141bb0dc3",
+      "subject": "Merge pull request #2475 from manuth/manuth-patch-1",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2023-08-15T08:50:48Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d51d9c1ca77ef7ec278c4a135e0302b141bb0dc3",
+      "branches": [
+        "develop"
+      ]
+    },
+    {
+      "sha": "5aec72f164ff285363aed8d89a00e737b9c37e50",
+      "subject": "Updated to 1.76.20 with AdmPwd.E 7.7.1",
+      "author_name": "Jiri Formacek",
+      "author_login": "jformacek",
+      "date": "2019-12-25T22:31:04Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5aec72f164ff285363aed8d89a00e737b9c37e50",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "42f60b0db37d17a6376756732442a61042adac72",
+      "subject": "Updated to use AdmPwd.E 7.7.2",
+      "author_name": "Jiri Formacek",
+      "author_login": "jformacek",
+      "date": "2020-01-01T13:25:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/42f60b0db37d17a6376756732442a61042adac72",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "51514d78e645aecd9237144230eed54672df8907",
+      "subject": "Merge branch 'release/v1.76' into release/v1.76",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2021-11-01T12:51:22Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51514d78e645aecd9237144230eed54672df8907",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "a8077149b9038d15a93dfc32adf03939b9971585",
+      "subject": "Merge pull request #1662 from GreyCorbel/release/v1.76",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2021-11-01T12:51:33Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a8077149b9038d15a93dfc32adf03939b9971585",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "463f3c5ca07a58099e5077ae4024dfdc31862d7e",
+      "subject": "修复缺失的资源，现可正常编译并打开设置页面",
+      "author_name": "Hovn",
+      "author_login": null,
+      "date": "2024-12-24T09:19:38Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/463f3c5ca07a58099e5077ae4024dfdc31862d7e",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "4c236d567c9e042d5d70e527a36e8c3b0c9d3e53",
+      "subject": "修复：Icons应仅使用顶层目录的ico图标",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-01-24T16:09:08Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4c236d567c9e042d5d70e527a36e8c3b0c9d3e53",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "bd8bb8a0d08671e7af045f093e887a8c85420bf7",
+      "subject": "优化：外部工具图标未能从文件获取时，可从Icons目录获取",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-01-24T16:20:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bd8bb8a0d08671e7af045f093e887a8c85420bf7",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "8f3746d650bc67fdee183d84a1e4ba413b1ecb2f",
+      "subject": "调整：外部工具默认不显示在外部工具栏",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-01-24T16:25:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f3746d650bc67fdee183d84a1e4ba413b1ecb2f",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "03e163322e3c4b6101401436585bcf42ac746a3e",
+      "subject": "优化：重命名节点名称时，使用正则表达式提取IP信息并设为主机名",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-01-24T16:32:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/03e163322e3c4b6101401436585bcf42ac746a3e",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "7dbf60c6d8a516e04856c47f5d5c99544d71baf3",
+      "subject": "调整：查看-新建连接面板菜单可自定义面板名称",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-01-25T13:29:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7dbf60c6d8a516e04856c47f5d5c99544d71baf3",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "6de1baa62201788a72a1688a1cf7f4f5f7929bc7",
+      "subject": "修正：拼写错误srtWorkingDirectory修正为strWorkingDirectory",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-01-25T13:47:50Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6de1baa62201788a72a1688a1cf7f4f5f7929bc7",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "d6f4872b8bd1a73e4f293a78243ed424b7347e3e",
+      "subject": "标签右键中增加关闭菜单",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-17T06:17:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d6f4872b8bd1a73e4f293a78243ed424b7347e3e",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "715d3401a88c1e2fe0785dc0ea3d02ef332ac279",
+      "subject": "frmTaskDialog界面参数微调",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-17T06:18:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/715d3401a88c1e2fe0785dc0ea3d02ef332ac279",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "e15251cdc5ef452ebab6ab4688c6e4ffd84c3461",
+      "subject": "常规更新",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-17T06:19:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e15251cdc5ef452ebab6ab4688c6e4ffd84c3461",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "e4c7944632bfc7e22400599c59739462da6a081e",
+      "subject": "input.cs UI细节调整",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-17T06:59:25Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e4c7944632bfc7e22400599c59739462da6a081e",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "a71cb573806a810ae689bb8b8129ed09e0d15c60",
+      "subject": "input.cs UI细节调整2",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-17T07:14:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a71cb573806a810ae689bb8b8129ed09e0d15c60",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "d105cb9e8896586b26b265ae163941485a6aee88",
+      "subject": "大量调整：mRemoteNG.exe反编译修改的所有内容同步至源码",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-17T14:40:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d105cb9e8896586b26b265ae163941485a6aee88",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "581d55a5578492b68f4d3ff57826d6e76e0b3f9f",
+      "subject": "优化及补全中文翻译",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-17T16:04:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/581d55a5578492b68f4d3ff57826d6e76e0b3f9f",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "8125b05bd8fb709544516e4b3ed3f530bc9d363f",
+      "subject": "中文翻译优化",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-19T01:30:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8125b05bd8fb709544516e4b3ed3f530bc9d363f",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "b4c4cafc697f39f14ee9ef88dcbd19ff660782e0",
+      "subject": "选择面板对话框UI优化",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-19T01:32:11Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4c4cafc697f39f14ee9ef88dcbd19ff660782e0",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "2b7dbda41a3b1a1123420296adab4f9efdf0f939",
+      "subject": "支持多选模式",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-19T01:34:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2b7dbda41a3b1a1123420296adab4f9efdf0f939",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "8d20737d70decd773962e4fd5f8a45ed8a1ae035",
+      "subject": "语言文件使用带BOM的UTF8，另改用CRLF换行（才可在程序中正常显示换行）",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-20T01:16:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8d20737d70decd773962e4fd5f8a45ed8a1ae035",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "aa91e45a21329c22564f495d7ce8e1473e84321d",
+      "subject": "UpdateChannel默认配置值修正",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-20T01:17:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aa91e45a21329c22564f495d7ce8e1473e84321d",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "b5612ef0e7e7201a0aa13a60d54172048338bcb1",
+      "subject": "语言文件更新",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T12:27:47Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5612ef0e7e7201a0aa13a60d54172048338bcb1",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "51eadbb85eb92b7944a2afa60749f45c7ba458c7",
+      "subject": "多选删除提示语（暂未使用）",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T12:46:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51eadbb85eb92b7944a2afa60749f45c7ba458c7",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "d762ef4de265f09ebba6c1ad0f4e4d5f66540524",
+      "subject": "log4net版本更新至2.0.17",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T12:50:47Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d762ef4de265f09ebba6c1ad0f4e4d5f66540524",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "3a249e1b106223bf67bdb8d93b1f6f7e7fd9808b",
+      "subject": "升级选项页面汉化准备，显示和值分开（进行中）",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T12:54:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3a249e1b106223bf67bdb8d93b1f6f7e7fd9808b",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "ca19ebabdd54cae80ea23f3393aa4bc4d74d8785",
+      "subject": "外部工具增加WaitAfterStart字段，启动后的等待时间（阻塞）。修正外部工具尝试集成启动后%name%变量不正确的问题",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T12:59:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca19ebabdd54cae80ea23f3393aa4bc4d74d8785",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "7f6b73911ad49b10cc9827f717f171e3b91d4e8d",
+      "subject": "连接器方法优化",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T14:03:15Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7f6b73911ad49b10cc9827f717f171e3b91d4e8d",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "e34ed81035e6eb244d930519a439bb7fd99875f8",
+      "subject": "自定义字体功能优化，现使用Type=\"System.Drawing.Font\"，系统可自动转化",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T14:16:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e34ed81035e6eb244d930519a439bb7fd99875f8",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "bd70907e65b0790c80f931e957f4ec03160cd681",
+      "subject": "BouncyCastle.Crypto版本升级至1.8.9",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T14:35:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bd70907e65b0790c80f931e957f4ec03160cd681",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "f382cb4210526cc8bb7762af80034724abdfbcbc",
+      "subject": "AdmPwd.E版本更新至7.7.5",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T15:51:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f382cb4210526cc8bb7762af80034724abdfbcbc",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "f0c571b5cf3c1d7b74b94b78c755be0d56f5c464",
+      "subject": "Renci.SshNet版本升级至2020.0.2",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-21T16:15:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0c571b5cf3c1d7b74b94b78c755be0d56f5c464",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "e2ae6d139f3d788560c42705256ac91b17adc8ea",
+      "subject": "优化批量启动外部工具时从externalTool.WaitAfterStart获取等待间隔",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-24T04:04:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e2ae6d139f3d788560c42705256ac91b17adc8ea",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "098ae74bf3b504e09e7dcc2bc193cd5d788ad383",
+      "subject": "Citrix资源更新",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-24T04:06:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/098ae74bf3b504e09e7dcc2bc193cd5d788ad383",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "2b1ed1b8e12cec4cc37be62c0cbbe41eb3dc407b",
+      "subject": "Firefox组件崩溃问题待解决",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-24T04:07:08Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2b1ed1b8e12cec4cc37be62c0cbbe41eb3dc407b",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "2c6f20e84e95af320c724defdf10165c1f9d553e",
+      "subject": "修复跳转升级选项页时总是跳转到第一页的问题",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-24T05:34:26Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c6f20e84e95af320c724defdf10165c1f9d553e",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "943b6d2eebc4f3d370dcde31e72c981551285a50",
+      "subject": "自动更新设置弹框代码优化",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-24T09:54:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/943b6d2eebc4f3d370dcde31e72c981551285a50",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "55aed5eb7088aa25252181bad5fda41fb70c121a",
+      "subject": "CustomConsPath配置项默认会保存相对路径（如可用）",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-25T07:21:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/55aed5eb7088aa25252181bad5fda41fb70c121a",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "07954f9fdbba88874c2f3a6e6c1ffe79fa212f21",
+      "subject": "程序配置文件更新",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-25T07:23:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/07954f9fdbba88874c2f3a6e6c1ffe79fa212f21",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "d500a8e9dda08af453e3e69f3d891e2be4145686",
+      "subject": "CustomConsPath为相对路径时，主窗口标题也能正确显示全路径（上一提交引入）",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-08-25T07:32:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d500a8e9dda08af453e3e69f3d891e2be4145686",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "7931524a00bb59babf6468047f117061cac8e4fb",
+      "subject": "外部工具增加“启动后等待”的参数，批量执行时可以用此设置执行间隔",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-11-27T03:19:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7931524a00bb59babf6468047f117061cac8e4fb",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "20245100e0423262d8e4b3b1a714db56a1ad2289",
+      "subject": "外部工具增加可供使用的新变量：%GUID%",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-11-27T03:21:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/20245100e0423262d8e4b3b1a714db56a1ad2289",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "2d1411667e60c4e001933d60f8de825dd2ac9213",
+      "subject": "修复：容器的ID现保持与文件中一致",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-11-27T08:26:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2d1411667e60c4e001933d60f8de825dd2ac9213",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "2fbad345c70a4ea1216ab6788a6f74facabd65c1",
+      "subject": "如果容器节点的【自定义信息】中包含ExecTarget=self(不区分大小写)，则在外部工具将在自身执行，而非所有子节点",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-11-27T10:39:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2fbad345c70a4ea1216ab6788a6f74facabd65c1",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "5402fb400775e62264abce36399c130fa4767b2a",
+      "subject": "增加展开/折叠选中节点的菜单项，支持快捷键",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-11-28T10:53:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5402fb400775e62264abce36399c130fa4767b2a",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "836c979e908c6d57b675ab3090973c0e960d9997",
+      "subject": "针对RadminConnect外部工具进行特殊集成处理，现在可在mRemoteNG内部窗口显示Radmin了",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2025-12-01T03:11:20Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/836c979e908c6d57b675ab3090973c0e960d9997",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "da48bf817e021a3fb9aa42e446b45c4fce76b27e",
+      "subject": "去除一些调试日志输出",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2026-02-07T08:51:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/da48bf817e021a3fb9aa42e446b45c4fce76b27e",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "8ca850223b5c5079d47890f0945022590be3d9ad",
+      "subject": "NGTextBox还原更改（修复搜索无响应），增加搜索结果数量提示，部分空值异常修复",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2026-02-07T14:17:30Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ca850223b5c5079d47890f0945022590be3d9ad",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "172eda4acfce3e5f09eb99f7c52969c34f933e60",
+      "subject": "搜索结果数量提示优化",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2026-02-07T15:26:19Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/172eda4acfce3e5f09eb99f7c52969c34f933e60",
+      "branches": [
+        "release/v1.76"
+      ]
+    },
+    {
+      "sha": "52b87c4a60b803e03f85659369b174e3c54cd06e",
+      "subject": "快速连接地址框的字体适当缩小，以便控件在缩放场景下能够完整展示。",
+      "author_name": "Hovn",
+      "author_login": "Hovn",
+      "date": "2026-02-09T12:22:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/52b87c4a60b803e03f85659369b174e3c54cd06e",
+      "branches": [
+        "release/v1.76"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:30Z",
   "last_seen": "2026-07-25T10:56:30Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "5aa84252096a49617ca01a481b235ce09354be3f",
-  "compared_at": "2026-07-25T10:57:53Z"
+  "compared_at": "2026-07-25T16:22:56Z",
+  "branches_scanned": [
+    "v1.77.3-dev",
+    "develop",
+    "release/v1.76"
+  ],
+  "branches_inherited_from_upstream": 12,
+  "screened_shas": [
+    "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+    "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+    "006f651ddc4f02d36163b53f55197cf696c8632f",
+    "463f3c5ca07a58099e5077ae4024dfdc31862d7e",
+    "4c236d567c9e042d5d70e527a36e8c3b0c9d3e53",
+    "bd8bb8a0d08671e7af045f093e887a8c85420bf7",
+    "8f3746d650bc67fdee183d84a1e4ba413b1ecb2f",
+    "03e163322e3c4b6101401436585bcf42ac746a3e",
+    "7dbf60c6d8a516e04856c47f5d5c99544d71baf3",
+    "6de1baa62201788a72a1688a1cf7f4f5f7929bc7",
+    "d6f4872b8bd1a73e4f293a78243ed424b7347e3e",
+    "715d3401a88c1e2fe0785dc0ea3d02ef332ac279",
+    "e4c7944632bfc7e22400599c59739462da6a081e",
+    "a71cb573806a810ae689bb8b8129ed09e0d15c60",
+    "d105cb9e8896586b26b265ae163941485a6aee88",
+    "581d55a5578492b68f4d3ff57826d6e76e0b3f9f",
+    "b4c4cafc697f39f14ee9ef88dcbd19ff660782e0",
+    "8d20737d70decd773962e4fd5f8a45ed8a1ae035",
+    "aa91e45a21329c22564f495d7ce8e1473e84321d",
+    "51eadbb85eb92b7944a2afa60749f45c7ba458c7",
+    "d762ef4de265f09ebba6c1ad0f4e4d5f66540524",
+    "3a249e1b106223bf67bdb8d93b1f6f7e7fd9808b",
+    "ca19ebabdd54cae80ea23f3393aa4bc4d74d8785",
+    "e34ed81035e6eb244d930519a439bb7fd99875f8",
+    "bd70907e65b0790c80f931e957f4ec03160cd681",
+    "f382cb4210526cc8bb7762af80034724abdfbcbc",
+    "f0c571b5cf3c1d7b74b94b78c755be0d56f5c464",
+    "e2ae6d139f3d788560c42705256ac91b17adc8ea",
+    "098ae74bf3b504e09e7dcc2bc193cd5d788ad383",
+    "2b1ed1b8e12cec4cc37be62c0cbbe41eb3dc407b",
+    "2c6f20e84e95af320c724defdf10165c1f9d553e",
+    "943b6d2eebc4f3d370dcde31e72c981551285a50",
+    "55aed5eb7088aa25252181bad5fda41fb70c121a",
+    "07954f9fdbba88874c2f3a6e6c1ffe79fa212f21",
+    "d500a8e9dda08af453e3e69f3d891e2be4145686",
+    "7931524a00bb59babf6468047f117061cac8e4fb",
+    "20245100e0423262d8e4b3b1a714db56a1ad2289",
+    "2d1411667e60c4e001933d60f8de825dd2ac9213",
+    "2fbad345c70a4ea1216ab6788a6f74facabd65c1",
+    "5402fb400775e62264abce36399c130fa4767b2a",
+    "836c979e908c6d57b675ab3090973c0e960d9997",
+    "da48bf817e021a3fb9aa42e446b45c4fce76b27e",
+    "8ca850223b5c5079d47890f0945022590be3d9ad",
+    "172eda4acfce3e5f09eb99f7c52969c34f933e60",
+    "52b87c4a60b803e03f85659369b174e3c54cd06e"
+  ]
 }

@@ -1,0 +1,55 @@
+{
+  "sha": "29e00a1a139794131ca2c34df3c2b4f0db2a8aa4",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Finalize passive RDP monitor v2 workflow and menu sync",
+  "body": "Finalize passive RDP monitor v2 workflow and menu sync",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-16T12:19:23Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/29e00a1a139794131ca2c34df3c2b4f0db2a8aa4",
+  "stats": {
+    "files": 2,
+    "additions": 15,
+    "deletions": 10,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-1772-v2.yml",
+      "status": "renamed",
+      "additions": 8,
+      "deletions": 8
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-1772-v2.yml\n@@ -1,10 +1,10 @@\n-name: Build passive RDP monitor 1.77.2 files\n+name: Passive RDP Monitor 1.77.2 v2\n \n on:\n   workflow_dispatch:\n   push:\n     branches:\n-      - passive-rdp-monitor-1772-files\n+      - passive-rdp-monitor-1772-v2\n \n jobs:\n   build:\n@@ -14,17 +14,17 @@ jobs:\n       - name: Checkout\n         uses: actions/checkout@v4\n \n-      - name: Setup .NET 6 SDK\n+      - name: Setup .NET 6\n         uses: actions/setup-dotnet@v4\n         with:\n           dotnet-version: '6.0.x'\n \n       - name: Setup MSBuild\n         uses: microsoft/setup-msbuild@v2\n \n-      - name: Restore packages\n+      - name: Restore main project only\n         shell: pwsh\n-        run: dotnet restore .\\mRemoteNG.sln\n+        run: dotnet restore .\\mRemoteNG\\mRemoteNG.csproj\n \n       - name: Build portable x64\n         shell: pwsh\n@@ -34,7 +34,7 @@ jobs:\n         shell: pwsh\n         run: |\n           $source = Join-Path $env:GITHUB_WORKSPACE \"mRemoteNG\\bin\\x64\\Release Portable\"\n-          $out = Join-Path $env:GITHUB_WORKSPACE \"_publish\\mRemoteNG-passive-rdp-1772-win-x64\"\n+          $out = Join-Path $env:GITHUB_WORKSPACE \"_publish\\mRemoteNG-passive-rdp-1772-v2-win-x64\"\n           if (!(Test-Path $source)) {\n             Write-Host \"Build output not found at $source\"\n             if (Test-Path .\\mRemoteNG\\bin) { Get-ChildItem -Recurse .\\mRemoteNG\\bin | Select-Object FullName }\n@@ -47,6 +47,6 @@ jobs:\n       - name: Upload portable zip\n         uses: actions/upload-artifact@v4\n         with:\n-          name: mRemoteNG-passive-rdp-1772-win-x64\n-          path: _publish/mRemoteNG-passive-rdp-1772-win-x64.zip\n+          name: mRemoteNG-passive-rdp-1772-v2-win-x64\n+          path: _publish/mRemoteNG-passive-rdp-1772-v2-win-x64.zip\n           if-no-files-found: error\n--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -505,8 +505,8 @@ private void ToggleViewOnly()\n                 if (!(interfaceControl?.Protocol is ISupportsViewOnly viewOnly))\n                     return;\n \n-                cmenTabViewOnly.Checked = !cmenTabViewOnly.Checked;\n                 viewOnly.ToggleViewOnly();\n+                cmenTabViewOnly.Checked = viewOnly.ViewOnly;\n             }\n             catch (Exception ex)\n             {\n@@ -563,6 +563,11 @@ private void ToggleFullscreen()\n                 var interfaceControl = GetInterfaceControl();\n                 var rdp = interfaceControl?.Protocol as RdpProtocol6;\n                 rdp?.ToggleFullscreen();\n+                if (rdp != null)\n+                {\n+                    cmenTabFullscreen.Checked = rdp.Fullscreen;\n+                    cmenTabViewOnly.Checked = rdp.ViewOnly;\n+                }\n             }\n             catch (Exception ex)\n             {\n@@ -790,4 +795,4 @@ public void Prot_Event_Closed(object sender)\n \n         #endregion\n     }\n-}\n\\ No newline at end of file\n+}",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-1772-v2.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:55Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 2,
+    "risk": 3,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Menu state already refreshes from live protocol whenever opened; remaining click-time assignments are transient. The .NET 6 passive-branch workflow is obsolete.",
+    "agent": "codex",
+    "at": "2026-07-25T17:04:48Z"
+  }
+}

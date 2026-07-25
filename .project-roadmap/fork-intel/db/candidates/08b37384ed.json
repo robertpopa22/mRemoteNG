@@ -1,0 +1,48 @@
+{
+  "sha": "08b37384ed26c40d7da7970085e7d4fd2b350399",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "refactor(ssh_dotnet): canonical IDisposable + fix ProtocolBase.Dispose (S3881/S2930)",
+  "body": "refactor(ssh_dotnet): canonical IDisposable + fix ProtocolBase.Dispose (S3881/S2930)\n\nProtocolBase.Dispose(bool) was private, non-virtual, and inverted\n(`if (disposing) return;` disposed nothing on an explicit Dispose). Make it\n`protected virtual` and correct the logic so tmrReconnect is disposed on Dispose()\n- a real fix that benefits all protocols.\n\nProtocolSshDotNet now overrides Dispose(bool) to dispose its owned resources at\nend-of-life: both CancellationTokenSources (including the object-lifetime\n_errorCancellationSource), the shell stream, tunnel manager, and SSH client. Dispose\nmethods used here are idempotent, so no generic catch is needed.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T16:35:48Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/08b37384ed26c40d7da7970085e7d4fd2b350399",
+  "stats": {
+    "files": 2,
+    "additions": 23,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolBase.cs",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/ProtocolBase.cs\n@@ -343,10 +343,12 @@ protected void Event_ReconnectGroupCloseClicked()\n \n         #endregion\n \n-        private void Dispose(bool disposing)\n+        protected virtual void Dispose(bool disposing)\n         {\n-            if (disposing) return;\n-            tmrReconnect?.Dispose();\n+            if (disposing)\n+            {\n+                tmrReconnect?.Dispose();\n+            }\n         }\n \n         public void Dispose()\n--- mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs\n@@ -640,6 +640,24 @@ public override void Disconnect()\n             }\n         }\n \n+        protected override void Dispose(bool disposing)\n+        {\n+            if (disposing)\n+            {\n+                _cancellationTokenSource?.Dispose();\n+                _cancellationTokenSource = null;\n+                _errorCancellationSource?.Dispose();\n+                _shellStream?.Dispose();\n+                _shellStream = null;\n+                _tunnelManager?.Dispose();\n+                _tunnelManager = null;\n+                _sshClient?.Dispose();\n+                _sshClient = null;\n+            }\n+\n+            base.Dispose(disposing);\n+        }\n+\n         /// <summary>\n         /// Log comprehensive session statistics\n         /// </summary>",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:10Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 4,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "ProtocolBase.Dispose is already virtual and corrected in our fork. The SSH_DotNet protocol files are not present on our main branch.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:34:12Z"
+  }
+}

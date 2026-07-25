@@ -1,0 +1,42 @@
+{
+  "sha": "39f0a717bc5ee3c6aadc37c12701a588e803bbd6",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "removed geckofx from components check",
+  "body": "removed geckofx from components check",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-23T21:20:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/39f0a717bc5ee3c6aadc37c12701a588e803bbd6",
+  "stats": {
+    "files": 1,
+    "additions": 0,
+    "deletions": 47,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Window/ComponentsCheckWindow.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 47
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Window/ComponentsCheckWindow.cs\n@@ -5,7 +5,6 @@\n using System.Linq;\n using System.Threading;\n using AxWFICALib;\n-using Gecko;\n using mRemoteNG.App;\n using mRemoteNG.App.Info;\n using mRemoteNG.Connection.Protocol.RDP;\n@@ -543,7 +542,6 @@ private void CheckComponents()\n             CheckVnc();\n             CheckPutty();\n             CheckIca();\n-            CheckGeckoBrowser();\n             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, \"Finished component check\", true);\n         }\n \n@@ -675,50 +673,5 @@ private void CheckIca()\n                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, ex.Message, true);\n             }\n         }\n-\n-        private void CheckGeckoBrowser()\n-        {\n-            pnlCheck5.Visible = true;\n-            var geckoBad = false;\n-            var geckoFxPath = Path.Combine(GeneralAppInfo.HomePath, \"Firefox\");\n-\n-            if (File.Exists(Path.Combine(GeneralAppInfo.HomePath, \"Geckofx-Core.dll\")))\n-            {\n-                if (Directory.Exists(geckoFxPath))\n-                {\n-                    if (!File.Exists(Path.Combine(geckoFxPath, \"xul.dll\")))\n-                    {\n-                        geckoBad = true;\n-                    }\n-                }\n-                else\n-                {\n-                    geckoBad = true;\n-                }\n-            }\n-\n-            if (geckoBad == false)\n-            {\n-                pbCheck5.Image = _successImage;\n-                lblCheck5.ForeColor = Color.DarkOliveGreen;\n-                lblCheck5.Text = @\"Gecko (Firefox) Rendering Engine (HTTP/S) \" + Language.strCcCheckSucceeded;\n-                if (!Xpcom.IsInitialized)\n-                    Xpcom.Initialize(\"Firefox\");\n-                txtCheck5.Text = Language.strCcGeckoOK + \" Version: \" + Xpcom.XulRunnerVersion;\n-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, \"Gecko Browser installed\", true);\n-            }\n-            else\n-            {\n-                pbCheck5.Image = _failureImage;\n-                lblCheck5.ForeColor = Color.Firebrick;\n-                lblCheck5.Text = @\"Gecko (Firefox) Rendering Engine (HTTP/S) \" + Language.strCcCheckFailed;\n-                txtCheck5.Text = string.Format(Language.strCcGeckoFailed, GeneralAppInfo.UrlForum);\n-\n-                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,\n-                                                    \"Gecko \" + Language.strCcNotInstalledProperly, true);\n-                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,\n-                                                    \"GeckoFx was not found in \" + geckoFxPath, true);\n-            }\n-        }\n     }\n }\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:52Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Equivalent Gecko check removal is already in ab9ffb45; Gecko and the entire components-check class are absent, leaving no applicable code.",
+    "agent": "codex",
+    "at": "2026-07-25T17:17:56Z"
+  }
+}

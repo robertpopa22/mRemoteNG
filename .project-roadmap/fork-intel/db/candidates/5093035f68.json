@@ -1,0 +1,13 @@
+{
+  "sha": "5093035f68b167c41286ac2c155f9152557737b4",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "changed more classes to not rely on Runtime for the connections service",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-04T17:52:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5093035f68b167c41286ac2c155f9152557737b4",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

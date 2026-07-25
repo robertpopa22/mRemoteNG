@@ -1,0 +1,13 @@
+{
+  "sha": "314c989daefc04cc2c3340a1363c9d77cf7961b1",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "created IConnectionService interface and replaced usage with concrete type",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-24T22:25:04Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/314c989daefc04cc2c3340a1363c9d77cf7961b1",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

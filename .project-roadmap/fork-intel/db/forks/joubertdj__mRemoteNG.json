@@ -9,13 +9,583 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 43,
   "behind_by": 87,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "b597f6ee1bb94081f2a0e62b7a46a672d5969696",
+      "subject": "Add SCP/SFTP file browser with dual-pane transfer interface",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-08T15:31:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b597f6ee1bb94081f2a0e62b7a46a672d5969696",
+      "branches": [
+        "feature/scp_sshdotnet_explorer"
+      ]
+    },
+    {
+      "sha": "be531871977c1f095630999589196cb327d124f0",
+      "subject": "Enhance SCP/SFTP file browser with recursive operations and TreeView refresh",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-08T18:43:05Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/be531871977c1f095630999589196cb327d124f0",
+      "branches": [
+        "feature/scp_sshdotnet_explorer"
+      ]
+    },
+    {
+      "sha": "38c62c81e34e0038c8b0e45f4b0b8d2558b743cc",
+      "subject": "Implement SSH_DotNet Protocol Phase 1 & 2",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T15:57:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/38c62c81e34e0038c8b0e45f4b0b8d2558b743cc",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "d31160457510532d4738616434392682be89f2eb",
+      "subject": "Remove SSH_DotNet specific username/password fields and use generic credentials",
+      "author_name": "Dawie Joubert",
+      "author_login": null,
+      "date": "2025-11-06T16:14:50Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d31160457510532d4738616434392682be89f2eb",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "0a5bc7bbd51d0e755bfdbf716cec2c2b3bc59997",
+      "subject": "Add SSH_DotNet protocol to Username field visibility",
+      "author_name": "Dawie Joubert",
+      "author_login": null,
+      "date": "2025-11-06T16:20:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0a5bc7bbd51d0e755bfdbf716cec2c2b3bc59997",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "88cd3609a7fb13091f30fb869b1b919a232b13f5",
+      "subject": "Implement Phase 3: VtNetCore Terminal Integration for SSH_DotNet Protocol",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T16:32:05Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88cd3609a7fb13091f30fb869b1b919a232b13f5",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "ea0a956dfb38fd1cf8b7ff46b1ebc0523d8e9ed0",
+      "subject": "Fix OnPaint null font exception in SshTerminalControl",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T16:35:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ea0a956dfb38fd1cf8b7ff46b1ebc0523d8e9ed0",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "8783ed3ecaefbd72e7007ddbc4daef9d2aa44a85",
+      "subject": "Change terminal re-initialization guard to Debug log level",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T16:39:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8783ed3ecaefbd72e7007ddbc4daef9d2aa44a85",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "3bb3a8532b323b7d6013caf20fc9ea3e8a3bd8b3",
+      "subject": "Fix terminal output rendering by removing unreliable DataAvailable check",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T16:46:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3bb3a8532b323b7d6013caf20fc9ea3e8a3bd8b3",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "48f09465be39a72a0100ff5d16ec6b0e4376f90c",
+      "subject": "Implement bidirectional SSH input/output flow to fix blank terminal",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T16:53:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/48f09465be39a72a0100ff5d16ec6b0e4376f90c",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "edd2421291eec6647d962d060ac00b0c68aecc4d",
+      "subject": "Fix critical bug: DataConsumer never initialized due to constructor setting _isInitialized",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T16:59:29Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/edd2421291eec6647d962d060ac00b0c68aecc4d",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "283a7e7fecdcb0e1665f944996e92ef30a52e7dd",
+      "subject": "Add experimental SSH_DotNet protocol implementation with Trace logging",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-06T23:04:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/283a7e7fecdcb0e1665f944996e92ef30a52e7dd",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "fa69de0c077cdd92ed73f7443d94dd4e085f9245",
+      "subject": "Remove CLAUDE.md from feature branch",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-07T07:59:50Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fa69de0c077cdd92ed73f7443d94dd4e085f9245",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "e53cd9c6809cc5ce380978b6c5199117398a7de4",
+      "subject": "Remove planning document from feature branch",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2025-11-07T08:01:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e53cd9c6809cc5ce380978b6c5199117398a7de4",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "2d963a43d070e5e043ba366e3cb9612e57616d62",
+      "subject": "Updated for serena and claude",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-03-07T09:33:17Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2d963a43d070e5e043ba366e3cb9612e57616d62",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "7a1a9bcd7c4d26cf6e4b44532b49b97ab6e9e5c0",
+      "subject": "Fixed some AI Codepilot items",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-03-07T10:31:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7a1a9bcd7c4d26cf6e4b44532b49b97ab6e9e5c0",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "2a693c85c2525ff21e0f35968f9a0745dc612022",
+      "subject": "Added SSH Tunnel via SSH_DotNet",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-03-07T11:30:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2a693c85c2525ff21e0f35968f9a0745dc612022",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "e209b990c392d5da28c7b37bbc2771b34d960d30",
+      "subject": "Merge remote-tracking branch 'joubertdj/v1.78.2-dev' into feature/ssh_dotnet_terminal",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T11:06:03Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e209b990c392d5da28c7b37bbc2771b34d960d30",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "3ed352c27c5b9024811ddb6c2e8f00fed0e32aaf",
+      "subject": "Fix SSHDotNetDiagnosticsTests compilation",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T12:18:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3ed352c27c5b9024811ddb6c2e8f00fed0e32aaf",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "56188a510401818cd80a3afbbac237874f402ee1",
+      "subject": "SSH Dot Net Cert and Quality plan implemented",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T13:14:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/56188a510401818cd80a3afbbac237874f402ee1",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "dde69a28219e0817e2eb0d19aa8bff7512a8bf56",
+      "subject": "test(ssh_dotnet): consolidate duplicate test files; add [Category] taxonomy",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T13:43:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dde69a28219e0817e2eb0d19aa8bff7512a8bf56",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "268520fbb41afed4e087b2bd4fa1de023d30f97f",
+      "subject": "refactor(ssh_dotnet): use monotonic clock for elapsed-time (S6561)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T15:54:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/268520fbb41afed4e087b2bd4fa1de023d30f97f",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "8cf5980b54389c19162a23091ec9096cac8612e9",
+      "subject": "refactor(ssh_dotnet): replace reflection pty-resize with public API (S3011 hotspot)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T16:02:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8cf5980b54389c19162a23091ec9096cac8612e9",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "9c3be904993fe3855cf8aa542d17298ab770fa9b",
+      "subject": "refactor(ssh_dotnet): rename SSH_DotNet classes to PascalCase (S101)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T16:17:26Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c3be904993fe3855cf8aa542d17298ab770fa9b",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "f35d0a9a0fb10aec84f73f53bc290991a2973ffe",
+      "subject": "refactor(ssh_dotnet): rename SSH_DotNet enum value + namespace/folder to SshDotNet",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T16:24:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f35d0a9a0fb10aec84f73f53bc290991a2973ffe",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "6231d4a39e2f1b0dd48df786af1bc2156adb35db",
+      "subject": "refactor(ssh_dotnet): rename SSHDotNetPortForwardRules property to PascalCase",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T16:25:52Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6231d4a39e2f1b0dd48df786af1bc2156adb35db",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "1fba339843b891009c1cb85702338dfdd4f1d092",
+      "subject": "refactor(ssh_dotnet): dispose per-connection CancellationTokenSource (S2930)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T16:31:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1fba339843b891009c1cb85702338dfdd4f1d092",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "08b37384ed26c40d7da7970085e7d4fd2b350399",
+      "subject": "refactor(ssh_dotnet): canonical IDisposable + fix ProtocolBase.Dispose (S3881/S2930)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T16:35:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/08b37384ed26c40d7da7970085e7d4fd2b350399",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "b2507ffcb6eb6a841d1cc4b62362bf9530955ab2",
+      "subject": "refactor(ssh_dotnet): introduce ISshClientAdapter seam for testability",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T16:42:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b2507ffcb6eb6a841d1cc4b62362bf9530955ab2",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "e60338b9008291dc3f02c3c4dd2cb934e02f53a5",
+      "subject": "refactor(ssh_dotnet): decompose Connect() into focused helpers (S3776)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:01:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e60338b9008291dc3f02c3c4dd2cb934e02f53a5",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "108b95a586e5197d94123762c21e04f7d25049f2",
+      "subject": "refactor(ssh_dotnet): make FormatBytes static (S2325)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:04:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/108b95a586e5197d94123762c21e04f7d25049f2",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "7adcba145c9b87c92ecf2de7c60fcdc5349c476d",
+      "subject": "refactor(ssh_dotnet): static terminal helpers + drop dead stream fields (S2325/S1144)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:12:11Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7adcba145c9b87c92ecf2de7c60fcdc5349c476d",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "4c28bd0a89c1870df29bd5dc01ad1bc2689d4ba8",
+      "subject": "test(ssh_dotnet): add Dispose + CreateAdapter unit tests (no fakes)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:21:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4c28bd0a89c1870df29bd5dc01ad1bc2689d4ba8",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "932bc12830ba4bcd078aa175d55fa588c08f1430",
+      "subject": "refactor(ssh_dotnet): split PortForwardRuleParser parse/apply + unit tests",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:25:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/932bc12830ba4bcd078aa175d55fa588c08f1430",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "3ca395ed8b6d02d6fd0b80b3a91685f3e5bfa21d",
+      "subject": "refactor(ssh_dotnet): narrow fatal-path Connect catches to ArgumentException (S2221)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:31:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3ca395ed8b6d02d6fd0b80b3a91685f3e5bfa21d",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "48bd7e6cf264a8cd6f2fdf26ef771cff0a19a01a",
+      "subject": "feat(ssh_dotnet): add private-key file/passphrase connection properties (XML+CSV)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:53:43Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/48bd7e6cf264a8cd6f2fdf26ef771cff0a19a01a",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "df26e434d5eb0c8b3698f99347879bc1d548f5e1",
+      "subject": "feat(ssh_dotnet): wire private-key authentication (key-first, passphrase, clear errors)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T17:57:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/df26e434d5eb0c8b3698f99347879bc1d548f5e1",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "641d7e8d1e40fca96bf332e399fa4c2a9a560252",
+      "subject": "test(ssh_dotnet): key-auth matrix with runtime-generated keys (Phase 8)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T18:01:19Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/641d7e8d1e40fca96bf332e399fa4c2a9a560252",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "88c7af4a61a305d2c0a6a4e90a9e895a4851bb38",
+      "subject": "docs(ssh_dotnet): changelog entry for private-key auth + SQL limitation",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T18:01:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88c7af4a61a305d2c0a6a4e90a9e895a4851bb38",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "bf757e5fb241e1ae7c3fe927f1995c14ac08b5fb",
+      "subject": "feat(ssh_dotnet): add file-picker (\"...\") editor for the private key file property",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T18:12:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bf757e5fb241e1ae7c3fe927f1995c14ac08b5fb",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "31ddce7885a467910cc0259ed7832b494af5184b",
+      "subject": "test(ssh_dotnet): fix Connect tests to construct InterfaceControl (6 failing -> passing)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T18:25:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/31ddce7885a467910cc0259ed7832b494af5184b",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "dec6fea90437ac087750e302995b8c857ab1eaa0",
+      "subject": "docs(ssh_dotnet): Update Claude todo",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T18:27:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dec6fea90437ac087750e302995b8c857ab1eaa0",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    },
+    {
+      "sha": "380c221b56f2c36bd3b9691c7e20f917daf6f811",
+      "subject": "docs(ssh_dotnet): remove planning/design docs from PR (keep local)",
+      "author_name": "Dawie Joubert",
+      "author_login": "joubertdj",
+      "date": "2026-06-21T18:34:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/380c221b56f2c36bd3b9691c7e20f917daf6f811",
+      "branches": [
+        "feature/ssh_dotnet_terminal"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:28Z",
   "last_seen": "2026-07-25T10:56:28Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "ef48aaec0f1e25e540cef1b160dbc8a0a78b69d8",
-  "compared_at": "2026-07-25T10:58:02Z"
+  "compared_at": "2026-07-25T16:23:36Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "feature/scp_sshdotnet_explorer",
+    "feature/ssh_dotnet_terminal",
+    "fix/issue-2907-options-panel-fixes",
+    "fix/issue-2960-panel-tab-visibility",
+    "fix/rdp-automatic-resize-issue-2971"
+  ],
+  "branches_inherited_from_upstream": 0,
+  "screened_shas": [
+    "b597f6ee1bb94081f2a0e62b7a46a672d5969696",
+    "be531871977c1f095630999589196cb327d124f0",
+    "38c62c81e34e0038c8b0e45f4b0b8d2558b743cc",
+    "d31160457510532d4738616434392682be89f2eb",
+    "0a5bc7bbd51d0e755bfdbf716cec2c2b3bc59997",
+    "88cd3609a7fb13091f30fb869b1b919a232b13f5",
+    "ea0a956dfb38fd1cf8b7ff46b1ebc0523d8e9ed0",
+    "8783ed3ecaefbd72e7007ddbc4daef9d2aa44a85",
+    "3bb3a8532b323b7d6013caf20fc9ea3e8a3bd8b3",
+    "48f09465be39a72a0100ff5d16ec6b0e4376f90c",
+    "edd2421291eec6647d962d060ac00b0c68aecc4d",
+    "283a7e7fecdcb0e1665f944996e92ef30a52e7dd",
+    "fa69de0c077cdd92ed73f7443d94dd4e085f9245",
+    "e53cd9c6809cc5ce380978b6c5199117398a7de4",
+    "2d963a43d070e5e043ba366e3cb9612e57616d62",
+    "7a1a9bcd7c4d26cf6e4b44532b49b97ab6e9e5c0",
+    "2a693c85c2525ff21e0f35968f9a0745dc612022",
+    "3ed352c27c5b9024811ddb6c2e8f00fed0e32aaf",
+    "56188a510401818cd80a3afbbac237874f402ee1",
+    "dde69a28219e0817e2eb0d19aa8bff7512a8bf56",
+    "268520fbb41afed4e087b2bd4fa1de023d30f97f",
+    "8cf5980b54389c19162a23091ec9096cac8612e9",
+    "9c3be904993fe3855cf8aa542d17298ab770fa9b",
+    "f35d0a9a0fb10aec84f73f53bc290991a2973ffe",
+    "6231d4a39e2f1b0dd48df786af1bc2156adb35db",
+    "1fba339843b891009c1cb85702338dfdd4f1d092",
+    "08b37384ed26c40d7da7970085e7d4fd2b350399",
+    "b2507ffcb6eb6a841d1cc4b62362bf9530955ab2",
+    "e60338b9008291dc3f02c3c4dd2cb934e02f53a5",
+    "108b95a586e5197d94123762c21e04f7d25049f2",
+    "7adcba145c9b87c92ecf2de7c60fcdc5349c476d",
+    "4c28bd0a89c1870df29bd5dc01ad1bc2689d4ba8",
+    "932bc12830ba4bcd078aa175d55fa588c08f1430",
+    "3ca395ed8b6d02d6fd0b80b3a91685f3e5bfa21d",
+    "48bd7e6cf264a8cd6f2fdf26ef771cff0a19a01a",
+    "df26e434d5eb0c8b3698f99347879bc1d548f5e1",
+    "641d7e8d1e40fca96bf332e399fa4c2a9a560252",
+    "88c7af4a61a305d2c0a6a4e90a9e895a4851bb38",
+    "bf757e5fb241e1ae7c3fe927f1995c14ac08b5fb",
+    "31ddce7885a467910cc0259ed7832b494af5184b",
+    "dec6fea90437ac087750e302995b8c857ab1eaa0",
+    "380c221b56f2c36bd3b9691c7e20f917daf6f811"
+  ]
 }

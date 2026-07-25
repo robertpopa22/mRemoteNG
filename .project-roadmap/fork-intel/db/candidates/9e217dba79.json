@@ -1,0 +1,13 @@
+{
+  "sha": "9e217dba79d0fb60bef75049bcdb1519d68700d8",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "began creating cred import form",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-24T04:16:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9e217dba79d0fb60bef75049bcdb1519d68700d8",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

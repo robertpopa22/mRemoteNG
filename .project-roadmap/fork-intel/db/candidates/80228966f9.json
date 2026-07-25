@@ -1,0 +1,13 @@
+{
+  "sha": "80228966f952c142451d2abf210fde0feed28af4",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "double clicking cred repo tree item opens editor page",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-13T17:27:42Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/80228966f952c142451d2abf210fde0feed28af4",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

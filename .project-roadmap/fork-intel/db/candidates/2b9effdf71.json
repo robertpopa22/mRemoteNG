@@ -1,0 +1,49 @@
+{
+  "sha": "2b9effdf714afc9a8f25bffdaa8deefa1097eeae",
+  "fork": "jafin/mRemoteNG",
+  "owner": "jafin",
+  "subject": "updated script",
+  "body": "updated script",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2021-12-16T15:44:56Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2b9effdf714afc9a8f25bffdaa8deefa1097eeae",
+  "stats": {
+    "files": 1,
+    "additions": 6,
+    "deletions": 4,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "Tools/clean_ouput_dir.ps1",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 4
+    }
+  ],
+  "patch": "--- Tools/clean_ouput_dir.ps1\n@@ -9,18 +9,20 @@ param (\n Write-Output \"===== Beginning $($PSCmdlet.MyInvocation.MyCommand) =====\"\n \n # Cleanup\n-Get-ChildItem -Path \"$($TargetDir)\\lang\" | Remove-Item\n-Get-ChildItem -Path \"$($TargetDir)\\dll\" | Remove-Item\n+Get-ChildItem -Path \"$($TargetDir)\\lang\" | Remove-Item -Force\n+Get-ChildItem -Path \"$($TargetDir)\\dll\" | Remove-Item -Force\n+Remove-Item \"$($TargetDir)\\lang\" -Force \n+Remove-Item \"$($TargetDir)\\dll\" -Force \n \n # Create directories\n New-Item -Path \"$($TargetDir)\" -Name \"lang\" -ItemType \"directory\"\n New-Item -Path \"$($TargetDir)\" -Name \"dll\" -ItemType \"directory\"\n \n # Remove unnecessary files from build\n-Get-ChildItem -Path \"$($TargetDir)\\*.json\" | Remove-Item\n+#Get-ChildItem -Path \"$($TargetDir)\\*.json\" | Remove-Item\n \n # Move DLLs\n-Get-ChildItem -Path \"$($TargetDir)\\*.dll\" | Remove-Item\n+Get-ChildItem -Path \"$($TargetDir)\\*.dll\" | Move-Item -Destination \"$($TargetDir)\\dll\"\n \n # Move language resource DLLs\n $languages = @('de','it','cs-CZ','el','es','es-AR','fi-FI','fr','hu','ja-JP','ko-KR','lt','nb-NO','nl','pl','pt','pt-BR','ru','tr-TR','uk','zh-CN','zh-TW')",
+  "security_flags": [
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/clean_ouput_dir.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:51Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Obsolete legacy cleaner is absent from the SDK-style .NET 10 pipeline; moving all DLLs would break modern probing. Its desired JSON preservation is already native.",
+    "agent": "codex",
+    "at": "2026-07-25T17:11:48Z"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "sha": "a65d960174eab918844e9594b96dc75ff5bc73c0",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "ci: pass solution dir to portable project build",
+  "body": "ci: pass solution dir to portable project build",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-16T11:12:28Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a65d960174eab918844e9594b96dc75ff5bc73c0",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-1772-files.yml",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-1772-files.yml\n@@ -28,7 +28,7 @@ jobs:\n \n       - name: Build portable x64\n         shell: pwsh\n-        run: msbuild .\\mRemoteNG\\mRemoteNG.csproj /m /p:Configuration=\"Release Portable\" /p:Platform=\"x64\" /verbosity:minimal\n+        run: msbuild .\\mRemoteNG\\mRemoteNG.csproj /m /p:Configuration=\"Release Portable\" /p:Platform=\"x64\" /p:SolutionDir=\"$env:GITHUB_WORKSPACE\\\" /verbosity:minimal\n \n       - name: Prepare artifact directory\n         shell: pwsh",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-1772-files.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:54Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 3,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Modifies a custom GitHub workflow file (`passive-rdp-monitor-1772-files.yml`) that is completely absent from our fork.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:52:04Z"
+  }
+}

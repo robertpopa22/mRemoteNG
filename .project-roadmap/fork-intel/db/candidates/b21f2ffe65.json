@@ -1,0 +1,13 @@
+{
+  "sha": "b21f2ffe65b55314cba0b73d6eca7c84b7f29fe5",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "removed some more default frmmain uses",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-21T01:18:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b21f2ffe65b55314cba0b73d6eca7c84b7f29fe5",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

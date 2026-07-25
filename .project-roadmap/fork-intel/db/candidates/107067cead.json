@@ -1,0 +1,13 @@
+{
+  "sha": "107067cead4bce5a8be541383714e84b26cbcf64",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "removed unnecessary var in Runtime",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T16:47:47Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/107067cead4bce5a8be541383714e84b26cbcf64",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

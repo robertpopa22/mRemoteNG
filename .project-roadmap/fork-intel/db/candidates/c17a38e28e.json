@@ -1,0 +1,48 @@
+{
+  "sha": "c17a38e28ee1de0cb190a9e5947fe0a2179adb53",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Fix last 3 SonarCloud issues",
+  "body": "Fix last 3 SonarCloud issues\n\n- Remove unused searchTag and searchLink variables in InjectSriHashes\n- Extract GetFileTypeChar from FormatPermissions to reduce cognitive\n  complexity from 18 to below 15 (S3776)\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-04-08T09:09:13Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c17a38e28ee1de0cb190a9e5947fe0a2179adb53",
+  "stats": {
+    "files": 2,
+    "additions": 22,
+    "deletions": 31,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SSH/SSHTerminalBase.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/Tools/SftpFileService.cs",
+      "status": "modified",
+      "additions": 22,
+      "deletions": 29
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SSH/SSHTerminalBase.cs\n@@ -516,8 +516,6 @@ private string InjectSriHashes(string html)\n                 if (!File.Exists(filePath)) continue;\n \n                 string hash = ComputeSriHash(filePath);\n-                string searchTag = $\"https://xterm.local/{fileName}\\\">\";\n-                string searchLink = $\"https://xterm.local/{fileName}\\\">\";\n \n                 // Inject integrity into <script src=\"...\"> tags\n                 html = html.Replace(\n--- mRemoteNG/Tools/SftpFileService.cs\n@@ -170,42 +170,35 @@ private static string FormatPermissions(ISftpFile entry)\n                 if (a == null)\n                     return \"\";\n \n-                var chars = new char[10];\n-\n-                // File type prefix (matches ls -l output)\n-                if (entry.IsSymbolicLink)\n-                    chars[0] = 'l';\n-                else if (entry.IsDirectory)\n-                    chars[0] = 'd';\n-                else if (entry.IsBlockDevice)\n-                    chars[0] = 'b';\n-                else if (entry.IsCharacterDevice)\n-                    chars[0] = 'c';\n-                else if (entry.IsNamedPipe)\n-                    chars[0] = 'p';\n-                else if (entry.IsSocket)\n-                    chars[0] = 's';\n-                else\n-                    chars[0] = '-';\n-\n-                chars[1] = a.OwnerCanRead ? 'r' : '-';\n-                chars[2] = a.OwnerCanWrite ? 'w' : '-';\n-                chars[3] = a.OwnerCanExecute ? 'x' : '-';\n-                chars[4] = a.GroupCanRead ? 'r' : '-';\n-                chars[5] = a.GroupCanWrite ? 'w' : '-';\n-                chars[6] = a.GroupCanExecute ? 'x' : '-';\n-                chars[7] = a.OthersCanRead ? 'r' : '-';\n-                chars[8] = a.OthersCanWrite ? 'w' : '-';\n-                chars[9] = a.OthersCanExecute ? 'x' : '-';\n-\n-                return new string(chars);\n+                return string.Concat(\n+                    GetFileTypeChar(entry),\n+                    a.OwnerCanRead ? 'r' : '-',\n+                    a.OwnerCanWrite ? 'w' : '-',\n+                    a.OwnerCanExecute ? 'x' : '-',\n+                    a.GroupCanRead ? 'r' : '-',\n+                    a.GroupCanWrite ? 'w' : '-',\n+                    a.GroupCanExecute ? 'x' : '-',\n+                    a.OthersCanRead ? 'r' : '-',\n+                    a.OthersCanWrite ? 'w' : '-',\n+                    a.OthersCanExecute ? 'x' : '-');\n             }\n             catch\n             {\n                 return \"\";\n             }\n         }\n \n+        private static char GetFileTypeChar(ISftpFile entry)\n+        {\n+            if (entry.IsSymbolicLink) return 'l';\n+            if (entry.IsDirectory) return 'd';\n+            if (entry.IsBlockDevice) return 'b';\n+            if (entry.IsCharacterDevice) return 'c';\n+            if (entry.IsNamedPipe) return 'p';\n+            if (entry.IsSocket) return 's';\n+            return '-';\n+        }\n+\n         public void Dispose()\n         {\n             Dispose(true);",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:43Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Cleans SonarCloud smells in SSHTerminalBase/SftpFileService — fork-only xterm/SFTP features absent in our tree (verified); we use PuTTY for SSH and hold our own quality gate at A/A/A.",
+    "agent": "claude",
+    "at": "2026-07-25T16:42:43Z"
+  }
+}

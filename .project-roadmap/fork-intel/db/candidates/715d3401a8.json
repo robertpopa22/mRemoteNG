@@ -1,0 +1,42 @@
+{
+  "sha": "715d3401a88c1e2fe0785dc0ea3d02ef332ac279",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "frmTaskDialog界面参数微调",
+  "body": "frmTaskDialog界面参数微调",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-17T06:18:42Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/715d3401a88c1e2fe0785dc0ea3d02ef332ac279",
+  "stats": {
+    "files": 1,
+    "additions": 2,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/TaskDialog/frmTaskDialog.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/TaskDialog/frmTaskDialog.cs\n@@ -156,7 +156,7 @@ public void BuildForm()\n                     rb.Text = arr[i];\n                     rb.Tag = i;\n                     rb.Checked = (DefaultButtonIndex == i);\n-                    rb.Width = Width - rb.Left - 15;\n+                    rb.Width = Width - rb.Left - 30;\n                     pnl_height += rb.Height;\n                     _radioButtonCtrls.Add(rb);\n                 }\n@@ -179,7 +179,7 @@ public void BuildForm()\n                     if (_isVista)  // <- tweak font if vista\n                         btn.Font = new Font(btn.Font, FontStyle.Regular);\n                     btn.Text = arr[i];\n-                    btn.Size = new Size(Width - btn.Left - 15, btn.GetBestHeight());\n+                    btn.Size = new Size(Width - btn.Left - 30, btn.GetBestHeight());\n                     t += btn.Height;\n                     pnl_height += btn.Height;\n                     btn.Tag = i;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:28Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Current code lacks this tweak, while issue #55 is already fixed by measured footer reflow; shrinking unrelated controls has no demonstrated benefit. [source](https://github.com/Hovn/mRemoteNG/commit/715d3401a88c1e2fe0785dc0ea3d02ef332ac279)",
+    "agent": "codex",
+    "at": "2026-07-25T17:36:05Z"
+  }
+}

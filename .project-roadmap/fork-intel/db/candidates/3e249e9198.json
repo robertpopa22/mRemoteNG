@@ -1,0 +1,48 @@
+{
+  "sha": "3e249e91986e07c9daa08d1639e28081360067f7",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "chore(rdp): stop writing connection bar diagnostics to file (bar fix confirmed)",
+  "body": "chore(rdp): stop writing connection bar diagnostics to file (bar fix confirmed)\n\nConnection bar теперь корректно встаёт в правый верхний угол (подтверждено).\nУбрана запись диагностики в rdp_connectionbar_diag.log рядом с exe (рос без\nограничения). Диагностика осталась только в штатном debug-логе mRemoteNG,\nкоторый выключен по умолчанию и ротируется приложением.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T17:03:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e249e91986e07c9daa08d1639e28081360067f7",
+  "stats": {
+    "files": 2,
+    "additions": 10,
+    "deletions": 12,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 7
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 5
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -226,13 +226,13 @@ capture асинхронно) во всех путях reconnect.\n - [x] **B4** — Ctrl+Tab / Ctrl+Shift+Tab: `frmMain.ProcessCmdKey` → `ConnectionWindow.SwitchActiveTab`\n   (циклический перебор `connDock.DocumentsToArray`). Активация вкладки триггерит\n   `NotifyPassiveTabActivated` → проверка scroll+VO (A4) выполняется автоматически.\n-- [~] **B5** — Connection bar в правый верхний угол. Бар = **top-level окно класса\n-  `BBarWindowClass`** (576×27, по центру; по диагностике на машине 2560×1080). v1–v3 двигали\n-  не то окно; **v4** двигал бар (`SetWindowPos`, `moved=true`), но mstscax **возвращал** его на\n-  центр (подтверждено логом). **v5**: окно бара сабклассится (`ConnectionBarPinner`), и в\n-  `WM_WINDOWPOSCHANGING` координаты принудительно навязываются (правый верхний угол) — это\n-  перебивает возврат mstscax. Pinner снимается при выходе из fullscreen и в Dispose.\n-  ⚠️ Если и v5 не удержит — смотреть `rdp_connectionbar_diag.log` (moved) и поведение pinner.\n+- [x] **B5** — Connection bar в правый верхний угол. **РАБОТАЕТ** (подтверждено на runtime).\n+  Бар = top-level окно класса `BBarWindowClass`. Решение: окно бара сабклассится\n+  (`ConnectionBarPinner`); в `WM_WINDOWPOSCHANGING` (после обработки mstscax) **снимается\n+  `SWP_NOMOVE`** и принудительно навязывается правый верхний угол. Ключ: mstscax «замораживал»\n+  бар, выставляя `SWP_NOMOVE` — без его снятия любое перемещение игнорировалось. Pinner\n+  снимается при выходе из fullscreen и в Dispose. Файловая диагностика\n+  (`rdp_connectionbar_diag.log`) убрана — осталась только в debug-логе mRemoteNG (off по умолчанию).\n - [x] **B6** — Новый пункт «Work in Fullscreen (no View Only)» получил тот же увеличенный\n   Font, что Fullscreen/ViewOnly (`Font = cmenTabViewOnly.Font` в `AddWorkingFullscreenMenuItem`).\n \n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -994,12 +994,10 @@ private void WriteConnectionBarDiagnostics(string source, Rectangle bounds, IntP\n                     $\"found={(found != IntPtr.Zero ? FormatHandle(found) : \"NONE\")}, moved={moved}{extra}, \" +\n                     $\"screen=({bounds.Left},{bounds.Top} {bounds.Width}x{bounds.Height})\";\n \n+                // Диагностика только в штатный лог mRemoteNG (пишется лишь при включённом\n+                // debug-уровне и ротируется самим приложением) — отдельный файл рядом с exe\n+                // больше не ведём, чтобы он не рос бесконечно.\n                 Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, summary + \"; windows:\\n\" + diag);\n-\n-                // Дублируем в файл рядом с exe — чтобы диагностику было легко найти и прислать,\n-                // даже если debug-логирование в настройках выключено.\n-                var path = System.IO.Path.Combine(Application.StartupPath, \"rdp_connectionbar_diag.log\");\n-                System.IO.File.AppendAllText(path, $\"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {summary}\\n{diag}\\n\");\n             }\n             catch\n             {",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:17Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Removes debug file logging from guvity's experimental connection-bar pinning feature, which does not exist in our fork.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:37:21Z"
+  }
+}

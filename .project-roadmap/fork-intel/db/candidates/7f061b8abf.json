@@ -1,0 +1,13 @@
+{
+  "sha": "7f061b8abf241706369b8ed905e461ec577269fe",
+  "fork": "BuloZB/mRemoteNG",
+  "owner": "BuloZB",
+  "subject": "load parent and expanded data from sql",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2017-03-15T15:03:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7f061b8abf241706369b8ed905e461ec577269fe",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

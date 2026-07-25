@@ -1,0 +1,13 @@
+{
+  "sha": "554e2cdae30edc5922858fad36596d0f9543cfd5",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Update CREDITS.md",
+  "author_name": "Aaron Zauner",
+  "author_login": "azet",
+  "date": "2020-03-11T16:26:57Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/554e2cdae30edc5922858fad36596d0f9543cfd5",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T16:28:20Z"
+}

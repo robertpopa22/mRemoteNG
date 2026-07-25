@@ -1,0 +1,42 @@
+{
+  "sha": "0e37c335f4b07bd59b4510cfece97f396754d05d",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "add serial connections to factory",
+  "body": "add serial connections to factory",
+  "author_name": "Aaron Zauner",
+  "author_login": "azet",
+  "date": "2020-03-11T16:23:14Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0e37c335f4b07bd59b4510cfece97f396754d05d",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Connection/Protocol/ProtocolFactory.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Connection/Protocol/ProtocolFactory.cs\n@@ -4,6 +4,7 @@\n using mRemoteNG.Connection.Protocol.RDP;\n using mRemoteNG.Connection.Protocol.Rlogin;\n using mRemoteNG.Connection.Protocol.SSH;\n+using mRemoteNG.Connection.Protocol.Serial;\n using mRemoteNG.Connection.Protocol.Telnet;\n using mRemoteNG.Connection.Protocol.VNC;\n using System;\n@@ -30,6 +31,8 @@ public ProtocolBase CreateProtocol(ConnectionInfo connectionInfo)\n                     return new ProtocolSSH1();\n                 case ProtocolType.SSH2:\n                     return new ProtocolSSH2();\n+                case ProtocolType.Serial:\n+\t\t\t\t\treturm new ProtocolSerial();\n                 case ProtocolType.Telnet:\n                     return new ProtocolTelnet();\n                 case ProtocolType.Rlogin:\n@@ -57,4 +60,4 @@ public ProtocolBase CreateProtocol(ConnectionInfo connectionInfo)\n             return default;\n         }\n     }\n-}\n\\ No newline at end of file\n+}",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:19Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Serial protocol support is already fully implemented in our fork. The proposed commit also contains a syntax typo ('returm').",
+    "agent": "gemini",
+    "at": "2026-07-25T16:34:12Z"
+  }
+}

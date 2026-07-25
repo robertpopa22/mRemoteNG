@@ -1,0 +1,42 @@
+{
+  "sha": "502f42596cbba2b50938be00b8328bcae73976b5",
+  "fork": "changsongyang/mRemoteNG",
+  "owner": "changsongyang",
+  "subject": "removed obsolete System.web configuration",
+  "body": "removed obsolete System.web configuration",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-06-07T14:54:40Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/502f42596cbba2b50938be00b8328bcae73976b5",
+  "stats": {
+    "files": 1,
+    "additions": 0,
+    "deletions": 12,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/app.config",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    }
+  ],
+  "patch": "--- mRemoteNG/app.config\n@@ -836,16 +836,4 @@\n   <startup>\n     <supportedRuntime version=\"v4.0\" sku=\".NETFramework,Version=v4.7.2\" />\n   </startup>\n-  <system.web>\n-    <membership defaultProvider=\"ClientAuthenticationMembershipProvider\">\n-      <providers>\n-        <add name=\"ClientAuthenticationMembershipProvider\" type=\"System.Web.ClientServices.Providers.ClientFormsAuthenticationMembershipProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35\" serviceUri=\"\" />\n-      </providers>\n-    </membership>\n-    <roleManager defaultProvider=\"ClientRoleProvider\" enabled=\"true\">\n-      <providers>\n-        <add name=\"ClientRoleProvider\" type=\"System.Web.ClientServices.Providers.ClientRoleProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35\" serviceUri=\"\" cacheTimeout=\"86400\" />\n-      </providers>\n-    </roleManager>\n-  </system.web>\n </configuration>\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:29Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Removes NetFX 4.7.2 System.web providers; our fork is .NET 10, legacy app.config sections already obsolete/gone in modernization.",
+    "agent": "claude",
+    "at": "2026-07-25T16:36:16Z"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "sha": "7349e5a6aa3b85440a6f934e5269555c476fbb04",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Fix main window stuck behind other windows after startup",
+  "body": "Fix main window stuck behind other windows after startup\n\nFrmMain_Shown called Activate()/BringToFront()/SetForegroundWindow()\nto bring the main window to front after the splash screen closes\n(commit d4bca6b0). SetForegroundWindow can be denied by Windows, which\nleft the window's activation bookkeeping inconsistent: Alt-Tab showed\nit as active but it could never be brought to the foreground again.\n\nThe call was redundant anyway - FrmMain_Load already closes the splash\nscreen before Shown fires, and WinForms activates the main form\nnormally on startup.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-11T21:23:26Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7349e5a6aa3b85440a6f934e5269555c476fbb04",
+  "stats": {
+    "files": 1,
+    "additions": 0,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 5
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Forms/frmMain.cs\n@@ -401,11 +401,6 @@ private void ApplyTheme()\n \n         private async void FrmMain_Shown(object sender, EventArgs e)\n         {\n-            // Bring the main window to the front after splash screen closes\n-            Activate();\n-            BringToFront();\n-            NativeMethods.SetForegroundWindow(Handle);\n-\n             PromptForUpdatesPreference();\n             await CheckForUpdates();\n         }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:25Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 4,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "IMPORT",
+    "rationale": "Removes redundant window activation code that causes inconsistent WinForms state when blocked by Windows on startup. Highly beneficial UX fix.",
+    "agent": "gemini",
+    "at": "2026-07-25T17:47:56Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "A",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Removal may regress startup foreground behavior because our splash is now same-thread WinForms, unlike the proposer’s separate-thread WPF lifecycle.",
+        "reason": "The diagnosis is unproven here, the lifecycle diverged after the shared code, and no tests or reproduction justify deleting a deliberate focus safeguard.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Removes bring-to-front calls; may worsen windows stuck behind others.",
+        "reason": "Diff contradicts claimed fix; startup focus is delicate and unverified here.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The diagnosis is unproven here, the lifecycle diverged after the shared code, and no tests or reproduction justify deleting a deliberate focus safeguard.",
+      "grok: REJECT - Diff contradicts claimed fix; startup focus is delicate and unverified here."
+    ],
+    "at": "2026-07-25T23:24:22Z"
+  }
+}

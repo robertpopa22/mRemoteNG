@@ -1,0 +1,13 @@
+{
+  "sha": "ea59f6ad9daf5b2a34e7965e9f0de2e3c247991c",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "centralized credential lookup logic",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-14T13:56:31Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ea59f6ad9daf5b2a34e7965e9f0de2e3c247991c",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

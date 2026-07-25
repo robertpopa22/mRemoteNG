@@ -1,0 +1,13 @@
+{
+  "sha": "0f2b5f5030a06ef1d500999c1eeb05caec87ac22",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Update ExternalConnectors/CPS/PasswordstateInterface.cs",
+  "author_name": "Dimitrij",
+  "author_login": "Kvarkas",
+  "date": "2026-04-09T09:54:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0f2b5f5030a06ef1d500999c1eeb05caec87ac22",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (Dimitrij) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:46Z"
+}

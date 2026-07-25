@@ -1,0 +1,2245 @@
+{
+  "sha": "3aa43202ea30f15390aa84c94cf9d63b03de75df",
+  "fork": "CancanTang/mRemoteNG",
+  "owner": "CancanTang",
+  "subject": "Synced from my lab",
+  "body": "Synced from my lab",
+  "author_name": "CancanTang",
+  "author_login": "CancanTang",
+  "date": "2026-03-19T05:30:23Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3aa43202ea30f15390aa84c94cf9d63b03de75df",
+  "stats": {
+    "files": 300,
+    "additions": 225,
+    "deletions": 73835,
+    "binary_files": 5
+  },
+  "files": [
+    {
+      "filename": ".github/copilot-instructions.md",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 242
+    },
+    {
+      "filename": ".github/workflows/Build_mR-NB.yml",
+      "status": "modified",
+      "additions": 28,
+      "deletions": 175
+    },
+    {
+      "filename": ".github/workflows/filter-links.yml",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 63
+    },
+    {
+      "filename": ".gitignore",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 288
+    },
+    {
+      "filename": ".readthedocs.yaml",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 14
+    },
+    {
+      "filename": "CHANGELOG.md",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1723
+    },
+    {
+      "filename": "COPYING.txt",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 280
+    },
+    {
+      "filename": "CREDITS.md",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 127
+    },
+    {
+      "filename": "DEPLOYMENT_OPTIONS.md",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 167
+    },
+    {
+      "filename": "Directory.Packages.props",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 106
+    },
+    {
+      "filename": "ExternalConnectors/ExternalConnectors.csproj",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 5
+    },
+    {
+      "filename": "ExternalConnectors/OP/OnePasswordCli.cs",
+      "status": "modified",
+      "additions": 35,
+      "deletions": 59
+    },
+    {
+      "filename": "IMPLEMENTATION_NOTES.md",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 158
+    },
+    {
+      "filename": "ObjectListView/AssemblyInfo.Version.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 15
+    },
+    {
+      "filename": "ObjectListView/CellEditing/CellEditKeyEngine.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 520
+    },
+    {
+      "filename": "ObjectListView/CellEditing/CellEditors.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 284
+    },
+    {
+      "filename": "ObjectListView/CellEditing/EditorRegistry.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 213
+    },
+    {
+      "filename": "ObjectListView/CustomDictionary.xml",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 46
+    },
+    {
+      "filename": "ObjectListView/DataListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 236
+    },
+    {
+      "filename": "ObjectListView/DataTreeListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 240
+    },
+    {
+      "filename": "ObjectListView/DragDrop/DragSource.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 219
+    },
+    {
+      "filename": "ObjectListView/DragDrop/DropSink.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1454
+    },
+    {
+      "filename": "ObjectListView/DragDrop/OLVDataObject.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 185
+    },
+    {
+      "filename": "ObjectListView/FastDataListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 165
+    },
+    {
+      "filename": "ObjectListView/FastObjectListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 419
+    },
+    {
+      "filename": "ObjectListView/Filtering/Cluster.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 125
+    },
+    {
+      "filename": "ObjectListView/Filtering/ClusteringStrategy.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 189
+    },
+    {
+      "filename": "ObjectListView/Filtering/ClustersFromGroupsStrategy.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 70
+    },
+    {
+      "filename": "ObjectListView/Filtering/DateTimeClusteringStrategy.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 187
+    },
+    {
+      "filename": "ObjectListView/Filtering/FilterMenuBuilder.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 369
+    },
+    {
+      "filename": "ObjectListView/Filtering/Filters.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 481
+    },
+    {
+      "filename": "ObjectListView/Filtering/FlagClusteringStrategy.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 160
+    },
+    {
+      "filename": "ObjectListView/Filtering/ICluster.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 56
+    },
+    {
+      "filename": "ObjectListView/Filtering/IClusteringStrategy.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 80
+    },
+    {
+      "filename": "ObjectListView/Filtering/TextMatchFilter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 629
+    },
+    {
+      "filename": "ObjectListView/FullClassDiagram.cd",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1261
+    },
+    {
+      "filename": "ObjectListView/Implementation/Attributes.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 335
+    },
+    {
+      "filename": "ObjectListView/Implementation/Comparers.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 315
+    },
+    {
+      "filename": "ObjectListView/Implementation/DataSourceAdapter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 630
+    },
+    {
+      "filename": "ObjectListView/Implementation/Delegates.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 168
+    },
+    {
+      "filename": "ObjectListView/Implementation/DragSource.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 407
+    },
+    {
+      "filename": "ObjectListView/Implementation/DropSink.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1398
+    },
+    {
+      "filename": "ObjectListView/Implementation/Enums.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 104
+    },
+    {
+      "filename": "ObjectListView/Implementation/Events.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 2425
+    },
+    {
+      "filename": "ObjectListView/Implementation/GroupingParameters.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 175
+    },
+    {
+      "filename": "ObjectListView/Implementation/Groups.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 747
+    },
+    {
+      "filename": "ObjectListView/Implementation/Munger.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 559
+    },
+    {
+      "filename": "ObjectListView/Implementation/NativeMethods.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1226
+    },
+    {
+      "filename": "ObjectListView/Implementation/NullableDictionary.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 87
+    },
+    {
+      "filename": "ObjectListView/Implementation/OLVListItem.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "ObjectListView/Implementation/OLVListSubItem.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 173
+    },
+    {
+      "filename": "ObjectListView/Implementation/OlvListViewHitTestInfo.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 388
+    },
+    {
+      "filename": "ObjectListView/Implementation/TreeDataSourceAdapter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 262
+    },
+    {
+      "filename": "ObjectListView/Implementation/VirtualGroups.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 352
+    },
+    {
+      "filename": "ObjectListView/Implementation/VirtualListDataSource.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 343
+    },
+    {
+      "filename": "ObjectListView/OLVColumn.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1911
+    },
+    {
+      "filename": "ObjectListView/ObjectListView.DesignTime.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 536
+    },
+    {
+      "filename": "ObjectListView/ObjectListView.NetCore.csproj",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 37
+    },
+    {
+      "filename": "ObjectListView/ObjectListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 11813
+    },
+    {
+      "filename": "ObjectListView/Package.nuspec",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 37
+    },
+    {
+      "filename": "ObjectListView/Properties/AssemblyInfo.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 22
+    },
+    {
+      "filename": "ObjectListView/Properties/Resources.Designer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 113
+    },
+    {
+      "filename": "ObjectListView/Properties/Resources.resx",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 137
+    },
+    {
+      "filename": "ObjectListView/Rendering/Adornments.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 743
+    },
+    {
+      "filename": "ObjectListView/Rendering/Decorations.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 820
+    },
+    {
+      "filename": "ObjectListView/Rendering/Overlays.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 302
+    },
+    {
+      "filename": "ObjectListView/Rendering/Renderers.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 3832
+    },
+    {
+      "filename": "ObjectListView/Rendering/Styles.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 400
+    },
+    {
+      "filename": "ObjectListView/Rendering/TreeRenderer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 309
+    },
+    {
+      "filename": "ObjectListView/Resources/clear-filter.png",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "ObjectListView/Resources/coffee.jpg",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "ObjectListView/Resources/filter-icons3.png",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "ObjectListView/Resources/filter.png",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "ObjectListView/Resources/sort-ascending.png",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "ObjectListView/Resources/sort-descending.png",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "ObjectListView/SubControls/GlassPanelForm.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 459
+    },
+    {
+      "filename": "ObjectListView/SubControls/HeaderControl.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1336
+    },
+    {
+      "filename": "ObjectListView/SubControls/ToolStripCheckedListBox.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 189
+    },
+    {
+      "filename": "ObjectListView/SubControls/ToolTipControl.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 699
+    },
+    {
+      "filename": "ObjectListView/TreeListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 2204
+    },
+    {
+      "filename": "ObjectListView/Utilities/ColumnSelectionForm.Designer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 190
+    },
+    {
+      "filename": "ObjectListView/Utilities/ColumnSelectionForm.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 259
+    },
+    {
+      "filename": "ObjectListView/Utilities/ColumnSelectionForm.resx",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 120
+    },
+    {
+      "filename": "ObjectListView/Utilities/Generator.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 563
+    },
+    {
+      "filename": "ObjectListView/Utilities/OLVExporter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 277
+    },
+    {
+      "filename": "ObjectListView/Utilities/TypedObjectListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 555
+    },
+    {
+      "filename": "ObjectListView/VirtualObjectListView.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1242
+    },
+    {
+      "filename": "Tools/CreateBulkConnections_ConfCons2_6.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 294
+    },
+    {
+      "filename": "Tools/create_upg_chk_files.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 168
+    },
+    {
+      "filename": "Tools/decrypt.bat",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 2
+    },
+    {
+      "filename": "Tools/encrypt.bat",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 2
+    },
+    {
+      "filename": "Tools/exes/dumpbin.exe",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "Tools/exes/editbin.exe",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "Tools/exes/link.exe",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "Tools/exes/mspdbcore.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "Tools/exes/sigcheck.exe",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "Tools/find_vstool.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 63
+    },
+    {
+      "filename": "Tools/github_functions.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 261
+    },
+    {
+      "filename": "Tools/postbuild.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 76
+    },
+    {
+      "filename": "Tools/postbuild_installer.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 63
+    },
+    {
+      "filename": "Tools/postbuild_portable.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 91
+    },
+    {
+      "filename": "Tools/publish_draft_github_release.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 25
+    },
+    {
+      "filename": "Tools/publish_to_github.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 81
+    },
+    {
+      "filename": "Tools/rename_and_copy_installer.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 61
+    },
+    {
+      "filename": "Tools/set_LargeAddressAware.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 22
+    },
+    {
+      "filename": "Tools/sign_binaries.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 103
+    },
+    {
+      "filename": "Tools/signfiles.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 33
+    },
+    {
+      "filename": "Tools/tidy_files_for_release.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 46
+    },
+    {
+      "filename": "Tools/update_and_upload_assemblyinfocs.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 53
+    },
+    {
+      "filename": "Tools/update_and_upload_website_release_json_file.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 178
+    },
+    {
+      "filename": "Tools/validate_microsoft_tool.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 23
+    },
+    {
+      "filename": "Tools/verify_LargeAddressAware.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 32
+    },
+    {
+      "filename": "Tools/verify_binary_signatures.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 65
+    },
+    {
+      "filename": "Tools/zip_files.ps1",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 93
+    },
+    {
+      "filename": "mRemoteNG.sln",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 29
+    },
+    {
+      "filename": "mRemoteNG/App/AppWindows.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/App/NativeMethods.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 10
+    },
+    {
+      "filename": "mRemoteNG/App/ProgramRoot.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 31
+    },
+    {
+      "filename": "mRemoteNG/App/Shutdown.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/Config/DatabaseConnectors/DatabaseConnectionTester.cs",
+      "status": "modified",
+      "additions": 128,
+      "deletions": 17
+    },
+    {
+      "filename": "mRemoteNG/Config/DatabaseConnectors/DatabaseConnectorFactory.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 7
+    },
+    {
+      "filename": "mRemoteNG/Config/DatabaseConnectors/OdbcDatabaseConnector.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 106
+    },
+    {
+      "filename": "mRemoteNG/Config/Import/PuttyConnectionManagerImporter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 27
+    },
+    {
+      "filename": "mRemoteNG/Config/Import/RegistryImporter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 83
+    },
+    {
+      "filename": "mRemoteNG/Config/Import/RemoteDesktopConnectionImporter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 29
+    },
+    {
+      "filename": "mRemoteNG/Config/Import/RemoteDesktopConnectionManagerImporter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 27
+    },
+    {
+      "filename": "mRemoteNG/Config/Import/RemoteDesktopManagerImporter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 49
+    },
+    {
+      "filename": "mRemoteNG/Config/Import/SecureCRTImporter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 46
+    },
+    {
+      "filename": "mRemoteNG/Config/Putty/AbstractPuttySessionsProvider.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 103
+    },
+    {
+      "filename": "mRemoteNG/Config/Putty/PuttySessionChangedEventArgs.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 11
+    },
+    {
+      "filename": "mRemoteNG/Config/Putty/PuttySessionsManager.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 170
+    },
+    {
+      "filename": "mRemoteNG/Config/Putty/PuttySessionsRegistryProvider.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 144
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConfConsEnsureConnectionsHaveIds.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 19
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 953
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsSerializerMremotengFormat.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 286
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/RemoteDesktopManager/CsvConnectionsDeserializerRdmFormat.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 231
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/RemoteDesktopManager/CsvConnectionsSerializerRdmFormat.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 18
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 282
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 795
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/LocalConnectionPropertiesModel.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 25
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/LocalConnectionPropertiesXmlSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 66
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/SqlConnectionListMetaData.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/SqlDatabaseMetaDataRetriever.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 638
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer26.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 262
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer27.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 311
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 327
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionSerializerFactory.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 35
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 563
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDocumentCompiler.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 80
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDocumentEncryptor.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 41
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 73
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlExtensions.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 48
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlRootNodeSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 37
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 39
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 30
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordDecryptorDecorator.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 57
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordEncryptorDecorator.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 60
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 40
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 35
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/IDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 7
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ISecureDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 9
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ISecureSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 9
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ISerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 10
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/MiscSerializers/ActiveDirectoryDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 142
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/MiscSerializers/PortScanDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 85
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/MiscSerializers/PuttyConnectionManagerDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 158
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/MiscSerializers/RemoteDesktopConnectionDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 196
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/MiscSerializers/RemoteDesktopConnectionManagerDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 375
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/MiscSerializers/SecureCRTFileDeserializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 170
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/IVersionUpgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 10
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlDatabaseVersionVerifier.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 65
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion22To23Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 37
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion23To24Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 35
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion24To25Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 35
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion25To26Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 39
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion26To27Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 53
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion27To28Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 67
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion28To29Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 125
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/Versioning/SqlVersion29To30Upgrader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 191
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/XmlConnectionsDecryptor.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 111
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/DockPanelLayoutLoader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 91
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/DockPanelLayoutSaver.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 49
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/DockPanelLayoutSerializer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 30
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/ExternalAppsLoader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 111
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/ExternalAppsSaver.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 61
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/LocalSettingsManager.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 416
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Providers/ChooseProvider.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 14
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Providers/PortableSettingsProvider.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 213
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/CommonRegistrySettings.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 122
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryAppearancePage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 101
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryConnectionsPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 178
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryCredentialsPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 178
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryNotificationsPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 314
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistrySecurityPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 103
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistrySqlServerPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 154
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryStartupExitPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 97
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryTabsPanelsPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 153
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/OptRegistryUpdatesPage.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 238
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Registry/RegistryLoader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 187
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Settings.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 31
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/SettingsLoader.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 261
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/SettingsSaver.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 127
+    },
+    {
+      "filename": "mRemoteNG/Connection/AbstractConnectionRecord.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1135
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionFrameColor.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 26
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionIcon.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 50
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionInfo.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 424
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionInfoComparer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 33
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionInfoInheritance.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 653
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionInitiator.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 468
+    },
+    {
+      "filename": "mRemoteNG/Connection/ConnectionsService.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 362
+    },
+    {
+      "filename": "mRemoteNG/Connection/Converter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 25
+    },
+    {
+      "filename": "mRemoteNG/Connection/DefaultConnectionInfo.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 83
+    },
+    {
+      "filename": "mRemoteNG/Connection/DefaultConnectionInheritance.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 61
+    },
+    {
+      "filename": "mRemoteNG/Connection/ExternalAddressProviderSelector.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 14
+    },
+    {
+      "filename": "mRemoteNG/Connection/ExternalCredentialProviderSelector.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 23
+    },
+    {
+      "filename": "mRemoteNG/Connection/IConnectionInitiator.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 23
+    },
+    {
+      "filename": "mRemoteNG/Connection/IHasParent.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 13
+    },
+    {
+      "filename": "mRemoteNG/Connection/IInheritable.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 7
+    },
+    {
+      "filename": "mRemoteNG/Connection/InterfaceControl.Designer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 31
+    },
+    {
+      "filename": "mRemoteNG/Connection/InterfaceControl.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 125
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ARD/ProtocolARD.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 19
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/AnyDesk/ProtocolAnyDesk.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 457
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/Http/Connection.Protocol.HTTP.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 20
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/Http/Connection.Protocol.HTTPBase.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 376
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/Http/Connection.Protocol.HTTPS.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 19
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ISupportsViewOnly.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 20
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/IntegratedProgram.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 221
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PowerShell/Connection.Protocol.PowerShell.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 258
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolBase.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 358
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolFactory.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 70
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolList.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 75
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolType.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 61
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 544
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RAW/RawProtocol.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 18
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/AuthenticationLevel.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 17
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/AzureLoadBalanceInfoEncoder.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 40
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDGatewayUsageMethod.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 17
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDGatewayUseConnectionCredentials.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 23
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDPColors.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 23
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDPDiskDrives.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 20
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDPPerformanceFlags.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 31
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDPResolutions.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 35
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDPSoundQuality.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 17
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RDPSounds.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 17
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdGatewayAccessTokenHelper.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 124
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpErrorCodes.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 46
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpExtensions.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 27
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpNetworkConnectionType.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 46
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 1012
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol10.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 28
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol11.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 27
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol7.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 65
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol8.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 356
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol9.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 54
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocolFactory.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 67
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpVersion.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 14
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/Rlogin/Connection.Protocol.Rlogin.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 18
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SSH/Connection.Protocol.SSH1.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 19
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SSH/Connection.Protocol.SSH2.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 19
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/Serial/Connection.Protocol.Serial.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 18
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/Telnet/Connection.Protocol.Telnet.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 18
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/Terminal/Connection.Protocol.Terminal.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 155
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/VNC/Connection.Protocol.VNC.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 334
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/VNC/VNCEnum.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 88
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/WSL/Connection.Protocol.WSL.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 160
+    },
+    {
+      "filename": "mRemoteNG/Connection/PuttySessionInfo.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 110
+    },
+    {
+      "filename": "mRemoteNG/Connection/VaultOpenbaoSecretEngine.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 18
+    },
+    {
+      "filename": "mRemoteNG/Connection/WebHelper.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 26
+    },
+    {
+      "filename": "mRemoteNG/Container/ContainerInfo.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 323
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialChangedEventArgs.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 21
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialDeletionMsgBoxConfirmer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 39
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialDomainUserComparer.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 31
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialInfo.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 42
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialRecord.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 86
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialRecordTypeConverter.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 36
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialServiceFacade.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 89
+    },
+    {
+      "filename": "mRemoteNG/Credential/CredentialServiceFactory.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 31
+    },
+    {
+      "filename": "mRemoteNG/Credential/ICredentialRecord.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 17
+    },
+    {
+      "filename": "mRemoteNG/Credential/ICredentialRepository.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 21
+    },
+    {
+      "filename": "mRemoteNG/Credential/ICredentialRepositoryList.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 24
+    },
+    {
+      "filename": "mRemoteNG/Credential/PlaceholderCredentialRecord.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 28
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/CompositeRepositoryUnlocker.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 74
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/CredentialRepoUnlockerBuilder.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/CredentialRepositoryChangedArgs.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 17
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/CredentialRepositoryConfig.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 78
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/CredentialRepositoryList.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 87
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/ICredentialRepositoryConfig.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 15
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/XmlCredentialRepository.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 84
+    },
+    {
+      "filename": "mRemoteNG/Credential/Repositories/XmlCredentialRepositoryFactory.cs",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 57
+    },
+    {
+      "filename": "mRemoteNG/Icons/Admin.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Anti Virus.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Apple.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Backup.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Build Server.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Console.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Database.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Domain Controller.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/ESX.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Fax.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/File Server.ico",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/copilot-instructions.md\n@@ -1,242 +0,0 @@\n-# GitHub Copilot Instructions for mRemoteNG\n-\n-## Project Overview\n-\n-mRemoteNG is an open-source, multi-protocol, tabbed remote connections manager for Windows. It's a fork of mRemote that allows users to view and manage all their remote connections (RDP, VNC, SSH, Telnet, HTTP/HTTPS, rlogin, Raw Socket, PowerShell remoting, AnyDesk) in a simple yet powerful interface.\n-\n-## Technology Stack\n-\n-- **Language**: C# with latest language version\n-- **Framework**: .NET 10.0 for Windows (net10.0-windows10.0.26100.0)\n-- **UI Framework**: Windows Forms with WPF support\n-- **Target Platforms**: x64 and ARM64\n-- **Testing Framework**: NUnit with NSubstitute for mocking\n-- **Build System**: MSBuild with .NET SDK-style projects\n-\n-## Building the Project\n-\n-### Prerequisites\n-- Visual Studio 2026 (version 18.4.0 or later)\n-- .NET 10.0 Desktop Runtime\n-- Windows 10/11 or Windows Server 2022+\n-\n-### Build Commands\n-```powershell\n-# Restore NuGet packages\n-dotnet restore\n-\n-# Build the solution\n-msbuild mRemoteNG.sln -p:Configuration=Release -p:Platform=x64\n-\n-# Or for ARM64\n-msbuild mRemoteNG.sln -p:Configuration=Release -p:Platform=arm64\n-```\n-\n-### Running Tests\n-The project uses NUnit for testing. Test projects are in `mRemoteNGTests/` directory.\n-\n-```powershell\n-dotnet test mRemoteNGTests/mRemoteNGTests.csproj\n-```\n-\n-## Code Organization\n-\n-### Main Projects\n-- **mRemoteNG**: Main application project\n-- **mRemoteNGTests**: Unit and integration tests\n-- **mRemoteNGSpecs**: Specification tests\n-- **ObjectListView.NetCore**: Custom list view control\n-- **ExternalConnectors**: External protocol connector implementations\n-- **mRemoteNGDocumentation**: reStructuredText documentation\n-\n-### Key Directories in mRemoteNG Project\n-- `App/`: Application startup and initialization\n-- `Connection/`: Connection models, protocols, and management\n-- `Config/`: Configuration and serialization (XML, CSV)\n-- `Container/`: Container/folder node implementations\n-- `Credential/`: Credential storage and repositories\n-- `Language/`: Localization resource files (.resx)\n-- `Security/`: Authentication, encryption, and password management\n-- `Tree/`: Connection tree UI and management\n-- `UI/`: User interface components and forms\n-- `Tools/`: Utility classes and helpers\n-\n-## Code Style and Conventions\n-\n-### EditorConfig Settings\n-The project uses EditorConfig (`.editorconfig` in `mRemoteNG/` directory) with these key rules:\n-\n-- **Indentation**: 4 spaces (no tabs)\n-- **Line Endings**: CRLF (Windows-style)\n-- **Charset**: UTF-8 with BOM for C# files\n-- **New Lines**: Opening braces on new lines (Allman style)\n-- **Using Directives**: Sort System directives first\n-- **this. Qualifier**: Do not use `this.` prefix unless necessary\n-\n-### Naming Conventions\n-- **Classes/Interfaces**: PascalCase (e.g., `ConnectionInfo`, `IInheritable`)\n-- **Methods**: PascalCase (e.g., `GetConnection`, `SaveToXml`)\n-- **Properties**: PascalCase (e.g., `ConnectionName`, `Port`)\n-- **Fields**: Use camelCase for private fields, consider `_` prefix for backing fields\n-- **Constants**: PascalCase\n-\n-### Code Patterns\n-\n-#### Inheritance System\n-mRemoteNG has a sophisticated property inheritance system for connection settings:\n-\n-1. Properties can be inherited from parent containers/folders\n-2. Each inheritable property has a corresponding `Inherit<PropertyName>` boolean in `ConnectionInfoInheritance` class\n-3. Use `IInheritable` interface for objects that support inheritance\n-4. Example: `ConnectionFrameColor` property has `InheritConnectionFrameColor` boolean\n-\n-#### Serialization\n-The project supports multiple serialization formats:\n-\n-**XML Serialization** (`Config/Serializers/ConnectionSerializers/Xml/`):\n-- Node-based serializers (e.g., `XmlConnectionNodeSerializer28.cs`)\n-- Deserializers handle backward compatibility\n-- Attributes for properties and inheritance flags\n-- Always maintain backward compatibility - old files must still load\n-\n-**CSV Serialization** (`Config/Serializers/ConnectionSerializers/Csv/`):\n-- Export connections to CSV format\n-- Include both value and inheritance columns\n-- Maintain column order consistency\n-\n-#### Localization\n-All user-facing strings must be localized:\n-\n-1. Add entries to `Language/Language.resx` (English base)\n-2. Use `Language.ResourceName` to access strings in code\n-3. Resource naming:\n-   - Properties: `PropertyName` (e.g., `ConnectionFrameColor`)\n-   - Descriptions: `PropertyDescription<PropertyName>`\n-   - Enum values: `<EnumName><Value>` (e.g., `FrameColorRed`)\n-4. Provide clear, concise descriptions for PropertyGrid tooltips\n-\n-### Common Patterns\n-\n-#### Adding a New Connection Property\n-\n-1. **Add enum** (if needed) in `Connection/` directory\n-2. **Add property** to `AbstractConnectionRecord.cs` or `ConnectionInfo.cs`\n-   - Add `[Category(\"CategoryName\")]` attribute for PropertyGrid grouping\n-   - Add `[Description(\"Language.PropertyDescription<Name>\")]` for tooltip\n-   - Use appropriate TypeConverter if needed\n-3. **Add inheritance support** in `ConnectionInfoInheritance.cs`\n-4. **Update serializers**:\n-   - XML: Update latest `XmlConnectionNodeSerializer*.cs` and `XmlConnectionsDeserializer.cs`\n-   - CSV: Update `CsvConnectionsSerializerMremotengFormat.cs`\n-5. **Add localization** in `Language/Language.resx`\n-6. **Write tests** in `mRemoteNGTests/Connection/`\n-7. **Update documentation** in `mRemoteNGDocumentation/` if user-facing\n-\n-#### UI Controls\n-- Prefer existing mRemoteNG patterns for UI controls\n-- Connection panels use `InterfaceControl` base class\n-- Custom painting: Override `OnPaint` or handle `Paint` event\n-- Follow Windows Forms best practices\n-\n-## Testing Guidelines\n-\n-### Test Structure\n-- Use NUnit's `[Test]` attribute for test methods\n-- Use `[SetUp]` and `[TearDown]` for test initialization/cleanup\n-- Use `[TestCase]` for parameterized tests\n-- Use NSubstitute for mocking: `Substitute.For<IInterface>()`\n-\n-### Test Naming\n-- Use descriptive names: `MethodName_Scenario_ExpectedBehavior`\n-- Example: `ConnectionInfo_SetPassword_EncryptsValue`\n-\n-### Test Organization\n-Mirror the main project structure in `mRemoteNGTests/`:\n-- `Connection/` for connection tests\n-- `Security/` for security tests\n-- `Config/` for configuration/serialization tests\n-\n-## Important Notes and Pitfalls\n-\n-### Backward Compatibility\n-- **Critical**: Never break loading of old connection files\n-- Always provide default values for new properties\n-- Test that files without new attributes still load correctly\n-\n-### Security\n-- Sensitive data (passwords, credentials) must be encrypted\n-- Use existing security providers in `Security/` namespace\n-- Never log or expose credentials in plain text\n-\n-### Performance\n-- Connection tree can contain thousands of nodes\n-- Optimize for large connection files\n-- Avoid unnecessary UI refreshes\n-- Use async/await for I/O operations\n-\n-### Platform-Specific Code\n-- The project targets both x64 and ARM64\n-- Avoid platform-specific code unless absolutely necessary\n-- Test on both platforms when possible\n-\n-### External Dependencies\n-- PuTTY for SSH/Telnet (bundled)\n-- Terminal Service Client for RDP\n-- Various protocol-specific libraries (see CREDITS.md)\n-\n-## Documentation\n-\n-### User Documentation\n-- Located in `mRemoteNGDocumentation/`\n-- Written in reStructuredText (.rst)\n-- Follows ReadTheDocs format\n-- Include screenshots and examples for new features\n-\n-### Code Documentation\n-- Use XML documentation comments for public APIs\n-- Document complex algorithms and business logic\n-- Keep implementation notes in `IMPLEMENTATION_NOTES.md` for significant features\n-\n-## Common Tasks\n-\n-### Adding a Protocol\n-1. Create protocol implementation in `Connection/Protocol/`\n-2. Add protocol enum value to protocol types\n-3. Implement connection logic\n-4. Add UI controls if needed\n-5. Update documentation\n-\n-### Adding a Theme\n-1. Add theme files to `Themes/` directory\n-2. Update theme manager\n-3. Add documentation in `mRemoteNGDocumentation/themes/`\n-\n-### Updating Dependencies\n-- Dependencies are centrally managed in `Directory.Packages.props`\n-- Use `dotnet restore` after updating\n-- Test thoroughly after dependency updates\n-\n-## Version and Release\n-\n-- Current development version: 1.78.2-dev\n-- Version is set in `mRemoteNG.csproj`\n-- Builds are automated via GitHub Actions (`.github/workflows/`)\n-- Changelog maintained in `CHANGELOG.md`\n-\n-## Getting Help\n-\n-- Project website: https://mremoteng.org\n-- Documentation: https://mremoteng.readthedocs.io\n-- GitHub Issues: Report bugs and feature requests\n-- Community: Reddit r/mRemoteNG, Matrix chat\n-\n-## Summary\n-\n-When contributing to mRemoteNG:\n-1. Follow the existing code style (EditorConfig)\n-2. Maintain backward compatibility with old connection files\n-3. Localize all user-facing strings\n-4. Write tests for new functionality\n-5. Update documentation for user-facing changes\n-6. Test on both x64 and ARM64 if possible\n-7. Keep security and performance in mind\n--- .github/workflows/Build_mR-NB.yml\n@@ -1,4 +1,4 @@\n-name: Build_and_Release_mR-NB_MultiDeploy\n+name: Build_and_Release_mR-NB\n on:\n   push:\n     branches:\n@@ -19,28 +19,12 @@ jobs:\n     strategy:\n       matrix:\n         include:\n-          # Framework-Dependent builds (requires .NET runtime on user machine)\n           - runner: windows-latest\n             platform: x64\n             arch: x64\n-            deployment: framework-dependent\n-            deploy_suffix: FD\n           - runner: windows-11-arm\n             platform: ARM64\n             arch: arm64\n-            deployment: framework-dependent\n-            deploy_suffix: FD\n-          # Self-Contained builds (includes .NET runtime)\n-          - runner: windows-latest\n-            platform: x64\n-            arch: x64\n-            deployment: self-contained\n-            deploy_suffix: SC\n-          - runner: windows-11-arm\n-            platform: ARM64\n-            arch: arm64\n-            deployment: self-contained\n-            deploy_suffix: SC\n     runs-on: ${{ matrix.runner }}\n     # Only run if:\n     # - manual dispatch, OR\n@@ -52,38 +36,13 @@ jobs:\n     steps:\n       - name: (01) Checkout Repository\n         uses: actions/checkout@v6\n-\n-        # 2. Auto-detect solution file (Supports legacy .sln modern VS2026 .slnx)\n-      - name: (02) Find solution file\n-        shell: pwsh\n-        run: |\n-          Write-Host \"Locating solution file (.sln or .slnx)...\"\n-          $sln = Get-ChildItem -Path . -Filter \"*.sln*\" -File -Recurse | \n-                 Where-Object { $_.Extension -match '^\\.slnx?$' } | \n-                 Select-Object -First 1\n-\n-          if ($sln) {\n-            \"SOLUTION_FILE=$($sln.Name)\" | Out-File -FilePath $env:GITHUB_ENV -Append\n-            Write-Host \"Located file: $($sln.Name)\" -ForegroundColor Green\n-          } else {\n-            Write-Host \"ERROR: Could not locate a .sln or .slnx file!\" -ForegroundColor Red\n-            exit 1\n-          }\n-\n-      - name: (02) Install .NET 10 SDK\n-        uses: actions/setup-dotnet@v5\n+        \n+      - name: (02) Setup MSBuild\n+        uses: microsoft/setup-msbuild@v2\n         with:\n-          dotnet-version: '10.0.x'\n-\n-      # 6. Install Visual Studio 2026 Build Tools\n-      - name: (03) Install Visual Studio 2026 Build Tools\n-        shell: pwsh\n-        run: |\n-          Write-Host \"Installing VS 2026 Build Tools...\"\n-          choco install visualstudio2026buildtools --package-parameters \"--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --includeRecommended --quiet\" -y --ignore-package-exit-codes=3010\n-          Write-Host \"VS 2026 Build Tools installation completed\"\n+          vs-version: '17.14.12'\n           \n-      - name: (04) Install and run dotnet-t4 to transform T4 templates\n+      - name: (03) Install and run dotnet-t4 to transform T4 templates\n         shell: pwsh\n         run: |\n           dotnet tool install --global dotnet-t4\n@@ -97,32 +56,24 @@ jobs:\n         env:\n           PLATFORM: '${{ matrix.platform }}'\n   \n-      - name: (05) Cache NuGet Packages\n+      - name: (04) Cache NuGet Packages\n         uses: actions/cache@v5\n         with:\n           path: ~/.nuget/packages\n-          key: ${{ runner.os }}-${{ matrix.arch }}-${{ matrix.deployment }}-nuget-${{ hashFiles('**/*.csproj') }}\n+          key: ${{ runner.os }}-${{ matrix.arch }}-nuget-${{ hashFiles('**/*.csproj') }}\n           restore-keys: |\n-            ${{ runner.os }}-${{ matrix.arch }}-${{ matrix.deployment }}-nuget-\n             ${{ runner.os }}-${{ matrix.arch }}-nuget-\n             \n-      - name: (06) Restore NuGet Packages\n+      - name: (05) Restore NuGet Packages\n         shell: pwsh\n         run: dotnet restore\n         \n-      - name: (07) Build Framework-Dependent Release\n-        if: matrix.deployment == 'framework-dependent'\n-        shell: pwsh\n-        run: |\n-          msbuild \"$Env:GITHUB_WORKSPACE\\$($sln.Name)\" -p:Configuration=\"Release\" -p:Platform=${{ matrix.platform }} /verbosity:minimal\n-\n-      - name: (08) Build Self-Contained Release\n-        if: matrix.deployment == 'self-contained'\n+      - name: (06) Build Release\n         shell: pwsh\n         run: |\n-          msbuild \"$Env:GITHUB_WORKSPACE\\mRemoteNG.sln\" /t:Publish /p:Configuration=\"Release Self-Contained\" -p:Platform=${{ matrix.platform }} /verbosity:minimal /p:SelfContained=true /p:PublishDir=\"bin\\${{ matrix.platform }}\\Release\"\n-                \n-      - name: (09) Release Information\n+          msbuild \"$Env:GITHUB_WORKSPACE\\mRemoteNG.sln\" -p:Configuration=\"Release\" -p:Platform=${{ matrix.platform }} /verbosity:minimal\n+        \n+      - name: (07) Release Information\n         id: version\n         shell: pwsh\n         run: |\n@@ -135,17 +86,17 @@ jobs:\n             throw \"Could not extract version and build number\"\n           }\n           $date = Get-Date -Format \"yyyyMMdd\"\n-          $zipName = \"mRemoteNG-$date-v$version-NB-$build-${{ matrix.arch }}-${{ matrix.deploy_suffix }}.zip\"\n+          $zipName = \"mRemoteNG-$date-v$version-NB-$build-${{ matrix.arch }}.zip\"\n           $tag = \"$date-v$version-NB-($build)\"\n           $message = git log -1 --pretty=%B\n           echo \"message=$message\" >> $env:GITHUB_OUTPUT\n           echo \"zipname=$zipName\" >> $env:GITHUB_OUTPUT\n           echo \"version=$version\" >> $env:GITHUB_OUTPUT\n           echo \"build=$build\" >> $env:GITHUB_OUTPUT\n           echo \"tag=$tag\" >> $env:GITHUB_OUTPUT\n-          echo \"deployment=${{ matrix.deployment }}\" >> $env:GITHUB_OUTPUT\n+          $version = \"${{ steps.version.outputs.version }}\"\n \n-      - name: (10) Extract Changelog Section\n+      - name: (08) Extract Changelog Section\n         id: changelog\n         shell: pwsh\n         run: |\n@@ -176,128 +127,30 @@ jobs:\n           echo \"log<<EOF\" >> $env:GITHUB_OUTPUT\n           echo $joined >> $env:GITHUB_OUTPUT\n           echo \"EOF\" >> $env:GITHUB_OUTPUT\n+      \n+          echo \"log=$escaped\"\n                 \n-      - name: (11) Create Zip File\n+      - name: (09) Create Zip File\n         shell: pwsh\n         run: |\n           $sourceDir = \"$Env:GITHUB_WORKSPACE\\mRemoteNG\\bin\\${{ matrix.platform }}\\Release\"\n           Compress-Archive -Path \"$sourceDir\\*\" -DestinationPath ${{ steps.version.outputs.zipname }}\n           echo \"File: ${{ steps.version.outputs.zipname }}\"\n-          \n-          # Show file size\n-          $fileSize = (Get-Item ${{ steps.version.outputs.zipname }}).Length / 1MB\n-          echo \"Size: $([math]::Round($fileSize, 2)) MB\"\n \n-      - name: (10) Upload artifacts for combination\n-        uses: actions/upload-artifact@v7\n-        with:\n-          name: release-${{ matrix.arch }}-${{ matrix.deploy_suffix }}\n-          path: ${{ steps.version.outputs.zipname }}\n-          retention-days: 1\n-\n-  Create-Combined-Release:\n-    needs: NB-Build-and-Release\n-    runs-on: windows-latest\n-    steps:\n-      - name: Checkout Repository\n-        uses: actions/checkout@v6\n-\n-      - name: Download all artifacts\n-        uses: actions/download-artifact@v8\n-        with:\n-          path: artifacts\n-\n-      - name: Extract version info\n-        id: version\n-        shell: pwsh\n-        run: |\n-          $assemblyInfoPath = \"${{ github.workspace }}\\mRemoteNG\\Properties\\AssemblyInfo.cs\"\n-          $line = Get-Content $assemblyInfoPath | Where-Object { $_ -match 'AssemblyVersion\\(\"(.+?)\"\\)' }\n-          if ($line -match 'AssemblyVersion\\(\"(?<ver>\\d+\\.\\d+\\.\\d+)\\.(?<build>\\d+)\"\\)') {\n-            $version = $matches['ver']\n-            $build = $matches['build']\n-          } else {\n-            throw \"Could not extract version and build number\"\n-          }\n-          $date = Get-Date -Format \"yyyyMMdd\"\n-          $tag = \"$date-v$version-NB-($build)\"\n-          $message = git log -1 --pretty=%B\n-          echo \"version=$version\" >> $env:GITHUB_OUTPUT\n-          echo \"build=$build\" >> $env:GITHUB_OUTPUT\n-          echo \"tag=$tag\" >> $env:GITHUB_OUTPUT\n-          echo \"message=$message\" >> $env:GITHUB_OUTPUT\n-\n-      - name: Extract Changelog\n-        id: changelog\n-        shell: pwsh\n-        run: |\n-          $changelogPath = \"$env:GITHUB_WORKSPACE\\CHANGELOG.md\"\n-          $lines = Get-Content $changelogPath\n-      \n-          $startIndex = -1\n-          for ($i = 0; $i -lt $lines.Count; $i++) {\n-            if ($lines[$i] -match '^## \\[') {\n-              $startIndex = $i\n-              break\n-            }\n-          }\n-      \n-          if ($startIndex -eq -1) {\n-            throw \"No version header found in CHANGELOG.md\"\n-          }\n-      \n-          $section = @()\n-          for ($i = $startIndex + 1; $i -lt $lines.Count; $i++) {\n-            if ($lines[$i] -match '^## ') {\n-              break\n-            }\n-            $section += $lines[$i]\n-          }\n-      \n-          $joined = $section -join \"`n\"\n-          echo \"log<<EOF\" >> $env:GITHUB_OUTPUT\n-          echo $joined >> $env:GITHUB_OUTPUT\n-          echo \"EOF\" >> $env:GITHUB_OUTPUT\n-\n-      - name: Collect all release files\n-        shell: pwsh\n-        run: |\n-          Get-ChildItem -Path artifacts -Recurse -Filter \"*.zip\" | ForEach-Object {\n-            Copy-Item $_.FullName -Destination .\n-            echo \"Found: $($_.Name)\"\n-          }\n-\n-      - name: Create combined release\n-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2\n+      - name: (10) Create release\n+        id: create_release\n+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2\n         env:\n-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token\n         with:\n-          tag_name: ${{ steps.version.outputs.tag }}\n+          tag_name:  ${{ steps.version.outputs.tag }}\n           name: \"mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}\"\n-          files: '*.zip'\n+          files: ${{ steps.version.outputs.zipname }}\n           body: |\n-            ## mRemoteNG ${{ steps.version.outputs.version }} NB Build ${{ steps.version.outputs.build }}\n-            \n-            ### 📦 Available Downloads\n-            \n-            **Framework-Dependent (FD)** - Requires .NET 10 Runtime installed:\n-            - Smaller download size (~15-25 MB)\n-            - Requires .NET 10 Desktop Runtime on user machine\n-            - Files: `*-FD.zip`\n-            \n-            **Self-Contained (SC)** - Portable, no installation required:\n-            - Larger download size (~80-150 MB)\n-            - Includes .NET 10 runtime - no installation needed\n-            - Files: `*-SC.zip`\n-            \n-            Both versions are available for **x64** and **ARM64** architectures.\n-            \n-            ---\n-            \n-            ### 📝 Changes in this Release\n+            Changes in this Release:\n             ${{ steps.changelog.outputs.log }}\n-            \n-            ### 💬 Last Commit Message\n+\n+            Last Commit Message:\n             ${{ steps.version.outputs.message }}\n \n           draft: false\n--- .github/workflows/filter-links.yml\n@@ -1,63 +0,0 @@\n-name: Remove other GitHub repo links\n-\n-permissions:\n-  contents: read\n-  issues: write\n-  pull-requests: write\n-\n-on:\n-  issue_comment:\n-    types: [created, edited]\n-  issues:\n-    types: [opened, edited]\n-\n-jobs:\n-  filter:\n-    runs-on: ubuntu-latest\n-    steps:\n-      - name: Sanitize links\n-        uses: actions/github-script@v8\n-        with:\n-          script: |\n-            const githubRepoRegex =\n-              /\\[[^\\]]*\\]\\((?!https?:\\/\\/github\\.com\\/(?:user-attachments\\/assets|mRemoteNG)\\/)[^\\)]*https?:\\/\\/github\\.com\\/(?!user-attachments\\/assets\\/)(?!mRemoteNG\\/)[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+[^\\s)]*\\)|https?:\\/\\/github\\.com\\/(?!user-attachments\\/assets\\/)(?!mRemoteNG\\/)[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+[^\\s)]*/gi;\n-  \n-            // CASE 1: Comment\n-            if (context.payload.comment) {\n-              const comment = context.payload.comment;\n-              console.log(\"Processing comment:\", comment.id);\n-              const matches = comment.body.match(githubRepoRegex);\n-              console.log(\"Matches:\", matches);\n-              if (!matches) return;\n-              const sanitized = comment.body.replace(\n-                githubRepoRegex,\n-                \"**[CENSORED!] Links to external GitHub repositories are not allowed**\"\n-              );\n-              await github.rest.issues.updateComment({\n-                owner: context.repo.owner,\n-                repo: context.repo.repo,\n-                comment_id: comment.id,\n-                body: sanitized\n-              });\n-              console.log(\"Comment updated\");\n-              return;\n-            }\n-            // CASE 2: Issue body\n-            const issue = context.payload.issue;\n-            if (issue) {\n-              console.log(\"Processing issue:\", issue.number);\n-              const matches = issue.body?.match(githubRepoRegex);\n-              console.log(\"Matches:\", matches);\n-              if (!matches) return;\n-              const sanitized = issue.body.replace(\n-                githubRepoRegex,\n-                \"**[CENSORED!] Links to external GitHub repositories are not allowed**\"\n-              );\n-              await github.rest.issues.update({\n-                owner: context.repo.owner,\n-                repo: context.repo.repo,\n-                issue_number: issue.number,\n-                body: sanitized\n-              });\n-              console.log(\"Issue body updated\");\n-            }\n--- .gitignore\n@@ -1,288 +0,0 @@\n-**/bin/\n-**/obj/\n-**/[Rr]elease [Pp]ortable/\n-**/[Dd]ebug [Pp]ortable/\n-\n-*.pfx\n-Thumbs.db\n-_Re[Ss]harper.*\n-*.resharper\n-*.resharper.user\n-*.cache\n-*~\n-*.swp\n-*.user*\n-*.pidb\n-*.gpState\n-_UpgradeReport_Files/\n-Backup/\n-UpgradeLog.XML\n-*.orig\n-*.sdf\n-*.opensdf\n-*.ipch\n-\n-## Ignore Visual Studio temporary files, build results, and\n-## files generated by popular Visual Studio add-ons.\n-\n-# User-specific files\n-*.suo\n-*.user\n-*.userosscache\n-*.sln.docstates\n-\n-# User-specific files (MonoDevelop/Xamarin Studio)\n-*.userprefs\n-\n-# Build results\n-[Dd]ebug/\n-[Dd]ebugPublic/\n-[Rr]elease/\n-[Rr]eleases/\n-x64/\n-x86/\n-bld/\n-[Bb]in/\n-[Oo]bj/\n-[Ll]og/\n-\n-# Visual Studio 2015 cache/options directory\n-.vs/\n-# Uncomment if you have tasks that create the project's static files in wwwroot\n-#wwwroot/\n-\n-# MSTest test Results\n-[Tt]est[Rr]esult*/\n-[Bb]uild[Ll]og.*\n-\n-# NUNIT\n-*.VisualState.xml\n-TestResult.xml\n-\n-# Build Results of an ATL Project\n-[Dd]ebugPS/\n-[Rr]eleasePS/\n-dlldata.c\n-\n-# DNX\n-project.lock.json\n-artifacts/\n-\n-*_i.c\n-*_p.c\n-*_i.h\n-*.ilk\n-*.meta\n-*.obj\n-*.pch\n-*.pdb\n-*.pgc\n-*.pgd\n-*.rsp\n-*.sbr\n-*.tlb\n-*.tli\n-*.tlh\n-*.tmp\n-*.tmp_proj\n-*.log\n-*.vspscc\n-*.vssscc\n-.builds\n-*.pidb\n-*.svclog\n-*.scc\n-\n-# Chutzpah Test files\n-_Chutzpah*\n-\n-# Visual C++ cache files\n-ipch/\n-*.aps\n-*.ncb\n-*.opendb\n-*.opensdf\n-*.sdf\n-*.cachefile\n-*.VC.db\n-*.VC.VC.opendb\n-\n-# Visual Studio profiler\n-*.psess\n-*.vsp\n-*.vspx\n-*.sap\n-\n-# TFS 2012 Local Workspace\n-$tf/\n-\n-# Guidance Automation Toolkit\n-*.gpState\n-\n-# ReSharper is a .NET coding add-in\n-_ReSharper*/\n-*.[Rr]e[Ss]harper\n-*.DotSettings.user\n-\n-# JustCode is a .NET coding add-in\n-.JustCode\n-\n-# TeamCity is a build add-in\n-_TeamCity*\n-\n-# DotCover is a Code Coverage Tool\n-*.dotCover\n-\n-# NCrunch\n-_NCrunch_*\n-.*crunch*.local.xml\n-nCrunchTemp_*\n-\n-# MightyMoose\n-*.mm.*\n-AutoTest.Net/\n-\n-# Web workbench (sass)\n-.sass-cache/\n-\n-# Installshield output folder\n-[Ee]xpress/\n-\n-# DocProject is a documentation generator add-in\n-DocProject/buildhelp/\n-DocProject/Help/*.HxT\n-DocProject/Help/*.HxC\n-DocProject/Help/*.hhc\n-DocProject/Help/*.hhk\n-DocProject/Help/*.hhp\n-DocProject/Help/Html2\n-DocProject/Help/html\n-\n-# Click-Once directory\n-publish/\n-\n-# Publish Web Output\n-*.[Pp]ublish.xml\n-*.azurePubxml\n-# TODO: Comment the next line if you want to checkin your web deploy settings\n-# but database connection strings (with potential passwords) will be unencrypted\n-*.pubxml\n-*.publishproj\n-\n-# Microsoft Azure Web App publish settings. Comment the next line if you want to\n-# checkin your Azure Web App publish settings, but sensitive information contained\n-# in these scripts will be unencrypted\n-PublishScripts/\n-\n-# NuGet Packages\n-*.nupkg\n-# The packages folder can be ignored because of Package Restore\n-**/packages/*\n-# except build/, which is used as an MSBuild target.\n-!**/packages/build/\n-# Uncomment if necessary however generally it will be regenerated when needed\n-#!**/packages/repositories.config\n-# NuGet v3's project.json files produces more ignoreable files\n-*.nuget.props\n-*.nuget.targets\n-\n-# Microsoft Azure Build Output\n-csx/\n-*.build.csdef\n-\n-# Microsoft Azure Emulator\n-ecf/\n-rcf/\n-\n-# Windows Store app package directories and files\n-AppPackages/\n-BundleArtifacts/\n-Package.StoreAssociation.xml\n-_pkginfo.txt\n-\n-# Visual Studio cache files\n-# files ending in .cache can be ignored\n-*.[Cc]ache\n-# but keep track of directories ending in .cache\n-!*.[Cc]ache/\n-\n-# Others\n-ClientBin/\n-~$*\n-*~\n-*.dbmdl\n-*.dbproj.schemaview\n-*.pfx\n-*.publishsettings\n-node_modules/\n-orleans.codegen.cs\n-\n-# Since there are multiple workflows, uncomment next line to ignore bower_components\n-# (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)\n-#bower_components/\n-\n-# RIA/Silverlight projects\n-Generated_Code/\n-\n-# Backup & report files from converting an old project file\n-# to a newer Visual Studio version. Backup files are not needed,\n-# because we have git ;-)\n-_UpgradeReport_Files/\n-Backup*/\n-UpgradeLog*.XML\n-UpgradeLog*.htm\n-\n-# SQL Server files\n-*.mdf\n-*.ldf\n-\n-# Business Intelligence projects\n-*.rdl.data\n-*.bim.layout\n-*.bim_*.settings\n-\n-# Microsoft Fakes\n-FakesAssemblies/\n-\n-# GhostDoc plugin setting file\n-*.GhostDoc.xml\n-\n-# Node.js Tools for Visual Studio\n-.ntvs_analysis.dat\n-\n-# Visual Studio 6 build log\n-*.plg\n-\n-# Visual Studio 6 workspace options file\n-*.opt\n-\n-# Visual Studio LightSwitch build output\n-**/*.HTMLClient/GeneratedArtifacts\n-**/*.DesktopClient/GeneratedArtifacts\n-**/*.DesktopClient/ModelManifest.xml\n-**/*.Server/GeneratedArtifacts\n-**/*.Server/ModelManifest.xml\n-_Pvt_Extensions\n-\n-# Paket dependency manager\n-.paket/paket.exe\n-paket-files/\n-\n-# FAKE - F# Make\n-.fake/\n-\n-# JetBrains Rider\n-.idea/\n-*.sln.iml\n-*.msi\n-Installer/Resources/License.rtf\n-Installer/Fragments/FilesFragment.wxs\n-Installer Projects/Installer/Resources/License.rtf\n-Installer Projects/Installer/Fragments/FilesFragment.wxs\n-Installer Projects/Installer/Fragments/HelpFilesFragment.wxs\n-InstallerProjects/Installer/Fragments/FilesFragment.wxs\n-InstallerProjects/Installer/Resources/License.rtf\n-\n-# mRemoteNG\n-**/mRemoteNG/Properties/AssemblyInfo.tt\n-**/mRemoteNG/Properties/AssemblyInfo.cs\n\\ No newline at end of file\n--- .readthedocs.yaml\n@@ -1,14 +0,0 @@\n-# .readthedocs.yaml\n-# Read the Docs configuration file\n-# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details\n-\n-# Required\n-version: 2\n-\n-# Build documentation in the docs/ directory with Sphinx\n-sphinx:\n-   configuration: mRemoteNGDocumentation/conf.py\n-\n-# Optionally build your docs in additional formats such as PDF\n-formats:\n-   - pdf\n\\ No newline at end of file\n--- CHANGELOG.md\n@@ -1,1723 +0,0 @@\n-# Changelog\n-All notable changes to this project will be documented in this file.\n-\n-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n-## [1.78.2]\n-### Fixed\n-- #2939: fixed SQL injection vulnerabilities via parameterized queries \n-- #2940: fixed for Possible command injection via Process.Start \n-- #2932: fixed HTTP/HTTPS protocol to support multiple concurrent connections\n-- #2855: fixed missing Username field for HTTP and HTTPS protocols\n-- #2852: fixed XML External Entity (XXE) vulnerability in XML deserialization\n-- #2851: fixed path traversal vulnerability in file operations\n-- #2850: fixed password dialog appearing behind splash screen on startup\n-- #2842: fixed element placement in options window\n-- #2734: fixed native build for Windows-x64\n-- #2715: fixed Disable WinForms analyzers and suppress WFO1000 build errors for ObjectListView\n-- #2712: fixed VNCEvent_Disconnected send the ProtocolBase based object reference\n-- #2668: fixed ssh quickconnect exception\n-- #2611: fixed correct registry path\n-- #2496: fixed use pwfile instead of cleartext password for putty connections \n-\n-### Added\n-- #2931: added vault openbao connector\n-- #2900: added \"Report a Bug\" menu item to Help menu and update bug report URL to GitHub issues \n-- #2865: added configurable connection tab colors to distinguish between different environments\n-- #2864: added color property to connections and folders with inheritance support\n-- #2863: added ARD (Apple Remote Desktop) protocol support for macOS connections\n-- #2728: added support for building mRemoteNG on Windows ARM64\n-- #2723: added read keyboardhook, gatewayaccesstoken and gatewaycredentialssource from RDP File\n-- #2690: added தமிழ் (ta) Translation update\n-- #2643: added registry Settings: enhancements and new settings implementation\n-- #2591: add Clickstudios Passwordstate API connector\n-- #2212: added 1Password integration\n-\n-### Updated\n-- #2883: Improve 1Password logging \n-- #2854: Refactor settings dialog to be opened in dockable panel (for consistency)\n-- #2597: Remember the opened connection file on relaunch\n-- #2502: Updated Polish translation\n-\n-### Dependency update\n-- #3bd2fe8: puttyng updated to x64 version (and signed)\n-\n-## [1.77.3.1784]\n-### Fixed\n-- #2362: Fix use of sql database\n-- #2356: Improve speed for the display of the options page\n-- #2352: SSH.NET Update\n-- #2346: Modify \"auto reconnect\" to have the ability to really auto-reconnect\n-- #2340: Set the default theme setting\n-- #2339: Add 2 missing settings\n-- #2261: Implement Show/Hide file menu in view menu\n-- #2244: Save RCG and RestrictedAdmin fields correctly in connections file\n-- #2195: Fix crafted XML File Code Execution vulnerability\n-- #304: use pwfile instead of cleartext password for puttyng\n-\n-### Added\n-- #2285: Support extraction of SSH private keys from external cred prov\n-- #2268: Postregsql database support\n-\n-### Updated\n-- #2295: Updates hyperlink style to make links more visible to end users\n-- #2337: Set language.resx to auto generate the designer class\n-\n-## [1.77.3]\n-### Added\n-- #1736: Update of SSH.NET to 2020.0.2 to allow File Transfer again\n-- #2138: Improve compatibility with Remote Desktop Connection Manager v2.83\n-- #2123: Thycotic Secret Server - Added 2FA OTP support\n-### Changed\n-- #1546: Enable resize without reconnect for RDP Version Rdc9 or higher\n- \n-## [1.77.2]\n-### Added\n-- #2086: Replace WebClient with async HttpClient for updater.\n-- #1850: Minify config xml\n-- #1770: Added missing RDP performance settings\n-- #1516: added API to access credential vault (Thycotic Secret Server) by specifying SSAPI:ID as username\n-- #1476: Configurable backups. Can now edit/set backup frequency, backup path, and max number of backup files.\n-- #1427: Fix RDP local desktop scale not taking effect on remote\n-- #1332: Added option to hide menu strip container\n-- #870: Added option to push inheritance settings to child nodes recursively\n-- #545: Option to minimize to system tray on closing\n-- #503: SSH Execute a single command after login\n-- #420: SSH tunneling implemented\n-- #327: Added Alternative Shell for RDP settings\n-- #319: Override quick connect username when using user@domain\n-- #283: Support for native PowerShell remoting as new protocol\n-- #xxx: Add external connector to retrieve ip address from Amazon EC2 Instance IDs\n-### Changed\n-- #2102: Extended the field RenderingEngine from 10 chars to 16\n-- #2022: Replaced CefSharp with WebView2\n-- #2014: Revised icons\n-- #2013: Removed components check\n-- #2011: Removed screenshot manager\n-- #2010: Redesigned menus\n-- #2005: Removed in-app documentation\n-- #1777: Cleaned up VisualStudio project structure\n-- #1767: Turned about window into a simple popup form\n-- #1690: Replaced GeckoFX (Firefox) with CefSharp (Chromium)\n-- #1325: Language resource files cleanup\n-- #xxxx: Secret Server connector via new field \"API User ID\" instead of SSAPI: prefix\n-### Fixed\n-- #2125: Fixed string parsing logic for Quick Connect toolbar.\n-- #2122: Fix to avoid throwing exception incase if not able decrypt connections and ask to open another one or create a new. \n-- #2117: Fix of broken Links due migration to .NET 6 and branch renaming\n-- #2098: Fix failed BinaryFileTest\n-- #2097: Fix failed tests related to mRemoteNGTests.UI.Window.ConfigWindowTests\n-- #2096: Corrected encryption code of LegacyRijndaelCryptographyProvider\n-- #2089: Fixed the exception thrown by menu buttons \"Documentation\" and \"Website\"\n-- #2087: Fixed application crash, when the update file is launched from the application\n-- #2079: Fixed theme files not being copied to output directory\n-- #2012: Updated PuTTYNG to v0.76\n-- #1884: Allow setting Port when using MSSQL\n-- #1783: Added missing inheritance properties to SQL scripts\n-- #1773: Connection issue with MySql - Missing fields in\n-- #1756: Cannot type any character on MultiSSH toolbar \n-- #1720: Show configuration file name in title of password prompt form\n-- #1713: Sound redirection does not work if Clipboard redirection is set to No\n-- #1632: 1.77.1 breaks RDP drive and sound redirection\n-- #1610: Menu bar changes to English when canceling options form\n-- #1595: Unhandled exception when trying to browse through non existent multi ssh history with keyboard key strokes\n-- #1589: Update SQL tables instead of rewriting them\n-- #1465: REGRESSION: Smart Cards redirection to Remote Desktop not working\n-- #1363: Don't show \"Disk Usage\" button in installer\n-- #1337: Unhandled exception after closing mRemoteNG\n-- #359: Making a VNC connection to an unreachable host causes the application to not respond for 20-30 seconds\n-- #618: Do not break the Windows Clipboard Chain when exiting.\n-\n-## [1.77.1] - 2019-09-02\n-### Added\n-- #1512: Added option to close panel from right click menu\n-- #1434: Revised sort button in connection tree to be able to sort in both orders\n-- #1400: Added file download handling to HTTP(S) connections using Gecko\n-- #1385: Added option to start mRemoteNG minimized\n-- #826: Allow selecting RDP version to use when connecting\n-### Changed\n-- #1544: Improved Polish translations\n-- #1518: Inheritance is no longer automatically enabled when importing nodes from Active Directory\n-- #1468: Improved mRemoteNG startup time\n-- #1443: Chinese (simplified) translation improvements\n-- #1437: Norwegian translation improvements\n-- #1378: Hyperlinks embedded within mRemoteNG now open in the system default browser\n-- #1239: Increased default key derivation function (KDF) iterations from 1000 to 10000\n-- #718: Moved port property from 'protocol' to 'connection' section\n-- Moved most RDP enums outside of the RDP protocol class. Scripts which reference these enums will need to be updated.\n-- Removed the \"Automatically get session info\" from the advanced options screen since it is no longer used.\n-### Fixed\n-- #1505: About screen now better follows theme colors\n-- #1493: Updated database setup scripts for MSSQL and MySQL\n-- #1470: The \"Favorite\" setting is now properly saved in the local connection settings file (not saved in database)\n-- #1447: Exception occurs when resetting layout\n-- #1439: Searching in hosts tree loses first keystroke\n-- #1428: Fixed a rare error when checking for FIPS\n-- #1426: Tabbing is reversed in config window\n-- #1425: Connections didn't always respect the panel property\n-- #841: Allow for sorting in port scan results\n-- #617: Added missing description for password protect field in root node\n-- #553: Browser language not set when using Gecko rendering engine\n-- #323: Wallpaper always shows in RDP connections, even when turned off\n-\n-\n-## [1.77.0] - 2019-04-29\n-### Added\n-- #1422: Added possibility to connect to virtual machines running on Hyper-V\n-- #1414: Add \"Remote Audio Capture\" option for RDP\n-- #1336: Added ability to run External tools on folders\n-- #1320: Added ability to favorite items in the connection tree\n-- #1318: Added support for saving connections in MySQL\n-- #1293: Importing .rdp files now imports gateway settings\n-- #1246: Improved connections loading to tolerate missing attributes in the confCons xml file\n-- #1230: Added option to track the currently focused connection in the connection tree\n-- #1220: Added an Apple/Mac connection icon\n-- #1218: A splashscreen has been added when mRemoteNG starts\n-- #1216: Connection tree search bar can be placed at the top or bottom of connection tree\n-- #1201: The help files packaged with mRemoteNG have been rewritten\n-- #1186: Certain dialogs are not correctly using localized text for buttons\n-- #1170: The Options window no longer displays in the Windows taskbar when open\n-- #1141: 'Copy Hostname' option added to connection tree context menu\n-- #1123: Added a dialog that will display when unhandled exceptions occur\n-- #1102: Added a button to clear connections searchbox\n-- #1042: Added a connection icon for OSX/MacOS\n-- #951: Added property to Enable/Disable Clipboard Sharing for RDP connections\n-- #929: Added the hostname to certain RDP error/disconnect messages where it was missing\n-- #928: Add context menu items to 'Close all but this' and 'Close all tabs to the right'\n-- #907: Added option to disable trimming whitespace from username field\n-- #896: Added a \"view only\" mode for RDP connections\n-- #416: Added ability to Enable/Disable Clipboard Sharing for RDP connections\n-- #321: Added support for displaying on HiDPI screens\n-### Changed\n-- #1430: Revised options dialog to prevent components from overlapping in some translations (e.g. russian)\n-- #1389: Connection config window refactoring. Default connection info buttons now always available.\n-- #1384: Revised help files and switched to sphinx as a documentation system\n-- #1223: Open External Links in Default Web Browser\n-- #1129: Spanish translation improvements\n-- #1072: Russian translation improvements\n-- #1016: Chinese (simplified) translation improvements\n-- #765: Port Scan Issues (single port scan option now available)\n-- #155: Replace MagicLibrary with DockPanelSuite\n-- #154: MR-139: Close Button on Each Tab - new default theme has a close button on each tab\n-<!-- ### Deprecated -->\n-<!-- ### Removed -->\n-### Fixed\n-- #1383: Fixed issue where default Computer OU was not showing up when importing from Active Directory\n-- #1248: RemoveMagicLib Bugs - various bugs that cropped up as a result of removing magiclib\n-- #1245: Options form takes nearly 3 seconds to appear when Theming is active\n-- #1240: Theming problem with NGNumericUpDown\n-- #1238: Connection panel not translated until opened for the first time\n-- #1186: Fixed several dialog boxes to use localized button text\n-- #1170: Prevent Options window from showing up in taskbar\n-- #1064: \"Esc\" button does does not close some dialogs\n-- #1044: Dragging (grabbing) the program window requires 2 clicks\n-<!-- ### Security -->\n-\n-## [1.76.20] - 2019-04-12\n-### Fixed\n-- #1401: Connections corrupted when importing RDC Manager files that are missing certain fields\n-\n-## [1.76.19] - 2019-04-04\n-### Fixed\n-- #1374: Vertical Scroll Bar missing in PuTTYNG after 0.70.0.1 & 0.71 updates\n-\n-## [1.76.18] - 2019-03-20\n-### Fixeed\n-- #1365: PuTTY window not centered after 0.71 update\n-\n-## [1.76.16] - 2019-03-14\n-### Fixed\n-- #1362: Updated PuTTYNG to 0.71\n-\n-## [1.76.15] - 2019-03-09\n-### Added\n-- Importing multiple files now only causes 1 save event, rather than 1 per file imported\n-### Fixed\n-- #1303: Exception on first connection with new SQL server database\n-- #1304: Resolved several issues with importing multiple RDP Manager v2.7 files\n-\n-## [1.76.14] - 2019-02-08\n-### Changed\n-- #222: Pre-Release Test build for running on systems with FIPS Enabled\n-\n-## [1.76.12] - 2018-11-08\n-### Added\n-- #1180: Allow saving certain connection properties locally when using database\n-### Fixed\n-- #1181: Connections sometimes dont immediately load when switching to sql feature\n-- #1173: Fixed memory leak when loading connections multiple times\n-- #1168: Autohide Connection and Config tab won't open when ssh connection active\n-- #1134: Fixed issue where opening a connection opens same connection on other clients when using database feature\n-- #449: Encrypt passwords saved to database\n-\n-## [1.76.11] - 2018-10-18\n-### Fixed\n-- #1139: Feature \"Reconnect to previously opened sessions\" not working\n-- #1136: Putty window not maximized\n-\n-## [1.76.10] - 2018-10-07\n-### Fixed\n-- #1124: Enabling themes causes an exception\n-\n-## [1.76.9] - 2018-10-07\n-### Fixed\n-- #1117: Duplicate panel created when \"Reconnect on Startup\" and \"Create Empty Panel\" settings enabled\n-- #1115: Exception when changing from xml data storage to SQL\n-- #1110: Pressing Delete button during connection rename attempts to delete the connection instead of the text\n-- #1106: Inheritance does not work when parent has C# default type set\n-- #1092: Invalid Cast Exceptions loading default connectioninfo \n-- #1091: Minor themeing issues\n-- #853: Added some additional safety checks and logging to help address RDP crashes\n-\n-## [1.76.8] - 2018-08-25\n-### Fixed\n-- #1088: Delete and Launch buttons are not disabled when last external tool deleted\n-- ${1}'Save connections after every edit' setting not honored\n-- #1082: Connections not given GUID if Id is empty in connection xml\n-\n-## [1.76.7] - 2018-08-22\n-### Fixed\n-- #1076: Wrong object selected when duplicating connection then switching between properties and inheritance in config window\n-- #1068: Fixed some toolbar positioning bugs\n-\n-## [1.76.6] - 2018-08-03)\n-### Fixed\n-- #1062: Entering correct password when starting app does not load connections file\n-\n-## [1.76.5] - 2018-08-02)\n-### Removed\n-- #893: Removed unneeded files from build/package\n-### Fixed\n-- #1057: Hitting F2 with no connection node selected caused unhandled exception\n-- #1052: 'Switch to notification panel' feature does not always switch\n-- #1051: Tooltips always displayed regardless of 'Show description tooltips in connection tree' setting\n-- #1050: Config window retains access to previously selected node after loading new connections file\n-- #1045: Config window shows several incorrect properties for HTTPS connections\n-- #1040: Canceling \"select panel\" form does not cancel\n-- #1039: Set default theme when themes disabled\n-- #1038: Unable to add connection with active filter\n-- #1036: Exception when themes are active and options page closed on Connections then reopened\n-- #1034: Connection context menu not being translated\n-- #1030: Exception thrown if importing from port scan and no tree node is selected\n-- #1020: BackupFileKeepCount setting not limiting backup file count\n-- #1004: Duplicating root or PuTTy node through hotkey causes unhandled exception\n-- #1002: Disabling filtering without clearing keyword leaves filtered state\n-- #1001: Connection tree context menu hotkeys stop working and disappear in some cases\n-- #999: Some hotkeys stop working if File menu was called when PuTTy Saved Sessions was selected\n-- #998: Can sometimes add connection under PuTTY Sessions node\n-- #991: Error when deleting host in filtered view\n-- #971: Portable Settings now apply to any machine they are used on\n-- #961: Connections file overwritten if correct decryption password not provided\n-- #868: if statement returned the same value\n-- #762: Increased button size to fit locaized text\n-\n-## [1.76.4 Alpha 6] - 2018-06-03\n-### Added\n-- #924: Notification for \"No Host Specified\" when clicking folders in quick-connect menu\n-- Added option for creating an empty panel on startup\n-### Changed\n-- #942: Improved Russian translation of several items\n-- #902: Menu bar can once again be moved. View -> \"Lock toolbar positions\" now also locks the menu position\n-### Fixed\n-- #948: Fixed issue where many menu item translations were not being used\n-- #938: Minor layout improvements on the Port Scan screen\n-- #916: Default properties were not being saved\n-\n-## [1.76.3 Alpha 5] - 2018-03-14\n-### Fixed\n-- #911: Csv exports sometimes do not include all fields\n-- #807: Inheritance is sometimes turned on for nodes under root Connections node\n-\n-## [1.76.2 Alpha 4] - 2018-03-03\n-### Fixed\n-- #899: DoNotPlay is Case Sensitive in XML Serialization\n-\n-## [1.76.1 Alpha 3] - 2018-02-24\n-### Added\n-- #625: Added ability to import mRemoteNG formatted CSV files\n-- #648: The port scan ping timeout is now configurable\n-### Fixed\n-- Fixed a few Xml serialization bugs that would occur if boolean values weren't capitalized\n-\n-## [1.76.0 Alpha 2] - 2018-02-01\n-### Added\n-- #838: Added an option to lock toolbars\n-- #836: Added a Read Only option for SQL connections\n-- #829: Add option that fixes connecting to Azure instances with LoadBalanceInfo\n-### Fixed\n-- #840: Fix theme loading issue in installer version\n-- #800: Fixed issue with PuTTY sessions not showing some extended characters\n-- Fixed a few toolbar layout issues\n-\n-## [1.76.0 Alpha 1] - 2017-12-08\n-### Added\n-- #799: Added option to save connections on every edit\n-- #798: Added button to test SQL database connections on SQL options page\n-- #611: Added multi-ssh toolbar for sending commands to many SSH clients at once\n-- #519: You can now import normal mRemoteNG files - they do not have to be exports\n-- #504: Added Korean translation\n-- #485: The Domain field is now visible/editable for connection with the IntApp protocol\n-- #468: Default connection info Panel property is now saved\n-- #429: Added Czech translation\n-- #421: When a connection file cannot be loaded, we will now prompt for how to proceed rather than always exiting.\n-- #338: Added option to filter connection tree when searching\n-- #225: Added support for importing Remote Desktop Connection Manager v2.7 RDG files\n-- #207: Can now specify a working directory for external tools\n-- #197: Selecting a quick connect protocol will start a connection with that host\n-- #184: Improve search to include description and hostname fields\n-- #152: Added option \"Show on Toolbar\" to external tools\n-- Added more logging/notifications options\n-### Changed\n-- #784: Rearranged some settings in the Options pages to prevent overlap with some translations\n-- #704: Portable version now saves settings in application directory\n-- #671: Revamped UI theme system\n-- #608: The Help -> Support Forum menu item now directs users to our Reddit community\n-- #558: Connection tree now shows customizable icons instead of play/pause icon\n-- #493: Changed backup file name time stamp to use local system time rather than UTC\n-- #357: Updated GeckoFX to v45.45.0.32\n-- Improved compatability between environments when building mRemoteNG from source\n-### Removed\n-- #797: Removed duplicate translation strings\n-### Fixed\n-- #747: Fixed unnecessary \"PuttySessions.Watcher.StartWatching\" error message\n-- #650: Fixed German translation typo\n-- #639: Fixed Italian translation typo\n-- #479: New connection tree nodes not starting in edit mode\n-- #233: Fixed crash that can occur when disconnecting from VNC server\n-- #195: Access to https with self-signed certificates not working\n-\n-## [1.75.7012] - 2017-12-01\n-### Changed\n-- #810: Official mRemoteNG builds will now be signed with a DigiCert certificate\n-### Fixed\n-- #814: Fixed bug that prevented reordering connections by dragging\n-- #803: File path command line argument not working with network path\n-\n-## [1.75.7011] - 2017-11-07\n-### Fixed\n-- #778: Custom connection file path command line argument (/c) not working\n-- #763: Sometimes minimizing folder causes connection tree to disappear\n-- #761: Connections using external tools do not start (introduced in 1.75.7009)\n-- #758: \"Decryption failed\" message when loading from SQL server\n-- Fixed issues with /resetpanels and /resetpos command line arguments\n-- Resolved bug where connection tree hotkeys would sometimes be disabled\n-\n-## [1.75.7010] - 2017-10-29\n-### Fixed\n-- #756: CustomConsPath always null\n-\n-## [1.75.7009] - 2017-10-28\n-### Changed\n-- #635: Updated PuTTYNG to 0.70\n-- Minor error message correction\n-- Minor code refactoring\n-### Fixed\n-- #676: Portable version ignores /cons param on first run\n-- #675: Attempting to add new connection/folder does not work in some situations\n-- #665: Can not add new connection or new folder in some situations\n-- #658: Keep Port Scan tab open after import\n-- #646: Exception after click on import port scan\n-- #610: mRemoteNG cannot start /crashes for some users on Windows server 2012 R2 server\n-- #600: Missing horizontal scrollbar on Connections Panel\n-- #596: Exception when launching external tool without a connection selected\n-- #550: Sometimes double-clicking connection tree node began rename instead of connecting\n-- #536: Prevented log file creation when writeLogFile option is not set\n-- #529: Erratic Tree Selection when using SQL Database\n-- #482: Default connection password not decrypted when loaded\n-- #335: The Quick Connect Toolbar > Connection view does not show open connections with the play icon\n-- #176: Unable to enter text in Quick Connect when SSH connection active\n-\n-\n-## NO RELEASE - 2017-06-15\n-### Fixed\n-- #466: Installer still failing on Win7 for updates - 1.75.7005 (Hotifx 5)\n-- #462: Remove no longer used files from portable version - 1.75.7003 (Hotfix 4)\n-\n-## [1.75.7008] - 2017-06-15\n-### Changed\n-- Minor updates to the installer build\n-### Fixed\n-- #589: MSI doesn't update with newer PuTTYNG version that fixes #583 (Again, Sorry!)\n-\n-## [1.75.7007] - 2017-06-14\n-### Fixed\n-- #583: SSH (PuTTYNG) Sessions are not properly integrated into the main mRemoteNG window (Sorry!)\n-\n-## [1.75.7006] - 2017-06-13\n-### Changed\n-- #531: Update PuTTYNG to 0.69\n-### Fixed\n-- #377: Use all space on About page\n-- #527: Additional protections to avoid problems on update check in heavily firewalled environments\n-- #530: Fixed issue where using External Tool on existing connection causes creation of 'New Connection' entry\n-- #546: Quick Connect from notification area icon displays warning when clicking on a folder (see #334)\n-\n-## [1.75.7005] - 2017-04-27\n-### Changed\n-- #410: Update PuTTYNG to 0.68\n-- Minor code cleanup/optimizations/null checks\n-### Fixed\n-- #434: Fix complier warnings CA1049 & CA2111\n-- #442: Fixed issue loading PuTTY sessions that have spaces in the name\n-- #502: Problems with ParentID for Duplicated Containers/Connections with SQL Connection Storage\n-- #514: Expanded property not saved/loaded properly from SQL\n-- #518: Exception when Importing File\n-\n-## [1.75.7003] - 2017-03-24\n-### Fixed\n-- #464: Resolved issue when importing a connections file while using SQL server feature\n-\n-## [1.75.7002] - 2017-03-10\n-### Fixed\n-- #448: Resolved issue with SQL saving\n-\n-## [1.75.7001] - 2017-03-10\n-### Changed\n-- #408: Update SQL scripts\n-\n-## [1.75 hotfix 1] - 2017-03-06\n-### Changed\n-- #437: Modify version numbering scheme\n-### Fixed\n-- #422: Uncaught exception when clicking in connection tree whitespace\n-- #312: Resolved KeePass auto-type issue\n-- #427: Export does not respect filtering user/password/domain\n-\n-## [1.75] - 2017-03-01\n-### Known Issues\n-- File hash check will fail when updating from 1.75 Beta 1 to newer versions.\n-  - Exception will be: \"MD5 Hashes didn't match!\" for 1.75 Beta 1 - 1.75 RC1\n-### Added\n-- #344: Use SHA512 File Hashes to validate downloads (in the update mechanism & posted to the Downloads page)\n-- Added Release Channels to the update check functionality allowing users to select one of 3 release channels for updates: Stable, Beta, Dev\n-- #360: Help -> About, Version # is now selectable/copyable\n-- #221: RDP: Optional disconnect after X number of minutes of inactivity\n-### Changed\n-- The usual general code clean up and refactoring\n-- #325: Code clean up and additional logging for External Tools based connections\n-- #298: Code clean up and additional logging around application startup\n-- #291, #236: External Tools code clean up and additional logging\n-### Fixed\n-- #369: Reset Layout Option Does Not Reset Notification Pane\n-- #362: Invalid cast exception when using the Notification Area Icon minimize/restore\n-- #334: Quick Connect displays warning when clicking on a folder\n-- #325: When using a connection with an external app, results in opening the same external app continuously\n-- #311: Import from Active Directory does not use machine's domain by default\n-- #258: Rename Tab dialog - populate original name in dialog (1.72 functionality)\n-- #211, #267: Recursive AD Import wasn't fully functional \n-\n-## [1.75 Beta 3] - 2016-12-01\n-### Known Issues\n-- Portable build MD5 check will fail when updating from 1.75 Beta 1 to newer versions.\n-### Fixed\n-- #289: Install fails during update process (only affects 1.75 beta 1 - 1.75 beta 2)\n-\n-## [1.75 Beta 2] - 2016-12-01\n-### Added\n-- #273: Added Turkish translation provided by forum user \"rizaemet\"\n-- #217: Create user manual documentation for the SSH File Transfer feature\n-### Fixed\n-- #254: Component check window position issues and uncaught exception\n-- #260: Crash when attempting to load fully encrypted confCons v2.5\n-- #261: Double clicking folder in treeview doesn't expand it in 1.75 beta1\n-- #271: Install package is not using the last installation path\n-- #278: Silent installs not detecting prerequisites\n-\n-## [1.75 Beta 1] - 2016-11-15\n-### Added\n-- MR-971: Added Right Click method to Port Scan to import discovered hosts\n-- MR-1000, - #211: Sub OU AD Import\n-- #172: Implement \"audioqualitymode\" for RDP sessions\n-- #160: Allow portable version to perform an update check (and download the latest .zip)\n-- #157: Implement new cryptography providers (See Tools -> Options -> Security)\n-### Changed\n-- Lots of code clean up and refactoring\n-- Limit log file size to 1 main log + 5 backups * 10MB.\n-- Minor UI Tweak: Default Menubar and QuickConnect Bar to same line\n-- MR-364: Removed \"Announcement\" functionality \n-- MR-366: Show PuTTY type and version on components check screen\n-- MR-586: Reduce HTTP/HTTPS document title length that is appended to the connection tab title\n-- MR-938: Adjust RDP Resolution list (ensure most common resolutions were available)\n-- MR-975: Replaced TreeView with TreeListView for displaying connection tree. This was a large change which separated the GUI from the domain model.\n-- #144: Removed export option for \"VisionApp Remote Desktop 2008\"\n-- MR-220: Don't close the AD importer after import\n-- #167: fix/implement the update check (was disabled in 1.74 as part of the C# conversion)\n-### Fixed\n-- MR-967: File transfer doesn't work when specifying full path and file name (as prompted)\n-- MR-979: switched to notifications panel incorrectly (when configured NOT to do so)\n-\n-## [1.75 Alpha 3] - 2016-08-12\n-### Added\n-- MR-896: Added prerequisite installer check for KB2574819. Prevents \"Class not registered\" errors when opening RDP connections.\n-### Changed\n-- PR-130: Fix Scan button width to fit Russian translation\n-### Removed\n-- MR-946: Remove old/insecure SharpSSH and related components. Replace with SSH.NET for File Transfer Functionality\n-### Fixed\n-- MR-965, MR-871, MR-629: Error 264 on RDP Connect attempt - Added timeout value to Tools -> Options -> Connections\n-\n-## [1.75 Alpha 2] - 2016-08-03\n-### Added\n-- MR-961, PR-133: Option to reconnect all currently opened connection tabs \n-- MR-917: Improved cryptographic support\n-### Changed\n-- Updated GeckoFx package\n-- Updated DockPanelSuite library to 2.10 Final\n-- Japanese translation updated\n-- MR-942: Refactored code relating to loading the connections file \n-### Fixed\n-- MR-910: Fixes to support Remote Desktop Gateways\n-- MR-874: Incorrect RDP prerequisite check in installer\n-\n-## [1.75 Alpha 1] - 2016-07-08\n-### Changed\n-- Additional code cleanup\n-### Fixed\n-- MR-905: mRemoteNG crashes at startup (in FIPS policy check)\n-- MR-902: mRemoteNG crashes after locking/unlocking the local system after loading a VNC connection\n-\n-## [1.74] - 2016-06-28\n-### Added\n-- MR-821: Initial Japanese translation included\n-### Changed\n-- New operating system requirements\n-  - Windows 7 SP1 (with RDP Client v8: KB2592687/KB2923545) or later\n-  - .NET Framework 4 or later\n-- XULRunner is no longer required for Gecko support (see below)\n-- Converted source from Visual Basic to C Sharp\n-- Lots of code refactoring/clean up/general stability changes\n-- Updated to latest DockPanelSuite and enabled a slick new theme!\n-- MR-145: Installer is now MSI based\n-- MR-255: Updated RDP Client to version 8\n-- MR-389: Updates to IE rendering engine\n-  - Support for latest version of IE (9-11)\n-  - Dropped support for IE 7 & IE 8\n-- MR-850: Replaced XULRunner with GeckoFx\n-  - No need to manually configure to have the Gecko rendering engine available now\n-  - Install image is now significantly larger due to the inclusion of the Gecko Engine\n-- Port Scan is now Asynchronous (and is significantly faster)\n-### Removed\n-- MR-714: Removed Keyboard shortcut functionality\n-  - Introduced in 1.73 beta that was never officially released\n-  - This caused stability issues\n-  - May be re-added in a future release\n-  - Removal does *NOT* impact the ability to send keyboard shortcuts to RDP sessions (when redirect key combinations is set to \"yes\")\n-- MR-559: Removed RDP Sessions panel functionality. This required a library for which no trusted origin/source could be located\n-- Removed a bunch of old code/libraries and replaced them accordingly\n-### Security\n-- MR-775, MR-745: Updated PuTTY to 0.67\n-### Fixed\n-- MR-874: Added work-around to installer to ignore installation prerequisites\n-- MR-884: Slow startup in some scenarios checking authenticode certificate\n-- MR-872: Crash in External Tools when arguments aren't quoted\n-- MR-854: crashes when right clicking on connection tab\n-- MR-852: Option \"Allow only a single instance of the application\" non-functional\n-- MR-836: Trying to delete a folder of connections only deletes 2 connections at a time\n-- MR-824, MR-706: Suppress Script Errors when using the IE rendering engine\n-- MR-822: Improve RDP error code messages\n-- MR-640: Fixed Inheritance not working\n-- MR-639: RDP: Connect to console session\n-- MR-610, MR-582, MR-451: RDP: Protocol Error 3334 or exceptions with large number of connections open\n-  - This problem appears largely resolved by most reports and testing\n-  - Further workarounds/problem avoidance: Disable Bitmap Caching on all RDP session configuration\n-- MR-429: Display issue on the Options -> Advanced panel\n-- MR-385: Inheritance settings lost when moving item to the root of the tree\n-\n-## New Dev Team\n-\n-## [1.73 Beta 2] - [NEVER RELEASED]\n-### Added\n-- Added support for importing fil",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_mR-NB.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    },
+    {
+      "id": "env-secret-access",
+      "severity": "critical",
+      "file": ".github/workflows/Build_mR-NB.yml",
+      "reason": "added code reads credentials or CI secrets"
+    },
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/filter-links.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    },
+    {
+      "id": "license",
+      "severity": "medium",
+      "file": "COPYING.txt",
+      "reason": "licence edits change redistribution terms"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "Directory.Packages.props",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "ExternalConnectors/ExternalConnectors.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "ExternalConnectors/OP/OnePasswordCli.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "ObjectListView/ObjectListView.NetCore.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/CreateBulkConnections_ConfCons2_6.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/create_upg_chk_files.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "Tools/decrypt.bat",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/decrypt.bat",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "Tools/encrypt.bat",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/encrypt.bat",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "Tools/exes/dumpbin.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "Tools/exes/editbin.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "Tools/exes/link.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "Tools/exes/mspdbcore.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "Tools/exes/sigcheck.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/find_vstool.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/github_functions.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/postbuild.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/postbuild_installer.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/postbuild_portable.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/publish_draft_github_release.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/publish_to_github.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/rename_and_copy_installer.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/set_LargeAddressAware.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/sign_binaries.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/signfiles.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/tidy_files_for_release.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/update_and_upload_assemblyinfocs.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/update_and_upload_website_release_json_file.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/validate_microsoft_tool.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/verify_LargeAddressAware.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/verify_binary_signatures.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/zip_files.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDocumentEncryptor.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListDeserializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListSerializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordDecryptorDecorator.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordEncryptorDecorator.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordDeserializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordSerializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Serializers/XmlConnectionsDecryptor.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Config/Settings/Registry/OptRegistryCredentialsPage.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Connection/ExternalCredentialProviderSelector.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Connection/Protocol/RDP/RDGatewayUseConnectionCredentials.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialChangedEventArgs.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialDeletionMsgBoxConfirmer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialDomainUserComparer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialInfo.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialRecord.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialRecordTypeConverter.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialServiceFacade.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/CredentialServiceFactory.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/ICredentialRecord.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/ICredentialRepository.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/ICredentialRepositoryList.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/PlaceholderCredentialRecord.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/CompositeRepositoryUnlocker.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/CredentialRepoUnlockerBuilder.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/CredentialRepositoryChangedArgs.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/CredentialRepositoryConfig.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/CredentialRepositoryList.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/ICredentialRepositoryConfig.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/XmlCredentialRepository.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Credential/Repositories/XmlCredentialRepositoryFactory.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:23Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Unauditable lab snapshot: 290 of 300 files are deletions, including ObjectListView, serializers, license, manifests, and build tooling; it fixes no listed issue.",
+    "agent": "codex",
+    "at": "2026-07-25T17:17:56Z"
+  }
+}

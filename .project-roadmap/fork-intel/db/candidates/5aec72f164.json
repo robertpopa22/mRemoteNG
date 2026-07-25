@@ -1,0 +1,13 @@
+{
+  "sha": "5aec72f164ff285363aed8d89a00e737b9c37e50",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "Updated to 1.76.20 with AdmPwd.E 7.7.1",
+  "author_name": "Jiri Formacek",
+  "author_login": "jformacek",
+  "date": "2019-12-25T22:31:04Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5aec72f164ff285363aed8d89a00e737b9c37e50",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T16:29:22Z"
+}

@@ -1,0 +1,61 @@
+{
+  "sha": "f0c571b5cf3c1d7b74b94b78c755be0d56f5c464",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "Renci.SshNet版本升级至2020.0.2",
+  "body": "Renci.SshNet版本升级至2020.0.2",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-21T16:15:31Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0c571b5cf3c1d7b74b94b78c755be0d56f5c464",
+  "stats": {
+    "files": 2,
+    "additions": 3,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/mRemoteV1.csproj",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/packages.config",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/mRemoteV1.csproj\n@@ -74,8 +74,8 @@\n     <Reference Include=\"ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL\">\r\n       <HintPath>..\\packages\\ObjectListView.Official.2.9.1\\lib\\net20\\ObjectListView.dll</HintPath>\r\n     </Reference>\r\n-    <Reference Include=\"Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL\">\r\n-      <HintPath>..\\packages\\SSH.NET.2016.1.0\\lib\\net40\\Renci.SshNet.dll</HintPath>\r\n+    <Reference Include=\"Renci.SshNet, Version=2020.0.2.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL\">\r\n+      <HintPath>..\\packages\\SSH.NET.2020.0.2\\lib\\net40\\Renci.SshNet.dll</HintPath>\r\n     </Reference>\r\n     <Reference Include=\"System\" />\r\n     <Reference Include=\"System.Configuration\" />\r\n--- mRemoteV1/packages.config\n@@ -10,5 +10,5 @@\n   <package id=\"Greycorbel.AdmPwd-E.PDSWrapper\" version=\"7.7.5\" targetFramework=\"net46\" />\r\n   <package id=\"log4net\" version=\"2.0.17\" targetFramework=\"net46\" />\r\n   <package id=\"ObjectListView.Official\" version=\"2.9.1\" targetFramework=\"net46\" />\r\n-  <package id=\"SSH.NET\" version=\"2016.1.0\" targetFramework=\"net46\" />\r\n+  <package id=\"SSH.NET\" version=\"2020.0.2\" targetFramework=\"net46\" />\r\n </packages>\n\\ No newline at end of file",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/mRemoteV1.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/packages.config",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:38Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Our fork already uses a much newer SSH.NET version (2025.1.0) under central package management, fully superseding this change.",
+    "agent": "gemini",
+    "at": "2026-07-25T17:01:53Z"
+  }
+}

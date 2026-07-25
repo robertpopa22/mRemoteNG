@@ -1,0 +1,60 @@
+{
+  "sha": "55aed5eb7088aa25252181bad5fda41fb70c121a",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "CustomConsPath配置项默认会保存相对路径（如可用）",
+  "body": "CustomConsPath配置项默认会保存相对路径（如可用）",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-25T07:21:01Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/55aed5eb7088aa25252181bad5fda41fb70c121a",
+  "stats": {
+    "files": 4,
+    "additions": 81,
+    "deletions": 16,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/App/Info/ConnectionsFileInfo.cs",
+      "status": "modified",
+      "additions": 62,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteV1/Connection/ConnectionsService.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/Tools/Cmdline/StartupArgumentsInterpreter.cs",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 11
+    },
+    {
+      "filename": "mRemoteV1/UI/Menu/MainFileMenu.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/App/Info/ConnectionsFileInfo.cs\n@@ -1,10 +1,69 @@\n-﻿namespace mRemoteNG.App.Info\n+﻿using System;\n+using System.IO;\n+\n+namespace mRemoteNG.App.Info\n {\n \tpublic static class ConnectionsFileInfo\n     {\n-        public static readonly string DefaultConnectionsPath = SettingsFileInfo.SettingsPath;\n+        public static readonly string DefaultConnectionsPath = Path.Combine(SettingsFileInfo.SettingsPath, \"conf\");\n         public static readonly string DefaultConnectionsFile = \"confCons.xml\";\n-        public static readonly string DefaultConnectionsFileNew = \"confConsNew.xml\";\n+        //public static readonly string DefaultConnectionsFileNew = \"confConsNew.xml\";\n         public static readonly double ConnectionFileVersion = 2.6;\n+\n+        /// <summary>\n+        /// 把任意绝对路径 targetFullPath 转成相对于程序集目录的\n+        /// 相对路径（带 .. 的格式）；若无法相对化则原样返回。\n+        /// </summary>\n+        public static string MakeRelativeIfPossible(string targetFilePath)\n+        {\n+            if (string.IsNullOrWhiteSpace(targetFilePath))\n+                return targetFilePath;\n+\n+            //var baseDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);\n+            var baseDir = Path.GetFullPath(SettingsFileInfo.SettingsPath);\n+            if (!baseDir.EndsWith(Path.DirectorySeparatorChar.ToString()))\n+                baseDir = baseDir + Path.DirectorySeparatorChar;\n+            var targetPath = Path.GetFullPath(targetFilePath);\n+\n+            //---Debug---\n+            //Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);\n+            //Console.WriteLine(baseDir);\n+            //Console.WriteLine(targetFilePath);\n+            //Console.WriteLine(targetPath);\n+            \n+            //string workDir = Environment.CurrentDirectory;\n+            //string workDir2 = Directory.GetCurrentDirectory();\n+            //string workDir3 = AppDomain.CurrentDomain.BaseDirectory;\n+            //string workDir4 = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);\n+            //Console.WriteLine(workDir);\n+            //Console.WriteLine(workDir2);\n+            //Console.WriteLine(workDir3);\n+            //Console.WriteLine(workDir4);\n+            //workDir - workDir4 结果打印：\n+            //D:\\DEV\\VisualStudioProjects\\mRemoteNG\\mRemoteV1\\bin\\Release Portable\n+            //D:\\DEV\\VisualStudioProjects\\mRemoteNG\\mRemoteV1\\bin\\Release Portable\n+            //D:\\DEV\\VisualStudioProjects\\mRemoteNG\\mRemoteV1\\bin\\Release Portable\\\n+            //D:\\DEV\\VisualStudioProjects\\mRemoteNG\\mRemoteV1\\bin\\Release Portable\n+            //---Debug---\n+\n+            if (targetPath.StartsWith(baseDir, StringComparison.OrdinalIgnoreCase))\n+            {\n+                //API方式：.NET Framework 4.7.1 以下没有 Path.GetRelativePath，可用 Uri 代替\n+                //string subPath = Path.GetRelativePath(baseDir, targetFullPath);\n+\n+                //Uri 方式\n+                string subPath = new Uri(baseDir).MakeRelativeUri(new Uri(targetPath)).ToString().Replace('/', Path.DirectorySeparatorChar);\n+                Console.WriteLine(subPath);\n+\n+                //截取方式：去掉相同前缀，再删掉可能多余的首个分隔符\n+                //string subPath2 = targetPath.Substring(baseDir.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);\n+                //Console.WriteLine(subPath2);\n+\n+                return subPath;\n+            }\n+\n+            return targetFilePath;\n+\n+        }\n     }\n }\n\\ No newline at end of file\n--- mRemoteV1/Connection/ConnectionsService.cs\n@@ -312,7 +312,7 @@ private void UpdateCustomConsPathSetting(string filename)\n             else\n             {\n                 Settings.Default.LoadConsFromCustomLocation = true;\n-                Settings.Default.CustomConsPath = filename;\n+                Settings.Default.CustomConsPath = ConnectionsFileInfo.MakeRelativeIfPossible(filename);//CBH\n             }\n         }\n \n--- mRemoteV1/Tools/Cmdline/StartupArgumentsInterpreter.cs\n@@ -87,22 +87,27 @@ private void ParseCustomConnectionPathArg(CmdArgumentsInterpreter args)\n \n             if (string.IsNullOrEmpty(consParam)) return;\n             _messageCollector.AddMessage(MessageClass.DebugMsg, \"Cmdline arg: loading connections from a custom path\");\n-            if (File.Exists(args[consParam]) == false)\n+\n+            if (File.Exists(args[consParam]))\n+            {\n+                //绝对路径中存在\n+                Settings.Default.LoadConsFromCustomLocation = true;\n+                var consPath = args[consParam];\n+                Settings.Default.CustomConsPath = ConnectionsFileInfo.MakeRelativeIfPossible(consPath);\n+            }\n+            else if (File.Exists(Path.Combine(GeneralAppInfo.HomePath, args[consParam])))\n             {\n-                if (File.Exists(Path.Combine(GeneralAppInfo.HomePath, args[consParam])))\n-                {\n-                    Settings.Default.LoadConsFromCustomLocation = true;\n-                    Settings.Default.CustomConsPath = Path.Combine(GeneralAppInfo.HomePath, args[consParam]);\n-                    return;\n-                }\n-                if (!File.Exists(Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, args[consParam]))) return;\n+                //程序根目录中存在\n                 Settings.Default.LoadConsFromCustomLocation = true;\n-                Settings.Default.CustomConsPath = Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, args[consParam]);\n+                var consPath = Path.Combine(GeneralAppInfo.HomePath, args[consParam]);\n+                Settings.Default.CustomConsPath = ConnectionsFileInfo.MakeRelativeIfPossible(consPath);\n             }\n-            else\n+            else if (File.Exists(Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, args[consParam])))\n             {\n+                //程序配置（conf）目录中存在\n                 Settings.Default.LoadConsFromCustomLocation = true;\n-                Settings.Default.CustomConsPath = args[consParam];\n+                var consPath = Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, args[consParam]);\n+                Settings.Default.CustomConsPath = ConnectionsFileInfo.MakeRelativeIfPossible(consPath);\n             }\n         }\n     }\n--- mRemoteV1/UI/Menu/MainFileMenu.cs\n@@ -3,6 +3,7 @@\n using System.Linq;\n using System.Windows.Forms;\n using mRemoteNG.App;\n+using mRemoteNG.App.Info;\n using mRemoteNG.Connection;\n using mRemoteNG.Container;\n using mRemoteNG.Security;\n@@ -420,7 +421,7 @@ private void mMenFileSaveAs_Click(object sender, EventArgs e)\n                 else\n                 {\n                     Settings.Default.LoadConsFromCustomLocation = true;\n-                    Settings.Default.CustomConsPath = newFileName;\n+                    Settings.Default.CustomConsPath = ConnectionsFileInfo.MakeRelativeIfPossible(newFileName);//CBH\n                 }\n             }\n         }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:42Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Our fork refactored paths to use ConnectionFilePath with Environment.ExpandEnvironmentVariables. Handled better without custom Uri/relative-path parsing.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:39:39Z"
+  }
+}

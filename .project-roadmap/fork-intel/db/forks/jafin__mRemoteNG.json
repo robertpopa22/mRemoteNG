@@ -9,13 +9,50 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 2,
   "behind_by": 1789,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "390ec3e076cf1343ae8ec7ebcc358cf1fb5fb13e",
+      "subject": "added postbuild cleanup script",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-16T01:47:13Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/390ec3e076cf1343ae8ec7ebcc358cf1fb5fb13e",
+      "branches": [
+        "build_folder"
+      ]
+    },
+    {
+      "sha": "2b9effdf714afc9a8f25bffdaa8deefa1097eeae",
+      "subject": "updated script",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2021-12-16T15:44:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2b9effdf714afc9a8f25bffdaa8deefa1097eeae",
+      "branches": [
+        "build_folder"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:39Z",
   "last_seen": "2026-07-25T10:56:39Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "5ff4502f0aeb31ae0777aa784e7214fca7ac1e6b",
-  "compared_at": "2026-07-25T10:57:57Z"
+  "compared_at": "2026-07-25T16:23:08Z",
+  "branches_scanned": [
+    "v1.77.3-dev",
+    "build_folder",
+    "develop",
+    "fix/frmInputBox-autosize",
+    "fix/topmenu"
+  ],
+  "branches_inherited_from_upstream": 13,
+  "screened_shas": [
+    "390ec3e076cf1343ae8ec7ebcc358cf1fb5fb13e",
+    "2b9effdf714afc9a8f25bffdaa8deefa1097eeae"
+  ]
 }

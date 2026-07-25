@@ -1,0 +1,13 @@
+{
+  "sha": "729166fc306bfb1d6da9ba4432e4091b3e61edab",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "Merge branch 'develop' into remove_statics",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-20T14:29:55Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/729166fc306bfb1d6da9ba4432e4091b3e61edab",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "1d7aaa12e4ffef28486e9ebb1b5d9ccca7a8d6a5",
+  "fork": "Ahmed-ElHamidy/mRemoteNG",
+  "owner": "Ahmed-ElHamidy",
+  "subject": "Update documentation to include comma and semicolon in shell metacharacters list",
+  "author_name": "copilot-swe-agent[bot]",
+  "author_login": "Copilot",
+  "date": "2025-12-19T22:50:32Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1d7aaa12e4ffef28486e9ebb1b5d9ccca7a8d6a5",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:28:09Z"
+}

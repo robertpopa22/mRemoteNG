@@ -17,5 +17,14 @@
   "last_seen": "2026-07-25T10:56:33Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "19e475204fbf5b19572772fab992042e8e0a8df5",
-  "compared_at": "2026-07-25T10:57:58Z"
+  "compared_at": "2026-07-25T16:23:14Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "FixObjectListViewSerializerWarnings",
+    "FixRDPResizingBugs",
+    "jc/FixUpdateCheck",
+    "jc/FontOptimizations",
+    "jc/OptionsDialogRefactor"
+  ],
+  "branches_inherited_from_upstream": 0
 }

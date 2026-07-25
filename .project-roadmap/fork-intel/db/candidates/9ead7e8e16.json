@@ -1,0 +1,13 @@
+{
+  "sha": "9ead7e8e16fd87c184a9073bb0e7f8ddbd769799",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed an issue with putty session importing",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-20T17:18:40Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9ead7e8e16fd87c184a9073bb0e7f8ddbd769799",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "991505b043b299c919abfecc934bb10ce1804439",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "fixed bug where connection properties weren't being passed to external tools",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-20T14:42:31Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/991505b043b299c919abfecc934bb10ce1804439",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

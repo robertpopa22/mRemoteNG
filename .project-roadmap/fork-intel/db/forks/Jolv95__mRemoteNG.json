@@ -17,5 +17,10 @@
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "b94df0bbad134d2c9bf3e1fdfbb2181969e87e70",
-  "compared_at": "2026-07-25T10:58:00Z"
+  "compared_at": "2026-07-25T16:23:33Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "renovate/protobuf-monorepo"
+  ],
+  "branches_inherited_from_upstream": 21
 }

@@ -1,0 +1,13 @@
+{
+  "sha": "f3a7d97016b1b7e8e4b7bc3bdb959a6f8ab022af",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "allow specifying specific credential record in external tool arguments",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-27T17:31:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f3a7d97016b1b7e8e4b7bc3bdb959a6f8ab022af",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

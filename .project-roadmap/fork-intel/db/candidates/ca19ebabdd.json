@@ -1,0 +1,54 @@
+{
+  "sha": "ca19ebabdd54cae80ea23f3393aa4bc4d74d8785",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "外部工具增加WaitAfterStart字段，启动后的等待时间（阻塞）。修正外部工具尝试集成启动后%name%变量不正确的问题",
+  "body": "外部工具增加WaitAfterStart字段，启动后的等待时间（阻塞）。修正外部工具尝试集成启动后%name%变量不正确的问题",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-21T12:59:00Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca19ebabdd54cae80ea23f3393aa4bc4d74d8785",
+  "stats": {
+    "files": 3,
+    "additions": 39,
+    "deletions": 11,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Config/Settings/ExternalAppsLoader.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 9
+    },
+    {
+      "filename": "mRemoteV1/Config/Settings/ExternalAppsSaver.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Tools/ExternalTool.cs",
+      "status": "modified",
+      "additions": 36,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteV1/Config/Settings/ExternalAppsLoader.cs\n@@ -77,21 +77,14 @@ public void LoadExternalAppsFromXML()\n                     extA.WorkingDir = xEl.Attributes[\"WorkingDir\"].Value;\n                 if (xEl.HasAttribute(\"RunElevated\"))\n                     extA.RunElevated = bool.Parse(xEl.Attributes[\"RunElevated\"].Value);\n-\n                 if (xEl.HasAttribute(\"WaitForExit\"))\n-                {\n                     extA.WaitForExit = bool.Parse(xEl.Attributes[\"WaitForExit\"].Value);\n-                }\n-\n+                if (xEl.HasAttribute(\"WaitAfterStart\"))\n+                    extA.WaitAfterStart = int.Parse(xEl.Attributes[\"WaitAfterStart\"].Value);\n                 if (xEl.HasAttribute(\"TryToIntegrate\"))\n-                {\n                     extA.TryIntegrate = bool.Parse(xEl.Attributes[\"TryToIntegrate\"].Value);\n-                }\n-\n                 if (xEl.HasAttribute(\"ShowOnToolbar\"))\n-                {\n                     extA.ShowOnToolbar = bool.Parse(xEl.Attributes[\"ShowOnToolbar\"].Value);\n-                }\n \n                 _messageCollector.AddMessage(MessageClass.InformationMsg, $\"Adding External App: {extA.DisplayName} {extA.FileName} {extA.Arguments}\", true);\n                 Runtime.ExternalToolsService.ExternalTools.Add(extA);\n--- mRemoteV1/Config/Settings/ExternalAppsSaver.cs\n@@ -39,6 +39,7 @@ public void Save(IEnumerable<ExternalTool> externalTools)\n                     xmlTextWriter.WriteAttributeString(\"Arguments\", \"\", extA.Arguments);\n                     xmlTextWriter.WriteAttributeString(\"WorkingDir\", \"\", extA.WorkingDir);\n                     xmlTextWriter.WriteAttributeString(\"WaitForExit\", \"\", Convert.ToString(extA.WaitForExit));\n+                    xmlTextWriter.WriteAttributeString(\"WaitAfterStart\", \"\", Convert.ToString(extA.WaitAfterStart));\n                     xmlTextWriter.WriteAttributeString(\"TryToIntegrate\", \"\", Convert.ToString(extA.TryIntegrate));\n                     xmlTextWriter.WriteAttributeString(\"RunElevated\", \"\", Convert.ToString(extA.RunElevated));\n                     xmlTextWriter.WriteAttributeString(\"ShowOnToolbar\", \"\", Convert.ToString(extA.ShowOnToolbar));\n--- mRemoteV1/Tools/ExternalTool.cs\n@@ -4,6 +4,8 @@\n using System.Diagnostics;\n using System.Drawing;\n using System.IO;\n+using System.Threading;\n+using System.Threading.Tasks;\n using mRemoteNG.App;\n using mRemoteNG.Connection;\n using mRemoteNG.Connection.Protocol;\n@@ -18,6 +20,7 @@ public class ExternalTool : INotifyPropertyChanged\n         private string _displayName;\n         private string _fileName;\n         private bool _waitForExit;\n+        private int _waitAfterStart = 0;\n         private string _arguments;\n         private string _workingDir;\n         private bool _tryIntegrate;\n@@ -50,6 +53,19 @@ public bool WaitForExit\n             }\n         }\n \n+        public int WaitAfterStart\n+        {\n+            get { return _waitAfterStart; }\n+            set\n+            {\n+                // WaitAfterStart cannot be turned on when TryIntegrate is true\n+                if (TryIntegrate)\n+                    return;\n+                SetField(ref _waitAfterStart, value, nameof(WaitAfterStart));\n+            }\n+        }\n+\n+\n         public string Arguments\n         {\n             get { return _arguments; }\n@@ -69,7 +85,11 @@ public bool TryIntegrate\n             {\n                 // WaitForExit cannot be turned on when TryIntegrate is true\n                 if (value)\n+                {\n                     WaitForExit = false;\n+                    //WaitAfterStart = 0;\n+                }\n+                   \n                 SetField(ref _tryIntegrate, value, nameof(TryIntegrate));\n             }\n         }\n@@ -149,10 +169,24 @@ private void StartExternalProcess()\n             SetProcessProperties(process, ConnectionInfo);\n             process.Start();\n \n-            if (WaitForExit)\n+            Console.WriteLine(\"WaitForExit:\"+ WaitForExit+ \" , WaitAfterStart:\"+ WaitAfterStart);\n+            if (WaitForExit)  \n+            {\n+                process.WaitForExit();\n+                return;\n+            }\n+\n+            //CBH\n+            //-1 ʱ ��ʾ�ȴ��˳�������0 ��ʾ�ȴ���Ӧ��ʱ��\n+            if (WaitAfterStart == -1)  //��Ч�� WaitForExit=true\n             {\n                 process.WaitForExit();\n             }\n+            else if(WaitAfterStart > 0)\n+            {\n+                //await Task.Delay(WaitAfterStart);  //�첽ʽ  ����ǩ��Ӧ�ñ����� async Task ����Ч\n+                Thread.Sleep(WaitAfterStart);  //����ʽ\n+            }\n         }\n \n         private void SetProcessProperties(Process process, ConnectionInfo startConnectionInfo)\n@@ -195,7 +229,7 @@ private void SetConnectionInfoFields(ConnectionInfo newConnectionInfo)\n         {\n             newConnectionInfo.Protocol = ProtocolType.IntApp;\n             newConnectionInfo.ExtApp = DisplayName;\n-            newConnectionInfo.Name = DisplayName;\n+            //newConnectionInfo.Name = DisplayName;  //CBH ���� ���ֻ�Ӧ����ԭ���֣����򴫵ݸ��ⲿ���ߵ� %name% ���Ϊ�ⲿ������\n             newConnectionInfo.Panel = Language.strMenuExternalTools;\n         }\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:35Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Niche WaitAfterStart with blocking Thread.Sleep on UI path, Console.WriteLine debug, mojibake comments, old mRemoteV1 layout. Would need full reimplement for marginal benefit.",
+    "agent": "claude",
+    "at": "2026-07-25T16:43:09Z"
+  }
+}

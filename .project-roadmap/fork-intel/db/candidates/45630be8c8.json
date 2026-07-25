@@ -1,0 +1,13 @@
+{
+  "sha": "45630be8c89741fc52918f38a49c200f0397902a",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "Revert \"change to expression body\"",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2017-12-08T17:23:11Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/45630be8c89741fc52918f38a49c200f0397902a",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

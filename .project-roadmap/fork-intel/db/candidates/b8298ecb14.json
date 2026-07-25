@@ -1,0 +1,13 @@
+{
+  "sha": "b8298ecb14380ea7d1d7d39f4d96da3105aa0cf3",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "minor display changes of the repo manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-13T17:19:03Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b8298ecb14380ea7d1d7d39f4d96da3105aa0cf3",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

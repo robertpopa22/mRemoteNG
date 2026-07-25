@@ -1,0 +1,13 @@
+{
+  "sha": "1f296f2f7266644ab48c77b1d9a83aced98b4235",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "slight fix to the optional<T> tests",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-27T22:59:02Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1f296f2f7266644ab48c77b1d9a83aced98b4235",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

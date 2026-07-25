@@ -1,0 +1,42 @@
+{
+  "sha": "8f69e4cb774945580750f99bf0ab6f2fce45f578",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "place about form in center of current screen",
+  "body": "place about form in center of current screen",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-24T14:41:45Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f69e4cb774945580750f99bf0ab6f2fce45f578",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/FrmAbout.Designer.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/FrmAbout.Designer.cs\n@@ -147,7 +147,7 @@ private void InitializeComponent()\n             this.MaximumSize = new System.Drawing.Size(20000, 10000);\n             this.MinimizeBox = false;\n             this.Name = \"FrmAbout\";\n-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;\n+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;\n             this.Text = \"About\";\n             this.TopMost = true;\n             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:57Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Legacy floating-form positioning no longer applies: About is now a docked BaseWindow shown in pnlDock and has no StartPosition.",
+    "agent": "codex",
+    "at": "2026-07-25T18:00:43Z"
+  }
+}

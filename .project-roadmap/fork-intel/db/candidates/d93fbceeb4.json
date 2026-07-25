@@ -1,0 +1,42 @@
+{
+  "sha": "d93fbceeb45664868818f1d955ae6441701715b2",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "feat: passive RDP monitor for 1.77.2-release (focus suppress + ViewOnly only in fullscreen + scroll bottom-right)",
+  "body": "feat: passive RDP monitor for 1.77.2-release (focus suppress + ViewOnly only in fullscreen + scroll bottom-right)",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-16T00:47:53Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d93fbceeb45664868818f1d955ae6441701715b2",
+  "stats": {
+    "files": 1,
+    "additions": 76,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 76,
+      "deletions": 5
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -1,5 +1,6 @@\n-﻿using System;\r\n+using System;\r\n using System.Diagnostics;\r\n+using System.Drawing;\r\n using System.Runtime.InteropServices;\r\n using System.Threading;\r\n using System.Timers;\r\n@@ -36,6 +37,10 @@ public class RdpProtocol6 : ProtocolBase, ISupportsViewOnly\n         private readonly DisplayProperties _displayProperties;\r\n         private readonly FrmMain _frmMain = FrmMain.Default;\r\n         protected virtual RdpVersion RdpProtocolVersion => RdpVersion.Rdc6;\r\n+        private bool _viewOnly;\r\n+        private bool _userDisabledViewOnlyInFullscreen;\r\n+        private bool _automaticReconnectInProgress;\r\n+\r\n         private AxHost AxHost => (AxHost)Control;\r\n \r\n         #region Properties\r\n@@ -85,8 +90,20 @@ private bool RedirectKeys\n \r\n         public bool ViewOnly\r\n         {\r\n-            get => !AxHost.Enabled;\r\n-            set => AxHost.Enabled = !value;\r\n+            get => _viewOnly;\r\n+            set\r\n+            {\r\n+                bool was = _viewOnly;\r\n+                _viewOnly = value;\r\n+\r\n+                if (Fullscreen)\r\n+                {\r\n+                    if (was && !value)\r\n+                        _userDisabledViewOnlyInFullscreen = true;\r\n+                    else if (!was && value)\r\n+                        _userDisabledViewOnlyInFullscreen = false;\r\n+                }\r\n+            }\r\n         }\r\n \r\n         #endregion\r\n@@ -239,6 +256,10 @@ public void ToggleViewOnly()\n \r\n         public override void Focus()\r\n         {\r\n+            if (_automaticReconnectInProgress)\r\n+            {\r\n+                return;\r\n+            }\r\n             try\r\n             {\r\n                 if (Control.ContainsFocus == false)\r\n@@ -293,7 +314,7 @@ private void SetRdpClientProperties()\n             #endregion\r\n \r\n             //not user changeable\r\n-            _rdpClient.AdvancedSettings2.GrabFocusOnConnect = true;\r\n+            _rdpClient.AdvancedSettings2.GrabFocusOnConnect = false;\r\n             _rdpClient.AdvancedSettings3.EnableAutoReconnect = true;\r\n             _rdpClient.AdvancedSettings3.MaxReconnectAttempts = Settings.Default.RdpReconnectionCount;\r\n             _rdpClient.AdvancedSettings2.keepAliveInterval = 60000; //in milliseconds (10,000 = 10 seconds)\r\n@@ -315,7 +336,8 @@ private void SetRdpClientProperties()\n             SetAuthenticationLevel();\r\n             SetLoadBalanceInfo();\r\n             SetRdGateway();\r\n-            ViewOnly = Force.HasFlag(ConnectionInfo.Force.ViewOnly);\r\n+            if (Force.HasFlag(ConnectionInfo.Force.ViewOnly))\r\n+                ViewOnly = true;\r\n \r\n             _rdpClient.ColorDepth = (int)connectionInfo.Colors;\r\n \r\n@@ -690,6 +712,7 @@ private void SetEventHandlers()\n                 _rdpClient.OnFatalError += RDPEvent_OnFatalError;\r\n                 _rdpClient.OnDisconnected += RDPEvent_OnDisconnected;\r\n                 _rdpClient.OnLeaveFullScreenMode += RDPEvent_OnLeaveFullscreenMode;\r\n+                _rdpClient.OnEnterFullScreenMode += RDPEvent_OnEnterFullscreenMode;\r\n                 _rdpClient.OnIdleTimeoutNotification += RDPEvent_OnIdleTimeoutNotification;\r\n             }\r\n             catch (Exception ex)\r\n@@ -751,22 +774,41 @@ private void RDPEvent_OnConnecting()\n \r\n         private void RDPEvent_OnConnected()\r\n         {\r\n+            if (_automaticReconnectInProgress)\r\n+            {\r\n+                _automaticReconnectInProgress = false;\r\n+                if (Fullscreen && !_userDisabledViewOnlyInFullscreen)\r\n+                    ViewOnly = true;\r\n+            }\r\n             Event_Connected(this);\r\n+            ScrollToBottomRight();\r\n         }\r\n \r\n         private void RDPEvent_OnLoginComplete()\r\n         {\r\n             loginComplete = true;\r\n+            ScrollToBottomRight();\r\n         }\r\n \r\n         private void RDPEvent_OnLeaveFullscreenMode()\r\n         {\r\n             Fullscreen = false;\r\n+            ViewOnly = false;\r\n+            _userDisabledViewOnlyInFullscreen = false;\r\n             _leaveFullscreenEvent?.Invoke(this, new EventArgs());\r\n+            ScrollToBottomRight();\r\n+        }\r\n+\r\n+        private void RDPEvent_OnEnterFullscreenMode()\r\n+        {\r\n+            if (!_userDisabledViewOnlyInFullscreen)\r\n+                ViewOnly = true;\r\n+            ScrollToBottomRight();\r\n         }\r\n \r\n         private void RdpClient_GotFocus(object sender, EventArgs e)\r\n         {\r\n+            if (_automaticReconnectInProgress) return;\r\n             ((ConnectionTab)Control.Parent.Parent).Focus();\r\n         }\r\n         #endregion\r\n@@ -821,8 +863,10 @@ public void tmrReconnect_Elapsed(object sender, ElapsedEventArgs e)\n                 if (!ReconnectGroup.ReconnectWhenReady || !srvReady) return;\r\n                 tmrReconnect.Enabled = false;\r\n                 ReconnectGroup.DisposeReconnectGroup();\r\n+                _automaticReconnectInProgress = true;\r\n                 //SetProps()\r\n                 _rdpClient.Connect();\r\n+                ScrollToBottomRight();\r\n             }\r\n             catch (Exception ex)\r\n             {\r\n@@ -832,6 +876,33 @@ public void tmrReconnect_Elapsed(object sender, ElapsedEventArgs e)\n             }\r\n         }\r\n \r\n+        private void ScrollToBottomRight()\r\n+        {\r\n+            if (Control == null || Control.IsDisposed || Control.Parent == null)\r\n+                return;\r\n+\r\n+            Control.BeginInvoke((MethodInvoker)delegate\r\n+            {\r\n+                try\r\n+                {\r\n+                    ScrollableControl sc = Control.Parent as ScrollableControl;\r\n+                    if (sc == null && Control.Parent.Parent != null)\r\n+                        sc = Control.Parent.Parent as ScrollableControl;\r\n+\r\n+                    if (sc != null && sc.AutoScroll)\r\n+                    {\r\n+                        int maxX = Math.Max(0, sc.HorizontalScroll.Maximum - sc.HorizontalScroll.LargeChange + 1);\r\n+                        int maxY = Math.Max(0, sc.VerticalScroll.Maximum - sc.VerticalScroll.LargeChange + 1);\r\n+                        sc.AutoScrollPosition = new Point(maxX, maxY);\r\n+                    }\r\n+                }\r\n+                catch (Exception ex)\r\n+                {\r\n+                    Runtime.MessageCollector.AddExceptionMessage(\"ScrollToBottomRight failed\", ex, MessageClass.DebugMsg, false);\r\n+                }\r\n+            });\r\n+        }\r\n+\r\n         #endregion\r\n     }\r\n }\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:49Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": 118,
+    "already_in_our_fork": true,
+    "value": 2,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Issue #118 focus is already fixed precisely; current IMessageFilter ViewOnly supersedes this flags-only regression. Forced scrolling and global focus suppression are unwanted legacy behavior.",
+    "agent": "codex",
+    "at": "2026-07-25T18:26:22Z"
+  }
+}

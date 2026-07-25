@@ -1,0 +1,42 @@
+{
+  "sha": "bdd7b73b33c38df1e08163e9e35b5438b5f30fce",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Add Subresource Integrity hashes to xterm.js resources",
+  "body": "Add Subresource Integrity hashes to xterm.js resources\n\nAdd SHA-384 integrity attributes to CSS and JS tags in the terminal\nHTML to detect tampering of extracted resources. Provides defense in\ndepth for air-gapped environments where temp folder files could be\nmodified between extraction and WebView2 loading.\n\nResolves SonarCloud security hotspots S5725.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-04-07T11:38:43Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bdd7b73b33c38df1e08163e9e35b5438b5f30fce",
+  "stats": {
+    "files": 1,
+    "additions": 3,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SSH/Resources/xterm-terminal.html",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SSH/Resources/xterm-terminal.html\n@@ -4,7 +4,7 @@\n <meta charset=\"utf-8\">\n <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n <title>SSH Terminal</title>\n-<link rel=\"stylesheet\" href=\"https://xterm.local/xterm.css\">\n+<link rel=\"stylesheet\" href=\"https://xterm.local/xterm.css\" integrity=\"sha384-8Xk9wy/gzEDUKrXtrmCFa2bBuK3BpjpDuL/p0SeKQX19Khl/M+lHOgD/CyYf7efP\" crossorigin=\"anonymous\">\n <style>\n   * { margin: 0; padding: 0; box-sizing: border-box; }\n   html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }\n@@ -13,8 +13,8 @@\n </head>\n <body>\n <div id=\"terminal\"></div>\n-<script src=\"https://xterm.local/xterm.min.js\"></script>\n-<script src=\"https://xterm.local/addon-fit.min.js\"></script>\n+<script src=\"https://xterm.local/xterm.min.js\" integrity=\"sha384-J4qzUjBl1FxyLsl/kQPQIOeINsmp17OHYXDOMpMxlKX53ZfYsL+aWHpgArvOuof9\" crossorigin=\"anonymous\"></script>\n+<script src=\"https://xterm.local/addon-fit.min.js\" integrity=\"sha384-XGqKrV8Jrukp1NITJbOEHwg01tNkuXr6uB6YEj69ebpYU3v7FvoGgEg23C1Gcehk\" crossorigin=\"anonymous\"></script>\n <script>\n (function() {\n   'use strict';",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:39Z",
+  "triage": {
+    "category": "security",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Our fork has no xterm terminal resource stack, so these fixed SRI attributes have no target or standalone benefit.",
+    "agent": "codex",
+    "at": "2026-07-25T18:19:47Z"
+  }
+}

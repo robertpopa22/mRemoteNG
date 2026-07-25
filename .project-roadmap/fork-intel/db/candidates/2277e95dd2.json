@@ -1,0 +1,13 @@
+{
+  "sha": "2277e95dd2e4e843f2771b8a10f281c05dccf38b",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed tests",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T20:12:34Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2277e95dd2e4e843f2771b8a10f281c05dccf38b",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

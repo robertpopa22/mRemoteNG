@@ -1,0 +1,13 @@
+{
+  "sha": "af41612576cacde226674e3263fd2245edac8695",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Merge branch 'custom-workdir-external-tool' of https://github.com/pedro2555/mRemoteNG into pedro2555-custom-workdir-external-tool",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2017-11-09T21:33:38Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/af41612576cacde226674e3263fd2245edac8695",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

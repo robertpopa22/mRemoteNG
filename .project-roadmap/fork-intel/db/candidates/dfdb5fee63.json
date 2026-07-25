@@ -1,0 +1,42 @@
+{
+  "sha": "dfdb5fee637e4a6007b0c96b31d60bc1a80afd23",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "add 'Serial' to Lang",
+  "body": "add 'Serial' to Lang",
+  "author_name": "Aaron Zauner",
+  "author_login": "azet",
+  "date": "2020-03-16T11:07:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dfdb5fee637e4a6007b0c96b31d60bc1a80afd23",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.resx",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Resources/Language/Language.resx\n@@ -822,6 +822,9 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for\n   <data name=\"strIcaSetResolutionFailed\" xml:space=\"preserve\">\n     <value>ICA Set Resolution Failed!</value>\n   </data>\n+  <data name=\"strSerial\" xml:space=\"preserve\">\n+    <value>Serial</value>\n+  </data>\n   <data name=\"strIdentifyQuickConnectTabs\" xml:space=\"preserve\">\n     <value>Identify quick connect tabs by adding the prefix \"Quick:\"</value>\n   </data>\n@@ -2840,4 +2843,4 @@ Development Channel includes Alphas, Betas &amp; Release Candidates.</value>\n   <data name=\"strPowerShell\" xml:space=\"preserve\">\n     <value>PowerShell</value>\n   </data>\n-</root>\n\\ No newline at end of file\n+</root>",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:22Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Modern Language.Serial already exists as “Serial (via PuTTY)” and the Serial protocol is implemented; the commit targets removed mRemoteV1 resources.",
+    "agent": "codex",
+    "at": "2026-07-25T18:41:03Z"
+  }
+}

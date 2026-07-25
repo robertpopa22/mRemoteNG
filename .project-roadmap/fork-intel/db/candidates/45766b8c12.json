@@ -1,0 +1,13 @@
+{
+  "sha": "45766b8c127a9bfccfe90d843d1c47d288add8d1",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Merge branch 'develop' into reapply_credential_manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-09T13:32:09Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/45766b8c127a9bfccfe90d843d1c47d288add8d1",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

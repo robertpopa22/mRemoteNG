@@ -1,0 +1,42 @@
+{
+  "sha": "195df32f12d5e0dc7a0bb88b29a85adad0367581",
+  "fork": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "subject": "Changed PublicGetDirectChildConnections to static",
+  "body": "Changed PublicGetDirectChildConnections to static",
+  "author_name": "Julian Bobbett (DHCW - Software Development)",
+  "author_login": "julian-dhcw",
+  "date": "2026-04-20T13:42:11Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/195df32f12d5e0dc7a0bb88b29a85adad0367581",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionTreeWindow.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Window/ConnectionTreeWindow.cs\n@@ -477,7 +477,7 @@ private static List<ConnectionInfo> GetDirectChildConnections(ConnectionInfo fol\n         /// <summary>\n         /// Public wrapper for testing GetDirectChildConnections method.\n         /// </summary>\n-        public List<ConnectionInfo> PublicGetDirectChildConnections(ConnectionInfo folder)\n+        public static List<ConnectionInfo> PublicGetDirectChildConnections(ConnectionInfo folder)\n         {\n             return GetDirectChildConnections(folder);\n         }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:24Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Tweaks fork-only test wrapper PublicGetDirectChildConnections; method absent in our ConnectionTreeWindow.cs. Nothing to apply.",
+    "agent": "claude",
+    "at": "2026-07-25T16:32:45Z"
+  }
+}

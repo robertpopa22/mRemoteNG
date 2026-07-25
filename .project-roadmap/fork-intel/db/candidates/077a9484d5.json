@@ -1,0 +1,13 @@
+{
+  "sha": "077a9484d53ee1ab59c117dc678e601358be07c9",
+  "fork": "changsongyang/mRemoteNG",
+  "owner": "changsongyang",
+  "subject": "Merge branch 'develop' into dotnet5",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-09-15T23:01:53Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/077a9484d53ee1ab59c117dc678e601358be07c9",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:28:33Z"
+}

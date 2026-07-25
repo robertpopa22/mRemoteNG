@@ -1,0 +1,13 @@
+{
+  "sha": "8dc3303e0f3663c5f94a0dfdd9f91868ef3c8787",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "first wave of changes",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-02T12:38:55Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8dc3303e0f3663c5f94a0dfdd9f91868ef3c8787",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

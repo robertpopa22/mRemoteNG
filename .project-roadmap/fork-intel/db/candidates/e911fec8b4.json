@@ -1,0 +1,13 @@
+{
+  "sha": "e911fec8b40f6bd7ae8d289e52d6f0f2cc6c604c",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Reset to develop as feature is already implemented",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-08T15:57:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e911fec8b40f6bd7ae8d289e52d6f0f2cc6c604c",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:58Z"
+}

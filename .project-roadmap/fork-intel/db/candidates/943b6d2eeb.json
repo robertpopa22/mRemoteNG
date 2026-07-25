@@ -1,0 +1,42 @@
+{
+  "sha": "943b6d2eebc4f3d370dcde31e72c981551285a50",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "自动更新设置弹框代码优化",
+  "body": "自动更新设置弹框代码优化",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-24T09:54:06Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/943b6d2eebc4f3d370dcde31e72c981551285a50",
+  "stats": {
+    "files": 1,
+    "additions": 24,
+    "deletions": 12,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 24,
+      "deletions": 12
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/frmMain.cs\n@@ -298,19 +298,31 @@ private void PromptForUpdatesPreference()\n                 Language.strAskUpdatesCommandAskLater\n             };\n \n-            CTaskDialog.ShowTaskDialogBox(this, GeneralAppInfo.ProductName, Language.strAskUpdatesMainInstruction, string.Format(Language.strAskUpdatesContent, GeneralAppInfo.ProductName),\n-                \"\", \"\", \"\", \"\", string.Join(\" | \", commandButtons), ETaskDialogButtons.None, ESysIcons.Question, ESysIcons.Question);\n-\n-            if (CTaskDialog.CommandButtonResult == 0 | CTaskDialog.CommandButtonResult == 1)\n-            {\n-                Settings.Default.CheckForUpdatesAsked = true;\n-            }\n-\n-            if (CTaskDialog.CommandButtonResult != 1) return;\n-\n-            using (var optionsForm = new frmOptions(Language.strTabUpdates))\n+            CTaskDialog.ShowTaskDialogBox(this, \n+                GeneralAppInfo.ProductName, \n+                Language.strAskUpdatesMainInstruction, \n+                string.Format(Language.strAskUpdatesContent, GeneralAppInfo.ProductName),\n+                \"\", \"\", \"\", \"\", \n+                string.Join(\" | \", commandButtons), \n+                ETaskDialogButtons.None, \n+                ESysIcons.Question, \n+                ESysIcons.Question);\n+\n+            switch (CTaskDialog.CommandButtonResult)\n             {\n-                optionsForm.ShowDialog(this);\n+                case 0:\n+                    Settings.Default.CheckForUpdatesAsked = true;\n+                    break;\n+                case 1:\n+                    Settings.Default.CheckForUpdatesAsked = true;\n+                    using (var optionsForm = new frmOptions(Language.strTabUpdates))\n+                    {\n+                        optionsForm.ShowDialog(this);\n+                    }\n+                    break;\n+                case 2:\n+                    Settings.Default.CheckForUpdatesAsked = false;\n+                    break;\n             }\n         }\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:41Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Our fork already modernized settings/updates using Properties.OptionsUpdatesPage.Default and centralized forms. This legacy optimization is obsolete and conflicts with our clean architecture.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:50:43Z"
+  }
+}

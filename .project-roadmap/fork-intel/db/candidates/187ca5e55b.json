@@ -1,0 +1,13 @@
+{
+  "sha": "187ca5e55b08f19b851364828739f97558a0294b",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "started to redo how cred harvesting works in order to apply it to all importers/deserializers",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-14T22:32:51Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/187ca5e55b08f19b851364828739f97558a0294b",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

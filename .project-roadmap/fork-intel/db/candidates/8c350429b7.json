@@ -1,0 +1,13 @@
+{
+  "sha": "8c350429b7f8a737d1b2786381278cd8eee815c0",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "massive refactor of the rest of the frmmain statics",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-23T02:31:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8c350429b7f8a737d1b2786381278cd8eee815c0",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

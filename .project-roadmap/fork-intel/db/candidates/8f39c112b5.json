@@ -1,0 +1,81 @@
+{
+  "sha": "8f39c112b57865efa6c34cd735c1b35394c203dc",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "fix(rdp): reapply performance flags and input finalizer on all reconnect paths",
+  "body": "fix(rdp): reapply performance flags and input finalizer on all reconnect paths\n\nСтадия A5. Унифицирует поведение reconnect:\n- SetPerformanceFlags / StartReconnectInputFinalizer стали protected.\n- Performance flags переустанавливаются при ActiveX auto-reconnect\n  (OnAutoReconnecting), mRemoteNG tmrReconnect (перед Connect) и\n  RDP8 resize-reconnect — иначе сервер возвращал композицию/тени.\n- Reconnect-финализатор (release-capture) подключён к RDP8 resize.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T13:53:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f39c112b57865efa6c34cd735c1b35394c203dc",
+  "stats": {
+    "files": 3,
+    "additions": 18,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol8.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -208,9 +208,10 @@ capture асинхронно) во всех путях reconnect.\n   форс VO в fullscreen. `NotifyPassiveTabActivated`: форс VO при активации оконной вкладки.\n   `EnableViewOnlyAfterSuccessfulPassiveLayout`: guard против VO в fullscreen (гонка 1-го коннекта).\n   Выход форсит VO (существующий «fullscreen leave input shield» + scroll).\n-- [ ] **A5** — Унификация всех путей reconnect: release-capture финализатор + VO policy +\n-  **переустановка performance-настроек (pFlags)**. Покрыть ActiveX auto-reconnect (по\n-  таймауту НЕ применяет настройки!), tmrReconnect, RDP8 resize, меню Reconnect/Reconnect All.\n+- [x] **A5** — Унификация reconnect. `SetPerformanceFlags`/`StartReconnectInputFinalizer` →\n+  protected. Переустановка pFlags: `OnAutoReconnecting`, `tmrReconnect` (перед Connect),\n+  RDP8 `ReconnectForResize`. reconnect-финализатор добавлен и в RDP8 resize. Меню\n+  Reconnect/Reconnect All уже пересоздают сессию (Initialize→SetPerformanceFlags).\n \n ### Фаза B — UI/фичи\n - [ ] **B1** — Пункты Fullscreen и ViewOnly в меню вкладки крупнее ×2 (Font, позиции не менять).\n@@ -273,3 +274,5 @@ _Журнал изменений HANDOFF:_\n   VO + Rebind на пересозданные окна mstscax._\n - _A4 — политика VO по чек-листу: вход в fullscreen сохраняет VO (не форсит), выход форсит VO,\n   активация вкладки форсит VO, scroll не включает VO в fullscreen (устранена гонка)._\n+- _A5 — унификация: pFlags переустанавливаются во всех путях reconnect (auto-reconnect,\n+  tmrReconnect, RDP8 resize); reconnect-финализатор подключён к RDP8 resize. **Фаза A готова.**_\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -691,7 +691,7 @@ private void ReleaseRdpInputCaptureOnce(string source)\n         /// несколько раз снимаем захват, т.к. mstscax восстанавливает его асинхронно.\n         /// В fullscreen не вмешиваемся (там ввод/захват легитимны для активной работы).\n         /// </summary>\n-        private void StartReconnectInputFinalizer(string source)\n+        protected void StartReconnectInputFinalizer(string source)\n         {\n             if (Control == null || Control.IsDisposed)\n                 return;\n@@ -2130,7 +2130,7 @@ private void SetRedirection()\n             }\n         }\n \n-        private void SetPerformanceFlags()\n+        protected void SetPerformanceFlags()\n         {\n             try\n             {\n@@ -2342,6 +2342,9 @@ private AutoReconnectContinueState RDPEvent_OnAutoReconnecting(int disconnectRea\n         {\n             BeginAutomaticReconnect();\n             ApplyFullscreenViewOnlyPolicy(\"OnAutoReconnecting\");\n+            // ActiveX auto-reconnect переподключается внутри mstscax и НЕ перечитывает настройки\n+            // сессии — переустанавливаем performance flags, иначе сервер вернёт композицию/тени.\n+            SetPerformanceFlags();\n             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n                 $\"RDP ActiveX autoreconnecting for host '{connectionInfo?.Hostname}': \" +\n                 $\"disconnectReason={disconnectReason}, attemptCount={attemptCount}\");\n@@ -2490,6 +2493,9 @@ public void tmrReconnect_Elapsed(object sender, ElapsedEventArgs e)\n                 //SetProps()\n                 BeginAutomaticReconnect();\n                 ApplyFullscreenViewOnlyPolicy(\"mRemoteNG timer reconnect\");\n+                // Переустанавливаем настройки сессии перед повторным подключением, чтобы\n+                // reconnect не потерял performance flags (композиция/тени).\n+                SetPerformanceFlags();\n                 _rdpClient.Connect();\n             }\n             catch (Exception ex)\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol8.cs\n@@ -113,9 +113,13 @@ private void ReconnectForResize()\n                     ? Screen.FromControl(Control).Bounds.Size\n                     : Control.Size;\n                 BeginAutomaticReconnect();\n+                // Переустанавливаем performance flags перед resize-reconnect, иначе mstscax\n+                // может вернуть композицию/тени, отключённые в настройках сессии.\n+                SetPerformanceFlags();\n                 RdpClient8.Reconnect((uint)size.Width, (uint)size.Height);\n                 ApplyFullscreenViewOnlyPolicy(\"RDP8 ReconnectForResize\");\n                 ScrollToLowerRightAsync(\"RDP8 ReconnectForResize\");\n+                StartReconnectInputFinalizer(\"RDP8 ReconnectForResize\");\n             }\n             catch (Exception ex)\n             {",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:07Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "WATCH",
+    "rationale": "Reapplying performance flags on mstscax auto-reconnect is a plausible real fix, but patch depends on fork-only view-only/input-finalizer infrastructure we lack. Note idea, not code.",
+    "agent": "claude",
+    "at": "2026-07-25T16:40:20Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "The donor’s passive-only APIs do not exist here, while its unverified flag rewrite could regress our independently refactored reconnect paths.",
+        "reason": "Exact commit cannot land: RdpProtocol6 was deleted, passive helpers are absent, RdpProtocol8 is refactored, and no tests or reproducible evidence are provided.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Passive-RDP helpers/HANDOFF may not exist here; pFlags mid-ActiveX reconnect unproven.",
+        "reason": "Reapplying pFlags on reconnect is useful, but diff is fork-specific and needs local path checks.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Exact commit cannot land: RdpProtocol6 was deleted, passive helpers are absent, RdpProtocol8 is refactored, and no tests or reproducible evidence are provided.",
+      "grok: NEEDS_HUMAN - Reapplying pFlags on reconnect is useful, but diff is fork-specific and needs local path checks."
+    ],
+    "at": "2026-07-25T22:28:00Z"
+  }
+}

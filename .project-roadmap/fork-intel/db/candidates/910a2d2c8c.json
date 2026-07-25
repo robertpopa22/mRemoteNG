@@ -1,0 +1,13 @@
+{
+  "sha": "910a2d2c8ceccc803b351aef364e7c3644647a56",
+  "fork": "ratorin/mRemoteNG",
+  "owner": "ratorin",
+  "subject": "Merge PR2: Add Clear Cached RDP Credentials action",
+  "author_name": "Taro Kawakami",
+  "author_login": null,
+  "date": "2026-05-15T11:51:33Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/910a2d2c8ceccc803b351aef364e7c3644647a56",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:47Z"
+}

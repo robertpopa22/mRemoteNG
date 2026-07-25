@@ -1,0 +1,13 @@
+{
+  "sha": "75c866f7c1b2eed2faa054f15afc156e5f739cc2",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "remove unnecessary frmmain singleton property",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-24T22:49:03Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/75c866f7c1b2eed2faa054f15afc156e5f739cc2",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

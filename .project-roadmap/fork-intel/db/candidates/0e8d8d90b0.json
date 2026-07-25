@@ -1,0 +1,13 @@
+{
+  "sha": "0e8d8d90b0e0acb888d19de5fbb97c029eb60537",
+  "fork": "rizaemet/mRemoteNG",
+  "owner": "rizaemet",
+  "subject": "Update dependency AWSSDK.Core to 4.0.3.22",
+  "author_name": "renovate[bot]",
+  "author_login": "renovate[bot]",
+  "date": "2026-03-25T20:58:31Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0e8d8d90b0e0acb888d19de5fbb97c029eb60537",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:47Z"
+}

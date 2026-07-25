@@ -1,0 +1,54 @@
+{
+  "sha": "98c4e7ee4db02ca9a0aa932ad628e03e4354dca8",
+  "fork": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "subject": "Add OpenMultipleConnectionsWithEnter user setting",
+  "body": "Add OpenMultipleConnectionsWithEnter user setting\n\nIntroduced a new user setting, OpenMultipleConnectionsWithEnter, to control whether pressing Enter opens multiple connections. Updated App.config and Settings.Designer.cs accordingly. Bumped assembly version to 1.78.2.3488. Also updated code generation version comment in Settings.Designer.cs.",
+  "author_name": "Julian Bobbett (DHCW - Software Development)",
+  "author_login": "julian-dhcw",
+  "date": "2026-04-20T14:02:34Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/98c4e7ee4db02ca9a0aa932ad628e03e4354dca8",
+  "stats": {
+    "files": 3,
+    "additions": 20,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/App.config",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Properties/AssemblyInfo.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/Properties/Settings.Designer.cs",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/App.config\n@@ -483,6 +483,9 @@\n       <setting name=\"DoNotTrimUsername\" serializeAs=\"String\">\n         <value>False</value>\n       </setting>\n+      <setting name=\"OpenMultipleConnectionsWithEnter\" serializeAs=\"String\">\n+        <value>False</value>\n+      </setting>\n       <setting name=\"ConDefaultVmId\" serializeAs=\"String\">\n         <value />\n       </setting>\n--- mRemoteNG/Properties/AssemblyInfo.cs\n@@ -10,7 +10,7 @@\n \n // Compute version values\n \n-//Build nr: 3480\n+//Build nr: 3488\n \n // General Information\n [assembly: AssemblyTitle(\"mRemoteNG\")]\n@@ -23,7 +23,7 @@\n [assembly: AssemblyCulture(\"\")]\n \n // Version information\n-[assembly: AssemblyVersion(\"1.78.2.3480\")]\n-[assembly: AssemblyFileVersion(\"1.78.2.3480\")]\n+[assembly: AssemblyVersion(\"1.78.2.3488\")]\n+[assembly: AssemblyFileVersion(\"1.78.2.3488\")]\n [assembly: NeutralResourcesLanguageAttribute(\"en-US\")]\n-[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3480) x64\")]\n+[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3488) x64\")]\n\\ No newline at end of file\n--- mRemoteNG/Properties/Settings.Designer.cs\n@@ -12,7 +12,7 @@ namespace mRemoteNG.Properties {\n     \r\n     \r\n     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]\r\n-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator\", \"18.5.0.0\")]\r\n+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator\", \"18.4.0.0\")]\r\n     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {\r\n         \r\n         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));\r\n@@ -1898,6 +1898,18 @@ public bool DoNotTrimUsername {\n             }\r\n         }\r\n         \r\n+        [global::System.Configuration.UserScopedSettingAttribute()]\r\n+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\r\n+        [global::System.Configuration.DefaultSettingValueAttribute(\"False\")]\r\n+        public bool OpenMultipleConnectionsWithEnter {\r\n+            get {\r\n+                return ((bool)(this[\"OpenMultipleConnectionsWithEnter\"]));\r\n+            }\r\n+            set {\r\n+                this[\"OpenMultipleConnectionsWithEnter\"] = value;\r\n+            }\r\n+        }\r\n+        \r\n         [global::System.Configuration.UserScopedSettingAttribute()]\r\n         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\r\n         [global::System.Configuration.DefaultSettingValueAttribute(\"\")]\r",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:24Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Adds only an unused setting; no handler or options UI consumes it, so the claimed feature has no runtime effect and needs an end-to-end redesign.",
+    "agent": "codex",
+    "at": "2026-07-25T18:08:03Z"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "8cc897b61666160199a61bfbdcc6ec9694d843a3",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Avoid redundant passive RDP tab scroll restores",
+  "body": "Avoid redundant passive RDP tab scroll restores",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-16T23:06:15Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8cc897b61666160199a61bfbdcc6ec9694d843a3",
+  "stats": {
+    "files": 1,
+    "additions": 52,
+    "deletions": 6,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 52,
+      "deletions": 6
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -1058,16 +1058,29 @@ private void SchedulePassiveTabActivationScrollRestore(string source)\n \n             _passiveTabActivationScrollTimer.Stop();\n \n-            try\n+            var scrollable = FindRdpScrollContainer();\n+            var alreadyAtLowerRight = IsCurrentPassiveScrollAtLowerRight(scrollable, out var targetX, out var targetY);\n+\n+            if (!alreadyAtLowerRight)\n             {\n-                Control.BeginInvoke(new Action(() =>\n+                try\n+                {\n+                    Control.BeginInvoke(new Action(() =>\n+                    {\n+                        ScrollToLowerRightAsync(source + \" immediate\");\n+                    }));\n+                }\n+                catch\n                 {\n                     ScrollToLowerRightAsync(source + \" immediate\");\n-                }));\n+                }\n             }\n-            catch\n+            else\n             {\n-                ScrollToLowerRightAsync(source + \" immediate\");\n+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n+                    $\"RDP passive tab activation immediate scroll skipped from {source} for host '{connectionInfo?.Hostname}': \" +\n+                    $\"already at lower-right targetX={targetX}, targetY={targetY}, \" +\n+                    $\"AutoScrollPosition={FormatPoint(scrollable?.AutoScrollPosition ?? Point.Empty)}\");\n             }\n \n             _passiveTabActivationScrollTimer.Start();\n@@ -1090,13 +1103,16 @@ private void PassiveTabActivationScrollTimerOnTick(object sender, EventArgs e)\n             var effectiveFullscreen = IsFullscreenEffective();\n             var rdpClientFullscreen = IsRdpClientFullscreenActiveSafe();\n             var fullscreen = effectiveFullscreen || rdpClientFullscreen;\n+            var keepScrollable = ShouldKeepRdpControlScrollable();\n+            var alreadyAtLowerRight = IsCurrentPassiveScrollAtLowerRight(scrollable, out var targetX, out var targetY);\n \n             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n                 $\"RDP passive tab activation scroll restore attempt {_passiveTabActivationScrollAttempts} \" +\n                 $\"from {_passiveTabActivationScrollSource} for host '{connectionInfo?.Hostname}': \" +\n                 $\"AutoScrollPositionBefore={FormatPoint(scrollable?.AutoScrollPosition ?? Point.Empty)}, \" +\n                 $\"ViewOnly={ViewOnly}, Fullscreen={fullscreen}, EffectiveFullscreen={effectiveFullscreen}, \" +\n-                $\"RdpClientFullscreen={rdpClientFullscreen}, ShouldKeepRdpControlScrollable={ShouldKeepRdpControlScrollable()}\");\n+                $\"RdpClientFullscreen={rdpClientFullscreen}, ShouldKeepRdpControlScrollable={keepScrollable}, \" +\n+                $\"targetX={targetX}, targetY={targetY}, alreadyAtLowerRight={alreadyAtLowerRight}\");\n \n             if (fullscreen)\n             {\n@@ -1110,6 +1126,18 @@ private void PassiveTabActivationScrollTimerOnTick(object sender, EventArgs e)\n                 return;\n             }\n \n+            if (!keepScrollable)\n+            {\n+                StopPassiveTabActivationScrollTimer();\n+                return;\n+            }\n+\n+            if (alreadyAtLowerRight)\n+            {\n+                StopPassiveTabActivationScrollTimer();\n+                return;\n+            }\n+\n             ScrollToLowerRightAsync(\n                 $\"{_passiveTabActivationScrollSource} delayed attempt {_passiveTabActivationScrollAttempts}\");\n \n@@ -1518,6 +1546,24 @@ private static bool IsScrollAtTarget(ScrollableControl scrollable, int targetX,\n                    Math.Abs(Math.Abs(final.Y) - targetY) <= tolerance;\n         }\n \n+        private bool IsCurrentPassiveScrollAtLowerRight(ScrollableControl scrollable, out int targetX, out int targetY)\n+        {\n+            targetX = 0;\n+            targetY = 0;\n+\n+            if (Control == null || Control.IsDisposed || scrollable == null || scrollable.IsDisposed)\n+                return false;\n+\n+            var viewport = GetRdpViewportSize(scrollable);\n+            if (!IsPositiveSize(viewport))\n+                return false;\n+\n+            targetX = Math.Max(0, Control.Width - viewport.Width);\n+            targetY = Math.Max(0, Control.Height - viewport.Height);\n+\n+            return IsScrollAtTarget(scrollable, targetX, targetY);\n+        }\n+\n         private void EnableViewOnlyAfterSuccessfulPassiveLayout(string source, bool scrollNeeded)\n         {\n             if (_userManuallyDisabledViewOnly || !_autoEnableViewOnlyAfterSuccessfulScroll)",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:04Z",
+  "triage": {
+    "category": "perf",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Depends on guvity's absent passive-RDP scroll/view-only subsystem and deleted RdpProtocol6; our RDP code has no matching timers or issue. Porting this follow-up alone is meaningless.",
+    "agent": "codex",
+    "at": "2026-07-25T18:00:43Z"
+  }
+}

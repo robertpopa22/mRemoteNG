@@ -1,0 +1,13 @@
+{
+  "sha": "f00dad3c96565760f76cc8cd6281cc49a77796f5",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "moved several methods from Runtime to the connections service",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T23:20:04Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f00dad3c96565760f76cc8cd6281cc49a77796f5",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

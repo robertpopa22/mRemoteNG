@@ -1,0 +1,13 @@
+{
+  "sha": "ced33027b84641344386dfcf4b51d7eb94f69290",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "made Shutdown and SettingsSaver non-static",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T18:05:38Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ced33027b84641344386dfcf4b51d7eb94f69290",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

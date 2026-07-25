@@ -1,0 +1,42 @@
+{
+  "sha": "bbccbb2a701beae624f50f63acf7310cf5770af6",
+  "fork": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "subject": "Refactor Enter key multi-connection open logic to reduce cognitive load.",
+  "body": "Refactor Enter key multi-connection open logic to reduce cognitive load.\n\nExtracted logic for opening multiple connections with Enter into helper methods for improved readability and maintainability. The event handler now delegates to HandleEnterKeyMultiSelect(), which opens selected connections or, if none, direct children of selected folders. Helper methods encapsulate selection logic, and GetDirectChildConnections() is now static. No functional changes to behavior.",
+  "author_name": "Jules Bobb",
+  "author_login": null,
+  "date": "2026-04-06T09:53:52Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbccbb2a701beae624f50f63acf7310cf5770af6",
+  "stats": {
+    "files": 1,
+    "additions": 56,
+    "deletions": 33,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionTreeWindow.cs",
+      "status": "modified",
+      "additions": 56,
+      "deletions": 33
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Window/ConnectionTreeWindow.cs\n@@ -374,43 +374,12 @@ private void TvConnections_KeyDown(object sender, KeyEventArgs e)\n                 {\n                     e.Handled = true;\n \n-                    // Handle multiple selections if the setting is enabled\n                     if (Settings.Default.OpenMultipleConnectionsWithEnter)\n                     {\n-                        // First, collect all explicitly selected connections that aren't already open\n-                        List<ConnectionInfo> connectionsToOpen = ConnectionTree.SelectedObjects\n-                            .OfType<ConnectionInfo>()\n-                            .Where(n => n.GetTreeNodeType() == TreeNodeType.Connection\n-                                     || n.GetTreeNodeType() == TreeNodeType.PuttySession)\n-                            .Where(n => n.OpenConnections.Count == 0)\n-                            .ToList();\n-\n-                        // If no explicit connections, check if we have folders selected\n-                        if (connectionsToOpen.Count == 0)\n-                        {\n-                            var selectedFolders = ConnectionTree.SelectedObjects\n-                                .OfType<ConnectionInfo>()\n-                                .Where(n => n.GetTreeNodeType() == TreeNodeType.Container)\n-                                .ToList();\n-\n-                            // Get all direct child connections from selected folders\n-                            foreach (var folder in selectedFolders)\n-                            {\n-                                var directChildren = GetDirectChildConnections(folder)\n-                                    .Where(n => n.OpenConnections.Count == 0)\n-                                    .ToList();\n-                                connectionsToOpen.AddRange(directChildren);\n-                            }\n-                        }\n-\n-                        foreach (var connection in connectionsToOpen)\n-                        {\n-                            Runtime.ConnectionInitiator.OpenConnection(connection);\n-                        }\n+                        HandleEnterKeyMultiSelect();\n                     }\n                     else\n                     {\n-                        // Original behavior: open only the selected node\n                         if (SelectedNode == null)\n                             return;\n                         Runtime.ConnectionInitiator.OpenConnection(SelectedNode);\n@@ -429,10 +398,64 @@ private void TvConnections_KeyDown(object sender, KeyEventArgs e)\n             }\n         }\n \n+        /// <summary>\n+        /// Handles opening multiple selected connections when Enter is pressed.\n+        /// Opens explicitly selected connections, or if none are selected, opens direct children of selected folders.\n+        /// </summary>\n+        private void HandleEnterKeyMultiSelect()\n+        {\n+            var connectionsToOpen = GetExplicitConnectionsToOpen();\n+\n+            if (connectionsToOpen.Count == 0)\n+            {\n+                connectionsToOpen.AddRange(GetFolderConnectionsToOpen());\n+            }\n+\n+            foreach (var connection in connectionsToOpen)\n+            {\n+                Runtime.ConnectionInitiator.OpenConnection(connection);\n+            }\n+        }\n+\n+        /// <summary>\n+        /// Gets explicitly selected connections that are not already open.\n+        /// </summary>\n+        private List<ConnectionInfo> GetExplicitConnectionsToOpen()\n+        {\n+            return ConnectionTree.SelectedObjects\n+                .OfType<ConnectionInfo>()\n+                .Where(n => n.GetTreeNodeType() == TreeNodeType.Connection\n+                         || n.GetTreeNodeType() == TreeNodeType.PuttySession)\n+                .Where(n => n.OpenConnections.Count == 0)\n+                .ToList();\n+        }\n+\n+        /// <summary>\n+        /// Gets direct child connections from selected folders that are not already open.\n+        /// </summary>\n+        private List<ConnectionInfo> GetFolderConnectionsToOpen()\n+        {\n+            var connectionsFromFolders = new List<ConnectionInfo>();\n+            var selectedFolders = ConnectionTree.SelectedObjects\n+                .OfType<ConnectionInfo>()\n+                .Where(n => n.GetTreeNodeType() == TreeNodeType.Container)\n+                .ToList();\n+\n+            foreach (var folder in selectedFolders)\n+            {\n+                var directChildren = GetDirectChildConnections(folder)\n+                    .Where(n => n.OpenConnections.Count == 0)\n+                    .ToList();\n+                connectionsFromFolders.AddRange(directChildren);\n+            }\n+\n+            return connectionsFromFolders;\n+        }\n+\n         /// <summary>\n         /// Gets direct child connections of a folder, excluding connections in nested subfolders.\n         /// </summary>\n-        private List<ConnectionInfo> GetDirectChildConnections(ConnectionInfo folder)\n+        private static List<ConnectionInfo> GetDirectChildConnections(ConnectionInfo folder)\n         {\n             var directChildren = new List<ConnectionInfo>();\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:22Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Refactors the OpenMultipleConnectionsWithEnter feature, which is not implemented in our fork, causing compilation failures.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:53:08Z"
+  }
+}

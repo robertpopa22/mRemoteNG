@@ -10,7 +10,7 @@
   "open_issues": 0,
   "archived": false,
   "status": "screened",
-  "ahead_by": 1,
+  "ahead_by": 5,
   "behind_by": 57,
   "commits": [
     {
@@ -20,15 +20,80 @@
       "author_login": null,
       "date": "2026-07-03T19:58:29Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4cded1cc376680b686a5fd219c982e16920e7fd4"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4cded1cc376680b686a5fd219c982e16920e7fd4",
+      "branches": [
+        "v1.78.2-dev",
+        "feature/master-password",
+        "feature/reveal-password"
+      ]
+    },
+    {
+      "sha": "8406f0c02cdcce3db7127d4d8bf149a268902ea2",
+      "subject": "Update CHANGELOG with PR #3371",
+      "author_name": "Yosale2011",
+      "author_login": null,
+      "date": "2026-07-03T20:05:55Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8406f0c02cdcce3db7127d4d8bf149a268902ea2",
+      "branches": [
+        "feature/master-password",
+        "feature/reveal-password"
+      ]
+    },
+    {
+      "sha": "b818e7562b8d0482f34be7167bd96d32223a0977",
+      "subject": "Fix Qodo review: infinite loop, race condition, SecureString leak, hardcoded string",
+      "author_name": "Yosale2011",
+      "author_login": null,
+      "date": "2026-07-03T20:17:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b818e7562b8d0482f34be7167bd96d32223a0977",
+      "branches": [
+        "feature/master-password",
+        "feature/reveal-password"
+      ]
+    },
+    {
+      "sha": "e707915f130514bd2ed4632902cba9b823b4a604",
+      "subject": "Add reveal password context menu for password fields",
+      "author_name": "Yosale2011",
+      "author_login": null,
+      "date": "2026-07-03T20:53:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e707915f130514bd2ed4632902cba9b823b4a604",
+      "branches": [
+        "feature/master-password"
+      ]
+    },
+    {
+      "sha": "a8cf98d9337077278cde6c1772ce2e826eda135d",
+      "subject": "Add reveal password context menu for password fields",
+      "author_name": "Yosale2011",
+      "author_login": null,
+      "date": "2026-07-03T20:53:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a8cf98d9337077278cde6c1772ce2e826eda135d",
+      "branches": [
+        "feature/reveal-password"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:19Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "0deb69cfd33bfea6ade00af5bd2c89cd2ac4f785",
-  "compared_at": "2026-07-25T10:58:52Z",
+  "compared_at": "2026-07-25T16:27:38Z",
   "screened_shas": [
-    "4cded1cc376680b686a5fd219c982e16920e7fd4"
-  ]
+    "4cded1cc376680b686a5fd219c982e16920e7fd4",
+    "8406f0c02cdcce3db7127d4d8bf149a268902ea2",
+    "b818e7562b8d0482f34be7167bd96d32223a0977",
+    "e707915f130514bd2ed4632902cba9b823b4a604",
+    "a8cf98d9337077278cde6c1772ce2e826eda135d"
+  ],
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "feature/master-password",
+    "feature/reveal-password"
+  ],
+  "branches_inherited_from_upstream": 0
 }

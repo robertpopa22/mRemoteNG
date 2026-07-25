@@ -1,0 +1,61 @@
+{
+  "sha": "400dfce67c2f3a0f956106fecb9f04f4f36bcf42",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "updated german and french language files",
+  "body": "updated german and french language files",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-24T14:25:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/400dfce67c2f3a0f956106fecb9f04f4f36bcf42",
+  "stats": {
+    "files": 3,
+    "additions": 10,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.de.resx",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.fr.resx",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/mRemoteV1.csproj",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Resources/Language/Language.de.resx\n@@ -2699,4 +2699,7 @@ Development umfasst Alphas, Betas und Release Candidates.</value>\n   <data name=\"strCloseToSysTray\" xml:space=\"preserve\">\n     <value>In den System Tray schließen</value>\n   </data>\n+  <data name=\"strLicense\" xml:space=\"preserve\">\n+    <value>Lizenz</value>\n+  </data>\n </root>\n\\ No newline at end of file\n--- mRemoteV1/Resources/Language/Language.fr.resx\n@@ -2141,4 +2141,10 @@ Message:\n   <data name=\"strYes\" xml:space=\"preserve\">\n     <value>Oui</value>\n   </data>\n-</root>\n+  <data name=\"strLicense\" xml:space=\"preserve\">\n+    <value>Licence</value>\n+  </data>\n+  <data name=\"strCredits\" xml:space=\"preserve\">\n+    <value>Crédits</value>\n+  </data>\n+</root>\n\\ No newline at end of file\n--- mRemoteV1/mRemoteV1.csproj\n@@ -1027,7 +1027,6 @@\n       <Generator>ResXFileCodeGenerator</Generator>\r\n       <CustomToolNamespace>mRemoteNG</CustomToolNamespace>\r\n       <SubType>Designer</SubType>\r\n-      <LastGenOutput>Language.Designer.cs</LastGenOutput>\r\n     </EmbeddedResource>\r\n     <EmbeddedResource Include=\"Resources\\Language\\Language.fr.resx\">\r\n       <SubType>Designer</SubType>\r",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/mRemoteV1.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:56Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Exact German/French strings already exist under normalized keys; SDK-style resources make LastGenOutput obsolete. The Hungarian issue is unrelated.",
+    "agent": "codex",
+    "at": "2026-07-25T17:17:56Z"
+  }
+}

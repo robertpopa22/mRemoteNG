@@ -1,0 +1,115 @@
+{
+  "sha": "6dbfccb60cfcf34b317d7e41df13852aab714a4f",
+  "fork": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "subject": "fix(build): enable CLI build by fixing CPM, missing refs, and namespace collision",
+  "body": "fix(build): enable CLI build by fixing CPM, missing refs, and namespace collision\n\n- Add CLAUDE.md with project architecture and build guidance\n- Move inline package versions to Directory.Packages.props (CPM compliance)\n- Remove non-existent VtNetCore.Avalonia and MarcusW.VncClient packages\n- Add missing ProjectReference to mRemoteNG.Platform from main project\n- Make TextTemplating import conditional for CLI builds\n- Fix Registry namespace collision in SettingsMigrationHelper with global:: qualifier\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+  "author_name": "Luís Morgado",
+  "author_login": null,
+  "date": "2026-03-10T14:36:03Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6dbfccb60cfcf34b317d7e41df13852aab714a4f",
+  "stats": {
+    "files": 8,
+    "additions": 149,
+    "deletions": 28,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "CLAUDE.md",
+      "status": "added",
+      "additions": 116,
+      "deletions": 0
+    },
+    {
+      "filename": "Directory.Packages.props",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/mRemoteNG.Platform.csproj",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG.Protocols/mRemoteNG.Protocols.csproj",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 11
+    },
+    {
+      "filename": "mRemoteNG.Tests.CrossPlatform/mRemoteNG.Tests.CrossPlatform.csproj",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 8
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/SettingsMigrationHelper.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Properties/AssemblyInfo.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- CLAUDE.md\n@@ -0,0 +1,116 @@\n+# CLAUDE.md\n+\n+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.\n+\n+## Project Overview\n+\n+mRemoteNG is an open-source, multi-protocol, tabbed remote connections manager. It supports RDP, VNC, SSH, Telnet, HTTP/HTTPS, rlogin, Raw Socket, PowerShell remoting, and AnyDesk. Currently migrating from Windows-only WinForms to cross-platform Avalonia UI.\n+\n+## Build Commands\n+\n+```bash\n+# Restore packages\n+dotnet restore\n+\n+# Build full solution (x64)\n+msbuild mRemoteNG.sln -p:Configuration=Debug -p:Platform=x64\n+\n+# Build specific projects\n+dotnet build mRemoteNG.Platform/mRemoteNG.Platform.csproj\n+dotnet build mRemoteNG.Protocols/mRemoteNG.Protocols.csproj\n+dotnet build mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj\n+dotnet build mRemoteNG/mRemoteNG.csproj  # Windows-only (WinForms)\n+\n+# Run tests\n+dotnet test mRemoteNGTests/mRemoteNGTests.csproj              # Legacy NUnit (Windows-only)\n+dotnet test mRemoteNG.Tests.CrossPlatform/mRemoteNG.Tests.CrossPlatform.csproj  # xUnit (all platforms)\n+\n+# Run a single test by filter\n+dotnet test mRemoteNGTests/mRemoteNGTests.csproj --filter \"FullyQualifiedName~ClassName.MethodName\"\n+dotnet test mRemoteNG.Tests.CrossPlatform/mRemoteNG.Tests.CrossPlatform.csproj --filter \"FullyQualifiedName~TestName\"\n+\n+# Test with coverage\n+dotnet test --collect:\"XPlat Code Coverage\"\n+```\n+\n+**Target**: .NET 10.0 (`net10.0-windows10.0.26100.0` for WinForms projects, `net10.0` for cross-platform). Platforms: x64 and ARM64.\n+\n+## Architecture\n+\n+### Dual-UI Strategy (Migration In Progress)\n+\n+The codebase has two UI layers running in parallel during migration:\n+- **mRemoteNG/** — Legacy WinForms app (Windows-only, `net10.0-windows`)\n+- **mRemoteNG.Avalonia/** — New cross-platform Avalonia UI (`net10.0`)\n+\n+### Solution Projects\n+\n+| Project | Purpose | Target |\n+|---------|---------|--------|\n+| `mRemoteNG` | Legacy WinForms main app | net10.0-windows |\n+| `mRemoteNG.Platform` | Cross-platform service abstractions (interfaces) | net10.0 |\n+| `mRemoteNG.Platform.Windows` | Windows service implementations (DPAPI, Win32) | net10.0 |\n+| `mRemoteNG.Platform.Linux` | Linux service implementations | net10.0 |\n+| `mRemoteNG.Platform.Mac` | macOS service implementations | net10.0 |\n+| `mRemoteNG.Avalonia` | Cross-platform Avalonia UI | net10.0 |\n+| `mRemoteNG.Protocols` | Protocol abstractions and implementations | net10.0 |\n+| `ExternalConnectors` | External protocol connectors | net10.0-windows |\n+| `ObjectListView.NetCore` | Custom list view control | Any CPU |\n+| `mRemoteNGTests` | Legacy NUnit tests (Windows) | net10.0-windows |\n+| `mRemoteNG.Tests.CrossPlatform` | New xUnit tests (all platforms) | net10.0 |\n+\n+### Platform Abstraction Layer\n+\n+`mRemoteNG.Platform` defines interfaces (`IClipboardService`, `IWindowService`, `IProcessService`, `ISettingsProvider`, `ICryptoProvider`, `INotificationService`, `ISystemTrayService`, `IPuttySessionsProvider`). Platform-specific assemblies are loaded at runtime via reflection in `PlatformServiceFactory.cs` using `RuntimeInformation.IsOSPlatform()`. Each platform assembly has a `PlatformRegistrar.Register(IServiceCollection)` static method. DI uses Microsoft.Extensions.DependencyInjection.\n+\n+Crypto is platform-specific: DPAPI on Windows (`DpapiCryptoProvider`), OpenSSL-based on Linux (`LinuxCryptoProvider`), Keychain on Mac (`MacCryptoProvider`). Cross-platform fallback: `AesGcmCryptoProvider`.\n+\n+### Connection/Protocol System\n+\n+- **`ConnectionInfo`** (in `mRemoteNG/Connection/`): Core model with 200+ properties for connection configuration\n+- **`ConnectionInfoInheritance`**: Each property has an `Inherit<PropertyName>` boolean — child connections inherit from parent containers\n+- **`IProtocol`** (in `mRemoteNG.Protocols/Abstractions/`): Unified interface for all protocols with state machine (Disconnected→Connecting→Connected→Reconnecting→Error)\n+- **`ConnectionParameters`**: Sealed record with hostname, port, credentials, and protocol-specific extras dictionary\n+- Visual protocols implement `IVisualProtocol` with `CreateView()` returning Avalonia controls\n+\n+### Serialization & Backward Compatibility\n+\n+XML connection files use versioned serializers in `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/`:\n+- `XmlConnectionNodeSerializer28` is the latest (version 2.8)\n+- Deserializers handle all older versions (2.5–2.7)\n+- **Critical rule**: Never break loading of old connection files. Always provide default values for new properties.\n+- Supports full-document encryption and per-field password encryption via `ICryptographyProvider`\n+- Also supports CSV and SQL serialization backends\n+\n+### Package Management\n+\n+Dependencies are centrally managed in `Directory.Packages.props` with `ManagePackageVersionsCentrally=true`.\n+\n+## Code Style\n+\n+Defined in `mRemoteNG/.editorconfig`:\n+- 4 spaces indentation, CRLF line endings, UTF-8 with BOM\n+- Allman-style braces (opening brace on new line)\n+- No `this.` qualifier\n+- Sort System directives first\n+- PascalCase for classes, methods, properties, constants; camelCase with `_` prefix for private fields\n+\n+## Key Conventions\n+\n+### Adding a New Connection Property\n+\n+1. Add enum (if needed) in `Connection/`\n+2. Add property to `AbstractConnectionRecord.cs` or `ConnectionInfo.cs` with `[Category]` and `[Description]` attributes\n+3. Add inheritance flag in `ConnectionInfoInheritance.cs`\n+4. Update serializers: XML (`XmlConnectionNodeSerializer28` + deserializer), CSV, SQL\n+5. Add localization string in `Language/Language.resx`\n+\n+### Localization\n+\n+All user-facing strings go in `Language/Language.resx`. Access via `Language.ResourceName`. Naming: `PropertyDescription<Name>` for tooltips, `<EnumName><Value>` for enum display names.\n+\n+### Testing\n+\n+- Legacy tests: NUnit 4.5.1 with NSubstitute — naming: `MethodName_Scenario_ExpectedBehavior`\n+- New cross-platform tests: xUnit with FluentAssertions\n+- Mirror the main project directory structure in test projects\n--- Directory.Packages.props\n@@ -102,5 +102,15 @@\n     <PackageVersion Include=\"VaultSharp\" Version=\"1.17.5.1\" />\n     <PackageVersion Include=\"VncSharpCore\" Version=\"1.2.1\" />\n     <PackageVersion Include=\"ZstdSharp.Port\" Version=\"0.8.7\" />\n+    <!-- Cross-platform projects -->\n+    <PackageVersion Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" Version=\"10.0.0\" />\n+    <PackageVersion Include=\"Microsoft.Extensions.Logging.Abstractions\" Version=\"10.0.0\" />\n+    <PackageVersion Include=\"ReactiveUI\" Version=\"20.1.1\" />\n+    <PackageVersion Include=\"System.Reactive\" Version=\"6.0.1\" />\n+    <PackageVersion Include=\"Microsoft.Extensions.DependencyInjection\" Version=\"10.0.0\" />\n+    <PackageVersion Include=\"FluentAssertions\" Version=\"7.0.0\" />\n+    <PackageVersion Include=\"xunit\" Version=\"2.9.3\" />\n+    <PackageVersion Include=\"xunit.runner.visualstudio\" Version=\"2.8.2\" />\n+    <PackageVersion Include=\"Xunit.SkippableFact\" Version=\"1.4.13\" />\n   </ItemGroup>\n </Project>\n\\ No newline at end of file\n--- mRemoteNG.Platform/mRemoteNG.Platform.csproj\n@@ -11,9 +11,9 @@\n   </PropertyGroup>\n \n   <ItemGroup>\n-    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" Version=\"10.0.0\" />\n-    <PackageReference Include=\"Microsoft.Extensions.Logging.Abstractions\" Version=\"10.0.0\" />\n-    <PackageReference Include=\"BouncyCastle.Cryptography\" Version=\"2.6.1\" />\n+    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" />\n+    <PackageReference Include=\"Microsoft.Extensions.Logging.Abstractions\" />\n+    <PackageReference Include=\"BouncyCastle.Cryptography\" />\n   </ItemGroup>\n \n </Project>\n--- mRemoteNG.Protocols/mRemoteNG.Protocols.csproj\n@@ -13,21 +13,15 @@\n \n   <ItemGroup>\n     <!-- SSH via SSH.NET -->\n-    <PackageReference Include=\"SSH.NET\" Version=\"2024.2.0\" />\n-\n-    <!-- Terminal emulation -->\n-    <PackageReference Include=\"VtNetCore.Avalonia\" Version=\"1.0.7\" />\n-\n-    <!-- VNC (cross-platform) -->\n-    <PackageReference Include=\"MarcusW.VncClient\" Version=\"0.3.0\" />\n+    <PackageReference Include=\"SSH.NET\" />\n \n     <!-- DI abstractions -->\n-    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" Version=\"10.0.0\" />\n-    <PackageReference Include=\"Microsoft.Extensions.Logging.Abstractions\" Version=\"10.0.0\" />\n+    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" />\n+    <PackageReference Include=\"Microsoft.Extensions.Logging.Abstractions\" />\n \n     <!-- Reactive -->\n-    <PackageReference Include=\"ReactiveUI\" Version=\"20.1.1\" />\n-    <PackageReference Include=\"System.Reactive\" Version=\"6.0.1\" />\n+    <PackageReference Include=\"ReactiveUI\" />\n+    <PackageReference Include=\"System.Reactive\" />\n   </ItemGroup>\n \n   <ItemGroup>\n--- mRemoteNG.Tests.CrossPlatform/mRemoteNG.Tests.CrossPlatform.csproj\n@@ -11,20 +11,20 @@\n   </PropertyGroup>\n \n   <ItemGroup>\n-    <PackageReference Include=\"Microsoft.NET.Test.Sdk\" Version=\"17.12.0\" />\n-    <PackageReference Include=\"xunit\" Version=\"2.9.3\" />\n-    <PackageReference Include=\"xunit.runner.visualstudio\" Version=\"2.8.2\">\n+    <PackageReference Include=\"Microsoft.NET.Test.Sdk\" />\n+    <PackageReference Include=\"xunit\" />\n+    <PackageReference Include=\"xunit.runner.visualstudio\">\n       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>\n       <PrivateAssets>all</PrivateAssets>\n     </PackageReference>\n-    <PackageReference Include=\"coverlet.collector\" Version=\"6.0.4\">\n+    <PackageReference Include=\"coverlet.collector\">\n       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>\n       <PrivateAssets>all</PrivateAssets>\n     </PackageReference>\n-    <PackageReference Include=\"NSubstitute\" Version=\"5.3.0\" />\n-    <PackageReference Include=\"FluentAssertions\" Version=\"7.0.0\" />\n-    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection\" Version=\"10.0.0\" />\n-    <PackageReference Include=\"Xunit.SkippableFact\" Version=\"1.4.13\" />\n+    <PackageReference Include=\"NSubstitute\" />\n+    <PackageReference Include=\"FluentAssertions\" />\n+    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection\" />\n+    <PackageReference Include=\"Xunit.SkippableFact\" />\n   </ItemGroup>\n \n   <ItemGroup>\n--- mRemoteNG/Config/Settings/SettingsMigrationHelper.cs\n@@ -25,7 +25,7 @@ public static void MigrateFromRegistryIfNeeded(ISettingsProvider provider)\n     private static void ImportFromRegistry(ISettingsProvider provider)\n     {\n         const string regPath = @\"Software\\mRemoteNG\";\n-        using var key = Registry.CurrentUser.OpenSubKey(regPath);\n+        using var key = global::Microsoft.Win32.Registry.CurrentUser.OpenSubKey(regPath);\n         if (key == null) return;\n         foreach (var valueName in key.GetValueNames())\n         {\n--- mRemoteNG/Properties/AssemblyInfo.cs\n@@ -10,7 +10,7 @@\n \n // Compute version values\n \n-//Build nr: 3427\n+//Build nr: 3429\n \n // General Information\n [assembly: AssemblyTitle(\"mRemoteNG\")]\n@@ -23,7 +23,7 @@\n [assembly: AssemblyCulture(\"\")]\n \n // Version information\n-[assembly: AssemblyVersion(\"1.78.2.3427\")]\n-[assembly: AssemblyFileVersion(\"1.78.2.3427\")]\n+[assembly: AssemblyVersion(\"1.78.2.3429\")]\n+[assembly: AssemblyFileVersion(\"1.78.2.3429\")]\n [assembly: NeutralResourcesLanguageAttribute(\"en-US\")]\n-[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3427) x64\")]\n\\ No newline at end of file\n+[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3429) x64\")]\n\\ No newline at end of file\n--- mRemoteNG/mRemoteNG.csproj\n@@ -536,6 +536,7 @@\n   <ItemGroup>\n     <ProjectReference Include=\"..\\ExternalConnectors\\ExternalConnectors.csproj\" />\n     <ProjectReference Include=\"..\\ObjectListView\\ObjectListView.NetCore.csproj\" />\n+    <ProjectReference Include=\"..\\mRemoteNG.Platform\\mRemoteNG.Platform.csproj\" />\n   </ItemGroup>\n   <ItemGroup>\n     <Resource Include=\"UI\\Font\\HandelGotDBol.ttf\">\n@@ -597,5 +598,5 @@\n     <RemoveDir Directories=\"$(TempBuildDir)\" />\n     <RemoveDir Directories=\"$(ProjectDir)bin\\x64\\Release Self-Contained\" />\n   </Target>\n-  <Import Project=\"$(MSBuildExtensionsPath)\\Microsoft\\VisualStudio\\v18.0\\TextTemplating\\Microsoft.TextTemplating.targets\" />\n+  <Import Project=\"$(MSBuildExtensionsPath)\\Microsoft\\VisualStudio\\v18.0\\TextTemplating\\Microsoft.TextTemplating.targets\" Condition=\"Exists('$(MSBuildExtensionsPath)\\Microsoft\\VisualStudio\\v18.0\\TextTemplating\\Microsoft.TextTemplating.targets')\" />\n </Project>",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "Directory.Packages.props",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Platform/mRemoteNG.Platform.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Protocols/mRemoteNG.Protocols.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Tests.CrossPlatform/mRemoteNG.Tests.CrossPlatform.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:41Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Relates entirely to a cross-platform Avalonia UI migration codebase structure that does not exist in our Windows-focused .NET 10 WinForms fork.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:41:34Z"
+  }
+}

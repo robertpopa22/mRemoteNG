@@ -9,13 +9,192 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 13,
   "behind_by": 109,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "7349e5a6aa3b85440a6f934e5269555c476fbb04",
+      "subject": "Fix main window stuck behind other windows after startup",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-11T21:23:26Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7349e5a6aa3b85440a6f934e5269555c476fbb04",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "6d3b170f0e4c688deeb3e1ca44c1843184d7e092",
+      "subject": "Apply theme changes immediately, no restart required",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-11T21:24:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6d3b170f0e4c688deeb3e1ca44c1843184d7e092",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "f22a2a12ba9d9a2887f85f700e45d333b2a76aa0",
+      "subject": "Fix theme palette labels showing Japanese for non-Japanese UI cultures",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-11T21:26:43Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f22a2a12ba9d9a2887f85f700e45d333b2a76aa0",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "eb03e059b2ecc1a1b00dc70056b70cdb348a2195",
+      "subject": "Add configurable interface font (Options > Appearance)",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-11T21:29:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eb03e059b2ecc1a1b00dc70056b70cdb348a2195",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "a677fae337a8c49890c6a0e2d87b9739d708d25d",
+      "subject": "Fix ObjectDisposedException when closing a connection tab",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-11T22:12:08Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a677fae337a8c49890c6a0e2d87b9739d708d25d",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "f1b0b667da1d4e827c472d901a953e3dfb1a8de7",
+      "subject": "Remove bundled PuTTYNG, auto-detect official PuTTY instead",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T11:57:26Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1b0b667da1d4e827c472d901a953e3dfb1a8de7",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "004526376515164a858c98a9a1c782d04a28c33c",
+      "subject": "Show auto-detected PuTTY path on Advanced options page",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T12:04:29Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/004526376515164a858c98a9a1c782d04a28c33c",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "5402b3a89235fd28d2458bb583985bf6b0df6f90",
+      "subject": "Document this fork's purpose and changes in README",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T12:09:52Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5402b3a89235fd28d2458bb583985bf6b0df6f90",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "b41ff4f4ece4ca3c9ac027423a35bc9d6a3e7617",
+      "subject": "Ignore local CLAUDE.md project notes",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T12:11:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b41ff4f4ece4ca3c9ac027423a35bc9d6a3e7617",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "691476fe7fede603caf1ce1dd0249c0f17507901",
+      "subject": "Fix connection tree jumping to a random \"...Research\" connection",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T12:39:35Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/691476fe7fede603caf1ce1dd0249c0f17507901",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "dd54616a2e47bdb94e18b2fbafbd2a30764a3728",
+      "subject": "Fix NullReferenceException + recursive dialog cascade on failed decrypt",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T13:57:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dd54616a2e47bdb94e18b2fbafbd2a30764a3728",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "12887e577db9a75f16d526e0434dd32eedb42a50",
+      "subject": "Allow parentheses in executable paths (External Tools, custom PuTTY path)",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T14:19:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/12887e577db9a75f16d526e0434dd32eedb42a50",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    },
+    {
+      "sha": "0d8b8f6c56485861217abdc30a25ae0420827ccf",
+      "subject": "Add \"Copy All to Clipboard\" to PuTTY connection tab context menu",
+      "author_name": "Kyle Meeks",
+      "author_login": "meeksk",
+      "date": "2026-06-12T20:52:21Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0d8b8f6c56485861217abdc30a25ae0420827ccf",
+      "branches": [
+        "kmeeks/hospital-deployment"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "56d15b160911fc9524d6eff8376181c30d5a821f",
-  "compared_at": "2026-07-25T10:58:06Z"
+  "compared_at": "2026-07-25T16:23:52Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "kmeeks/hospital-deployment",
+    "renovate/cucumber.messages-33.x",
+    "renovate/dotnet-monorepo"
+  ],
+  "branches_inherited_from_upstream": 21,
+  "screened_shas": [
+    "7349e5a6aa3b85440a6f934e5269555c476fbb04",
+    "6d3b170f0e4c688deeb3e1ca44c1843184d7e092",
+    "f22a2a12ba9d9a2887f85f700e45d333b2a76aa0",
+    "eb03e059b2ecc1a1b00dc70056b70cdb348a2195",
+    "a677fae337a8c49890c6a0e2d87b9739d708d25d",
+    "f1b0b667da1d4e827c472d901a953e3dfb1a8de7",
+    "004526376515164a858c98a9a1c782d04a28c33c",
+    "5402b3a89235fd28d2458bb583985bf6b0df6f90",
+    "b41ff4f4ece4ca3c9ac027423a35bc9d6a3e7617",
+    "691476fe7fede603caf1ce1dd0249c0f17507901",
+    "dd54616a2e47bdb94e18b2fbafbd2a30764a3728",
+    "12887e577db9a75f16d526e0434dd32eedb42a50",
+    "0d8b8f6c56485861217abdc30a25ae0420827ccf"
+  ]
 }

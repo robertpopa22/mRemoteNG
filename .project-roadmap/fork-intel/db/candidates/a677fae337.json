@@ -1,0 +1,77 @@
+{
+  "sha": "a677fae337a8c49890c6a0e2d87b9739d708d25d",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Fix ObjectDisposedException when closing a connection tab",
+  "body": "Fix ObjectDisposedException when closing a connection tab\n\nProtocolBase.Close() runs CloseBG on a background thread, which fires\nClosedEvent -> ConnectionWindow.Prot_Event_Closed. The existing\nIsDisposed/Disposing guard there only checks at entry: if the user\ncloses the tab/window between that check and Invoke(), Invoke() throws\nObjectDisposedException on the now-disposed ConnectionWindow.\n\nAdd an IsHandleCreated check, wrap the Invoke in try/catch for\nObjectDisposedException/InvalidOperationException, and re-check\ntabPage.IsDisposed inside the marshaled action itself.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-11T22:12:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a677fae337a8c49890c6a0e2d87b9739d708d25d",
+  "stats": {
+    "files": 1,
+    "additions": 21,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 21,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -855,9 +855,28 @@ public void Prot_Event_Closed(object sender)\n             ProtocolBase protocolBase = sender as ProtocolBase;\n             if (!(protocolBase?.InterfaceControl.Parent is ConnectionTab tabPage)) return;\n             if (tabPage.Disposing || tabPage.IsDisposed) return;\n-            if (IsDisposed || Disposing) return;\n+            if (IsDisposed || Disposing || !IsHandleCreated) return;\n             tabPage.protocolClose = true;\n-            Invoke(new Action(() => tabPage.Close()));\n+            try\n+            {\n+                Invoke(new Action(() =>\n+                {\n+                    // The tab may have been disposed by the time this marshaled\n+                    // call runs on the UI thread.\n+                    if (tabPage.IsDisposed || tabPage.Disposing) return;\n+                    tabPage.Close();\n+                }));\n+            }\n+            catch (ObjectDisposedException)\n+            {\n+                // This ConnectionWindow was disposed on the UI thread between the\n+                // guard above and this Invoke (the user closed the tab/window while\n+                // the protocol's background CloseBG thread was firing). Nothing to do.\n+            }\n+            catch (InvalidOperationException)\n+            {\n+                // Handle not created or window being destroyed - same race, ignore.\n+            }\n         }\n \n         #endregion",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:28Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": 11,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REIMPLEMENT",
+    "rationale": "Closes TOCTOU race in Prot_Event_Closed Invoke; our guards (IsDisposed check) exist but not the try/catch + marshaled re-check. Small defensive win; code diverged.",
+    "agent": "claude",
+    "at": "2026-07-25T16:40:54Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Already implemented; the donor's Disposing guard can skip protocolClose and revive the white-tab close failure fixed in this fork.",
+        "reason": "Current HandleProtocolClosed already has stronger handle, marshaling, disposal-race, and close guards, so this commit offers no unique value and conflicts with intentional semantics.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "APPROVE",
+        "aligned": true,
+        "concern": "May already exist here; broad InvalidOperationException catch could hide real bugs",
+        "reason": "Small race fix on tab close; matches protocol stability goals; easy to verify",
+        "arbiter": false
+      },
+      {
+        "reviewer": "claude",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Redundant — our HandleProtocolClosed already guards IsHandleCreated, catches ObjectDisposedException/InvalidOperationException via BeginInvoke.",
+        "reason": "Fork diverged: same race already fixed better (non-blocking BeginInvoke re-marshal, ConnectionWindow.cs:2223-2246). Import adds nothing, code no longer matches.",
+        "arbiter": true
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Current HandleProtocolClosed already has stronger handle, marshaling, disposal-race, and close guards, so this commit offers no unique value and conflicts with intentional semantics.",
+      "claude: REJECT - Fork diverged: same race already fixed better (non-blocking BeginInvoke re-marshal, ConnectionWindow.cs:2223-2246). Import adds nothing, code no longer matches."
+    ],
+    "at": "2026-07-25T23:44:56Z"
+  }
+}

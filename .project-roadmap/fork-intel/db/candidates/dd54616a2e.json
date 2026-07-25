@@ -1,0 +1,77 @@
+{
+  "sha": "dd54616a2e47bdb94e18b2fbafbd2a30764a3728",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Fix NullReferenceException + recursive dialog cascade on failed decrypt",
+  "body": "Fix NullReferenceException + recursive dialog cascade on failed decrypt\n\nLoadXmlConnectionData leaves _xmlDocument null when\nLegacyFullFileDecrypt couldn't decrypt the file (e.g. a non-standard\nXML declaration routes a plain-XML file through the legacy\nfull-file-decrypt path, the resulting password prompt is canceled, and\nAuthenticate() returns false).\n\nDeserialize then called ValidateConnectionFileVersion(), which\ndereferences _xmlDocument.DocumentElement on the null document,\nthrowing NullReferenceException. Runtime.LoadConnections caught that\nexception and, since the file wasn't the startup connections file,\nresponded by re-showing the \"Open Connection File\" dialog - so\ncanceling the password prompt produced a cascade of dialogs that\nlooked like a hang.\n\nBail out with null right after LoadXmlConnectionData when _xmlDocument\nis null, matching the documented \"decryption failed\" contract that\nConnectionsService.LoadConnections already handles cleanly (shows a\n\"Decrypting connection file failed\" dialog, no exception).",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-12T13:57:54Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dd54616a2e47bdb94e18b2fbafbd2a30764a3728",
+  "stats": {
+    "files": 1,
+    "additions": 12,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs\n@@ -45,6 +45,18 @@ public ConnectionTreeModel Deserialize(string xml, bool import)\n             try\r\n             {\r\n                 LoadXmlConnectionData(xml);\r\n+\r\n+                // LoadXmlConnectionData leaves _xmlDocument null when\r\n+                // LegacyFullFileDecrypt couldn't decrypt the file (e.g. the\r\n+                // user canceled the password prompt). Treat that the same as\r\n+                // \"decryption failed\" - the caller (ConnectionsService) shows\r\n+                // a clean error dialog for a null result. Without this check,\r\n+                // ValidateConnectionFileVersion's null-dereference threw a\r\n+                // NullReferenceException that Runtime.LoadConnections caught\r\n+                // and responded to by re-showing the Open Connection File\r\n+                // dialog, recursively.\r\n+                if (_xmlDocument == null) return null;\r\n+\r\n                 ValidateConnectionFileVersion();\r\n \r\n                 XmlElement rootXmlElement = _xmlDocument.DocumentElement;\r",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:31Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REIMPLEMENT",
+    "rationale": "Our XML null guard already prevents the NRE, but still throws into Runtime’s recursive reload path; adapt the null-return behavior to current nullable code.",
+    "agent": "codex",
+    "at": "2026-07-25T18:41:03Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Early null return bypasses XmlException-driven backup recovery, turning a recoverable failed decrypt into an unrecovered failure.",
+        "reason": "This fork already prevents the null dereference and duplicate file dialog through guarded validation and explicit-file loading; importing this patch is redundant and regressive.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "APPROVE",
+        "aligned": true,
+        "concern": "Fork may already handle decrypt-fail null path differently after heavy divergence.",
+        "reason": "Small clear NRE fix on failed decrypt; stabilizes load path; no deps; easy to verify.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "claude",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Premise absent here: ValidateConnectionFileVersion already null-guards _xmlDocument, throwing XmlException handled by Runtime recovery dialog, no NRE or recursion.",
+        "reason": "Fork already prevents the crash differently; null-return would only slightly change which error dialog shows for legacy decrypt cancel — marginal value.",
+        "arbiter": true
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - This fork already prevents the null dereference and duplicate file dialog through guarded validation and explicit-file loading; importing this patch is redundant and regressive.",
+      "claude: REJECT - Fork already prevents the crash differently; null-return would only slightly change which error dialog shows for legacy decrypt cancel — marginal value."
+    ],
+    "at": "2026-07-25T23:53:37Z"
+  }
+}

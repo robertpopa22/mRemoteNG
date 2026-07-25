@@ -1,0 +1,48 @@
+{
+  "sha": "641d7e8d1e40fca96bf332e399fa4c2a9a560252",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "test(ssh_dotnet): key-auth matrix with runtime-generated keys (Phase 8)",
+  "body": "test(ssh_dotnet): key-auth matrix with runtime-generated keys (Phase 8)\n\nAdd TestKeyFactory (BouncyCastle) that generates throwaway RSA keys (encrypted +\nunencrypted) at test time -- no key material committed. 8 fake-free tests cover the\nauth matrix: keys load through SSH.NET, CreatePrivateKeyAuth loads unencrypted +\npassphrase-protected keys, throws on wrong/missing passphrase, and\nGetAuthenticationMethods adds key auth first (then password) when both are configured.\n\nIntegration auth against a live SSH server remains an opt-in / manual step.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T18:01:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/641d7e8d1e40fca96bf332e399fa4c2a9a560252",
+  "stats": {
+    "files": 2,
+    "additions": 152,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/SshDotNetKeyAuthTests.cs",
+      "status": "added",
+      "additions": 110,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/TestHelpers/TestKeyFactory.cs",
+      "status": "added",
+      "additions": 42,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNGTests/Connection/Protocol/SshDotNet/SshDotNetKeyAuthTests.cs\n@@ -0,0 +1,110 @@\n+using System.IO;\n+using System.Linq;\n+using mRemoteNG.Connection.Protocol.SshDotNet;\n+using mRemoteNGTests.TestHelpers;\n+using NUnit.Framework;\n+using Renci.SshNet;\n+\n+namespace mRemoteNGTests.Connection.Protocol.SshDotNet\n+{\n+    /// <summary>\n+    /// Key-based authentication tests using throwaway keys generated at test time (no committed key\n+    /// material). Covers the auth matrix: unencrypted / passphrase-protected / wrong passphrase /\n+    /// missing passphrase / key+password ordering.\n+    /// </summary>\n+    [TestFixture]\n+    [Category(\"Unit\")]\n+    public class SshDotNetKeyAuthTests\n+    {\n+        private const string Passphrase = \"test-passphrase-42\";\n+        private string _unencryptedKeyPath;\n+        private string _encryptedKeyPath;\n+\n+        [OneTimeSetUp]\n+        public void OneTimeSetUp()\n+        {\n+            _unencryptedKeyPath = TestKeyFactory.WriteToTempFile(TestKeyFactory.GenerateRsaPrivateKeyPem());\n+            _encryptedKeyPath = TestKeyFactory.WriteToTempFile(TestKeyFactory.GenerateRsaPrivateKeyPem(Passphrase));\n+        }\n+\n+        [OneTimeTearDown]\n+        public void OneTimeTearDown()\n+        {\n+            if (_unencryptedKeyPath != null && File.Exists(_unencryptedKeyPath)) File.Delete(_unencryptedKeyPath);\n+            if (_encryptedKeyPath != null && File.Exists(_encryptedKeyPath)) File.Delete(_encryptedKeyPath);\n+        }\n+\n+        // --- format sanity ---\n+\n+        [Test]\n+        public void GeneratedUnencryptedKey_LoadsThroughSshNet()\n+        {\n+            Assert.DoesNotThrow(() => { using var pk = new PrivateKeyFile(_unencryptedKeyPath); });\n+        }\n+\n+        [Test]\n+        public void GeneratedEncryptedKey_LoadsThroughSshNet_WithPassphrase()\n+        {\n+            Assert.DoesNotThrow(() => { using var pk = new PrivateKeyFile(_encryptedKeyPath, Passphrase); });\n+        }\n+\n+        // --- CreatePrivateKeyAuth matrix ---\n+\n+        [Test]\n+        public void CreatePrivateKeyAuth_LoadsUnencryptedKey()\n+        {\n+            var auth = SshAuthenticationProvider.CreatePrivateKeyAuth(\"user\", _unencryptedKeyPath);\n+            Assert.That(auth, Is.TypeOf<PrivateKeyAuthenticationMethod>());\n+            Assert.That(auth.Username, Is.EqualTo(\"user\"));\n+        }\n+\n+        [Test]\n+        public void CreatePrivateKeyAuth_LoadsEncryptedKey_WithCorrectPassphrase()\n+        {\n+            var auth = SshAuthenticationProvider.CreatePrivateKeyAuth(\"user\", _encryptedKeyPath, Passphrase);\n+            Assert.That(auth, Is.TypeOf<PrivateKeyAuthenticationMethod>());\n+        }\n+\n+        [Test]\n+        public void CreatePrivateKeyAuth_Throws_WithWrongPassphrase()\n+        {\n+            Assert.That(() => SshAuthenticationProvider.CreatePrivateKeyAuth(\"user\", _encryptedKeyPath, \"wrong-passphrase\"),\n+                Throws.Exception);\n+        }\n+\n+        [Test]\n+        public void CreatePrivateKeyAuth_Throws_WhenPassphraseMissingForEncryptedKey()\n+        {\n+            Assert.That(() => SshAuthenticationProvider.CreatePrivateKeyAuth(\"user\", _encryptedKeyPath),\n+                Throws.Exception);\n+        }\n+\n+        // --- GetAuthenticationMethods wiring/ordering ---\n+\n+        [Test]\n+        public void GetAuthenticationMethods_AddsKeyAuthFirst_WhenKeyAndPasswordConfigured()\n+        {\n+            var connectionInfo = new mRemoteNG.Connection.ConnectionInfo { SshDotNetPrivateKeyFile = _unencryptedKeyPath };\n+\n+            var methods = SshAuthenticationProvider.GetAuthenticationMethods(\"user\", \"pass\", connectionInfo);\n+\n+            Assert.That(methods[0], Is.TypeOf<PrivateKeyAuthenticationMethod>(), \"Key auth should be tried first (OpenSSH behaviour)\");\n+            Assert.That(methods.Any(m => m is PasswordAuthenticationMethod), Is.True, \"Password method should also be present\");\n+        }\n+\n+        [Test]\n+        public void GetAuthenticationMethods_AddsKeyAuth_WithEncryptedKeyAndPassphrase()\n+        {\n+            var connectionInfo = new mRemoteNG.Connection.ConnectionInfo\n+            {\n+                SshDotNetPrivateKeyFile = _encryptedKeyPath,\n+                SshDotNetPrivateKeyPassphrase = Passphrase\n+            };\n+\n+            var methods = SshAuthenticationProvider.GetAuthenticationMethods(\"user\", null, connectionInfo);\n+\n+            Assert.That(methods.Any(m => m is PrivateKeyAuthenticationMethod), Is.True);\n+            Assert.That(methods.Any(m => m is PasswordAuthenticationMethod), Is.False, \"No password configured\");\n+        }\n+    }\n+}\n--- mRemoteNGTests/TestHelpers/TestKeyFactory.cs\n@@ -0,0 +1,42 @@\n+using System;\n+using System.IO;\n+using Org.BouncyCastle.Crypto;\n+using Org.BouncyCastle.Crypto.Generators;\n+using Org.BouncyCastle.Crypto.Parameters;\n+using Org.BouncyCastle.OpenSsl;\n+using Org.BouncyCastle.Security;\n+\n+namespace mRemoteNGTests.TestHelpers\n+{\n+    /// <summary>\n+    /// Generates throwaway SSH private keys at test time (via BouncyCastle) so key-based auth can be\n+    /// tested without committing any key material. Keys are written to temp files the caller deletes.\n+    /// </summary>\n+    internal static class TestKeyFactory\n+    {\n+        /// <summary>Generates a 2048-bit RSA private key in PEM (PKCS#1), optionally encrypted with a passphrase.</summary>\n+        public static string GenerateRsaPrivateKeyPem(string passphrase = null)\n+        {\n+            var generator = new RsaKeyPairGenerator();\n+            generator.Init(new KeyGenerationParameters(new SecureRandom(), 2048));\n+            AsymmetricCipherKeyPair keyPair = generator.GenerateKeyPair();\n+\n+            using var stringWriter = new StringWriter();\n+            var pemWriter = new PemWriter(stringWriter);\n+            if (string.IsNullOrEmpty(passphrase))\n+                pemWriter.WriteObject(keyPair.Private);\n+            else\n+                pemWriter.WriteObject(keyPair.Private, \"AES-256-CBC\", passphrase.ToCharArray(), new SecureRandom());\n+            pemWriter.Writer.Flush();\n+            return stringWriter.ToString();\n+        }\n+\n+        /// <summary>Writes a PEM key to a unique temp file and returns its path.</summary>\n+        public static string WriteToTempFile(string pem)\n+        {\n+            string path = Path.Combine(Path.GetTempPath(), \"mrng_test_key_\" + Guid.NewGuid().ToString(\"N\") + \".pem\");\n+            File.WriteAllText(path, pem);\n+            return path;\n+        }\n+    }\n+}",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:16Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Tests for SshAuthenticationProvider/SshDotNet classes that do not exist in our fork; would also add BouncyCastle test dependency.",
+    "agent": "claude",
+    "at": "2026-07-25T16:37:22Z"
+  }
+}

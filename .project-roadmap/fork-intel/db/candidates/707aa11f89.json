@@ -1,0 +1,112 @@
+{
+  "sha": "707aa11f897caf10b49b97ce6f6887328aae3ba7",
+  "fork": "MyLabs-LLC/mRemoteNG",
+  "owner": "MyLabs-LLC",
+  "subject": "Fix critical bugs identified in codebase review",
+  "body": "Fix critical bugs identified in codebase review\n\n- Fix inverted dispose logic in ProtocolBase (timer was never disposed)\n- Fix EncryptedSecureString disposing static _machineKey shared by all instances\n- Fix ProtocolFactory returning null for unknown protocols (now throws)\n- Fix RandomGenerator creating new SecureRandom per call (use shared instance)\n- Fix MySQL connection string injection (use MySqlConnectionStringBuilder)\n- Fix bitwise AND instead of logical AND in PuttyBase wait loop\n- Fix string concatenation in EncryptedSecureString key generation\n\nCo-authored-by: Ryan Lence <lenceai@users.noreply.github.com>",
+  "author_name": "Cursor Agent",
+  "author_login": "cursoragent",
+  "date": "2026-02-13T14:40:35Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/707aa11f897caf10b49b97ce6f6887328aae3ba7",
+  "stats": {
+    "files": 6,
+    "additions": 31,
+    "deletions": 17,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Config/DatabaseConnectors/MySqlDatabaseConnector.cs",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolBase.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/ProtocolFactory.cs",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/Security/EncryptedSecureString.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNG/Security/RandomGenerator.cs",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- mRemoteNG/Config/DatabaseConnectors/MySqlDatabaseConnector.cs\n@@ -1,4 +1,4 @@\n-﻿using System.Data;\n+using System.Data;\n using System.Data.Common;\n using System.Threading.Tasks;\n using MySql.Data.MySqlClient;\n@@ -49,7 +49,15 @@ private void Initialize()\n \n         private void BuildSqlConnectionString()\n         {\n-            _dbConnectionString = $\"server={_dbHost};user={_dbUsername};database={_dbName};port={_dbPort};password={_dbPassword};\";\n+            MySqlConnectionStringBuilder builder = new()\n+            {\n+                Server = _dbHost,\n+                Port = uint.TryParse(_dbPort, out uint port) ? port : 3306,\n+                Database = _dbName,\n+                UserID = _dbUsername,\n+                Password = _dbPassword\n+            };\n+            _dbConnectionString = builder.ConnectionString;\n         }\n         \n         public void Connect()\n--- mRemoteNG/Connection/Protocol/ProtocolBase.cs\n@@ -1,4 +1,4 @@\n-﻿using mRemoteNG.App;\n+using mRemoteNG.App;\n using mRemoteNG.Tools;\n using System;\n using System.Threading;\n@@ -345,7 +345,7 @@ protected void Event_ReconnectGroupCloseClicked()\n \n         private void Dispose(bool disposing)\n         {\n-            if (disposing) return;\n+            if (!disposing) return;\n             tmrReconnect?.Dispose();\n         }\n \n--- mRemoteNG/Connection/Protocol/ProtocolFactory.cs\n@@ -1,4 +1,4 @@\n-﻿using mRemoteNG.Connection.Protocol.Http;\n+using mRemoteNG.Connection.Protocol.Http;\n using mRemoteNG.Connection.Protocol.RAW;\n using mRemoteNG.Connection.Protocol.RDP;\n using mRemoteNG.Connection.Protocol.Rlogin;\n@@ -62,9 +62,11 @@ public ProtocolBase CreateProtocol(ConnectionInfo connectionInfo)\n                         throw (new Exception(Language.NoExtAppDefined));\n                     }\n                     return new IntegratedProgram();\n+                default:\n+                    throw new ArgumentOutOfRangeException(nameof(connectionInfo.Protocol),\n+                        connectionInfo.Protocol,\n+                        $\"Unsupported protocol type: {connectionInfo.Protocol}\");\n             }\n-\n-            return default(ProtocolBase);\n         }\n     }\n }\n\\ No newline at end of file\n--- mRemoteNG/Connection/Protocol/PuttyBase.cs\n@@ -1,4 +1,4 @@\n-﻿using mRemoteNG.App;\n+using mRemoteNG.App;\n using mRemoteNG.Messages;\n using mRemoteNG.Resources.Language;\n using mRemoteNG.Security;\n@@ -295,7 +295,7 @@ public override bool Connect()\n                 PuttyProcess.WaitForInputIdle(Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime * 1000);\n \n                 int startTicks = Environment.TickCount;\n-                while (PuttyHandle.ToInt32() == 0 &\n+                while (PuttyHandle.ToInt32() == 0 &&\n                        Environment.TickCount < startTicks + Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime * 1000)\n                 {\n                     if (_isPuttyNg)\n--- mRemoteNG/Security/EncryptedSecureString.cs\n@@ -1,4 +1,4 @@\n-﻿using System;\n+using System;\n using System.Security;\n using mRemoteNG.Security.SymmetricEncryption;\n using Org.BouncyCastle.Security;\n@@ -48,20 +48,22 @@ private static SecureString GenerateNewMachineKey(int keySize)\n             SecureRandom random = new();\n             random.SetSeed(random.GenerateSeed(128));\n \n-            string machineKeyString = \"\";\n+            char[] machineKeyChars = new char[keySize];\n             for (int x = 0; x < keySize; x++)\n             {\n-                machineKeyString += (char)random.Next(33, 126);\n+                machineKeyChars[x] = (char)random.Next(33, 126);\n             }\n \n-            return machineKeyString.ConvertToSecureString();\n+            SecureString result = new string(machineKeyChars).ConvertToSecureString();\n+            Array.Clear(machineKeyChars, 0, machineKeyChars.Length);\n+            return result;\n         }\n \n         private void Dispose(bool disposing)\n         {\n             if (!disposing) return;\n \n-            _machineKey?.Dispose();\n+            // Do NOT dispose _machineKey here - it is a static field shared by all instances.\n             _secureString?.Dispose();\n         }\n \n--- mRemoteNG/Security/RandomGenerator.cs\n@@ -1,18 +1,20 @@\n-﻿using System;\n+using System;\n using System.Text;\n using Org.BouncyCastle.Security;\n \n namespace mRemoteNG.Security\n {\n     public class RandomGenerator\n     {\n+        private static readonly SecureRandom SharedRandom = new();\n+\n         public static string RandomString(int length)\n         {\n             if (length < 0)\n                 throw new ArgumentException($\"{nameof(length)} must be a positive integer\");\n \n-            SecureRandom randomGen = new();\n-            StringBuilder stringBuilder = new();\n+            SecureRandom randomGen = SharedRandom;\n+            StringBuilder stringBuilder = new(length);\n             const string availableChars =\n                 @\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()-_=+|[]{};:',./<>?\";\n             for (int x = 0; x < length; x++)",
+  "security_flags": [
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/EncryptedSecureString.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/RandomGenerator.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:44Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REIMPLEMENT",
+    "rationale": "Most fixes already ours (MySQL builder, factory throw, Dispose logic, PuttyBase rewritten). Real gap: EncryptedSecureString disposes static _machineKey + string-concat key. Reimplement just that.",
+    "agent": "claude",
+    "at": "2026-07-25T16:39:14Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Four of six hunks target superseded code, risking conflicts or regressions in critical protocol paths.",
+        "reason": "Current HEAD has stronger MySQL, disposal, factory, and PuTTY fixes; reimplement only the EncryptedSecureString shared-key lifetime correction.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Reintroducing a blocking UI-thread busy-wait loop in PuttyBase and reverting modernized connection builder and disposal enhancements.",
+        "reason": "Our fork already solved these bugs cleanly with non-blocking async window searches, a secure connection builder, and proper disposal. Importing this would cause regressions.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Current HEAD has stronger MySQL, disposal, factory, and PuTTY fixes; reimplement only the EncryptedSecureString shared-key lifetime correction.",
+      "gemini: REJECT - Our fork already solved these bugs cleanly with non-blocking async window searches, a secure connection builder, and proper disposal. Importing this would cause regressions."
+    ],
+    "at": "2026-07-25T19:43:53Z"
+  }
+}

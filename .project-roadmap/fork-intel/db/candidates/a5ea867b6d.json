@@ -1,0 +1,13 @@
+{
+  "sha": "a5ea867b6d6bd785f6b2181c40e03869c3476fdb",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "began hooking up the default credential to the manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-13T18:14:28Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a5ea867b6d6bd785f6b2181c40e03869c3476fdb",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

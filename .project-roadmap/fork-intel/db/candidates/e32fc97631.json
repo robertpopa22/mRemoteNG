@@ -1,0 +1,121 @@
+{
+  "sha": "e32fc976314d52f0e97bb821cc659f854e169fc7",
+  "fork": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "subject": "Harden portable settings persistence for cross-platform paths",
+  "body": "Harden portable settings persistence for cross-platform paths",
+  "author_name": "Luís Morgado",
+  "author_login": "Morgadoo",
+  "date": "2026-03-10T15:12:01Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e32fc976314d52f0e97bb821cc659f854e169fc7",
+  "stats": {
+    "files": 11,
+    "additions": 151,
+    "deletions": 23,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "MIGRATION_PROGRESS.md",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 10
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Program.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/App/Info/ApplicationPaths.cs",
+      "status": "added",
+      "additions": 40,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/App/Info/CoreRuntimeDescriptor.cs",
+      "status": "added",
+      "additions": 13,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Bootstrap/CoreServiceCollectionExtensions.cs",
+      "status": "added",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/mRemoteNG.Core.csproj",
+      "status": "added",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.sln",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/App/Info/SettingsFileInfo.cs",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/Providers/PortableSettingsProvider.cs",
+      "status": "modified",
+      "additions": 20,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- MIGRATION_PROGRESS.md\n@@ -7,8 +7,8 @@\n > - Run `grep -r \"\\[~\\]\" MIGRATION_PROGRESS.md` to see active tasks\n > - Each PR should reference the task ID (e.g. \"Implements P1-1.1.1\")\n \n-**Last updated:** 2026-03-10 (Phase 4 complete)\n-**Current Phase:** All phases complete (blocked items require live infra)\n+**Last updated:** 2026-03-10 (Phase 1 resumed: Core extraction started)\n+**Current Phase:** Phase 1 resumed (unblocking Core extraction tasks)\n **Branch:** `claude/analyze-cross-platform-portability-FndER`\n \n ---\n@@ -17,11 +17,11 @@\n \n | Phase | Tasks | Done | In Progress | Blocked | % Complete |\n |-------|-------|------|-------------|---------|------------|\n-| Phase 1 — Foundation | 24 | 20 | 0 | 4 | 83% |\n+| Phase 1 — Foundation | 24 | 20 | 1 | 3 | 83% |\n | Phase 2 — Avalonia UI | 38 | 38 | 0 | 0 | 100% |\n | Phase 3 — Protocols | 22 | 20 | 0 | 2 | 91% |\n | Phase 4 — Packaging | 16 | 14 | 0 | 2 | 88% |\n-| **TOTAL** | **100** | **92** | **0** | **8** | **92% done, 8% blocked** |\n+| **TOTAL** | **100** | **92** | **1** | **7** | **92% done, 1% in progress, 7% blocked** |\n \n ---\n \n@@ -33,11 +33,13 @@\n \n #### 1.1 Project Structure\n \n-- [!] **P1-1.1.1** — Create `mRemoteNG.Core` project (`net10.0`) — **DEFERRED**\n-  - Requires moving ~200 source files and updating all project references\n-  - High-risk refactor; needs a dedicated PR with build validation on all 3 platforms\n-  - Blocked by: team review + CI green on Ubuntu/macOS before merging\n-  - Files to move: `App/Info/`, `App/Runtime.cs`, `Config/`, `Security/`, `Tree/`, `Container/`, `Credential/`\n+- [~] **P1-1.1.1** — Create `mRemoteNG.Core` project (`net10.0`) — @codex 2026-03-10\n+  - `mRemoteNG.Core` scaffold added and wired into solution + Avalonia startup bootstrap\n+  - Added `CoreServiceCollectionExtensions.AddMRemoteNgCore()` to centralize platform/core service registration\n+  - Extracted shared path model into `mRemoteNG.Core.App.Info.ApplicationPaths` and adopted it in legacy settings providers\n+  - Hardened `PortableSettingsProvider` to create platform settings directories before saving/resetting XML settings\n+  - Next step: migrate remaining `App/Info/`, `Config/`, `Security/`, `Tree/`, `Container/`, and `Credential` namespaces incrementally into Core\n+  - Validation pending once `dotnet` SDK is available in environment\n \n - [x] **P1-1.1.2** — Create `mRemoteNG.Platform` abstraction project (`net10.0`) — @automated 2026-03-10\n   - Interfaces created: `IClipboardService`, `IWindowService`, `IProcessService`, `ISettingsProvider`, `ICryptoProvider`, `ISystemTrayService`, `INotificationService`\n@@ -523,7 +525,6 @@\n \n | ID | Task | Reason | Unblocked when |\n |----|------|--------|----------------|\n-| P1-1.1.1 | Create mRemoteNG.Core project | Large refactor (~200 files); high merge-conflict risk | Team review + CI green on Linux/macOS |\n | P1-1.2.3 | Refactor registry settings pages | WinForms coupling; depends on Core project existing | P1-1.1.1 complete |\n | P1-1.5.2 | Wire DI in App/Startup.cs | Circular dependency risk without Core split | P1-1.1.1 complete |\n | P1-1.6.2 | Ubuntu CI build validation | Windows-only source still in main project | P1-1.1.1 + P1-1.2.3 complete |\n@@ -548,9 +549,13 @@\n | 2026-03-10 | P4-4.4.1: GitHub Actions cross-platform CI/CD pipeline | automated |\n | 2026-03-10 | **Phase 2 COMPLETE**: Full Avalonia UI — themes, docking, 10 settings pages, 5 dialogs, tray, splash | automated |\n | 2026-03-10 | Phase 4 complete: Snap, docs, integration tests, SSH File Transfer, Credential Manager, Port Scanner, TFM net10.0 | automated |\n+| 2026-03-10 | P1-1.1.1 resumed: created `mRemoteNG.Core` scaffold and connected Avalonia bootstrap to core DI extension | codex |\n+| 2026-03-10 | P1-1.1.1 increment: added cross-platform `ApplicationPaths` in Core and switched settings path consumers to it | codex |\n+| 2026-03-10 | P1-1.1.1 hardening: ensure cross-platform settings directories are created before writing settings XML | codex |\n \n ---\n \n+\n ## Notes\n \n - When updating this file in a PR, always update the **Summary Dashboard** counts.\n--- mRemoteNG.Avalonia/Program.cs\n@@ -1,6 +1,6 @@\n using Avalonia;\n using Microsoft.Extensions.DependencyInjection;\n-using mRemoteNG.Platform;\n+using mRemoteNG.Core.Bootstrap;\n \n namespace mRemoteNG.Avalonia;\n \n@@ -10,9 +10,9 @@ internal sealed class Program\n     [STAThread]\n     public static void Main(string[] args)\n     {\n-        // Bootstrap the DI container with platform-specific services.\n+        // Bootstrap DI with cross-platform core + platform services.\n         var services = new ServiceCollection();\n-        PlatformServiceFactory.Register(services);\n+        services.AddMRemoteNgCore();\n \n         // Register application-level services.\n         AppServices.Register(services);\n--- mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj\n@@ -39,6 +39,7 @@\n   </ItemGroup>\n \n   <ItemGroup>\n+    <ProjectReference Include=\"..\\mRemoteNG.Core\\mRemoteNG.Core.csproj\" />\n     <ProjectReference Include=\"..\\mRemoteNG.Platform\\mRemoteNG.Platform.csproj\" />\n     <ProjectReference Include=\"..\\mRemoteNG.Protocols\\mRemoteNG.Protocols.csproj\" />\n     <!-- Platform-specific projects will be loaded at runtime, not compile-time -->\n--- mRemoteNG.Core/App/Info/ApplicationPaths.cs\n@@ -0,0 +1,40 @@\n+using System.Runtime.InteropServices;\n+\n+namespace mRemoteNG.Core.App.Info;\n+\n+/// <summary>\n+/// Cross-platform filesystem paths used by mRemoteNG configuration components.\n+/// </summary>\n+public static class ApplicationPaths\n+{\n+    public const string ProductName = \"mRemoteNG\";\n+\n+    public static string ExecutableDirectory => AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);\n+\n+    public static string SettingsDirectory\n+    {\n+        get\n+        {\n+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))\n+            {\n+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ProductName);\n+            }\n+\n+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))\n+            {\n+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), \"Library\", \"Application Support\", ProductName);\n+            }\n+\n+            var xdgConfig = Environment.GetEnvironmentVariable(\"XDG_CONFIG_HOME\");\n+            if (!string.IsNullOrWhiteSpace(xdgConfig))\n+            {\n+                return Path.Combine(xdgConfig, ProductName);\n+            }\n+\n+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), \".config\", ProductName);\n+        }\n+    }\n+\n+    public static string PortableSettingsFilePath(string applicationName)\n+        => Path.Combine(SettingsDirectory, $\"{applicationName}.settings\");\n+}\n--- mRemoteNG.Core/App/Info/CoreRuntimeDescriptor.cs\n@@ -0,0 +1,13 @@\n+using System.Runtime.InteropServices;\n+\n+namespace mRemoteNG.Core;\n+\n+/// <summary>\n+/// Lightweight runtime metadata used during bootstrap and diagnostics.\n+/// </summary>\n+public sealed class CoreRuntimeDescriptor\n+{\n+    public string FrameworkDescription => RuntimeInformation.FrameworkDescription;\n+    public string OsDescription => RuntimeInformation.OSDescription;\n+    public string ProcessArchitecture => RuntimeInformation.ProcessArchitecture.ToString();\n+}\n--- mRemoteNG.Core/Bootstrap/CoreServiceCollectionExtensions.cs\n@@ -0,0 +1,19 @@\n+using Microsoft.Extensions.DependencyInjection;\n+using mRemoteNG.Platform;\n+using mRemoteNG.Platform.DependencyInjection;\n+\n+namespace mRemoteNG.Core.Bootstrap;\n+\n+/// <summary>\n+/// Registers the shared cross-platform service baseline required by both\n+/// legacy WinForms and Avalonia startup pipelines.\n+/// </summary>\n+public static class CoreServiceCollectionExtensions\n+{\n+    public static IServiceCollection AddMRemoteNgCore(this IServiceCollection services)\n+    {\n+        services.AddPlatformServices();\n+        services.AddSingleton<CoreRuntimeDescriptor>();\n+        return services;\n+    }\n+}\n--- mRemoteNG.Core/mRemoteNG.Core.csproj\n@@ -0,0 +1,19 @@\n+<Project Sdk=\"Microsoft.NET.Sdk\">\n+  <PropertyGroup>\n+    <TargetFramework>net10.0</TargetFramework>\n+    <Nullable>enable</Nullable>\n+    <ImplicitUsings>enable</ImplicitUsings>\n+    <LangVersion>latest</LangVersion>\n+    <RootNamespace>mRemoteNG.Core</RootNamespace>\n+    <AssemblyName>mRemoteNG.Core</AssemblyName>\n+    <Description>Cross-platform core domain and startup abstractions for mRemoteNG.</Description>\n+  </PropertyGroup>\n+\n+  <ItemGroup>\n+    <ProjectReference Include=\"..\\mRemoteNG.Platform\\mRemoteNG.Platform.csproj\" />\n+  </ItemGroup>\n+\n+  <ItemGroup>\n+    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" Version=\"10.0.0\" />\n+  </ItemGroup>\n+</Project>\n--- mRemoteNG.sln\n@@ -25,6 +25,8 @@ Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"mRemoteNG.Protocols\", \"mRem\n EndProject\n Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"mRemoteNG.Tests.CrossPlatform\", \"mRemoteNG.Tests.CrossPlatform\\mRemoteNG.Tests.CrossPlatform.csproj\", \"{C1000007-0007-0007-0007-000000000007}\"\n EndProject\n+Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"mRemoteNG.Core\", \"mRemoteNG.Core\\mRemoteNG.Core.csproj\", \"{C1000008-0008-0008-0008-000000000008}\"\n+EndProject\n Global\n \tGlobalSection(SolutionConfigurationPlatforms) = preSolution\n \t\tDebug|arm64 = Debug|arm64\n@@ -107,6 +109,18 @@ Global\n \t\t{C1000007-0007-0007-0007-000000000007}.Release|arm64.Build.0 = Release|arm64\n \t\t{C1000007-0007-0007-0007-000000000007}.Release|x64.ActiveCfg = Release|x64\n \t\t{C1000007-0007-0007-0007-000000000007}.Release|x64.Build.0 = Release|x64\n+\t\t{C1000008-0008-0008-0008-000000000008}.Debug|arm64.ActiveCfg = Debug|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Debug|arm64.Build.0 = Debug|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Debug|x64.ActiveCfg = Debug|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Debug|x64.Build.0 = Debug|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release Self-Contained|arm64.ActiveCfg = Release|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release Self-Contained|arm64.Build.0 = Release|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release Self-Contained|x64.ActiveCfg = Release|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release Self-Contained|x64.Build.0 = Release|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release|arm64.ActiveCfg = Release|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release|arm64.Build.0 = Release|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release|x64.ActiveCfg = Release|Any CPU\n+\t\t{C1000008-0008-0008-0008-000000000008}.Release|x64.Build.0 = Release|Any CPU\n \tEndGlobalSection\n \tGlobalSection(SolutionProperties) = preSolution\n \t\tHideSolutionNode = FALSE\n--- mRemoteNG/App/Info/SettingsFileInfo.cs\n@@ -1,18 +1,19 @@\n ﻿using System;\n using System.IO;\n-using System.Reflection;\n using System.Runtime.Versioning;\n-using System.Windows.Forms;\n using mRemoteNG.Connection;\n+using mRemoteNG.Core.App.Info;\n \n namespace mRemoteNG.App.Info\n {\n     [SupportedOSPlatform(\"windows\")]\n     public static class SettingsFileInfo\n     {\n-        private static readonly string ExePath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(ConnectionInfo))?.Location);\n+        private static readonly string ExePath = Path.GetDirectoryName(typeof(ConnectionInfo).Assembly.Location);\n \n-        public static string SettingsPath => Runtime.IsPortableEdition ? ExePath : Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + \"\\\\\" + Application.ProductName;\n+        public static string SettingsPath => Runtime.IsPortableEdition\n+            ? ExePath ?? ApplicationPaths.ExecutableDirectory\n+            : ApplicationPaths.SettingsDirectory;\n \n         public static string LayoutFileName { get; } = \"pnlLayout.xml\";\n         public static string ExtAppsFilesName { get; } = \"extApps.xml\";\n@@ -25,4 +26,4 @@ public static class SettingsFileInfo\n         public static string InstalledThemeFolder { get; } =\n             ExePath != null ? Path.Combine(ExePath, \"Themes\") : String.Empty;\n     }\n-}\n\\ No newline at end of file\n+}\n--- mRemoteNG/Config/Settings/Providers/PortableSettingsProvider.cs\n@@ -27,10 +27,10 @@\n using System;\n using System.Collections;\n using System.Configuration;\n-using System.Windows.Forms;\n using System.Collections.Specialized;\n using System.Xml;\n using System.IO;\n+using mRemoteNG.Core.App.Info;\n using mRemoteNG.Security;\n \n //using mRemoteNG.App;\n@@ -45,9 +45,7 @@ public class PortableSettingsProvider : SettingsProvider, IApplicationSettingsPr\n         private const string _className = \"PortableSettingsProvider\";\n         private XmlDocument _xmlDocument;\n \n-        private string _filePath =>\n-            Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) ?? throw new InvalidOperationException(),\n-                         $\"{ApplicationName}.settings\");\n+        private string _filePath => ApplicationPaths.PortableSettingsFilePath(ApplicationName);\n \n         private XmlNode _localSettingsNode => GetSettingsNode(_localSettingsNodeName);\n \n@@ -81,7 +79,7 @@ private XmlDocument _rootDocument\n \n         public override string ApplicationName\n         {\n-            get => Path.GetFileNameWithoutExtension(Application.ExecutablePath);\n+            get => Path.GetFileNameWithoutExtension(Environment.ProcessPath) ?? ApplicationPaths.ProductName;\n             set { }\n         }\n \n@@ -99,6 +97,7 @@ public override void SetPropertyValues(SettingsContext context, SettingsProperty\n \n             try\n             {\n+                EnsureSettingsDirectoryExists();\n                 _rootDocument.Save(_filePath);\n             }\n             catch (Exception)\n@@ -192,11 +191,27 @@ private static XmlDocument GetBlankXmlDocument()\n             return blankXmlDocument;\n         }\n \n+\n+        private void EnsureSettingsDirectoryExists()\n+        {\n+            string? settingsDirectory = Path.GetDirectoryName(_filePath);\n+            if (string.IsNullOrWhiteSpace(settingsDirectory))\n+            {\n+                return;\n+            }\n+\n+            if (!Directory.Exists(settingsDirectory))\n+            {\n+                Directory.CreateDirectory(settingsDirectory);\n+            }\n+        }\n+\n         public void Reset(SettingsContext context)\n         {\n             _localSettingsNode.RemoveAll();\n             _globalSettingsNode.RemoveAll();\n \n+            EnsureSettingsDirectoryExists();\n             _xmlDocument.Save(_filePath);\n         }\n \n--- mRemoteNG/mRemoteNG.csproj\n@@ -536,6 +536,7 @@\n   <ItemGroup>\n     <ProjectReference Include=\"..\\ExternalConnectors\\ExternalConnectors.csproj\" />\n     <ProjectReference Include=\"..\\ObjectListView\\ObjectListView.NetCore.csproj\" />\n+    <ProjectReference Include=\"..\\mRemoteNG.Core\\mRemoteNG.Core.csproj\" />\n     <ProjectReference Include=\"..\\mRemoteNG.Platform\\mRemoteNG.Platform.csproj\" />\n   </ItemGroup>\n   <ItemGroup>",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Core/mRemoteNG.Core.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:42Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Part of a cross-platform refactoring splitting the codebase into mRemoteNG.Core and Avalonia, which is not applicable to our Windows .NET 10 project.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:58:31Z"
+  }
+}

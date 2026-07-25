@@ -1,0 +1,48 @@
+{
+  "sha": "c99fe4b0efae22c17b366ea7042b4bcfe1de5c6f",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "removed oboslete settings for rendering engine",
+  "body": "removed oboslete settings for rendering engine",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-23T21:22:00Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c99fe4b0efae22c17b366ea7042b4bcfe1de5c6f",
+  "stats": {
+    "files": 2,
+    "additions": 1,
+    "deletions": 31,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Properties/Settings.Designer.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 25
+    },
+    {
+      "filename": "mRemoteV1/Properties/Settings.settings",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    }
+  ],
+  "patch": "--- mRemoteV1/Properties/Settings.Designer.cs\n@@ -12,7 +12,7 @@ namespace mRemoteNG {\n     \n     \n     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]\n-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator\", \"16.3.0.0\")]\n+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator\", \"16.7.0.0\")]\n     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {\n         \n         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));\n@@ -1559,30 +1559,6 @@ public string XULRunnerPath {\n             }\n         }\n         \n-        [global::System.Configuration.UserScopedSettingAttribute()]\n-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\n-        [global::System.Configuration.DefaultSettingValueAttribute(\"IE\")]\n-        public string ConDefaultRenderingEngine {\n-            get {\n-                return ((string)(this[\"ConDefaultRenderingEngine\"]));\n-            }\n-            set {\n-                this[\"ConDefaultRenderingEngine\"] = value;\n-            }\n-        }\n-        \n-        [global::System.Configuration.UserScopedSettingAttribute()]\n-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\n-        [global::System.Configuration.DefaultSettingValueAttribute(\"False\")]\n-        public bool InhDefaultRenderingEngine {\n-            get {\n-                return ((bool)(this[\"InhDefaultRenderingEngine\"]));\n-            }\n-            set {\n-                this[\"InhDefaultRenderingEngine\"] = value;\n-            }\n-        }\n-        \n         [global::System.Configuration.UserScopedSettingAttribute()]\n         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]\n         [global::System.Configuration.DefaultSettingValueAttribute(\"\")]\n--- mRemoteV1/Properties/Settings.settings\n@@ -386,12 +386,6 @@\n     <Setting Name=\"XULRunnerPath\" Type=\"System.String\" Scope=\"User\">\n       <Value Profile=\"(Default)\" />\n     </Setting>\n-    <Setting Name=\"ConDefaultRenderingEngine\" Type=\"System.String\" Scope=\"User\">\n-      <Value Profile=\"(Default)\">IE</Value>\n-    </Setting>\n-    <Setting Name=\"InhDefaultRenderingEngine\" Type=\"System.Boolean\" Scope=\"User\">\n-      <Value Profile=\"(Default)\">False</Value>\n-    </Setting>\n     <Setting Name=\"ConDefaultMacAddress\" Type=\"System.String\" Scope=\"User\">\n       <Value Profile=\"(Default)\" />\n     </Setting>",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:53Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 5,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "We preserve and use these rendering engine settings configured to EdgeChromium/ExternalBrowser; deleting them breaks HTTP connections.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:54:10Z"
+  }
+}

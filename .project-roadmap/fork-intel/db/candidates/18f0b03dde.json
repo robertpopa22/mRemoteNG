@@ -1,0 +1,13 @@
+{
+  "sha": "18f0b03dde93dd83fbbb9aeae166a44050046804",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Bump the nuget group with 3 updates",
+  "author_name": "dependabot[bot]",
+  "author_login": "dependabot[bot]",
+  "date": "2026-04-14T02:48:38Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/18f0b03dde93dd83fbbb9aeae166a44050046804",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:28:18Z"
+}

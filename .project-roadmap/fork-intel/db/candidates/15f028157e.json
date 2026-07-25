@@ -1,0 +1,13 @@
+{
+  "sha": "15f028157e69e5bea39ce8ae1aaea148fed70f31",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "inserted a new page in the upgrade process to view harvested credentials",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-30T20:33:42Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15f028157e69e5bea39ce8ae1aaea148fed70f31",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

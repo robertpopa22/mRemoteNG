@@ -1,0 +1,13 @@
+{
+  "sha": "8779776ad577808e6a25203b1ba3ab3fe45634df",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "removed minimize button from credentials manager",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2019-02-20T18:45:18Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8779776ad577808e6a25203b1ba3ab3fe45634df",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

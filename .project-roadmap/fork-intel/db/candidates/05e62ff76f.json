@@ -1,0 +1,13 @@
+{
+  "sha": "05e62ff76fed2320197a82f0bcaaf6ec8de0f266",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "made Export class non static",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T16:48:02Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/05e62ff76fed2320197a82f0bcaaf6ec8de0f266",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

@@ -1,0 +1,73 @@
+{
+  "sha": "b818e7562b8d0482f34be7167bd96d32223a0977",
+  "fork": "yosale2011/mRemoteNG",
+  "owner": "yosale2011",
+  "subject": "Fix Qodo review: infinite loop, race condition, SecureString leak, hardcoded string",
+  "body": "Fix Qodo review: infinite loop, race condition, SecureString leak, hardcoded string\n\n- Fix infinite loop in StartupUnlockService for non-XML/legacy connection files:\n  add IsParsableXml check to skip password prompt loop for unparseable files\n- Fix race condition in Runtime.UpdateEncryptionKey: add lock to guard key swap\n- Fix SecureString leak in Runtime.SetEncryptionKey(string): dispose temporary\n- Replace hardcoded English error string with Language.StartupUnlockPasswordInvalid\n- Add IsParsableXml method to XmlKeyValidator\n- Add StartupUnlockPasswordInvalid localization string",
+  "author_name": "Yosale2011",
+  "author_login": null,
+  "date": "2026-07-03T20:17:48Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b818e7562b8d0482f34be7167bd96d32223a0977",
+  "stats": {
+    "files": 5,
+    "additions": 44,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/App/Runtime.cs",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/App/StartupUnlockService.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.Designer.cs",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.resx",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Security/XmlKeyValidator.cs",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/App/Runtime.cs\n@@ -48,6 +48,7 @@ public static bool IsPortableEdition\n         public static ExternalToolsService ExternalToolsService { get; } = new ExternalToolsService();\n \n         private static SecureString? _masterPasswordKey;\n+        private static readonly object _encryptionKeyLock = new();\n         public static SecureString EncryptionKey { get; private set; } = CreateDefaultEncryptionKey();\n         public static bool HasActiveMasterPasswordSession => _masterPasswordKey != null;\n \n@@ -66,7 +67,8 @@ public static void SetEncryptionKey(string key)\n                 return;\n             }\n \n-            SetEncryptionKey(key.ConvertToSecureString());\n+            using SecureString secureKey = key.ConvertToSecureString();\n+            SetEncryptionKey(secureKey);\n         }\n \n         public static void ResetEncryptionKey()\n@@ -103,10 +105,17 @@ private static SecureString CreateCurrentRootOrDefaultEncryptionKey()\n \n         private static void UpdateEncryptionKey(SecureString newKey, bool syncLoadedRepositories)\n         {\n-            bool keyChanged = EncryptionKey.ConvertToUnsecureString() != newKey.ConvertToUnsecureString();\n+            SecureString? oldKey = null;\n+            bool keyChanged;\n \n-            EncryptionKey?.Dispose();\n-            EncryptionKey = newKey;\n+            lock (_encryptionKeyLock)\n+            {\n+                keyChanged = EncryptionKey.ConvertToUnsecureString() != newKey.ConvertToUnsecureString();\n+                oldKey = EncryptionKey;\n+                EncryptionKey = newKey;\n+            }\n+\n+            oldKey?.Dispose();\n \n             if (syncLoadedRepositories && keyChanged)\n                 SyncLoadedCredentialRepositoriesToEncryptionKey();\n--- mRemoteNG/App/StartupUnlockService.cs\n@@ -37,6 +37,12 @@ public static bool EnsureStartupUnlocked(IWin32Window owner)\n             if (XmlKeyValidator.ConnectionFileUsesKey(startupConnectionFile, Runtime.EncryptionKey))\n                 return true;\n \n+            if (!XmlKeyValidator.IsParsableXml(startupConnectionFile))\n+            {\n+                Runtime.ResetEncryptionKey();\n+                return true;\n+            }\n+\n             while (true)\n             {\n                 Optional<SecureString> password = MiscTools.PasswordDialog(owner, Path.GetFileName(startupConnectionFile), verify: false);\n@@ -50,7 +56,7 @@ public static bool EnsureStartupUnlocked(IWin32Window owner)\n                     return true;\n                 }\n \n-                MessageBox.Show(owner, \"The unlock password is invalid.\", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);\n+                MessageBox.Show(owner, Language.StartupUnlockPasswordInvalid, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);\n             }\n         }\n \n--- mRemoteNG/Language/Language.Designer.cs\n@@ -4431,6 +4431,15 @@ internal static string MasterPasswordInvalid {\n             }\n         }\n         \n+        /// <summary>\n+        ///   Looks up a localized string similar to The unlock password is invalid..\n+        /// </summary>\n+        internal static string StartupUnlockPasswordInvalid {\n+            get {\n+                return ResourceManager.GetString(\"StartupUnlockPasswordInvalid\", resourceCulture);\n+            }\n+        }\n+        \n         /// <summary>\n         ///   Looks up a localized string similar to Master password must be at least 3 characters long..\n         /// </summary>\n--- mRemoteNG/Language/Language.resx\n@@ -1005,6 +1005,9 @@ If you run into such an error, please create a new connection file!</value>\n   <data name=\"MasterPasswordInvalid\" xml:space=\"preserve\">\n     <value>The master password is invalid.</value>\n   </data>\n+  <data name=\"StartupUnlockPasswordInvalid\" xml:space=\"preserve\">\n+    <value>The unlock password is invalid.</value>\n+  </data>\n   <data name=\"MasterPasswordTooShort\" xml:space=\"preserve\">\n     <value>Master password must be at least 3 characters long.</value>\n   </data>\n--- mRemoteNG/Security/XmlKeyValidator.cs\n@@ -93,6 +93,18 @@ public static bool CredentialsFileUsesKey(string filePath, SecureString key)\n             }\n         }\n \n+        public static bool IsParsableXml(string filePath)\n+        {\n+            if (!File.Exists(filePath))\n+                return false;\n+\n+            string xml = File.ReadAllText(filePath);\n+            if (string.IsNullOrWhiteSpace(xml))\n+                return false;\n+\n+            return LooksLikeXml(xml) && TryLoadRoot(xml, out _);\n+        }\n+\n         private static bool LooksLikeXml(string xml)\n         {\n             return xml.TrimStart().StartsWith(\"<\", StringComparison.Ordinal);",
+  "security_flags": [
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/XmlKeyValidator.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:31:03Z",
+  "triage": {
+    "category": "security",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Patches fork-specific StartupUnlockService/XmlKeyValidator absent in our tree (verified); our Runtime.EncryptionKey differs; we shipped own MasterPasswordGate hardening (#128). Diff also risks use-after-dispose SecureString.",
+    "agent": "claude",
+    "at": "2026-07-25T16:42:43Z"
+  }
+}

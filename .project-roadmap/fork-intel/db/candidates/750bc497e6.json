@@ -1,0 +1,13 @@
+{
+  "sha": "750bc497e656d616960dca231b5895eb854f6415",
+  "fork": "mm86133/mRemoteNG",
+  "owner": "mm86133",
+  "subject": "Update dependency AWSSDK.EC2 to 4.0.56",
+  "author_name": "renovate[bot]",
+  "author_login": "renovate[bot]",
+  "date": "2025-11-18T03:10:51Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/750bc497e656d616960dca231b5895eb854f6415",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:33Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "545fb9efae62e83f08493cae12fb60fd011404bd",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "initial support for mono",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2016-06-02T14:51:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/545fb9efae62e83f08493cae12fb60fd011404bd",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

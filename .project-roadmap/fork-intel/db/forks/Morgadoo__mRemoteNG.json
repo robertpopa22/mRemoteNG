@@ -9,13 +9,264 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 19,
   "behind_by": 294,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "0b34726120a9b20270c490df7f9cb53922edc9d9",
+      "subject": "Add cross-platform portability analysis report for Linux and macOS",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T12:10:21Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0b34726120a9b20270c490df7f9cb53922edc9d9",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "a94861f40b3eca704fd69cdbd1b08515d80d8499",
+      "subject": "feat(migration): Phase 1 foundation — platform abstraction layer + Avalonia skeleton",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T12:36:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a94861f40b3eca704fd69cdbd1b08515d80d8499",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "d4831bd71f4755fd8d1b0a44cd2c32728e93e9f5",
+      "subject": "feat(phase-2): Complete Avalonia UI migration — themes, docking, dialogs, tray",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T13:19:25Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d4831bd71f4755fd8d1b0a44cd2c32728e93e9f5",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "f865e545b3142d9fb6de529a2965254da651a469",
+      "subject": "feat(phase-3): Protocol replacement layer — SSH, Telnet, RDP, VNC, HTTP, PowerShell, Serial, ExternalApp",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T13:34:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f865e545b3142d9fb6de529a2965254da651a469",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "bbc8b5e9575eddac9c1edef4cebdc56c712008ee",
+      "subject": "feat(phase-4): Packaging, testing & nightly CI — Linux AppImage/.deb/Flatpak, macOS DMG, Windows MSI, cross-platform tests",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T13:41:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbc8b5e9575eddac9c1edef4cebdc56c712008ee",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "2c1b08114d737158fd981add1db384b59b99ce4a",
+      "subject": "feat(phase-1+2): Settings migration, DI wiring, PuTTY providers, Credential/PortScanner dialogs",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T13:52:25Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c1b08114d737158fd981add1db384b59b99ce4a",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "6c62af68f96d9a8c455a815ae177a9d6eb8e47ec",
+      "subject": "feat(phase-2+4): PortScannerViewModel, PortScanner codebehind, Snap packaging",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T13:52:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6c62af68f96d9a8c455a815ae177a9d6eb8e47ec",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "1fdf1db872bb16d6cfb602c66c97cdf429d3355f",
+      "subject": "feat(phase-2+4): SSH File Transfer dialog, cross-platform install docs in README",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T13:53:21Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1fdf1db872bb16d6cfb602c66c97cdf429d3355f",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "6e9087ebd5830c6d09975b3e0c9f8a106826ebb5",
+      "subject": "feat(phase-4): Docs, integration test scaffolding, migration progress update — 94% complete",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T13:56:32Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6e9087ebd5830c6d09975b3e0c9f8a106826ebb5",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "f0b1743293736f58374b22abcb0ea6ba68b54cf3",
+      "subject": "docs: clarify all remaining blocked tasks in MIGRATION_PROGRESS.md",
+      "author_name": "Claude",
+      "author_login": "claude",
+      "date": "2026-03-10T14:03:05Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0b1743293736f58374b22abcb0ea6ba68b54cf3",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "8a0b324f79aabf9671133d3e7a6cf099fe84ed6f",
+      "subject": "docs: clarify all remaining blocked tasks in MIGRATION_PROGRESS.md",
+      "author_name": "Luís Morgado",
+      "author_login": null,
+      "date": "2026-03-10T14:07:11Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8a0b324f79aabf9671133d3e7a6cf099fe84ed6f",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "1bbe298db82d650b0877348a4087fc5398d01ac5",
+      "subject": "Merge branch 'claude/analyze-cross-platform-portability-FndER' of https://github.com/Morgadoo/mRemoteNG into claude/analyze-cross-platform-portability-FndER",
+      "author_name": "Luís Morgado",
+      "author_login": null,
+      "date": "2026-03-10T14:07:15Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1bbe298db82d650b0877348a4087fc5398d01ac5",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "6dbfccb60cfcf34b317d7e41df13852aab714a4f",
+      "subject": "fix(build): enable CLI build by fixing CPM, missing refs, and namespace collision",
+      "author_name": "Luís Morgado",
+      "author_login": null,
+      "date": "2026-03-10T14:36:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6dbfccb60cfcf34b317d7e41df13852aab714a4f",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "e32fc976314d52f0e97bb821cc659f854e169fc7",
+      "subject": "Harden portable settings persistence for cross-platform paths",
+      "author_name": "Luís Morgado",
+      "author_login": "Morgadoo",
+      "date": "2026-03-10T15:12:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e32fc976314d52f0e97bb821cc659f854e169fc7",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "948788d26daadf767cb8d948ff7feba58b2cb4af",
+      "subject": "Merge pull request #1 from Morgadoo/codex/analyze-and-continue-migration-plan-for-cross-platform-app",
+      "author_name": "Luís Morgado",
+      "author_login": "Morgadoo",
+      "date": "2026-03-10T15:12:50Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/948788d26daadf767cb8d948ff7feba58b2cb4af",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "51ff32883d6c9092e69a2f03163298af931cede1",
+      "subject": "UI is working",
+      "author_name": "Luís Morgado",
+      "author_login": null,
+      "date": "2026-03-10T16:16:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51ff32883d6c9092e69a2f03163298af931cede1",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "71a7d3faada66bd62b3c049472408feb603082ab",
+      "subject": "Small Improvements",
+      "author_name": "Luís Morgado",
+      "author_login": null,
+      "date": "2026-03-10T17:42:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/71a7d3faada66bd62b3c049472408feb603082ab",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "3fb138f24579a0e0e7ed50ef9eca37499aa0bb75",
+      "subject": "Merge branch 'dev' into claude/analyze-cross-platform-portability-FndER",
+      "author_name": "Luís Morgado",
+      "author_login": "Morgadoo",
+      "date": "2026-03-17T17:24:16Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3fb138f24579a0e0e7ed50ef9eca37499aa0bb75",
+      "branches": [
+        "dev"
+      ]
+    },
+    {
+      "sha": "33584d1f1aaa4122c5ba04a0dd07ed6bba66da60",
+      "subject": "Merge pull request #2 from Morgadoo/claude/analyze-cross-platform-portability-FndER",
+      "author_name": "Luís Morgado",
+      "author_login": "Morgadoo",
+      "date": "2026-03-17T17:24:32Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/33584d1f1aaa4122c5ba04a0dd07ed6bba66da60",
+      "branches": [
+        "dev"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "0d29227054f9debdf5b0386194ae311032dde8e3",
-  "compared_at": "2026-07-25T10:58:19Z"
+  "compared_at": "2026-07-25T16:24:51Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "dev"
+  ],
+  "branches_inherited_from_upstream": 0,
+  "screened_shas": [
+    "0b34726120a9b20270c490df7f9cb53922edc9d9",
+    "a94861f40b3eca704fd69cdbd1b08515d80d8499",
+    "d4831bd71f4755fd8d1b0a44cd2c32728e93e9f5",
+    "f865e545b3142d9fb6de529a2965254da651a469",
+    "bbc8b5e9575eddac9c1edef4cebdc56c712008ee",
+    "2c1b08114d737158fd981add1db384b59b99ce4a",
+    "6c62af68f96d9a8c455a815ae177a9d6eb8e47ec",
+    "1fdf1db872bb16d6cfb602c66c97cdf429d3355f",
+    "6e9087ebd5830c6d09975b3e0c9f8a106826ebb5",
+    "f0b1743293736f58374b22abcb0ea6ba68b54cf3",
+    "8a0b324f79aabf9671133d3e7a6cf099fe84ed6f",
+    "6dbfccb60cfcf34b317d7e41df13852aab714a4f",
+    "e32fc976314d52f0e97bb821cc659f854e169fc7",
+    "51ff32883d6c9092e69a2f03163298af931cede1",
+    "71a7d3faada66bd62b3c049472408feb603082ab"
+  ]
 }

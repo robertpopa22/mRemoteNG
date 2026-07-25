@@ -1,0 +1,13 @@
+{
+  "sha": "13f51629afb1b240dcf1d3ffd0ca08d8c5ac73b3",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "completed first round of fixes",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-02T19:40:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/13f51629afb1b240dcf1d3ffd0ca08d8c5ac73b3",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

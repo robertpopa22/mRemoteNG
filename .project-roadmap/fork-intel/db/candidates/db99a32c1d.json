@@ -1,0 +1,13 @@
+{
+  "sha": "db99a32c1d1030a94249030cd9434fca25ab7f55",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "moved encryption key variable to the connections service where it makes more sense",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T23:14:02Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/db99a32c1d1030a94249030cd9434fca25ab7f55",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

@@ -1,0 +1,97 @@
+{
+  "sha": "b801a78ca0edaa024ad83bd8a1dfee74d9562cb9",
+  "fork": "VantIer/mRemoteNG",
+  "owner": "VantIer",
+  "subject": "added custom action to check if .net 6 is installed",
+  "body": "added custom action to check if .net 6 is installed",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2021-12-09T20:02:45Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b801a78ca0edaa024ad83bd8a1dfee74d9562cb9",
+  "stats": {
+    "files": 5,
+    "additions": 15,
+    "deletions": 24,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGInstaller/Installer/CustomActions/CheckPrerequisites.wxs",
+      "status": "renamed",
+      "additions": 4,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGInstaller/Installer/Includes/Config.wxi",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNGInstaller/Installer/Installer.wixproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGInstaller/Installer/Localizations/en-US.wxl",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGInstaller/Installer/mRemoteNG.wxs",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 16
+    }
+  ],
+  "patch": "--- mRemoteNGInstaller/Installer/CustomActions/CheckPrerequisites.wxs\n@@ -5,6 +5,9 @@\n     <CustomAction Id=\"CheckIfMinimumRdpInstalled\" Return=\"check\" Execute=\"immediate\" BinaryKey=\"CustomActions.CA.dll\" DllEntry=\"IsMinimumRdpVersionInstalled\" />\n   </Fragment>\n   <Fragment>\n-    <CustomAction Id=\"CheckIfRdpDtlsUpdateInstalled\" Return=\"check\" Execute=\"immediate\" BinaryKey=\"CustomActions.CA.dll\" DllEntry=\"IsRdpDtlsUpdateInstalled\" />\n+  \t<CustomAction Id=\"CheckIfRdpDtlsUpdateInstalled\" Return=\"check\" Execute=\"immediate\" BinaryKey=\"CustomActions.CA.dll\" DllEntry=\"IsRdpDtlsUpdateInstalled\" />\n+  </Fragment>\n+  <Fragment>\n+\t  <CustomAction Id=\"CheckIfMinimumDotNetInstalled\" Return=\"check\" Execute=\"immediate\" BinaryKey=\"CustomActions.CA.dll\" DllEntry=\"IsMinimumDotNetVersionInstalled\" />\n   </Fragment>\n </Wix>\n\\ No newline at end of file\n--- mRemoteNGInstaller/Installer/Includes/Config.wxi\n@@ -1,7 +1,7 @@\n <?xml version=\"1.0\" encoding=\"utf-8\"?>\n <Include>\n   <?define ProductName = \"mRemoteNG\" ?>\n-  <?define Company = \"Next Generation Software\" ?>\n+  <?define Company = \"www.mremoteng.org\" ?>\n   <?define UpgradeCode = \"dd678a54-ca75-4791-8dfe-d818095684f8\" ?>\n   <?define ProductCode = \"*\" ?>\n   <?define ProductVersion = \"!(bind.FileVersion.MainExeFile)\" ?>\n@@ -12,10 +12,6 @@\n   <?define ProductLanguage = 1033 ?>\n   <?define ExeProcessName = \"$(var.ProductName).exe\" ?>\n   \n-  <?define RequiredDotNetFrameworkMajorVersion = \"4\" ?>\n-  <?define RequiredDotNetFrameworkMinorVersion = \"0\" ?>\n-  <?define RequiredDotNetFrameworkServicePackLevel = \"\" ?>\n-  <?define RequiredDotNetFrameworkVersion = \"$(var.RequiredDotNetFrameworkMajorVersion).$(var.RequiredDotNetFrameworkMinorVersion)\" ?>\n   <?define Rdp80Kb = \"KB2592687\" ?>\n   <?define Rdp81Kb = \"KB2830477\" ?>\n   <?define MinimumRdpKb = $(var.Rdp80Kb) ?>\n--- mRemoteNGInstaller/Installer/Installer.wixproj\n@@ -26,7 +26,7 @@\n     <DefineConstants>HarvestPath=..\\mRemoteNG\\bin\\Release Portable;</DefineConstants>\n   </PropertyGroup>\n   <ItemGroup>\n-    <Compile Include=\"CustomActions\\CheckForInstalledWindowsUpdates.wxs\" />\n+    <Compile Include=\"CustomActions\\CheckPrerequisites.wxs\" />\n     <Compile Include=\"CustomActions\\SaveInstallLocation.wxs\" />\n     <Compile Include=\"CustomActions\\UninstallLegacyVersions.wxs\" />\n     <Compile Include=\"CustomDialogs\\My_CustomizeDlg.wxs\" />\n--- mRemoteNGInstaller/Installer/Localizations/en-US.wxl\n@@ -4,7 +4,7 @@\n   <!-- Install Conditions -->\n   <String Id=\"Upgrade_NewerVersionInstalled\" Overridable=\"yes\">A newer version of [ProductName] is already installed.</String>\n   <String Id=\"Install_NeedToBeAdminToInstall\">You need to be an administrator to install this product.</String>\n-  <String Id=\"Install_NeedDotNetFrameworkVersion\">mRemoteNG requires Microsoft .NET Framework [REQUIREDDOTNETFRAMEWORKVERSION] or higher.</String>\n+  <String Id=\"Install_NeedDotNetVersion\">mRemoteNG requires Microsoft .NET [MINIMUM_DOTNET_VERSION_REQUIRED] or higher.</String>\n   <String Id=\"Install_OSVersionRequirement\">mRemoteNG requires Windows 7 SP1 or higher to run. Please update your operating system and try again.</String>\n   <String Id=\"Install_RDP80Requirement\">mRemoteNG requires RDP 8.0 or higher to run. Windows 7 users will need to install either KB2592687 (RDP 8.0) or KB2830477 (RDP 8.1)</String>\n   <String Id=\"Install_RDPDtlsRequirement\">mRemoteNG requires KB2574819 in order to create RDP connections. Windows 7 users will need to install this KB.</String>\n--- mRemoteNGInstaller/Installer/mRemoteNG.wxs\n@@ -23,25 +23,17 @@\n     <Property Id='RDP80_KB' Value='$(var.Rdp80Kb)' />\n     <Property Id='RDP81_KB' Value='$(var.Rdp81Kb)' />\n     <Property Id='MINIMUM_RDP_VERSION_INSTALLED' Value='0' Secure='yes' />\n-    <Property Id='REQUIREDDOTNETFRAMEWORKVERSION' Value='$(var.RequiredDotNetFrameworkVersion)' />\n+    <Property Id='MINIMUM_DOTNET_VERSION_REQUIRED' Value='6.0' Secure='yes' />\n+    <Property Id='MINIMUM_DOTNET_VERSION_INSTALLED' Value='0' Secure='yes' />\n     <Property Id='LEGACYVERSIONINSTALLED' Value='0' />\n-    <PropertyRef Id=\"NETFRAMEWORK40FULL\" />\n-    <PropertyRef Id=\"WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED\" />\n     <Icon Id=\"AppIcon.ico\" SourceFile=\"Resources\\AppIcon.ico\" />\n     <CustomActionRef Id='SaveCmdlineINSTALLDIR' />\n \n-\n-    <InstallUISequence>\n-      <LaunchConditions After=\"SetWIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED\" />\n-      <Custom Action=\"CheckIfLegacyVersionInstalled\" After=\"LaunchConditions\" />\n-      <Custom Action=\"UninstallLegacyVersion\" After=\"CheckIfLegacyVersionInstalled\">(NOT Installed) AND (LEGACYVERSIONINSTALLED = 1)</Custom>\n-    </InstallUISequence>\n-\n     <InstallExecuteSequence>\n       <Custom Action=\"CheckIfRdpDtlsUpdateInstalled\" After=\"AppSearch\">(NOT Installed) AND (VersionNT = 601 OR VersionNT64 = 601)</Custom>\n-      <Custom Action=\"CheckIfMinimumRdpInstalled\" After=\"CheckIfRdpDtlsUpdateInstalled\">(NOT Installed) AND (VersionNT = 601 OR VersionNT64 = 601)</Custom>\n-      <LaunchConditions After=\"SetWIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED\" />\n-      <Custom Action=\"CheckIfLegacyVersionInstalled\" After=\"LaunchConditions\" />\n+\t  <Custom Action=\"CheckIfMinimumRdpInstalled\" After=\"CheckIfRdpDtlsUpdateInstalled\">(NOT Installed) AND (VersionNT = 601 OR VersionNT64 = 601)</Custom>\n+\t  <Custom Action=\"CheckIfMinimumDotNetInstalled\" After=\"CheckIfMinimumRdpInstalled\">(NOT Installed) AND (VersionNT = 601 OR VersionNT64 = 601) AND (MINIMUM_DOTNET_VERSION_INSTALLED = 1)</Custom>\n+      <Custom Action=\"CheckIfLegacyVersionInstalled\" After=\"CheckIfMinimumDotNetInstalled\" />\n       <Custom Action=\"UninstallLegacyVersion\" After=\"CheckIfLegacyVersionInstalled\">(NOT Installed) AND (LEGACYVERSIONINSTALLED = 1)</Custom>\n     </InstallExecuteSequence>\n     \n@@ -58,9 +50,9 @@\n     <Condition Message=\"!(loc.Install_Win7RequiresSP1)\">\n       <![CDATA[Installed OR (IGNOREPREREQUISITES = 1) OR (VersionNT >= 602 OR VersionNT64 >= 602) OR ((VersionNT = 601 OR VersionNT64 = 601) AND ServicePackLevel >= 1)]]>\n     </Condition>\n-    <!-- .Net Framework Version Condition -->\n-    <Condition Message=\"!(loc.Install_NeedDotNetFrameworkVersion)\">\n-      <![CDATA[Installed OR (IGNOREPREREQUISITES = 1) OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED = 1]]>\n+    <!-- .NET Version Condition -->\n+    <Condition Message=\"!(loc.Install_NeedDotNetVersion)\">\n+      <![CDATA[Installed OR (IGNOREPREREQUISITES = 1) OR MINIMUM_DOTNET_VERSION_INSTALLED = 1]]>\n     </Condition>\n     <!-- If Win7, require RDP DTLS update (KB2574819) -->\n     <Condition Message=\"!(loc.Install_RDPDtlsRequirement)\">",
+  "security_flags": [
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "mRemoteNGInstaller/Installer/CustomActions/CheckPrerequisites.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "mRemoteNGInstaller/Installer/Includes/Config.wxi",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "mRemoteNGInstaller/Installer/Installer.wixproj",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "mRemoteNGInstaller/Installer/Localizations/en-US.wxl",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "mRemoteNGInstaller/Installer/mRemoteNG.wxs",
+      "reason": "installer content ships signed to end users"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:31:00Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Targets legacy WiX3 installer and .NET 6; our MSI is WiX 6 SDK (Package.wxs) on .NET 10 with self-contained option. Obsolete.",
+    "agent": "claude",
+    "at": "2026-07-25T16:41:46Z"
+  }
+}

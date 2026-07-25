@@ -1,0 +1,49 @@
+{
+  "sha": "34cf25fa379fe02c63a49041b2dd6f441d20bc65",
+  "fork": "changsongyang/mRemoteNG",
+  "owner": "changsongyang",
+  "subject": "Added back System.Configuration.ConfigurationManager nuget",
+  "body": "Added back System.Configuration.ConfigurationManager nuget",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-06-07T14:54:25Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/34cf25fa379fe02c63a49041b2dd6f441d20bc65",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/mRemoteNG.csproj\n@@ -987,6 +987,7 @@\n     <PackageReference Include=\"ObjectListView.Official\">\n       <Version>2.9.1</Version>\n     </PackageReference>\n+    <PackageReference Include=\"System.Configuration.ConfigurationManager\" Version=\"4.7.0\" />\n     <PackageReference Include=\"System.Data.SqlClient\" Version=\"4.8.1\" />\n     <PackageReference Include=\"System.DirectoryServices\">\n       <Version>4.7.0</Version>",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:28Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "System.Configuration.ConfigurationManager already referenced at 10.0.5 via Directory.Packages.props; their 4.7.0 add is obsolete for .NET 10 fork.",
+    "agent": "claude",
+    "at": "2026-07-25T16:34:37Z"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "4bba05f737ddb7b46433c53f3efba84a5c5b9924",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "minor cleanup of cred harvester, slightly more efficient",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-14T13:35:37Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4bba05f737ddb7b46433c53f3efba84a5c5b9924",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

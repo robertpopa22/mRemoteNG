@@ -1,0 +1,54 @@
+{
+  "sha": "df26e434d5eb0c8b3698f99347879bc1d548f5e1",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "feat(ssh_dotnet): wire private-key authentication (key-first, passphrase, clear errors)",
+  "body": "feat(ssh_dotnet): wire private-key authentication (key-first, passphrase, clear errors)\n\nReplace the null-returning placeholder: GetAuthenticationMethods now reads\nSshDotNetPrivateKeyFile + SshDotNetPrivateKeyPassphrase off the connection and builds\na PrivateKeyAuthenticationMethod via the existing CreatePrivateKeyAuth loader (handles\nboth passphrase-protected and unprotected keys). Key auth is tried FIRST (OpenSSH\nbehaviour), then password, then keyboard-interactive. The unused-param + // TODO smells\nare gone.\n\nKey-load failures (missing file, wrong passphrase, corrupt key) propagate and are\ncaught in Connect's TryBuildAuthentication (now catching ArgumentException /\nFileNotFoundException / SshException) so the user gets an actionable message instead of\na silent fallback.\n\nUI: the properties already render for SSH_DotNet connections (AttributeUsedInProtocol)\nwith the passphrase masked (PasswordPropertyText) and localized labels.\n\nTest: GetAuthenticationMethods_ReadsKeyFile_AndSurfacesMissingFile proves the key\nproperty is wired into the auth flow (fake-free).\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T17:57:44Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/df26e434d5eb0c8b3698f99347879bc1d548f5e1",
+  "stats": {
+    "files": 3,
+    "additions": 31,
+    "deletions": 23,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/SshAuthenticationProvider.cs",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 22
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/SshAuthenticationProviderTests.cs",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs\n@@ -266,7 +266,7 @@ private bool TryBuildAuthentication(string username, string password, Connection\n                 authMethods = SshAuthenticationProvider.GetAuthenticationMethods(username, password, connectionInfo);\n                 return true;\n             }\n-            catch (ArgumentException authEx)\n+            catch (Exception authEx) when (authEx is ArgumentException or FileNotFoundException or SshException)\n             {\n                 SshDotNetDiagnostics.LogException(\"Protocol: Failed to create authentication methods\", authEx);\n                 State = ConnectionState.Error;\n--- mRemoteNG/Connection/Protocol/SshDotNet/SshAuthenticationProvider.cs\n@@ -29,22 +29,21 @@ public static AuthenticationMethod[] GetAuthenticationMethods(\n \n             try\n             {\n-                // 1. Try password authentication if password is provided\n-                if (!string.IsNullOrEmpty(password))\n-                {\n-                    SshDotNetDiagnostics.LogAuthAttempt(username, \"Password\");\n-                    authMethods.Add(new PasswordAuthenticationMethod(username, password));\n-                }\n-\n-                // 2. Try public key authentication if key path is configured\n-                // (Property to be added in Phase 5 if needed)\n+                // 1. Public-key authentication if a key file is configured (preferred, like OpenSSH).\n                 var keyAuthMethod = TryCreateKeyAuthenticationFromConnectionInfo(username, connectionInfo);\n                 if (keyAuthMethod != null)\n                 {\n                     authMethods.Add(keyAuthMethod);\n                 }\n \n-                // 3. Try keyboard-interactive (for 2FA/MFA)\n+                // 2. Password authentication if a password is provided.\n+                if (!string.IsNullOrEmpty(password))\n+                {\n+                    SshDotNetDiagnostics.LogAuthAttempt(username, \"Password\");\n+                    authMethods.Add(new PasswordAuthenticationMethod(username, password));\n+                }\n+\n+                // 3. Keyboard-interactive (for 2FA/MFA).\n                 SshDotNetDiagnostics.LogDebug(\"Auth: Adding keyboard-interactive method\");\n                 authMethods.Add(CreateKeyboardInteractiveAuth(username, password));\n \n@@ -208,22 +207,16 @@ private static PrivateKeyAuthenticationMethod TryCreateKeyAuthenticationFromConn\n             string username,\n             ConnectionInfo connectionInfo)\n         {\n-            // TODO: In Phase 5, if we add SSH key path property to ConnectionInfo, use it here\n-            // For now, check if credential providers have SSH keys\n-\n-            try\n+            string keyPath = connectionInfo?.SshDotNetPrivateKeyFile;\n+            if (string.IsNullOrEmpty(keyPath))\n             {\n-                // Check for SSH key in connection properties or credential providers\n-                // This is a placeholder for future implementation\n-\n                 SshDotNetDiagnostics.LogDebug(\"Auth: No SSH key path configured in connection\");\n                 return null;\n             }\n-            catch (Exception ex)\n-            {\n-                SshDotNetDiagnostics.LogException(\"Auth: Error checking for SSH key\", ex);\n-                return null;\n-            }\n+\n+            // Load failures (missing file, wrong passphrase, corrupt key) are allowed to propagate so\n+            // the user gets an actionable error rather than a silent fallback to password auth.\n+            return CreatePrivateKeyAuth(username, keyPath, connectionInfo.SshDotNetPrivateKeyPassphrase);\n         }\n \n         #endregion\n--- mRemoteNGTests/Connection/Protocol/SshDotNet/SshAuthenticationProviderTests.cs\n@@ -351,6 +351,21 @@ public void GetAuthenticationMethods_ReturnsAtLeastOneMethod()\n             Assert.That(authMethods.Length, Is.GreaterThan(0), \"Should always return at least one authentication method\");\n         }\n \n+        [Test]\n+        public void GetAuthenticationMethods_ReadsKeyFile_AndSurfacesMissingFile()\n+        {\n+            // A connection configured to use a private key file that does not exist.\n+            var connectionInfo = new mRemoteNG.Connection.ConnectionInfo\n+            {\n+                SshDotNetPrivateKeyFile = @\"C:\\does\\not\\exist\\id_ed25519\"\n+            };\n+\n+            // Proves the connection's key property is wired into the auth flow: CreatePrivateKeyAuth\n+            // is reached and surfaces the missing file rather than silently ignoring the key.\n+            Assert.Throws<FileNotFoundException>(() =>\n+                SshAuthenticationProvider.GetAuthenticationMethods(\"testuser\", \"password\", connectionInfo));\n+        }\n+\n         #endregion\n     }\n }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:15Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 5,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Private-key SSH is already supported through PrivateKeyPath on PuTTY/OpenSSH; this patch depends on an absent SSH.NET protocol and incompatible properties.",
+    "agent": "codex",
+    "at": "2026-07-25T18:41:03Z"
+  }
+}

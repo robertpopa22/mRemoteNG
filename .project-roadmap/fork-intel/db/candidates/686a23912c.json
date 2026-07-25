@@ -1,0 +1,48 @@
+{
+  "sha": "686a23912c36d28f472b5084ba08011338a328d7",
+  "fork": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "subject": "Ignore .resources files and remove Language.resources",
+  "body": "Ignore .resources files and remove Language.resources\n\nUpdated .gitignore to exclude compiled .resources files generated from .resx sources. Deleted the Language.resources binary from the repository to avoid tracking generated files in version control.",
+  "author_name": "Jules Bobb",
+  "author_login": null,
+  "date": "2026-04-06T15:15:44Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/686a23912c36d28f472b5084ba08011338a328d7",
+  "stats": {
+    "files": 2,
+    "additions": 4,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".gitignore",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.resources",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .gitignore\n@@ -224,6 +224,10 @@ orleans.codegen.cs\n # RIA/Silverlight projects\n Generated_Code/\n \n+# Compiled resource files\n+# These are generated from .resx files during the build process\n+*.resources\n+\n # Backup & report files from converting an old project file\n # to a newer Visual Studio version. Backup files are not needed,\n # because we have git ;-)\n--- mRemoteNG/Language/Language.resources\n(no text diff)",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:23Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Verified: git ls-files shows no tracked .resources files in our fork; stray-file removal already moot, ignore rule adds nothing.",
+    "agent": "claude",
+    "at": "2026-07-25T16:37:22Z"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "ea0a956dfb38fd1cf8b7ff46b1ebc0523d8e9ed0",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "Fix OnPaint null font exception in SshTerminalControl",
+  "body": "Fix OnPaint null font exception in SshTerminalControl\n\nUse TerminalFont property (with lazy initialization) instead of directly accessing\n_terminalFont field in OnPaint method. This ensures a font is always available even\nif OnPaint is called before Initialize() completes.\n\nFixes: Value cannot be null. (Parameter 'font') error in terminal rendering\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2025-11-06T16:35:40Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ea0a956dfb38fd1cf8b7ff46b1ebc0523d8e9ed0",
+  "stats": {
+    "files": 1,
+    "additions": 5,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Controls/SshTerminalControl.cs",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Controls/SshTerminalControl.cs\n@@ -741,11 +741,12 @@ protected override void OnPaint(PaintEventArgs e)\n                         {\n                             StringFormat format = new StringFormat(StringFormatFlags.NoWrap);\n                             int y = 0;\n+                            Font font = TerminalFont;  // Use property with lazy initialization\n \n                             foreach (var line in screenText.Split(new[] { \"\\r\\n\", \"\\r\", \"\\n\" }, StringSplitOptions.None))\n                             {\n-                                e.Graphics.DrawString(line ?? \"\", _terminalFont, foregroundBrush, 0, y, format);\n-                                y += _terminalFont.Height;\n+                                e.Graphics.DrawString(line ?? \"\", font, foregroundBrush, 0, y, format);\n+                                y += font.Height;\n \n                                 if (y > this.Height)\n                                     break;\n@@ -758,7 +759,8 @@ protected override void OnPaint(PaintEventArgs e)\n                     // Show placeholder before initialization\n                     using (Brush brush = new SolidBrush(_foregroundColor))\n                     {\n-                        e.Graphics.DrawString(\"Terminal not initialized\", _terminalFont, brush, 0, 0);\n+                        Font font = TerminalFont;  // Use property with lazy initialization\n+                        e.Graphics.DrawString(\"Terminal not initialized\", font, brush, 0, 0);\n                     }\n                 }\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:55Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "SshTerminalControl is fork-only and absent here; our SSH paths use PuTTY/OpenSSH. The null-font paint fix has no applicable code path or mapped issue.",
+    "agent": "codex",
+    "at": "2026-07-25T18:49:20Z"
+  }
+}

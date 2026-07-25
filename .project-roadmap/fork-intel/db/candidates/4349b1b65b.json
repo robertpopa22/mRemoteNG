@@ -1,0 +1,13 @@
+{
+  "sha": "4349b1b65b1684dc40bcbc98bb49bcae056d27ee",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "dont save settings on individual settings pages",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-05-19T21:23:00Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4349b1b65b1684dc40bcbc98bb49bcae056d27ee",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

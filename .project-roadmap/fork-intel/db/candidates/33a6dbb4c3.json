@@ -1,0 +1,13 @@
+{
+  "sha": "33a6dbb4c375f322704b763330850aa299022b1e",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "made more hardcoded strings translateable",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2019-02-20T17:32:35Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/33a6dbb4c375f322704b763330850aa299022b1e",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

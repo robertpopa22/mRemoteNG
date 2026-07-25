@@ -1,0 +1,42 @@
+{
+  "sha": "2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Prevent current tab edge cases",
+  "body": "Prevent current tab edge cases\n\nPrevent cases when the tab is already focus and the application lost the focus and gained again",
+  "author_name": "Camilo Alvarez",
+  "author_login": "jotatsu",
+  "date": "2019-02-18T17:58:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/frmMain.cs\n@@ -483,12 +483,15 @@ protected override void WndProc(ref System.Windows.Forms.Message m)\n                         if (candidateTabToFocus is InterfaceControl)\n                         {\n                             candidateTabToFocus?.Parent.Focus();\n+                            TabHelper.Instance.CurrentTab = (ConnectionTab) candidateTabToFocus?.Parent; //Prevent edge cases \n                         }\n                         if(candidateTabToFocus is RdpClientWrap)\n                         {\n                             ((RdpClientWrap)candidateTabToFocus).Parent?.Parent?.Focus();\n+                            TabHelper.Instance.CurrentTab = (ConnectionTab)((RdpClientWrap)candidateTabToFocus).Parent?.Parent; //Prevent edge cases \n                         }\n-\n+                        Runtime.MessageCollector.AddMessage(Messages.MessageClass.DebugMsg,\n+                                                    \"Something something focus\" + candidateTabToFocus);\n                         _inMouseActivate = false;\n                         break;\n                     case NativeMethods.WM_WINDOWPOSCHANGED:",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:17Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": 118,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 3,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Old mRemoteV1 codebase; leftover debug spam in diff. Our fork rewrote WM_MOUSEACTIVATE/focus handling extensively (#110/#118/#143) — edge case already covered.",
+    "agent": "claude",
+    "at": "2026-07-25T16:33:59Z"
+  }
+}

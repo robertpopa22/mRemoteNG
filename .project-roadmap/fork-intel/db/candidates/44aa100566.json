@@ -1,0 +1,13 @@
+{
+  "sha": "44aa100566b672c9e9908548df2190a88fa80159",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "minor change to chkbox location",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T01:33:54Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/44aa100566b672c9e9908548df2190a88fa80159",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "e2ae6d139f3d788560c42705256ac91b17adc8ea",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "优化批量启动外部工具时从externalTool.WaitAfterStart获取等待间隔",
+  "body": "优化批量启动外部工具时从externalTool.WaitAfterStart获取等待间隔",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-24T04:04:45Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e2ae6d139f3d788560c42705256ac91b17adc8ea",
+  "stats": {
+    "files": 2,
+    "additions": 12,
+    "deletions": 12,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Tools/ExternalTool.cs",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 10
+    },
+    {
+      "filename": "mRemoteV1/UI/Controls/ConnectionContextMenu.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteV1/Tools/ExternalTool.cs\n@@ -176,17 +176,17 @@ private void StartExternalProcess()\n                 return;\n             }\n \n-            //CBH\n+            //CBH ��ʱ�����ַ��ڵ��÷���forѭ���У��˴��ݲ�ʹ��\n             //-1 ʱ ��ʾ�ȴ��˳�������0 ��ʾ�ȴ���Ӧ��ʱ��\n-            if (WaitAfterStart == -1)  //��Ч�� WaitForExit=true\n-            {\n-                process.WaitForExit();\n-            }\n-            else if(WaitAfterStart > 0)\n-            {\n-                //await Task.Delay(WaitAfterStart);  //�첽ʽ  ����ǩ��Ӧ�ñ����� async Task ����Ч\n-                Thread.Sleep(WaitAfterStart);  //����ʽ\n-            }\n+            //if (WaitAfterStart == -1)  //��Ч�� WaitForExit=true\n+            //{\n+            //    process.WaitForExit();\n+            //}\n+            //else if(WaitAfterStart > 0)\n+            //{\n+            //    //await Task.Delay(WaitAfterStart);  //�첽ʽ  ����ǩ��Ӧ�ñ����� async Task ����Ч  ������ܿ��ܲ���Ч\n+            //    Thread.Sleep(WaitAfterStart);  //����ʽ\n+            //}\n         }\n \n         private void SetProcessProperties(Process process, ConnectionInfo startConnectionInfo)\n--- mRemoteV1/UI/Controls/ConnectionContextMenu.cs\n@@ -956,7 +956,7 @@ private async void StartExternalApp_CBH(ExternalTool externalTool)\n                     foreach (ConnectionInfo node in _connectionTree.SelectedNodes)\n                     {\n                         StartExternalApp_CBH(externalTool, node);\n-                        await Task.Delay(2000); //每启动一个等待一会\n+                        await Task.Delay(externalTool.WaitAfterStart); //每启动一个等待一会\n                     }\n                 }\n \n@@ -985,7 +985,7 @@ private async void StartExternalApp_CBH(ExternalTool externalTool, ConnectionInf\n                     foreach (ConnectionInfo child in container.Children)\n                     {\n                         StartExternalApp_CBH(externalTool, child);   // 递归\n-                        await Task.Delay(2000);                      // 每启动一个等待一会 （后续计划使用配置文件配置）\n+                        await Task.Delay(externalTool.WaitAfterStart); // 每启动一个等待一会，使用配置文件配置\n                     }\n                     //return;\n                 }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:38Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Tweaks fork-private StartExternalApp_CBH batch-launch methods absent from our code; also comments out WaitAfterStart handling; mojibake comments.",
+    "agent": "claude",
+    "at": "2026-07-25T16:44:04Z"
+  }
+}

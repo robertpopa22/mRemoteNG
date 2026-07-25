@@ -1,0 +1,42 @@
+{
+  "sha": "2b1ed1b8e12cec4cc37be62c0cbbe41eb3dc407b",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "Firefox组件崩溃问题待解决",
+  "body": "Firefox组件崩溃问题待解决",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-24T04:07:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2b1ed1b8e12cec4cc37be62c0cbbe41eb3dc407b",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Window/ComponentsCheckWindow.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Window/ComponentsCheckWindow.cs\n@@ -646,7 +646,7 @@ private void CheckGeckoBrowser()\n                 lblCheck5.ForeColor = Color.DarkOliveGreen;\n                 lblCheck5.Text = @\"Gecko (Firefox) Rendering Engine (HTTP/S) \" + Language.strCcCheckSucceeded;\n                 if (!Xpcom.IsInitialized)\n-                    Xpcom.Initialize(\"Firefox\");\n+                    Xpcom.Initialize(\"Firefox\");  //CBH ��������������:System.DllNotFoundException:���޷����� DLL��mozglue��: �Ҳ���ָ����ģ�顣 (�쳣���� HRESULT:0x8007007E)��\n                 txtCheck5.Text = Language.strCcGeckoOK + \" Version: \" + Xpcom.XulRunnerVersion;\n                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, \"Gecko Browser installed\", true);\n             }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:40Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Comment-only mojibake on obsolete Gecko/Xpcom code; our fork removed that engine and the commit fixes no executable behavior.",
+    "agent": "codex",
+    "at": "2026-07-25T17:04:48Z"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "f0d0b5ae2157d26827686ed098b5b08aa3cc12e5",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "reduced duplication in rdcm tests",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-20T19:46:34Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0d0b5ae2157d26827686ed098b5b08aa3cc12e5",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

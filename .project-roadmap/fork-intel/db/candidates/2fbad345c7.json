@@ -1,0 +1,42 @@
+{
+  "sha": "2fbad345c70a4ea1216ab6788a6f74facabd65c1",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "如果容器节点的【自定义信息】中包含ExecTarget=self(不区分大小写)，则在外部工具将在自身执行，而非所有子节点",
+  "body": "如果容器节点的【自定义信息】中包含ExecTarget=self(不区分大小写)，则在外部工具将在自身执行，而非所有子节点",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-11-27T10:39:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2fbad345c70a4ea1216ab6788a6f74facabd65c1",
+  "stats": {
+    "files": 1,
+    "additions": 8,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Controls/ConnectionContextMenu.cs",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Controls/ConnectionContextMenu.cs\n@@ -979,6 +979,14 @@ private async void StartExternalApp_CBH(ExternalTool externalTool, ConnectionInf\n                 // 1. 处理容器分支\n                 if (node is ContainerInfo container && nodeType == TreeNodeType.Container)\n                 {\n+                    //CBH 如果容器节点的【自定义信息】中包含特定字符串(不区分大小写)，则在自身进行执行。ExternalToolTarget/ExecTarget\n+                    //Console.WriteLine(container.UserField);\n+                    if (container.UserField.ToLowerInvariant().Contains(\"ExecTarget=self\".ToLowerInvariant()))\n+                    {\n+                        externalTool.Start(node);\n+                        return;\n+                    }\n+\n                     if (container.Children.Count == 0)\n                         return;\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:46Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 2,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Magic-string UserField hack (ExecTarget=self) on old mRemoteV1 path; NRE if UserField null; niche behavior better done as a real property if ever requested.",
+    "agent": "claude",
+    "at": "2026-07-25T16:34:37Z"
+  }
+}

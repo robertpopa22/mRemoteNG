@@ -1,0 +1,13 @@
+{
+  "sha": "294bd2f7a42d2793fc7305740a63817715eb63dd",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed event invocator warnings",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-03-20T01:25:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/294bd2f7a42d2793fc7305740a63817715eb63dd",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

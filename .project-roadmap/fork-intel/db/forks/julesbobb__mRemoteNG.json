@@ -9,13 +9,164 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 11,
   "behind_by": 12,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "4b128e99fd4221c8cd545b85c93f9d81d8b01fab",
+      "subject": "Enable animated expand/collapse for connection tree",
+      "author_name": "Julian Bobbett (DHCW - Software Development)",
+      "author_login": "julian-dhcw",
+      "date": "2026-07-21T13:22:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4b128e99fd4221c8cd545b85c93f9d81d8b01fab",
+      "branches": [
+        "add-animation-to-treeview"
+      ]
+    },
+    {
+      "sha": "019d591e7bdf914ff58622379a8f068eb97d4570",
+      "subject": "Refactored the ExpandCollapseAnimationTimer_Tick to reduce cognitive load.",
+      "author_name": "Julian Bobbett (DHCW - Software Development)",
+      "author_login": "julian-dhcw",
+      "date": "2026-07-21T13:35:55Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/019d591e7bdf914ff58622379a8f068eb97d4570",
+      "branches": [
+        "add-animation-to-treeview"
+      ]
+    },
+    {
+      "sha": "d9db37352a78e91564552f20b585aa31309da446",
+      "subject": "Add option: Open all selected connections with Enter",
+      "author_name": "Jules Bobb",
+      "author_login": null,
+      "date": "2026-04-06T09:34:52Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d9db37352a78e91564552f20b585aa31309da446",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "bbccbb2a701beae624f50f63acf7310cf5770af6",
+      "subject": "Refactor Enter key multi-connection open logic to reduce cognitive load.",
+      "author_name": "Jules Bobb",
+      "author_login": null,
+      "date": "2026-04-06T09:53:52Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbccbb2a701beae624f50f63acf7310cf5770af6",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "686a23912c36d28f472b5084ba08011338a328d7",
+      "subject": "Ignore .resources files and remove Language.resources",
+      "author_name": "Jules Bobb",
+      "author_login": null,
+      "date": "2026-04-06T15:15:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/686a23912c36d28f472b5084ba08011338a328d7",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "7ea1eded8cd1d73bea965ff47b14040bdd93f742",
+      "subject": "Add setting for opening multiple connections with Enter",
+      "author_name": "Jules Bobb",
+      "author_login": null,
+      "date": "2026-04-06T15:16:32Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7ea1eded8cd1d73bea965ff47b14040bdd93f742",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "2e152fb64d59e9244780a23bef714368da65a7d9",
+      "subject": "Merge branch 'v1.78.2-dev' into enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections",
+      "author_name": "julesbobb",
+      "author_login": "julesbobb",
+      "date": "2026-04-20T13:38:55Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2e152fb64d59e9244780a23bef714368da65a7d9",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "195df32f12d5e0dc7a0bb88b29a85adad0367581",
+      "subject": "Changed PublicGetDirectChildConnections to static",
+      "author_name": "Julian Bobbett (DHCW - Software Development)",
+      "author_login": "julian-dhcw",
+      "date": "2026-04-20T13:42:11Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/195df32f12d5e0dc7a0bb88b29a85adad0367581",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "daf0bc0ee1e7ee48fea014a9ed82affc4a2c2b89",
+      "subject": "Merge branch 'enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections' of https://github.com/julesbobb/mRemoteNG into enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections",
+      "author_name": "Julian Bobbett (DHCW - Software Development)",
+      "author_login": "julian-dhcw",
+      "date": "2026-04-20T13:44:01Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/daf0bc0ee1e7ee48fea014a9ed82affc4a2c2b89",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "98c4e7ee4db02ca9a0aa932ad628e03e4354dca8",
+      "subject": "Add OpenMultipleConnectionsWithEnter user setting",
+      "author_name": "Julian Bobbett (DHCW - Software Development)",
+      "author_login": "julian-dhcw",
+      "date": "2026-04-20T14:02:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/98c4e7ee4db02ca9a0aa932ad628e03e4354dca8",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    },
+    {
+      "sha": "69d19ff12ed392577192e1a203893ba694f73aae",
+      "subject": "Merge branch 'v1.78.2-dev' into enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections",
+      "author_name": "julesbobb",
+      "author_login": "julesbobb",
+      "date": "2026-07-21T11:25:09Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/69d19ff12ed392577192e1a203893ba694f73aae",
+      "branches": [
+        "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "964d7c299702ff5adeca3c87f37efeabdea4d284",
-  "compared_at": "2026-07-25T10:58:06Z"
+  "compared_at": "2026-07-25T16:23:47Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "Add-support-for-root-group-containers-in-tree-UI",
+    "add-animation-to-treeview",
+    "enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections",
+    "enhancement/3265-Add-visual-focus-indication-to-CTaskDialog-buttons"
+  ],
+  "branches_inherited_from_upstream": 0,
+  "screened_shas": [
+    "4b128e99fd4221c8cd545b85c93f9d81d8b01fab",
+    "019d591e7bdf914ff58622379a8f068eb97d4570",
+    "d9db37352a78e91564552f20b585aa31309da446",
+    "bbccbb2a701beae624f50f63acf7310cf5770af6",
+    "686a23912c36d28f472b5084ba08011338a328d7",
+    "7ea1eded8cd1d73bea965ff47b14040bdd93f742",
+    "195df32f12d5e0dc7a0bb88b29a85adad0367581",
+    "98c4e7ee4db02ca9a0aa932ad628e03e4354dca8"
+  ]
 }

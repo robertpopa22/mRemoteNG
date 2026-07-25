@@ -1,0 +1,69 @@
+{
+  "sha": "2d1411667e60c4e001933d60f8de825dd2ac9213",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "修复：容器的ID现保持与文件中一致",
+  "body": "修复：容器的ID现保持与文件中一致",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-11-27T08:26:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2d1411667e60c4e001933d60f8de825dd2ac9213",
+  "stats": {
+    "files": 1,
+    "additions": 9,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs\n@@ -178,7 +178,15 @@ private void AddNodesFromXmlRecursive(XmlNode parentXmlNode, ContainerInfo paren\n                             parentContainer.AddChild(connectionInfo);\n                             break;\n                         case TreeNodeType.Container:\n-                            var containerInfo = new ContainerInfo();\n+                            //CBH 修复：容器的ID现保持与文件中一致\n+                            string containerId = Guid.NewGuid().ToString();\n+                            if (xmlNode.Attributes != null && xmlNode.Attributes[\"Id\"] != null)\n+                            {\n+                                containerId = xmlNode.Attributes[\"Id\"].Value;\n+                                //Console.WriteLine(containerId + \"  ---  \" + _confVersion);\n+                            }\n+                            var containerInfo = new ContainerInfo(containerId);\n+                            //var containerInfo = new ContainerInfo();\n                             \n                             if (_confVersion >= 0.9)\n                                 containerInfo.CopyFrom(GetConnectionInfoFromXml(xmlNode));",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:45Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REIMPLEMENT",
+    "rationale": "Current XML loading discards serialized container IDs because CopyFrom cannot set get-only ConstantID. Reimplement constructor-based preservation with malformed-ID and round-trip tests.",
+    "agent": "codex",
+    "at": "2026-07-25T17:11:48Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Raw empty or whitespace Id values bypass the established GUID fallback, risking load failures or invalid container identities.",
+        "reason": "The defect is real and absent here, but land a tested fork-aware reimplementation covering Container and Entity instead of this stale patch.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Messy patch; Id unvalidated; may already exist here",
+        "reason": "Real container ID-stability fix, but needs clean reimplementation and fork check.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: NEEDS_HUMAN - The defect is real and absent here, but land a tested fork-aware reimplementation covering Container and Entity instead of this stale patch.",
+      "grok: NEEDS_HUMAN - Real container ID-stability fix, but needs clean reimplementation and fork check."
+    ],
+    "at": "2026-07-25T23:14:10Z"
+  }
+}

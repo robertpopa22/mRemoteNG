@@ -1,0 +1,54 @@
+{
+  "sha": "b2507ffcb6eb6a841d1cc4b62362bf9530955ab2",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "refactor(ssh_dotnet): introduce ISshClientAdapter seam for testability",
+  "body": "refactor(ssh_dotnet): introduce ISshClientAdapter seam for testability\n\nAdd ISshClientAdapter (+ production SshClientAdapter wrapping SshClient) so the\nprotocol's connection pipeline can be unit-tested with a fake (connect ok /\nauth-fail / timeout / cancellation) without a real SSH server. The adapter exposes\nnative ConnectAsync(CancellationToken) ready for the async pipeline (4c).\n\nSshConnectionManager gains a CreateAdapter factory; ProtocolSshDotNet now holds an\nISshClientAdapter and calls Connect/ConfigureKeepAlive/CreateShellStream/\nGetConnectionInfo/Disconnect through it. The tunnel manager still needs the concrete\nclient, so it receives adapter.UnderlyingClient. CreateConnection (and its tests)\nare unchanged.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T16:42:09Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b2507ffcb6eb6a841d1cc4b62362bf9530955ab2",
+  "stats": {
+    "files": 3,
+    "additions": 91,
+    "deletions": 8,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 8
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/SshClientAdapter.cs",
+      "status": "added",
+      "additions": 70,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/SshConnectionManager.cs",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs\n@@ -39,7 +39,7 @@ public enum ConnectionState\n \n         #region Private Fields\n \n-        private SshClient _sshClient;\n+        private ISshClientAdapter _sshClient;\n         private ShellStream _shellStream;\n         private SshTerminalControl _terminalControl;\n         private SshTunnelManager _tunnelManager;\n@@ -240,7 +240,7 @@ public override bool Connect()\n                 // Create SSH client\n                 try\n                 {\n-                    _sshClient = SshConnectionManager.CreateConnection(\n+                    _sshClient = SshConnectionManager.CreateAdapter(\n                         hostname, port, username, authMethods, TimeSpan.FromSeconds(30));\n                 }\n                 catch (Exception createEx)\n@@ -252,15 +252,15 @@ public override bool Connect()\n                 }\n \n                 // Configure keep-alive (uses default 5s interval for fast disconnect detection)\n-                SshConnectionManager.ConfigureKeepAlive(_sshClient);\n+                _sshClient.ConfigureKeepAlive();\n \n                 // Attach error handler\n                 _sshClient.ErrorOccurred += OnSshClientError;\n \n                 // Connect SSH client\n                 try\n                 {\n-                    SshConnectionManager.Connect(_sshClient);\n+                    _sshClient.Connect();\n                 }\n                 catch (SshAuthenticationException authEx)\n                 {\n@@ -296,11 +296,11 @@ public override bool Connect()\n                 }\n \n                 // Log connection info\n-                string connInfo = SshConnectionManager.GetConnectionInfo(_sshClient);\n+                string connInfo = _sshClient.GetConnectionInfo();\n                 SshDotNetDiagnostics.LogInfo($\"Protocol: {connInfo}\");\n \n                 // Create tunnel manager (available for both tunnel-only and full terminal mode)\n-                _tunnelManager = new SshTunnelManager(_sshClient);\n+                _tunnelManager = new SshTunnelManager(_sshClient.UnderlyingClient);\n                 _tunnelManager.TunnelError += OnTunnelError;\n \n                 // Apply any user-configured port forward rules\n@@ -356,8 +356,7 @@ public override bool Connect()\n \n                     SshDotNetDiagnostics.LogInfo($\"Protocol: Creating shell with dimensions {cols}x{rows} ({widthPixels}x{heightPixels} px)\");\n \n-                    _shellStream = SshConnectionManager.CreateShellStream(\n-                        _sshClient,\n+                    _shellStream = _sshClient.CreateShellStream(\n                         \"xterm-256color\",\n                         (uint)cols,\n                         (uint)rows,\n--- mRemoteNG/Connection/Protocol/SshDotNet/SshClientAdapter.cs\n@@ -0,0 +1,70 @@\n+using System;\n+using System.Threading;\n+using System.Threading.Tasks;\n+using Renci.SshNet;\n+using Renci.SshNet.Common;\n+\n+namespace mRemoteNG.Connection.Protocol.SshDotNet\n+{\n+    /// <summary>\n+    /// Abstraction over <see cref=\"SshClient\"/> so the protocol's connection pipeline can be\n+    /// unit-tested with a fake (connect ok / auth-fail / timeout / cancellation) without a real\n+    /// SSH server. Production code uses <see cref=\"SshClientAdapter\"/>.\n+    /// </summary>\n+    internal interface ISshClientAdapter : IDisposable\n+    {\n+        bool IsConnected { get; }\n+\n+        /// <summary>The wrapped client, for components that still require the concrete type (e.g. the tunnel manager).</summary>\n+        SshClient UnderlyingClient { get; }\n+\n+        event EventHandler<ExceptionEventArgs> ErrorOccurred;\n+\n+        void Connect();\n+        Task ConnectAsync(CancellationToken cancellationToken);\n+        void ConfigureKeepAlive(TimeSpan? interval = null);\n+        ShellStream CreateShellStream(string terminalName, uint columns, uint rows, uint width, uint height, int bufferSize);\n+        string GetConnectionInfo();\n+        void Disconnect();\n+    }\n+\n+    /// <summary>Production <see cref=\"ISshClientAdapter\"/> backed by a real <see cref=\"SshClient\"/>.</summary>\n+    internal sealed class SshClientAdapter : ISshClientAdapter\n+    {\n+        private readonly SshClient _client;\n+\n+        public SshClientAdapter(SshClient client)\n+        {\n+            _client = client ?? throw new ArgumentNullException(nameof(client));\n+        }\n+\n+        public bool IsConnected => _client.IsConnected;\n+\n+        public SshClient UnderlyingClient => _client;\n+\n+        public event EventHandler<ExceptionEventArgs> ErrorOccurred\n+        {\n+            add => _client.ErrorOccurred += value;\n+            remove => _client.ErrorOccurred -= value;\n+        }\n+\n+        public void Connect() => SshConnectionManager.Connect(_client);\n+\n+        public Task ConnectAsync(CancellationToken cancellationToken) => _client.ConnectAsync(cancellationToken);\n+\n+        public void ConfigureKeepAlive(TimeSpan? interval = null) => SshConnectionManager.ConfigureKeepAlive(_client, interval);\n+\n+        public ShellStream CreateShellStream(string terminalName, uint columns, uint rows, uint width, uint height, int bufferSize)\n+            => SshConnectionManager.CreateShellStream(_client, terminalName, columns, rows, width, height, bufferSize);\n+\n+        public string GetConnectionInfo() => SshConnectionManager.GetConnectionInfo(_client);\n+\n+        public void Disconnect()\n+        {\n+            if (_client.IsConnected)\n+                _client.Disconnect();\n+        }\n+\n+        public void Dispose() => _client.Dispose();\n+    }\n+}\n--- mRemoteNG/Connection/Protocol/SshDotNet/SshConnectionManager.cs\n@@ -77,6 +77,20 @@ public static SshClient CreateConnection(\n             }\n         }\n \n+        /// <summary>\n+        /// Create an SSH client wrapped in an <see cref=\"ISshClientAdapter\"/> (the seam used by the\n+        /// protocol so its connection pipeline is unit-testable with a fake).\n+        /// </summary>\n+        internal static ISshClientAdapter CreateAdapter(\n+            string hostname,\n+            int port,\n+            string username,\n+            AuthenticationMethod[] authMethods,\n+            TimeSpan? timeout = null)\n+        {\n+            return new SshClientAdapter(CreateConnection(hostname, port, username, authMethods, timeout));\n+        }\n+\n         /// <summary>\n         /// Connect the SSH client with logging\n         /// </summary>",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:10Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "[Source](https://github.com/joubertdj/mRemoteNG/commit/b2507ffcb6eb6a841d1cc4b62362bf9530955ab2): Refactors an absent SSH.NET terminal stack; our SSH.NET usage is file transfer, leaving this untested adapter without a consumer.",
+    "agent": "codex",
+    "at": "2026-07-25T18:15:15Z"
+  }
+}

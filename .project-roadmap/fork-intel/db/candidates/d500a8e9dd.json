@@ -1,0 +1,69 @@
+{
+  "sha": "d500a8e9dda08af453e3e69f3d891e2be4145686",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "CustomConsPath为相对路径时，主窗口标题也能正确显示全路径（上一提交引入）",
+  "body": "CustomConsPath为相对路径时，主窗口标题也能正确显示全路径（上一提交引入）",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-25T07:32:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d500a8e9dda08af453e3e69f3d891e2be4145686",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/frmMain.cs\n@@ -561,7 +561,7 @@ internal void UpdateWindowTitle()\n \t\t\t\t\t{\n \t\t\t\t\t    titleBuilder.Append(separator);\n \t\t\t\t\t    titleBuilder.Append(Settings.Default.ShowCompleteConsPathInTitle\n-\t\t\t\t\t        ? Runtime.ConnectionsService.ConnectionFileName\n+\t\t\t\t\t        ? Path.GetFullPath(Runtime.ConnectionsService.ConnectionFileName)\n                             : Path.GetFileName(Runtime.ConnectionsService.ConnectionFileName));\n \t\t\t\t\t}\n \t\t\t\t}",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:43Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REIMPLEMENT",
+    "rationale": "Displays absolute path in main window title when loaded with relative path. Simple and safe UX bugfix, needs minor adjustment for our namespaces.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:57:27Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Path.GetFullPath can throw during title updates, adding a UI failure path for an obsolete relative-path scenario.",
+        "reason": "Current paths are already normalized and CustomConsPath is unused; remaining relative inputs should be normalized at load time, not during rendering.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Path.GetFullPath can throw on null/invalid ConnectionFileName",
+        "reason": "Small useful title fix for relative paths; confirm null safety and no local equivalent first",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Current paths are already normalized and CustomConsPath is unused; remaining relative inputs should be normalized at load time, not during rendering.",
+      "grok: NEEDS_HUMAN - Small useful title fix for relative paths; confirm null safety and no local equivalent first"
+    ],
+    "at": "2026-07-25T23:48:43Z"
+  }
+}

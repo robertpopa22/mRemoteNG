@@ -1,0 +1,42 @@
+{
+  "sha": "7dbf60c6d8a516e04856c47f5d5c99544d71baf3",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "调整：查看-新建连接面板菜单可自定义面板名称",
+  "body": "调整：查看-新建连接面板菜单可自定义面板名称",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-01-25T13:29:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7dbf60c6d8a516e04856c47f5d5c99544d71baf3",
+  "stats": {
+    "files": 1,
+    "additions": 8,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Menu/ViewMenu.cs",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Menu/ViewMenu.cs\n@@ -2,6 +2,7 @@\n using System.Windows.Forms;\n using mRemoteNG.App;\n using mRemoteNG.UI.Forms;\n+using mRemoteNG.UI.Forms.Input;\n using mRemoteNG.UI.Panels;\n using mRemoteNG.UI.Window;\n \n@@ -399,7 +400,13 @@ private void mMenViewLockToolbars_Click(object sender, EventArgs eventArgs)\n \n \t\tprivate void mMenViewAddConnectionPanel_Click(object sender, EventArgs e)\n         {\n-            _panelAdder.AddPanel();\n+            string strNewPanel = Language.strNewPanel;\n+            if (input.InputBox(Language.strNewPanel, Language.strPanelName, ref strNewPanel) == DialogResult.OK && !string.IsNullOrEmpty(strNewPanel))\n+            {\n+                this._panelAdder.AddPanel(strNewPanel, false);\n+            }\n+\n+            //_panelAdder.AddPanel();\n         }\n \n         private void mMenViewExtAppsToolbar_Click(object sender, EventArgs e)",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:26Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Named-panel creation already exists in the chooser, with immediate tab-context renaming elsewhere; this obsolete mRemoteV1 path adds only redundant modal friction.",
+    "agent": "codex",
+    "at": "2026-07-25T17:53:58Z"
+  }
+}

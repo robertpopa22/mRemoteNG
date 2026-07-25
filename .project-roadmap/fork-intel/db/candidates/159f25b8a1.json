@@ -1,0 +1,13 @@
+{
+  "sha": "159f25b8a18426fae1e660b1870fa912952d16df",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed exttools arg parser tests",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-14T15:54:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/159f25b8a18426fae1e660b1870fa912952d16df",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

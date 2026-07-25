@@ -1,0 +1,13 @@
+{
+  "sha": "0febc13ec7c23d19a4612baa62588a1300a36e9f",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "removed use of the credential catalog Runtime var",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-03T17:02:36Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0febc13ec7c23d19a4612baa62588a1300a36e9f",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

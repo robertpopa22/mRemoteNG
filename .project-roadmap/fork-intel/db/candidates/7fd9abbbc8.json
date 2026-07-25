@@ -1,0 +1,13 @@
+{
+  "sha": "7fd9abbbc83ed16c282bf5b4cdb2875e74f1cdf6",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "resolved csv deserializer test",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-19T19:19:06Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7fd9abbbc83ed16c282bf5b4cdb2875e74f1cdf6",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

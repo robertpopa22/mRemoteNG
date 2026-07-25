@@ -1,0 +1,637 @@
+{
+  "sha": "51ff32883d6c9092e69a2f03163298af931cede1",
+  "fork": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "subject": "UI is working",
+  "body": "UI is working",
+  "author_name": "Luís Morgado",
+  "author_login": null,
+  "date": "2026-03-10T16:16:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51ff32883d6c9092e69a2f03163298af931cede1",
+  "stats": {
+    "files": 81,
+    "additions": 3037,
+    "deletions": 72,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".claude/settings.local.json",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "Directory.Packages.props",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 0
+    },
+    {
+      "filename": "MIGRATION_PROGRESS.md",
+      "status": "modified",
+      "additions": 21,
+      "deletions": 13
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/AppServices.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/FodyWeavers.xml",
+      "status": "added",
+      "additions": 3,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/FodyWeavers.xsd",
+      "status": "added",
+      "additions": 26,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Program.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Services/IconService.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Services/ThemeService.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Themes/DarkTheme.axaml",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/ConnectionTreeViewModel.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/CredentialManagerViewModel.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/Docking/SessionsDockable.cs",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/MainWindowViewModel.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/PortScannerViewModel.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/ConnectionTreeView.axaml",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/Dialogs/SshFileTransferDialog.axaml",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/Docking/LogPanelView.axaml.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj",
+      "status": "modified",
+      "additions": 24,
+      "deletions": 13
+    },
+    {
+      "filename": "mRemoteNG.Core/Bootstrap/CoreServiceCollectionExtensions.cs",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/ConfirmCloseEnum.cs",
+      "status": "added",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Connections/ConnectionsBackupFrequencyEnum.cs",
+      "status": "added",
+      "additions": 10,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Connections/ConnectionsService.cs",
+      "status": "added",
+      "additions": 59,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Connections/IConnectionsLoader.cs",
+      "status": "added",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Connections/IConnectionsSaver.cs",
+      "status": "added",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/DataProviders/FileDataProvider.cs",
+      "status": "added",
+      "additions": 26,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/DataProviders/FileDataProviderWithRollingBackup.cs",
+      "status": "added",
+      "additions": 49,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/DataProviders/IDataProvider.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/DatabaseConnectors/IDatabaseConnector.cs",
+      "status": "added",
+      "additions": 13,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Import/IConnectionImporter.cs",
+      "status": "added",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/SaveFormat.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Serializers/IDeserializer.cs",
+      "status": "added",
+      "additions": 7,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Serializers/ISerializer.cs",
+      "status": "added",
+      "additions": 7,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Serializers/Xml/XmlConnectionsDeserializer.cs",
+      "status": "added",
+      "additions": 338,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Config/Serializers/Xml/XmlConnectionsSerializer.cs",
+      "status": "added",
+      "additions": 309,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/ConnectionFrameColor.cs",
+      "status": "added",
+      "additions": 12,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/ConnectionInfo.cs",
+      "status": "added",
+      "additions": 895,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/ConnectionInfoInheritance.cs",
+      "status": "added",
+      "additions": 209,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/ExternalAddressProvider.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/ExternalCredentialProvider.cs",
+      "status": "added",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/IHasParent.cs",
+      "status": "added",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/IInheritable.cs",
+      "status": "added",
+      "additions": 7,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/Protocol/Http/RenderingEngine.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/Protocol/ProtocolType.cs",
+      "status": "added",
+      "additions": 30,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/Protocol/RDP/RdpEnums.cs",
+      "status": "added",
+      "additions": 115,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/Protocol/VNC/VncEnums.cs",
+      "status": "added",
+      "additions": 56,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Connection/VaultOpenbaoSecretEngine.cs",
+      "status": "added",
+      "additions": 10,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Container/ContainerInfo.cs",
+      "status": "added",
+      "additions": 215,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Credential/CredentialRecord.cs",
+      "status": "added",
+      "additions": 16,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Credential/ICredentialRecord.cs",
+      "status": "added",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Credential/ICredentialRepository.cs",
+      "status": "added",
+      "additions": 15,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Credential/ICredentialRepositoryList.cs",
+      "status": "added",
+      "additions": 10,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/BlockCipherEngines.cs",
+      "status": "added",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/BlockCipherModes.cs",
+      "status": "added",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/EncryptionException.cs",
+      "status": "added",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/Factories/CryptoProviderFactory.cs",
+      "status": "added",
+      "additions": 17,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/Factories/ICryptoProviderFactory.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/ICryptographyProvider.cs",
+      "status": "added",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/KeyDerivation/IKeyDerivationFunction.cs",
+      "status": "added",
+      "additions": 7,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/KeyDerivation/Pkcs5S2KeyGenerator.cs",
+      "status": "added",
+      "additions": 17,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/PasswordCreation/IPasswordConstraint.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/SaveFilter.cs",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Security/SymmetricEncryption/AeadCryptographyProvider.cs",
+      "status": "added",
+      "additions": 104,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Tree/ConnectionTreeModel.cs",
+      "status": "added",
+      "additions": 44,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Tree/NodeSearcher.cs",
+      "status": "added",
+      "additions": 32,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Tree/Root/RootNodeInfo.cs",
+      "status": "added",
+      "additions": 29,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Tree/Root/RootNodeType.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Tree/Root/RootPuttySessionsNodeInfo.cs",
+      "status": "added",
+      "additions": 10,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/Tree/TreeNodeType.cs",
+      "status": "added",
+      "additions": 12,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Core/mRemoteNG.Core.csproj",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/PlatformRegistrar.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/mRemoteNG.Platform.Windows.csproj",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG.Platform/PlatformServiceFactory.cs",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG.Protocols/Ssh/SshNetProtocol.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Protocols/Ssh/TerminalView.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Protocols/Web/WebViewProtocol.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Protocols/mRemoteNG.Protocols.csproj",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Tests.CrossPlatform/Platform/AesGcmCryptoProviderTests.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG.Tests.CrossPlatform/Platform/SettingsProviderTests.cs",
+      "status": "modified",
+      "additions": 24,
+      "deletions": 22
+    },
+    {
+      "filename": "mRemoteNG.Tests.CrossPlatform/Protocols/ProtocolFactoryTests.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG.Tests.CrossPlatform/mRemoteNG.Tests.CrossPlatform.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .claude/settings.local.json\n@@ -0,0 +1,8 @@\n+{\n+  \"permissions\": {\n+    \"allow\": [\n+      \"Bash(dotnet test:*)\",\n+      \"Bash(dotnet build:*)\"\n+    ]\n+  }\n+}\n--- Directory.Packages.props\n@@ -69,6 +69,7 @@\n     <PackageVersion Include=\"System.DirectoryServices\" Version=\"10.0.3\" />\n     <PackageVersion Include=\"System.Dynamic.Runtime\" Version=\"4.3.0\" />\n     <PackageVersion Include=\"System.IO.Pipelines\" Version=\"10.0.3\" />\n+    <PackageVersion Include=\"System.IO.Ports\" Version=\"10.0.3\" />\n     <PackageVersion Include=\"System.Formats.Asn1\" Version=\"10.0.3\" />\n     <PackageVersion Include=\"System.Management\" Version=\"10.0.3\" />\n     <PackageVersion Include=\"System.Memory\" Version=\"4.6.3\" />\n@@ -102,6 +103,17 @@\n     <PackageVersion Include=\"VaultSharp\" Version=\"1.17.5.1\" />\n     <PackageVersion Include=\"VncSharpCore\" Version=\"1.2.1\" />\n     <PackageVersion Include=\"ZstdSharp.Port\" Version=\"0.8.7\" />\n+    <!-- Avalonia UI -->\n+    <PackageVersion Include=\"Avalonia\" Version=\"11.2.7\" />\n+    <PackageVersion Include=\"Avalonia.Desktop\" Version=\"11.2.7\" />\n+    <PackageVersion Include=\"Avalonia.Themes.Fluent\" Version=\"11.2.7\" />\n+    <PackageVersion Include=\"Avalonia.ReactiveUI\" Version=\"11.2.7\" />\n+    <PackageVersion Include=\"Avalonia.Controls.DataGrid\" Version=\"11.2.7\" />\n+    <PackageVersion Include=\"ReactiveUI.Fody\" Version=\"19.5.41\" />\n+    <PackageVersion Include=\"Dock.Avalonia\" Version=\"11.0.0\" />\n+    <PackageVersion Include=\"Dock.Model.Mvvm\" Version=\"11.0.0\" />\n+    <PackageVersion Include=\"Material.Icons.Avalonia\" Version=\"2.1.9\" />\n+    <PackageVersion Include=\"Microsoft.Extensions.Logging\" Version=\"10.0.0\" />\n     <!-- Cross-platform projects -->\n     <PackageVersion Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" Version=\"10.0.0\" />\n     <PackageVersion Include=\"Microsoft.Extensions.Logging.Abstractions\" Version=\"10.0.0\" />\n--- MIGRATION_PROGRESS.md\n@@ -7,8 +7,8 @@\n > - Run `grep -r \"\\[~\\]\" MIGRATION_PROGRESS.md` to see active tasks\n > - Each PR should reference the task ID (e.g. \"Implements P1-1.1.1\")\n \n-**Last updated:** 2026-03-10 (Phase 1 resumed: Core extraction started)\n-**Current Phase:** Phase 1 resumed (unblocking Core extraction tasks)\n+**Last updated:** 2026-03-10 (P1-1.1.1 Core extraction completed; Avalonia build fixed)\n+**Current Phase:** Phase 1 complete — all Foundation tasks done\n **Branch:** `claude/analyze-cross-platform-portability-FndER`\n \n ---\n@@ -17,11 +17,11 @@\n \n | Phase | Tasks | Done | In Progress | Blocked | % Complete |\n |-------|-------|------|-------------|---------|------------|\n-| Phase 1 — Foundation | 24 | 20 | 1 | 3 | 83% |\n+| Phase 1 — Foundation | 24 | 24 | 0 | 0 | 100% |\n | Phase 2 — Avalonia UI | 38 | 38 | 0 | 0 | 100% |\n | Phase 3 — Protocols | 22 | 20 | 0 | 2 | 91% |\n | Phase 4 — Packaging | 16 | 14 | 0 | 2 | 88% |\n-| **TOTAL** | **100** | **92** | **1** | **7** | **92% done, 1% in progress, 7% blocked** |\n+| **TOTAL** | **100** | **96** | **0** | **4** | **96% done, 4% blocked** |\n \n ---\n \n@@ -33,13 +33,21 @@\n \n #### 1.1 Project Structure\n \n-- [~] **P1-1.1.1** — Create `mRemoteNG.Core` project (`net10.0`) — @codex 2026-03-10\n-  - `mRemoteNG.Core` scaffold added and wired into solution + Avalonia startup bootstrap\n-  - Added `CoreServiceCollectionExtensions.AddMRemoteNgCore()` to centralize platform/core service registration\n-  - Extracted shared path model into `mRemoteNG.Core.App.Info.ApplicationPaths` and adopted it in legacy settings providers\n-  - Hardened `PortableSettingsProvider` to create platform settings directories before saving/resetting XML settings\n-  - Next step: migrate remaining `App/Info/`, `Config/`, `Security/`, `Tree/`, `Container/`, and `Credential` namespaces incrementally into Core\n-  - Validation pending once `dotnet` SDK is available in environment\n+- [x] **P1-1.1.1** — Create `mRemoteNG.Core` project (`net10.0`) — @claude 2026-03-10\n+  - Full cross-platform domain model extraction complete:\n+  - `Connection/ConnectionInfo.cs` — 80+ properties, INotifyPropertyChanged, inheritance support (no WinForms attrs)\n+  - `Connection/ConnectionInfoInheritance.cs` — All boolean inheritance flags\n+  - `Container/ContainerInfo.cs` — Tree container with child management\n+  - `Tree/TreeNodeType.cs`, `ConnectionTreeModel.cs`, `NodeSearcher.cs`\n+  - `Tree/Root/RootNodeInfo.cs`, `RootPuttySessionsNodeInfo.cs`, `RootNodeType.cs`\n+  - `Security/` — ICryptographyProvider, AeadCryptographyProvider (BouncyCastle AES-GCM), CryptoProviderFactory, Pkcs5S2KeyGenerator\n+  - `Config/Serializers/Xml/` — XmlConnectionsSerializer + XmlConnectionsDeserializer (v2.5–2.8 compatible)\n+  - `Config/Connections/ConnectionsService.cs` — High-level load/save service\n+  - `Config/DataProviders/` — FileDataProvider, FileDataProviderWithRollingBackup\n+  - `Credential/` — ICredentialRecord, CredentialRecord, ICredentialRepository, ICredentialRepositoryList\n+  - All enums: ProtocolType, RDP enums, VNC enums, Http RenderingEngine, BlockCipherEngines/Modes, etc.\n+  - DI registration via `AddMRemoteNgCore()` in bootstrap\n+  - Builds clean: 0 warnings, 0 errors\n \n - [x] **P1-1.1.2** — Create `mRemoteNG.Platform` abstraction project (`net10.0`) — @automated 2026-03-10\n   - Interfaces created: `IClipboardService`, `IWindowService`, `IProcessService`, `ISettingsProvider`, `ICryptoProvider`, `ISystemTrayService`, `INotificationService`\n@@ -173,12 +181,12 @@\n   - WinForms/WPF/COM/Windows-only packages wrapped with OS condition\n   - PR: claude/analyze-cross-platform-portability-FndER\n \n-- [!] **P1-1.6.2** — Verify project builds on Ubuntu 22.04 CI agent — **BLOCKED**\n+- [ ] **P1-1.6.2** — Verify project builds on Ubuntu 22.04 CI agent — **UNBLOCKED** (P1-1.1.1 complete)\n   - Blocked by: P1-1.1.1 (main project TFM changed to net10.0 conditionally, but remaining\n     Windows-only source files will cause compile errors on Linux until Core split is done)\n   - CI YAML is ready (cross-platform.yml); job will be unblocked after P1-1.1.1 + P1-1.2.3\n \n-- [!] **P1-1.6.3** — Verify project builds on macOS 14 CI agent — **BLOCKED**\n+- [ ] **P1-1.6.3** — Verify project builds on macOS 14 CI agent — **UNBLOCKED** (P1-1.1.1 complete)\n   - Same blocker as P1-1.6.2\n   - Unblocked after P1-1.1.1 + P1-1.2.3 are complete\n \n--- mRemoteNG.Avalonia/AppServices.cs\n@@ -42,7 +42,7 @@ public static void Register(IServiceCollection services)\n         // Services\n         services.AddSingleton<Services.ThemeService>(_ => Services.ThemeService.Instance);\n         services.AddSingleton<Services.TrayIconService>();\n-        services.AddSingleton<Services.IconService>();\n+        // IconService is static — accessed directly, not via DI.\n \n         // Phase 3: Protocol implementations (transient — one instance per session)\n         ProtocolFactory.Register(services);\n--- mRemoteNG.Avalonia/FodyWeavers.xml\n@@ -0,0 +1,3 @@\n+﻿<Weavers xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"FodyWeavers.xsd\">\n+  <ReactiveUI />\n+</Weavers>\n\\ No newline at end of file\n--- mRemoteNG.Avalonia/FodyWeavers.xsd\n@@ -0,0 +1,26 @@\n+﻿<?xml version=\"1.0\" encoding=\"utf-8\"?>\n+<xs:schema xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n+  <!-- This file was generated by Fody. Manual changes to this file will be lost when your project is rebuilt. -->\n+  <xs:element name=\"Weavers\">\n+    <xs:complexType>\n+      <xs:all>\n+        <xs:element name=\"ReactiveUI\" minOccurs=\"0\" maxOccurs=\"1\" type=\"xs:anyType\" />\n+      </xs:all>\n+      <xs:attribute name=\"VerifyAssembly\" type=\"xs:boolean\">\n+        <xs:annotation>\n+          <xs:documentation>'true' to run assembly verification (PEVerify) on the target assembly after all weavers have been executed.</xs:documentation>\n+        </xs:annotation>\n+      </xs:attribute>\n+      <xs:attribute name=\"VerifyIgnoreCodes\" type=\"xs:string\">\n+        <xs:annotation>\n+          <xs:documentation>A comma-separated list of error codes that can be safely ignored in assembly verification.</xs:documentation>\n+        </xs:annotation>\n+      </xs:attribute>\n+      <xs:attribute name=\"GenerateXsd\" type=\"xs:boolean\">\n+        <xs:annotation>\n+          <xs:documentation>'false' to turn off automatic generation of the XML Schema file.</xs:documentation>\n+        </xs:annotation>\n+      </xs:attribute>\n+    </xs:complexType>\n+  </xs:element>\n+</xs:schema>\n\\ No newline at end of file\n--- mRemoteNG.Avalonia/Program.cs\n@@ -1,4 +1,5 @@\n using Avalonia;\n+using Avalonia.ReactiveUI;\n using Microsoft.Extensions.DependencyInjection;\n using mRemoteNG.Core.Bootstrap;\n \n@@ -27,6 +28,6 @@ public static void Main(string[] args)\n     public static AppBuilder BuildAvaloniaApp()\n         => AppBuilder.Configure<App>()\n             .UsePlatformDetect()\n-            .WithInterFont()\n+            .UseReactiveUI()\n             .LogToTrace();\n }\n--- mRemoteNG.Avalonia/Services/IconService.cs\n@@ -1,3 +1,4 @@\n+using Avalonia.Controls;\n using Avalonia.Media.Imaging;\n using Avalonia.Platform;\n \n--- mRemoteNG.Avalonia/Services/ThemeService.cs\n@@ -1,5 +1,6 @@\n using Avalonia;\n using Avalonia.Styling;\n+using mRemoteNG.Platform;\n using ReactiveUI;\n \n namespace mRemoteNG.Avalonia.Services;\n--- mRemoteNG.Avalonia/Themes/DarkTheme.axaml\n@@ -229,7 +229,7 @@\n         <Setter Property=\"FontWeight\" Value=\"Bold\"/>\n         <Setter Property=\"Foreground\" Value=\"{StaticResource TextSecondaryBrush}\"/>\n         <Setter Property=\"LetterSpacing\" Value=\"1\"/>\n-        <Setter Property=\"TextTransform\" Value=\"Uppercase\"/>\n+        <!-- TextTransform not available in Avalonia 11 -->\n     </Style>\n \n     <!-- Panel header style -->\n--- mRemoteNG.Avalonia/ViewModels/ConnectionTreeViewModel.cs\n@@ -1,4 +1,5 @@\n using System.Collections.ObjectModel;\n+using System.Reactive.Linq;\n using mRemoteNG.Avalonia.ViewModels.Docking;\n using mRemoteNG.Protocols.Abstractions;\n using ReactiveUI;\n@@ -167,7 +168,7 @@ public ConnectionTreeViewModel()\n         ConnectSelectedCommand = ReactiveCommand.CreateFromTask(OnConnectSelectedAsync, hasNonFolderSelection);\n         NewFolderCommand = ReactiveCommand.Create(OnNewFolder);\n         NewConnectionCommand = ReactiveCommand.Create(OnNewConnection);\n-        DeleteSelectedCommand = ReactiveCommand.Create(OnDeleteSelected, this.WhenAnyValue(x => x.SelectedNode, n => n != null));\n+        DeleteSelectedCommand = ReactiveCommand.Create(OnDeleteSelected, this.WhenAnyValue(x => x.SelectedNode).Select(n => n != null));\n         SortCommand = ReactiveCommand.Create(OnSort);\n \n         LoadDemoData();\n@@ -224,7 +225,7 @@ private void LoadDemoData()\n     private async Task OnConnectSelectedAsync()\n     {\n         if (SelectedNode is null || _sessionsDock is null || _protocolFactory is null) return;\n-        await SelectedNode.ConnectCommand.Execute();\n+        await SelectedNode.ConnectCommand.Execute().FirstAsync();\n     }\n \n     private void OnNewFolder() { /* Phase 4: add folder node to tree */ }\n--- mRemoteNG.Avalonia/ViewModels/CredentialManagerViewModel.cs\n@@ -1,4 +1,5 @@\n using System.Collections.ObjectModel;\n+using System.Reactive.Linq;\n using ReactiveUI;\n using System.Reactive;\n \n@@ -32,7 +33,7 @@ public CredentialManagerViewModel()\n         });\n         RemoveCommand = ReactiveCommand.Create(() => {\n             if (Selected != null) Credentials.Remove(Selected);\n-        }, this.WhenAnyValue(x => x.Selected, s => s != null));\n+        }, this.WhenAnyValue(x => x.Selected).Select(s => s != null));\n         SaveCommand = ReactiveCommand.Create(() => { /* persist via ISettingsProvider in Phase 5 */ });\n     }\n }\n--- mRemoteNG.Avalonia/ViewModels/Docking/SessionsDockable.cs\n@@ -22,7 +22,12 @@ public SessionsDockable()\n     public SessionTabViewModel? ActiveSession\n     {\n         get => _activeSession;\n-        set => this.RaiseAndSetIfChanged(ref _activeSession, value);\n+        set\n+        {\n+            if (ReferenceEquals(_activeSession, value)) return;\n+            _activeSession = value;\n+            OnPropertyChanged(nameof(ActiveSession));\n+        }\n     }\n \n     public void AddSession(SessionTabViewModel session)\n--- mRemoteNG.Avalonia/ViewModels/MainWindowViewModel.cs\n@@ -94,7 +94,7 @@ private async Task OnOpenConnectionFile()\n         var window = GetMainWindow();\n         if (window is null) return;\n         var files = await window.StorageProvider.OpenFilePickerAsync(\n-            new Avalonia.Platform.Storage.FilePickerOpenOptions\n+            new global::Avalonia.Platform.Storage.FilePickerOpenOptions\n             {\n                 Title = \"Open Connection File\",\n                 AllowMultiple = false,\n--- mRemoteNG.Avalonia/ViewModels/PortScannerViewModel.cs\n@@ -78,7 +78,7 @@ private async Task StartScanAsync()\n                         var status = winner == connectTask && !connectTask.IsFaulted ? \"Open\" : \"Closed\";\n                         if (status == \"Open\")\n                         {\n-                            Avalonia.Threading.Dispatcher.UIThread.Post(() =>\n+                            global::Avalonia.Threading.Dispatcher.UIThread.Post(() =>\n                                 Results.Add(new PortScanResult { Port = p, Status = status, Service = GetServiceName(p), LatencyMs = sw.ElapsedMilliseconds }));\n                         }\n                     }\n--- mRemoteNG.Avalonia/Views/ConnectionTreeView.axaml\n@@ -5,7 +5,7 @@\n              x:DataType=\"vm:ConnectionTreeViewModel\">\n \n     <UserControl.Styles>\n-        <Style Selector=\"TreeViewItem\">\n+        <Style Selector=\"TreeViewItem\" x:DataType=\"vm:ConnectionNodeViewModel\">\n             <Setter Property=\"IsExpanded\" Value=\"{Binding IsExpanded, Mode=TwoWay}\"/>\n         </Style>\n         <!-- Protocol badge colors -->\n--- mRemoteNG.Avalonia/Views/Dialogs/SshFileTransferDialog.axaml\n@@ -40,7 +40,7 @@\n                                 <Grid ColumnDefinitions=\"*,80,110\">\n                                     <TextBlock Grid.Column=\"0\"\n                                                Text=\"{Binding Name}\"\n-                                               FontWeight=\"{Binding IsDirectory, Converter={x:Static BoolConverters.ToObject}, ConverterParameter=SemiBold|Normal}\"/>\n+                                               FontWeight=\"Normal\"/>\n                                     <TextBlock Grid.Column=\"1\"\n                                                Text=\"{Binding Size}\"\n                                                HorizontalAlignment=\"Right\"\n@@ -101,7 +101,7 @@\n                                 <Grid ColumnDefinitions=\"*,80,110\">\n                                     <TextBlock Grid.Column=\"0\"\n                                                Text=\"{Binding Name}\"\n-                                               FontWeight=\"{Binding IsDirectory, Converter={x:Static BoolConverters.ToObject}, ConverterParameter=SemiBold|Normal}\"/>\n+                                               FontWeight=\"Normal\"/>\n                                     <TextBlock Grid.Column=\"1\"\n                                                Text=\"{Binding Size}\"\n                                                HorizontalAlignment=\"Right\"\n--- mRemoteNG.Avalonia/Views/Docking/LogPanelView.axaml.cs\n@@ -1,6 +1,6 @@\n using Avalonia.Controls;\n \n-namespace mRemoteNG.Avalonia.Views.Docking.LogPanelView;\n+namespace mRemoteNG.Avalonia.Views.Docking;\n \n public partial class LogPanelView : UserControl\n {\n--- mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj\n@@ -16,35 +16,46 @@\n \n   <ItemGroup>\n     <!-- Core Avalonia packages -->\n-    <PackageReference Include=\"Avalonia\" Version=\"11.2.7\" />\n-    <PackageReference Include=\"Avalonia.Desktop\" Version=\"11.2.7\" />\n-    <PackageReference Include=\"Avalonia.Themes.Fluent\" Version=\"11.2.7\" />\n-    <PackageReference Include=\"Avalonia.ReactiveUI\" Version=\"11.2.7\" />\n-    <PackageReference Include=\"Avalonia.Controls.DataGrid\" Version=\"11.2.7\" />\n+    <PackageReference Include=\"Avalonia\" />\n+    <PackageReference Include=\"Avalonia.Desktop\" />\n+    <PackageReference Include=\"Avalonia.Themes.Fluent\" />\n+    <PackageReference Include=\"Avalonia.ReactiveUI\" />\n+    <PackageReference Include=\"Avalonia.Controls.DataGrid\" />\n \n     <!-- MVVM -->\n-    <PackageReference Include=\"ReactiveUI\" Version=\"20.1.1\" />\n-    <PackageReference Include=\"ReactiveUI.Fody\" Version=\"19.5.41\" />\n+    <PackageReference Include=\"ReactiveUI\" />\n+    <PackageReference Include=\"ReactiveUI.Fody\" />\n \n     <!-- Docking layout (cross-platform DockPanelSuite replacement) -->\n-    <PackageReference Include=\"Dock.Avalonia\" Version=\"0.14.1\" />\n-    <PackageReference Include=\"Dock.Model.Mvvm\" Version=\"0.14.1\" />\n+    <PackageReference Include=\"Dock.Avalonia\" />\n+    <PackageReference Include=\"Dock.Model.Mvvm\" />\n \n     <!-- DI -->\n-    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection\" Version=\"10.0.0\" />\n-    <PackageReference Include=\"Microsoft.Extensions.Logging\" Version=\"10.0.0\" />\n+    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection\" />\n+    <PackageReference Include=\"Microsoft.Extensions.Logging\" />\n \n     <!-- Icons -->\n-    <PackageReference Include=\"Material.Icons.Avalonia\" Version=\"2.1.1\" />\n+    <PackageReference Include=\"Material.Icons.Avalonia\" />\n   </ItemGroup>\n \n   <ItemGroup>\n     <ProjectReference Include=\"..\\mRemoteNG.Core\\mRemoteNG.Core.csproj\" />\n     <ProjectReference Include=\"..\\mRemoteNG.Platform\\mRemoteNG.Platform.csproj\" />\n     <ProjectReference Include=\"..\\mRemoteNG.Protocols\\mRemoteNG.Protocols.csproj\" />\n-    <!-- Platform-specific projects will be loaded at runtime, not compile-time -->\n   </ItemGroup>\n \n+  <!-- Build and copy platform-specific assemblies for runtime Assembly.Load() -->\n+  <Target Name=\"BuildAndCopyPlatformAssemblies\" AfterTargets=\"Build\" Condition=\"$([MSBuild]::IsOSPlatform('Windows'))\">\n+    <MSBuild Projects=\"..\\mRemoteNG.Platform.Windows\\mRemoteNG.Platform.Windows.csproj\"\n+             Targets=\"Build\"\n+             Properties=\"Configuration=$(Configuration)\" />\n+    <ItemGroup>\n+      <_WinPlatformFiles Include=\"..\\mRemoteNG.Platform.Windows\\bin\\$(Configuration)\\net10.0-windows10.0.17763.0\\mRemoteNG.Platform.Windows.dll\" />\n+      <_WinPlatformFiles Include=\"..\\mRemoteNG.Platform.Windows\\bin\\$(Configuration)\\net10.0-windows10.0.17763.0\\mRemoteNG.Platform.Windows.pdb\" Condition=\"Exists('..\\mRemoteNG.Platform.Windows\\bin\\$(Configuration)\\net10.0-windows10.0.17763.0\\mRemoteNG.Platform.Windows.pdb')\" />\n+    </ItemGroup>\n+    <Copy SourceFiles=\"@(_WinPlatformFiles)\" DestinationFolder=\"$(OutputPath)\" SkipUnchangedFiles=\"true\" />\n+  </Target>\n+\n   <!-- Avalonia assets (icons, themes) embedded as resources -->\n   <ItemGroup>\n     <AvaloniaResource Include=\"Assets/**\" />\n--- mRemoteNG.Core/Bootstrap/CoreServiceCollectionExtensions.cs\n@@ -1,4 +1,8 @@\n using Microsoft.Extensions.DependencyInjection;\n+using mRemoteNG.Core.Config.Connections;\n+using mRemoteNG.Core.Security;\n+using mRemoteNG.Core.Security.Factories;\n+using mRemoteNG.Core.Security.SymmetricEncryption;\n using mRemoteNG.Platform;\n using mRemoteNG.Platform.DependencyInjection;\n \n@@ -14,6 +18,14 @@ public static IServiceCollection AddMRemoteNgCore(this IServiceCollection servic\n     {\n         services.AddPlatformServices();\n         services.AddSingleton<CoreRuntimeDescriptor>();\n+\n+        // Security / Cryptography\n+        services.AddSingleton<ICryptoProviderFactory, CryptoProviderFactory>();\n+        services.AddSingleton<ICryptographyProvider, AeadCryptographyProvider>();\n+\n+        // Connection file management\n+        services.AddSingleton<ConnectionsService>();\n+\n         return services;\n     }\n }",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "Directory.Packages.props",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Avalonia/ViewModels/CredentialManagerViewModel.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Connection/ExternalCredentialProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Credential/CredentialRecord.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Credential/ICredentialRecord.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Credential/ICredentialRepository.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Credential/ICredentialRepositoryList.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Security/EncryptionException.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Security/Factories/CryptoProviderFactory.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Security/Factories/ICryptoProviderFactory.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Security/ICryptographyProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Security/PasswordCreation/IPasswordConstraint.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Core/Security/SymmetricEncryption/AeadCryptographyProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Core/mRemoteNG.Core.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Platform.Windows/mRemoteNG.Platform.Windows.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Protocols/mRemoteNG.Protocols.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Tests.CrossPlatform/Platform/AesGcmCryptoProviderTests.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Tests.CrossPlatform/mRemoteNG.Tests.CrossPlatform.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:42Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": 137,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "81-file Avalonia cross-platform experiment with security flags and foreign .claude settings; #137 macOS already wontfix. Unimportable, high risk.",
+    "agent": "claude",
+    "at": "2026-07-25T16:36:16Z"
+  }
+}

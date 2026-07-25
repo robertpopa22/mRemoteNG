@@ -1,0 +1,48 @@
+{
+  "sha": "3a249e1b106223bf67bdb8d93b1f6f7e7fd9808b",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "升级选项页面汉化准备，显示和值分开（进行中）",
+  "body": "升级选项页面汉化准备，显示和值分开（进行中）",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-21T12:54:14Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3a249e1b106223bf67bdb8d93b1f6f7e7fd9808b",
+  "stats": {
+    "files": 2,
+    "additions": 8,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/App/Info/UpdateChannelInfo.cs",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/UI/Forms/OptionsPages/UpdatesPage.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteV1/App/Info/UpdateChannelInfo.cs\n@@ -8,6 +8,12 @@ public static class UpdateChannelInfo\n         public const string STABLE = \"Stable\";\n         public const string BETA = \"Beta\";\n         public const string DEV = \"Development\";\n+        public enum UpdateChannel\n+        {\n+            Stable,\n+            Beta,\n+            Development\n+        }\n \n         /* no #if here since they are used for unit tests as well */\n         public const string STABLE_PORTABLE = \"update-portable.txt\";\n--- mRemoteV1/UI/Forms/OptionsPages/UpdatesPage.cs\n@@ -50,9 +50,11 @@ public override void ApplyLanguage()\n             lblProxyPassword.Text = Language.strLabelPassword;\n \n             btnTestProxy.Text = Language.strButtonTestProxy;\n+\n             //CBH\n             lblReleaseChannel.Text = Language.strReleaseChannel;\n             textBox1.Text = Language.strReleaseChannelExplanation;\n+            //\n         }\n \n         public override void LoadSettings()",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:35Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Update-channel localization prep; our fork removed channels entirely (#136, GitHub-only updates). Obsolete, touches deleted code paths.",
+    "agent": "claude",
+    "at": "2026-07-25T16:35:07Z"
+  }
+}

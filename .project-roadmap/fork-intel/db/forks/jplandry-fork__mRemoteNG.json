@@ -11,11 +11,15 @@
   "archived": false,
   "status": "no-divergence",
   "ahead_by": 0,
-  "behind_by": 191,
+  "behind_by": 0,
   "commits": [],
   "discovered_at": "2026-07-25T10:56:30Z",
   "last_seen": "2026-07-25T10:56:30Z",
   "base_branch": "v1.78.2-dev",
-  "merge_base": "430fb4ae3c8e5c46914a03205164b67cbf886f67",
-  "compared_at": "2026-07-25T10:58:03Z"
+  "merge_base": "fde6b483c7661edb895d116e014d54c62801cc47",
+  "compared_at": "2026-07-25T16:23:43Z",
+  "branches_scanned": [
+    "v1.78.2-dev"
+  ],
+  "branches_inherited_from_upstream": 0
 }

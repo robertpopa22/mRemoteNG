@@ -1,0 +1,42 @@
+{
+  "sha": "52b87c4a60b803e03f85659369b174e3c54cd06e",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "快速连接地址框的字体适当缩小，以便控件在缩放场景下能够完整展示。",
+  "body": "快速连接地址框的字体适当缩小，以便控件在缩放场景下能够完整展示。",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2026-02-09T12:22:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/52b87c4a60b803e03f85659369b174e3c54cd06e",
+  "stats": {
+    "files": 1,
+    "additions": 7,
+    "deletions": 4,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Controls/QuickConnectToolStrip.cs",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 4
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Controls/QuickConnectToolStrip.cs\n@@ -73,17 +73,20 @@ private void Initialize()\n             _cmbQuickConnect.Margin = new Padding(1, 0, 3, 0);\n             _cmbQuickConnect.Name = \"cmbQuickConnect\";\n             _cmbQuickConnect.Size = new System.Drawing.Size(200, 25);\n+            //Console.WriteLine(\"_cmbQuickConnect.Font : \" + _cmbQuickConnect.Font);\n+            //_cmbQuickConnect.Font : [Font: Name=Microsoft YaHei UI, Size=9, Units=3, GdiCharSet=1, GdiVerticalFont=False]\n+            _cmbQuickConnect.Font = new System.Drawing.Font(\"Segoe UI\", 7.5F);  // 小字体 = 矮高度\n             _cmbQuickConnect.ConnectRequested += cmbQuickConnect_ConnectRequested;\n             _cmbQuickConnect.ProtocolChanged += cmbQuickConnect_ProtocolChanged;\n             // \n             // tsQuickConnect\n             // \n             Dock = DockStyle.None;\n             Items.AddRange(new ToolStripItem[] {\n-            _lblQuickConnect,\n-            _cmbQuickConnect,\n-            _btnQuickConnect,\n-            _btnConnections});\n+                _lblQuickConnect,\n+                _cmbQuickConnect,\n+                _btnQuickConnect,\n+                _btnConnections});\n             Location = new System.Drawing.Point(3, 24);\n             MaximumSize = new System.Drawing.Size(0, 25);\n             Name = \"tsQuickConnect\";",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:49Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Hardcodes font to 7.5pt Segoe UI to fix combobox heights; our fork uses dynamic high-DPI scaling (_display.ScaleWidth).",
+    "agent": "gemini",
+    "at": "2026-07-25T16:38:39Z"
+  }
+}

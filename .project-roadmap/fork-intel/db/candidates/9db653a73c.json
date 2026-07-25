@@ -1,0 +1,82 @@
+{
+  "sha": "9db653a73c383a46b094c337b77a53418e5c179c",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "fix: create the temporary PuTTY private-key file atomically",
+  "body": "fix: create the temporary PuTTY private-key file atomically\n\nAddress review feedback on PR #3260.\n\n- PuttyBase: the temp private-key file (extracted from a credential\n  vault) was created with GetRandomFileName() + File.WriteAllText(),\n  which is non-atomic and could overwrite a pre-existing file. Replaced\n  with a WriteTemporaryPrivateKeyFile helper that opens the file with\n  FileMode.CreateNew (never overwrites), retries on a name collision,\n  and sets the Temporary attribute. The cleanup in finally only ever\n  targets a path this helper successfully created.\n- Build_mR-NB.yml: grant `contents: write` to the Create-Combined-Release\n  job — it uses softprops/action-gh-release to create the tag/release\n  and upload assets, which needs that permission (per Kvarkas's review).\n\nBuild clean; full suite 2003/83, matching the baseline (the changed\nPuttyBase.Connect path has no unit-test coverage).\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-05-21T15:35:30Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9db653a73c383a46b094c337b77a53418e5c179c",
+  "stats": {
+    "files": 2,
+    "additions": 37,
+    "deletions": 13,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/Build_mR-NB.yml",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+      "status": "modified",
+      "additions": 35,
+      "deletions": 13
+    }
+  ],
+  "patch": "--- .github/workflows/Build_mR-NB.yml\n@@ -196,6 +196,8 @@ jobs:\n \n   Create-Combined-Release:\n     needs: NB-Build-and-Release\n+    permissions:\n+      contents: write\n     runs-on: windows-latest\n     steps:\n       - name: Checkout Repository\n--- mRemoteNG/Connection/Protocol/PuttyBase.cs\n@@ -121,12 +121,7 @@ public override bool Connect()\n \n                                 if (!string.IsNullOrEmpty(privatekey))\n                                 {\n-                                    optionalTemporaryPrivateKeyPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());\n-                                    File.WriteAllText(optionalTemporaryPrivateKeyPath, privatekey);\n-                                    FileInfo fileInfo = new(optionalTemporaryPrivateKeyPath)\n-                                    {\n-                                        Attributes = FileAttributes.Temporary\n-                                    };\n+                                    optionalTemporaryPrivateKeyPath = WriteTemporaryPrivateKeyFile(privatekey);\n                                 }\n                             }\n                             catch (Exception ex)\n@@ -142,12 +137,7 @@ public override bool Connect()\n \n                                 if (!string.IsNullOrEmpty(privatekey))\n                                 {\n-                                    optionalTemporaryPrivateKeyPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());\n-                                    File.WriteAllText(optionalTemporaryPrivateKeyPath, privatekey);\n-                                    FileInfo fileInfo = new(optionalTemporaryPrivateKeyPath)\n-                                    {\n-                                        Attributes = FileAttributes.Temporary\n-                                    };\n+                                    optionalTemporaryPrivateKeyPath = WriteTemporaryPrivateKeyFile(privatekey);\n                                 }\n                             }\n                             catch (Exception ex)\n@@ -398,7 +388,7 @@ public override bool Connect()\n             }\n             finally\n             {\n-                // make sure to remove the private key file\n+                // make sure to remove the private key file we created\n                 if (!string.IsNullOrEmpty(optionalTemporaryPrivateKeyPath))\n                 {\n                     System.Threading.Thread.Sleep(500);\n@@ -407,6 +397,38 @@ public override bool Connect()\n             }\n         }\n \n+        /// <summary>\n+        /// Atomically writes private-key material to a uniquely named temporary\n+        /// file and returns its path. Uses <see cref=\"FileMode.CreateNew\"/> so an\n+        /// existing file is never overwritten, retrying on the (extremely\n+        /// unlikely) name collision. The caller owns the returned file and is\n+        /// responsible for deleting it.\n+        /// </summary>\n+        private static string WriteTemporaryPrivateKeyFile(string privateKey)\n+        {\n+            for (int attempt = 0; attempt < 5; attempt++)\n+            {\n+                string candidatePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + \".ppk\");\n+                try\n+                {\n+                    using (FileStream stream = new(candidatePath, FileMode.CreateNew, FileAccess.Write, FileShare.None))\n+                    using (StreamWriter writer = new(stream))\n+                    {\n+                        writer.Write(privateKey);\n+                    }\n+\n+                    new FileInfo(candidatePath) { Attributes = FileAttributes.Temporary };\n+                    return candidatePath;\n+                }\n+                catch (IOException) when (File.Exists(candidatePath))\n+                {\n+                    // Name collided with a pre-existing file - try a different name.\n+                }\n+            }\n+\n+            throw new IOException(\"Unable to create a unique temporary private-key file.\");\n+        }\n+\n         public override void Focus()\n         {\n             try",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_mR-NB.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:47Z",
+  "triage": {
+    "category": "security",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REIMPLEMENT",
+    "rationale": "Target reopens an already-created key path; reimplement exclusive creation while preserving secure wipe. Omit superseded CI permissions; this still does not close PuTTY handoff race.",
+    "agent": "codex",
+    "at": "2026-07-25T18:08:03Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Helper can leak partially written private keys when write or attribute failures occur, because retry logic bypasses caller cleanup.",
+        "reason": "Current code already atomically reserves temp files and securely wipes them; the CI permission already exists, making this stale patch duplicative and regressive.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Unrelated CI permissions churn; atomic temp-key write is marginal and not import-clean.",
+        "reason": "Idea fits credential safety, but mixed commit and tiny gain—reimplement only if still missing.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Current code already atomically reserves temp files and securely wipes them; the CI permission already exists, making this stale patch duplicative and regressive.",
+      "grok: REJECT - Idea fits credential safety, but mixed commit and tiny gain—reimplement only if still missing."
+    ],
+    "at": "2026-07-25T22:35:03Z"
+  }
+}

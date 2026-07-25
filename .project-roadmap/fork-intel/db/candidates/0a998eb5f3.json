@@ -1,0 +1,955 @@
+{
+  "sha": "0a998eb5f37d695a15a0f63122941efc993b079f",
+  "fork": "savornicesei/mRemoteNG",
+  "owner": "savornicesei",
+  "subject": "Adding more awesome to build process and documentation",
+  "body": "Adding more awesome to build process and documentation\n\nAdded global Directory.Build.props and Directory.Build.targets for shared MSBuild settings\nAdded static code analysers\nAdded build script that should orchestrate all build and publish logic (easier to test, to setup new pipelines, to understand for new devs)\nFixed .NET version to v6.x so it can work in environments that also have .NET 7 or greater\nCleaned and fixed dependencies in test projects (mRemoteNGTests and mRemoteNGSpecs) so they work again\nOrganized project into logical folders in solution: Application, Tests, Documentation, Installer, _Misc for quick navigation and access to config and build files (available in _Misc)\nMoved Add-ons/README.md to documentation + some updates to be able to run sphinx locally (in Visual Studio Code)\nAdded a skeleton project for generating documentation when it's build. It tries to use system python if installed, else it will install python locally from NuGet along with required sphynx module\nMoved all documentation files into mRemoteNG/source file, to match official sphynx folder structure and also separate the docs .csproj and its build artifacts from the documentation itself\nAdded vswhere and nuget executables as build process helpers",
+  "author_name": "Simona Avornicesei",
+  "author_login": "savornicesei",
+  "date": "2023-10-18T08:07:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0a998eb5f37d695a15a0f63122941efc993b079f",
+  "stats": {
+    "files": 143,
+    "additions": 651,
+    "deletions": 226,
+    "binary_files": 2
+  },
+  "files": [
+    {
+      "filename": ".config/dotnet-tools.json",
+      "status": "added",
+      "additions": 18,
+      "deletions": 0
+    },
+    {
+      "filename": ".editorconfig",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": ".gitignore",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": ".readthedocs.yaml",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "Add-ons/README.md",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 11
+    },
+    {
+      "filename": "Directory.Build.props",
+      "status": "added",
+      "additions": 67,
+      "deletions": 0
+    },
+    {
+      "filename": "Directory.Build.targets",
+      "status": "added",
+      "additions": 60,
+      "deletions": 0
+    },
+    {
+      "filename": "ExternalConnectors/ExternalConnectors.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 9
+    },
+    {
+      "filename": "Tools/exes/nuget.exe",
+      "status": "added",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "Tools/exes/vswhere.exe",
+      "status": "added",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "build.ps1",
+      "status": "added",
+      "additions": 300,
+      "deletions": 0
+    },
+    {
+      "filename": "global.json",
+      "status": "added",
+      "additions": 7,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.sln",
+      "status": "modified",
+      "additions": 61,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 63
+    },
+    {
+      "filename": "mRemoteNGDocumentation/mRemoteNG.Docs.csproj",
+      "status": "added",
+      "additions": 42,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/requirements.txt",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/_static/css/custom.css",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/add-ons.rst",
+      "status": "added",
+      "additions": 22,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/command_line_switches.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/conf.py",
+      "status": "renamed",
+      "additions": 5,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/contact_mail.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/external_tools_cheat_sheet.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/faq.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/folders_and_inheritance.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/howtos/bulk_connections.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/howtos/credvault.rst",
+      "status": "renamed",
+      "additions": 4,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/howtos/cyberark-psm.rst",
+      "status": "renamed",
+      "additions": 3,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/howtos/dynamic_host.rst",
+      "status": "renamed",
+      "additions": 3,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/howtos/external_tools.rst",
+      "status": "renamed",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/howtos/sshtunnel.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/howtos/vmrdp.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/config_top_bar.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/connections_config.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/connections_main.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/connections_open.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/connections_rightclick_menu.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/connections_status.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/connections_test_item.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/connections_top_bar.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/credssp-error.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/credvault01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/credvault02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/cyberark_pam_connection_setup.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/default_properties.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/ec2instance.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/example_et_start_application_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/example_et_start_application_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/example_et_traceroute_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/example_et_traceroute_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/example_et_traceroute_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/example_et_traceroute_04.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/example_et_traceroute_05.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/external_tools_external_tool_properties_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/external_tools_main_ui_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/external_tools_toolbar_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/external_tools_tools_list_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/external_tools_win-resurces.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/folders_and_inheritance_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/folders_and_inheritance_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/folders_and_inheritance_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/folders_and_inheritance_04.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/folders_and_inheritance_05.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/folders_and_inheritance_06.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/import_export_dialog.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/import_from_active_directory.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/import_from_port_scan.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/menus_hide_menu_strip.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/menus_main_menu.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/mremoteng_favicon_32.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/mremoteng_logo.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/mremoteng_main_ui.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/mremoteng_main_ui_connect_win_server.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/notifications_panel.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/notifications_popup.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/oracle_remediation_setting.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/putty.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/quick_connect_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/quick_connect_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/quick_connect_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/screenshot_manager_overview.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/screenshot_manager_rightclick_menu.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/ssh_file_transfer_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/ssh_tunnel.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/darculaNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/themes.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2012Blue.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2012Dark.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2012Light.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2013Blue.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2013Dark.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2013Light.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2015Blue.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2015Dark.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2015Light.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2015blueNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2015darkNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/themes/vs2015lightNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/user_interface_overview.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/user_interface_panels_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/user_interface_panels_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/images/user_interface_panels_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/index.rst",
+      "status": "renamed",
+      "additions": 6,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/keyboard_shortcuts.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/known_issues.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/logo.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/migrate.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/protocols.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/protocols/rdp.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/requirements.txt",
+      "status": "added",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/sql_configuration.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/darculaNG.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2012Blue.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2012Dark.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2012Light.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2013Blue.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2013Dark.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2013Light.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2015Blue.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2015Dark.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2015Light.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2015blueNG.rst",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2015darkNG.rst",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/themes/vs2015lightNG.rst",
+      "status": "renamed",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/troubleshooting.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/connections.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/default_connection_properties.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/external_tools.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/import_export.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/main_window.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/menu_container.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/notifications.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/options.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/panels.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/port_scan.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/quick_connect.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/screenshot_manager.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGDocumentation/source/user_interface/ssh_file_transfer.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGSpecs/Features/CredentialRepository.feature.cs",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 46
+    },
+    {
+      "filename": "mRemoteNGSpecs/Features/CredentialRepositoryList.feature.cs",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 33
+    },
+    {
+      "filename": "mRemoteNGSpecs/mRemoteNGSpecs.csproj",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 20
+    },
+    {
+      "filename": "mRemoteNGTests/mRemoteNGTests.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 12
+    }
+  ],
+  "patch": "--- .config/dotnet-tools.json\n@@ -0,0 +1,18 @@\n+{\n+  \"version\": 1,\n+  \"isRoot\": true,\n+  \"tools\": {\n+    \"dotnet-reportgenerator-globaltool\": {\n+      \"version\": \"5.1.26\",\n+      \"commands\": [\n+        \"reportgenerator\"\n+      ]\n+    },\n+    \"specflow.plus.livingdoc.cli\": {\n+      \"version\": \"3.9.57\",\n+      \"commands\": [\n+        \"livingdoc\"\n+      ]\n+    }\n+  }\n+}\n\\ No newline at end of file\n--- .editorconfig\n(no text diff)\n--- .gitignore\n@@ -2,6 +2,14 @@\n **/obj/\n **/[Rr]elease [Pp]ortable/\n **/[Dd]ebug [Pp]ortable/\n+/[Rr]eports/\n+.sonarqube\n+NDependOut\n+NDependOut*\n+coverage\n+*.runlog\n+.local.msbuild.props*\n+/Tools/.local.exes/\n \n *.pfx\n Thumbs.db\n--- .readthedocs.yaml\n@@ -7,7 +7,7 @@ version: 2\n \n # Build documentation in the docs/ directory with Sphinx\n sphinx:\n-   configuration: mRemoteNGDocumentation/conf.py\n+   configuration: mRemoteNGDocumentation/source/conf.py\n \n # Optionally build your docs in additional formats such as PDF\n formats:\n--- Add-ons/README.md\n@@ -1,11 +0,0 @@\n-## Add-ons library by 3rd party \n-This is a list of add-ons, plugins and extentions what could be used with mRemoteNG, if you wish to add yours to this list - just drop me a line: <a href=\"mailto:support@mremoteng.org\">support@mremoteng.org</a>\n-<br>\n-\n-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date&nbsp;added</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Author</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | <b>Type</b> | <b>Name</b> | <b>Description</b> | <b>Repository</b> |\n-| :---------------------------------------------------------:|:-------------------------------------------------:| :---------: |-------------|--------------------|:-----------------:|\n-| 02-08-2022 | <a href=\"https://github.com/JustBeta\"><img align=\"left\" src=\"https://avatars.githubusercontent.com/u/25150896?v=4\" alt=\"JustBeta\" width=\"30px\"/>JustBeta</a> | script | Export-MobaXterm2mRemoteNG | Conversion of MobaXterm's ini file to mRemoteNG format. | [GITHUB Repository](https://github.com/JustBeta/Export-MobaXtern2mRemoteNG/tree/main) |\n-\n-<br>\n-\n-For a detailed usage examples and documentation please reach out authors.\n--- Directory.Build.props\n@@ -0,0 +1,67 @@\n+<Project>\n+    <!-- General project info -->\n+    <PropertyGroup>\n+        <Title>Multi-Remote Next Generation Connection Manager</Title>\n+        <RepositoryUrl>https://github.com/mRemoteNG/mRemoteNG.git</RepositoryUrl>\n+        <RepositoryType>git</RepositoryType>\n+        <Version>1.77.3-dev</Version>\n+        <Description>Multi-protocol remote connections manager</Description>\n+        <PackageIcon>Header_dark.png</PackageIcon>\n+        <Copyright>$([System.DateTime]::Now.Year) mRemoteNG Dev Team, 2010-2013 Riley McArdle, 2007-2009 Felix Deimel</Copyright>\n+        <PackageLicenseFile>COPYING.TXT</PackageLicenseFile>\n+        <PackageProjectUrl>https://mremoteng.org/</PackageProjectUrl>\n+    </PropertyGroup>\n+    <PropertyGroup>\n+        <TargetFramework>net6.0-windows7.0</TargetFramework>\n+        <Platforms>x64</Platforms>\n+        <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>\n+        <LangVersion>latest</LangVersion>\n+        <Nullable>enable</Nullable>\n+        <ImplicitUsings>enable</ImplicitUsings>\n+        <Configurations>Debug;Release;Debug Portable;Debug Installer;Release Portable;Release Installer;Release Installer and Portable</Configurations>\n+    </PropertyGroup>\n+    <PropertyGroup>\n+        <RestoreIgnoreFailedSource>true</RestoreIgnoreFailedSource> <!-- If true, ignores failing or missing package sources -->\n+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>\n+        <GenerateDocumentationFile>false</GenerateDocumentationFile>\n+        <!-- error and warnings options, see https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/errors-warnings -->\n+        <EnableNETAnalyzers>true</EnableNETAnalyzers>\n+        <WarningLevel>4</WarningLevel>\n+        <AnalysisLevel>latest</AnalysisLevel>\n+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n+        <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>\n+        <WarningsAsErrors>$(WarningsAsErrors);NU1603;NU1605</WarningsAsErrors>\n+        <NoWarn>$(NoWarn);NU5104;NU1608;1701;1702;1591</NoWarn>\n+    </PropertyGroup>\n+    <PropertyGroup>\n+        <!-- custom mRemoteNG properties-->\n+        <!-- ## default values if not provided from command line -->\n+        <DefaultProjectRootDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'mRemoteNG.sln'))</DefaultProjectRootDir>\n+\t\t<DefaultArtifactsDir>$([System.IO.Path]::Combine($(DefaultProjectRootDir), 'publish'))</DefaultArtifactsDir>\n+        <DefaultToolsDir>$([System.IO.Path]::Combine($(DefaultProjectRootDir), 'Tools'))</DefaultToolsDir>\n+        <!-- ## properties setup with fallback to default values, to be used in the build -->\n+        <!-- #### Path to the root directory (where mRemoteNG.sln is) -->\n+\t\t<ProjectRootDir Condition=\"'$(ProjectRootDir)' == ''\">$(DefaultProjectRootDir)</ProjectRootDir>\n+        <!-- #### Path to the /publish folder, where all build artifacts are stored for further usage and process -->\n+        <ArtifactsDir Condition=\"'$(ArtifactsDir)' == ''\">$(DefaultArtifactsDir)</ArtifactsDir>\n+        <!-- #### Path to the /tools folder -->\n+        <ToolsDir Condition=\"'$(ToolsDir)' == ''\">$(DefaultToolsDir)</ToolsDir>\n+    </PropertyGroup>\n+    <ItemGroup>\n+        <!-- shared packages -->\n+        <PackageReference Include=\"Newtonsoft.Json\" Version=\"13.0.3\" />\n+    </ItemGroup>\n+    <ItemGroup>\n+        <!-- shared analyzers -->\n+        <PackageReference Include=\"SonarAnalyzer.CSharp\" Version=\"9.12.0.78982 \">\n+          <PrivateAssets>all</PrivateAssets>\n+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>\n+        </PackageReference>\n+        <PackageReference Include=\"StyleCop.Analyzers\" Version=\"1.2.0-beta.507\" PrivateAssets=\"All\" />\n+        <PackageReference Include=\"Roslynator.Analyzers\" Version=\"4.5.0\" PrivateAssets=\"All\" />\n+        <PackageReference Include=\"AsyncFixer\" Version=\"1.6.0\">\n+          <PrivateAssets>all</PrivateAssets>\n+          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>\n+        </PackageReference>\n+    </ItemGroup>\n+</Project>\n\\ No newline at end of file\n--- Directory.Build.targets\n@@ -0,0 +1,60 @@\n+<Project>\n+    <!-- This MSBuild file is executed after loading each MSBuild project from .sln -->\n+    <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Debug|x64'\">\n+        <DefineConstants>DEBUG</DefineConstants>\n+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n+        <WarningsAsErrors />\n+        <OutputPath>bin\\x64\\Debug\\</OutputPath>\n+        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n+        <Optimize>False</Optimize>\n+        <WarningLevel>7</WarningLevel>\n+      </PropertyGroup>\n+      <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release|x64'\">\n+        <DefineConstants>RELEASE</DefineConstants>\n+        <Optimize>True</Optimize>\n+        <OutputPath>bin\\x64\\Release\\</OutputPath>\n+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n+        <WarningsAsErrors />\n+        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n+        <WarningLevel>7</WarningLevel>\n+        <ResolveComReferenceSilent>True</ResolveComReferenceSilent>\n+      </PropertyGroup>\n+      <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Debug Portable|x64'\">\n+        <DefineConstants>DEBUG;PORTABLE</DefineConstants>\n+        <Optimize>False</Optimize>\n+        <OutputPath>bin\\x64\\Debug Portable\\</OutputPath>\n+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n+        <WarningsAsErrors />\n+        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n+        <WarningLevel>7</WarningLevel>\n+      </PropertyGroup>\n+      <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release Portable|x64'\">\n+        <DefineConstants>RELEASE;PORTABLE</DefineConstants>\n+        <Optimize>True</Optimize>\n+        <OutputPath>bin\\x64\\Release Portable\\</OutputPath>\n+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n+        <WarningsAsErrors />\n+        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n+        <WarningLevel>7</WarningLevel>\n+        <ResolveComReferenceSilent>True</ResolveComReferenceSilent>\n+      </PropertyGroup>\n+      <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release Installer|x64'\">\n+        <DefineConstants>RELEASE;INSTALLER</DefineConstants>\n+        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n+        <Optimize>True</Optimize>\n+        <WarningLevel>7</WarningLevel>\n+        <ResolveComReferenceSilent>True</ResolveComReferenceSilent>\n+      </PropertyGroup>\n+\n+      <!-- Allow internal members from application to be accesible in tests -->\n+      <ItemGroup Condition=\"'$(ProjectName)' == 'mRemoteNG' or '$(ProjectName)' == 'ExternalConnectors'\">\n+        <InternalsVisibleTo Include=\"mRemoteNGTests\" />\n+        <InternalsVisibleTo Include=\"mRemoteNGSpecs\" />\n+      </ItemGroup>\n+\n+    <!-- Just prints MSBuild props, for build process testing -->\n+    <Target Name=\"ConfigPrint\">\n+        <Message Text=\"Configuration: $(Configuration), RootDir: $(ProjectRootDir), ArtifactsDir: $(ArtifactsDir)\" Importance=\"high\" />\n+        <Message Text=\"DebugSymbols: $(DebugSymbols), DebugType: $(DebugType), Optimize: $(Optimize)\" Importance=\"high\" />\n+    </Target>\n+</Project>\n\\ No newline at end of file\n--- ExternalConnectors/ExternalConnectors.csproj\n@@ -1,23 +1,15 @@\n ﻿<Project Sdk=\"Microsoft.NET.Sdk\">\n \n   <PropertyGroup>\n-    <TargetFramework>net6.0-windows</TargetFramework>\n-    <ImplicitUsings>enable</ImplicitUsings>\n-    <Nullable>enable</Nullable>\n+    <AssemblyName>ExternalConnectors</AssemblyName>\n     <OutputType>Library</OutputType>\n     <UseWindowsForms>True</UseWindowsForms>\n     <Platforms>x64</Platforms>\n-    <Configurations>Debug;Release;Debug Portable;Release Portable</Configurations>\n-  </PropertyGroup>\n-\n-  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release Portable|x64'\">\n-    <Optimize>True</Optimize>\n   </PropertyGroup>\n \n   <ItemGroup>\n     <PackageReference Include=\"AWSSDK.Core\" Version=\"3.7.204.2\" />\n     <PackageReference Include=\"AWSSDK.EC2\" Version=\"3.7.220.1\" />\n-    <PackageReference Include=\"Newtonsoft.Json\" Version=\"13.0.3\" />\n     <PackageReference Include=\"Portable.BouncyCastle\" Version=\"1.9.0\" />\n   </ItemGroup>\n \n--- Tools/exes/nuget.exe\n(no text diff)\n--- Tools/exes/vswhere.exe\n(no text diff)\n--- build.ps1\n@@ -0,0 +1,300 @@\n+<#\n+.SYNOPSIS\n+mRemoteNG build script.\n+\n+.DESCRIPTION\n+Build script for mRemoteNG\n+\n+.PARAMETER Tasks\n+One or more execution tasks(s), similar to NAnt or Cake targets as a string of tasks divided by comma\n+\n+.PARAMETER BuildConfiguration\n+MSBuild  build configuration - defines the settings that will be used at run time. Valid choices are Debug, Release, Debug Portable, Release Portable, Release Installer.\n+\n+.PARAMETER Rebuild\n+Rebuilds the solution. Default is to do a simple build.\n+\n+.PARAMETER WithCoverage\n+Includes coverage when running tests. Default is false.\n+\n+.PARAMETER FailWhenTestsFail\n+Fail the build if at least one test failed. Default is true.\n+\n+\n+.RELEASENOTES\n+  1.0.0 - Initial version\n+#>\n+\n+#Requires -Version 7.0\n+#Requires -PSEdition Core\n+\n+#####################################\n+#Required script parameters\n+#####################################\n+param(\n+    [Parameter(Position=0, HelpMessage = \"One or more execution tasks(s), similar to NAnt or Cake targets\")]\n+\t[string[]]$Tasks,\n+\n+    [Parameter(HelpMessage = \"MSBuild  build configuration - defines the settings that will be used at run time. Valid choices are Debug, Release, Debug Portable, Debug Installer, Release Portable, Release Installer,Release Installer and Portable\")]  \n+    [ValidateSet('Debug', 'Release', 'Debug Portable', 'Debug Installer', 'Release Portable', 'Release Installer', 'Release Installer and Portable', IgnoreCase = $true, ErrorMessage=\"Value '{0}' is invalid. Try one of: '{1}'\")]\n+    [string] $BuildConfiguration = 'Debug',\n+\n+    [Parameter(HelpMessage = 'Rebuilds the solution')]\n+    [switch] $Rebuild,\n+\n+    [Parameter(HelpMessage = 'Includes coverage when running tests')]\n+    [switch] $WithCoverage = $false\n+)\n+\n+Set-StrictMode -Version latest\n+\n+#####################################################\n+#      initialization: Invoke-Build module\n+#####################################################\n+if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {\n+\t$ErrorActionPreference = 'Stop'\n+    $policy = (Get-PSRepository PSGallery).InstallationPolicy\n+\ttry {\n+\t\tImport-Module InvokeBuild\n+\t}\n+\tcatch {\n+        Set-PSRepository PSGallery -InstallationPolicy Trusted\n+\t\tInstall-Module InvokeBuild -Scope CurrentUser -Force -Repository PSGallery -SkipPublisherCheck -Verbose\n+\t\tImport-Module InvokeBuild\n+\t}\n+    finally {\n+        Set-PSRepository PSGallery -InstallationPolicy $policy\n+    }\n+    \n+    try {\n+        Invoke-Build -Task $Tasks -File $MyInvocation.MyCommand.Path @PSBoundParameters\n+    } \n+    catch { \n+        $PSItem | Format-List * -Force | Out-String\n+        $LASTEXITCODE = 1\n+    }\n+    if(0 -ne $LASTEXITCODE)\n+    {\n+        Write-Host \"Exit code: $LASTEXITCODE\" -ForegroundColor Red\n+    }\n+    exit $LASTEXITCODE\n+}\n+\n+#####################################################\n+#         initialization: global variables\n+#####################################################\n+# is CI build on Appveyor\n+$IS_CI_APPVEYOR = $null -ne $env:APPVEYOR\n+# is CI build on GitHub\n+$IS_CI_GITHUB = $true -eq $env:GITHUB_ACTIONS\n+# is CI build, either on Appveyor or on GitHub\n+$IS_CI_BUILD = $IS_CI_APPVEYOR -or $IS_CI_GITHUB\n+\n+$TOOLS_DIR = Join-Path $BuildRoot \"Tools\"\n+$REPORTS_DIR = Join-Path $BuildRoot \"reports\"\n+\n+#MSBuild paralelism\n+$parallelism = 3\n+#MSBuild verbosity: q[uiet], m[inimal], n[ormal] (default), d[etailed], and diag[nostic]\n+$verbosity = 'm'\n+\n+#####################################################\n+#      initialization: before build\n+#####################################################\n+Enter-Build {\n+    Write-Build Blue \"\n+    is CI build: $IS_CI_BUILD,\n+    Build configuration: $BuildConfiguration,\n+    Tools directory: $TOOLS_DIR,\n+    Reports directory: $REPORTS_DIR\"\n+}\n+\n+#####################################\n+#          Tasks\n+#####################################\n+task Init {\n+    <#\n+    .SYNOPSIS\n+    Initialization of any folder structure of files required for a succesful build\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[Init] Initiating build process for mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    Write-Output '[Init] Preparing to run build script'\n+\n+    # Make sure reports folder exists\n+    if ((Test-Path $BuildRoot) -and !(Test-Path $REPORTS_DIR)) {\n+        Write-Output \"[Init] Creating reports directory...\"\n+        New-Item -Path $REPORTS_DIR -Type Directory -Force | Out-Null\n+    }\n+\n+    Write-Output \"[Init] Installing dotnet tools\"\n+    exec { & dotnet tool restore }\n+}\n+\n+task Clean {\n+    <#\n+    .SYNOPSIS \n+    Executes any cleanup required before building the project.\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[Clean] Starting cleanup of mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    \n+    Write-Output '[Clean] Cleaning reports folder except NDepend one'\n+    if (Test-Path $REPORTS_DIR ) {\n+        Write-Output -Message \"[Clean] Cleaning reports directory...\"\n+        Get-ChildItem -Path $REPORTS_DIR -Exclude NDependOut | Remove-Item -Recurse -Force -ErrorAction Ignore\n+    }\n+\n+    Write-Output '[Clean] Cleaning output of dotnet projects'\n+    exec { & dotnet clean }\n+}\n+\n+task CleanBinObj {\n+    <#\n+    .SYNOPSIS \n+    Cleans all /bin and /obj folders\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[Clean] Starting cleanup of mRemoteNG project /bin and /obj folders'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    Write-Output \"[Deep-Clean] Cleaning /bin and /obj folders from $BuildRoot\"\n+    Get-ChildItem $BuildRoot -Include bin,obj -Recurse | Remove-Item -Recurse -Force -ErrorAction Ignore\n+}\n+\n+task InstallDeps {\n+    <#\n+    .SYNOPSIS\n+    Installs mRemoteNG shared dependencies.\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[Build] Starting dependencies installation for mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    Write-Output '[InstallDeps] Restore nuget dependencies'\n+    exec { & dotnet restore }\n+}\n+\n+task Build {\n+    <#\n+    .SYNOPSIS \n+    Builds the mRemoteNG project\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[Build] Starting the build of mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    Write-Output \"[Build] Building mRemoteNG\"\n+    if($Rebuild){\n+        exec { & dotnet msbuild -t:Rebuild -p:Configuration=$BuildConfiguration -nologo -v:$verbosity -m:$parallelism }\n+    }\n+    else {\n+        exec { & dotnet msbuild -t:Build -p:Configuration=$BuildConfiguration -nologo -v:$verbosity -m:$parallelism }\n+    }\n+\n+    Write-Output \"Build task exit code: $LastExitCode\"\n+    assert($LastExitCode -eq 0) \"Build failed\"\n+}\n+\n+task Test {\n+    <#\n+    .SYNOPSIS \n+    Runs all available tests and optionally calculates coverage\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[Test] Starting the tests on mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    if($WithCoverage)\n+    {\n+        Write-Output '[Test] Running the mRemoteNG tests and coverage. Does not rebuild the project.'\n+        exec { & dotnet test --nologo --no-build --no-restore `\n+                            --configuration:$BuildConfiguration `\n+                            --logger:\"console;verbosity=normal\" `\n+                            --logger:\"trx;LogFileName=mremoteng.test.trx\" `\n+                            --results-directory:$REPORTS_DIR `\n+                            -p:CollectCoverage=true `\n+                            -p:CoverletOutputFormat=\"opencover\" `\n+                            -p:CoverletOutput=$(Join-Path $REPORTS_DIR 'mremoteng.cover.xml') `\n+        }\n+    }\n+    else {\n+        Write-Output '[Test] Running the mRemoteNG tests. Does not rebuild the project.'\n+        exec { & dotnet test --nologo --no-build --no-restore `\n+                            --configuration:$BuildConfiguration `\n+                            --logger:\"console;verbosity=normal\" `\n+                            --logger:\"trx;LogFileName=mremoteng.test.trx\" `\n+                            --results-directory:$REPORTS_DIR `\n+        }\n+    }\n+\n+    Write-Output \"Test task exit code: $LastExitCode\"\n+    assert($LastExitCode -eq 0) \"At least one test failed\"\n+}\n+\n+task CodeQuality {\n+    <#\n+    .SYNOPSIS \n+    Builds everything, runs the tests and calculates code coverage\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[CodeQuality] Starting the code quality analysis on mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    Write-Output Orange \"[CodeQuality] Code quality analysis not configured. Nothing to do...\"\n+}\n+\n+task GenerateDocs {\n+    <#\n+    .SYNOPSIS\n+    Generates mRemoteNG documentation.\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[GenerateDocs] Generating mRemoteNG documentation'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    Write-Output '[GenerateDocs] Running sphinx to generate mRemoteNG documentation'\n+    exec { & dotnet build .\\mRemoteNGDocumentation\\mRemoteNG.Docs.csproj --nologo --configuration:Release }\n+}\n+\n+task Stage GenerateDocs, {\n+    <#\n+    .SYNOPSIS\n+    Stages mRemoteNG build files to be further deployed or provided as artifacts by the CI pipeline.\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[Stage] Publishing mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    \n+    Write-Output Orange \"[Stage] Stage step not configured. Nothing to do...\"\n+}\n+\n+task Demo {\n+    Write-Output \"[Demo] SemVer stuff\" #\"\\[[v|V](\\d+(\\.\\d+){1,3}) (?:Unreleased)\\]\"\n+    $filter = 'rel-\\d{1}-\\d+'\n+    Get-SemVer -Filter $filter -Verbose\n+    Get-SemVerNext -Verbose\n+\n+    $items = (git tag) \n+    @($items | \n+        Select-String -Pattern '[0-9]+-' | \n+        Sort-Object) + ( $items |\n+        Select-String -Pattern '[0-9]+-' -NotMatch | \n+        Sort-Object) | Select-String -Pattern \"^$filter\"\n+}\n+\n+#####################################\n+#          Default Task(s)\n+#####################################\n+# in-depth cleanup of node modules and other build artifacts\n+task DeepClean CleanBinObj, Clean\n+\n+task CleanBuild Clean, Init, Build\n+task RunTests Build, Test\n+task CleanPublish Clean, Init, Build, Stage\n+\n+#region Default Task\n+task . CleanBuild\n\\ No newline at end of file\n--- global.json\n@@ -0,0 +1,7 @@\n+{\n+  \"sdk\": {\n+    \"version\": \"6.0.0\",\n+    \"rollForward\":\"latestMinor\",\n+    \"allowPrerelease\": false\n+  }\n+}\n\\ No newline at end of file\n--- mRemoteNG.sln\n@@ -7,7 +7,7 @@ Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"mRemoteNG\", \"mRemoteNG\\mRem\n EndProject\n Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"mRemoteNGTests\", \"mRemoteNGTests\\mRemoteNGTests.csproj\", \"{1453B37F-8621-499E-B0B2-6091F76DC0BB}\"\n EndProject\n-Project(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"mRemoteNGInstaller\", \"mRemoteNGInstaller\", \"{4FE795BE-646E-4F1B-BAD0-A68EA26394DD}\"\n+Project(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"03. Installer\", \"03. Installer\", \"{4FE795BE-646E-4F1B-BAD0-A68EA26394DD}\"\n EndProject\n Project(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"CustomActions\", \"mRemoteNGInstaller\\CustomActions\\CustomActions.csproj\", \"{5423D985-CB48-4344-B47F-E8C6D60C8B04}\"\n EndProject\n@@ -22,12 +22,33 @@ Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"mRemoteNGSpecs\", \"mRemoteNG\n EndProject\n Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"ExternalConnectors\", \"ExternalConnectors\\ExternalConnectors.csproj\", \"{A56A2029-79B8-492A-ABE5-D2BFE05801BD}\"\n EndProject\n+Project(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"01. Application\", \"01. Application\", \"{23F9C5B2-7765-41AC-837E-FD0F4D18A17C}\"\n+EndProject\n+Project(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"02. Tests\", \"02. Tests\", \"{21C58E9E-5AF4-4F22-A5E1-D6E5CBC3F28D}\"\n+EndProject\n+Project(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"04. Documentation\", \"04. Documentation\", \"{14CA63F4-607A-4453-8006-3D774E2E0B1C}\"\n+EndProject\n+Project(\"{9A19103F-16F7-4668-BE54-9A1E7A4F7556}\") = \"mRemoteNG.Docs\", \"mRemoteNGDocumentation\\mRemoteNG.Docs.csproj\", \"{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}\"\n+EndProject\n+Project(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"_Misc\", \"_Misc\", \"{EF782D74-B8D6-4FD6-AF32-20D332423FF4}\"\n+\tProjectSection(SolutionItems) = preProject\n+\t\t.editorconfig = .editorconfig\n+\t\t.gitignore = .gitignore\n+\t\tbuild.ps1 = build.ps1\n+\t\tCHANGELOG.md = CHANGELOG.md\n+\t\tDirectory.Build.props = Directory.Build.props\n+\t\tDirectory.Build.targets = Directory.Build.targets\n+\t\tglobal.json = global.json\n+\tEndProjectSection\n+EndProject\n Global\n \tGlobalSection(SolutionConfigurationPlatforms) = preSolution\n \t\tDebug Installer|x64 = Debug Installer|x64\n \t\tDebug Portable|x64 = Debug Portable|x64\n \t\tDebug|x64 = Debug|x64\n \t\tRelease Installer and Portable|x64 = Release Installer and Portable|x64\n+\t\tRelease Installer|x64 = Release Installer|x64\n+\t\tRelease Portable|x64 = Release Portable|x64\n \t\tRelease|x64 = Release|x64\n \tEndGlobalSection\n \tGlobalSection(ProjectConfigurationPlatforms) = postSolution\n@@ -39,33 +60,56 @@ Global\n \t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Debug|x64.Build.0 = Debug|x64\n \t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|x64.ActiveCfg = Release|x64\n \t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|x64.Build.0 = Release|x64\n+\t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer|x64.ActiveCfg = Release Installer|x64\n+\t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer|x64.Build.0 = Release Installer|x64\n+\t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Portable|x64.ActiveCfg = Release Portable|x64\n+\t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Portable|x64.Build.0 = Release Portable|x64\n \t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release|x64.ActiveCfg = Release|x64\n \t\t{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release|x64.Build.0 = Release|x64\n \t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Debug Installer|x64.ActiveCfg = Debug|x64\n \t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Debug Portable|x64.ActiveCfg = Debug Portable|x64\n \t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Debug|x64.ActiveCfg = Debug|x64\n \t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Debug|x64.Build.0 = Debug|x64\n \t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Release Installer and Portable|x64.ActiveCfg = Release|x64\n+\t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Release Installer|x64.ActiveCfg = Release Installer|x64\n+\t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Release Installer|x64.Build.0 = Release Installer|x64\n+\t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Release Portable|x64.ActiveCfg = Release Portable|x64\n+\t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Release Portable|x64.Build.0 = Release Portable|x64\n \t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Release|x64.ActiveCfg = Release|x64\n+\t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB}.Release|x64.Build.0 = Release|x64\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Debug Installer|x64.ActiveCfg = Debug|x64\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Debug Installer|x64.Build.0 = Debug|x64\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Debug Portable|x64.ActiveCfg = Debug Portable|x64\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Debug|x64.ActiveCfg = Debug|x64\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Release Installer and Portable|x64.ActiveCfg = Release|x64\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Release Installer and Portable|x64.Build.0 = Release|x64\n+\t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Release Installer|x64.ActiveCfg = Release Installer|x64\n+\t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Release Installer|x64.Build.0 = Release Installer|x64\n+\t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Release Portable|x64.ActiveCfg = Release Portable|x64\n+\t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Release Portable|x64.Build.0 = Release Portable|x64\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04}.Release|x64.ActiveCfg = Release|x64\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Debug Installer|x64.ActiveCfg = Debug|x64\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Debug Installer|x64.Build.0 = Debug|x64\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Debug Portable|x64.ActiveCfg = Debug Portable|x64\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Debug|x64.ActiveCfg = Debug|x64\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Release Installer and Portable|x64.ActiveCfg = Release|x64\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Release Installer and Portable|x64.Build.0 = Release|x64\n+\t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Release Installer|x64.ActiveCfg = Release Portable|x64\n+\t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Release Installer|x64.Build.0 = Release Portable|x64\n+\t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Release Portable|x64.ActiveCfg = Release Portable|x64\n+\t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Release Portable|x64.Build.0 = Release Portable|x64\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68}.Release|x64.ActiveCfg = Release|x64\n \t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Debug Installer|x64.ActiveCfg = Debug|x64\n \t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Debug Portable|x64.ActiveCfg = Debug Portable|x64\n \t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Debug|x64.ActiveCfg = Debug|x64\n+\t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Debug|x64.Build.0 = Debug|x64\n \t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Release Installer and Portable|x64.ActiveCfg = Release|x64\n+\t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Release Installer|x64.ActiveCfg = Release Installer|x64\n+\t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Release Installer|x64.Build.0 = Release Installer|x64\n+\t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Release Portable|x64.ActiveCfg = Release Portable|x64\n+\t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Release Portable|x64.Build.0 = Release Portable|x64\n \t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Release|x64.ActiveCfg = Release|x64\n+\t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E}.Release|x64.Build.0 = Release|x64\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Debug Installer|x64.ActiveCfg = Debug|x64\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Debug Installer|x64.Build.0 = Debug|x64\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Debug Portable|x64.ActiveCfg = Debug Portable|x64\n@@ -74,15 +118,31 @@ Global\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Debug|x64.Build.0 = Debug|x64\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|x64.ActiveCfg = Release|x64\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|x64.Build.0 = Release|x64\n+\t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer|x64.ActiveCfg = Release Installer|x64\n+\t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer|x64.Build.0 = Release Installer|x64\n+\t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Portable|x64.ActiveCfg = Release Portable|x64\n+\t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Portable|x64.Build.0 = Release Portable|x64\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release|x64.ActiveCfg = Release|x64\n \t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release|x64.Build.0 = Release|x64\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}.Debug Installer|x64.ActiveCfg = Release|x64\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}.Debug Portable|x64.ActiveCfg = Release|x64\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}.Debug|x64.ActiveCfg = Release|x64\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}.Release Installer and Portable|x64.ActiveCfg = Release|x64\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}.Release Installer|x64.ActiveCfg = Release|x64\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}.Release Portable|x64.ActiveCfg = Release|x64\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5}.Release|x64.ActiveCfg = Release|x64\n \tEndGlobalSection\n \tGlobalSection(SolutionProperties) = preSolution\n \t\tHideSolutionNode = FALSE\n \tEndGlobalSection\n \tGlobalSection(NestedProjects) = preSolution\n+\t\t{4934A491-40BC-4E5B-9166-EA1169A220F6} = {23F9C5B2-7765-41AC-837E-FD0F4D18A17C}\n+\t\t{1453B37F-8621-499E-B0B2-6091F76DC0BB} = {21C58E9E-5AF4-4F22-A5E1-D6E5CBC3F28D}\n \t\t{5423D985-CB48-4344-B47F-E8C6D60C8B04} = {4FE795BE-646E-4F1B-BAD0-A68EA26394DD}\n \t\t{F0168B9F-6815-40DF-BA53-46CEE7683B68} = {4FE795BE-646E-4F1B-BAD0-A68EA26394DD}\n+\t\t{16AA21E2-D6B7-427D-AB7D-AA8C611B724E} = {21C58E9E-5AF4-4F22-A5E1-D6E5CBC3F28D}\n+\t\t{A56A2029-79B8-492A-ABE5-D2BFE05801BD} = {23F9C5B2-7765-41AC-837E-FD0F4D18A17C}\n+\t\t{C0198A9D-BFDA-4F70-9A76-DA350FB6BEB5} = {14CA63F4-607A-4453-8006-3D774E2E0B1C}\n \tEndGlobalSection\n \tGlobalSection(ExtensibilityGlobals) = postSolution\n \t\tSolutionGuid = {5D390A0C-2FC4-4908-B86E-7E4DEF5916EC}\n--- mRemoteNG/mRemoteNG.csproj\n@@ -1,75 +1,17 @@\n ﻿<?xml version=\"1.0\" encoding=\"utf-8\"?>\n <Project Sdk=\"Microsoft.NET.Sdk\">\n   <PropertyGroup>\n+    <AssemblyName>mRemoteNG</AssemblyName>\n     <OutputType>WinExe</OutputType>\n-    <TargetFramework>net6.0-windows7.0</TargetFramework>\n     <UseWindowsForms>true</UseWindowsForms>\n     <ApplicationIcon>Icons\\mRemoteNG.ico</ApplicationIcon>\n-    <Version>1.77.3-dev</Version>\n-    <Description>Multi-protocol remote connections manager</Description>\n-    <Copyright>$([System.DateTime]::Now.Year) mRemoteNG Dev Team, 2010-2013 Riley McArdle, 2007-2009 Felix Deimel</Copyright>\n-    <PackageLicenseFile>COPYING.TXT</PackageLicenseFile>\n-    <PackageProjectUrl>https://mremoteng.org/</PackageProjectUrl>\n-    <Platforms>x64</Platforms>\n-    <Configurations>Debug;Release;Debug Portable;Release Portable;Release Installer</Configurations>\n-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>\n-    <LangVersion>latest</LangVersion>\n-    <PackageIcon>Header_dark.png</PackageIcon>\n     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>\n     <UseWPF>True</UseWPF>\n-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>\n     <SignAssembly>False</SignAssembly>\n-    <Title>Multi-Remote Next Generation Connection Manager</Title>\n-    <RepositoryUrl>https://github.com/mRemoteNG/mRemoteNG.git</RepositoryUrl>\n-    <RepositoryType>git</RepositoryType>\n     <StartupObject>mRemoteNG.App.ProgramRoot</StartupObject>\n     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>\n     <UserSecretsId>1307e3e3-38d6-41ee-8301-0a9bae87038b</UserSecretsId>\n   </PropertyGroup>\n-  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Debug|x64'\">\n-    <DefineConstants>DEBUG</DefineConstants>\n-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n-    <WarningsAsErrors />\n-    <OutputPath>bin\\x64\\Debug\\</OutputPath>\n-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n-    <Optimize>False</Optimize>\n-    <WarningLevel>7</WarningLevel>\n-  </PropertyGroup>\n-  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release|x64'\">\n-    <DefineConstants />\n-    <Optimize>True</Optimize>\n-    <OutputPath>bin\\x64\\Release\\</OutputPath>\n-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n-    <WarningsAsErrors />\n-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n-    <WarningLevel>7</WarningLevel>\n-    <ResolveComReferenceSilent>True</ResolveComReferenceSilent>\n-  </PropertyGroup>\n-  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Debug Portable|x64'\">\n-    <DefineConstants>DEBUG;PORTABLE</DefineConstants>\n-    <Optimize>False</Optimize>\n-    <OutputPath>bin\\x64\\Debug Portable\\</OutputPath>\n-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n-    <WarningsAsErrors />\n-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n-    <WarningLevel>7</WarningLevel>\n-  </PropertyGroup>\n-  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release Portable|x64'\">\n-    <DefineConstants>PORTABLE</DefineConstants>\n-    <Optimize>True</Optimize>\n-    <OutputPath>bin\\x64\\Release Portable\\</OutputPath>\n-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n-    <WarningsAsErrors />\n-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n-    <WarningLevel>7</WarningLevel>\n-    <ResolveComReferenceSilent>True</ResolveComReferenceSilent>\n-  </PropertyGroup>\n-  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release Installer|x64'\">\n-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>\n-    <Optimize>True</Optimize>\n-    <WarningLevel>7</WarningLevel>\n-    <ResolveComReferenceSilent>True</ResolveComReferenceSilent>\n-  </PropertyGroup>\n   <ItemGroup>\n     <None Remove=\"buildenv.tmp\" />\n     <None Remove=\"UI\\Font\\HandelGotDBol.ttf\" />\n@@ -89,7 +31,6 @@\n     <PackageReference Include=\"Castle.Core\" Version=\"5.1.1\" />\n     <PackageReference Include=\"ConsoleControl\" Version=\"1.3.0\" />\n     <PackageReference Include=\"ConsoleControlAPI\" Version=\"1.3.0\" />\n-    <PackageReference Include=\"Cucumber.Messages\" Version=\"21.0.1\" />\n     <PackageReference Include=\"DockPanelSuite\" Version=\"3.1.0\" />\n     <PackageReference Include=\"DockPanelSuite.ThemeVS2003\" Version=\"3.1.0\" />\n     <PackageReference Include=\"DockPanelSuite.ThemeVS2005\" Version=\"3.1.0\" />\n@@ -103,12 +44,9 @@\n     <PackageReference Include=\"Microsoft.Web.WebView2\" Version=\"1.0.2088.41\" />\n     <PackageReference Include=\"Microsoft.Xaml.Behaviors.Wpf\" Version=\"1.1.39\" />\n     <PackageReference Include=\"MySql.Data\" Version=\"8.1.0\" />\n-    <PackageReference Include=\"Newtonsoft.Json\" Version=\"13.0.3\" />\n     <PackageReference Include=\"ObjectListView.Updated\" Version=\"2.9.3\" />\n-    <PackageReference Include=\"OpenCover\" Version=\"4.7.1221\" />\n     <PackageReference Include=\"Portable.BouncyCastle\" Version=\"1.9.0\" />\n     <PackageReference Include=\"Renci.SshNet.Async\" Version=\"1.4.0\" />\n-    <PackageReference Include=\"ReportGenerator\" Version=\"5.1.26\" />\n     <PackageReference Include=\"SSH.NET\" Version=\"2023.0.0\" />\n     <PackageReference Include=\"System.Data.Common\" Version=\"4.3.0\" />\n     <PackageReference Include=\"System.Data.SqlClient\" Version=\"4.8.5\" />\n--- mRemoteNGDocumentation/mRemoteNG.Docs.csproj\n@@ -0,0 +1,42 @@\n+<Project Sdk=\"Microsoft.NET.Sdk\">\n+    <PropertyGroup>\n+        <AssemblyName>mRemoteNG.Docs</AssemblyName>\n+    </PropertyGroup>\n+\n+    <PropertyGroup>\n+        <NuGetExe>$([System.IO.Path]::Combine($(ToolsDir), 'exes', 'nuget.exe'))</NuGetExe>\n+        <PythonLocalDir>$([System.IO.Path]::Combine($(ToolsDir), '.local.exes'))</PythonLocalDir>\n+        <PythonExe>python</PythonExe>\n+    </PropertyGroup>\n+\n+    <!-- installs python locally, using the official NuGet python package\n+    see https://docs.python.org/3.13/using/windows.html#the-nuget-org-packages -->\n+    <Target Name=\"InstallPythonLocal\">\n+        <MakeDir Directories=\"$(PythonLocalDir)\"/>\n+        \n+        <Exec Command=\"$(NuGetExe) install python -ExcludeVersion -OutputDirectory $(PythonLocalDir)\" IgnoreStandardErrorWarningFormat=\"true\" />\n+\n+        <PropertyGroup>\n+            <PythonExe>$([System.IO.Path]::Combine($(PythonLocalDir),'python', 'python.exe'))</PythonExe>\n+        </PropertyGroup>\n+    </Target>\n+\n+    <Target Name=\"InstallSphinx\" BeforeTargets=\"BeforeBuild\">\n+        <Message Text=\"Detecting python\" Importance=\"High\" />\n+        <Exec Command=\"python -V\" ConsoleToMSBuild=\"true\">\n+            <Output TaskParameter=\"ConsoleOutput\" PropertyName=\"SystemPythonVersion\" />\n+        </Exec>\n+        \n+        <CallTarget Targets=\"InstallPythonLocal\" Condition=\"! $(SystemPythonVersion.StartsWith('Python'))\"/>\n+\n+        <Message Text=\"Setting up sphinx using '$(PythonExe)' in $(ProjectDir)\" Importance=\"High\" />\n+        <Exec Command=\"$(PythonExe) -m pip install sphinx --user\" WorkingDirectory=\"$(ProjectDir)\" IgnoreStandardErrorWarningFormat=\"true\" />\n+        <Exec Command=\"sphinx-build --version\" WorkingDirectory=\"$(ProjectDir)\" IgnoreStandardErrorWarningFormat=\"true\" />\n+    </Target>\n+\n+    <Target Name=\"BuildDocs\" AfterTargets=\"AfterBuild\">\n+        <Message Text=\"Building docs with sphinx\" Importance=\"High\" />\n+        <Exec Command=\"sphinx-build -M html source/ $(ArtifactsDir)/docs\" WorkingDirectory=\"$(ProjectDir)\" IgnoreStandardErrorWarningFormat=\"true\" />\n+    </Target>\n+\n+</Project>\n\\ No newline at end of file\n--- mRemoteNGDocumentation/requirements.txt\n(no text diff)\n--- mRemoteNGDocumentation/source/_static/css/custom.css\n(no text diff)\n--- mRemoteNGDocumentation/source/add-ons.rst\n@@ -0,0 +1,22 @@\n+*****************************\n+Add-on libraries\n+*****************************\n+\n+This is a list of add-ons, plugins and extentions what could be used with mRemoteNG, if you wish to add yours to this list - just drop me a line: `support\\@mremoteng.org <support@mremoteng.org>`_\n+\n+ ============= ========== ======== ============================ ========================================================= ===================\n+  Date added     Author     Type               Name                                    Description                            Repository\n+ ============= ========== ======== ============================ ========================================================= ===================\n+  02-08-2022   |JustBeta|  script   Export-MobaXterm2mRemoteNG   Conversion of MobaXterm's ini file to mRemoteNG format.   `GitHub Repository`_\n+ ============= ========== ======== ============================ ========================================================= ===================\n+\n+For a detailed usage examples and documentation please reach out authors.\n+\n+.. |JustBeta| image:: https://avatars.githubusercontent.com/u/25150896?v=4\n+            :target: https://github.com/JustBeta\n+            :width: 10%\n+            :alt: JustBeta\n+\n+.. _JustBeta: https://github.com/JustBeta\n+\n+.. _GitHub Repository: https://github.com/JustBeta/Export-MobaXtern2mRemoteNG/tree/main\n--- mRemoteNGDocumentation/source/command_line_switches.rst\n(no text diff)\n--- mRemoteNGDocumentation/source/conf.py\n@@ -1,5 +1,8 @@\n+extensions = [\n+    'sphinx_rtd_theme',\n+]\n project = 'mRemoteNG'\n-copyright = '2022, The mRemoteNG Team'\n+copyright = '2023, The mRemoteNG Team'\n author = 'The mRemoteNG Team'\n language = 'en'\n master_doc = 'index'\n@@ -9,7 +12,7 @@\n htmlhelp_basename = 'mRemoteNGdoc'\n html_theme = 'sphinx_rtd_theme'\n html_static_path = ['_static']\n-html_logo = 'logo.png';\n+html_logo = 'logo.png'\n html_theme_options = {'logo_only': True, 'display_version': True}\n html_css_files = ['css/custom.css']\n man_pages = [(master_doc, 'mremoteng', 'mRemoteNG Documentation', [author], 1)]",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "ExternalConnectors/ExternalConnectors.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "Tools/exes/nuget.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "Tools/exes/vswhere.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "build.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNGDocumentation/mRemoteNG.Docs.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNGSpecs/Features/CredentialRepository.feature.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNGSpecs/Features/CredentialRepositoryList.feature.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNGSpecs/mRemoteNGSpecs.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNGTests/mRemoteNGTests.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:48Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "1.77-era .NET 6 build overhaul with committed nuget/vswhere exes. Our fork already has superior .NET 10 build.ps1 + Directory.Build.props + analyzers.",
+    "agent": "claude",
+    "at": "2026-07-25T16:32:11Z"
+  }
+}

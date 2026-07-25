@@ -1,0 +1,42 @@
+{
+  "sha": "5402b3a89235fd28d2458bb583985bf6b0df6f90",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Document this fork's purpose and changes in README",
+  "body": "Document this fork's purpose and changes in README\n\nAdd a short \"About this fork\" section at the top summarizing why this\nfork exists (hardened build for launching sessions to critical\ninfrastructure) and a bullet summary of the changes made so far.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-12T12:09:52Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5402b3a89235fd28d2458bb583985bf6b0df6f90",
+  "stats": {
+    "files": 1,
+    "additions": 22,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "README.md",
+      "status": "modified",
+      "additions": 22,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- README.md\n@@ -1,3 +1,25 @@\n+## About this fork\n+\n+This is a personal fork of mRemoteNG, maintained for use launching PuTTY/SSH and RDP\n+sessions to critical infrastructure (hospital/university environment). Changes here\n+focus on security hardening and day-to-day usability fixes:\n+\n+- Live theme switching (no restart required when changing themes)\n+- Fixed theme palette color labels showing Japanese text for non-Japanese UI cultures\n+- Configurable interface font (family/style/size) via the standard Windows font picker\n+- Fixed main window getting stuck behind other windows after startup\n+- Fixed an `ObjectDisposedException` crash when closing a connection tab\n+- Removed the bundled PuTTYNG binary; mRemoteNG now auto-detects an installed official\n+  PuTTY (or prompts the user to point at one / download it), and the Advanced options\n+  page shows what was detected\n+- Removed the one credential-delivery path that depended on the bundled PuTTYNG\n+  (VaultOpenbao SSH-OTP `-auth-plugin` injection) - other credential providers\n+  (Secret Server, Passwordstate, 1Password, VaultOpenbao KV/LDAP) are unaffected\n+\n+See the individual commit messages for details on each change.\n+\n+---\n+\n <p align=\"Left\">\n \tDeveloping mRemoteNG to its fullest potential is my personal priority.<br>\n While the project remains non-commercial, it does come with ongoing costs — including VPS hosting for testing, AI tools, domain fees, and more. <br> If you find value in mRemoteNG and want to support its future, even a small donation from our community can make a huge difference.<br>",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:29Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Our README already documents this fork more fully; importing another maintainer’s hospital/university context and PuTTY-specific claims would misrepresent our edition.",
+    "agent": "codex",
+    "at": "2026-07-25T17:30:27Z"
+  }
+}

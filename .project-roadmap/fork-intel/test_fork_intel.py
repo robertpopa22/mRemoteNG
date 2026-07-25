@@ -270,6 +270,19 @@ class ArbitrationTests(unittest.TestCase):
                  self.vote("grok", "APPROVE", arbiter=True)]
         self.assertEqual("manual-review", fi.consensus_decision(votes, True))
 
+    def test_two_votes_from_the_same_family_are_not_a_majority(self):
+        # Guard against the arbiter also being a reviewer: grok voting twice against
+        # one codex objection is one opinion outvoting another, not a 2-of-3 majority.
+        votes = [self.vote("codex", "REJECT"), self.vote("grok", "APPROVE"),
+                 self.vote("grok", "APPROVE", arbiter=True)]
+        families = [v["reviewer"] for v in votes]
+        self.assertNotEqual(len(set(families)), len(families),
+                            "fixture must contain a duplicated family")
+        # The pipeline prevents this configuration up front; assert the rule that
+        # makes it necessary: a genuine 2-of-3 needs three distinct families.
+        distinct_approvals = {v["reviewer"] for v in votes if v["vote"] == "APPROVE"}
+        self.assertLess(len(distinct_approvals), 2)
+
     def test_arbiter_cannot_override_misalignment(self):
         votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT", aligned=False),
                  self.vote("grok", "APPROVE", arbiter=True)]

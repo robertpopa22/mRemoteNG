@@ -20,7 +20,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T19:33:43Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/742c46f389b200bb4d00c07aa2b76cb94a8aa008"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/742c46f389b200bb4d00c07aa2b76cb94a8aa008",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "27576bd94ac73b903d5ff43fd3eb4fdbc761dec6",
@@ -29,7 +32,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T19:48:22Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/27576bd94ac73b903d5ff43fd3eb4fdbc761dec6"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/27576bd94ac73b903d5ff43fd3eb4fdbc761dec6",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "3f509403ebc8762cfc2d0ed985db1e755fcf116c",
@@ -38,7 +44,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T19:49:06Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f509403ebc8762cfc2d0ed985db1e755fcf116c"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f509403ebc8762cfc2d0ed985db1e755fcf116c",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "f1f3df5526af44818e8a6a5b690b0fb28f9b06f8",
@@ -47,7 +56,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T19:59:16Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1f3df5526af44818e8a6a5b690b0fb28f9b06f8"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1f3df5526af44818e8a6a5b690b0fb28f9b06f8",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "51fc9ba53c1346f5ecd344fb9a8f99c523430ff4",
@@ -56,7 +68,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T20:11:18Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51fc9ba53c1346f5ecd344fb9a8f99c523430ff4"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51fc9ba53c1346f5ecd344fb9a8f99c523430ff4",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "457fcad4a08d67d7e3975d33577ec158af4515f9",
@@ -65,7 +80,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T21:37:05Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/457fcad4a08d67d7e3975d33577ec158af4515f9"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/457fcad4a08d67d7e3975d33577ec158af4515f9",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "73267c1fcfc95daccb3abd954b2a122c6007bd09",
@@ -74,7 +92,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T21:41:46Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/73267c1fcfc95daccb3abd954b2a122c6007bd09"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/73267c1fcfc95daccb3abd954b2a122c6007bd09",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "3f94a2c23980a384cbf15386ae7ffc506a92e6e5",
@@ -83,7 +104,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T22:04:49Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f94a2c23980a384cbf15386ae7ffc506a92e6e5"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f94a2c23980a384cbf15386ae7ffc506a92e6e5",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "567f108484aaf48c62cc291f874521f4a79a007e",
@@ -92,7 +116,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T22:40:18Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/567f108484aaf48c62cc291f874521f4a79a007e"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/567f108484aaf48c62cc291f874521f4a79a007e",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "2c92360d63d7190e125cb6194ba1611856fe48a5",
@@ -101,7 +128,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T23:40:16Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c92360d63d7190e125cb6194ba1611856fe48a5"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c92360d63d7190e125cb6194ba1611856fe48a5",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "58ebf6e3faf513390fbcdbfb1dd033651dd00475",
@@ -110,7 +140,10 @@
       "author_login": "vindict6",
       "date": "2026-07-15T23:54:42Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/58ebf6e3faf513390fbcdbfb1dd033651dd00475"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/58ebf6e3faf513390fbcdbfb1dd033651dd00475",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "7241b81225eefc24e07cc6830fdb818b638a785d",
@@ -119,7 +152,10 @@
       "author_login": "vindict6",
       "date": "2026-07-16T00:01:37Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7241b81225eefc24e07cc6830fdb818b638a785d"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7241b81225eefc24e07cc6830fdb818b638a785d",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
@@ -128,7 +164,10 @@
       "author_login": "vindict6",
       "date": "2026-07-16T00:09:10Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a0809b0d01dbbb247e74c00c12da8e69b2c777f3"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "4e5bc4402415db3b351bdb4845d3b70613796856",
@@ -137,7 +176,10 @@
       "author_login": "vindict6",
       "date": "2026-07-16T00:13:33Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4e5bc4402415db3b351bdb4845d3b70613796856"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4e5bc4402415db3b351bdb4845d3b70613796856",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "bcc65a861a88d82f44168135e83d974422c2c058",
@@ -146,14 +188,17 @@
       "author_login": "vindict6",
       "date": "2026-07-16T00:17:27Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bcc65a861a88d82f44168135e83d974422c2c058"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bcc65a861a88d82f44168135e83d974422c2c058",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:19Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "ea1f87d228d692e686aee9edb1677fafa8ee9b7f",
-  "compared_at": "2026-07-25T10:58:45Z",
+  "compared_at": "2026-07-25T16:27:12Z",
   "screened_shas": [
     "457fcad4a08d67d7e3975d33577ec158af4515f9",
     "73267c1fcfc95daccb3abd954b2a122c6007bd09",
@@ -165,5 +210,9 @@
     "a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
     "4e5bc4402415db3b351bdb4845d3b70613796856",
     "bcc65a861a88d82f44168135e83d974422c2c058"
-  ]
+  ],
+  "branches_scanned": [
+    "v1.78.2-dev"
+  ],
+  "branches_inherited_from_upstream": 0
 }

@@ -1,0 +1,13 @@
+{
+  "sha": "c43ef052c66f5c9c32022ea12008ba3a1b0dc95f",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "removed some frmmain static instance refs",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-21T00:57:25Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c43ef052c66f5c9c32022ea12008ba3a1b0dc95f",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

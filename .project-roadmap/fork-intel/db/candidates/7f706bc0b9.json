@@ -1,0 +1,13 @@
+{
+  "sha": "7f706bc0b9d31bad5f51a669ea45814048f56110",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "updated changelog",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-23T21:55:31Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7f706bc0b9d31bad5f51a669ea45814048f56110",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T16:30:55Z"
+}

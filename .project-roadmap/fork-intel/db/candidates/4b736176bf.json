@@ -1,0 +1,13 @@
+{
+  "sha": "4b736176bf9286aa20e4d9ec303ee2cae7389209",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "request iconnectiontree interface in more places",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-22T12:01:33Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4b736176bf9286aa20e4d9ec303ee2cae7389209",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

@@ -1,0 +1,54 @@
+{
+  "sha": "3a009ddb8e81a6fa76f20d6862ac497c935c49ea",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "feat(ui): Ctrl+Tab / Ctrl+Shift+Tab to switch session tabs",
+  "body": "feat(ui): Ctrl+Tab / Ctrl+Shift+Tab to switch session tabs\n\nСтадия B4. frmMain.ProcessCmdKey ловит Ctrl+Tab (следующая) и\nCtrl+Shift+Tab (предыдущая) и переключает вкладку сессии в активном\nокне подключений (ConnectionWindow.SwitchActiveTab). Активация вкладки\nтриггерит NotifyPassiveTabActivated -> проверка scroll-в-угол и ViewOnly\n(A4) выполняется автоматически.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T14:03:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3a009ddb8e81a6fa76f20d6862ac497c935c49ea",
+  "stats": {
+    "files": 3,
+    "additions": 53,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 28,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -223,8 +223,9 @@ capture асинхронно) во всех путях reconnect.\n   корректна (DisableThemes/Wallpaper/CursorShadow по конфигу; композиция не запрашивается,\n   если выключена). Появление композиции/теней при reconnect устранено переустановкой pFlags\n   (A5). Правок кода не потребовалось. Финальная проверка на реальном конфиге — рантайм (C1).\n-- [ ] **B4** — Горячие клавиши Ctrl+Tab / Ctrl+Shift+Tab (frmMain, pnlDock). После\n-  переключения — проверка scroll+VO (общий механизм с `NotifyPassiveTabActivated`, A4).\n+- [x] **B4** — Ctrl+Tab / Ctrl+Shift+Tab: `frmMain.ProcessCmdKey` → `ConnectionWindow.SwitchActiveTab`\n+  (циклический перебор `connDock.DocumentsToArray`). Активация вкладки триггерит\n+  `NotifyPassiveTabActivated` → проверка scroll+VO (A4) выполняется автоматически.\n - [ ] **B5** — RDP connection bar в правый верхний угол при входе в fullscreen (нужен уже\n   на первом коннекте). **Размер НЕ менять, только позиция.** *РИСК — runtime-подбор HWND.*\n \n@@ -284,3 +285,4 @@ _Журнал изменений HANDOFF:_\n - _B1 — пункты Fullscreen/ViewOnly увеличены ×2 (Font Bold) через EnlargeKeyTabMenuItems._\n - _B2 — добавлен пункт «Work in Fullscreen (no View Only)» + RDP6.EnterWorkingFullscreen._\n - _B3 — семантика performance-флагов проверена (корректна); первопричина устранена в A5, правок нет._\n+- _B4 — Ctrl+Tab/Ctrl+Shift+Tab через frmMain.ProcessCmdKey + ConnectionWindow.SwitchActiveTab._\n--- mRemoteNG/UI/Forms/frmMain.cs\n@@ -507,6 +507,27 @@ private void frmMain_ResizeEnd(object sender, EventArgs e)\n             ActivateConnection();\n         }\n \n+        /// <summary>\n+        /// B4: Ctrl+Tab / Ctrl+Shift+Tab — переключение на следующую/предыдущую вкладку сессии\n+        /// в активном окне подключений.\n+        /// </summary>\n+        protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, System.Windows.Forms.Keys keyData)\n+        {\n+            if (keyData == (System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Tab))\n+            {\n+                (pnlDock.ActiveDocument as ConnectionWindow)?.SwitchActiveTab(true);\n+                return true;\n+            }\n+\n+            if (keyData == (System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.Tab))\n+            {\n+                (pnlDock.ActiveDocument as ConnectionWindow)?.SwitchActiveTab(false);\n+                return true;\n+            }\n+\n+            return base.ProcessCmdKey(ref msg, keyData);\n+        }\n+\n         protected override void WndProc(ref System.Windows.Forms.Message m)\n         {\n             // Listen for and handle operating system messages\n--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -411,6 +411,34 @@ private void ConnDockOnActiveContentChanged(object sender, EventArgs e)\n                 rdp.NotifyPassiveTabActivated();\n         }\n \n+        /// <summary>\n+        /// B4: переключает активную вкладку сессии в этом окне (Ctrl+Tab / Ctrl+Shift+Tab).\n+        /// Активация вкладки триггерит ConnDockOnActiveContentChanged → NotifyPassiveTabActivated,\n+        /// поэтому scroll-в-угол и ViewOnly проверяются/выставляются автоматически (A4).\n+        /// </summary>\n+        public void SwitchActiveTab(bool forward)\n+        {\n+            try\n+            {\n+                var docs = connDock.DocumentsToArray();\n+                if (docs == null || docs.Length <= 1)\n+                    return;\n+\n+                var active = connDock.ActiveContent;\n+                var currentIndex = active == null ? -1 : Array.IndexOf(docs, active);\n+                if (currentIndex < 0)\n+                    currentIndex = 0;\n+\n+                var step = forward ? 1 : -1;\n+                var nextIndex = (currentIndex + step + docs.Length) % docs.Length;\n+                docs[nextIndex].DockHandler.Activate();\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddExceptionStackTrace(\"SwitchActiveTab (UI.Window.ConnectionWindow) failed\", ex);\n+            }\n+        }\n+\n         #endregion\n \n         #region Tab Menu",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:09Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Equivalent tab navigation feature is already implemented in our fork via PR #2941 with NavigateToNextTab/NavigateToPreviousTab.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:37:21Z"
+  }
+}

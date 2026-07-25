@@ -1,0 +1,13 @@
+{
+  "sha": "daf0bc0ee1e7ee48fea014a9ed82affc4a2c2b89",
+  "fork": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "subject": "Merge branch 'enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections' of https://github.com/julesbobb/mRemoteNG into enhancement/3252-Support-multi-selection-Enter-key-to-open-multiple-connections",
+  "author_name": "Julian Bobbett (DHCW - Software Development)",
+  "author_login": "julian-dhcw",
+  "date": "2026-04-20T13:44:01Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/daf0bc0ee1e7ee48fea014a9ed82affc4a2c2b89",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:24Z"
+}

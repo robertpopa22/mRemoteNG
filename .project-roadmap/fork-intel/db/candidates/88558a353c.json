@@ -1,0 +1,13 @@
+{
+  "sha": "88558a353cf276af7b96405383ed1bcb2a89d1b2",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed putty connection manager credential serialization",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-19T20:22:04Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88558a353cf276af7b96405383ed1bcb2a89d1b2",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

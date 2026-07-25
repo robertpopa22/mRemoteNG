@@ -1,0 +1,48 @@
+{
+  "sha": "55a5d1a8af2f4b3386281b22471f26803f57f134",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "increased width of about screen",
+  "body": "increased width of about screen",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-25T20:12:34Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/55a5d1a8af2f4b3386281b22471f26803f57f134",
+  "stats": {
+    "files": 2,
+    "additions": 10,
+    "deletions": 8,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/FrmAbout.Designer.cs",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 7
+    },
+    {
+      "filename": "mRemoteV1/UI/Forms/FrmAbout.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/FrmAbout.Designer.cs\n@@ -21,11 +21,13 @@ private void InitializeComponent()\n             // \n             // pbLogo\n             // \n+            this.pbLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(58)))), ((int)(((byte)(64)))));\n+            this.pbLogo.BackgroundImage = global::mRemoteNG.Resources.Header_dark;\n+            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;\n             this.pbLogo.Dock = System.Windows.Forms.DockStyle.Top;\n-            this.pbLogo.Image = global::mRemoteNG.Resources.Header_dark;\n             this.pbLogo.Location = new System.Drawing.Point(0, 0);\n             this.pbLogo.Name = \"pbLogo\";\n-            this.pbLogo.Size = new System.Drawing.Size(450, 120);\n+            this.pbLogo.Size = new System.Drawing.Size(591, 120);\n             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;\n             this.pbLogo.TabIndex = 1;\n             this.pbLogo.TabStop = false;\n@@ -44,14 +46,14 @@ private void InitializeComponent()\n             this.pnlBottom.ForeColor = System.Drawing.SystemColors.ControlText;\n             this.pnlBottom.Location = new System.Drawing.Point(0, 120);\n             this.pnlBottom.Name = \"pnlBottom\";\n-            this.pnlBottom.Size = new System.Drawing.Size(450, 161);\n+            this.pnlBottom.Size = new System.Drawing.Size(591, 161);\n             this.pnlBottom.TabIndex = 1;\n             // \n             // llCredits\n             // \n             this.llCredits.AutoSize = true;\n             this.llCredits.Font = new System.Drawing.Font(\"Segoe UI\", 9.75F);\n-            this.llCredits.Location = new System.Drawing.Point(3, 134);\n+            this.llCredits.Location = new System.Drawing.Point(5, 134);\n             this.llCredits.Name = \"llCredits\";\n             this.llCredits.Size = new System.Drawing.Size(49, 17);\n             this.llCredits.TabIndex = 10;\n@@ -63,7 +65,7 @@ private void InitializeComponent()\n             // \n             this.llChangelog.AutoSize = true;\n             this.llChangelog.Font = new System.Drawing.Font(\"Segoe UI\", 9.75F);\n-            this.llChangelog.Location = new System.Drawing.Point(3, 117);\n+            this.llChangelog.Location = new System.Drawing.Point(5, 117);\n             this.llChangelog.Name = \"llChangelog\";\n             this.llChangelog.Size = new System.Drawing.Size(71, 17);\n             this.llChangelog.TabIndex = 9;\n@@ -75,7 +77,7 @@ private void InitializeComponent()\n             // \n             this.llLicense.AutoSize = true;\n             this.llLicense.Font = new System.Drawing.Font(\"Segoe UI\", 9.75F);\n-            this.llLicense.Location = new System.Drawing.Point(3, 100);\n+            this.llLicense.Location = new System.Drawing.Point(5, 100);\n             this.llLicense.Name = \"llLicense\";\n             this.llLicense.Size = new System.Drawing.Size(50, 17);\n             this.llLicense.TabIndex = 8;\n@@ -136,7 +138,7 @@ private void InitializeComponent()\n             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);\n             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;\n             this.BackColor = System.Drawing.SystemColors.Control;\n-            this.ClientSize = new System.Drawing.Size(450, 281);\n+            this.ClientSize = new System.Drawing.Size(591, 281);\n             this.Controls.Add(this.pnlBottom);\n             this.Controls.Add(this.pbLogo);\n             this.Font = new System.Drawing.Font(\"Segoe UI\", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));\n--- mRemoteV1/UI/Forms/FrmAbout.cs\n@@ -20,7 +20,7 @@ private FrmAbout()\n         private void ApplyLanguage()\n         {\n             lblLicense.Text = Language.strLabelReleasedUnderGPL;\n-            Text = Language.strAbout;\n+            base.Text = Language.strAbout;\n             llChangelog.Text = Language.strChangelog;\n             llCredits.Text = Language.strCredits;\n             llLicense.Text = Language.strLicense;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:58Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 2,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Old mRemoteV1 path; our About dialog already redesigned/rebranded (Geseidl Maintained-by). Cosmetic width tweak obsolete.",
+    "agent": "claude",
+    "at": "2026-07-25T16:36:48Z"
+  }
+}

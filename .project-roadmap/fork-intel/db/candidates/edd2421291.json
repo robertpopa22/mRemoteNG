@@ -1,0 +1,42 @@
+{
+  "sha": "edd2421291eec6647d962d060ac00b0c68aecc4d",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "Fix critical bug: DataConsumer never initialized due to constructor setting _isInitialized",
+  "body": "Fix critical bug: DataConsumer never initialized due to constructor setting _isInitialized\n\nRoot Cause (Deep Analysis Revealed):\nThe constructor was prematurely setting _isInitialized = true after partial setup,\ncausing Initialize() to return early without creating the DataConsumer.\n\nSequence of the bug:\n1. Constructor creates _vtController but NOT _dataConsumer\n2. Constructor sets _isInitialized = true  ← BUG!\n3. Protocol calls Initialize()\n4. Initialize() checks _isInitialized, sees true, returns immediately\n5. _dataConsumer is NEVER created → stays null\n6. WriteOutput() tries to use null _dataConsumer → error\n\nThis explained the log evidence:\n- \"Terminal: First render - screen text length: 1943 chars\" ✓ (vtController exists)\n- \"Terminal: DataConsumer is null\" ✗ (never created)\n- \"Terminal: Copied 70 characters to clipboard\" ✓ (scrollback exists)\n\nFix:\n- Removed ALL initialization logic from constructor except basic setup\n- Let Initialize() method handle complete VtNetCore setup as designed\n- Added logging: \"Created VtNetCore controller and DataConsumer\"\n- Constructor now only does InitializeComponent() and basic properties\n\nThis ensures DataConsumer is properly created and terminal can render output.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2025-11-06T16:59:29Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/edd2421291eec6647d962d060ac00b0c68aecc4d",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 25,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Controls/SshTerminalControl.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 25
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Controls/SshTerminalControl.cs\n@@ -159,36 +159,13 @@ public SshTerminalControl()\n             SSHDotNetDiagnostics.LogDebug(\"Terminal: Creating SshTerminalControl\");\n \n             InitializeComponent();\n-            InitializeDiagnosticOverlay();\n-            InitializeContextMenu();\n \n             this.BackColor = _backgroundColor;\n             this.ForeColor = _foregroundColor;\n             this.DoubleBuffered = true;\n \n-            // Initialize VtNetCore controller\n-            try\n-            {\n-                _vtController = new VirtualTerminalController();\n-            }\n-            catch (Exception ex)\n-            {\n-                SSHDotNetDiagnostics.LogException(\"Terminal: Failed to initialize VirtualTerminalController\", ex);\n-                _vtController = null;\n-            }\n-            _scrollbackBuffer = new List<string>();\n-            _inputBuffer = new StringBuilder();\n-\n-            // Register event handlers\n-            this.KeyDown += SshTerminalControl_KeyDown;\n-            this.KeyPress += SshTerminalControl_KeyPress;\n-            this.MouseDown += SshTerminalControl_MouseDown;\n-            this.MouseMove += SshTerminalControl_MouseMove;\n-            this.MouseUp += SshTerminalControl_MouseUp;\n-            this.Resize += SshTerminalControl_Resize;\n-\n-            SSHDotNetDiagnostics.LogInfo($\"Terminal: Initialized {_columns}x{_rows} terminal control with VtNetCore\");\n-            _isInitialized = true;\n+            // Note: Do NOT set _isInitialized here - let Initialize() do the full setup\n+            SSHDotNetDiagnostics.LogDebug(\"Terminal: Constructor complete, waiting for Initialize() call\");\n         }\n \n         #endregion\n@@ -237,6 +214,8 @@ public void Initialize()\n                 _vtController.ResizeView(_columns, _rows);\n                 _dataConsumer = new DataConsumer(_vtController);\n \n+                SSHDotNetDiagnostics.LogInfo($\"Terminal: Created VtNetCore controller and DataConsumer ({_columns}x{_rows})\");\n+\n                 // Initialize scrollback buffer\n                 _scrollbackBuffer = new List<string>();\n                 _inputBuffer = new StringBuilder();",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:58Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "SshTerminalControl.cs is a fork-only VtNetCore SSH terminal; our fork has no such file and uses PuTTY for SSH.",
+    "agent": "claude",
+    "at": "2026-07-25T16:45:02Z"
+  }
+}

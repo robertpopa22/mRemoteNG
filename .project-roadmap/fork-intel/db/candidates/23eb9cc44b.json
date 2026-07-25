@@ -1,0 +1,13 @@
+{
+  "sha": "23eb9cc44be0271ca1505cf2b8118ae76cb69cfe",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "added option to auto close the cred unlocker form when all repos are unlocked",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T01:27:14Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/23eb9cc44be0271ca1505cf2b8118ae76cb69cfe",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

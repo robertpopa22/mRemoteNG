@@ -1,0 +1,42 @@
+{
+  "sha": "7ac6ed40e317eb11f3fffc313f8723f17cde7e2d",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Fix last 2 SonarCloud JS issues: log caught exceptions",
+  "body": "Fix last 2 SonarCloud JS issues: log caught exceptions\n\nReplace unused catch parameters with console.debug logging\nto satisfy javascript:S2486 (handle or remove catch).\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-04-07T12:50:57Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7ac6ed40e317eb11f3fffc313f8723f17cde7e2d",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 4,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SSH/Resources/xterm-terminal.html",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SSH/Resources/xterm-terminal.html\n@@ -46,8 +46,8 @@\n     try {\n       fitAddon.fit();\n       postMessage('resize', { cols: term.cols, rows: term.rows });\n-    } catch(_) {\n-      // Fit may fail during initialization when container has zero size\n+    } catch(ex) {\n+      console.debug('Terminal fit skipped:', ex.message);\n     }\n   }\n \n@@ -85,8 +85,8 @@\n       } else if (msg.type === 'focus') {\n         term.focus();\n       }\n-    } catch(_) {\n-      // If not JSON, treat as raw output\n+    } catch(ex) {\n+      console.debug('Message parse error:', ex.message);\n       term.write(event.data);\n     }\n   });",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:41Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Edits xterm-terminal.html which does not exist in our fork; fork-specific SSH terminal, SonarCloud JS lint noise.",
+    "agent": "claude",
+    "at": "2026-07-25T16:39:14Z"
+  }
+}

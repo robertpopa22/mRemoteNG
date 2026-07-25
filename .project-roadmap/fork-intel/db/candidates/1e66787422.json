@@ -1,0 +1,13 @@
+{
+  "sha": "1e66787422af401404ed1b547e7d3df6a14af5f3",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "readded the credential record property to the connection info class",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-27T19:53:16Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1e66787422af401404ed1b547e7d3df6a14af5f3",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

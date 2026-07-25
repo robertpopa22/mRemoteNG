@@ -1,0 +1,42 @@
+{
+  "sha": "8406f0c02cdcce3db7127d4d8bf149a268902ea2",
+  "fork": "yosale2011/mRemoteNG",
+  "owner": "yosale2011",
+  "subject": "Update CHANGELOG with PR #3371",
+  "body": "Update CHANGELOG with PR #3371",
+  "author_name": "Yosale2011",
+  "author_login": null,
+  "date": "2026-07-03T20:05:55Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8406f0c02cdcce3db7127d4d8bf149a268902ea2",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "CHANGELOG.md",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- CHANGELOG.md\n@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\n - #2496: fixed use pwfile instead of cleartext password for putty connections \n \n ### Added\n-- #PR: added master password feature for application-level security with startup unlock, encrypted settings migration, and management UI\n+- #3371: added master password feature for application-level security with startup unlock, encrypted settings migration, and management UI\n - #2931: added vault openbao connector\n - #2900: added \"Report a Bug\" menu item to Help menu and update bug report URL to GitHub issues \n - #2865: added configurable connection tab colors to distinguish between different environments",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:31:02Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Upstream CHANGELOG line edit for PR #3371; our fork has its own release model and changelog history. No benefit.",
+    "agent": "claude",
+    "at": "2026-07-25T16:39:45Z"
+  }
+}

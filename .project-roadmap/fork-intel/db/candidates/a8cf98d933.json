@@ -1,0 +1,60 @@
+{
+  "sha": "a8cf98d9337077278cde6c1772ce2e826eda135d",
+  "fork": "yosale2011/mRemoteNG",
+  "owner": "yosale2011",
+  "subject": "Add reveal password context menu for password fields",
+  "body": "Add reveal password context menu for password fields\n\n- Right-click any password field in property grid shows 'Reveal Password' option\n- Only appears when selected property has PasswordPropertyText attribute\n- Requires master password to be configured\n- Prompts for master password verification before revealing\n- Shows password in a read-only dialog with Key icon\n- Add 3 localization strings: RevealPassword, RevealPasswordDescription, RevealPasswordRequiresMasterPassword\n- Update CHANGELOG",
+  "author_name": "Yosale2011",
+  "author_login": null,
+  "date": "2026-07-03T20:53:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a8cf98d9337077278cde6c1772ce2e826eda135d",
+  "stats": {
+    "files": 4,
+    "additions": 104,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "CHANGELOG.md",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.Designer.cs",
+      "status": "modified",
+      "additions": 27,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Language/Language.resx",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConfigWindow.cs",
+      "status": "modified",
+      "additions": 67,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- CHANGELOG.md\n@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\n \n ### Added\n - #3371: added master password feature for application-level security with startup unlock, encrypted settings migration, and management UI\n+- #3371: added reveal password context menu option for password fields (requires master password)\n - #2931: added vault openbao connector\n - #2900: added \"Report a Bug\" menu item to Help menu and update bug report URL to GitHub issues \n - #2865: added configurable connection tab colors to distinguish between different environments\n--- mRemoteNG/Language/Language.Designer.cs\n@@ -4440,6 +4440,33 @@ internal static string StartupUnlockPasswordInvalid {\n             }\n         }\n         \n+        /// <summary>\n+        ///   Looks up a localized string similar to Reveal Password.\n+        /// </summary>\n+        internal static string RevealPassword {\n+            get {\n+                return ResourceManager.GetString(\"RevealPassword\", resourceCulture);\n+            }\n+        }\n+        \n+        /// <summary>\n+        ///   Looks up a localized string similar to Password:.\n+        /// </summary>\n+        internal static string RevealPasswordDescription {\n+            get {\n+                return ResourceManager.GetString(\"RevealPasswordDescription\", resourceCulture);\n+            }\n+        }\n+        \n+        /// <summary>\n+        ///   Looks up a localized string similar to A master password must be configured to reveal connection passwords..\n+        /// </summary>\n+        internal static string RevealPasswordRequiresMasterPassword {\n+            get {\n+                return ResourceManager.GetString(\"RevealPasswordRequiresMasterPassword\", resourceCulture);\n+            }\n+        }\n+        \n         /// <summary>\n         ///   Looks up a localized string similar to Master password must be at least 3 characters long..\n         /// </summary>\n--- mRemoteNG/Language/Language.resx\n@@ -1008,6 +1008,15 @@ If you run into such an error, please create a new connection file!</value>\n   <data name=\"StartupUnlockPasswordInvalid\" xml:space=\"preserve\">\n     <value>The unlock password is invalid.</value>\n   </data>\n+  <data name=\"RevealPassword\" xml:space=\"preserve\">\n+    <value>Reveal Password</value>\n+  </data>\n+  <data name=\"RevealPasswordDescription\" xml:space=\"preserve\">\n+    <value>Password:</value>\n+  </data>\n+  <data name=\"RevealPasswordRequiresMasterPassword\" xml:space=\"preserve\">\n+    <value>A master password must be configured to reveal connection passwords.</value>\n+  </data>\n   <data name=\"MasterPasswordTooShort\" xml:space=\"preserve\">\n     <value>Master password must be at least 3 characters long.</value>\n   </data>\n--- mRemoteNG/UI/Window/ConfigWindow.cs\n@@ -2,6 +2,7 @@\n using System.Collections.Generic;\n using System.Diagnostics;\n using System.Drawing;\n+using System.Linq;\n using System.Net.NetworkInformation;\n using System.Threading;\n using System.Windows.Forms;\n@@ -10,9 +11,13 @@\n using mRemoteNG.Container;\n using mRemoteNG.Messages;\n using mRemoteNG.Properties;\n+using mRemoteNG.Security;\n using mRemoteNG.Themes;\n+using mRemoteNG.Tools;\n using mRemoteNG.Tree.Root;\n+using mRemoteNG.UI.Controls;\n using mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid;\n+using mRemoteNG.UI.Forms;\n using WeifenLuo.WinFormsUI.Docking;\n using mRemoteNG.Resources.Language;\n using System.Runtime.Versioning;\n@@ -36,7 +41,9 @@ public class ConfigWindow : BaseWindow\n         internal ContextMenuStrip PropertyGridContextMenu;\n         private ToolStripMenuItem _propertyGridContextMenuShowHelpText;\n         private ToolStripMenuItem _propertyGridContextMenuReset;\n+        private ToolStripMenuItem _propertyGridContextMenuRevealPassword;\n         private ToolStripSeparator _toolStripSeparator1;\n+        private ToolStripSeparator _toolStripSeparator2;\n         private ConnectionInfoPropertyGrid _pGrid;\n         private ThemeManager _themeManager;\n \n@@ -69,6 +76,9 @@ private void InitializeComponent()\n             _propertyGridContextMenuShowHelpText = new ToolStripMenuItem();\n             _propertyGridContextMenuShowHelpText.Click += PropertyGridContextMenuShowHelpText_Click;\n             _propertyGridContextMenuShowHelpText.CheckedChanged += PropertyGridContextMenuShowHelpText_CheckedChanged;\n+            _propertyGridContextMenuRevealPassword = new ToolStripMenuItem();\n+            _propertyGridContextMenuRevealPassword.Click += PropertyGridContextMenuRevealPassword_Click;\n+            _toolStripSeparator2 = new ToolStripSeparator();\n             _btnShowInheritance = new ToolStripButton();\n             _btnShowInheritance.Click += BtnShowInheritance_Click;\n             _btnShowDefaultInheritance = new ToolStripButton();\n@@ -102,7 +112,7 @@ private void InitializeComponent()\n             //\n             PropertyGridContextMenu.Items.AddRange(new ToolStripItem[]\n             {\n-                _propertyGridContextMenuReset, _toolStripSeparator1, _propertyGridContextMenuShowHelpText\n+                _propertyGridContextMenuReset, _toolStripSeparator1, _propertyGridContextMenuRevealPassword, _toolStripSeparator2, _propertyGridContextMenuShowHelpText\n             });\n             PropertyGridContextMenu.Name = \"PropertyGridContextMenu\";\n             PropertyGridContextMenu.Size = new Size(157, 76);\n@@ -124,6 +134,20 @@ private void InitializeComponent()\n             _propertyGridContextMenuShowHelpText.Size = new Size(156, 22);\n             _propertyGridContextMenuShowHelpText.Text = @\"&Show Help Text\";\n             //\n+            //propertyGridContextMenuRevealPassword\n+            //\n+            _propertyGridContextMenuRevealPassword.Image = Properties.Resources.Key_16x;\n+            _propertyGridContextMenuRevealPassword.Name = \"_propertyGridContextMenuRevealPassword\";\n+            _propertyGridContextMenuRevealPassword.Size = new Size(156, 22);\n+            _propertyGridContextMenuRevealPassword.Text = @\"&Reveal Password\";\n+            _propertyGridContextMenuRevealPassword.Visible = false;\n+            //\n+            //toolStripSeparator2\n+            //\n+            _toolStripSeparator2.Name = \"_toolStripSeparator2\";\n+            _toolStripSeparator2.Size = new Size(153, 6);\n+            _toolStripSeparator2.Visible = false;\n+            //\n             //btnShowInheritance\n             //\n             _btnShowInheritance.DisplayStyle = ToolStripItemDisplayStyle.Image;\n@@ -299,6 +323,7 @@ private void ApplyLanguage()\n             Text = Language.Config;\n             TabText = Language.Config;\n             _propertyGridContextMenuShowHelpText.Text = Language.ShowHelpText;\n+            _propertyGridContextMenuRevealPassword.Text = Language.RevealPassword;\n         }\n \n         private new void ApplyTheme()\n@@ -677,6 +702,11 @@ private void PropertyGridContextMenu_Opening(object sender, System.ComponentMode\n                 _propertyGridContextMenuReset.Enabled = Convert.ToBoolean(_pGrid.SelectedObject != null &&\n                                                                           gridItem?.PropertyDescriptor != null &&\n                                                                           gridItem.PropertyDescriptor.CanResetValue(_pGrid.SelectedObject));\n+\n+                bool isPasswordProperty = gridItem?.PropertyDescriptor != null &&\n+                                          gridItem.PropertyDescriptor.Attributes.OfType<System.ComponentModel.PasswordPropertyTextAttribute>().Any(a => a.Password);\n+                _propertyGridContextMenuRevealPassword.Visible = isPasswordProperty;\n+                _toolStripSeparator2.Visible = isPasswordProperty;\n             }\n             catch (Exception ex)\n             {\n@@ -712,6 +742,42 @@ private void PropertyGridContextMenuShowHelpText_CheckedChanged(object sender, E\n             _pGrid.HelpVisible = _propertyGridContextMenuShowHelpText.Checked;\n         }\n \n+        private void PropertyGridContextMenuRevealPassword_Click(object sender, EventArgs e)\n+        {\n+            try\n+            {\n+                GridItem gridItem = _pGrid.SelectedGridItem;\n+                if (gridItem?.PropertyDescriptor == null)\n+                    return;\n+\n+                if (!MasterPasswordService.IsConfigured)\n+                {\n+                    MessageBox.Show(this, Language.RevealPasswordRequiresMasterPassword, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);\n+                    return;\n+                }\n+\n+                Optional<System.Security.SecureString> password = MiscTools.PasswordDialog(this, Language.MasterPasswordCurrent, verify: false);\n+                if (!password.Any())\n+                    return;\n+\n+                if (!MasterPasswordService.TryUnlock(password.First()))\n+                {\n+                    MessageBox.Show(this, Language.MasterPasswordInvalid, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);\n+                    return;\n+                }\n+\n+                object? value = gridItem.PropertyDescriptor.GetValue(_pGrid.SelectedObject);\n+                string passwordValue = value?.ToString() ?? string.Empty;\n+\n+                using FrmInputBox revealBox = new(Language.RevealPassword, Language.RevealPasswordDescription, passwordValue);\n+                revealBox.ShowDialog(this);\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddExceptionMessage(\"UI.Window.Config.propertyGridContextMenuRevealPassword_Click() failed.\", ex);\n+            }\n+        }\n+\n         #endregion\n     }\n }\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:31:04Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": 128,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Our fork already ships hardened reveal/copy with MasterPasswordGate + clipboard hygiene (0e7b9c75e, #128). This is weaker duplicate of existing feature.",
+    "agent": "claude",
+    "at": "2026-07-25T16:40:54Z"
+  }
+}

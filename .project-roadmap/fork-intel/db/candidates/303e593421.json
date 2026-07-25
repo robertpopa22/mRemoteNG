@@ -1,0 +1,42 @@
+{
+  "sha": "303e593421d06f201eedbbb3a0b7b85bb24a0ec9",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "fix: disambiguate WinForms message filter type",
+  "body": "fix: disambiguate WinForms message filter type",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-16T11:07:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/303e593421d06f201eedbbb3a0b7b85bb24a0ec9",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -949,7 +949,7 @@ public void SetBlocked(Control control, bool blocked)\n                 }\n             }\n \n-            public bool PreFilterMessage(ref Message m)\n+            public bool PreFilterMessage(ref System.Windows.Forms.Message m)\n             {\n                 if (!IsInputMessage(m.Msg))\n                     return false;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:51Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Already resolved. RdpProtocol6.cs was modernized and merged into RdpProtocol.cs, which already uses fully qualified System.Windows.Forms.Message to prevent namespace collision.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:36:08Z"
+  }
+}

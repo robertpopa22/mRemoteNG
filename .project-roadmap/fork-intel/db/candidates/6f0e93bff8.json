@@ -1,0 +1,49 @@
+{
+  "sha": "6f0e93bff88b941ebeaf42a777ae17ac469149b0",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Fix passive RDP patcher for 1.77.2 release",
+  "body": "Fix passive RDP patcher for 1.77.2 release",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-15T23:08:16Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6f0e93bff88b941ebeaf42a777ae17ac469149b0",
+  "stats": {
+    "files": 1,
+    "additions": 18,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "Tools/passive-rdp-monitor-1772.ps1",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- Tools/passive-rdp-monitor-1772.ps1\n@@ -1,4 +1,4 @@\n-$ErrorActionPreference = 'Stop'\n+﻿$ErrorActionPreference = 'Stop'\n \n $root = Split-Path -Parent $PSScriptRoot\n $rdp6 = Join-Path $root 'mRemoteNG\\Connection\\Protocol\\RDP\\RdpProtocol6.cs'\n@@ -15,8 +15,22 @@ function Write-Text($path, $text) {\n \n function Replace-Once($text, $old, $new, $name) {\n     if ($text.Contains($new)) { return $text }\n-    if (!$text.Contains($old)) { throw \"Could not find patch anchor: $name\" }\n-    return $text.Replace($old, $new)\n+    if ($text.Contains($old)) { return $text.Replace($old, $new) }\n+\n+    $pattern = [regex]::Escape($old.Trim()) -replace '\\\\s+', '\\s+'\n+    if ([regex]::IsMatch($text, $pattern, [System.Text.RegularExpressions.RegexOptions]::Singleline)) {\n+        $rx = New-Object System.Text.RegularExpressions.Regex($pattern, [System.Text.RegularExpressions.RegexOptions]::Singleline)\n+        return $rx.Replace($text, [System.Text.RegularExpressions.MatchEvaluator]{ param($m) $new }, 1)\n+    }\n+\n+    if ($name -eq 'Fullscreen property') {\n+        if ($text.Contains('Fullscreen = !Fullscreen;') -and !$text.Contains('ApplyFullscreenViewOnlyPolicy();')) {\n+            return $text.Replace('Fullscreen = !Fullscreen;', \"Fullscreen = !Fullscreen;`n                ApplyFullscreenViewOnlyPolicy();\")\n+        }\n+        return $text\n+    }\n+\n+    throw \"Could not find patch anchor: $name\"\n }\n \n $text = Read-Text $rdp6\n@@ -419,3 +433,4 @@ _controlBeginningSize = Size.Empty;\n Write-Text $rdp8 $text\n \n Write-Host 'Passive RDP monitor patch for mRemoteNG 1.77.2 has been applied.'\n+",
+  "security_flags": [
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "Tools/passive-rdp-monitor-1772.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:21Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Targets an absent patcher for obsolete 1.77.2 source anchors; current architecture has neither a landing point nor supported need. [source](https://github.com/guvity/mRemoteNG-passive-rdp/commit/6f0e93bff88b941ebeaf42a777ae17ac469149b0)",
+    "agent": "codex",
+    "at": "2026-07-25T17:36:05Z"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "f1797282d92654cc7146d87230321156843fe645",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "readded option to unlock cred repos on startup",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T00:51:49Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1797282d92654cc7146d87230321156843fe645",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

@@ -10,7 +10,7 @@
   "open_issues": 0,
   "archived": false,
   "status": "screened",
-  "ahead_by": 6,
+  "ahead_by": 58,
   "behind_by": 165,
   "commits": [
     {
@@ -20,7 +20,10 @@
       "author_login": "guvity",
       "date": "2026-05-15T18:52:49Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0707b71af5eddbb73d7abf6fbafd26ea6daafaa1"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0707b71af5eddbb73d7abf6fbafd26ea6daafaa1",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "3e43d6855db0d441befaa429ff56c37a687e0a74",
@@ -29,7 +32,10 @@
       "author_login": "guvity",
       "date": "2026-05-15T19:14:43Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e43d6855db0d441befaa429ff56c37a687e0a74"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e43d6855db0d441befaa429ff56c37a687e0a74",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "9f03e57d3b91f45a2976d3f43a1030a828d3ee5e",
@@ -38,7 +44,10 @@
       "author_login": "guvity",
       "date": "2026-05-15T19:25:26Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9f03e57d3b91f45a2976d3f43a1030a828d3ee5e"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9f03e57d3b91f45a2976d3f43a1030a828d3ee5e",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "66ad958c477e0217554c90af1963098f67c88a65",
@@ -47,7 +56,10 @@
       "author_login": "guvity",
       "date": "2026-05-15T19:32:23Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/66ad958c477e0217554c90af1963098f67c88a65"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/66ad958c477e0217554c90af1963098f67c88a65",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "83b66b5d8e0daa1d1324eb53d4da65b5df871f81",
@@ -56,7 +68,10 @@
       "author_login": "guvity",
       "date": "2026-05-15T20:09:27Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/83b66b5d8e0daa1d1324eb53d4da65b5df871f81"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/83b66b5d8e0daa1d1324eb53d4da65b5df871f81",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
@@ -65,20 +80,745 @@
       "author_login": "guvity",
       "date": "2026-05-15T22:00:10Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3241cac85258c371bdc3ce97a7a0d94d76af1f1"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
+      "branches": [
+        "v1.78.2-dev"
+      ]
+    },
+    {
+      "sha": "aa494422597547f76a8c934797df4228cdfe6001",
+      "subject": "Add clean passive RDP monitor build for 1.77.2 release",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T23:51:15Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aa494422597547f76a8c934797df4228cdfe6001",
+      "branches": [
+        "passive-rdp-monitor-1772-clean"
+      ]
+    },
+    {
+      "sha": "d93fbceeb45664868818f1d955ae6441701715b2",
+      "subject": "feat: passive RDP monitor for 1.77.2-release (focus suppress + ViewOnly only in fullscreen + scroll bottom-right)",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T00:47:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d93fbceeb45664868818f1d955ae6441701715b2",
+      "branches": [
+        "passive-rdp-monitor-1772-direct"
+      ]
+    },
+    {
+      "sha": "d2afacd026ba1e5284bded7b304f835b17237792",
+      "subject": "feat: passive RDP monitor for v1.77.2-release",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T01:08:19Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d2afacd026ba1e5284bded7b304f835b17237792",
+      "branches": [
+        "passive-rdp-monitor-1772-direct"
+      ]
+    },
+    {
+      "sha": "b4f2405d8d566372b374e886d61b72d953e1b5d6",
+      "subject": "fix: build only main project to avoid test restore error",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T01:14:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4f2405d8d566372b374e886d61b72d953e1b5d6",
+      "branches": [
+        "passive-rdp-monitor-1772-direct"
+      ]
+    },
+    {
+      "sha": "9db50640988827947b013ead3fcb7ccef7e65be4",
+      "subject": "Apply passive RDP monitor file replacement for 1.77.2",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T01:25:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9db50640988827947b013ead3fcb7ccef7e65be4",
+      "branches": [
+        "passive-rdp-monitor-1772-files"
+      ]
+    },
+    {
+      "sha": "303e593421d06f201eedbbb3a0b7b85bb24a0ec9",
+      "subject": "fix: disambiguate WinForms message filter type",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T11:07:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/303e593421d06f201eedbbb3a0b7b85bb24a0ec9",
+      "branches": [
+        "passive-rdp-monitor-1772-files"
+      ]
+    },
+    {
+      "sha": "eaa705d76ca87124d940c045fa176f10cec0cf78",
+      "subject": "ci: pass solution dir to portable project build",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T11:12:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eaa705d76ca87124d940c045fa176f10cec0cf78",
+      "branches": [
+        "passive-rdp-monitor-1772-files"
+      ]
+    },
+    {
+      "sha": "b4e8baa3abf674b664a856f026bbd2b5fc121e62",
+      "subject": "Apply passive RDP monitor file replacement for 1.77.2",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T01:25:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4e8baa3abf674b664a856f026bbd2b5fc121e62",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "6efc894af1a0e7b4dfe423ca5f6e79231250a537",
+      "subject": "fix: disambiguate WinForms message filter type",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T11:07:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6efc894af1a0e7b4dfe423ca5f6e79231250a537",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "a65d960174eab918844e9594b96dc75ff5bc73c0",
+      "subject": "ci: pass solution dir to portable project build",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T11:12:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a65d960174eab918844e9594b96dc75ff5bc73c0",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "29e00a1a139794131ca2c34df3c2b4f0db2a8aa4",
+      "subject": "Finalize passive RDP monitor v2 workflow and menu sync",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T12:19:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/29e00a1a139794131ca2c34df3c2b4f0db2a8aa4",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "28b688bee56e0e056d891b984c8ac3ac94aed904",
+      "subject": "Fix passive RDP monitor v2 focus, input blocking and scroll behavior",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T12:56:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/28b688bee56e0e056d891b984c8ac3ac94aed904",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "234e7f48f098cbdf0eccd8a7e4aa718589434296",
+      "subject": "Finalize passive RDP monitor v2 fullscreen view-only and scroll behavior",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T13:46:38Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/234e7f48f098cbdf0eccd8a7e4aa718589434296",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "9150b1da4e0cc50de84b50f99573a805ca865a03",
+      "subject": "Fix ActiveX autoreconnect event signature",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T13:52:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9150b1da4e0cc50de84b50f99573a805ca865a03",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "78397c8d48be385982357a477b632f5073672a8e",
+      "subject": "Fix passive RDP scroll sizing and fullscreen exit safety",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T16:49:55Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/78397c8d48be385982357a477b632f5073672a8e",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "8daed191630d8472f8d48971a914ab64239603d6",
+      "subject": "Fix passive RDP scroll origin and enable view-only after scroll",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T17:18:43Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8daed191630d8472f8d48971a914ab64239603d6",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "aa036e0c972a2a60c3cc79374c9ddcfd0540dd40",
+      "subject": "Fix RDP mouse capture after fullscreen leave and fine tune scroll edge",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T18:14:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aa036e0c972a2a60c3cc79374c9ddcfd0540dd40",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "06abf2cf01d7361af4b54af00fd0821d6e0009e6",
+      "subject": "Revert \"Fix RDP mouse capture after fullscreen leave and fine tune scroll edge\"",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T18:38:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/06abf2cf01d7361af4b54af00fd0821d6e0009e6",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "00ad7850b237dfe6efd1df3fab52699a715bd4a7",
+      "subject": "Fix RDP fullscreen exit finalizer",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T18:42:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/00ad7850b237dfe6efd1df3fab52699a715bd4a7",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "ebd3383a1c6bc2a2eb4f1dfe7ffcce9fa205f134",
+      "subject": "Remember passive RDP scroll position across tab switches",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T22:11:26Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ebd3383a1c6bc2a2eb4f1dfe7ffcce9fa205f134",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "ac9f2051ae4ad55c14088fcf79f9bca8a5dd5b62",
+      "subject": "Revert \"Remember passive RDP scroll position across tab switches\"",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T22:27:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ac9f2051ae4ad55c14088fcf79f9bca8a5dd5b62",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "64c2de409f13f2a48456aa3d950ddbbad6c876f5",
+      "subject": "Commit passive RDP auto-scroll position like manual scrollbar movement",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T22:31:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/64c2de409f13f2a48456aa3d950ddbbad6c876f5",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "3d580a2c5730b090764de673a0946aa493d1bcfb",
+      "subject": "Revert \"Commit passive RDP auto-scroll position like manual scrollbar movement\"",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T22:45:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3d580a2c5730b090764de673a0946aa493d1bcfb",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "ad8aa8500be164b820972a8ab2ca4106191260e7",
+      "subject": "Restore passive RDP scroll after DockPanel tab activation",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T22:48:52Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ad8aa8500be164b820972a8ab2ca4106191260e7",
+      "branches": [
+        "passive-rdp-monitor-1772-v2",
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "8cc897b61666160199a61bfbdcc6ec9694d843a3",
+      "subject": "Avoid redundant passive RDP tab scroll restores",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-16T23:06:15Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8cc897b61666160199a61bfbdcc6ec9694d843a3",
+      "branches": [
+        "passive-rdp-monitor-1772-v3",
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "84b05339ac965c97d48990460163df4e9762b3fa",
+      "subject": "docs: add HANDOFF.md with passive RDP v4 roadmap and diagnosis",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:38:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/84b05339ac965c97d48990460163df4e9762b3fa",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "eac3e4d183ccafb84fb61a4b55c37c2cecbf94e5",
+      "subject": "fix(rdp): release input capture after auto-reconnect (fix flying mouse)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:42:11Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eac3e4d183ccafb84fb61a4b55c37c2cecbf94e5",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "2ab6305e6f46d55661fc6a655bbea0047c5e180d",
+      "subject": "fix(rdp): rebind input blocker on auto-reconnect",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:46:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ab6305e6f46d55661fc6a655bbea0047c5e180d",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "fb8e2107fa414423fe94b619e01723e8d949f129",
+      "subject": "feat(rdp): ViewOnly policy per checklist (fullscreen=work, exit/reconnect/tab=VO)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:50:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fb8e2107fa414423fe94b619e01723e8d949f129",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "8f39c112b57865efa6c34cd735c1b35394c203dc",
+      "subject": "fix(rdp): reapply performance flags and input finalizer on all reconnect paths",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:53:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f39c112b57865efa6c34cd735c1b35394c203dc",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "81b6f285512edc92d28fc926136e284e368f1c1f",
+      "subject": "feat(ui): enlarge Fullscreen and View Only tab menu items x2",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:56:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/81b6f285512edc92d28fc926136e284e368f1c1f",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "969f94014686a95e0e149249dde3befa29be69ba",
+      "subject": "feat(ui): add 'Work in Fullscreen' tab menu item (drop View Only + go fullscreen)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:58:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/969f94014686a95e0e149249dde3befa29be69ba",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "e3eb690eb653368366a6b532e751b48372112598",
+      "subject": "docs: close B3 (performance flags semantics verified, fixed via A5)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T13:59:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e3eb690eb653368366a6b532e751b48372112598",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "3a009ddb8e81a6fa76f20d6862ac497c935c49ea",
+      "subject": "feat(ui): Ctrl+Tab / Ctrl+Shift+Tab to switch session tabs",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T14:03:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3a009ddb8e81a6fa76f20d6862ac497c935c49ea",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "fe61c73e92c2abe48c7158a94f5b1b2e1aa2566a",
+      "subject": "feat(rdp): move RDP connection bar to top-right in fullscreen",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T14:06:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fe61c73e92c2abe48c7158a94f5b1b2e1aa2566a",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "c32989deb44f412d2b77083fbb57898f7007b1ef",
+      "subject": "docs: record C1 build blocker (needs .NET Framework MSBuild, not dotnet build)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T14:11:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c32989deb44f412d2b77083fbb57898f7007b1ef",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "f8db1485015a13560706a2e423752a2a7a593bb6",
+      "subject": "ci: add GitHub Actions workflow for v4 build (Release Portable x64)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T14:15:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f8db1485015a13560706a2e423752a2a7a593bb6",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "a09c5e94166012e249497d0befc3010a1f65e7ef",
+      "subject": "docs: C1 build succeeded on GitHub Actions (portable zip artifact ready)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T14:19:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a09c5e94166012e249497d0befc3010a1f65e7ef",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "5dbc11d851a0b96dbcd1188f5680fe9c393cefcf",
+      "subject": "fix(rdp): connection bar mover v2 (geometry-based) + enlarge new menu item",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T14:55:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dbc11d851a0b96dbcd1188f5680fe9c393cefcf",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "d6fdfcbff92310f3f958c8cfae85e0afed44270a",
+      "subject": "fix(rdp): connection bar mover v3 (recursive child search + file diagnostics)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T15:16:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d6fdfcbff92310f3f958c8cfae85e0afed44270a",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "84b672465781ad590cdddaa282365610d9da7ffa",
+      "subject": "fix(rdp): connection bar - match exact class BBarWindowClass (from diagnostics)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T15:31:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/84b672465781ad590cdddaa282365610d9da7ffa",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "6eab38e82036ac0c66ea35136aa79e937e2e89ae",
+      "subject": "fix(rdp): pin connection bar to top-right via WM_WINDOWPOSCHANGING subclass",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T15:44:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6eab38e82036ac0c66ea35136aa79e937e2e89ae",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "d03faccf484ed801f9c324f0fb17e7aa3510aa4f",
+      "subject": "fix(rdp): resolve ambiguous Message reference in ConnectionBarPinner (build fix)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T15:48:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d03faccf484ed801f9c324f0fb17e7aa3510aa4f",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "91b1ba820cc38aff7283964ff37b1e731004039e",
+      "subject": "fix(rdp): pin connection bar post-mstscax + add after-move/thread diagnostics",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T16:07:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/91b1ba820cc38aff7283964ff37b1e731004039e",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "6cacbb8561cef8be1741f442927a4da9a6a7e233",
+      "subject": "fix(rdp): clear SWP_NOMOVE to defeat mstscax connection bar position lock",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T16:46:29Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6cacbb8561cef8be1741f442927a4da9a6a7e233",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "3e249e91986e07c9daa08d1639e28081360067f7",
+      "subject": "chore(rdp): stop writing connection bar diagnostics to file (bar fix confirmed)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T17:03:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e249e91986e07c9daa08d1639e28081360067f7",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "334ad2463ce02fca43475e26c0352202db298576",
+      "subject": "ci: switch v4 workflow to manual dispatch only (avoid auto-builds during testing)",
+      "author_name": "Claude Code",
+      "author_login": "claude",
+      "date": "2026-06-16T17:12:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/334ad2463ce02fca43475e26c0352202db298576",
+      "branches": [
+        "passive-rdp-monitor-1772-v4"
+      ]
+    },
+    {
+      "sha": "e06fa85b6915fbef42656440d71095215b0cfc0e",
+      "subject": "Add passive RDP monitor build for mRemoteNG 1.77.2",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T22:52:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e06fa85b6915fbef42656440d71095215b0cfc0e",
+      "branches": [
+        "passive-rdp-monitor-1772"
+      ]
+    },
+    {
+      "sha": "d33415860ab7244838c42375e5ee223eb4c86bf9",
+      "subject": "Enable build on push",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T23:01:19Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d33415860ab7244838c42375e5ee223eb4c86bf9",
+      "branches": [
+        "passive-rdp-monitor-1772"
+      ]
+    },
+    {
+      "sha": "6f0e93bff88b941ebeaf42a777ae17ac469149b0",
+      "subject": "Fix passive RDP patcher for 1.77.2 release",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T23:08:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6f0e93bff88b941ebeaf42a777ae17ac469149b0",
+      "branches": [
+        "passive-rdp-monitor-1772"
+      ]
+    },
+    {
+      "sha": "e2daf1270f34e569981ef5e2f01babc293f38832",
+      "subject": "Use v2 passive RDP patcher for 1.77.2 release",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T23:18:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e2daf1270f34e569981ef5e2f01babc293f38832",
+      "branches": [
+        "passive-rdp-monitor-1772"
+      ]
+    },
+    {
+      "sha": "518c7b24e28488aab9f9ef0aa22ce27de5208b2a",
+      "subject": "Use robust v3 passive RDP patcher",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T23:34:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/518c7b24e28488aab9f9ef0aa22ce27de5208b2a",
+      "branches": [
+        "passive-rdp-monitor-1772"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "054a61a4030f81750cf82d85a90b0a4a5af7e927",
-  "compared_at": "2026-07-25T10:57:50Z",
+  "compared_at": "2026-07-25T16:22:45Z",
   "screened_shas": [
     "0707b71af5eddbb73d7abf6fbafd26ea6daafaa1",
     "3e43d6855db0d441befaa429ff56c37a687e0a74",
     "9f03e57d3b91f45a2976d3f43a1030a828d3ee5e",
     "66ad958c477e0217554c90af1963098f67c88a65",
     "83b66b5d8e0daa1d1324eb53d4da65b5df871f81",
-    "a3241cac85258c371bdc3ce97a7a0d94d76af1f1"
-  ]
+    "a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
+    "aa494422597547f76a8c934797df4228cdfe6001",
+    "d93fbceeb45664868818f1d955ae6441701715b2",
+    "d2afacd026ba1e5284bded7b304f835b17237792",
+    "b4f2405d8d566372b374e886d61b72d953e1b5d6",
+    "9db50640988827947b013ead3fcb7ccef7e65be4",
+    "303e593421d06f201eedbbb3a0b7b85bb24a0ec9",
+    "eaa705d76ca87124d940c045fa176f10cec0cf78",
+    "b4e8baa3abf674b664a856f026bbd2b5fc121e62",
+    "6efc894af1a0e7b4dfe423ca5f6e79231250a537",
+    "a65d960174eab918844e9594b96dc75ff5bc73c0",
+    "29e00a1a139794131ca2c34df3c2b4f0db2a8aa4",
+    "28b688bee56e0e056d891b984c8ac3ac94aed904",
+    "234e7f48f098cbdf0eccd8a7e4aa718589434296",
+    "9150b1da4e0cc50de84b50f99573a805ca865a03",
+    "78397c8d48be385982357a477b632f5073672a8e",
+    "8daed191630d8472f8d48971a914ab64239603d6",
+    "aa036e0c972a2a60c3cc79374c9ddcfd0540dd40",
+    "06abf2cf01d7361af4b54af00fd0821d6e0009e6",
+    "00ad7850b237dfe6efd1df3fab52699a715bd4a7",
+    "ebd3383a1c6bc2a2eb4f1dfe7ffcce9fa205f134",
+    "ac9f2051ae4ad55c14088fcf79f9bca8a5dd5b62",
+    "64c2de409f13f2a48456aa3d950ddbbad6c876f5",
+    "3d580a2c5730b090764de673a0946aa493d1bcfb",
+    "ad8aa8500be164b820972a8ab2ca4106191260e7",
+    "8cc897b61666160199a61bfbdcc6ec9694d843a3",
+    "84b05339ac965c97d48990460163df4e9762b3fa",
+    "eac3e4d183ccafb84fb61a4b55c37c2cecbf94e5",
+    "2ab6305e6f46d55661fc6a655bbea0047c5e180d",
+    "fb8e2107fa414423fe94b619e01723e8d949f129",
+    "8f39c112b57865efa6c34cd735c1b35394c203dc",
+    "81b6f285512edc92d28fc926136e284e368f1c1f",
+    "969f94014686a95e0e149249dde3befa29be69ba",
+    "e3eb690eb653368366a6b532e751b48372112598",
+    "3a009ddb8e81a6fa76f20d6862ac497c935c49ea",
+    "fe61c73e92c2abe48c7158a94f5b1b2e1aa2566a",
+    "c32989deb44f412d2b77083fbb57898f7007b1ef",
+    "f8db1485015a13560706a2e423752a2a7a593bb6",
+    "a09c5e94166012e249497d0befc3010a1f65e7ef",
+    "5dbc11d851a0b96dbcd1188f5680fe9c393cefcf",
+    "d6fdfcbff92310f3f958c8cfae85e0afed44270a",
+    "84b672465781ad590cdddaa282365610d9da7ffa",
+    "6eab38e82036ac0c66ea35136aa79e937e2e89ae",
+    "d03faccf484ed801f9c324f0fb17e7aa3510aa4f",
+    "91b1ba820cc38aff7283964ff37b1e731004039e",
+    "6cacbb8561cef8be1741f442927a4da9a6a7e233",
+    "3e249e91986e07c9daa08d1639e28081360067f7",
+    "334ad2463ce02fca43475e26c0352202db298576",
+    "e06fa85b6915fbef42656440d71095215b0cfc0e",
+    "d33415860ab7244838c42375e5ee223eb4c86bf9",
+    "6f0e93bff88b941ebeaf42a777ae17ac469149b0",
+    "e2daf1270f34e569981ef5e2f01babc293f38832",
+    "518c7b24e28488aab9f9ef0aa22ce27de5208b2a"
+  ],
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "passive-rdp-monitor-1772-clean",
+    "passive-rdp-monitor-1772-direct",
+    "passive-rdp-monitor-1772-files",
+    "passive-rdp-monitor-1772-v2",
+    "passive-rdp-monitor-1772-v3",
+    "passive-rdp-monitor-1772-v4",
+    "passive-rdp-monitor-1772"
+  ],
+  "branches_inherited_from_upstream": 0
 }

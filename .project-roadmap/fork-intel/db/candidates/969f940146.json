@@ -1,0 +1,54 @@
+{
+  "sha": "969f94014686a95e0e149249dde3befa29be69ba",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "feat(ui): add 'Work in Fullscreen' tab menu item (drop View Only + go fullscreen)",
+  "body": "feat(ui): add 'Work in Fullscreen' tab menu item (drop View Only + go fullscreen)\n\nСтадия B2. Под пунктом 'View Only' добавлен пункт, который одним кликом\nснимает View Only и входит в полноэкранный режим для активной работы.\nRdpProtocol6.EnterWorkingFullscreen подавляет авто-VO в fullscreen;\nпри выходе View Only снова включается (политика A4).\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T13:58:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/969f94014686a95e0e149249dde3befa29be69ba",
+  "stats": {
+    "files": 3,
+    "additions": 60,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 22,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 34,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -216,7 +216,9 @@ capture асинхронно) во всех путях reconnect.\n ### Фаза B — UI/фичи\n - [x] **B1** — Пункты Fullscreen/ViewOnly ×2: `EnlargeKeyTabMenuItems` (ConnectionWindow)\n   задаёт им Font ×2 Bold от `cmenTab.Font`; позиции не меняются.\n-- [ ] **B2** — Новый пункт под ViewOnly: «снять ViewOnly + открыть Fullscreen» (активный режим, подавляет авто-VO).\n+- [x] **B2** — Пункт «Work in Fullscreen (no View Only)» под ViewOnly: `EnterWorkingFullscreen`\n+  (RDP6) снимает VO + входит в fullscreen, подавляя авто-VO (manuallyDisabled=true); добавлен\n+  через `AddWorkingFullscreenMenuItem` (ConnectionWindow). При выходе VO снова включается (A4).\n - [ ] **B3** — Проверка семантики performance-флагов (композиция/тени) на реальном конфиге.\n   Меню Reconnect/Reconnect All уже пересоздают сессию. Основная переустановка pFlags — в A5.\n - [ ] **B4** — Горячие клавиши Ctrl+Tab / Ctrl+Shift+Tab (frmMain, pnlDock). После\n@@ -278,3 +280,4 @@ _Журнал изменений HANDOFF:_\n - _A5 — унификация: pFlags переустанавливаются во всех путях reconnect (auto-reconnect,\n   tmrReconnect, RDP8 resize); reconnect-финализатор подключён к RDP8 resize. **Фаза A готова.**_\n - _B1 — пункты Fullscreen/ViewOnly увеличены ×2 (Font Bold) через EnlargeKeyTabMenuItems._\n+- _B2 — добавлен пункт «Work in Fullscreen (no View Only)» + RDP6.EnterWorkingFullscreen._\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -322,6 +322,28 @@ public void ToggleViewOnly()\n             }\n         }\n \n+        /// <summary>\n+        /// B2: «Работать в Fullscreen» — снимает View Only и входит в полноэкранный режим\n+        /// одним действием, давая полный доступ к рабочему столу. Авто-VO подавляется, пока\n+        /// пользователь в fullscreen; при выходе из fullscreen View Only снова включится.\n+        /// </summary>\n+        public void EnterWorkingFullscreen()\n+        {\n+            try\n+            {\n+                _userManuallyDisabledViewOnly = true;\n+                _autoEnableViewOnlyAfterSuccessfulScroll = false;\n+                SetViewOnly(false, \"EnterWorkingFullscreen\");\n+                SetFullscreenState(true, \"EnterWorkingFullscreen\", true);\n+                LogFullscreenState(\"EnterWorkingFullscreen\", true);\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddExceptionStackTrace(\n+                    $\"Could not enter working fullscreen for host {connectionInfo?.Hostname}\", ex);\n+            }\n+        }\n+\n         public override void Focus()\n         {\n             try\n--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -92,6 +92,7 @@ private void SetContextMenuEventHandlers()\n             cmenTabPuttySettings.Click += (sender, args) => ShowPuttySettingsDialog();\n \n             EnlargeKeyTabMenuItems();\n+            AddWorkingFullscreenMenuItem();\n             GotFocus += ConnectionWindow_GotFocus;\n         }\n \n@@ -116,6 +117,39 @@ private void EnlargeKeyTabMenuItems()\n             }\n         }\n \n+        /// <summary>\n+        /// B2: добавляет в меню вкладки (сразу под «View Only») пункт, который одним действием\n+        /// снимает View Only и входит в Fullscreen для активной работы с рабочим столом.\n+        /// </summary>\n+        private void AddWorkingFullscreenMenuItem()\n+        {\n+            try\n+            {\n+                var item = new ToolStripMenuItem\n+                {\n+                    Name = \"cmenTabWorkFullscreen\",\n+                    Text = \"Work in Fullscreen (no View Only)\"\n+                };\n+                item.Click += (sender, args) => EnterWorkingFullscreen();\n+\n+                var index = cmenTab.Items.IndexOf(cmenTabViewOnly);\n+                if (index >= 0)\n+                    cmenTab.Items.Insert(index + 1, item);\n+                else\n+                    cmenTab.Items.Add(item);\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddExceptionStackTrace(\"AddWorkingFullscreenMenuItem (UI.Window.ConnectionWindow) failed\", ex);\n+            }\n+        }\n+\n+        private void EnterWorkingFullscreen()\n+        {\n+            var rdp = GetInterfaceControl()?.Protocol as RdpProtocol6;\n+            rdp?.EnterWorkingFullscreen();\n+        }\n+\n         private void ConnectionWindow_GotFocus(object sender, EventArgs e)\n         {\n             TabHelper.Instance.CurrentPanel = this;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:08Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Part of guvity's fork-specific passive-RDP feature and HANDOFF.md, which do not exist in our codebase. Requires a complete rewrite.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:50:43Z"
+  }
+}

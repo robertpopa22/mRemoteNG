@@ -261,6 +261,58 @@ def cmd_discover(args):
 
 # --------------------------------------------------------------------- diverge
 
+def upstream_branch_heads():
+    """Branch name -> head SHA for upstream.
+
+    A fork inherits every upstream branch at fork time, so a branch that still
+    points at upstream's own head is not fork work no matter how promising its
+    name looks. Without this, upstream's `copilot/*` and `feature/*` branches
+    show up as if a fork author had written them.
+    """
+    heads = {}
+    page = 1
+    while True:
+        batch = gh_json(f"repos/{UPSTREAM}/branches?per_page=100&page={page}")
+        if not batch:
+            break
+        for branch in batch:
+            heads[branch.get("name")] = (branch.get("commit") or {}).get("sha")
+        if len(batch) < 100:
+            break
+        page += 1
+    return heads
+
+
+def fork_branches_to_scan(fork, upstream_heads, default_branch):
+    """Branches of a fork that could hold its own work.
+
+    Keeps the default branch always, drops branches still parked on upstream's
+    head, and keeps a branch whose name exists upstream but whose head moved.
+    """
+    branches = []
+    page = 1
+    while True:
+        batch = gh_json(f"repos/{fork['full_name']}/branches?per_page=100&page={page}")
+        if not batch:
+            break
+        branches.extend(batch)
+        if len(batch) < 100:
+            break
+        page += 1
+
+    keep, inherited = [], 0
+    for branch in branches:
+        name = branch.get("name")
+        sha = (branch.get("commit") or {}).get("sha")
+        if name == default_branch:
+            continue  # compared separately, always
+        if name in upstream_heads and upstream_heads[name] == sha:
+            inherited += 1
+            continue
+        keep.append(name)
+    return keep, inherited
+
+
 def cmd_diverge(args):
     """Compare each candidate fork against upstream and record its own commits."""
     meta = load_meta()
@@ -271,9 +323,23 @@ def cmd_diverge(args):
         return 2
     log(f"Comparing forks against {UPSTREAM}@{base_branch}")
 
+    upstream_heads = {}
+    if args.all_branches:
+        upstream_heads = upstream_branch_heads()
+        log(f"  upstream has {len(upstream_heads)} branches (inherited ones will be skipped)")
+
+    # With --all-branches an already-compared fork is revisited: its default
+    # branch was scanned, its side branches were not.
+    revisitable = ("discovered", None)
+    if args.all_branches:
+        revisitable = ("discovered", None, "diverged", "screened", "no-divergence")
+
     processed = ahead = flat = failed = 0
+    extra_branch_commits = 0
     for path, fork in iter_forks():
-        if fork.get("status") not in ("discovered", None):
+        if fork.get("status") not in revisitable:
+            continue
+        if args.all_branches and fork.get("branches_scanned") and not args.refresh:
             continue
         if args.limit and processed >= args.limit:
             break
@@ -307,38 +373,77 @@ def cmd_diverge(args):
         fork["compared_at"] = utc_now()
         fork.pop("error", None)
 
-        commits = []
-        for c in cmp_data.get("commits", []):
-            commit = c.get("commit", {})
-            author = commit.get("author", {}) or {}
-            commits.append({
-                "sha": c.get("sha"),
-                "subject": (commit.get("message") or "").split("\n", 1)[0],
-                "author_name": author.get("name"),
-                "author_login": (c.get("author") or {}).get("login"),
-                "date": author.get("date"),
-                "parents": len(c.get("parents") or []),
-                "html_url": c.get("html_url"),
-            })
-        fork["commits"] = commits
+        def collect_commits(compare_result, branch_name, into):
+            """Add a comparison's commits, deduplicated by SHA across branches."""
+            added = 0
+            for c in compare_result.get("commits", []):
+                sha = c.get("sha")
+                if not sha:
+                    continue
+                if sha in into:
+                    if branch_name not in into[sha]["branches"]:
+                        into[sha]["branches"].append(branch_name)
+                    continue
+                commit = c.get("commit", {})
+                author = commit.get("author", {}) or {}
+                into[sha] = {
+                    "sha": sha,
+                    "subject": (commit.get("message") or "").split("\n", 1)[0],
+                    "author_name": author.get("name"),
+                    "author_login": (c.get("author") or {}).get("login"),
+                    "date": author.get("date"),
+                    "parents": len(c.get("parents") or []),
+                    "html_url": c.get("html_url"),
+                    "branches": [branch_name],
+                }
+                added += 1
+            return added
 
-        if fork["ahead_by"] == 0:
+        by_sha = {}
+        collect_commits(cmp_data, branch, by_sha)
+        default_only = len(by_sha)
+
+        if args.all_branches:
+            side_branches, inherited = fork_branches_to_scan(fork, upstream_heads, branch)
+            fork["branches_scanned"] = [branch] + side_branches
+            fork["branches_inherited_from_upstream"] = inherited
+            for side in side_branches:
+                side_cmp = gh_json(
+                    f"repos/{UPSTREAM}/compare/{base_branch}...{owner}:{side}")
+                if side_cmp is None:
+                    continue
+                gained = collect_commits(side_cmp, side, by_sha)
+                if gained:
+                    extra_branch_commits += gained
+                    log(f"    branch {side}: +{gained} commits not on the default branch")
+
+        fork["commits"] = list(by_sha.values())
+        fork["ahead_by"] = max(fork["ahead_by"], len(by_sha))
+
+        if not by_sha:
             fork["status"] = "no-divergence"
             flat += 1
         else:
             fork["status"] = "diverged"
             ahead += 1
         write_json(path, fork)
-        log(f"  {fork['full_name']:<45} ahead={fork['ahead_by']:<5} commits={len(commits)}")
+        extra = len(by_sha) - default_only
+        suffix = f" (+{extra} off the default branch)" if extra else ""
+        log(f"  {fork['full_name']:<45} ahead={fork['ahead_by']:<5} "
+            f"commits={len(by_sha)}{suffix}")
 
     log(f"  processed:     {processed}")
     log(f"  diverged:      {ahead}")
+    if args.all_branches:
+        log(f"  commits found only on side branches: {extra_branch_commits}")
     log(f"  no divergence: {flat}")
     log(f"  failed:        {failed}")
     log(f"  api calls:     {_api_calls}")
     save_meta(meta, "diverge", {
         "processed": processed, "diverged": ahead,
         "no_divergence": flat, "failed": failed,
+        "all_branches": bool(args.all_branches),
+        "side_branch_commits": extra_branch_commits,
     })
     return 0
 
@@ -569,7 +674,18 @@ def grok_run(prompt, timeout=600, model=GROK_MODEL):
     if not os.environ.get("XAI_API_KEY"):
         log("  ! XAI_API_KEY is not set, skipping grok")
         return None
-    payload = {"model": model, "messages": [{"role": "user", "content": prompt}]}
+    # Left to itself the model answers with reasoning prose ("Inspecting the target
+    # file...") and the verdict never arrives, which the panel then reads as silence.
+    # A system turn plus json_object output makes the format non-optional.
+    payload = {
+        "model": model,
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system",
+             "content": "You reply with exactly one JSON object and no other text."},
+            {"role": "user", "content": prompt},
+        ],
+    }
     # The body goes through a temp file: a diff-sized payload does not fit in an
     # argument, and shells here mangle '$' inside inline JSON.
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False,
@@ -736,6 +852,23 @@ def cmd_triage(args):
     pending = [(p, c) for p, c in iter_candidates()
                if c.get("status") in ("screened", "quarantine") and
                (args.refresh or not c.get("triage"))]
+
+    # Sharding lets several triage processes run at once against different
+    # providers without treading on each other: the split is by SHA, so a
+    # candidate belongs to exactly one shard no matter how many are running.
+    if args.shard:
+        try:
+            index, total = (int(x) for x in args.shard.split("/", 1))
+        except ValueError:
+            log("! --shard expects the form i/n, e.g. 1/3")
+            return 2
+        if not 1 <= index <= total:
+            log("! shard index out of range")
+            return 2
+        pending = [(p, c) for p, c in pending
+                   if int(c["sha"][:8], 16) % total == index - 1]
+        log(f"  shard {index}/{total}: {len(pending)} candidates")
+
     if args.limit:
         pending = pending[:args.limit]
     if not pending:
@@ -902,12 +1035,31 @@ def cmd_preapprove(args):
     if len(reviewers) < 2:
         log("! pre-approval needs at least two independent reviewers")
         return 2
+    if len(set(reviewers)) != len(reviewers):
+        log("! the same reviewer is listed twice - that is one opinion, not two")
+        return 2
+
+    # The whole point of an arbiter is a family that has not already spoken. If it
+    # is also a reviewer, a split would be settled by the same model voting twice.
+    arbiter = args.arbiter.strip()
+    if arbiter and arbiter in reviewers:
+        log(f"! {arbiter} is already a reviewer - arbitration disabled for this run")
+        arbiter = ""
 
     pending = []
     for path, cand in iter_candidates():
         if cand.get("status") == "dropped" or not cand.get("triage"):
             continue
-        if cand.get("preapproval") and not args.refresh:
+        existing = cand.get("preapproval")
+        if existing and args.only_incomplete:
+            # A reviewer that timed out or crashed leaves a NO_ANSWER, which the
+            # consensus rule treats as dissent. That is safe but not a judgement:
+            # re-run those with a working panel instead of leaving them buried.
+            if not any(v.get("vote") == "NO_ANSWER" for v in existing.get("votes", [])):
+                continue
+        elif existing and not args.refresh:
+            continue
+        if args.sha and not cand["sha"].startswith(args.sha):
             continue
         _, tier, _ = score_candidate(cand, rules)
         # Quarantined changes are reviewed too. They can never be pre-approved
@@ -951,9 +1103,9 @@ def cmd_preapprove(args):
         # A split is exactly the case a third, unrelated model can settle. Asking
         # it on every candidate would just add cost and noise, so it is fetched
         # only when the first two actually disagree.
-        if args.arbiter and votes_are_split(votes):
-            log(f"    split verdict - asking {args.arbiter} to arbitrate")
-            votes.append(collect(args.arbiter, arbiter=True))
+        if arbiter and votes_are_split(votes):
+            log(f"    split verdict - asking {arbiter} to arbitrate")
+            votes.append(collect(arbiter, arbiter=True))
 
         decision = consensus_decision(votes, bool(cand.get("security_flags")))
 
@@ -975,7 +1127,7 @@ def cmd_preapprove(args):
 
     log(f"  pre-approved: {approved}   manual review: {manual}")
     save_meta(meta, "preapprove", {"pre_approved": approved, "manual": manual,
-                                   "reviewers": reviewers})
+                                   "reviewers": reviewers, "arbiter": arbiter})
     return 0
 
 
@@ -1233,6 +1385,11 @@ def build_parser():
 
     p_div = sub.add_parser("diverge", help="compare candidate forks against upstream")
     p_div.add_argument("--limit", type=int, default=0, help="stop after N forks")
+    p_div.add_argument("--all-branches", action="store_true",
+                       help="also scan non-default branches (skips branches still "
+                            "parked on upstream's head, which every fork inherits)")
+    p_div.add_argument("--refresh", action="store_true",
+                       help="re-scan forks whose branches were already enumerated")
     p_div.set_defaults(func=cmd_diverge)
 
     p_scr = sub.add_parser("screen", help="drop noise and security-screen the rest")
@@ -1247,6 +1404,9 @@ def build_parser():
     p_tri.add_argument("--agent", default="claude", choices=list(AGENT_ARGS),
                        help="primary agent (others are used as fallback)")
     p_tri.add_argument("--refresh", action="store_true", help="re-triage already judged commits")
+    p_tri.add_argument("--shard", default="",
+                       help="process only shard i/n (split by SHA) so several triage "
+                            "runs can work in parallel against different providers")
     p_tri.set_defaults(func=cmd_triage)
 
     p_pre = sub.add_parser("preapprove",
@@ -1259,6 +1419,10 @@ def build_parser():
     p_pre.add_argument("--limit", type=int, default=0, help="stop after N candidates")
     p_pre.add_argument("--timeout", type=int, default=600, help="per-reviewer timeout in seconds")
     p_pre.add_argument("--refresh", action="store_true", help="re-run on already voted candidates")
+    p_pre.add_argument("--only-incomplete", action="store_true",
+                       help="re-run only candidates where a reviewer failed to answer")
+    p_pre.add_argument("--sha", default="",
+                       help="re-run a single candidate by SHA prefix")
     p_pre.set_defaults(func=cmd_preapprove)
 
     p_rep = sub.add_parser("report", help="rank candidates and write report + import queue")

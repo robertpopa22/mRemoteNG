@@ -1,0 +1,13 @@
+{
+  "sha": "aab1fb1dd218cffe19d7e7c745baec3ccb1e25d8",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "minor cleanup",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-13T17:05:45Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aab1fb1dd218cffe19d7e7c745baec3ccb1e25d8",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

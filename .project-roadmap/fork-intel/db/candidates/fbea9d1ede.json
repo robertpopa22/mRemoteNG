@@ -1,0 +1,13 @@
+{
+  "sha": "fbea9d1ede7024fd9368d817e1a86076998fc433",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "hooked up remaining cred repo management buttons",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-13T16:57:33Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fbea9d1ede7024fd9368d817e1a86076998fc433",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

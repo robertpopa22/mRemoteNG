@@ -1,0 +1,13 @@
+{
+  "sha": "d1dd520079445a10bc0e0de018e31db13bbe16d2",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Merge branch 'develop' into feature/multi-select-enter-connections-10750512084068105273",
+  "author_name": "s v s",
+  "author_login": "suleyman-shb",
+  "date": "2026-05-08T15:45:17Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d1dd520079445a10bc0e0de018e31db13bbe16d2",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:58Z"
+}

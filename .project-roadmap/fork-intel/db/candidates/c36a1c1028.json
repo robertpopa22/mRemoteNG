@@ -1,0 +1,76 @@
+{
+  "sha": "c36a1c1028a10331624f782f59a08cbe099bc7a8",
+  "fork": "CancanTang/mRemoteNG",
+  "owner": "CancanTang",
+  "subject": "Retarget to .NET 11",
+  "body": "Retarget to .NET 11",
+  "author_name": "CancanTang",
+  "author_login": "CancanTang",
+  "date": "2026-03-19T05:35:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c36a1c1028a10331624f782f59a08cbe099bc7a8",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/mRemoteNG.csproj\n@@ -6,7 +6,7 @@\n   </PropertyGroup>\n   <PropertyGroup>\n     <OutputType>WinExe</OutputType>\n-    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>\n+    <TargetFramework>net11.0-windows10.0.26100.0</TargetFramework>\n     <UseWindowsForms>true</UseWindowsForms>\n     <ApplicationIcon>Icons\\mRemoteNG.ico</ApplicationIcon>\n     <Version>1.78.2-dev</Version>",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:25Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 4,
+    "applies_cleanly": "likely",
+    "action": "WATCH",
+    "rationale": ".NET 11 still preview (GA Nov 2026). Our toolchain/CI pinned to net10.0 + VS BuildTools. Revisit at GA, not before.",
+    "agent": "claude",
+    "at": "2026-07-25T16:43:09Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Retargeting only the app to net11 makes net10 test and spec projects incompatible, breaking the mandatory full build and test path.",
+        "reason": "The fork intentionally standardizes on .NET 10; this isolated framework bump provides no benefit and requires a coordinated solution-wide toolchain migration.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Premature net11 TFM jump risks COM, build, and full test matrix",
+        "reason": "Fork is deliberately on .NET 10; one-line retarget is a high-risk platform move, not useful now.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The fork intentionally standardizes on .NET 10; this isolated framework bump provides no benefit and requires a coordinated solution-wide toolchain migration.",
+      "grok: REJECT - Fork is deliberately on .NET 10; one-line retarget is a high-risk platform move, not useful now."
+    ],
+    "at": "2026-07-25T22:45:07Z"
+  }
+}

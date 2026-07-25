@@ -1,0 +1,76 @@
+{
+  "sha": "20245100e0423262d8e4b3b1a714db56a1ad2289",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "外部工具增加可供使用的新变量：%GUID%",
+  "body": "外部工具增加可供使用的新变量：%GUID%",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-11-27T03:21:28Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/20245100e0423262d8e4b3b1a714db56a1ad2289",
+  "stats": {
+    "files": 1,
+    "additions": 4,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Tools/ExternalToolArgumentParser.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteV1/Tools/ExternalToolArgumentParser.cs\n@@ -161,6 +161,10 @@ private string GetVariableReplacement(string variable, string original)\n             if (_connectionInfo == null) return replacement;\n             switch (variable.ToLowerInvariant())\n             {\n+                //CBH 把GUID也作为可供使用的变量\n+                case \"guid\":\n+                    replacement = _connectionInfo.ConstantID;\n+                    break;\n                 case \"name\":\n                     replacement = _connectionInfo.Name;\n                     break;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:44Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "IMPORT",
+    "rationale": "Adds %GUID% variable support in external tool arguments, resolving to connection's ConstantID. Trivial, useful feature with zero risk.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:35:03Z"
+  },
+  "preapproval": {
+    "decision": "pre-approved",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Parser-only import leaves the supported-token UI and tests inconsistent, making %GUID% undiscoverable and its unvalidated ConstantID semantics unpinned.",
+        "reason": "The capability is plausible and absent, but this fork maintains token discoverability and exhaustive parser coverage; require a complete menu-and-test patch.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "APPROVE",
+        "aligned": true,
+        "concern": "None. The change is extremely simple, isolated, and safe, introducing zero runtime risk or external dependencies.",
+        "reason": "Enables external tools to use the connection's unique ConstantID via %GUID%, which is highly useful for scripting and integration.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "APPROVE",
+        "aligned": true,
+        "concern": "Chinese comment style; confirm ConstantID not already exposed as %GUID%.",
+        "reason": "Tiny additive external-tool variable; useful, low risk, no deps, easy to verify.",
+        "arbiter": true
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The capability is plausible and absent, but this fork maintains token discoverability and exhaustive parser coverage; require a complete menu-and-test patch."
+    ],
+    "at": "2026-07-25T19:12:05Z"
+  }
+}

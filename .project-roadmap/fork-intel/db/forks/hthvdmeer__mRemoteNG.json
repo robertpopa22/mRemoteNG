@@ -20,7 +20,10 @@
       "author_login": "takemaker63",
       "date": "2026-04-21T13:50:13Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/18c26d1c33690db02d80f1d7919d5b6acdfae902"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/18c26d1c33690db02d80f1d7919d5b6acdfae902",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "15635dff6d0d6ad9d2a435430c50a41ba319e6c3",
@@ -29,7 +32,10 @@
       "author_login": "takemaker63",
       "date": "2026-05-01T13:32:42Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15635dff6d0d6ad9d2a435430c50a41ba319e6c3"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15635dff6d0d6ad9d2a435430c50a41ba319e6c3",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     },
     {
       "sha": "e188e129048b62a027908f8a4bdda754def50522",
@@ -38,17 +44,24 @@
       "author_login": "takemaker63",
       "date": "2026-05-05T10:06:15Z",
       "parents": 1,
-      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e188e129048b62a027908f8a4bdda754def50522"
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e188e129048b62a027908f8a4bdda754def50522",
+      "branches": [
+        "v1.78.2-dev"
+      ]
     }
   ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "c84abb179c3ca223d42144460c7cd6c4474d8e02",
-  "compared_at": "2026-07-25T10:57:54Z",
+  "compared_at": "2026-07-25T16:23:01Z",
   "screened_shas": [
     "18c26d1c33690db02d80f1d7919d5b6acdfae902",
     "15635dff6d0d6ad9d2a435430c50a41ba319e6c3",
     "e188e129048b62a027908f8a4bdda754def50522"
-  ]
+  ],
+  "branches_scanned": [
+    "v1.78.2-dev"
+  ],
+  "branches_inherited_from_upstream": 0
 }

@@ -9,13 +9,63 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 3,
   "behind_by": 293,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "3aa43202ea30f15390aa84c94cf9d63b03de75df",
+      "subject": "Synced from my lab",
+      "author_name": "CancanTang",
+      "author_login": "CancanTang",
+      "date": "2026-03-19T05:30:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3aa43202ea30f15390aa84c94cf9d63b03de75df",
+      "branches": [
+        "RetargetSource",
+        "SourceInMyLab"
+      ]
+    },
+    {
+      "sha": "fcae38c793179fa9493947387fad03c4fc48286f",
+      "subject": "Synced from my lab",
+      "author_name": "CancanTang",
+      "author_login": "CancanTang",
+      "date": "2026-03-19T05:31:04Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fcae38c793179fa9493947387fad03c4fc48286f",
+      "branches": [
+        "RetargetSource",
+        "SourceInMyLab"
+      ]
+    },
+    {
+      "sha": "c36a1c1028a10331624f782f59a08cbe099bc7a8",
+      "subject": "Retarget to .NET 11",
+      "author_name": "CancanTang",
+      "author_login": "CancanTang",
+      "date": "2026-03-19T05:35:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c36a1c1028a10331624f782f59a08cbe099bc7a8",
+      "branches": [
+        "RetargetSource"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:25Z",
   "last_seen": "2026-07-25T10:56:25Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "f8b0625d6cc0a34d6c4240c1adbb1d45652e867d",
-  "compared_at": "2026-07-25T10:57:35Z"
+  "compared_at": "2026-07-25T16:21:44Z",
+  "branches_scanned": [
+    "v1.78.2-dev",
+    "RetargetSource",
+    "SourceInMyLab"
+  ],
+  "branches_inherited_from_upstream": 0,
+  "screened_shas": [
+    "3aa43202ea30f15390aa84c94cf9d63b03de75df",
+    "fcae38c793179fa9493947387fad03c4fc48286f",
+    "c36a1c1028a10331624f782f59a08cbe099bc7a8"
+  ]
 }

@@ -1,0 +1,13 @@
+{
+  "sha": "ce03b74d48826a6771e11e00700c99b0e80a4998",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "serialization is now working as expected",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-27T23:50:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce03b74d48826a6771e11e00700c99b0e80a4998",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

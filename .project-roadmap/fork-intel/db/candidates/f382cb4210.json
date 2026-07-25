@@ -1,0 +1,73 @@
+{
+  "sha": "f382cb4210526cc8bb7762af80034724abdfbcbc",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "AdmPwd.E版本更新至7.7.5",
+  "body": "AdmPwd.E版本更新至7.7.5",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-21T15:51:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f382cb4210526cc8bb7762af80034724abdfbcbc",
+  "stats": {
+    "files": 4,
+    "additions": 14,
+    "deletions": 57,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Docs/PDSConfigWrapper.xml",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Docs/PdsWrapper.xml",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 54
+    },
+    {
+      "filename": "mRemoteV1/mRemoteV1.csproj",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/packages.config",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Docs/PDSConfigWrapper.xml\n@@ -194,6 +194,17 @@\n       <para>Call is audited</para>\n     </remarks>\n   </RemoveManagedAccountsContainer>\n+  <GetPdsAdminRoleName>\n+    <summary>\n+      Calls PDS to retrieve name of AD group that implements PDS Admin role. Members of the group hold PDS Admin role and can manage configuration of PDS.\n+    </summary>\n+    <returns>Returns name of AD group that is configured as PDS Admin role group</returns>\n+    <remarks>\n+      <para>By default, this role is held by Enterprise Admins group. Role assignment can be changed in PDS configuration file.</para>\n+      <para>No specific permissions required</para>\n+      <para>Call is not audited</para>\n+    </remarks>\n+  </GetPdsAdminRoleName>\n   <TransferPdsAdminRole>\n     <summary>\n       Transfers PDS Admin role to security principal (user or group)\n--- mRemoteV1/Docs/PdsWrapper.xml\n@@ -90,17 +90,6 @@\n        <para>Call is not audited</para>\n     </remarks>\n   </GetUserPermissions>\n-  <GetKeyAdminsRoleName>\n-     <summary>\n-       Calls PDS to retrieve name of AD group that implements Key Admin role. Members of the group hold Key Admin role on PDS\n-    </summary>\n-     <returns>Returns name of AD group that is configured on PDS as Key Admin role group</returns>\n-     <remarks>\n-       <para>By default, this role is held by Enterprise Admins group. Role assignment can be changed in PDS configuration file.</para>\n-       <para>No specific permissions required</para>\n-       <para>Call is not audited</para>\n-    </remarks>\n-  </GetKeyAdminsRoleName>\n   <GetSupportedKeySizes>\n      <summary>\n        Calls PDS to retrieve key sizes supported by PDS.\n@@ -198,49 +187,6 @@\n        <para>Call is audited on PDS</para>\n     </remarks>\n   </GetPassword>\n-  <GetSecurePassword>\n-    <summary>\n-      Calls PDS to retrieve password of managed account in given AD forest.\n-      Managed account can be either:\n-      * Domain computer local admin account\n-      * Managed domain account\n-    </summary>\n-    <param name=\"ForestName\">\n-      Name of AD forest.\n-      Forest must be marked as supported in PDS configuration.\n-      For local forest, pass null as parameter value\n-    </param>\n-    <param name=\"Identity\">\n-      When retrieving password of computer local admin account, pass name of computer where password of local admin account shall be retrieved. Name of the computer can be passed as one of the following:\n-      * Hostname, such as MyComputer\n-      * FQDN, such as mycomputer.mydomain.com\n-      * Distinguished name, such as cn=MyComputer,ou=MyComputers,dc=mydomain,dc=com\n-      <para/>\n-      When retrieving password of managed domain account, pas the name of domain account. Account name can be passed as one of the following:\n-      * sAMAccountName (without domain)\n-      * userPrincipalName\n-      * distinguishedName\n-    </param>\n-    <param name=\"Type\">\n-      Type of the account to retrieve password for. Can be one of the supported account types:\n-      * LocalComputerAdmin\n-      * ManagedDomainAccount\n-    </param>\n-    <param name=\"IncludePasswordHistory\">Whether or not to include password history</param>\n-    <param name=\"IsDeleted\">\n-      Whether computer account or managed domain account is deleted or not.\n-      Note: there may be multiple deleted objects with the same name. In such case, password for most recently deleted object is returned\n-    </param>\n-    <returns>Password, current password expiration time and optional password history. Passwords returned as secure strings</returns>\n-    <remarks>\n-      <para>Name of local admin account is not stored by solution. Caller is expected to know name of local managed account</para>\n-      <para>\n-        PDS does not try to guess domain or forest name from computer name - it searches against Global Catalog interface of AD forest passed in <paramref name=\"ForestName\"/> parameter\n-      </para>\n-      <para>Caller must have Read Admin Passsword permission on given computer or user object</para>\n-      <para>Call is audited on PDS</para>\n-    </remarks>\n-  </GetSecurePassword>\n   <ResetPassword>\n      <summary>\n        Calls PDS to request reset of for given managed account in given AD forest.\n--- mRemoteV1/mRemoteV1.csproj\n@@ -47,8 +47,8 @@\n     <BootstrapperEnabled>true</BootstrapperEnabled>\r\n   </PropertyGroup>\r\n   <ItemGroup>\r\n-    <Reference Include=\"AdmPwd.PDSWrapper, Version=7.7.2.0, Culture=neutral, processorArchitecture=MSIL\">\r\n-      <HintPath>..\\packages\\Greycorbel.AdmPwd-E.PDSWrapper.7.7.2\\lib\\net45\\AdmPwd.PDSWrapper.dll</HintPath>\r\n+    <Reference Include=\"AdmPwd.PDSWrapper, Version=7.7.5.0, Culture=neutral, processorArchitecture=MSIL\">\r\n+      <HintPath>..\\packages\\Greycorbel.AdmPwd-E.PDSWrapper.7.7.5\\lib\\net45\\AdmPwd.PDSWrapper.dll</HintPath>\r\n     </Reference>\r\n     <Reference Include=\"ADTree\">\r\n       <HintPath>References\\ADTree.dll</HintPath>\r\n--- mRemoteV1/packages.config\n@@ -7,7 +7,7 @@\n   <package id=\"DockPanelSuite.ThemeVS2013\" version=\"3.0.6\" targetFramework=\"net46\" />\r\n   <package id=\"DockPanelSuite.ThemeVS2015\" version=\"3.0.6\" targetFramework=\"net46\" />\r\n   <package id=\"Geckofx45\" version=\"45.0.34\" targetFramework=\"net46\" />\r\n-  <package id=\"Greycorbel.AdmPwd-E.PDSWrapper\" version=\"7.7.2\" targetFramework=\"net46\" />\r\n+  <package id=\"Greycorbel.AdmPwd-E.PDSWrapper\" version=\"7.7.5\" targetFramework=\"net46\" />\r\n   <package id=\"log4net\" version=\"2.0.17\" targetFramework=\"net46\" />\r\n   <package id=\"ObjectListView.Official\" version=\"2.9.1\" targetFramework=\"net46\" />\r\n   <package id=\"SSH.NET\" version=\"2016.1.0\" targetFramework=\"net46\" />\r",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/mRemoteV1.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/packages.config",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:37Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "AdmPwd.E bump in legacy mRemoteV1 net46 packages.config layout; our .NET 10 fork has no AdmPwd.E dependency.",
+    "agent": "claude",
+    "at": "2026-07-25T16:45:02Z"
+  }
+}

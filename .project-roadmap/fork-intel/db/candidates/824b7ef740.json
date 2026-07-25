@@ -1,0 +1,2041 @@
+{
+  "sha": "824b7ef740ca934a5df64665acec03c20bce5623",
+  "fork": "savornicesei/mRemoteNG",
+  "owner": "savornicesei",
+  "subject": "Reorganized files to make it easier to apply MSBuild settings per types of projects (src, tests, docs, other)",
+  "body": "Reorganized files to make it easier to apply MSBuild settings per types of projects (src, tests, docs, other)",
+  "author_name": "Simona Avornicesei",
+  "author_login": "savornicesei",
+  "date": "2023-10-20T16:02:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/824b7ef740ca934a5df64665acec03c20bce5623",
+  "stats": {
+    "files": 300,
+    "additions": 205,
+    "deletions": 27,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".readthedocs.yaml",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "build.ps1",
+      "status": "modified",
+      "additions": 69,
+      "deletions": 19
+    },
+    {
+      "filename": "documentation/mRemoteNG.Docs.csproj",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/_static/css/custom.css",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/add-ons.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/command_line_switches.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/conf.py",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/contact_mail.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/external_tools_cheat_sheet.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/faq.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/folders_and_inheritance.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/howtos/bulk_connections.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/howtos/credvault.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/howtos/cyberark-psm.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/howtos/dynamic_host.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/howtos/external_tools.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/howtos/sshtunnel.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/howtos/vmrdp.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/config_top_bar.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/connections_config.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/connections_main.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/connections_open.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/connections_rightclick_menu.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/connections_status.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/connections_test_item.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/connections_top_bar.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/credssp-error.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/credvault01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/credvault02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/cyberark_pam_connection_setup.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/default_properties.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/ec2instance.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/example_et_start_application_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/example_et_start_application_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/example_et_traceroute_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/example_et_traceroute_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/example_et_traceroute_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/example_et_traceroute_04.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/example_et_traceroute_05.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/external_tools_external_tool_properties_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/external_tools_main_ui_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/external_tools_toolbar_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/external_tools_tools_list_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/external_tools_win-resurces.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/folders_and_inheritance_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/folders_and_inheritance_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/folders_and_inheritance_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/folders_and_inheritance_04.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/folders_and_inheritance_05.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/folders_and_inheritance_06.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/import_export_dialog.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/import_from_active_directory.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/import_from_port_scan.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/menus_hide_menu_strip.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/menus_main_menu.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/mremoteng_favicon_32.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/mremoteng_logo.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/mremoteng_main_ui.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/mremoteng_main_ui_connect_win_server.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/notifications_panel.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/notifications_popup.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/oracle_remediation_setting.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/putty.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/quick_connect_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/quick_connect_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/quick_connect_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/screenshot_manager_overview.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/screenshot_manager_rightclick_menu.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/ssh_file_transfer_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/ssh_tunnel.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/darculaNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/themes.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2012Blue.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2012Dark.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2012Light.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2013Blue.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2013Dark.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2013Light.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2015Blue.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2015Dark.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2015Light.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2015blueNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2015darkNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/themes/vs2015lightNG.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/user_interface_overview.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/user_interface_panels_01.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/user_interface_panels_02.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/images/user_interface_panels_03.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/index.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/keyboard_shortcuts.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/known_issues.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/logo.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/migrate.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/protocols.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/protocols/rdp.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/requirements.txt",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/sql_configuration.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/darculaNG.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2012Blue.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2012Dark.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2012Light.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2013Blue.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2013Dark.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2013Light.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2015Blue.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2015Dark.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2015Light.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2015blueNG.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2015darkNG.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/themes/vs2015lightNG.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/troubleshooting.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/connections.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/default_connection_properties.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/external_tools.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/import_export.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/main_window.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/menu_container.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/notifications.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/options.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/panels.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/port_scan.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/quick_connect.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/screenshot_manager.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "documentation/source/user_interface/ssh_file_transfer.rst",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/CustomActions/CustomAction.config",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/CustomActions/CustomActions.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/CustomActions/CustomActions.csproj",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/CustomActions/InstalledWindowsUpdateChecker.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/CustomActions/KbInstalledChecker.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/CustomActions/Properties/AssemblyInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/CustomActions/UninstallNSISVersions.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/CustomActions/CheckForInstalledWindowsUpdates.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/CustomActions/SaveInstallLocation.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/CustomActions/UninstallLegacyVersions.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/CustomDialogs/My_CustomizeDlg.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/CustomDialogs/My_WixUI_FeatureTree.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Filters/Harvest_Filter.xslt",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Fragments/DirectoriesFragment.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Fragments/FilesFragment.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Fragments/MainExeFragment.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Fragments/MiscTextFilesFragment.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Fragments/PuTTYNGFragment.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Fragments/RegistryEntriesFragment.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Fragments/ShortcutFragment.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Includes/Config.wxi",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Installer.wixproj",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Localizations/en-US.wxl",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Resources/AppIcon.ico",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Resources/Installer_Header.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Resources/Installer_Side.png",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/Resources/License.rtf",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "installer/Installer/mRemoteNG.wxs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.sln",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 7
+    },
+    {
+      "filename": "scripts/dotnet_framework_functions.ps1",
+      "status": "added",
+      "additions": 64,
+      "deletions": 0
+    },
+    {
+      "filename": "scripts/pwsh_functions.ps1",
+      "status": "added",
+      "additions": 44,
+      "deletions": 0
+    },
+    {
+      "filename": "src/Directory.Build.props",
+      "status": "added",
+      "additions": 12,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/AWS/AWSConnectionForm.Designer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/AWS/AWSConnectionForm.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/AWS/AWSConnectionForm.resx",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/AWS/EC2FetchDataService.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/AWS/InstanceInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/DSS/DSS.ico",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/DSS/SSConnectionForm.Designer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/DSS/SSConnectionForm.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/DSS/SSConnectionForm.resx",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/DSS/SecretServerAuthentication.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/DSS/SecretServerInterface.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/DSS/SecretServerRestClient.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/ExternalConnectors.csproj",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/ExternalConnectors/PuttyKeyFileGenerator.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/GlobalSuppressions.cs",
+      "status": "added",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App.config",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/CompatibilityChecker.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Export.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Import.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Info/ConnectionsFileInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Info/CredentialsFileInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Info/GeneralAppInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Info/SettingsFileInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Info/UpdateChannelInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Initialization/ConnectionIconLoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Initialization/CredsAndConsSetup.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Initialization/MessageCollectorSetup.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Initialization/StartupDataLogger.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Logger.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/NativeMethods.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/ProgramRoot.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Runtime.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Screens.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Shutdown.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Startup.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/SupportedCultures.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Update/AppUpdater.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Update/UpdateFile.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Update/UpdateInfo.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/App/Windows.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/ACLPermissions.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/ConfirmCloseEnum.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/ConnectionsBackupFrequencyEnum.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/ConnectionsLoadedEventArgs.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/ConnectionsSavedEventArgs.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/CsvConnectionsSaver.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/IConnectionsLoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/Multiuser/ConnectionsUpdateAvailableEventArgs.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/Multiuser/ConnectionsUpdateCheckFinishedEventArgs.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/Multiuser/IConnectionsUpdateChecker.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/Multiuser/RemoteConnectionsSyncronizer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/Multiuser/SqlConnectionsUpdateChecker.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/SaveConnectionsOnEdit.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/SaveFormat.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/SqlConnectionsLoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/SqlConnectionsSaver.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/XmlConnectionsLoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Connections/XmlConnectionsSaver.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/CredentialHarvester.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/CredentialRecordLoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/CredentialRecordSaver.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/CredentialRepositoryListLoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/CredentialRepositoryListSaver.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DataProviders/FileBackupCreator.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DataProviders/FileBackupPruner.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DataProviders/FileDataProvider.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DataProviders/FileDataProviderWithRollingBackup.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DataProviders/IDataProvider.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DataProviders/InMemoryStringDataProvider.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DataProviders/SqlDataProvider.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DatabaseConnectors/ConnectionTestResult.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DatabaseConnectors/DatabaseConnectionTester.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DatabaseConnectors/DatabaseConnectorFactory.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DatabaseConnectors/IDatabaseConnector.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DatabaseConnectors/MSSqlDatabaseConnector.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/DatabaseConnectors/MySqlDatabaseConnector.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/ILoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/ISaver.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/ActiveDirectoryImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/IConnectionImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/MRemoteNGCsvImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/MRemoteNGXmlImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/PortScanImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/PuttyConnectionManagerImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/RegistryImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/RemoteDesktopConnectionImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/RemoteDesktopConnectionManagerImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Import/RemoteDesktopManagerImporter.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Putty/AbstractPuttySessionsProvider.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Putty/PuttySessionChangedEventArgs.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Putty/PuttySessionsManager.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Putty/PuttySessionsRegistryProvider.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConfConsEnsureConnectionsHaveIds.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsSerializerMremotengFormat.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/RemoteDesktopManager/CsvConnectionsDeserializerRdmFormat.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/RemoteDesktopManager/CsvConnectionsSerializerRdmFormat.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/LocalConnectionPropertiesModel.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/LocalConnectionPropertiesXmlSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/SqlConnectionListMetaData.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/SqlDatabaseMetaDataRetriever.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer26.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer27.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionSerializerFactory.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDocumentCompiler.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDocumentEncryptor.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlExtensions.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlRootNodeSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordDecryptorDecorator.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordEncryptorDecorator.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/IDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ISecureDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ISecureSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/ISerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/MiscSerializers/ActiveDirectoryDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/MiscSerializers/PortScanDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/MiscSerializers/PuttyConnectionManagerDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/MiscSerializers/RemoteDesktopConnectionDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/MiscSerializers/RemoteDesktopConnectionManagerDeserializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/IVersionUpgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlDatabaseVersionVerifier.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion22To23Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion23To24Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion24To25Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion25To26Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion26To27Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion27To28Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion28To29Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/Versioning/SqlVersion29To30Upgrader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Serializers/XmlConnectionsDecryptor.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Settings/DockPanelLayoutLoader.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Settings/DockPanelLayoutSaver.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "src/mRemoteNG/Config/Settings/DockPanelLayoutSerializer.cs",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .readthedocs.yaml\n@@ -7,7 +7,7 @@ version: 2\n \n # Build documentation in the docs/ directory with Sphinx\n sphinx:\n-   configuration: mRemoteNGDocumentation/source/conf.py\n+   configuration: documentation/source/conf.py\n \n # Optionally build your docs in additional formats such as PDF\n formats:\n--- build.ps1\n@@ -17,7 +17,7 @@ Rebuilds the solution. Default is to do a simple build.\n .PARAMETER WithCoverage\n Includes coverage when running tests. Default is false.\n \n-.PARAMETER FailWhenTestsFail\n+.PARAMETER FailBuildWhenTestsFail\n Fail the build if at least one test failed. Default is true.\n \n \n@@ -43,7 +43,10 @@ param(\n     [switch] $Rebuild,\n \n     [Parameter(HelpMessage = 'Includes coverage when running tests')]\n-    [switch] $WithCoverage = $false\n+    [switch] $WithCoverage = $false,\n+\n+    [Parameter(HelpMessage = 'Fail the build if at least one test failed')]\n+    [switch] $FailBuildWhenTestsFail = $false\n )\n \n Set-StrictMode -Version latest\n@@ -80,6 +83,13 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {\n     exit $LASTEXITCODE\n }\n \n+# load first own script related to powershell and powershell modules\n+. \"$(Join-Path $PSScriptRoot 'scripts' 'pwsh_functions.ps1')\"\n+#load additional modules\n+Set-PSModules -Modules jit-semver -AllowPrerelease\n+#load own build-related powershell scripts\n+. \"$(Join-Path $PSScriptRoot 'scripts' 'dotnet_framework_functions.ps1')\"\n+\n #####################################################\n #         initialization: global variables\n #####################################################\n@@ -90,9 +100,14 @@ $IS_CI_GITHUB = $true -eq $env:GITHUB_ACTIONS\n # is CI build, either on Appveyor or on GitHub\n $IS_CI_BUILD = $IS_CI_APPVEYOR -or $IS_CI_GITHUB\n \n-$TOOLS_DIR = Join-Path $BuildRoot \"Tools\"\n-$REPORTS_DIR = Join-Path $BuildRoot \"reports\"\n+$SRC_DIR = Join-Path $BuildRoot 'src'\n+$TESTS_DIR = Join-Path $BuildRoot 'tests'\n+$INSTALLER_DIR = Join-Path $BuildRoot 'installer'\n+$DOCS_DIR = Join-Path $BuildRoot 'documentation'\n+$TOOLS_DIR = Join-Path $BuildRoot 'Tools'\n+$REPORTS_DIR = Join-Path $BuildRoot 'reports'\n \n+$MSBUILD = Get-MsBuild -ToolsDir $TOOLS_DIR\n #MSBuild paralelism\n $parallelism = 3\n #MSBuild verbosity: q[uiet], m[inimal], n[ormal] (default), d[etailed], and diag[nostic]\n@@ -105,8 +120,15 @@ Enter-Build {\n     Write-Build Blue \"\n     is CI build: $IS_CI_BUILD,\n     Build configuration: $BuildConfiguration,\n+\n+    Src directory: $SRC_DIR,\n+    Tests directory: $TESTS_DIR,\n+    Installer directory: $INSTALLER_DIR,\n+    Documentation directory: $DOCS_DIR,\n     Tools directory: $TOOLS_DIR,\n-    Reports directory: $REPORTS_DIR\"\n+    Reports directory: $REPORTS_DIR,\n+    \n+    msbuild.exe path: $MSBUILD\"\n }\n \n #####################################\n@@ -125,11 +147,11 @@ task Init {\n \n     # Make sure reports folder exists\n     if ((Test-Path $BuildRoot) -and !(Test-Path $REPORTS_DIR)) {\n-        Write-Output \"[Init] Creating reports directory...\"\n+        Write-Output '[Init] Creating reports directory...'\n         New-Item -Path $REPORTS_DIR -Type Directory -Force | Out-Null\n     }\n \n-    Write-Output \"[Init] Installing dotnet tools\"\n+    Write-Output '[Init] Installing dotnet tools'\n     exec { & dotnet tool restore }\n }\n \n@@ -144,7 +166,7 @@ task Clean {\n     \n     Write-Output '[Clean] Cleaning reports folder except NDepend one'\n     if (Test-Path $REPORTS_DIR ) {\n-        Write-Output -Message \"[Clean] Cleaning reports directory...\"\n+        Write-Output -Message '[Clean] Cleaning reports directory...'\n         Get-ChildItem -Path $REPORTS_DIR -Exclude NDependOut | Remove-Item -Recurse -Force -ErrorAction Ignore\n     }\n \n@@ -171,13 +193,27 @@ task InstallDeps {\n     Installs mRemoteNG shared dependencies.\n     #>\n     Write-Build Cyan '----------------------------------------------------------------------------------'\n-    Write-Build Cyan '[Build] Starting dependencies installation for mRemoteNG project'\n+    Write-Build Cyan '[InstallDeps] Starting dependencies installation for mRemoteNG project'\n     Write-Build Cyan '----------------------------------------------------------------------------------'\n \n     Write-Output '[InstallDeps] Restore nuget dependencies'\n     exec { & dotnet restore }\n }\n \n+task InstallCert -If ($BuildConfiguration -like 'Release*'){\n+     <#\n+    .SYNOPSIS\n+    Decrypts and installs mRemoteNG signing certificate in Certificate Store if building in Release mode.\n+    #>\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+    Write-Build Cyan '[InstallCert] Starting certificate decrypt and installation for mRemoteNG project'\n+    Write-Build Cyan '----------------------------------------------------------------------------------'\n+\n+    Write-Output '[InstallCert] Decrypt certificate'\n+\n+    Write-Output '[InstallCert] Load certificate in certificate store'\n+}\n+\n task Build {\n     <#\n     .SYNOPSIS \n@@ -187,16 +223,16 @@ task Build {\n     Write-Build Cyan '[Build] Starting the build of mRemoteNG project'\n     Write-Build Cyan '----------------------------------------------------------------------------------'\n \n-    Write-Output \"[Build] Building mRemoteNG\"\n+    Write-Output '[Build] Building mRemoteNG'\n     if($Rebuild){\n-        exec { & dotnet msbuild -t:Rebuild -p:Configuration=$BuildConfiguration -nologo -v:$verbosity -m:$parallelism }\n+        exec { & $MSBUILD -t:Rebuild -p:Configuration=$BuildConfiguration -nologo -v:$verbosity -m:$parallelism }\n     }\n     else {\n-        exec { & dotnet msbuild -t:Build -p:Configuration=$BuildConfiguration -nologo -v:$verbosity -m:$parallelism }\n+        exec { & $MSBUILD -t:Build -p:Configuration=$BuildConfiguration -nologo -v:$verbosity -m:$parallelism }\n     }\n \n     Write-Output \"Build task exit code: $LastExitCode\"\n-    assert($LastExitCode -eq 0) \"Build failed\"\n+    assert($LastExitCode -eq 0) 'Build failed'\n }\n \n task Test {\n@@ -216,9 +252,9 @@ task Test {\n                             --logger:\"console;verbosity=normal\" `\n                             --logger:\"trx;LogFileName=mremoteng.test.trx\" `\n                             --results-directory:$REPORTS_DIR `\n-                            -p:CollectCoverage=true `\n-                            -p:CoverletOutputFormat=\"opencover\" `\n-                            -p:CoverletOutput=$(Join-Path $REPORTS_DIR 'mremoteng.cover.xml') `\n+                            --collect:\"XPlat Code Coverage\" `\n+                            --settings $(Join-Path $BuildRoot 'tests' 'coverlet.runsettings') `\n+                            --verbosity detailed ` #q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic]\n         }\n     }\n     else {\n@@ -232,7 +268,12 @@ task Test {\n     }\n \n     Write-Output \"Test task exit code: $LastExitCode\"\n-    assert($LastExitCode -eq 0) \"At least one test failed\"\n+    if($FailBuildWhenTestsFail){\n+        assert($LastExitCode -eq 0) 'At least one test failed'\n+    }\n+    else{\n+        return 0\n+    }\n }\n \n task CodeQuality {\n@@ -244,7 +285,15 @@ task CodeQuality {\n     Write-Build Cyan '[CodeQuality] Starting the code quality analysis on mRemoteNG project'\n     Write-Build Cyan '----------------------------------------------------------------------------------'\n \n-    Write-Output Orange \"[CodeQuality] Code quality analysis not configured. Nothing to do...\"\n+    Write-Output Orange '[CodeQuality] Code quality analysis for SonarQube'\n+    exec { dotnet reportgenerator `\n+        -reports:$(Join-Path $REPORTS_DIR '**' 'coverage.cobertura.xml') `\n+        -targetdir:$REPORTS_DIR `\n+        -reporttypes:Html;SonarQube `\n+        -sourcedirs:$SRC_DIR `\n+        -title:mRemoteNG `\n+        -tag:1.77.1 `\n+    }\n }\n \n task GenerateDocs {\n@@ -257,7 +306,7 @@ task GenerateDocs {\n     Write-Build Cyan '----------------------------------------------------------------------------------'\n \n     Write-Output '[GenerateDocs] Running sphinx to generate mRemoteNG documentation'\n-    exec { & dotnet build .\\mRemoteNGDocumentation\\mRemoteNG.Docs.csproj --nologo --configuration:Release }\n+    exec { & dotnet build $(Join-Path $DOCS_DIR 'mRemoteNG.Docs.csproj') --nologo --configuration:Release }\n }\n \n task Stage GenerateDocs, {\n@@ -294,6 +343,7 @@ task DeepClean CleanBinObj, Clean\n \n task CleanBuild Clean, Init, Build\n task RunTests Build, Test\n+task RunCodeQuality CleanBuild, Test, CodeQuality\n task CleanPublish Clean, Init, Build, Stage\n \n #region Default Task\n--- documentation/mRemoteNG.Docs.csproj\n(no text diff)\n--- documentation/source/_static/css/custom.css\n(no text diff)\n--- documentation/source/add-ons.rst\n(no text diff)\n--- documentation/source/command_line_switches.rst\n(no text diff)\n--- documentation/source/conf.py\n(no text diff)\n--- documentation/source/contact_mail.rst\n(no text diff)\n--- documentation/source/external_tools_cheat_sheet.rst\n(no text diff)\n--- documentation/source/faq.rst\n(no text diff)\n--- documentation/source/folders_and_inheritance.rst\n(no text diff)\n--- documentation/source/howtos/bulk_connections.rst\n(no text diff)\n--- documentation/source/howtos/credvault.rst\n(no text diff)\n--- documentation/source/howtos/cyberark-psm.rst\n(no text diff)\n--- documentation/source/howtos/dynamic_host.rst\n(no text diff)\n--- documentation/source/howtos/external_tools.rst\n(no text diff)\n--- documentation/source/howtos/sshtunnel.rst\n(no text diff)\n--- documentation/source/howtos/vmrdp.rst\n(no text diff)\n--- documentation/source/images/config_top_bar.png\n(no text diff)\n--- documentation/source/images/connections_config.png\n(no text diff)",
+  "security_flags": [
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "build.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "documentation/mRemoteNG.Docs.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "installer/CustomActions/CustomActions.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/CustomActions/CheckForInstalledWindowsUpdates.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/CustomActions/SaveInstallLocation.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/CustomActions/UninstallLegacyVersions.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/CustomDialogs/My_CustomizeDlg.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/CustomDialogs/My_WixUI_FeatureTree.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/Fragments/DirectoriesFragment.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/Fragments/FilesFragment.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/Fragments/MainExeFragment.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/Fragments/MiscTextFilesFragment.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/Fragments/PuTTYNGFragment.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/Fragments/RegistryEntriesFragment.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/Fragments/ShortcutFragment.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "license",
+      "severity": "medium",
+      "file": "installer/Installer/Resources/License.rtf",
+      "reason": "licence edits change redistribution terms"
+    },
+    {
+      "id": "installer",
+      "severity": "high",
+      "file": "installer/Installer/mRemoteNG.wxs",
+      "reason": "installer content ships signed to end users"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "scripts/dotnet_framework_functions.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "build-script",
+      "severity": "high",
+      "file": "scripts/pwsh_functions.ps1",
+      "reason": "scripts execute on a maintainer machine"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "src/ExternalConnectors/ExternalConnectors.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/App/Info/CredentialsFileInfo.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/CredentialHarvester.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/CredentialRecordLoader.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/CredentialRecordSaver.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/CredentialRepositoryListLoader.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/CredentialRepositoryListSaver.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDocumentEncryptor.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListDeserializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/CredentialProviderSerializer/CredentialRepositoryListSerializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordDecryptorDecorator.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialPasswordEncryptorDecorator.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordDeserializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/CredentialSerializer/XmlCredentialRecordSerializer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "src/mRemoteNG/Config/Serializers/XmlConnectionsDecryptor.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:49Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Reorganizes entire repository structure into nested folders. Highly disruptive, conflicts with our working MSBuild settings/CI, and offers no user-visible benefit.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:43:42Z"
+  }
+}

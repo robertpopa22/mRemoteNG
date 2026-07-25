@@ -1,0 +1,13 @@
+{
+  "sha": "032e5086280d56ba2981a035f38e18128731e394",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "fix: prevent permanent crash loop on invalid SQL Server settings",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-08T23:08:05Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/032e5086280d56ba2981a035f38e18128731e394",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:58Z"
+}

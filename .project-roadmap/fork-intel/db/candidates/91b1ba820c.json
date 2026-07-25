@@ -1,0 +1,42 @@
+{
+  "sha": "91b1ba820cc38aff7283964ff37b1e731004039e",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "fix(rdp): pin connection bar post-mstscax + add after-move/thread diagnostics",
+  "body": "fix(rdp): pin connection bar post-mstscax + add after-move/thread diagnostics\n\nБар по-прежнему возвращался на центр. Изменения:\n- ConnectionBarPinner перехватывает WM_WINDOWPOSCHANGING ПОСЛЕ обработки\n  mstscax (base.WndProc), переопределяя координаты последним.\n- Диагностика дополнена: позиция бара ПОСЛЕ SetWindowPos (afterPos), id\n  потока окна бара vs UI-потока, факт установки pinner.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T16:07:42Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/91b1ba820cc38aff7283964ff37b1e731004039e",
+  "stats": {
+    "files": 1,
+    "additions": 18,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -130,6 +130,9 @@ public class RdpProtocol6 : ProtocolBase, ISupportsViewOnly\n         [DllImport(\"user32.dll\")]\n         private static extern bool IsWindowVisible(IntPtr hWnd);\n \n+        [DllImport(\"kernel32.dll\")]\n+        private static extern uint GetCurrentThreadId();\n+\n         [StructLayout(LayoutKind.Sequential)]\n         private struct NativeRect\n         {\n@@ -977,9 +980,17 @@ private void WriteConnectionBarDiagnostics(string source, Rectangle bounds, IntP\n         {\n             try\n             {\n+                var extra = \"\";\n+                if (found != IntPtr.Zero && GetWindowRect(found, out var afterRect))\n+                {\n+                    var barThread = GetWindowThreadProcessId(found, out _);\n+                    extra = $\", afterPos=({afterRect.Left},{afterRect.Top} {afterRect.Right - afterRect.Left}x{afterRect.Bottom - afterRect.Top})\" +\n+                            $\", barThread={barThread}, uiThread={GetCurrentThreadId()}, pinned={_connectionBarPinner != null}\";\n+                }\n+\n                 var summary =\n                     $\"RDP connection bar diag from {source} for host '{connectionInfo?.Hostname}': \" +\n-                    $\"found={(found != IntPtr.Zero ? FormatHandle(found) : \"NONE\")}, moved={moved}, \" +\n+                    $\"found={(found != IntPtr.Zero ? FormatHandle(found) : \"NONE\")}, moved={moved}{extra}, \" +\n                     $\"screen=({bounds.Left},{bounds.Top} {bounds.Width}x{bounds.Height})\";\n \n                 Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, summary + \"; windows:\\n\" + diag);\n@@ -2726,13 +2737,19 @@ protected override void WndProc(ref System.Windows.Forms.Message m)\n             {\n                 if (m.Msg == WM_WINDOWPOSCHANGING && m.LParam != IntPtr.Zero)\n                 {\n+                    // Сначала даём mstscax обработать (он навязывает свою позицию), затем\n+                    // переопределяем координаты ПОСЛЕ него — наш перехват оказывается последним.\n+                    base.WndProc(ref m);\n+\n                     var wp = Marshal.PtrToStructure<WINDOWPOS>(m.LParam);\n                     if ((wp.flags & SWP_NOMOVE) == 0 && (wp.x != _targetX || wp.y != _targetY))\n                     {\n                         wp.x = _targetX;\n                         wp.y = _targetY;\n                         Marshal.StructureToPtr(wp, m.LParam, false);\n                     }\n+\n+                    return;\n                 }\n \n                 base.WndProc(ref m);",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:16Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Part of guvity's custom passive-RDP RDP connection-bar mover, which does not exist in our codebase and relies on fragile, undocumented Win32 hacks.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:50:43Z"
+  }
+}

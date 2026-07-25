@@ -1,0 +1,13 @@
+{
+  "sha": "81591659681d3f59f3a1b18289d278f1f8503e5e",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "modified some classes to request ConnectionsService as a ctor arg",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-04T17:34:48Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/81591659681d3f59f3a1b18289d278f1f8503e5e",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

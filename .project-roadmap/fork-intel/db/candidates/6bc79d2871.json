@@ -1,0 +1,13 @@
+{
+  "sha": "6bc79d28714cc16eb463267fda578c0356c91ed4",
+  "fork": "BuloZB/mRemoteNG",
+  "owner": "BuloZB",
+  "subject": "change scaling mode  from font to dpi",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2017-03-15T13:43:13Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6bc79d28714cc16eb463267fda578c0356c91ed4",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

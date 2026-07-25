@@ -1,0 +1,13 @@
+{
+  "sha": "a4d14235124910d6a8c0b34664b15187c4a15ec5",
+  "fork": "mm86133/mRemoteNG",
+  "owner": "mm86133",
+  "subject": "Enable path pattern to ignore all Designer.cs files",
+  "author_name": "copilot-swe-agent[bot]",
+  "author_login": "Copilot",
+  "date": "2025-11-03T19:29:55Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a4d14235124910d6a8c0b34664b15187c4a15ec5",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:33Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "f947a715f3f1fb2e9eeaec7ebf6fa8e47efe4666",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Clarify SSH transfer direction and implement Download functionality",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-06-19T23:30:02Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f947a715f3f1fb2e9eeaec7ebf6fa8e47efe4666",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:58Z"
+}

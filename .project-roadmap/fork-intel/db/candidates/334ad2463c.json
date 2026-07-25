@@ -1,0 +1,55 @@
+{
+  "sha": "334ad2463ce02fca43475e26c0352202db298576",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "ci: switch v4 workflow to manual dispatch only (avoid auto-builds during testing)",
+  "body": "ci: switch v4 workflow to manual dispatch only (avoid auto-builds during testing)\n\nОтключён авто-запуск на push — чтобы во время долгого тестирования сборки\nне запускались сами и не накапливали артефакты. Запуск теперь только\nвручную через workflow_dispatch.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T17:12:44Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/334ad2463ce02fca43475e26c0352202db298576",
+  "stats": {
+    "files": 2,
+    "additions": 6,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-1772-v4.yml",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-1772-v4.yml\n@@ -1,10 +1,10 @@\n name: Passive RDP Monitor 1.77.2 v4\n \n+# Запуск ТОЛЬКО вручную (workflow_dispatch): во время тестирования сборки не должны\n+# запускаться автоматически на каждый push и копить артефакты/минуты.\n+# Ручной запуск: gh workflow run passive-rdp-monitor-1772-v4.yml --ref passive-rdp-monitor-1772-v4\n on:\n   workflow_dispatch:\n-  push:\n-    branches:\n-      - passive-rdp-monitor-1772-v4\n \n jobs:\n   build:\n--- HANDOFF.md\n@@ -289,6 +289,9 @@ capture асинхронно) во всех путях reconnect.\n ---\n \n _Журнал изменений HANDOFF:_\n+- _Очистка Actions: все runs/artifacts ветки v4 удалены; workflow переведён на ручной запуск\n+  (`workflow_dispatch`) — авто-сборка на push отключена на время тестирования. Connection bar\n+  (B5) подтверждён рабочим (снятие SWP_NOMOVE). Все стадии завершены._\n - _A1 — создан документ (диагноз + карта + чек-лист)._\n - _A1.1 — уточнена модель VO по чек-листу (fullscreen=работа); добавлен фикс\n   performance-флагов при auto-reconnect (A5); B3 сведён к проверке семантики флагов._",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-1772-v4.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:18Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fork-private CI workflow tweak for their own passive-rdp test branch; file does not exist in our repo, zero relevance.",
+    "agent": "claude",
+    "at": "2026-07-25T16:34:37Z"
+  }
+}

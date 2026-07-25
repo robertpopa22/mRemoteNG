@@ -1,0 +1,49 @@
+{
+  "sha": "d33415860ab7244838c42375e5ee223eb4c86bf9",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Enable build on push",
+  "body": "Enable build on push",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-15T23:01:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d33415860ab7244838c42375e5ee223eb4c86bf9",
+  "stats": {
+    "files": 1,
+    "additions": 3,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-1772-build.yml",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-1772-build.yml\n@@ -2,6 +2,9 @@ name: Build passive RDP monitor 1.77.2\n \n on:\n   workflow_dispatch:\n+  push:\n+    branches:\n+      - passive-rdp-monitor-1772\n \n jobs:\n   build:",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-1772-build.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:19Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "The target workflow and legacy branch do not exist; current main-branch push CI already provides the relevant build coverage.",
+    "agent": "codex",
+    "at": "2026-07-25T18:26:22Z"
+  }
+}

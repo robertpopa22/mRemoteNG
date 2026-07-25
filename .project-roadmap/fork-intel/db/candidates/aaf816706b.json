@@ -1,0 +1,42 @@
+{
+  "sha": "aaf816706b1e744ac64899daf352f490adaf5ee7",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Refactor NotificationPanelMessageWriter to reduce cognitive complexity",
+  "body": "Refactor NotificationPanelMessageWriter to reduce cognitive complexity\n\nExtract EnsureHandleCreated and InvokeOnCorrectThread helper methods\nfrom AddToList to bring cognitive complexity below SonarCloud S3776\nthreshold of 15.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-04-07T11:13:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aaf816706b1e744ac64899daf352f490adaf5ee7",
+  "stats": {
+    "files": 1,
+    "additions": 35,
+    "deletions": 39,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Messages/MessageWriters/NotificationPanelMessageWriter.cs",
+      "status": "modified",
+      "additions": 35,
+      "deletions": 39
+    }
+  ],
+  "patch": "--- mRemoteNG/Messages/MessageWriters/NotificationPanelMessageWriter.cs\n@@ -13,65 +13,61 @@ public class NotificationPanelMessageWriter(ErrorAndInfoWindow messageWindow) :\n \n         public void Write(IMessage message)\n         {\n-            NotificationMessageListViewItem lvItem = new(message);\n+            var lvItem = new NotificationMessageListViewItem(message);\n             AddToList(lvItem);\n         }\n \n         private void AddToList(ListViewItem lvItem)\n         {\n-            if (_messageWindow.lvErrorCollector.IsDisposed)\n+            var lv = _messageWindow.lvErrorCollector;\n+            if (lv.IsDisposed) return;\n+\n+            if (!EnsureHandleCreated())\n                 return;\n \n-            // If handle not yet created, force creation on the UI thread\n-            if (!_messageWindow.lvErrorCollector.IsHandleCreated)\n-            {\n-                if (_messageWindow.InvokeRequired)\n-                {\n-                    try\n-                    {\n-                        _messageWindow.Invoke((MethodInvoker)(() => EnsureHandleAndInsert(lvItem)));\n-                    }\n-                    catch (ObjectDisposedException) { return; }\n-                    catch (InvalidOperationException) { return; }\n-                    return;\n-                }\n+            InvokeOnCorrectThread(() => InsertItem(lvItem));\n+        }\n \n-                // We're on the UI thread — force handle creation\n-                try { _ = _messageWindow.lvErrorCollector.Handle; }\n-                catch (ObjectDisposedException) { return; }\n-            }\n+        private bool EnsureHandleCreated()\n+        {\n+            var lv = _messageWindow.lvErrorCollector;\n+            if (lv.IsHandleCreated) return true;\n \n-            if (_messageWindow.lvErrorCollector.InvokeRequired)\n-            {\n-                try\n-                {\n-                    _messageWindow.lvErrorCollector.Invoke((MethodInvoker)(() => InsertItem(lvItem)));\n-                }\n-                catch (System.ComponentModel.InvalidAsynchronousStateException) { return; }\n-                catch (ObjectDisposedException) { return; }\n-                catch (InvalidOperationException) { return; }\n-            }\n-            else\n+            // Handle must be created on the UI thread\n+            try\n             {\n-                InsertItem(lvItem);\n+                if (_messageWindow.InvokeRequired)\n+                    _messageWindow.Invoke((MethodInvoker)(() => { _ = lv.Handle; }));\n+                else\n+                    _ = lv.Handle;\n+                return true;\n             }\n+            catch (ObjectDisposedException) { return false; }\n+            catch (InvalidOperationException) { return false; }\n         }\n \n-        private void EnsureHandleAndInsert(ListViewItem lvItem)\n+        private void InvokeOnCorrectThread(Action action)\n         {\n-            if (_messageWindow.lvErrorCollector.IsDisposed) return;\n-            if (!_messageWindow.lvErrorCollector.IsHandleCreated)\n+            var lv = _messageWindow.lvErrorCollector;\n+            if (lv.IsDisposed) return;\n+\n+            try\n             {\n-                try { _ = _messageWindow.lvErrorCollector.Handle; }\n-                catch (ObjectDisposedException) { return; }\n+                if (lv.InvokeRequired)\n+                    lv.Invoke((MethodInvoker)(() => action()));\n+                else\n+                    action();\n             }\n-            InsertItem(lvItem);\n+            catch (ObjectDisposedException) { }\n+            catch (InvalidOperationException) { }\n+            catch (System.ComponentModel.InvalidAsynchronousStateException) { }\n         }\n \n         private void InsertItem(ListViewItem lvItem)\n         {\n-            if (_messageWindow.lvErrorCollector.IsDisposed) return;\n-            _messageWindow.lvErrorCollector.Items.Insert(0, lvItem);\n+            var lv = _messageWindow.lvErrorCollector;\n+            if (lv.IsDisposed) return;\n+            lv.Items.Insert(0, lvItem);\n             _messageWindow.pbError.Visible = true;\n         }\n     }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:38Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Cosmetic cognitive-complexity refactor of OUR defensive handle-creation code (fork copied it). No behavior gain; subtly widens exception swallowing. Churn on crash-sensitive path not worth it.",
+    "agent": "claude",
+    "at": "2026-07-25T16:41:20Z"
+  }
+}

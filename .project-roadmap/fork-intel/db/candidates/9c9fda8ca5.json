@@ -1,0 +1,91 @@
+{
+  "sha": "9c9fda8ca5437cbea18c2868f5d0f7b045826027",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "chore: resolve nullable warnings in mRemoteNGSpecs",
+  "body": "chore: resolve nullable warnings in mRemoteNGSpecs\n\nAnnotate fields/properties set outside the constructor and tighten\nnullable return/local types so the new E2E project builds clean\n(0 warnings). All 22 E2E tests still pass.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-05-20T14:37:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c9fda8ca5437cbea18c2868f5d0f7b045826027",
+  "stats": {
+    "files": 7,
+    "additions": 7,
+    "deletions": 7,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGSpecs/Playwright/XtermPageBuilder.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGSpecs/Playwright/XtermTerminalTests.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGSpecs/StepDefinitions/CredentialRepositoryListSteps.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGSpecs/StepDefinitions/CredentialRepositorySteps.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGSpecs/StepDefinitions/SftpFileOperationsSteps.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGSpecs/Support/SftpServerFixture.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGSpecs/Support/SftpWorld.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNGSpecs/Playwright/XtermPageBuilder.cs\n@@ -63,7 +63,7 @@ private static string ReadResource(string fileName)\n         {\n             // Preferred: the resources embedded in the shipping mRemoteNG assembly.\n             var assembly = typeof(SshTerminalBase).Assembly;\n-            string manifestName = assembly.GetManifestResourceNames().FirstOrDefault(n =>\n+            string? manifestName = assembly.GetManifestResourceNames().FirstOrDefault(n =>\n                 n.EndsWith(fileName, StringComparison.OrdinalIgnoreCase) ||\n                 n.EndsWith(fileName.Replace('-', '_'), StringComparison.OrdinalIgnoreCase));\n \n--- mRemoteNGSpecs/Playwright/XtermTerminalTests.cs\n@@ -203,7 +203,7 @@ private async Task<IReadOnlyList<JsonElement>> SentMessagesAsync()\n             return raw.Select(s => JsonDocument.Parse(s).RootElement).ToList();\n         }\n \n-        private static string TypeOf(JsonElement message) =>\n+        private static string? TypeOf(JsonElement message) =>\n             message.TryGetProperty(\"type\", out var t) ? t.GetString() : null;\n \n         private static (int R, int G, int B) ParseRgb(string cssColor)\n--- mRemoteNGSpecs/StepDefinitions/CredentialRepositoryListSteps.cs\n@@ -9,7 +9,7 @@ namespace mRemoteNGSpecs.StepDefinitions\n     [Binding]\n     public class CredentialRepositoryListSteps\n     {\n-        private CredentialRepositoryList _credentialRepositoryList;\n+        private CredentialRepositoryList _credentialRepositoryList = null!;\n         private readonly XmlCredentialRepoBuilder _credentialRepoUtilities = new();\n \n         [Given(@\"I have a credential repository list\")]\n--- mRemoteNGSpecs/StepDefinitions/CredentialRepositorySteps.cs\n@@ -10,7 +10,7 @@ namespace mRemoteNGSpecs.StepDefinitions\n     [Binding]\n     public class CredentialRepositorySteps\n     {\n-        private ICredentialRepository _credentialRepository;\n+        private ICredentialRepository _credentialRepository = null!;\n         private readonly SecureString _key = \"somePassword\".ConvertToSecureString();\n \n         [Given(@\"I have a credential repository\")]\n--- mRemoteNGSpecs/StepDefinitions/SftpFileOperationsSteps.cs\n@@ -16,7 +16,7 @@ namespace mRemoteNGSpecs.StepDefinitions\n     public class SftpFileOperationsSteps\n     {\n         private readonly SftpWorld _world;\n-        private string _stagedLocalFile;\n+        private string _stagedLocalFile = null!;\n \n         public SftpFileOperationsSteps(SftpWorld world) => _world = world;\n \n--- mRemoteNGSpecs/Support/SftpServerFixture.cs\n@@ -63,7 +63,7 @@ private static bool DockerIsAvailable()\n         private static void WaitUntilSftpAccepts(TimeSpan timeout)\n         {\n             var deadline = DateTime.UtcNow + timeout;\n-            Exception last = null;\n+            Exception? last = null;\n \n             while (DateTime.UtcNow < deadline)\n             {\n--- mRemoteNGSpecs/Support/SftpWorld.cs\n@@ -21,7 +21,7 @@ public sealed class SftpWorld : IDisposable\n                 .FullName;\n \n         public List<SftpFileItem> LastListing { get; set; } = new();\n-        public string LastDownloadedFile { get; set; }\n+        public string LastDownloadedFile { get; set; } = null!;\n \n         public void Dispose()\n         {",
+  "security_flags": [
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNGSpecs/StepDefinitions/CredentialRepositoryListSteps.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNGSpecs/StepDefinitions/CredentialRepositorySteps.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:46Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 2,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Five touched test files do not exist; global CS8618 suppression already covers the two surviving field warnings. This adds no runtime or test behavior.",
+    "agent": "codex",
+    "at": "2026-07-25T18:08:03Z"
+  }
+}

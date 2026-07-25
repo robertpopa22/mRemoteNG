@@ -1,0 +1,13 @@
+{
+  "sha": "569cf38f24a4420b185c6ddf6e2ced8c735fcd99",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed a cred harvester test",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-14T13:35:13Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/569cf38f24a4420b185c6ddf6e2ced8c735fcd99",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

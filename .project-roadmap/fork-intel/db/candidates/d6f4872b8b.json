@@ -1,0 +1,69 @@
+{
+  "sha": "d6f4872b8bd1a73e4f293a78243ed424b7347e3e",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "标签右键中增加关闭菜单",
+  "body": "标签右键中增加关闭菜单",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-08-17T06:17:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d6f4872b8bd1a73e4f293a78243ed424b7347e3e",
+  "stats": {
+    "files": 1,
+    "additions": 29,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Panels/PanelAdder.cs",
+      "status": "modified",
+      "additions": 29,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Panels/PanelAdder.cs\n@@ -62,7 +62,9 @@ private static void BuildConnectionWindowContextMenu(DockContent pnlcForm)\n             var cMen = new ContextMenuStrip();\n             var cMenRen = CreateRenameMenuItem(pnlcForm);\n             var cMenScreens = CreateScreensMenuItem(pnlcForm);\n-            cMen.Items.AddRange(new ToolStripItem[] { cMenRen, cMenScreens });\n+            //CBH 标签右键中增加关闭菜单\n+            var cMenClose = CreateCloseMenuItem(pnlcForm);\n+            cMen.Items.AddRange(new ToolStripItem[] { cMenRen, cMenScreens, cMenClose });\n             pnlcForm.TabPageContextMenuStrip = cMen;\n         }\n \n@@ -164,5 +166,31 @@ private static void cMenConnectionPanelScreen_Click(object sender, EventArgs e)\n                 Runtime.MessageCollector.AddExceptionStackTrace(\"cMenConnectionPanelScreen_Click: Caught Exception: \", ex);\n             }\n         }\n+\n+        private static ToolStripMenuItem CreateCloseMenuItem(DockContent pnlcForm)\n+        {\n+            var cMenClose = new ToolStripMenuItem\n+            {\n+                Text = Language.strClose,\n+                Image = Resources.Delete,\n+                Tag = pnlcForm\n+            };\n+            cMenClose.Click += cMenConnectionPanelClose_Click;\n+            return cMenClose;\n+        }\n+\n+        private static void cMenConnectionPanelClose_Click(object sender, EventArgs e)\n+        {\n+            try\n+            {\n+                ((ConnectionWindow)((ToolStripMenuItem)sender).Tag).Close();\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddExceptionStackTrace(\"cMenConnectionPanelClose_Click: Caught Exception: \", ex);\n+                //Runtime.MessageCollector.AddExceptionStackTrace(\"cMenConnectionPanelClose_Click: Caught Exception: \", ex, MessageClass.ErrorMsg, true);\n+            }\n+        }\n+\n     }\n }\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:27Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REIMPLEMENT",
+    "rationale": "Adds Close item to panel-tab context menu; minor UX win. Old mRemoteV1 paths, trivial to redo in our PanelAdder if wanted.",
+    "agent": "claude",
+    "at": "2026-07-25T16:43:40Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "The feature already exists in current PanelAdder.cs with safer type checks and current resources.",
+        "reason": "Importing this stale duplicate adds no capability and risks conflicts or regressions against the maintained implementation already present.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "May already exist here; Close() may skip proper disconnect/cleanup.",
+        "reason": "Small useful tab UX, but verify duplication and correct ConnectionWindow close semantics first.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Importing this stale duplicate adds no capability and risks conflicts or regressions against the maintained implementation already present.",
+      "grok: NEEDS_HUMAN - Small useful tab UX, but verify duplication and correct ConnectionWindow close semantics first."
+    ],
+    "at": "2026-07-25T23:35:14Z"
+  }
+}

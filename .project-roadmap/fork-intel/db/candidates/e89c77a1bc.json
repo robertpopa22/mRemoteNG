@@ -1,0 +1,13 @@
+{
+  "sha": "e89c77a1bc27a49d777637cea983a62379b4c80c",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "fixed mis-merge",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-09T16:26:40Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e89c77a1bc27a49d777637cea983a62379b4c80c",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

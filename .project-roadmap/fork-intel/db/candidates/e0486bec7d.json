@@ -1,0 +1,13 @@
+{
+  "sha": "e0486bec7df8daa2c519d83cff7b53fe2f026228",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "simplified some of the credential management classes",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T17:45:03Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e0486bec7df8daa2c519d83cff7b53fe2f026228",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

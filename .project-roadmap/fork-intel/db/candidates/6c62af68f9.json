@@ -1,0 +1,54 @@
+{
+  "sha": "6c62af68f96d9a8c455a815ae177a9d6eb8e47ec",
+  "fork": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "subject": "feat(phase-2+4): PortScannerViewModel, PortScanner codebehind, Snap packaging",
+  "body": "feat(phase-2+4): PortScannerViewModel, PortScanner codebehind, Snap packaging\n\n- PortScannerViewModel: async TCP scan with 50-worker semaphore, known-service\n  name lookup, start/stop commands, ObservableCollection<PortScanResult>\n- PortScannerDialog.axaml.cs: codebehind for port scanner dialog\n- packaging/linux/snap/snapcraft.yaml: Snap manifest (core24, strict confinement)\n  with network/home/Wayland/X11/audio plugs; dotnet plugin build\n\nhttps://claude.ai/code/session_011wf1rnTGf2hrsHvAeV4PsL",
+  "author_name": "Claude",
+  "author_login": "claude",
+  "date": "2026-03-10T13:52:56Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6c62af68f96d9a8c455a815ae177a9d6eb8e47ec",
+  "stats": {
+    "files": 3,
+    "additions": 193,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/PortScannerViewModel.cs",
+      "status": "added",
+      "additions": 108,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/Dialogs/PortScannerDialog.axaml.cs",
+      "status": "added",
+      "additions": 13,
+      "deletions": 0
+    },
+    {
+      "filename": "packaging/linux/snap/snapcraft.yaml",
+      "status": "added",
+      "additions": 72,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG.Avalonia/ViewModels/PortScannerViewModel.cs\n@@ -0,0 +1,108 @@\n+using System;\n+using System.Collections.Generic;\n+using System.Collections.ObjectModel;\n+using System.Net.Sockets;\n+using System.Threading;\n+using System.Threading.Tasks;\n+using ReactiveUI;\n+using System.Reactive;\n+\n+namespace mRemoteNG.Avalonia.ViewModels;\n+\n+public class PortScanResult : ReactiveObject\n+{\n+    public int Port { get; init; }\n+    public string Status { get; init; } = string.Empty;\n+    public string Service { get; init; } = string.Empty;\n+    public long LatencyMs { get; init; }\n+}\n+\n+public class PortScannerViewModel : ReactiveObject\n+{\n+    private string _targetHost = string.Empty;\n+    private int _portFrom = 1, _portTo = 1024, _timeoutMs = 500;\n+    private double _scanProgress;\n+    private string _statusText = \"Ready\";\n+    private bool _isScanning;\n+    private CancellationTokenSource? _cts;\n+\n+    public string TargetHost { get => _targetHost; set => this.RaiseAndSetIfChanged(ref _targetHost, value); }\n+    public int PortFrom { get => _portFrom; set => this.RaiseAndSetIfChanged(ref _portFrom, value); }\n+    public int PortTo { get => _portTo; set => this.RaiseAndSetIfChanged(ref _portTo, value); }\n+    public int TimeoutMs { get => _timeoutMs; set => this.RaiseAndSetIfChanged(ref _timeoutMs, value); }\n+    public double ScanProgress { get => _scanProgress; set => this.RaiseAndSetIfChanged(ref _scanProgress, value); }\n+    public string StatusText { get => _statusText; set => this.RaiseAndSetIfChanged(ref _statusText, value); }\n+    public bool IsScanning { get => _isScanning; set => this.RaiseAndSetIfChanged(ref _isScanning, value); }\n+\n+    public ObservableCollection<PortScanResult> Results { get; } = new();\n+\n+    public ReactiveCommand<Unit, Unit> StartCommand { get; }\n+    public ReactiveCommand<Unit, Unit> StopCommand { get; }\n+\n+    public PortScannerViewModel()\n+    {\n+        var canStart = this.WhenAnyValue(x => x.IsScanning, x => x.TargetHost,\n+            (scanning, host) => !scanning && !string.IsNullOrWhiteSpace(host));\n+        var canStop = this.WhenAnyValue(x => x.IsScanning);\n+\n+        StartCommand = ReactiveCommand.CreateFromTask(StartScanAsync, canStart);\n+        StopCommand = ReactiveCommand.Create(() => _cts?.Cancel(), canStop);\n+    }\n+\n+    private async Task StartScanAsync()\n+    {\n+        Results.Clear();\n+        IsScanning = true;\n+        _cts = new CancellationTokenSource();\n+        var total = PortTo - PortFrom + 1;\n+        var done = 0;\n+\n+        try\n+        {\n+            var semaphore = new SemaphoreSlim(50, 50);\n+            var tasks = new List<Task>();\n+            for (var port = PortFrom; port <= PortTo; port++)\n+            {\n+                var p = port;\n+                await semaphore.WaitAsync(_cts.Token);\n+                tasks.Add(Task.Run(async () =>\n+                {\n+                    try\n+                    {\n+                        var sw = System.Diagnostics.Stopwatch.StartNew();\n+                        using var tcp = new TcpClient();\n+                        var connectTask = tcp.ConnectAsync(TargetHost, p);\n+                        var timeoutTask = Task.Delay(TimeoutMs, _cts.Token);\n+                        var winner = await Task.WhenAny(connectTask, timeoutTask);\n+                        sw.Stop();\n+                        var status = winner == connectTask && !connectTask.IsFaulted ? \"Open\" : \"Closed\";\n+                        if (status == \"Open\")\n+                        {\n+                            Avalonia.Threading.Dispatcher.UIThread.Post(() =>\n+                                Results.Add(new PortScanResult { Port = p, Status = status, Service = GetServiceName(p), LatencyMs = sw.ElapsedMilliseconds }));\n+                        }\n+                    }\n+                    finally\n+                    {\n+                        semaphore.Release();\n+                        var d = Interlocked.Increment(ref done);\n+                        ScanProgress = (double)d / total * 100;\n+                        StatusText = $\"Scanning... {d}/{total}\";\n+                    }\n+                }, _cts.Token));\n+            }\n+            await Task.WhenAll(tasks);\n+            StatusText = $\"Done. Found {Results.Count} open ports.\";\n+        }\n+        catch (OperationCanceledException) { StatusText = \"Stopped.\"; }\n+        finally { IsScanning = false; }\n+    }\n+\n+    private static string GetServiceName(int port) => port switch\n+    {\n+        21 => \"FTP\", 22 => \"SSH\", 23 => \"Telnet\", 25 => \"SMTP\", 53 => \"DNS\",\n+        80 => \"HTTP\", 110 => \"POP3\", 143 => \"IMAP\", 443 => \"HTTPS\", 445 => \"SMB\",\n+        3306 => \"MySQL\", 3389 => \"RDP\", 5432 => \"PostgreSQL\", 5900 => \"VNC\",\n+        8080 => \"HTTP-Alt\", 8443 => \"HTTPS-Alt\", _ => string.Empty\n+    };\n+}\n--- mRemoteNG.Avalonia/Views/Dialogs/PortScannerDialog.axaml.cs\n@@ -0,0 +1,13 @@\n+using Avalonia.Controls;\n+using mRemoteNG.Avalonia.ViewModels;\n+\n+namespace mRemoteNG.Avalonia.Views.Dialogs;\n+\n+public partial class PortScannerDialog : Window\n+{\n+    public PortScannerDialog(PortScannerViewModel? viewModel = null)\n+    {\n+        InitializeComponent();\n+        DataContext = viewModel ?? new PortScannerViewModel();\n+    }\n+}\n--- packaging/linux/snap/snapcraft.yaml\n@@ -0,0 +1,72 @@\n+name: mremoteng\n+base: core24\n+version: '1.77'\n+summary: Multi-protocol remote connections manager\n+description: |\n+  mRemoteNG is an open-source, tabbed, multi-protocol remote connections manager.\n+  Supports RDP, VNC, SSH, Telnet, HTTP/S, rlogin, Serial and more.\n+  Cross-platform on Windows, Linux (X11/Wayland) and macOS.\n+\n+grade: stable\n+confinement: strict\n+\n+apps:\n+  mremoteng:\n+    command: bin/mRemoteNG\n+    desktop: usr/share/applications/mremoteng.desktop\n+    extensions: [gnome]\n+    plugs:\n+      - network\n+      - network-bind\n+      - home\n+      - removable-media\n+      - desktop\n+      - desktop-legacy\n+      - wayland\n+      - x11\n+      - opengl\n+      - audio-playback\n+      - unity7\n+      - gsettings\n+    slots:\n+      - dbus-mremoteng\n+\n+slots:\n+  dbus-mremoteng:\n+    interface: dbus\n+    bus: session\n+    name: org.mremoteng.mRemoteNG\n+\n+parts:\n+  mremoteng:\n+    plugin: dotnet\n+    source: .\n+    dotnet-build-configuration: Release\n+    dotnet-self-contained: true\n+    dotnet-project: mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj\n+    build-packages:\n+      - dotnet-sdk-10\n+    stage-packages:\n+      - libglib2.0-0\n+      - libgtk-3-0\n+      - libxext6\n+      - libxrandr2\n+      - libfreerdp3\n+      - xclip\n+      - libnotify-bin\n+    organize:\n+      mRemoteNG.Avalonia: bin/mRemoteNG\n+    override-build: |\n+      craftctl default\n+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/applications\n+      cat > $SNAPCRAFT_PART_INSTALL/usr/share/applications/mremoteng.desktop << 'EOF'\n+      [Desktop Entry]\n+      Name=mRemoteNG\n+      Exec=mremoteng\n+      Icon=${SNAP}/usr/share/icons/hicolor/256x256/apps/mremoteng.png\n+      Type=Application\n+      Categories=Network;RemoteAccess;\n+      Keywords=rdp;vnc;ssh;remote;connections;\n+      EOF\n+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps\n+      cp packaging/linux/mremoteng.png $SNAPCRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ 2>/dev/null || true",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:38Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Targets Avalonia UI and Linux packaging (Snap), which are completely out-of-scope and incompatible with our WinForms/.NET 10 architecture.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:40:44Z"
+  }
+}

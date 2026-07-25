@@ -1,0 +1,42 @@
+{
+  "sha": "a09c5e94166012e249497d0befc3010a1f65e7ef",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "docs: C1 build succeeded on GitHub Actions (portable zip artifact ready)",
+  "body": "docs: C1 build succeeded on GitHub Actions (portable zip artifact ready)\n\nСборка v4 (run 27623988981) завершилась успешно: только warnings, ошибок\nкомпиляции нет. Изменения A2-B5 компилируются. Artifact\nmRemoteNG-passive-rdp-1772-v4-win-x64 (~9.8 MB) доступен. Все стадии A1-C1\nзавершены. Осталась рантайм-проверка на реальных RDP-сессиях.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T14:19:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a09c5e94166012e249497d0befc3010a1f65e7ef",
+  "stats": {
+    "files": 1,
+    "additions": 9,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -233,13 +233,17 @@ capture асинхронно) во всех путях reconnect.\n \n ### Фаза C — сборка и проверка\n - [x] **C0** — Установлен .NET 6 SDK 6.0.428 (winget `Microsoft.DotNet.SDK.6`).\n-- [~] **C1** — Сборка. ⚠️ ОТКРЫТИЕ: `dotnet build` НЕ работает — проект использует COM\n+- [x] **C1** — Сборка ✅. ⚠️ ОТКРЫТИЕ: `dotnet build` НЕ работает — проект использует COM\n   reference (mstscax/MSTSCLib), а MSBuild .NET Core не поддерживает `ResolveComReference`\n   (error MSB4803). Нужен **MSBuild .NET Framework** (VS Build Tools 2022, как в CI:\n   `microsoft/setup-msbuild`). .NET 6 SDK установлен (6.0.428), но его недостаточно. Сборка\n   упала на resolve COM **до** компиляции C# — изменения A2–B5 компилятором ещё НЕ проверены.\n   **Выбрано (B): GitHub Actions** — добавлен workflow `passive-rdp-monitor-1772-v4.yml`\n-  (триггер push в v4; msbuild Release Portable x64), ветка v4 запушена в origin для сборки.\n+  (триггер push в v4; msbuild Release Portable x64), ветка v4 запушена в origin.\n+  ✅ **Сборка успешна** (run 27623988981, conclusion=success): только warnings, ошибок\n+  компиляции нет — изменения A2–B5 компилируются. Artifact `mRemoteNG-passive-rdp-1772-v4-win-x64`\n+  (~9.8 МБ portable zip) доступен в GitHub Actions. Осталась рантайм-проверка на реальных\n+  RDP-сессиях (reconnect-мышь, позиция connection bar — эвристика класса окна).\n \n ---\n \n@@ -300,3 +304,6 @@ _Журнал изменений HANDOFF:_\n - _B4 — Ctrl+Tab/Ctrl+Shift+Tab через frmMain.ProcessCmdKey + ConnectionWindow.SwitchActiveTab._\n - _B5 — connection bar двигается в правый верхний угол (StartConnectionBarMover, OPWindowClass,\n   SWP_NOSIZE). Класс окна — эвристика, подтвердить на runtime. **Фаза B готова.**_\n+- _C0 — установлен .NET 6 SDK 6.0.428. C1 — `dotnet build` не подошёл (COM reference), сборка\n+  переведена на GitHub Actions (msbuild). Сборка v4 успешна (run 27623988981), portable zip\n+  artifact готов. **Все стадии A1–C1 завершены (код компилируется).**_",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:12Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fork-internal HANDOFF.md progress journal (Russian, fork-specific CI run notes). Zero relevance to our fork.",
+    "agent": "claude",
+    "at": "2026-07-25T16:40:54Z"
+  }
+}

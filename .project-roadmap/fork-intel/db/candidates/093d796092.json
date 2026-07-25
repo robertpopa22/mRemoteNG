@@ -1,0 +1,13 @@
+{
+  "sha": "093d796092a6b86c6a30d4a50aa36d6f94ac2264",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Fix potential ObjectDisposedException in ConnectionWindow and ConfigWindow",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-22T23:29:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/093d796092a6b86c6a30d4a50aa36d6f94ac2264",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:58Z"
+}

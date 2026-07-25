@@ -1,0 +1,13 @@
+{
+  "sha": "0caba7d04d54b92de54b317c44ba6e84a85e94bb",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Update ProtocolFactory.cs",
+  "author_name": "Aaron Zauner",
+  "author_login": "azet",
+  "date": "2020-03-11T16:23:36Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0caba7d04d54b92de54b317c44ba6e84a85e94bb",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T16:28:19Z"
+}

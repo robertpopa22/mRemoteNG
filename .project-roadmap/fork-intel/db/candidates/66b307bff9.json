@@ -1,0 +1,13 @@
+{
+  "sha": "66b307bff9bf8f6aec28a5f43a5b04e3155757e9",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "rdp protocol now no longer uses static frmmain ref",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-21T01:06:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/66b307bff9bf8f6aec28a5f43a5b04e3155757e9",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "e13824b818c76d9c18135663c91ed8b9cb2480f9",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "add credits",
+  "body": "add credits",
+  "author_name": "Aaron Zauner",
+  "author_login": "azet",
+  "date": "2020-03-11T16:26:40Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e13824b818c76d9c18135663c91ed8b9cb2480f9",
+  "stats": {
+    "files": 1,
+    "additions": 2,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "CREDITS.md",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- CREDITS.md\n@@ -27,6 +27,7 @@ Aleksey Reytsman (http://github.com/areytsman)\n Cristian Abelleira (http://github.com/CrAbelleira)  \n http://github.com/MitchellBot\n Filippo Ferrazini (http://github.com/Filippo125)\n+Aaron Zauner (https://github.com/azet)\n \n ## Past Contributors\n Felix Deimel - mRemote original developer  \n@@ -147,4 +148,4 @@ https://github.com/lunet-io/markdig\n ConsoleControl\n Copyright © 2015 Dave Kerr\n MIT License\n-https://github.com/dwmkerr/consolecontrol\n\\ No newline at end of file\n+https://github.com/dwmkerr/consolecontrol",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:20Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "REJECT",
+    "rationale": "Fork author adds own name to CREDITS.md; not a contributor to our fork.",
+    "agent": "claude",
+    "at": "2026-07-25T16:44:04Z"
+  }
+}

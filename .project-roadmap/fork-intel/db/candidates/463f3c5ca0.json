@@ -1,0 +1,61 @@
+{
+  "sha": "463f3c5ca07a58099e5077ae4024dfdc31862d7e",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "修复缺失的资源，现可正常编译并打开设置页面",
+  "body": "修复缺失的资源，现可正常编译并打开设置页面",
+  "author_name": "Hovn",
+  "author_login": null,
+  "date": "2024-12-24T09:19:38Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/463f3c5ca07a58099e5077ae4024dfdc31862d7e",
+  "stats": {
+    "files": 2,
+    "additions": 27,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/UI/Forms/OptionsPages/CredentialsPage.Designer.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/UI/Forms/OptionsPages/CredentialsPage.resx",
+      "status": "modified",
+      "additions": 25,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteV1/UI/Forms/OptionsPages/CredentialsPage.Designer.cs\n@@ -28,6 +28,7 @@ protected override void Dispose(bool disposing)\n         /// </summary>\n         private void InitializeComponent()\n         {\n+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CredentialsPage));\n             this.pnlDefaultCredentials = new System.Windows.Forms.Panel();\n             this.chkUseAdmPwd = new mRemoteNG.UI.Controls.Base.NGCheckBox();\n             this.radCredentialsCustom = new mRemoteNG.UI.Controls.Base.NGRadioButton();\n@@ -183,6 +184,7 @@ private void InitializeComponent()\n             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;\n             this.Controls.Add(this.pnlDefaultCredentials);\n             this.Name = \"CredentialsPage\";\n+            this.PageIcon = ((System.Drawing.Icon)(resources.GetObject(\"$this.PageIcon\")));\n             this.Size = new System.Drawing.Size(610, 489);\n             this.pnlDefaultCredentials.ResumeLayout(false);\n             this.pnlDefaultCredentials.PerformLayout();\n--- mRemoteV1/UI/Forms/OptionsPages/CredentialsPage.resx\n@@ -117,4 +117,29 @@\n   <resheader name=\"writer\">\n     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>\n   </resheader>\n+  <assembly alias=\"System.Drawing\" name=\"System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\" />\n+  <data name=\"$this.PageIcon\" type=\"System.Drawing.Icon, System.Drawing\" mimetype=\"application/x-microsoft.net.object.bytearray.base64\">\n+    <value>\n+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA\n+        AAA+ncp7NpbR5TOQzOsyi8vtO5XCh////wH///8B////Af///wH///8B////Af///wH///8B////Af//\n+        /wH///8BQqzhzcTr9/9/4fb/n+b3/zKKye86kLqR////Af///wH///8B////Af///wH///8B////Af//\n+        /wH///8B////AUSw4//G9Pv/Q9bx/0jb9f+C4fX/MYjI8TmNt5n///8B////Af///wH///8B////Af//\n+        /wH///8B////Af///wFEsOPzu+/6/znR8f8oxe7/Ttz2/4Xi9/8yi8rvOYu1m////wH///8B////Af//\n+        /wH///8B////Af///wH///8BRLDj//D8/v+w7vr/Q9j0/yjI7v9B1/T/ieL3/zKLy+04iLKj////Af//\n+        /wH///8B////Af///wH///8B////AUSw45dEsOP/RLDj/6vq+f9O2PP/K8nv/z3W8/+K4ff/MorK7zOD\n+        uN0pfdb/LIXY/zaOwcv///8B////Af///wH///8B////AUSw4//x/P7/u/H7/3vk9v8o0vD/N9T1/4Pg\n+        9v8+qeP/oPP8/6n1/P8rgtf/NYu/z////wH///8B////Af///wFEsOOXRLDj/0Wy4/92xer/rO76/znW\n+        8v9N2/X/ZeT3/zzO8v8yye//he/7/yuB1/81iLvV////Af///wH///8B////Af///wFEsOMDRLDjl2/E\n+        6v+A5ff/PdHx/13b9f9p3/b/UNfz/zTN7/+F7/v/KX/W/zSGutn///8B////Af///wH///8B////AUSw\n+        4//V9/z/ief4/37k9/9+5Pf/fuT3/4Ll9/9H1vL/OM7w/671/P8pfNb/////Af///wH///8B////Af//\n+        /wFEsOP/vvL7/37k9/9+5Pf/geX3/5Tp+P+88fv/i9rz/0nd9f/B+P3/MJDa/////wH///8B////Af//\n+        /wH///8BRLDj/974/P+N5/j/fuT3/5Tp+P+86fj/RLDj/0Ks4//u/P7/Mpjd/zmVyL////8B////Af//\n+        /wH///8B////AUSw45dEsOP/zvX8/43n+P+h7Pn/RLDj/0Sw4///////OaHf/zmVyL////8B////Af//\n+        /wH///8B////Af///wH///8BRLDjl0Sw4//O9fz/nuv5/77y+//+////RLDj/0Kr353///8B////Af//\n+        /wH///8B////Af///wH///8B////Af///wFEsOOXRLDj/974/P/e+Pz/RLDj/0Sw45f///8B////Af//\n+        /wH///8B////Af///wH///8B////Af///wH///8B////AUSw45dEsOP/RLDj/0Sw45f///8B////Af//\n+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA\n+        //8AAP//AAD//w==\n+    </value>\n+  </data>\n </root>\n\\ No newline at end of file",
+  "security_flags": [
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteV1/UI/Forms/OptionsPages/CredentialsPage.Designer.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteV1/UI/Forms/OptionsPages/CredentialsPage.resx",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:29:23Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Ancient mRemoteV1 path; CredentialsPage options page with PageIcon resx doesn't exist in our modernized .NET 10 tree. Not applicable.",
+    "agent": "claude",
+    "at": "2026-07-25T16:35:45Z"
+  }
+}

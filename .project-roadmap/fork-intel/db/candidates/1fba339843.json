@@ -1,0 +1,42 @@
+{
+  "sha": "1fba339843b891009c1cb85702338dfdd4f1d092",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "refactor(ssh_dotnet): dispose per-connection CancellationTokenSource (S2930)",
+  "body": "refactor(ssh_dotnet): dispose per-connection CancellationTokenSource (S2930)\n\nDisconnect() cancelled _cancellationTokenSource and waited for both I/O tasks but\nnever disposed it. Dispose it once both tasks have stopped (safe ordering, no\nObjectDisposedException race) and null the task references. The per-connection CTS\nis recreated in Connect(), so this is safe across reconnects.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T16:31:23Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1fba339843b891009c1cb85702338dfdd4f1d092",
+  "stats": {
+    "files": 1,
+    "additions": 6,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs\n@@ -548,6 +548,12 @@ public override void Disconnect()\n                     }\n                 }\n \n+                // Both I/O tasks have stopped — dispose the per-connection cancellation source (S2930)\n+                _cancellationTokenSource?.Dispose();\n+                _cancellationTokenSource = null;\n+                _outputReadTask = null;\n+                _inputWriteTask = null;\n+\n                 // Close shell stream\n                 try\n                 {",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:09Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Targets fork-specific ProtocolSshDotNet.cs; no SshDotNet protocol exists in our fork, so the fix has nothing to apply to.",
+    "agent": "claude",
+    "at": "2026-07-25T16:33:33Z"
+  }
+}

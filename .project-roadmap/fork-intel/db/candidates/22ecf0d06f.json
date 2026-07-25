@@ -1,0 +1,13 @@
+{
+  "sha": "22ecf0d06f063e7e733364488351be17bdd4fc3c",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "readded forms and controls for the credential manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-27T20:13:51Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/22ecf0d06f063e7e733364488351be17bdd4fc3c",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "0c0740d488506f879c866d7621ca75eeeec4148c",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "cred upgrade form now only lets you upgrade if all required fields are filled in",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T00:37:37Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0c0740d488506f879c866d7621ca75eeeec4148c",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

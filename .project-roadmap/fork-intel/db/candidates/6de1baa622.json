@@ -1,0 +1,60 @@
+{
+  "sha": "6de1baa62201788a72a1688a1cf7f4f5f7929bc7",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "修正：拼写错误srtWorkingDirectory修正为strWorkingDirectory",
+  "body": "修正：拼写错误srtWorkingDirectory修正为strWorkingDirectory",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-01-25T13:47:50Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6de1baa62201788a72a1688a1cf7f4f5f7929bc7",
+  "stats": {
+    "files": 4,
+    "additions": 5,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.Designer.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.resx",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.ru.resx",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/UI/Window/ExternalToolsWindow.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Resources/Language/Language.Designer.cs\n@@ -243,9 +243,9 @@ internal static string Source {\n         /// <summary>\n         ///   Looks up a localized string similar to Working directory:.\n         /// </summary>\n-        internal static string srtWorkingDirectory {\n+        internal static string strWorkingDirectory {\n             get {\n-                return ResourceManager.GetString(\"srtWorkingDirectory\", resourceCulture);\n+                return ResourceManager.GetString(\"strWorkingDirectory\", resourceCulture);\n             }\n         }\n         \n--- mRemoteV1/Resources/Language/Language.resx\n@@ -2634,7 +2634,7 @@ This page will walk you through the process of upgrading your connections file o\n   <data name=\"strTimeoutInSeconds\" xml:space=\"preserve\">\n     <value>Timeout (seconds)</value>\n   </data>\n-  <data name=\"srtWorkingDirectory\" xml:space=\"preserve\">\n+  <data name=\"strWorkingDirectory\" xml:space=\"preserve\">\n     <value>Working directory:</value>\n   </data>\n   <data name=\"strRunElevated\" xml:space=\"preserve\">\n--- mRemoteV1/Resources/Language/Language.ru.resx\n@@ -2191,7 +2191,7 @@ mRemoteNG сейчас прекратит работу и начнет проц\n   <data name=\"strMenuReconnectAll\" xml:space=\"preserve\">\n     <value>Переподключить все открытые соединения</value>\n   </data>\n-  <data name=\"srtWorkingDirectory\" xml:space=\"preserve\">\n+  <data name=\"strWorkingDirectory\" xml:space=\"preserve\">\n     <value>Рабочий каталог:</value>\n   </data>\n   <data name=\"strButtonLaunch\" xml:space=\"preserve\">\n--- mRemoteV1/UI/Window/ExternalToolsWindow.cs\n@@ -66,7 +66,7 @@ private void ApplyLanguage()\n \t        DisplayNameLabel.Text = Language.strLabelDisplayName;\n \t        FilenameLabel.Text = Language.strLabelFilename;\n \t        ArgumentsLabel.Text = Language.strLabelArguments;\n-            WorkingDirLabel.Text = Language.srtWorkingDirectory;\n+            WorkingDirLabel.Text = Language.strWorkingDirectory;\n             OptionsLabel.Text = Language.strLabelOptions;\n             \n \t        WaitForExitCheckBox.Text = Language.strCheckboxWaitForExit;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:27Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Our fork modernized and replaced the srtWorkingDirectory key with WorkingDirectory entirely, rendering this legacy typo fix obsolete and non-applicable.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:41:34Z"
+  }
+}

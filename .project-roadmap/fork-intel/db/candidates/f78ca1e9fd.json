@@ -1,0 +1,13 @@
+{
+  "sha": "f78ca1e9fd9ed9939c5923851d1cf47609abdceb",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "some more deserialization refactoring",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-21T23:52:18Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f78ca1e9fd9ed9939c5923851d1cf47609abdceb",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

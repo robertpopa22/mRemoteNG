@@ -1,0 +1,13 @@
+{
+  "sha": "ce8ada05f5833b4ddcbc849f3add9fea04514267",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "hooked up the credential manager upgrader",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-27T21:14:48Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce8ada05f5833b4ddcbc849f3add9fea04514267",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

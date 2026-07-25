@@ -1,0 +1,48 @@
+{
+  "sha": "fb8e2107fa414423fe94b619e01723e8d949f129",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "feat(rdp): ViewOnly policy per checklist (fullscreen=work, exit/reconnect/tab=VO)",
+  "body": "feat(rdp): ViewOnly policy per checklist (fullscreen=work, exit/reconnect/tab=VO)\n\nСтадия A4. Приводит политику ViewOnly к согласованной модели:\n- Вход в fullscreen НЕ меняет VO (сохраняет состояние): первый коннект\n  VO выкл = работа; смотрел в окне с VO = в fullscreen тоже VO.\n- Выход из fullscreen принудительно включает VO (+scroll).\n- Активация вкладки в оконном режиме форсит VO + scroll-в-угол.\n- scroll не включает VO в fullscreen (устранение гонки 'иногда VO при\n  первом коннекте').\n\nПравки: MarkRdpFullscreenActive (сброс флагов вход->выход),\nApplyFullscreenViewOnlyPolicy (убран форс VO), NotifyPassiveTabActivated\n(форс VO при активации), EnableViewOnlyAfterSuccessfulPassiveLayout (guard).\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T13:50:58Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fb8e2107fa414423fe94b619e01723e8d949f129",
+  "stats": {
+    "files": 2,
+    "additions": 26,
+    "deletions": 16,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "HANDOFF.md",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 19,
+      "deletions": 12
+    }
+  ],
+  "patch": "--- HANDOFF.md\n@@ -203,10 +203,11 @@ capture асинхронно) во всех путях reconnect.\n - [x] **A3** — Надёжная переустановка блокировки: `PassiveRdpInputBlocker.Rebind` (release+\n   refresh сабклассов) + в reconnect-финализаторе форс VO и `Rebind` каждый тик (покрывает\n   позднее пересоздание окон mstscax).\n-- [ ] **A4** — Политика ViewOnly по чек-листу: **вход в fullscreen не меняет VO** (первый\n-  коннект=выкл=работа; VO в fullscreen вручную); **выход**=VO принудительно ВКЛ + scroll;\n-  **reconnect**=VO ВКЛ; **переключение вкладок** (клик/Ctrl+Tab)=довести scroll + VO ВКЛ.\n-  Правки: `ApplyFullscreenViewOnlyPolicy`, `MarkRdpFullscreenActive`, `NotifyPassiveTabActivated`.\n+- [x] **A4** — Политика ViewOnly по чек-листу. `MarkRdpFullscreenActive`: сброс VO-флагов\n+  перенесён со входа на выход (вход НЕ меняет VO). `ApplyFullscreenViewOnlyPolicy`: убран\n+  форс VO в fullscreen. `NotifyPassiveTabActivated`: форс VO при активации оконной вкладки.\n+  `EnableViewOnlyAfterSuccessfulPassiveLayout`: guard против VO в fullscreen (гонка 1-го коннекта).\n+  Выход форсит VO (существующий «fullscreen leave input shield» + scroll).\n - [ ] **A5** — Унификация всех путей reconnect: release-capture финализатор + VO policy +\n   **переустановка performance-настроек (pFlags)**. Покрыть ActiveX auto-reconnect (по\n   таймауту НЕ применяет настройки!), tmrReconnect, RDP8 resize, меню Reconnect/Reconnect All.\n@@ -270,3 +271,5 @@ _Журнал изменений HANDOFF:_\n   `FinalizeRdpFullscreenExitOnce` отрефакторен на общий `ReleaseRdpInputCaptureOnce`._\n - _A3 — добавлен `InputBlocker.Rebind` (полный re-subclass); reconnect-финализатор форсит\n   VO + Rebind на пересозданные окна mstscax._\n+- _A4 — политика VO по чек-листу: вход в fullscreen сохраняет VO (не форсит), выход форсит VO,\n+  активация вкладки форсит VO, scroll не включает VO в fullscreen (устранена гонка)._\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -363,8 +363,10 @@ public void NotifyPassiveTabActivated()\n                 if (fullscreen)\n                     return;\n \n-                if (!ViewOnly)\n-                    return;\n+                // Переключение на оконную пассивную RDP-вкладку → ViewOnly ВКЛ (защита\n+                // пассивного мониторинга) независимо от прежнего состояния.\n+                if (!_viewOnly)\n+                    SetViewOnly(true, \"NotifyPassiveTabActivated\");\n \n                 if (!keepScrollable)\n                     return;\n@@ -493,8 +495,8 @@ private void MarkRdpFullscreenActive(bool active, string source)\n             if (active)\n             {\n                 _fullscreenExitRequestedByMRemote = false;\n-                _userManuallyDisabledViewOnly = false;\n-                _autoEnableViewOnlyAfterSuccessfulScroll = true;\n+                // Вход в fullscreen НЕ меняет ViewOnly — сохраняем текущее состояние\n+                // (смотрел в окне с VO → в fullscreen тоже VO; первый коннект VO выкл → работа).\n             }\n             else\n             {\n@@ -503,6 +505,10 @@ private void MarkRdpFullscreenActive(bool active, string source)\n                     TryReadRdpClientFullscreen(out var rdpFullscreen) && rdpFullscreen;\n                 if (wasFullscreen)\n                     _fullscreenLeftAtUtc = DateTime.UtcNow;\n+                // Выход из fullscreen всегда возвращает пассивный режим: сбрасываем ручное\n+                // отключение и разрешаем авто-VO, чтобы scroll-после-выхода форсил ViewOnly.\n+                _userManuallyDisabledViewOnly = false;\n+                _autoEnableViewOnlyAfterSuccessfulScroll = true;\n             }\n \n             LogFullscreenState(source, active);\n@@ -802,12 +808,9 @@ protected void ApplyFullscreenViewOnlyPolicy(string source)\n                 return;\n             }\n \n-            if (IsFullscreenEffective())\n-            {\n-                if (!_userManuallyDisabledViewOnly)\n-                    SetViewOnly(true, source);\n-            }\n-\n+            // По итоговой модели вход в fullscreen НЕ форсит ViewOnly: в fullscreen VO\n+            // управляется вручную (первый коннект — работа). ViewOnly включается принудительно\n+            // при выходе из fullscreen (scroll), при reconnect и при активации вкладки.\n             LogFullscreenState(source, null);\n         }\n \n@@ -1664,12 +1667,16 @@ private bool IsCurrentPassiveScrollAtLowerRight(ScrollableControl scrollable, ou\n \n         private void EnableViewOnlyAfterSuccessfulPassiveLayout(string source, bool scrollNeeded)\n         {\n-            if (_userManuallyDisabledViewOnly || !_autoEnableViewOnlyAfterSuccessfulScroll)\n+            // Не включаем VO через scroll, если сессия в fullscreen или входит в него:\n+            // в fullscreen VO управляется вручную (устраняет гонку «иногда VO при первом коннекте»).\n+            if (_userManuallyDisabledViewOnly || !_autoEnableViewOnlyAfterSuccessfulScroll\n+                || _fullscreenRequestedByMRemote || IsFullscreenEffective())\n             {\n                 Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n                     $\"RDP passive scroll completed from {source} for host '{connectionInfo?.Hostname}' without auto ViewOnly: \" +\n                     $\"userManuallyDisabledViewOnly={_userManuallyDisabledViewOnly}, \" +\n-                    $\"autoEnableViewOnlyAfterSuccessfulScroll={_autoEnableViewOnlyAfterSuccessfulScroll}\");\n+                    $\"autoEnableViewOnlyAfterSuccessfulScroll={_autoEnableViewOnlyAfterSuccessfulScroll}, \" +\n+                    $\"fullscreenRequested={_fullscreenRequestedByMRemote}, fullscreenEffective={IsFullscreenEffective()}\");\n                 return;\n             }\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:06Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Bespoke A4 policy depends on an absent, still-incomplete passive-RDP state machine; no tracker demand justifies surprising automatic ViewOnly transitions or a risky redesign.",
+    "agent": "codex",
+    "at": "2026-07-25T18:56:06Z"
+  }
+}

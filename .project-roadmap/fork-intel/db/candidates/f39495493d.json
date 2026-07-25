@@ -1,0 +1,13 @@
+{
+  "sha": "f39495493d7ef4ced84d3186153df85f04b1ce30",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Pull latest code from develop",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2016-06-04T02:49:48Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f39495493d7ef4ced84d3186153df85f04b1ce30",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

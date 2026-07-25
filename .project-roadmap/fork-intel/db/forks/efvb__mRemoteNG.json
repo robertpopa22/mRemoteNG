@@ -9,13 +9,549 @@
   "stars": 0,
   "open_issues": 0,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 43,
   "behind_by": 165,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "6bc79d28714cc16eb463267fda578c0356c91ed4",
+      "subject": "change scaling mode  from font to dpi",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-03-15T13:43:13Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6bc79d28714cc16eb463267fda578c0356c91ed4",
+      "branches": [
+        "HiDPI_Support"
+      ]
+    },
+    {
+      "sha": "d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "subject": "played around with some global and non-global hotkeys",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-30T22:04:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "branches": [
+        "hotkeys"
+      ]
+    },
+    {
+      "sha": "545fb9efae62e83f08493cae12fb60fd011404bd",
+      "subject": "initial support for mono",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-02T14:51:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/545fb9efae62e83f08493cae12fb60fd011404bd",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "60d6440b7f85b575f81c5e621c2f0285d481ec14",
+      "subject": "more mono fixes",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-02T16:03:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/60d6440b7f85b575f81c5e621c2f0285d481ec14",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "f39495493d7ef4ced84d3186153df85f04b1ce30",
+      "subject": "Pull latest code from develop",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-04T02:49:48Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f39495493d7ef4ced84d3186153df85f04b1ce30",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "3c0b76d9375ef03a8ce28d043ab16f94c7e6675e",
+      "subject": "mono/wine updates",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-04T04:42:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3c0b76d9375ef03a8ce28d043ab16f94c7e6675e",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "af41612576cacde226674e3263fd2245edac8695",
+      "subject": "Merge branch 'custom-workdir-external-tool' of https://github.com/pedro2555/mRemoteNG into pedro2555-custom-workdir-external-tool",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-09T21:33:38Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/af41612576cacde226674e3263fd2245edac8695",
+      "branches": [
+        "pedro2555-custom-workdir-external-tool"
+      ]
+    },
+    {
+      "sha": "8dc3303e0f3663c5f94a0dfdd9f91868ef3c8787",
+      "subject": "first wave of changes",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-02T12:38:55Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8dc3303e0f3663c5f94a0dfdd9f91868ef3c8787",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "13f51629afb1b240dcf1d3ffd0ca08d8c5ac73b3",
+      "subject": "completed first round of fixes",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-02T19:40:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/13f51629afb1b240dcf1d3ffd0ca08d8c5ac73b3",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "107067cead4bce5a8be541383714e84b26cbcf64",
+      "subject": "removed unnecessary var in Runtime",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T16:47:47Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/107067cead4bce5a8be541383714e84b26cbcf64",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "05e62ff76fed2320197a82f0bcaaf6ec8de0f266",
+      "subject": "made Export class non static",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T16:48:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/05e62ff76fed2320197a82f0bcaaf6ec8de0f266",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "0febc13ec7c23d19a4612baa62588a1300a36e9f",
+      "subject": "removed use of the credential catalog Runtime var",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T17:02:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0febc13ec7c23d19a4612baa62588a1300a36e9f",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "ced33027b84641344386dfcf4b51d7eb94f69290",
+      "subject": "made Shutdown and SettingsSaver non-static",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T18:05:38Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ced33027b84641344386dfcf4b51d7eb94f69290",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "ba11746e6f64ed6066fb55a375e08d82e125bd2b",
+      "subject": "removed ExternalToolsService var from Runtime",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T18:47:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba11746e6f64ed6066fb55a375e08d82e125bd2b",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "c04bb44da38996bb3dd364af3908db1acbbd0341",
+      "subject": "fixed a composition bug and created a few tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T19:25:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c04bb44da38996bb3dd364af3908db1acbbd0341",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "db99a32c1d1030a94249030cd9434fca25ab7f55",
+      "subject": "moved encryption key variable to the connections service where it makes more sense",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T23:14:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/db99a32c1d1030a94249030cd9434fca25ab7f55",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "f00dad3c96565760f76cc8cd6281cc49a77796f5",
+      "subject": "moved several methods from Runtime to the connections service",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T23:20:04Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f00dad3c96565760f76cc8cd6281cc49a77796f5",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "e7afe5ea93c2644584dd2a7fac6f792386eb60e1",
+      "subject": "made some references to the connection service non static",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T23:34:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e7afe5ea93c2644584dd2a7fac6f792386eb60e1",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "5903481c87e0894b48bdd3c14dc2e621884d0353",
+      "subject": "made the Import class non static",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-03T23:53:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5903481c87e0894b48bdd3c14dc2e621884d0353",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "81591659681d3f59f3a1b18289d278f1f8503e5e",
+      "subject": "modified some classes to request ConnectionsService as a ctor arg",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-04T17:34:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/81591659681d3f59f3a1b18289d278f1f8503e5e",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "5093035f68b167c41286ac2c155f9152557737b4",
+      "subject": "changed more classes to not rely on Runtime for the connections service",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-04T17:52:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5093035f68b167c41286ac2c155f9152557737b4",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "ba94e10cfa3d45aa3cbed2c37c157b6cf4ab3f8e",
+      "subject": "modified a few more classes to reduce reliance on Runtime",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-04T18:04:32Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba94e10cfa3d45aa3cbed2c37c157b6cf4ab3f8e",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "7a4b2326950fd4121e378b7654a50314d311e0e6",
+      "subject": "updated a few more classes to not rely on Runtime",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-04T18:23:19Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7a4b2326950fd4121e378b7654a50314d311e0e6",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "3fbad29017b29ab72695de67c30dfdab063b5b60",
+      "subject": "removed a reference to static FrmMain",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-03-13T02:43:01Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3fbad29017b29ab72695de67c30dfdab063b5b60",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "729166fc306bfb1d6da9ba4432e4091b3e61edab",
+      "subject": "Merge branch 'develop' into remove_statics",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-20T14:29:55Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/729166fc306bfb1d6da9ba4432e4091b3e61edab",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "991505b043b299c919abfecc934bb10ce1804439",
+      "subject": "fixed bug where connection properties weren't being passed to external tools",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-20T14:42:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/991505b043b299c919abfecc934bb10ce1804439",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "de9b78c5fb92ef596aa039b335690bc4ed38f5eb",
+      "subject": "fix test",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-20T14:51:35Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/de9b78c5fb92ef596aa039b335690bc4ed38f5eb",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "d0a011d8fff434ca3d984e6047131d2d6aadbefe",
+      "subject": "Merge branch 'develop' into remove_statics",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-20T16:08:29Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0a011d8fff434ca3d984e6047131d2d6aadbefe",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "c43ef052c66f5c9c32022ea12008ba3a1b0dc95f",
+      "subject": "removed some frmmain static instance refs",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-21T00:57:25Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c43ef052c66f5c9c32022ea12008ba3a1b0dc95f",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "66b307bff9bf8f6aec28a5f43a5b04e3155757e9",
+      "subject": "rdp protocol now no longer uses static frmmain ref",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-21T01:06:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/66b307bff9bf8f6aec28a5f43a5b04e3155757e9",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "b21f2ffe65b55314cba0b73d6eca7c84b7f29fe5",
+      "subject": "removed some more default frmmain uses",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-21T01:18:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b21f2ffe65b55314cba0b73d6eca7c84b7f29fe5",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "8c350429b7f8a737d1b2786381278cd8eee815c0",
+      "subject": "massive refactor of the rest of the frmmain statics",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-23T02:31:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8c350429b7f8a737d1b2786381278cd8eee815c0",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "314c989daefc04cc2c3340a1363c9d77cf7961b1",
+      "subject": "created IConnectionService interface and replaced usage with concrete type",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-24T22:25:04Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/314c989daefc04cc2c3340a1363c9d77cf7961b1",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "c3ae438e9c387942e199cea9b56e18923b542583",
+      "subject": "fix failing test",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-24T22:48:44Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c3ae438e9c387942e199cea9b56e18923b542583",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "75c866f7c1b2eed2faa054f15afc156e5f739cc2",
+      "subject": "remove unnecessary frmmain singleton property",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-05-24T22:49:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/75c866f7c1b2eed2faa054f15afc156e5f739cc2",
+      "branches": [
+        "remove_statics"
+      ]
+    },
+    {
+      "sha": "0171f8a061715ff001a5262de7baeb3c939113a4",
+      "subject": "initial attempt to remove magiclib",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-12-08T16:16:26Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0171f8a061715ff001a5262de7baeb3c939113a4",
+      "branches": [
+        "remove-magiclib"
+      ]
+    },
+    {
+      "sha": "be11fc99bec8155cb238c0e80a132d8eccfe7fc5",
+      "subject": "minor cleanup",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-12-08T16:21:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/be11fc99bec8155cb238c0e80a132d8eccfe7fc5",
+      "branches": [
+        "remove-magiclib"
+      ]
+    },
+    {
+      "sha": "d9127851c324a39228d62f1c9fdc06181127845a",
+      "subject": "minor clean up",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-12-08T16:30:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d9127851c324a39228d62f1c9fdc06181127845a",
+      "branches": [
+        "remove-magiclib"
+      ]
+    },
+    {
+      "sha": "ca61da06f98ca81899b28f6bbd8039fedb701533",
+      "subject": "minor clean up",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-12-08T17:07:20Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca61da06f98ca81899b28f6bbd8039fedb701533",
+      "branches": [
+        "remove-magiclib"
+      ]
+    },
+    {
+      "sha": "94a9476fd908192dd0d156f4f423d3d7101f6026",
+      "subject": "change to expression body",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-12-08T17:13:50Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/94a9476fd908192dd0d156f4f423d3d7101f6026",
+      "branches": [
+        "remove-magiclib"
+      ]
+    },
+    {
+      "sha": "45630be8c89741fc52918f38a49c200f0397902a",
+      "subject": "Revert \"change to expression body\"",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-12-08T17:23:11Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/45630be8c89741fc52918f38a49c200f0397902a",
+      "branches": [
+        "remove-magiclib"
+      ]
+    },
+    {
+      "sha": "ffe38baf019196d79647dd355ce3bfd224051116",
+      "subject": "fix message text",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-03-20T19:32:32Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ffe38baf019196d79647dd355ce3bfd224051116",
+      "branches": [
+        "vncsharp_updates"
+      ]
+    },
+    {
+      "sha": "a3116b79750971424dc4ad1c79dcf30d634d233c",
+      "subject": "code clean up, disconnect checks, updated dll",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2017-03-20T19:38:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3116b79750971424dc4ad1c79dcf30d634d233c",
+      "branches": [
+        "vncsharp_updates"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:52Z",
   "last_seen": "2026-07-25T10:56:52Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "054a61a4030f81750cf82d85a90b0a4a5af7e927",
-  "compared_at": "2026-07-25T10:57:42Z"
+  "compared_at": "2026-07-25T16:22:16Z",
+  "branches_scanned": [
+    "develop",
+    "625_deserialize_csv",
+    "HiDPI_Support",
+    "auto_save_during_sort",
+    "credential_manager",
+    "gh-pages",
+    "github-templates",
+    "hotkeys",
+    "master",
+    "mono_support",
+    "pedro2555-custom-workdir-external-tool",
+    "release/v1.76",
+    "remove_statics",
+    "remove-magiclib",
+    "vncsharp_updates"
+  ],
+  "branches_inherited_from_upstream": 1,
+  "screened_shas": []
 }

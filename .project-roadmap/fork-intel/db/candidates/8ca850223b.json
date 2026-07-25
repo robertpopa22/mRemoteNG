@@ -1,0 +1,90 @@
+{
+  "sha": "8ca850223b5c5079d47890f0945022590be3d9ad",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "NGTextBox还原更改（修复搜索无响应），增加搜索结果数量提示，部分空值异常修复",
+  "body": "NGTextBox还原更改（修复搜索无响应），增加搜索结果数量提示，部分空值异常修复",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2026-02-07T14:17:30Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ca850223b5c5079d47890f0945022590be3d9ad",
+  "stats": {
+    "files": 9,
+    "additions": 41,
+    "deletions": 71,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Connection/ConnectionInitiator.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.zh-CN.resx",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/Tree/NodeSearcher.cs",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/UI/Controls/Base/NGTextBox.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 60
+    },
+    {
+      "filename": "mRemoteV1/UI/Forms/frmOptions.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/UI/Window/ConnectionTreeWindow.Designer.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/UI/Window/ConnectionTreeWindow.cs",
+      "status": "modified",
+      "additions": 21,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteV1/UI/Window/ExternalToolsWindow.Designer.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteV1/UI/Window/ExternalToolsWindow.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/Connection/ConnectionInitiator.cs\n@@ -96,7 +96,7 @@ private void OpenConnection(ConnectionInfo connectionInfo, ConnectionInfo.Force\n         {\n             try\n             {\n-                if (connectionInfo.Hostname == \"\" && connectionInfo.Protocol != ProtocolType.IntApp)\n+                if (connectionInfo == null || (connectionInfo.Hostname == \"\" && connectionInfo.Protocol != ProtocolType.IntApp))\n                 {\n                     Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.strConnectionOpenFailedNoHostname);\n                     return;\n--- mRemoteV1/Resources/Language/Language.zh-CN.resx\n@@ -2618,7 +2618,7 @@ mRemoteNG 将退出并安装更新。</value>\n     <value>每次编辑后保存连接</value>\n   </data>\n   <data name=\"FilterSearchMatchesInConnectionTree\" xml:space=\"preserve\">\n-    <value>在连接树中筛选搜索匹配项</value>\n+    <value>搜索时，在连接树中仅显示匹配项</value>\n   </data>\n   <data name=\"TestConnection\" xml:space=\"preserve\">\n     <value>测试连接</value>\n--- mRemoteV1/Tree/NodeSearcher.cs\n@@ -9,7 +9,7 @@ public class NodeSearcher\n     {\n         private readonly ConnectionTreeModel _connectionTreeModel;\n \n-        private List<ConnectionInfo> Matches { get; set; }\n+        public List<ConnectionInfo> Matches { get; private set; }\n         public ConnectionInfo CurrentMatch { get; private set; }\n \n \n@@ -38,6 +38,7 @@ public IEnumerable<ConnectionInfo> SearchByName(string searchText)\n \n         public ConnectionInfo NextMatch()\n         {\n+            if (CurrentMatch == null || Matches == null) return null;\n             var currentMatchIndex = Matches.IndexOf(CurrentMatch);\n             if (!CurrentMatchIsTheLastMatchInTheList())\n                 CurrentMatch = Matches[currentMatchIndex + 1];\n@@ -52,6 +53,7 @@ private bool CurrentMatchIsTheLastMatchInTheList()\n \n         public ConnectionInfo PreviousMatch()\n         {\n+            if (CurrentMatch == null || Matches == null) return null;\n             var currentMatchIndex = Matches.IndexOf(CurrentMatch);\n             if (!CurrentMatchIsTheFirstMatchInTheList())\n                 CurrentMatch = Matches[currentMatchIndex - 1];\n@@ -69,5 +71,15 @@ private void ResetMatches()\n             Matches = new List<ConnectionInfo>();\n             CurrentMatch = null;\n         }\n+\n+        public string GetItemMatchPositionDesc(ConnectionInfo item)\n+        {\n+            //if (CurrentMatch == null || Matches == null) return \"0/0\";\n+            if(item == null) item=CurrentMatch;\n+            var pos = Matches?.IndexOf(item) + 1;\n+            var count = Matches?.Count;\n+            return pos+\"/\"+count;\n+        }\n+\n     }\n }\n\\ No newline at end of file\n--- mRemoteV1/UI/Controls/Base/NGTextBox.cs\n@@ -1,7 +1,5 @@\n ﻿using mRemoteNG.Themes;\n using System;\n-using System.ComponentModel;\n-using System.Text.RegularExpressions;\n using System.Windows.Forms;\n \n namespace mRemoteNG.UI.Controls.Base\n@@ -55,63 +53,5 @@ protected override void OnEnabledChanged(EventArgs e)\n             Invalidate();\n         }\n \n-        #region 设计期可见属性\n-        /// <summary>\n-        /// 是否启用数字限制（默认 true）\n-        /// </summary>\n-        [DefaultValue(false)]\n-        [Description(\"是否只允许输入数字\")]\n-        public bool NumberOnly { get; set; } = false;\n-\n-        /// <summary>\n-        /// 是否允许小数点\n-        /// </summary>\n-        [DefaultValue(false)]\n-        [Description(\"是否允许输入小数\")]\n-        public bool AllowDecimal { get; set; }\n-\n-        /// <summary>\n-        /// 是否允许负号\n-        /// </summary>\n-        [DefaultValue(false)]\n-        [Description(\"是否允许输入负数\")]\n-        public bool AllowNegative { get; set; }\n-        #endregion\n-\n-        protected override void OnKeyPress(KeyPressEventArgs e)\n-        {\n-            if (!NumberOnly)\n-            {\n-                base.OnKeyPress(e);\n-                return;\n-            }\n-\n-            char c = e.KeyChar;\n-            if (char.IsControl(c)) return;\n-            if (char.IsDigit(c)) return;\n-\n-            if (AllowDecimal && c == '.' && Text.IndexOf('.') == -1) return;\n-            if (AllowNegative && c == '-' && SelectionStart == 0 && Text.IndexOf('-') == -1) return;\n-\n-            e.Handled = true;\n-        }\n-\n-        // 可选：粘贴时二次校验\n-        protected override void OnTextChanged(EventArgs e)\n-        {\n-            if (!NumberOnly || string.IsNullOrEmpty(Text)) return;\n-\n-            string pattern = AllowDecimal\n-                ? (AllowNegative ? @\"^-?\\d+(\\.\\d+)?$\" : @\"^\\d+(\\.\\d+)?$\")\n-                : (AllowNegative ? @\"^-?\\d+$\" : @\"^\\d+$\");\n-\n-            if (!Regex.IsMatch(Text, pattern))\n-            {\n-                int pos = SelectionStart;\n-                Text = Text.TrimEnd(Text[SelectionStart - 1]); // 简单回滚\n-                SelectionStart = Math.Max(0, pos - 1);\n-            }\n-        }\n-\n     }\n }\n--- mRemoteV1/UI/Forms/frmOptions.cs\n@@ -140,7 +140,7 @@ private void btnCancel_Click(object sender, EventArgs e)\n         {\n             foreach (var page in _pages.Values)\n             {\n-                Debug.WriteLine(page.PageName);\n+                //Debug.WriteLine(page.PageName);\n                 page.RevertSettings();\n             }\n             Debug.WriteLine(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile); \n--- mRemoteV1/UI/Window/ConnectionTreeWindow.Designer.cs\n@@ -18,6 +18,7 @@ public partial class ConnectionTreeWindow : BaseWindow\n         internal System.Windows.Forms.ToolStripMenuItem mMenViewExpandSelectedNode;\n         internal System.Windows.Forms.ToolStripMenuItem mMenViewCollapseSelectedNode;\n         internal System.Windows.Forms.PictureBox PictureBox1;\n+        internal System.Windows.Forms.ToolTip PictureBox1ToolTip;\n         internal System.Windows.Forms.ToolStripMenuItem mMenSortAscending;\n         internal System.Windows.Forms.ToolStripMenuItem mMenAddConnection;\n         internal System.Windows.Forms.ToolStripMenuItem mMenAddFolder;\n@@ -33,6 +34,7 @@ private void InitializeComponent()\n             this.olvConnections = new mRemoteNG.UI.Controls.ConnectionTree();\n             this.pnlConnections = new System.Windows.Forms.Panel();\n             this.PictureBox1 = new System.Windows.Forms.PictureBox();\n+            this.PictureBox1ToolTip = new System.Windows.Forms.ToolTip();\n             this.txtSearch = new Controls.Base.NGTextBox();\n             this.msMain = new System.Windows.Forms.MenuStrip();\n             this.mMenAddConnection = new System.Windows.Forms.ToolStripMenuItem();\n--- mRemoteV1/UI/Window/ConnectionTreeWindow.cs\n@@ -90,6 +90,7 @@ private void ApplyLanguage()\n             mMenDropOpt.ToolTipText = Language.strDragDropSwitch;\n \n             txtSearch.Text = Language.strSearchPrompt;\n+            PictureBox1ToolTip.SetToolTip(this.PictureBox1, Language.strSearchPrompt);\n         }\n \n         private new void ApplyTheme()\n@@ -271,14 +272,22 @@ private void txtSearch_KeyDown(object sender, KeyEventArgs e)\n                 }\n                 else if (e.KeyCode == Keys.Up)\n                 {\n-                    var match = olvConnections.NodeSearcher.PreviousMatch();\n-                    JumpToNode(match);\n+                    if (!Settings.Default.UseFilterSearch)//������������δ��ѡ FilterSearchMatchesInConnectionTree \n+                    {\n+                        var match = olvConnections.NodeSearcher.PreviousMatch();\n+                        JumpToNode(match);\n+                        RefreshSearchMatchTip(match);\n+                    }\n                     e.Handled = true;\n                 }\n                 else if (e.KeyCode == Keys.Down)\n                 {\n-                    var match = olvConnections.NodeSearcher.NextMatch();\n-                    JumpToNode(match);\n+                    if (!Settings.Default.UseFilterSearch)//������������δ��ѡ FilterSearchMatchesInConnectionTree \n+                    {\n+                        var match = olvConnections.NodeSearcher.NextMatch();\n+                        JumpToNode(match);\n+                        RefreshSearchMatchTip(match);\n+                    }\n                     e.Handled = true;\n                 }\n                 else\n@@ -311,9 +320,10 @@ private void ApplyFiltering()\n             }\n             else\n             {\n-                if (txtSearch.Text == \"\") return;\n+                //if (txtSearch.Text == \"\") return;\n                 olvConnections.NodeSearcher?.SearchByName(txtSearch.Text);\n                 JumpToNode(olvConnections.NodeSearcher?.CurrentMatch);\n+                RefreshSearchMatchTip();\n             }\n         }\n \n@@ -328,6 +338,12 @@ private void JumpToNode(ConnectionInfo connectionInfo)\n             olvConnections.SelectObject(connectionInfo);\n             olvConnections.EnsureModelVisible(connectionInfo);\n         }\n+        private void RefreshSearchMatchTip(ConnectionInfo matchItem = null)//����null��ʾʹ�õ�ǰĬ��\n+        {\n+            //PictureBox1ToolTip.SetToolTip(this.PictureBox1, Language.strSearchPrompt);\n+            PictureBox1ToolTip.SetToolTip(this.PictureBox1, olvConnections.NodeSearcher == null ? \"null\" : olvConnections.NodeSearcher.GetItemMatchPositionDesc(matchItem));\n+\n+        }\n \n         private void ExpandParentsRecursive(ConnectionInfo connectionInfo)\n         {\n--- mRemoteV1/UI/Window/ExternalToolsWindow.Designer.cs\n@@ -310,7 +310,7 @@ private void InitializeComponent()\n             this.WaitAfterStartTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;\n             this.WaitAfterStartTextBox.Location = new System.Drawing.Point(272, 143);\n             this.WaitAfterStartTextBox.Name = \"WaitAfterStartTextBox\";\n-            this.WaitAfterStartTextBox.NumberOnly = true;\n+            //this.WaitAfterStartTextBox.NumberOnly = true;  //����ʱ���жϺϷ���\n             this.WaitAfterStartTextBox.Size = new System.Drawing.Size(45, 20);\n             this.WaitAfterStartTextBox.TabIndex = 7;\n             this.WaitAfterStartTextBox.Text = \"0\";\n--- mRemoteV1/UI/Window/ExternalToolsWindow.cs\n@@ -261,7 +261,7 @@ private void PropertyControl_ChangedOrLostFocus(object sender, EventArgs e)\n                 selectedTool.FileName = FilenameTextBox.Text;\n                 selectedTool.Arguments = ArgumentsTextBox.Text;\n                 selectedTool.WorkingDir = WorkingDirTextBox.Text;\n-                selectedTool.WaitAfterStart = int.TryParse(WaitAfterStartTextBox.Text, out var v) ? v : 0;\n+                selectedTool.WaitAfterStart = (int.TryParse(WaitAfterStartTextBox.Text, out var v) && v>=0) ? v : 0;\n                 selectedTool.WaitForExit = WaitForExitCheckBox.Checked;\n                 selectedTool.TryIntegrate = TryToIntegrateCheckBox.Checked;\n                 selectedTool.ShowOnToolbar = ShowOnToolbarCheckBox.Checked;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:48Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Bug with unresponsive search was caused by custom textbox restrictions absent in our fork. Null checks already exist in our code. No need to import.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:44:59Z"
+  }
+}

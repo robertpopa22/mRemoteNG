@@ -1,0 +1,49 @@
+{
+  "sha": "d2afacd026ba1e5284bded7b304f835b17237792",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "feat: passive RDP monitor for v1.77.2-release",
+  "body": "feat: passive RDP monitor for v1.77.2-release\n\n- Suppress focus on automatic reconnect\n- View Only works only in fullscreen (auto on enter, off on exit)\n- Scroll to bottom-right after connect/reconnect/FS\n- Direct code changes (no runtime patcher)",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-16T01:08:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d2afacd026ba1e5284bded7b304f835b17237792",
+  "stats": {
+    "files": 1,
+    "additions": 37,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-1772-direct.yml",
+      "status": "added",
+      "additions": 37,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-1772-direct.yml\n@@ -0,0 +1,37 @@\n+name: Build Passive RDP Monitor 1.77.2\n+\n+on:\n+  push:\n+    branches: [ passive-rdp-monitor-1772-direct ]\n+  workflow_dispatch:\n+\n+jobs:\n+  build:\n+    runs-on: windows-2022\n+\n+    steps:\n+    - uses: actions/checkout@v4\n+\n+    - name: Setup .NET 6\n+      uses: actions/setup-dotnet@v4\n+      with:\n+        dotnet-version: '6.0.x'\n+\n+    - name: Setup MSBuild\n+      uses: microsoft/setup-msbuild@v2\n+\n+    - name: Restore\n+      run: dotnet restore mRemoteNG.sln\n+\n+    - name: Build Release Portable x64\n+      run: msbuild mRemoteNG.sln /p:Configuration=\"Release Portable\" /p:Platform=x64 /t:Build /m\n+\n+    - name: Zip portable build\n+      run: |\n+        Compress-Archive -Path \"mRemoteNG\\bin\\x64\\Release Portable\\*\" -DestinationPath \"mRemoteNG-passive-rdp-1772-win-x64.zip\" -Force\n+\n+    - name: Upload Artifact\n+      uses: actions/upload-artifact@v4\n+      with:\n+        name: mRemoteNG-passive-rdp-1772-win-x64\n+        path: mRemoteNG-passive-rdp-1772-win-x64.zip",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-1772-direct.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:50Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 4,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Fork-private CI workflow for their passive-rdp branch on old 1.77.2/.NET 6 stack. Irrelevant to our 2-release CI model; ci-workflow security flag.",
+    "agent": "claude",
+    "at": "2026-07-25T16:43:09Z"
+  }
+}

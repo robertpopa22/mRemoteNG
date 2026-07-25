@@ -1,0 +1,13 @@
+{
+  "sha": "b4dfe5beb6f2faf765b7ef0c1273821c11960e77",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "hooked up tools menu button for cred manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-27T20:27:51Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4dfe5beb6f2faf765b7ef0c1273821c11960e77",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

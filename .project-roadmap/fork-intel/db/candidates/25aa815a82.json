@@ -1,0 +1,13 @@
+{
+  "sha": "25aa815a82191083d42a7d236df40c23b2d2e4db",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "began reworking the repo list management screen",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-31T20:17:31Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/25aa815a82191083d42a7d236df40c23b2d2e4db",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

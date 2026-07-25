@@ -1,0 +1,13 @@
+{
+  "sha": "0171f8a061715ff001a5262de7baeb3c939113a4",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "initial attempt to remove magiclib",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2017-12-08T16:16:26Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0171f8a061715ff001a5262de7baeb3c939113a4",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "923b9efd400b91206e795026358a51141ad4236f",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "began converting the database serializers to work with cred manager",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-20T20:51:09Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/923b9efd400b91206e795026358a51141ad4236f",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

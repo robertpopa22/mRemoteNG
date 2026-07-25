@@ -1,0 +1,13 @@
+{
+  "sha": "530a4e165d2342caece996b6c936cbc42171d16a",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "extracted interface from credential service to make testing easier",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-27T15:58:28Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/530a4e165d2342caece996b6c936cbc42171d16a",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

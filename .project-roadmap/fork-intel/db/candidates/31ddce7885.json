@@ -1,0 +1,42 @@
+{
+  "sha": "31ddce7885a467910cc0259ed7832b494af5184b",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "test(ssh_dotnet): fix Connect tests to construct InterfaceControl (6 failing -> passing)",
+  "body": "test(ssh_dotnet): fix Connect tests to construct InterfaceControl (6 failing -> passing)\n\nThe six ProtocolSshDotNet Connect_* tests set protocol.InterfaceControl.Info directly,\nassuming Initialize() creates the InterfaceControl -- but it doesn't (the connection\nframework builds it via `new InterfaceControl(parent, protocol, info)`). They threw a\nNullReferenceException before Connect() ever ran.\n\nConstruct the InterfaceControl the same way the framework does (with a throwaway Panel\nparent). Connect() now actually executes and the assertions hold: null/empty\nhostname/username return false + State=Error, and a localhost connection failure leaves\nState=Error -- confirming the decomposed Connect()'s graceful handling. All 7 pass.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T18:25:01Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/31ddce7885a467910cc0259ed7832b494af5184b",
+  "stats": {
+    "files": 1,
+    "additions": 6,
+    "deletions": 6,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshDotNet/ProtocolSshDotNetTests.cs",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 6
+    }
+  ],
+  "patch": "--- mRemoteNGTests/Connection/Protocol/SshDotNet/ProtocolSshDotNetTests.cs\n@@ -196,7 +196,7 @@ public void Connect_SetsStateToConnecting_WhenCalled()\n             connectionInfo.Hostname = \"localhost\";\n             connectionInfo.Username = \"testuser\";\n             connectionInfo.Password = \"testpass\";\n-            protocol.InterfaceControl.Info = connectionInfo;\n+            protocol.InterfaceControl = new InterfaceControl(new System.Windows.Forms.Panel(), protocol, connectionInfo);\n \n             // Act\n             protocol.Connect();\n@@ -290,7 +290,7 @@ public void Connect_HandlesNullHostname_Gracefully()\n             connectionInfo.Hostname = null;  // Invalid\n             connectionInfo.Username = \"testuser\";\n             connectionInfo.Password = \"testpass\";\n-            protocol.InterfaceControl.Info = connectionInfo;\n+            protocol.InterfaceControl = new InterfaceControl(new System.Windows.Forms.Panel(), protocol, connectionInfo);\n \n             // Act\n             bool result = protocol.Connect();\n@@ -311,7 +311,7 @@ public void Connect_HandlesEmptyHostname_Gracefully()\n             connectionInfo.Hostname = \"\";  // Invalid\n             connectionInfo.Username = \"testuser\";\n             connectionInfo.Password = \"testpass\";\n-            protocol.InterfaceControl.Info = connectionInfo;\n+            protocol.InterfaceControl = new InterfaceControl(new System.Windows.Forms.Panel(), protocol, connectionInfo);\n \n             // Act\n             bool result = protocol.Connect();\n@@ -332,7 +332,7 @@ public void Connect_HandlesNullUsername_Gracefully()\n             connectionInfo.Hostname = \"localhost\";\n             connectionInfo.Username = null;  // Invalid\n             connectionInfo.Password = \"testpass\";\n-            protocol.InterfaceControl.Info = connectionInfo;\n+            protocol.InterfaceControl = new InterfaceControl(new System.Windows.Forms.Panel(), protocol, connectionInfo);\n \n             // Act\n             bool result = protocol.Connect();\n@@ -353,7 +353,7 @@ public void Connect_HandlesEmptyUsername_Gracefully()\n             connectionInfo.Hostname = \"localhost\";\n             connectionInfo.Username = \"\";  // Invalid\n             connectionInfo.Password = \"testpass\";\n-            protocol.InterfaceControl.Info = connectionInfo;\n+            protocol.InterfaceControl = new InterfaceControl(new System.Windows.Forms.Panel(), protocol, connectionInfo);\n \n             // Act\n             bool result = protocol.Connect();\n@@ -374,7 +374,7 @@ public void Connect_AcceptsEmptyPassword()\n             connectionInfo.Hostname = \"localhost\";\n             connectionInfo.Username = \"testuser\";\n             connectionInfo.Password = \"\";  // Empty password is valid (might use key auth)\n-            protocol.InterfaceControl.Info = connectionInfo;\n+            protocol.InterfaceControl = new InterfaceControl(new System.Windows.Forms.Panel(), protocol, connectionInfo);\n \n             // Act\n             protocol.Connect();",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:18Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Not applicable. Our fork does not use the SshDotNet protocol or library, so these tests and files do not exist in our codebase.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:36:08Z"
+  }
+}

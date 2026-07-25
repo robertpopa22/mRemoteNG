@@ -1,0 +1,13 @@
+{
+  "sha": "b09fdcd5f5f54a220ca12460a33158fa8586a469",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "credential objects now used when establishing connections",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T21:57:21Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b09fdcd5f5f54a220ca12460a33158fa8586a469",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

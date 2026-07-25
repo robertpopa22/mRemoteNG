@@ -1,0 +1,13 @@
+{
+  "sha": "a9616f400de57d1103679eea502e9b635d996daf",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Improve RDP error 2825 message and add focus indication to TaskDialog buttons",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-15T23:37:01Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9616f400de57d1103679eea502e9b635d996daf",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:30:58Z"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "0a5bc7bbd51d0e755bfdbf716cec2c2b3bc59997",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "Add SSH_DotNet protocol to Username field visibility",
+  "body": "Add SSH_DotNet protocol to Username field visibility\n\nThe Username property was not visible in SSH_DotNet connections because\nit was missing from the AttributeUsedInProtocol list. Added\nProtocolType.SSH_DotNet to allow Username field to appear in the GUI\nfor SSH_DotNet protocol connections.\n\nFixes issue where SSH_DotNet connections could not configure a username\nin the connection properties panel.\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": null,
+  "date": "2025-11-06T16:20:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0a5bc7bbd51d0e755bfdbf716cec2c2b3bc59997",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/AbstractConnectionRecord.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/AbstractConnectionRecord.cs\n@@ -242,7 +242,7 @@ public virtual string UserViaAPI\n         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),\r\n          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Username)),\r\n          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionUsername)),\r\n-         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH1, ProtocolType.SSH2, ProtocolType.HTTP, ProtocolType.HTTPS, ProtocolType.IntApp)]\r\n+         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH1, ProtocolType.SSH2, ProtocolType.SSH_DotNet, ProtocolType.HTTP, ProtocolType.HTTPS, ProtocolType.IntApp)]\r\n         public virtual string Username\r\n         {\r\n             get => GetPropertyValue(\"Username\", _username);\r",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:54Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 3,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "SSH_DotNet no longer exists; OpenSSH is its current equivalent and already exposes Username. Importing the obsolete enum reference would conflict and add no behavior.",
+    "agent": "codex",
+    "at": "2026-07-25T16:44:23Z"
+  }
+}

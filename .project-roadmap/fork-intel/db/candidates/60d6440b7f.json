@@ -1,0 +1,13 @@
+{
+  "sha": "60d6440b7f85b575f81c5e621c2f0285d481ec14",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "more mono fixes",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2016-06-02T16:03:10Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/60d6440b7f85b575f81c5e621c2f0285d481ec14",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

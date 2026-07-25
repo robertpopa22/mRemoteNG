@@ -9,13 +9,1181 @@
   "stars": 0,
   "open_issues": 1,
   "archived": false,
-  "status": "no-divergence",
-  "ahead_by": 0,
+  "status": "screened",
+  "ahead_by": 95,
   "behind_by": 2515,
-  "commits": [],
+  "commits": [
+    {
+      "sha": "faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+      "subject": "Catch error in RDP tab focus",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T01:17:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "b2546cebab48e554b94ec2f8b4c611c5b60ea030",
+      "subject": "focus improvements",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T16:58:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b2546cebab48e554b94ec2f8b4c611c5b60ea030",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+      "subject": "Prevent current tab edge cases",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T17:58:08Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "b1baa8910846e37ccb8bbfaca648e0925babeed9",
+      "subject": "Fixed incorrect menu showed on left click",
+      "author_name": "Camilo Alvarez",
+      "author_login": "jotatsu",
+      "date": "2019-02-18T23:45:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b1baa8910846e37ccb8bbfaca648e0925babeed9",
+      "branches": [
+        "Features_Jo"
+      ]
+    },
+    {
+      "sha": "18f0b03dde93dd83fbbb9aeae166a44050046804",
+      "subject": "Bump the nuget group with 3 updates",
+      "author_name": "dependabot[bot]",
+      "author_login": "dependabot[bot]",
+      "date": "2026-04-14T02:48:38Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/18f0b03dde93dd83fbbb9aeae166a44050046804",
+      "branches": [
+        "dependabot/nuget/mRemoteNG.Specs/nuget-aa8a00b0f5"
+      ]
+    },
+    {
+      "sha": "bbb137f5ddce916359b3587fd696501e3a7feec4",
+      "subject": "add serial locale",
+      "author_name": "Aaron Zauner",
+      "author_login": "azet",
+      "date": "2020-03-11T16:21:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbb137f5ddce916359b3587fd696501e3a7feec4",
+      "branches": [
+        "feature/serial_ui"
+      ]
+    },
+    {
+      "sha": "0e37c335f4b07bd59b4510cfece97f396754d05d",
+      "subject": "add serial connections to factory",
+      "author_name": "Aaron Zauner",
+      "author_login": "azet",
+      "date": "2020-03-11T16:23:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0e37c335f4b07bd59b4510cfece97f396754d05d",
+      "branches": [
+        "feature/serial_ui"
+      ]
+    },
+    {
+      "sha": "0caba7d04d54b92de54b317c44ba6e84a85e94bb",
+      "subject": "Update ProtocolFactory.cs",
+      "author_name": "Aaron Zauner",
+      "author_login": "azet",
+      "date": "2020-03-11T16:23:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0caba7d04d54b92de54b317c44ba6e84a85e94bb",
+      "branches": [
+        "feature/serial_ui"
+      ]
+    },
+    {
+      "sha": "e13824b818c76d9c18135663c91ed8b9cb2480f9",
+      "subject": "add credits",
+      "author_name": "Aaron Zauner",
+      "author_login": "azet",
+      "date": "2020-03-11T16:26:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e13824b818c76d9c18135663c91ed8b9cb2480f9",
+      "branches": [
+        "feature/serial_ui"
+      ]
+    },
+    {
+      "sha": "554e2cdae30edc5922858fad36596d0f9543cfd5",
+      "subject": "Update CREDITS.md",
+      "author_name": "Aaron Zauner",
+      "author_login": "azet",
+      "date": "2020-03-11T16:26:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/554e2cdae30edc5922858fad36596d0f9543cfd5",
+      "branches": [
+        "feature/serial_ui"
+      ]
+    },
+    {
+      "sha": "e77a3ff94e53b37c7e5aa8a9b3c88f59a6247539",
+      "subject": "add Serial UI feature to changelog",
+      "author_name": "Aaron Zauner",
+      "author_login": "azet",
+      "date": "2020-03-11T16:32:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e77a3ff94e53b37c7e5aa8a9b3c88f59a6247539",
+      "branches": [
+        "feature/serial_ui"
+      ]
+    },
+    {
+      "sha": "dfdb5fee637e4a6007b0c96b31d60bc1a80afd23",
+      "subject": "add 'Serial' to Lang",
+      "author_name": "Aaron Zauner",
+      "author_login": "azet",
+      "date": "2020-03-16T11:07:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dfdb5fee637e4a6007b0c96b31d60bc1a80afd23",
+      "branches": [
+        "feature/serial_ui"
+      ]
+    },
+    {
+      "sha": "d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "subject": "played around with some global and non-global hotkeys",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-30T22:04:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0d1bb635ec5b27cf49285b7eabcb3865f04c0b8",
+      "branches": [
+        "hotkeys"
+      ]
+    },
+    {
+      "sha": "545fb9efae62e83f08493cae12fb60fd011404bd",
+      "subject": "initial support for mono",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-02T14:51:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/545fb9efae62e83f08493cae12fb60fd011404bd",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "60d6440b7f85b575f81c5e621c2f0285d481ec14",
+      "subject": "more mono fixes",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-02T16:03:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/60d6440b7f85b575f81c5e621c2f0285d481ec14",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "f39495493d7ef4ced84d3186153df85f04b1ce30",
+      "subject": "Pull latest code from develop",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-04T02:49:48Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f39495493d7ef4ced84d3186153df85f04b1ce30",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "3c0b76d9375ef03a8ce28d043ab16f94c7e6675e",
+      "subject": "mono/wine updates",
+      "author_name": "Sean Kaim",
+      "author_login": "kmscode",
+      "date": "2016-06-04T04:42:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3c0b76d9375ef03a8ce28d043ab16f94c7e6675e",
+      "branches": [
+        "mono_support"
+      ]
+    },
+    {
+      "sha": "af41612576cacde226674e3263fd2245edac8695",
+      "subject": "Merge branch 'custom-workdir-external-tool' of https://github.com/pedro2555/mRemoteNG into pedro2555-custom-workdir-external-tool",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2017-11-09T21:33:38Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/af41612576cacde226674e3263fd2245edac8695",
+      "branches": [
+        "pedro2555-custom-workdir-external-tool"
+      ]
+    },
+    {
+      "sha": "1e66787422af401404ed1b547e7d3df6a14af5f3",
+      "subject": "readded the credential record property to the connection info class",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T19:53:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1e66787422af401404ed1b547e7d3df6a14af5f3",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "22ecf0d06f063e7e733364488351be17bdd4fc3c",
+      "subject": "readded forms and controls for the credential manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T20:13:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/22ecf0d06f063e7e733364488351be17bdd4fc3c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b4dfe5beb6f2faf765b7ef0c1273821c11960e77",
+      "subject": "hooked up tools menu button for cred manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T20:27:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4dfe5beb6f2faf765b7ef0c1273821c11960e77",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ce8ada05f5833b4ddcbc849f3add9fea04514267",
+      "subject": "hooked up the credential manager upgrader",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T21:14:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce8ada05f5833b4ddcbc849f3add9fea04514267",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ce03b74d48826a6771e11e00700c99b0e80a4998",
+      "subject": "serialization is now working as expected",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-27T23:50:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce03b74d48826a6771e11e00700c99b0e80a4998",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a4faaa20c314f59e119ec54ea3ed95d7e75ef15a",
+      "subject": "cred manager upgrader now correctly uses custom password provided during upgrade",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T00:03:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a4faaa20c314f59e119ec54ea3ed95d7e75ef15a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "0c0740d488506f879c866d7621ca75eeeec4148c",
+      "subject": "cred upgrade form now only lets you upgrade if all required fields are filled in",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T00:37:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0c0740d488506f879c866d7621ca75eeeec4148c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f1797282d92654cc7146d87230321156843fe645",
+      "subject": "readded option to unlock cred repos on startup",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T00:51:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1797282d92654cc7146d87230321156843fe645",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "23eb9cc44be0271ca1505cf2b8118ae76cb69cfe",
+      "subject": "added option to auto close the cred unlocker form when all repos are unlocked",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T01:27:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/23eb9cc44be0271ca1505cf2b8118ae76cb69cfe",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "44aa100566b672c9e9908548df2190a88fa80159",
+      "subject": "minor change to chkbox location",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T01:33:54Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/44aa100566b672c9e9908548df2190a88fa80159",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "29d44d103d410b3e6fc24cdf693fbe62ac6c4c61",
+      "subject": "fixed bug preventing FullyObservableCollection from generating events",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T17:44:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/29d44d103d410b3e6fc24cdf693fbe62ac6c4c61",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "e0486bec7df8daa2c519d83cff7b53fe2f026228",
+      "subject": "simplified some of the credential management classes",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T17:45:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e0486bec7df8daa2c519d83cff7b53fe2f026228",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "2277e95dd2e4e843f2771b8a10f281c05dccf38b",
+      "subject": "fixed tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T20:12:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2277e95dd2e4e843f2771b8a10f281c05dccf38b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b09fdcd5f5f54a220ca12460a33158fa8586a469",
+      "subject": "credential objects now used when establishing connections",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T21:57:21Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b09fdcd5f5f54a220ca12460a33158fa8586a469",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "258093e52a3573a90f89b53c7d7ae52cfd22778f",
+      "subject": "when harvesting creds, consider Password when determining if a credential set is a duplicate",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-28T22:23:52Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/258093e52a3573a90f89b53c7d7ae52cfd22778f",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "63ebef56b068e8ddfa0f7ae82a257a30036852c5",
+      "subject": "updated cred manager upgrade text with correct version",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T17:32:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/63ebef56b068e8ddfa0f7ae82a257a30036852c5",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "15f028157e69e5bea39ce8ae1aaea148fed70f31",
+      "subject": "inserted a new page in the upgrade process to view harvested credentials",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T20:33:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15f028157e69e5bea39ce8ae1aaea148fed70f31",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "687cb6c7bc26c9d2c0431749211843223364a88d",
+      "subject": "cred unlocker wont appear if there are no repos to unlock",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T20:42:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/687cb6c7bc26c9d2c0431749211843223364a88d",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "cc44b830a2d116625147f3f7db234b6ed308b37b",
+      "subject": "scaled images in the unlocker form",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-30T21:28:47Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cc44b830a2d116625147f3f7db234b6ed308b37b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "e2ebf25b7bc1d2c9ae332565126a59cb549ca43e",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T15:32:47Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e2ebf25b7bc1d2c9ae332565126a59cb549ca43e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "2e0979dc5ab52858ca4973e01e51e2946ec5e664",
+      "subject": "simplified screens for creating and editing creds",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T17:05:36Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2e0979dc5ab52858ca4973e01e51e2946ec5e664",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a2542f1b18ae6181b2fb52f20829b74090d958c7",
+      "subject": "rearranged some cred manager UI files",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T17:13:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a2542f1b18ae6181b2fb52f20829b74090d958c7",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "25aa815a82191083d42a7d236df40c23b2d2e4db",
+      "subject": "began reworking the repo list management screen",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2018-12-31T20:17:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/25aa815a82191083d42a7d236df40c23b2d2e4db",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "1c44fcb070bd1fda1644682828cc74a9d427ed7b",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-05T13:48:43Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1c44fcb070bd1fda1644682828cc74a9d427ed7b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "45766b8c127a9bfccfe90d843d1c47d288add8d1",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-09T13:32:09Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/45766b8c127a9bfccfe90d843d1c47d288add8d1",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "e89c77a1bc27a49d777637cea983a62379b4c80c",
+      "subject": "fixed mis-merge",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-09T16:26:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e89c77a1bc27a49d777637cea983a62379b4c80c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f60a4819028ce115304e29ac1d2f58f01918e949",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-09T16:27:26Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f60a4819028ce115304e29ac1d2f58f01918e949",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "75cfc9c75cba1466581e2984b2f472faa4a8c8d0",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T14:52:51Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/75cfc9c75cba1466581e2984b2f472faa4a8c8d0",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "fbea9d1ede7024fd9368d817e1a86076998fc433",
+      "subject": "hooked up remaining cred repo management buttons",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T16:57:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fbea9d1ede7024fd9368d817e1a86076998fc433",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "aab1fb1dd218cffe19d7e7c745baec3ccb1e25d8",
+      "subject": "minor cleanup",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:05:45Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aab1fb1dd218cffe19d7e7c745baec3ccb1e25d8",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ee1db6ff8bf7a6bd4f754a2a9bc9e20d6a2aa312",
+      "subject": "refactored some methods/fields to be more descriptive",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:07:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ee1db6ff8bf7a6bd4f754a2a9bc9e20d6a2aa312",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b8298ecb14380ea7d1d7d39f4d96da3105aa0cf3",
+      "subject": "minor display changes of the repo manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:19:03Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b8298ecb14380ea7d1d7d39f4d96da3105aa0cf3",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "80228966f952c142451d2abf210fde0feed28af4",
+      "subject": "double clicking cred repo tree item opens editor page",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T17:27:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/80228966f952c142451d2abf210fde0feed28af4",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a5ea867b6d6bd785f6b2181c40e03869c3476fdb",
+      "subject": "began hooking up the default credential to the manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T18:14:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a5ea867b6d6bd785f6b2181c40e03869c3476fdb",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "753ea9b4211bb845e6fc40f01f321d695d289e4c",
+      "subject": "connections now correctly use default cred if no credential is supplied",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T20:42:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/753ea9b4211bb845e6fc40f01f321d695d289e4c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "6f8cde4d8e6266219073ae5743392c30d2e07d0f",
+      "subject": "added a method comment",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-13T20:45:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6f8cde4d8e6266219073ae5743392c30d2e07d0f",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "569cf38f24a4420b185c6ddf6e2ced8c735fcd99",
+      "subject": "fixed a cred harvester test",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:35:13Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/569cf38f24a4420b185c6ddf6e2ced8c735fcd99",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "4bba05f737ddb7b46433c53f3efba84a5c5b9924",
+      "subject": "minor cleanup of cred harvester, slightly more efficient",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:35:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4bba05f737ddb7b46433c53f3efba84a5c5b9924",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ea59f6ad9daf5b2a34e7965e9f0de2e3c247991c",
+      "subject": "centralized credential lookup logic",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:56:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ea59f6ad9daf5b2a34e7965e9f0de2e3c247991c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f4904f350e9c1f6e6df5109cfe62895702ebf19e",
+      "subject": "minor cleanup",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T13:59:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f4904f350e9c1f6e6df5109cfe62895702ebf19e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "159f25b8a18426fae1e660b1870fa912952d16df",
+      "subject": "fixed exttools arg parser tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T15:54:19Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/159f25b8a18426fae1e660b1870fa912952d16df",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "53c26d8a91a42928f1e3b5cd5e16e3fec8c6ad9a",
+      "subject": "updated tests and references to using cred records rather than user/domain/pass of the connection",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T20:02:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/53c26d8a91a42928f1e3b5cd5e16e3fec8c6ad9a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "187ca5e55b08f19b851364828739f97558a0294b",
+      "subject": "started to redo how cred harvesting works in order to apply it to all importers/deserializers",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-14T22:32:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/187ca5e55b08f19b851364828739f97558a0294b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "b029b35df71b845dcc16177afa1c80ae6096ef4e",
+      "subject": "Merge remote-tracking branch 'origin/develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-19T18:51:43Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b029b35df71b845dcc16177afa1c80ae6096ef4e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "7fd9abbbc83ed16c282bf5b4cdb2875e74f1cdf6",
+      "subject": "resolved csv deserializer test",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-19T19:19:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7fd9abbbc83ed16c282bf5b4cdb2875e74f1cdf6",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "88558a353cf276af7b96405383ed1bcb2a89d1b2",
+      "subject": "fixed putty connection manager credential serialization",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-19T20:22:04Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88558a353cf276af7b96405383ed1bcb2a89d1b2",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "788ca79ece8aa3cfee0af3dc6adc4fb68a09d9c6",
+      "subject": "fixed rdp file importer to support cred manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T17:15:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/788ca79ece8aa3cfee0af3dc6adc4fb68a09d9c6",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "9ead7e8e16fd87c184a9073bb0e7f8ddbd769799",
+      "subject": "fixed an issue with putty session importing",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T17:18:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9ead7e8e16fd87c184a9073bb0e7f8ddbd769799",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "8906e087044816c64c697e4a81a250e9421015ec",
+      "subject": "made the rdcm 2.7 importer compatible with credential management",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T18:38:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8906e087044816c64c697e4a81a250e9421015ec",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f0d0b5ae2157d26827686ed098b5b08aa3cc12e5",
+      "subject": "reduced duplication in rdcm tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T19:46:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0d0b5ae2157d26827686ed098b5b08aa3cc12e5",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "923b9efd400b91206e795026358a51141ad4236f",
+      "subject": "began converting the database serializers to work with cred manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T20:51:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/923b9efd400b91206e795026358a51141ad4236f",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "739112a3ff5d101c243490f03305dd805648e314",
+      "subject": "added tests for SaveConnectionsOnEdit",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-20T21:45:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/739112a3ff5d101c243490f03305dd805648e314",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f78ca1e9fd9ed9939c5923851d1cf47609abdceb",
+      "subject": "some more deserialization refactoring",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-21T23:52:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f78ca1e9fd9ed9939c5923851d1cf47609abdceb",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "4b736176bf9286aa20e4d9ec303ee2cae7389209",
+      "subject": "request iconnectiontree interface in more places",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T12:01:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4b736176bf9286aa20e4d9ec303ee2cae7389209",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "36499276189f270670d01f9160255895e13a4e92",
+      "subject": "fixed bug with connection tree not appearing",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T18:48:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/36499276189f270670d01f9160255895e13a4e92",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "5e224f5b5bf6f3f1828289f26c30450100ccd334",
+      "subject": "ensure assigned cred id property cannot be null",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T18:51:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e224f5b5bf6f3f1828289f26c30450100ccd334",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "d524df631516797b0e923e4c8c8aa664dc36eb8c",
+      "subject": "minor efficiency gain",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-22T19:04:58Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d524df631516797b0e923e4c8c8aa664dc36eb8c",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "9e217dba79d0fb60bef75049bcdb1519d68700d8",
+      "subject": "began creating cred import form",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-24T04:16:08Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9e217dba79d0fb60bef75049bcdb1519d68700d8",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "530a4e165d2342caece996b6c936cbc42171d16a",
+      "subject": "extracted interface from credential service to make testing easier",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T15:58:28Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/530a4e165d2342caece996b6c936cbc42171d16a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "f3a7d97016b1b7e8e4b7bc3bdb959a6f8ab022af",
+      "subject": "allow specifying specific credential record in external tool arguments",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T17:31:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f3a7d97016b1b7e8e4b7bc3bdb959a6f8ab022af",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "6e417ed47ec8c03ef6b84113f36b790ce0756a29",
+      "subject": "ensure specified creds can be parsed even if no connectioninfo is selected",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T18:33:14Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6e417ed47ec8c03ef6b84113f36b790ce0756a29",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "89bb4d45b3434631dea6a98f259459636c709802",
+      "subject": "minor tweaks to the import form",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T22:58:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/89bb4d45b3434631dea6a98f259459636c709802",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "1f296f2f7266644ab48c77b1d9a83aced98b4235",
+      "subject": "slight fix to the optional<T> tests",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-27T22:59:02Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1f296f2f7266644ab48c77b1d9a83aced98b4235",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "ba62c17ea2e66444a47c75a8a77de78d41e4252b",
+      "subject": "added some interface documentation",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-01-28T00:01:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba62c17ea2e66444a47c75a8a77de78d41e4252b",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "95859b96ff8df6e22f52b4b8ee924b28edce477d",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-02-17T17:21:22Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/95859b96ff8df6e22f52b4b8ee924b28edce477d",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "c065b86dbdd001f2c52ec1c5788e1de360ca4e91",
+      "subject": "revised credential manager forms design",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-19T21:38:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c065b86dbdd001f2c52ec1c5788e1de360ca4e91",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "953ddaa292a29a39a667dbc17adcbeb1ba917a0a",
+      "subject": "merged develop",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-19T21:39:58Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/953ddaa292a29a39a667dbc17adcbeb1ba917a0a",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "33a6dbb4c375f322704b763330850aa299022b1e",
+      "subject": "made more hardcoded strings translateable",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T17:32:35Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/33a6dbb4c375f322704b763330850aa299022b1e",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "052796c794d1d62838efb52a332ac1c929119a63",
+      "subject": "adjusted text box positioning",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T18:08:25Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/052796c794d1d62838efb52a332ac1c929119a63",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "3bb285d180841b37fd4c0db798889471ac953553",
+      "subject": "removed unused form",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T18:42:30Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3bb285d180841b37fd4c0db798889471ac953553",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "8779776ad577808e6a25203b1ba3ab3fe45634df",
+      "subject": "removed minimize button from credentials manager",
+      "author_name": "Faryan Rezagholi",
+      "author_login": "farosch",
+      "date": "2019-02-20T18:45:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8779776ad577808e6a25203b1ba3ab3fe45634df",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "93d50b0818a4cf8ac1163569c4f6f4de96019826",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-09T19:49:23Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/93d50b0818a4cf8ac1163569c4f6f4de96019826",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "355cd63acb10b388412efba9df3afad30de83688",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-19T23:01:37Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/355cd63acb10b388412efba9df3afad30de83688",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "a3aa323cceebc21ac1d5eda02dd71cacffa2088d",
+      "subject": "updated html documentation for #680",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-20T01:15:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3aa323cceebc21ac1d5eda02dd71cacffa2088d",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "294bd2f7a42d2793fc7305740a63817715eb63dd",
+      "subject": "fixed event invocator warnings",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-03-20T01:25:59Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/294bd2f7a42d2793fc7305740a63817715eb63dd",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "bb04605dc3d78b7076b1086828c4ffcbf906f144",
+      "subject": "Merge branch 'develop' into reapply_credential_manager",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-05-19T21:19:18Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bb04605dc3d78b7076b1086828c4ffcbf906f144",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    },
+    {
+      "sha": "4349b1b65b1684dc40bcbc98bb49bcae056d27ee",
+      "subject": "dont save settings on individual settings pages",
+      "author_name": "David Sparer",
+      "author_login": "sparerd",
+      "date": "2019-05-19T21:23:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4349b1b65b1684dc40bcbc98bb49bcae056d27ee",
+      "branches": [
+        "reapply_credential_manager"
+      ]
+    }
+  ],
   "discovered_at": "2026-07-25T10:56:47Z",
   "last_seen": "2026-07-25T10:56:47Z",
   "base_branch": "v1.78.2-dev",
   "merge_base": "9257b7ac52cc5ecbba530ab45e81e85c20572331",
-  "compared_at": "2026-07-25T10:57:29Z"
+  "compared_at": "2026-07-25T16:21:11Z",
+  "branches_scanned": [
+    "develop",
+    "Features_Jo",
+    "dependabot/nuget/mRemoteNG.Specs/nuget-aa8a00b0f5",
+    "feature/serial_ui",
+    "gh-pages",
+    "hotkeys",
+    "master",
+    "mono_support",
+    "pedro2555-custom-workdir-external-tool",
+    "push_settings_recursively",
+    "reapply_credential_manager",
+    "release/v1.76",
+    "update-asset-labels"
+  ],
+  "branches_inherited_from_upstream": 4,
+  "screened_shas": [
+    "faf0f4dd0b1ed2e5c2c680e63c4c982fc603839e",
+    "b2546cebab48e554b94ec2f8b4c611c5b60ea030",
+    "2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+    "b1baa8910846e37ccb8bbfaca648e0925babeed9",
+    "bbb137f5ddce916359b3587fd696501e3a7feec4",
+    "0e37c335f4b07bd59b4510cfece97f396754d05d",
+    "e13824b818c76d9c18135663c91ed8b9cb2480f9",
+    "e77a3ff94e53b37c7e5aa8a9b3c88f59a6247539",
+    "dfdb5fee637e4a6007b0c96b31d60bc1a80afd23"
+  ]
 }

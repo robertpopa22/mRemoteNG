@@ -1,0 +1,13 @@
+{
+  "sha": "4a44a8d335e32b46b5300fcb3f31b63c401f1a40",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Update aws-sdk-net monorepo",
+  "author_name": "renovate[bot]",
+  "author_login": "renovate[bot]",
+  "date": "2026-04-06T20:52:56Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4a44a8d335e32b46b5300fcb3f31b63c401f1a40",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:28:48Z"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "f22a2a12ba9d9a2887f85f700e45d333b2a76aa0",
+  "fork": "k-meeks/mRemoteNG",
+  "owner": "k-meeks",
+  "subject": "Fix theme palette labels showing Japanese for non-Japanese UI cultures",
+  "body": "Fix theme palette labels showing Japanese for non-Japanese UI cultures\n\nColorKeyDisplayName() unconditionally looked up each palette color key\nin ColorKeyJaMap and fell back to the raw key if missing - so every\nnon-Japanese user saw a mix of Japanese labels (for keys present in the\nmap) and raw underscored keys (for keys missing from it).\n\nGate the Japanese labels behind CultureInfo.CurrentUICulture being\n\"ja\", and humanize the raw key (underscores -> spaces) for everyone\nelse. Japanese-culture users keep their original labels unchanged.\n\nAlso reword OptionsThemeChangeWarning now that theme changes apply\nlive (previous commit) - it no longer claims a restart is required,\njust notes some DockPanel chrome may not update until restart.",
+  "author_name": "Kyle Meeks",
+  "author_login": "meeksk",
+  "date": "2026-06-11T21:26:43Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f22a2a12ba9d9a2887f85f700e45d333b2a76aa0",
+  "stats": {
+    "files": 2,
+    "additions": 12,
+    "deletions": 4,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Language/Language.resx",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/OptionsPages/ThemePage.cs",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- mRemoteNG/Language/Language.resx\n@@ -1961,7 +1961,7 @@ mRemoteNG will now quit and begin with the installation.</value>\n     <value>Type the new theme name</value>\n   </data>\n   <data name=\"OptionsThemeChangeWarning\" xml:space=\"preserve\">\n-    <value>Warning: Restart is required to commit any theme configuration change.</value>\n+    <value>Theme changes apply immediately. Some panel borders and tab strips may not update until mRemoteNG is restarted.</value>\n   </data>\n   <data name=\"CouldNotFindExternalTool\" xml:space=\"preserve\">\n     <value>Could not find external tool with name \"{0}\"</value>\n--- mRemoteNG/UI/Forms/OptionsPages/ThemePage.cs\n@@ -3,6 +3,7 @@\n using mRemoteNG.Themes;\n using System.Linq;\n using System.Collections.Generic;\n+using System.Globalization;\n using BrightIdeasSoftware;\n using mRemoteNG.Properties;\n using mRemoteNG.UI.TaskDialog;\n@@ -202,12 +203,19 @@ private void ColorMeList(ThemeInfo ti)\n \n         /// <summary>\n         /// Map an internal color key (e.g. \"Button_Hover_Background\") to a\n-        /// localized, human-readable label shown in the theme color list.\n-        /// Falls back to the raw key when no mapping is defined.\n+        /// human-readable label shown in the theme color list. The Japanese\n+        /// labels in <see cref=\"ColorKeyJaMap\"/> only apply under a Japanese\n+        /// UI culture; everyone else gets a humanized version of the raw key.\n         /// </summary>\n         private static string ColorKeyDisplayName(string key)\n         {\n-            return ColorKeyJaMap.TryGetValue(key, out var jp) ? jp : key;\n+            if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == \"ja\"\n+                && ColorKeyJaMap.TryGetValue(key, out var jp))\n+            {\n+                return jp;\n+            }\n+\n+            return key.Replace('_', ' ');\n         }\n \n         // Japanese display labels for the palette keys defined in",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:26Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "The Japanese theme translation map and display method do not exist in our fork, so the leak bug cannot occur.",
+    "agent": "gemini",
+    "at": "2026-07-25T17:01:53Z"
+  }
+}

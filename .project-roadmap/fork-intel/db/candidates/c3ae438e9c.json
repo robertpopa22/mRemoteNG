@@ -1,0 +1,13 @@
+{
+  "sha": "c3ae438e9c387942e199cea9b56e18923b542583",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "fix failing test",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-05-24T22:48:44Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c3ae438e9c387942e199cea9b56e18923b542583",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

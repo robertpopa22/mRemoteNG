@@ -1,0 +1,42 @@
+{
+  "sha": "4c236d567c9e042d5d70e527a36e8c3b0c9d3e53",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "修复：Icons应仅使用顶层目录的ico图标",
+  "body": "修复：Icons应仅使用顶层目录的ico图标",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-01-24T16:09:08Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4c236d567c9e042d5d70e527a36e8c3b0c9d3e53",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/App/Initialization/ConnectionIconLoader.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteV1/App/Initialization/ConnectionIconLoader.cs\n@@ -22,7 +22,7 @@ public void GetConnectionIcons()\n             if (Directory.Exists(_path) == false)\n                 return;\n \n-            foreach (var f in Directory.GetFiles(_path, \"*.ico\", SearchOption.AllDirectories))\n+            foreach (var f in Directory.GetFiles(_path, \"*.ico\", SearchOption.TopDirectoryOnly))\n             {\n                 var fInfo = new FileInfo(f);\n                 Array.Resize(ref ConnectionIcon.Icons, ConnectionIcon.Icons.Length + 1);",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:23Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Behavior change, not fix: silently drops user icons in subfolders. No matching issue; regression risk for organized icon dirs. Path is old mRemoteV1 layout.",
+    "agent": "claude",
+    "at": "2026-07-25T16:36:16Z"
+  }
+}

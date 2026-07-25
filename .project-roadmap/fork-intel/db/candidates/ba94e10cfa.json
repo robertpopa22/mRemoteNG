@@ -1,0 +1,13 @@
+{
+  "sha": "ba94e10cfa3d45aa3cbed2c37c157b6cf4ab3f8e",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "modified a few more classes to reduce reliance on Runtime",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-03-04T18:04:32Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba94e10cfa3d45aa3cbed2c37c157b6cf4ab3f8e",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

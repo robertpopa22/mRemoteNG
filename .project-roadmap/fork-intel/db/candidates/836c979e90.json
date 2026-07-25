@@ -1,0 +1,48 @@
+{
+  "sha": "836c979e908c6d57b675ab3090973c0e960d9997",
+  "fork": "Hovn/mRemoteNG",
+  "owner": "Hovn",
+  "subject": "针对RadminConnect外部工具进行特殊集成处理，现在可在mRemoteNG内部窗口显示Radmin了",
+  "body": "针对RadminConnect外部工具进行特殊集成处理，现在可在mRemoteNG内部窗口显示Radmin了",
+  "author_name": "Hovn",
+  "author_login": "Hovn",
+  "date": "2025-12-01T03:11:20Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/836c979e908c6d57b675ab3090973c0e960d9997",
+  "stats": {
+    "files": 2,
+    "additions": 48,
+    "deletions": 14,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Connection/Protocol/IntegratedProgram.cs",
+      "status": "modified",
+      "additions": 45,
+      "deletions": 11
+    },
+    {
+      "filename": "mRemoteV1/Tools/ExternalTool.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- mRemoteV1/Connection/Protocol/IntegratedProgram.cs\n@@ -1,7 +1,9 @@\n using System;\n using System.Diagnostics;\n using System.Drawing;\n+using System.IO;\n using System.Threading;\n+using System.Web.UI.WebControls;\n using System.Windows.Forms;\n using mRemoteNG.App;\n using mRemoteNG.Messages;\n@@ -38,7 +40,8 @@ public override bool Initialize()\n \t\t\t\t\n \t\tpublic override bool Connect()\n \t\t{\n-\t\t\ttry\n+            //Console.WriteLine(\"CBH _externalTool.TryIntegrate: \" + _externalTool.TryIntegrate);\n+            try\n \t\t\t{\n                 Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, $\"Attempting to start: {_externalTool.DisplayName}\", true);\n \n@@ -66,33 +69,63 @@ public override bool Connect()\n \t\t\t        EnableRaisingEvents = true\n \t\t\t    };\n \n+                _process.Exited += ProcessExited;\n+                //CBH ���RadminConnect�����⼯�ɴ������ж��ļ�����������׺���ǲ���RadminConnect\n+                bool isRadminConnect = Path.GetFileNameWithoutExtension(_process.StartInfo.FileName).Equals(\"RadminConnect\", StringComparison.OrdinalIgnoreCase);\n+                //Console.WriteLine(\"CBH _process.StartInfo.FileName: \" + _process.StartInfo.FileName+\"|\"+isRadminConnect);\n+                if (isRadminConnect)//_externalTool.DisplayName == \"Radmin\"\n+                    _process.Exited -= ProcessExited;//ȡ�������¼�\n \n-\t\t\t    _process.Exited += ProcessExited;\n-\t\t\t\t\t\t\n-\t\t\t\t_process.Start();\n-                _process.WaitForInputIdle(Settings.Default.MaxPuttyWaitTime * 1000);\n+                _process.Start();\n+\n+                //CBH ���RadminConnect���и��Ի����������Լ��ɺ�������\n+                if (isRadminConnect)//_process.ProcessName == \"RadminConnect\" || _process.ProcessName == \"AutoHotkey\"\n+                {\n+                    _process.WaitForExit();\n+                    //uint radmin_hwnd = (uint)_process.ExitCode;\n+                    int radmin_pid = _process.ExitCode;\n+                    if (radmin_pid > 0)\n+                    {\n+                        _process = Process.GetProcessById(radmin_pid);//�滻Ŀ�����Ϊʵ�ʵ�radmin����\n+                        //IntPtr _hwnd = _process.MainWindowHandle;\n+                        _process.EnableRaisingEvents = true;   // �ؼ�һ���������¼����ᱻ CLR ת��\n+                        _process.Exited += ProcessExited;//ע�ᶩ���¼�\n+                        Thread.Sleep(_externalTool.WaitAfterStart);\n+                        //Console.WriteLine(\"CBH radmin_process:\" +radmin_process.ProcessName + \"|\"+radmin_process.Id + \"|\"  + radmin_hwnd);\n+                    }\n+                    else\n+                    {\n+                        ProcessExited(_process, EventArgs.Empty);\n+                        //Event_Closed(this);\n+                        Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg, Language.strConnectionOpenFailed);\n+                    }\n+\n+                }\n+                //Console.WriteLine(\"CBH _process: \" + _process.Id + \"|\" + _process.ProcessName);\n+\n+                _process.WaitForInputIdle(Settings.Default.MaxPuttyWaitTime * 1000);//�ȶԷ����ڴ������\n \n                 var startTicks = Environment.TickCount;\n \t\t\t\twhile (_handle.ToInt32() == 0 & Environment.TickCount < startTicks + Settings.Default.MaxPuttyWaitTime * 1000)\n \t\t\t\t{\n \t\t\t\t\t_process.Refresh();\n \t\t\t\t\tif (_process.MainWindowTitle != \"Default IME\")\n \t\t\t\t\t{\n-\t\t\t\t\t\t_handle = _process.MainWindowHandle;\n-\t\t\t\t\t}\n-\t\t\t\t\tif (_handle.ToInt32() == 0)\n+\t\t\t\t\t\t_handle = _process.MainWindowHandle;//�ҵ������Ķ������ھ��\n+                    }\n+                    if (_handle.ToInt32() == 0)\n \t\t\t\t\t{\n \t\t\t\t\t\tThread.Sleep(0);\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\t\t\t\n-\t\t\t\tNativeMethods.SetParent(_handle, InterfaceControl.Handle);\n+\t\t\t\tNativeMethods.SetParent(_handle, InterfaceControl.Handle);//�Ѷ���������Ӵ�\n \t\t\t\tRuntime.MessageCollector?.AddMessage(MessageClass.InformationMsg, Language.strIntAppStuff, true);\n \t\t\t\tRuntime.MessageCollector?.AddMessage(MessageClass.InformationMsg, string.Format(Language.strIntAppHandle, _handle), true);\n \t\t\t\tRuntime.MessageCollector?.AddMessage(MessageClass.InformationMsg, string.Format(Language.strIntAppTitle, _process.MainWindowTitle), true);\n \t\t\t\tRuntime.MessageCollector?.AddMessage(MessageClass.InformationMsg, string.Format(Language.strIntAppParentHandle, InterfaceControl.Parent.Handle), true);\n \t\t\t\t\t\t\n-\t\t\t\tResize(this, new EventArgs());\n+\t\t\t\tResize(this, new EventArgs());//������С����ʽ����䵱ǰTab��\n \t\t\t\tbase.Connect();\n \t\t\t\treturn true;\n \t\t\t}\n@@ -169,7 +202,8 @@ public override void Close()\n         #region Private Methods\n \t\tprivate void ProcessExited(object sender, EventArgs e)\n \t\t{\n-\t\t\tEvent_Closed(this);\n+            //Console.WriteLine(\"CBH ProcessExited: \" );\n+            Event_Closed(this);\n \t\t}\n         #endregion\n \t\t\n--- mRemoteV1/Tools/ExternalTool.cs\n@@ -59,8 +59,8 @@ public int WaitAfterStart\n             set\n             {\n                 // WaitAfterStart cannot be turned on when TryIntegrate is true\n-                if (TryIntegrate)\n-                    return;\n+                //if (TryIntegrate)\n+                //    return;\n                 SetField(ref _waitAfterStart, value, nameof(WaitAfterStart));\n             }\n         }\n@@ -169,7 +169,7 @@ private void StartExternalProcess()\n             SetProcessProperties(process, ConnectionInfo);\n             process.Start();\n \n-            Console.WriteLine(\"WaitForExit:\"+ WaitForExit+ \" , WaitAfterStart:\"+ WaitAfterStart);\n+            //Console.WriteLine(\"CBH WaitForExit:\"+ WaitForExit+ \" , WaitAfterStart:\"+ WaitAfterStart);\n             if (WaitForExit)  \n             {\n                 process.WaitForExit();",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:47Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "A tool-specific hack for RadminConnect that modifies core external tool handling. No open issue exists, and it risks regressing other integrated tools.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:43:42Z"
+  }
+}

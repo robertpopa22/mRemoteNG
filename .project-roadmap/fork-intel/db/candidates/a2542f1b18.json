@@ -1,0 +1,13 @@
+{
+  "sha": "a2542f1b18ae6181b2fb52f20829b74090d958c7",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "rearranged some cred manager UI files",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-31T17:13:48Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a2542f1b18ae6181b2fb52f20829b74090d958c7",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

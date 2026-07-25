@@ -1,0 +1,13 @@
+{
+  "sha": "53c26d8a91a42928f1e3b5cd5e16e3fec8c6ad9a",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "updated tests and references to using cred records rather than user/domain/pass of the connection",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-14T20:02:41Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/53c26d8a91a42928f1e3b5cd5e16e3fec8c6ad9a",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

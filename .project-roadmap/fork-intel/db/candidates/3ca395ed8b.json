@@ -1,0 +1,42 @@
+{
+  "sha": "3ca395ed8b6d02d6fd0b80b3a91685f3e5bfa21d",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "refactor(ssh_dotnet): narrow fatal-path Connect catches to ArgumentException (S2221)",
+  "body": "refactor(ssh_dotnet): narrow fatal-path Connect catches to ArgumentException (S2221)\n\nNarrow the authentication-build and client-create catches from Exception to\nArgumentException (the realistic type). Safe because both are on the fatal path:\nanything unexpected bubbles to Connect()'s top-level catch, which performs identical\nerror handling. Non-fatal handlers and background I/O-loop catches are deliberately\nleft broad -- narrowing them would turn recoverable errors fatal / crash the I/O tasks.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2026-06-21T17:31:39Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3ca395ed8b6d02d6fd0b80b3a91685f3e5bfa21d",
+  "stats": {
+    "files": 1,
+    "additions": 2,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/SshDotNet/ProtocolSshDotNet.cs\n@@ -266,7 +266,7 @@ private bool TryBuildAuthentication(string username, string password, Connection\n                 authMethods = SshAuthenticationProvider.GetAuthenticationMethods(username, password, connectionInfo);\n                 return true;\n             }\n-            catch (Exception authEx)\n+            catch (ArgumentException authEx)\n             {\n                 SshDotNetDiagnostics.LogException(\"Protocol: Failed to create authentication methods\", authEx);\n                 State = ConnectionState.Error;\n@@ -282,7 +282,7 @@ private bool TryEstablishSshConnection(string hostname, int port, string usernam\n             {\n                 _sshClient = SshConnectionManager.CreateAdapter(hostname, port, username, authMethods, TimeSpan.FromSeconds(30));\n             }\n-            catch (Exception createEx)\n+            catch (ArgumentException createEx)\n             {\n                 SshDotNetDiagnostics.LogException(\"Protocol: Failed to create SSH client\", createEx);\n                 State = ConnectionState.Error;",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:14Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "SonarCloud catch-narrowing in SSH_DotNet files absent from our fork; nothing to apply.",
+    "agent": "claude",
+    "at": "2026-07-25T16:35:07Z"
+  }
+}

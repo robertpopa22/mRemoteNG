@@ -1,0 +1,42 @@
+{
+  "sha": "8783ed3ecaefbd72e7007ddbc4daef9d2aa44a85",
+  "fork": "joubertdj/mRemoteNG",
+  "owner": "joubertdj",
+  "subject": "Change terminal re-initialization guard to Debug log level",
+  "body": "Change terminal re-initialization guard to Debug log level\n\nThe 'Already initialized' message is expected behavior when Initialize() is called\nmultiple times. Changed from Warning to Debug log level to reduce noise in logs\nand better reflect that this is normal behavior.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+  "author_name": "Dawie Joubert",
+  "author_login": "joubertdj",
+  "date": "2025-11-06T16:39:54Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8783ed3ecaefbd72e7007ddbc4daef9d2aa44a85",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Controls/SshTerminalControl.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Controls/SshTerminalControl.cs\n@@ -222,7 +222,7 @@ public void Initialize()\n         {\n             if (_isInitialized)\n             {\n-                SSHDotNetDiagnostics.LogWarning(\"Terminal: Already initialized\");\n+                SSHDotNetDiagnostics.LogDebug(\"Terminal: Already initialized, skipping re-initialization\");\n                 return;\n             }\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:56Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fork-only SshTerminalControl is absent; SSH1/SSH2 use PuttyBase, so this logging-only tweak has no code path or user-visible benefit.",
+    "agent": "codex",
+    "at": "2026-07-25T18:00:43Z"
+  }
+}

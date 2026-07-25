@@ -1,0 +1,13 @@
+{
+  "sha": "ca61da06f98ca81899b28f6bbd8039fedb701533",
+  "fork": "efvb/mRemoteNG",
+  "owner": "efvb",
+  "subject": "minor clean up",
+  "author_name": "Sean Kaim",
+  "author_login": "kmscode",
+  "date": "2017-12-08T17:07:20Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca61da06f98ca81899b28f6bbd8039fedb701533",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (kmscode) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:35Z"
+}

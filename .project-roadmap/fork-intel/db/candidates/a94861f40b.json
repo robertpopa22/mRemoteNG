@@ -1,0 +1,463 @@
+{
+  "sha": "a94861f40b3eca704fd69cdbd1b08515d80d8499",
+  "fork": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "subject": "feat(migration): Phase 1 foundation — platform abstraction layer + Avalonia skeleton",
+  "body": "feat(migration): Phase 1 foundation — platform abstraction layer + Avalonia skeleton\n\nImplements the first phase of the mRemoteNG cross-platform migration:\n\n## New Projects (5 new .csproj files)\n- `mRemoteNG.Platform` (net10.0) — OS-agnostic abstraction interfaces\n  - IClipboardService, IWindowService, IProcessService\n  - ISettingsProvider, ICryptoProvider, ISystemTrayService, INotificationService\n  - PlatformServiceFactory: runtime OS detection + DI registration via reflection\n  - AesGcmCryptoProvider: BouncyCastle AES-256-GCM (PBKDF2, 600k iterations)\n\n- `mRemoteNG.Platform.Windows` (net10.0-windows) — Win32 implementations\n  - WindowsWindowService: user32.dll P/Invoke (SetForegroundWindow, MoveWindow, etc.)\n  - WindowsClipboardService: WinForms Clipboard\n  - WindowsProcessService: Job Object child process tracking (replaces ChildProcessTracker)\n  - WindowsSettingsProvider: XML to %APPDATA%\\mRemoteNG\\ (replaces registry)\n  - DpapiCryptoProvider: DPAPI with entropy (ciphertext prefix DPAPI:)\n\n- `mRemoteNG.Platform.Linux` (net10.0) — Linux implementations\n  - LinuxClipboardService: auto-detects Wayland (wl-copy) vs X11 (xclip)\n  - LinuxProcessService: AppDomain.ProcessExit + prctl design notes\n  - LinuxSettingsProvider: XDG Base Dir (~/.config/mRemoteNG/settings.xml)\n  - LinuxCryptoProvider: AES-256-GCM, keyfile chmod 600\n  - LinuxNotificationService: notify-send\n\n- `mRemoteNG.Platform.Mac` (net10.0) — macOS implementations\n  - MacClipboardService: pbcopy/pbpaste\n  - MacSettingsProvider: ~/Library/Application Support/mRemoteNG/\n  - MacCryptoProvider: AES-256-GCM with keyfile\n  - MacNotificationService: osascript notifications\n\n- `mRemoteNG.Avalonia` (net10.0) — Cross-platform Avalonia UI skeleton\n  - Avalonia 11.2.7, ReactiveUI, Dock.Avalonia, Material.Icons\n  - App.axaml/App.axaml.cs: Fluent dark theme, Avalonia entry point\n  - Program.cs: DI bootstrap + PlatformServiceFactory + BuildAvaloniaApp()\n  - MainWindowViewModel: title, connection count, menu commands (Rea",
+  "author_name": "Claude",
+  "author_login": "claude",
+  "date": "2026-03-10T12:36:53Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a94861f40b3eca704fd69cdbd1b08515d80d8499",
+  "stats": {
+    "files": 53,
+    "additions": 3769,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/cross-platform.yml",
+      "status": "added",
+      "additions": 165,
+      "deletions": 0
+    },
+    {
+      "filename": "MIGRATION_PLAN.md",
+      "status": "added",
+      "additions": 805,
+      "deletions": 0
+    },
+    {
+      "filename": "MIGRATION_PROGRESS.md",
+      "status": "added",
+      "additions": 520,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/App.axaml",
+      "status": "added",
+      "additions": 18,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/App.axaml.cs",
+      "status": "added",
+      "additions": 26,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/AppServices.cs",
+      "status": "added",
+      "additions": 35,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Program.cs",
+      "status": "added",
+      "additions": 32,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/BoolToIconConverter.cs",
+      "status": "added",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/ConnectionTreeViewModel.cs",
+      "status": "added",
+      "additions": 126,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/MainWindowViewModel.cs",
+      "status": "added",
+      "additions": 70,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/ViewModels/OptionsWindowViewModel.cs",
+      "status": "added",
+      "additions": 41,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/ConnectionTreeView.axaml",
+      "status": "added",
+      "additions": 70,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/ConnectionTreeView.axaml.cs",
+      "status": "added",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/MainWindow.axaml",
+      "status": "added",
+      "additions": 147,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/Views/MainWindow.axaml.cs",
+      "status": "added",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj",
+      "status": "added",
+      "additions": 51,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/Clipboard/LinuxClipboardService.cs",
+      "status": "added",
+      "additions": 72,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/LinuxSystemTrayService.cs",
+      "status": "added",
+      "additions": 17,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/Notifications/LinuxNotificationService.cs",
+      "status": "added",
+      "additions": 44,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/NullWindowService.cs",
+      "status": "added",
+      "additions": 17,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/PlatformRegistrar.cs",
+      "status": "added",
+      "additions": 27,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/Process/LinuxProcessService.cs",
+      "status": "added",
+      "additions": 58,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/Security/LinuxCryptoProvider.cs",
+      "status": "added",
+      "additions": 49,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/Settings/LinuxSettingsProvider.cs",
+      "status": "added",
+      "additions": 103,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Linux/mRemoteNG.Platform.Linux.csproj",
+      "status": "added",
+      "additions": 23,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/Clipboard/MacClipboardService.cs",
+      "status": "added",
+      "additions": 51,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/MacSystemTrayService.cs",
+      "status": "added",
+      "additions": 15,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/Notifications/MacNotificationService.cs",
+      "status": "added",
+      "additions": 37,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/PlatformRegistrar.cs",
+      "status": "added",
+      "additions": 28,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/Process/MacProcessService.cs",
+      "status": "added",
+      "additions": 41,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/Security/MacCryptoProvider.cs",
+      "status": "added",
+      "additions": 42,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/Settings/MacSettingsProvider.cs",
+      "status": "added",
+      "additions": 90,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Mac/mRemoteNG.Platform.Mac.csproj",
+      "status": "added",
+      "additions": 23,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/Clipboard/WindowsClipboardService.cs",
+      "status": "added",
+      "additions": 26,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/Notifications/WindowsNotificationService.cs",
+      "status": "added",
+      "additions": 27,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/PlatformRegistrar.cs",
+      "status": "added",
+      "additions": 27,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/Process/WindowsProcessService.cs",
+      "status": "added",
+      "additions": 135,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/Security/DpapiCryptoProvider.cs",
+      "status": "added",
+      "additions": 43,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/Settings/WindowsSettingsProvider.cs",
+      "status": "added",
+      "additions": 106,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/Tray/WindowsSystemTrayService.cs",
+      "status": "added",
+      "additions": 27,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/Window/WindowsWindowService.cs",
+      "status": "added",
+      "additions": 62,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform.Windows/mRemoteNG.Platform.Windows.csproj",
+      "status": "added",
+      "additions": 23,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/IClipboardService.cs",
+      "status": "added",
+      "additions": 22,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/INotificationService.cs",
+      "status": "added",
+      "additions": 23,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/IProcessService.cs",
+      "status": "added",
+      "additions": 33,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/ISettingsProvider.cs",
+      "status": "added",
+      "additions": 34,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/ISystemTrayService.cs",
+      "status": "added",
+      "additions": 23,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/IWindowService.cs",
+      "status": "added",
+      "additions": 39,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/PlatformServiceFactory.cs",
+      "status": "added",
+      "additions": 80,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/Security/AesGcmCryptoProvider.cs",
+      "status": "added",
+      "additions": 97,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/Security/ICryptoProvider.cs",
+      "status": "added",
+      "additions": 29,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.Platform/mRemoteNG.Platform.csproj",
+      "status": "added",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG.sln",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/workflows/cross-platform.yml\n@@ -0,0 +1,165 @@\n+name: Cross-Platform Build & Test\n+\n+on:\n+  push:\n+    branches:\n+      - 'claude/**'\n+      - 'main'\n+      - 'develop'\n+  pull_request:\n+    branches:\n+      - main\n+      - develop\n+\n+jobs:\n+  # ─────────────────────────────────────────────\n+  # Platform abstraction layer (net10.0 — pure)\n+  # ─────────────────────────────────────────────\n+  build-platform-abstractions:\n+    name: Build Platform Abstractions\n+    runs-on: ubuntu-latest\n+    steps:\n+      - uses: actions/checkout@v4\n+\n+      - name: Setup .NET 10\n+        uses: actions/setup-dotnet@v4\n+        with:\n+          dotnet-version: '10.0.x'\n+\n+      - name: Restore\n+        run: dotnet restore mRemoteNG.Platform/mRemoteNG.Platform.csproj\n+\n+      - name: Build\n+        run: dotnet build mRemoteNG.Platform/mRemoteNG.Platform.csproj --no-restore -c Release\n+\n+      - name: Restore Linux platform\n+        run: dotnet restore mRemoteNG.Platform.Linux/mRemoteNG.Platform.Linux.csproj\n+\n+      - name: Build Linux platform\n+        run: dotnet build mRemoteNG.Platform.Linux/mRemoteNG.Platform.Linux.csproj --no-restore -c Release\n+\n+  # ─────────────────────────────────────────────\n+  # Avalonia UI — build on all 3 platforms\n+  # ─────────────────────────────────────────────\n+  build-avalonia:\n+    name: Build Avalonia UI (${{ matrix.os }})\n+    runs-on: ${{ matrix.runner }}\n+    strategy:\n+      fail-fast: false\n+      matrix:\n+        include:\n+          - os: Windows\n+            runner: windows-latest\n+          - os: Linux\n+            runner: ubuntu-latest\n+          - os: macOS\n+            runner: macos-latest\n+\n+    steps:\n+      - uses: actions/checkout@v4\n+\n+      - name: Setup .NET 10\n+        uses: actions/setup-dotnet@v4\n+        with:\n+          dotnet-version: '10.0.x'\n+\n+      - name: Restore\n+        run: dotnet restore mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj\n+\n+      - name: Build\n+        run: dotnet build mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj --no-restore -c Release\n+\n+      - name: Upload build artifact\n+        uses: actions/upload-artifact@v4\n+        with:\n+          name: mRemoteNG-Avalonia-${{ matrix.os }}\n+          path: mRemoteNG.Avalonia/bin/Release/net10.0/\n+\n+  # ─────────────────────────────────────────────\n+  # Original Windows build (keep green while migrating)\n+  # ─────────────────────────────────────────────\n+  build-windows-legacy:\n+    name: Build Windows Legacy (WinForms)\n+    runs-on: windows-latest\n+    steps:\n+      - uses: actions/checkout@v4\n+\n+      - name: Setup .NET 10\n+        uses: actions/setup-dotnet@v4\n+        with:\n+          dotnet-version: '10.0.x'\n+\n+      - name: Restore\n+        run: dotnet restore mRemoteNG/mRemoteNG.csproj\n+\n+      - name: Build (x64)\n+        run: dotnet build mRemoteNG/mRemoteNG.csproj --no-restore -c Release -p:Platform=x64\n+\n+  # ─────────────────────────────────────────────\n+  # Unit tests — cross-platform\n+  # ─────────────────────────────────────────────\n+  test:\n+    name: Unit Tests (${{ matrix.os }})\n+    runs-on: ${{ matrix.runner }}\n+    needs: [build-platform-abstractions]\n+    strategy:\n+      fail-fast: false\n+      matrix:\n+        include:\n+          - os: Linux\n+            runner: ubuntu-latest\n+          - os: macOS\n+            runner: macos-latest\n+          - os: Windows\n+            runner: windows-latest\n+\n+    steps:\n+      - uses: actions/checkout@v4\n+\n+      - name: Setup .NET 10\n+        uses: actions/setup-dotnet@v4\n+        with:\n+          dotnet-version: '10.0.x'\n+\n+      - name: Restore tests\n+        run: dotnet restore mRemoteNGTests/mRemoteNGTests.csproj\n+\n+      - name: Run tests\n+        run: dotnet test mRemoteNGTests/mRemoteNGTests.csproj --no-restore -c Release --logger trx\n+\n+      - name: Upload test results\n+        if: always()\n+        uses: actions/upload-artifact@v4\n+        with:\n+          name: test-results-${{ matrix.os }}\n+          path: '**/*.trx'\n+\n+  # ─────────────────────────────────────────────\n+  # Migration progress check\n+  # ─────────────────────────────────────────────\n+  migration-progress:\n+    name: Migration Progress Report\n+    runs-on: ubuntu-latest\n+    if: github.event_name == 'push'\n+    steps:\n+      - uses: actions/checkout@v4\n+\n+      - name: Count completed tasks\n+        run: |\n+          TOTAL=$(grep -c '^\\- \\[' MIGRATION_PROGRESS.md || echo 0)\n+          DONE=$(grep -c '^\\- \\[x\\]' MIGRATION_PROGRESS.md || echo 0)\n+          IN_PROGRESS=$(grep -c '^\\- \\[~\\]' MIGRATION_PROGRESS.md || echo 0)\n+          BLOCKED=$(grep -c '^\\- \\[!\\]' MIGRATION_PROGRESS.md || echo 0)\n+          echo \"Migration Progress: $DONE/$TOTAL tasks complete ($IN_PROGRESS in progress, $BLOCKED blocked)\"\n+          echo \"MIGRATION_TOTAL=$TOTAL\" >> $GITHUB_ENV\n+          echo \"MIGRATION_DONE=$DONE\" >> $GITHUB_ENV\n+\n+      - name: Post progress summary\n+        run: |\n+          echo \"## Migration Progress\" >> $GITHUB_STEP_SUMMARY\n+          echo \"| Status | Count |\" >> $GITHUB_STEP_SUMMARY\n+          echo \"|--------|-------|\" >> $GITHUB_STEP_SUMMARY\n+          echo \"| Completed ✅ | $(grep -c '^\\- \\[x\\]' MIGRATION_PROGRESS.md || echo 0) |\" >> $GITHUB_STEP_SUMMARY\n+          echo \"| In Progress 🔄 | $(grep -c '^\\- \\[~\\]' MIGRATION_PROGRESS.md || echo 0) |\" >> $GITHUB_STEP_SUMMARY\n+          echo \"| Blocked ❌ | $(grep -c '^\\- \\[!\\]' MIGRATION_PROGRESS.md || echo 0) |\" >> $GITHUB_STEP_SUMMARY\n+          echo \"| Todo ⬜ | $(grep -c '^\\- \\[ \\]' MIGRATION_PROGRESS.md || echo 0) |\" >> $GITHUB_STEP_SUMMARY\n--- MIGRATION_PLAN.md\n@@ -0,0 +1,805 @@\n+# mRemoteNG → Cross-Platform Migration Plan\n+## Full Avalonia UI Port for Linux and macOS\n+\n+**Project:** mRemoteNG v1.78.2-dev\n+**Target:** `net10.0` (cross-platform, drop `net10.0-windows10.0.26100.0`)\n+**UI Target:** Avalonia UI 11.x\n+**Platforms:** Windows (existing), Linux (new), macOS (new)\n+**Total estimated effort:** 18–24 months (team of 3–4 developers)\n+\n+---\n+\n+## Architecture Overview\n+\n+### Before (Windows-only)\n+```\n+mRemoteNG.exe\n+├── WinForms + WPF UI\n+├── COM/MSTSCLib (RDP)\n+├── PuTTYNG.exe (SSH/Telnet)\n+├── Win32 P/Invoke (NativeMethods)\n+├── Windows Registry (config)\n+└── DPAPI (encryption)\n+```\n+\n+### After (Cross-platform)\n+```\n+mRemoteNG (Avalonia App)\n+├── mRemoteNG.Core          ← business logic, protocols, config (net10.0)\n+├── mRemoteNG.Platform      ← platform abstraction interfaces\n+│   ├── mRemoteNG.Platform.Windows   ← Win32 impl\n+│   ├── mRemoteNG.Platform.Linux     ← GTK/X11 impl\n+│   └── mRemoteNG.Platform.Mac       ← Cocoa impl\n+├── mRemoteNG.Avalonia      ← new cross-platform UI project\n+└── mRemoteNG.Protocols     ← protocol implementations\n+    ├── Protocol.RDP        ← FreeRDP-based\n+    ├── Protocol.SSH        ← SSH.NET-based\n+    ├── Protocol.VNC        ← VncSharpCore\n+    └── Protocol.Web        ← WebView (platform-specific)\n+```\n+\n+---\n+\n+## Phase 1 — Foundation & Abstraction Layer\n+\n+**Goal:** Separate Windows-specific code from business logic; make the codebase compilable on all platforms.\n+**Duration:** 3–4 months\n+**Risk:** Medium — existing Windows functionality must remain working.\n+\n+### 1.1 Project Structure Changes\n+\n+#### Task 1.1.1 — Add `mRemoteNG.Core` project\n+- **File:** `mRemoteNG.Core/mRemoteNG.Core.csproj`\n+- **TFM:** `net10.0` (no OS suffix)\n+- **Purpose:** All domain logic, models, interfaces, serializers\n+- **Move from `mRemoteNG/`:**\n+  - `App/Info/` — application metadata\n+  - `App/Runtime.cs` — state container\n+  - `Config/` — all serializers, data providers\n+  - `Connection/` — connection models\n+  - `Security/` — encryption logic\n+  - `Tree/` — connection tree models\n+  - `Container/` — credential models\n+  - `Credential/` — credential repositories\n+\n+#### Task 1.1.2 — Add `mRemoteNG.Platform` abstraction project\n+- **File:** `mRemoteNG.Platform/mRemoteNG.Platform.csproj`\n+- **TFM:** `net10.0`\n+- **Define interfaces for all OS-specific operations:**\n+  - `IClipboardService` — clipboard read/write\n+  - `IWindowManager` — window positioning, focus, minimize/maximize\n+  - `IProcessService` — child process spawning, job-object equiv.\n+  - `ISettingsProvider` — settings persistence (registry vs file)\n+  - `ICredentialEncryption` — DPAPI vs AES-GCM\n+  - `ISystemTrayService` — system tray icon\n+  - `IFileDialogService` — open/save dialogs\n+  - `IUpdateChecker` — OS-specific update mechanisms\n+  - `INotificationService` — toast/notification popups\n+\n+#### Task 1.1.3 — Add `mRemoteNG.Platform.Windows` project\n+- **File:** `mRemoteNG.Platform.Windows/mRemoteNG.Platform.Windows.csproj`\n+- **TFM:** `net10.0-windows10.0.17763.0`\n+- **Purpose:** Win32 implementations of all `mRemoteNG.Platform` interfaces\n+- **Move from `mRemoteNG/`:**\n+  - `App/NativeMethods.cs`\n+  - `Tools/WindowsRegistry/`\n+  - `Tools/ChildProcessTracker.cs`\n+  - `Tools/ADhelper.cs`\n+  - `Tools/ProcessController.cs`\n+  - `App/Checks/DotNetRuntimeCheck.cs`\n+  - `App/Checks/VCppRuntimeCheck.cs`\n+\n+#### Task 1.1.4 — Add `mRemoteNG.Platform.Linux` project\n+- **File:** `mRemoteNG.Platform.Linux/mRemoteNG.Platform.Linux.csproj`\n+- **TFM:** `net10.0`\n+- **Runtime check:** `RuntimeInformation.IsOSPlatform(OSPlatform.Linux)`\n+- **Implement:**\n+  - `LinuxProcessService` — uses `prctl(PR_SET_PDEATHSIG, SIGTERM)` for child tracking\n+  - `LinuxSettingsProvider` — XDG config dir (`~/.config/mRemoteNG/`)\n+  - `LinuxCredentialEncryption` — SecretService via `libsecret`\n+  - `LinuxClipboardService` — uses `xclip`/`wl-clipboard` via subprocess\n+  - `LinuxNotificationService` — uses `libnotify`\n+\n+#### Task 1.1.5 — Add `mRemoteNG.Platform.Mac` project\n+- **File:** `mRemoteNG.Platform.Mac/mRemoteNG.Platform.Mac.csproj`\n+- **TFM:** `net10.0`\n+- **Runtime check:** `RuntimeInformation.IsOSPlatform(OSPlatform.OSX)`\n+- **Implement:**\n+  - `MacProcessService` — uses `kqueue` for child tracking\n+  - `MacSettingsProvider` — macOS `~/Library/Application Support/mRemoteNG/`\n+  - `MacCredentialEncryption` — Keychain via `Security.framework`\n+  - `MacNotificationService` — NSUserNotification via P/Invoke\n+\n+#### Task 1.1.6 — Update Solution file\n+- **File:** `mRemoteNG.sln`\n+- Add all new projects to solution\n+- Configure build configurations per project\n+\n+---\n+\n+### 1.2 Settings System Migration\n+\n+#### Task 1.2.1 — Make `PortableSettingsProvider` the primary provider\n+- **File:** `mRemoteNG/Config/Settings/Providers/PortableSettingsProvider.cs`\n+- Remove `#if PORTABLE` gates — make it unconditionally available\n+- Move settings file to platform-appropriate location via `ISettingsProvider`\n+- **Linux path:** `~/.config/mRemoteNG/settings.xml`\n+- **macOS path:** `~/Library/Application Support/mRemoteNG/settings.xml`\n+- **Windows path:** `%APPDATA%\\mRemoteNG\\settings.xml` (instead of registry)\n+\n+#### Task 1.2.2 — Create settings migration utility\n+- **File:** `mRemoteNG.Core/Config/Settings/SettingsMigrationHelper.cs`\n+- Detect first run after migration\n+- Import existing settings from Windows registry if available\n+- Write to new XML format\n+- Mark migration complete to avoid re-import\n+\n+#### Task 1.2.3 — Remove registry-only settings classes\n+- **Files to refactor:** 10 files in `Config/Settings/Registry/`\n+  - `OptRegistryAppearancePage.cs`\n+  - `OptRegistryAdvancedPage.cs`\n+  - `OptRegistryConnectionsPage.cs`\n+  - `OptRegistryCredentialsPage.cs`\n+  - `OptRegistryNotificationsPage.cs`\n+  - `OptRegistrySecurityPage.cs`\n+  - `OptRegistryUpdatesPage.cs`\n+  - `OptRegistryThemePage.cs`\n+  - `RegistryLoader.cs`\n+  - `RegistrySettingsLoader.cs`\n+- Create unified `ISettingsPage` interface\n+- Each page reads from `ISettingsProvider` not directly from registry\n+\n+#### Task 1.2.4 — Abstract PuTTY session import\n+- **File:** `Config/Putty/PuttySessionsRegistryProvider.cs`\n+- Create `IPuttySessionsProvider` interface\n+- `WindowsPuttySessionsProvider` — registry-based (existing code)\n+- `FilePuttySessionsProvider` — reads from `~/.ssh/config` on Linux/macOS\n+\n+---\n+\n+### 1.3 Encryption Migration\n+\n+#### Task 1.3.1 — Create `ICryptoProvider` interface\n+- **File:** `mRemoteNG.Platform/Security/ICryptoProvider.cs`\n+- Methods: `Protect(string plaintext) → string`, `Unprotect(string ciphertext) → string`\n+- Purpose: Abstract DPAPI vs cross-platform crypto\n+\n+#### Task 1.3.2 — Windows DPAPI implementation\n+- **File:** `mRemoteNG.Platform.Windows/Security/DpapiCryptoProvider.cs`\n+- Wraps existing `System.Security.Cryptography.ProtectedData`\n+- Used when running on Windows\n+\n+#### Task 1.3.3 — Cross-platform AES-GCM implementation\n+- **File:** `mRemoteNG.Platform/Security/AesGcmCryptoProvider.cs`\n+- Uses `BouncyCastle.Cryptography` (already a dependency)\n+- Key derivation: PBKDF2 with SHA-256, 600,000 iterations\n+- Key stored in platform keychain via `ICredentialEncryption`\n+- Backward-compatible: can decrypt DPAPI secrets when migrating from Windows\n+\n+#### Task 1.3.4 — Update `SecureXmlHelper`\n+- **File:** `mRemoteNG/Security/SecureXmlHelper.cs`\n+- Replace direct DPAPI calls with `ICryptoProvider`\n+- Inject via constructor\n+\n+---\n+\n+### 1.4 Win32 P/Invoke Abstraction\n+\n+#### Task 1.4.1 — Create `IWindowService` interface\n+- **File:** `mRemoteNG.Platform/IWindowService.cs`\n+- Methods:\n+  - `MoveWindow(IntPtr hwnd, int x, int y, int w, int h)`\n+  - `SetForeground(IntPtr hwnd)`\n+  - `IsMinimized(IntPtr hwnd) → bool`\n+  - `PostMessage(IntPtr hwnd, uint msg, IntPtr wParam, IntPtr lParam)`\n+  - `SetWindowPosition(IntPtr hwnd, ...)`\n+\n+#### Task 1.4.2 — Create `IClipboardService` interface\n+- **File:** `mRemoteNG.Platform/IClipboardService.cs`\n+- Methods:\n+  - `GetText() → string`\n+  - `SetText(string text)`\n+  - `Clear()`\n+  - `ContainsText() → bool`\n+\n+#### Task 1.4.3 — Windows implementations\n+- Move all P/Invoke code from `NativeMethods.cs` into:\n+  - `mRemoteNG.Platform.Windows/WindowsWindowService.cs`\n+  - `mRemoteNG.Platform.Windows/WindowsClipboardService.cs`\n+- Register via DI in Windows startup\n+\n+#### Task 1.4.4 — Linux/macOS implementations\n+- `mRemoteNG.Platform.Linux/LinuxClipboardService.cs` — xclip/wl-clipboard\n+- `mRemoteNG.Platform.Mac/MacClipboardService.cs` — `pbcopy`/`pbpaste`\n+- Window management: deferred to Avalonia's built-in APIs\n+\n+---\n+\n+### 1.5 Dependency Injection Setup\n+\n+#### Task 1.5.1 — Add DI framework\n+- **Package:** `Microsoft.Extensions.DependencyInjection`\n+- **File:** `mRemoteNG.Core/DependencyInjection/ServiceLocator.cs`\n+- Register all `mRemoteNG.Platform` implementations at startup\n+- Factory method: `PlatformServiceFactory.Create()` detects OS and returns correct impl\n+\n+#### Task 1.5.2 — Update startup initialization\n+- **File:** `App/Startup.cs`\n+- Replace static/singleton pattern with DI container\n+- Boot sequence:\n+  1. Detect OS platform\n+  2. Register platform services\n+  3. Register core services\n+  4. Initialize settings\n+  5. Launch UI\n+\n+---\n+\n+## Phase 2 — Avalonia UI Migration\n+\n+**Goal:** Replace all WinForms/WPF UI with Avalonia. Full visual and functional parity.\n+**Duration:** 6–9 months\n+**Risk:** High — largest scope, touches 200+ files.\n+\n+### 2.1 Avalonia Project Setup\n+\n+#### Task 2.1.1 — Create `mRemoteNG.Avalonia` project\n+- **File:** `mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj`\n+- **TFM:** `net10.0`\n+- **Packages:**\n+  - `Avalonia` 11.x\n+  - `Avalonia.Desktop` 11.x\n+  - `Avalonia.Themes.Fluent` or `Avalonia.Themes.Simple`\n+  - `Avalonia.ReactiveUI`\n+  - `ReactiveUI` (MVVM framework)\n+  - `Dock.Avalonia` (docking panels — cross-platform DockPanelSuite replacement)\n+  - `Avalonia.Controls.DataGrid`\n+  - `Material.Icons.Avalonia` (icon set)\n+\n+#### Task 2.1.2 — Set up MVVM architecture\n+- **Pattern:** ReactiveUI MVVM (ViewModel → View binding)\n+- **ViewModels directory:** `mRemoteNG.Avalonia/ViewModels/`\n+  - `MainWindowViewModel`\n+  - `ConnectionTreeViewModel`\n+  - `OptionsWindowViewModel`\n+  - `ConnectionTabViewModel`\n+  - `CredentialManagerViewModel`\n+- **Views directory:** `mRemoteNG.Avalonia/Views/`\n+- **Models:** Reuse from `mRemoteNG.Core`\n+\n+#### Task 2.1.3 — Set up theming\n+- **File:** `mRemoteNG.Avalonia/Themes/`\n+- Dark theme (matching existing VS2015 Dark)\n+- Light theme (matching existing VS2015 Light)\n+- System theme detection: `Application.Current.ActualThemeVariant`\n+- Custom accent color support\n+\n+#### Task 2.1.4 — Resource system\n+- **File:** `mRemoteNG.Avalonia/Assets/`\n+- Port icon resources from embedded `.ico`/`.png`\n+- Convert to Avalonia `IImage` / `WindowIcon`\n+- SVG icons via `Avalonia.Svg.Skia`\n+\n+---\n+\n+### 2.2 Main Window (`frmMain` → `MainWindow`)\n+\n+#### Task 2.2.1 — Main window shell\n+- **File:** `mRemoteNG.Avalonia/Views/MainWindow.axaml`\n+- Menu bar (platform-native on macOS)\n+- Status bar\n+- Docking layout host\n+- Toolbar\n+\n+#### Task 2.2.2 — Docking system\n+- **Package:** `Dock.Avalonia` (by wieslawsoltes)\n+- **File:** `mRemoteNG.Avalonia/Docking/DockFactory.cs`\n+- Panels:\n+  - Connection Tree (left panel, dockable)\n+  - Error/Log panel (bottom, dockable)\n+  - Connection tabs (center, tabbed)\n+  - Credential panel (right, dockable)\n+\n+#### Task 2.2.3 — Menu system\n+- **File:** `mRemoteNG.Avalonia/Views/Menus/`\n+- Port all menus: File, View, Tools, Help, External Tools\n+- macOS: use Avalonia's native menu support\n+- Linux/Windows: embedded menu bar\n+\n+#### Task 2.2.4 — Toolbar\n+- **File:** `mRemoteNG.Avalonia/Views/MainToolbar.axaml`\n+- Quick connect bar\n+- Connection action buttons\n+- Search field\n+\n+#### Task 2.2.5 — Status bar\n+- **File:** `mRemoteNG.Avalonia/Views/MainStatusBar.axaml`\n+- Active connection count\n+- Connection status indicator\n+- Update notification area\n+\n+---\n+\n+### 2.3 Connection Tree (`TreeWindow` → `ConnectionTreeView`)\n+\n+#### Task 2.3.1 — Tree view control\n+- **File:** `mRemoteNG.Avalonia/Views/ConnectionTreeView.axaml`\n+- Avalonia `TreeView` with hierarchical binding\n+- Drag-and-drop reordering\n+- Right-click context menu (connect, edit, delete, sort)\n+- Inline rename editing\n+- Search/filter support\n+- Icons per protocol type\n+\n+#### Task 2.3.2 — Connection tree ViewModel\n+- **File:** `mRemoteNG.Avalonia/ViewModels/ConnectionTreeViewModel.cs`\n+- ObservableCollection binding to connection list\n+- `ReactiveCommand` for connect/edit/delete\n+- Filter observable for search\n+\n+#### Task 2.3.3 — Connection Node context menus\n+- **File:** `mRemoteNG.Avalonia/Views/ConnectionContextMenu.axaml`\n+- Connect, Connect in new tab, Connect in background\n+- Edit, Duplicate, Delete\n+- Move to folder\n+- Export node\n+- Set credentials\n+\n+---\n+\n+### 2.4 Connection Tabs (`ConnectionTab` → `ConnectionTabView`)\n+\n+#### Task 2.4.1 — Tab host\n+- **File:** `mRemoteNG.Avalonia/Views/ConnectionTabHost.axaml`\n+- Avalonia `TabControl` embedded in dock\n+- Tab drag-and-drop\n+- Tab context menu (close, close others, detach)\n+- Tab indicator (protocol icon, connection state)\n+\n+#### Task 2.4.2 — Embedded connection view\n+- **File:** `mRemoteNG.Avalonia/Views/EmbeddedConnectionView.axaml`\n+- Native window embedding surface (per-platform)\n+  - Windows: `HwndHost`-equivalent via Avalonia's `EmbeddableControlRoot`\n+  - Linux: X11 window embedding (`XEmbedHost`)\n+  - macOS: NSView embedding\n+- Fullscreen toggle\n+- Toolbar overlay (shows on hover)\n+\n+---\n+\n+### 2.5 Options/Settings Dialog\n+\n+#### Task 2.5.1 — Options window shell\n+- **File:** `mRemoteNG.Avalonia/Views/OptionsWindow.axaml`\n+- Left panel: category tree\n+- Right panel: settings page for selected category\n+- Apply / Cancel / OK buttons\n+\n+#### Task 2.5.2 — Port each settings page (10 pages)\n+For each page create `{Page}SettingsView.axaml` + `{Page}SettingsViewModel.cs`:\n+- `AppearanceSettingsView` — fonts, colors, DPI\n+- `ConnectionSettingsView` — default connection options\n+- `TabsSettingsView` — tab behavior\n+- `SecuritySettingsView` — encryption, master password\n+- `AdvancedSettingsView` — timeouts, reconnect\n+- `UpdatesSettingsView` — auto-update\n+- `NotificationsSettingsView` — alerts, sounds\n+- `CredentialsSettingsView` — default credentials\n+- `ThemeSettingsView` — dark/light/custom theme\n+- `ProtocolsSettingsView` — protocol defaults\n+\n+---\n+\n+### 2.6 Additional Dialogs\n+\n+#### Task 2.6.1 — About dialog\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/AboutDialog.axaml`\n+\n+#### Task 2.6.2 — Connection dialog (add/edit)\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/ConnectionDialog.axaml`\n+- All connection properties\n+- Per-protocol settings panel (dynamic)\n+- Credential selection\n+\n+#### Task 2.6.3 — Credential Manager\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/CredentialManagerDialog.axaml`\n+- List/edit/delete credentials\n+- Import from password manager\n+\n+#### Task 2.6.4 — Quick Connect dialog\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/QuickConnectDialog.axaml`\n+\n+#### Task 2.6.5 — Port Scanner dialog\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/PortScannerDialog.axaml`\n+\n+#### Task 2.6.6 — SSH File Transfer dialog\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/SshFileTransferDialog.axaml`\n+\n+#### Task 2.6.7 — Import/Export dialogs\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/ImportDialog.axaml`\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/ExportDialog.axaml`\n+\n+#### Task 2.6.8 — External tools dialog\n+- **File:** `mRemoteNG.Avalonia/Views/Dialogs/ExternalToolsDialog.axaml`\n+\n+---\n+\n+### 2.7 System Tray\n+\n+#### Task 2.7.1 — System tray support\n+- **Package:** Avalonia has `TrayIcon` support built-in\n+- **File:** `mRemoteNG.Avalonia/Services/TrayIconService.cs`\n+- Context menu: Show/Hide, Quick Connect, Recent Connections, Exit\n+- Windows: native tray\n+- Linux: StatusNotifierItem (D-Bus)\n+- macOS: NSStatusItem\n+\n+---\n+\n+### 2.8 Splash Screen\n+\n+#### Task 2.8.1 — Avalonia splash screen\n+- **File:** `mRemoteNG.Avalonia/Views/SplashScreen.axaml`\n+- Replace existing WPF splash screen\n+- Show during async initialization\n+- Progress bar for loading steps\n+\n+---\n+\n+## Phase 3 — Protocol Replacement\n+\n+**Goal:** Replace all Windows-only protocol implementations with cross-platform alternatives.\n+**Duration:** 4–6 months\n+**Risk:** High for RDP; Medium for others.\n+\n+### 3.1 SSH Protocol (PuTTYNG → SSH.NET)\n+\n+#### Task 3.1.1 — Create `SshNetProtocol`\n+- **File:** `mRemoteNG.Protocols/SSH/SshNetProtocol.cs`\n+- Use `Renci.SshNet.Async` (already a dependency)\n+- Replace `PuttyBase.cs` process spawning\n+- Features:\n+  - Password, keyboard-interactive, public key auth\n+  - SSH agent forwarding\n+  - Port forwarding\n+  - Keep-alive\n+\n+#### Task 3.1.2 — Avalonia terminal emulator\n+- **Package:** `VtNetCore` or `XtermSharp` or `AvaloniaTerminal`\n+- **File:** `mRemoteNG.Protocols/SSH/TerminalView.axaml`\n+- Full VT100/xterm emulation\n+- Copy-paste support\n+- Font size, color scheme\n+- Scrollback buffer\n+\n+#### Task 3.1.3 — SSH session management\n+- **File:** `mRemoteNG.Protocols/SSH/SshSessionManager.cs`\n+- Session multiplexing (like SSH ControlMaster)\n+- Reconnect on disconnect\n+- Session logging\n+\n+#### Task 3.1.4 — SFTP browser\n+- **File:** `mRemoteNG.Protocols/SSH/SftpBrowserView.axaml`\n+- File tree for remote filesystem\n+- Upload/download with progress\n+- Replace existing SSH file transfer dialog\n+\n+#### Task 3.1.5 — SSH config file import\n+- **File:** `mRemoteNG.Core/Config/Import/SshConfigImporter.cs`\n+- Parse `~/.ssh/config` on Linux/macOS\n+- Import hosts as mRemoteNG connections\n+\n+---\n+\n+### 3.2 Telnet Protocol (PuTTYNG → Custom)\n+\n+#### Task 3.2.1 — Create `TelnetProtocol`\n+- **File:** `mRemoteNG.Protocols/Telnet/TelnetProtocol.cs`\n+- Pure .NET implementation using `TcpClient`\n+- Telnet option negotiation (RFC 854, 855, 857, 858)\n+- Share terminal emulator from SSH implementation\n+\n+#### Task 3.2.2 — Rlogin Protocol\n+- **File:** `mRemoteNG.Protocols/Rlogin/RloginProtocol.cs`\n+- Simple TCP-based protocol (RFC 1282)\n+- Reuse terminal emulator\n+\n+---\n+\n+### 3.3 RDP Protocol (MSTSCLib → FreeRDP)\n+\n+This is the most complex protocol migration.\n+\n+#### Task 3.3.1 — Evaluate FreeRDP .NET bindings\n+- **Library options:**\n+  a. `FreeRDP-Sharp` — C# bindings to FreeRDP\n+  b. `AwesomeRDP` — Pure C# RDP library\n+  c. `MsRdpEx` — Extended MSTSCLib with more features (still Windows-only)\n+  d. Subprocess-based: spawn `xfreerdp`/`wfreerdp` and embed window\n+- **Decision:** Use subprocess embedding as primary approach (same as PuTTY approach)\n+  - `xfreerdp3` on Linux (available via package manager)\n+  - `wfreerdp3` on Windows (cross-platform FreeRDP build)\n+  - `freerdp-mac` on macOS (Homebrew)\n+\n+#### Task 3.3.2 — Create `FreeRdpProtocol`\n+- **File:** `mRemoteNG.Protocols/RDP/FreeRdpProtocol.cs`\n+- Spawn `xfreerdp`/`wfreerdp` subprocess\n+- Pass connection parameters via command-line arguments\n+- Embed resulting window in Avalonia surface (X11 on Linux, Win32 on Windows)\n+- Window embedding via `EmbedInto` / `XEmbedHost`\n+\n+#### Task 3.3.3 — Windows RDP fallback\n+- **File:** `mRemoteNG.Protocols/RDP/WindowsRdpProtocol.cs`\n+- Keep existing MSTSCLib-based implementation for Windows\n+- Guard with `[SupportedOSPlatform(\"windows\")]`\n+- Select via `IProtocolFactory` based on OS\n+\n+#### Task 3.3.4 — RDP feature parity checklist\n+- [ ] Multiple monitor support\n+- [ ] Audio redirection\n+- [ ] Clipboard sharing\n+- [ ] Drive redirection\n+- [ ] USB redirection\n+- [ ] RemoteFX / H.264 encoding\n+- [ ] NLA (Network Level Authentication)\n+- [ ] Smart card redirection\n+- [ ] Gateway support (RD Gateway)\n+- [ ] Custom resolution / dynamic resize\n+\n+---\n+\n+### 3.4 VNC Protocol\n+\n+#### Task 3.4.1 — Avalonia VNC view\n+- **Library:** `VncSharpCore` (already cross-platform)\n+- **File:** `mRemoteNG.Protocols/VNC/VncView.axaml`\n+- Replace WinForms `VncControl` with Avalonia canvas-based renderer\n+- Keyboard and mouse input forwarding\n+- Clipboard sync\n+\n+---\n+\n+### 3.5 HTTP/HTTPS Protocol (WebView2 → Platform Web View)\n+\n+#### Task 3.5.1 — Avalonia WebView integration\n+- **Package:** `Avalonia.WebView` (community package, wraps per-platform)\n+  - Windows: WebView2 (Chromium)\n+  - Linux: WebKitGtk\n+  - macOS: WKWebView\n+- **File:** `mRemoteNG.Protocols/Web/WebViewProtocol.axaml`\n+- Address bar, navigation controls\n+- Certificate warning handling\n+- Basic auth injection\n+\n+---\n+\n+### 3.6 PowerShell Protocol\n+\n+#### Task 3.6.1 — Cross-platform PowerShell\n+- **Executable:** `pwsh` (PowerShell 7+, available on all platforms)\n+- **File:** `mRemoteNG.Protocols/PowerShell/PowerShellProtocol.cs`\n+- Spawn `pwsh` subprocess\n+- Embed in terminal emulator\n+- PSRemoting via SSH transport (on Linux/macOS)\n+\n+---\n+\n+### 3.7 Serial Protocol\n+\n+#### Task 3.7.1 — Cross-platform serial\n+- **Library:** `System.IO.Ports` (built-in, cross-platform in .NET)\n+- **File:** `mRemoteNG.Protocols/Serial/SerialProtocol.cs`\n+- Use same terminal emulator\n+- Port enumeration: `/dev/ttyUSB*` on Linux, `/dev/tty.*` on macOS\n+\n+---\n+\n+### 3.8 External Application Protocols (AnyDesk, ARD)\n+\n+#### Task 3.8.1 — Generic external app protocol\n+- **File:** `mRemoteNG.Protocols/External/ExternalAppProtocol.cs`\n+- Configurable executable path per platform\n+- Pass connection args\n+- Optional window embedding\n+\n+---\n+\n+## Phase 4 — Integration, Polish & Packaging\n+\n+**Goal:** Full testing, platform packaging, CI/CD.\n+**Duration:** 2–3 months\n+**Risk:** Low.\n+\n+### 4.1 Testing\n+\n+#### Task 4.1.1 — Cross-platform unit tests\n+- Update all test projects to `net10.0`\n+- Remove Windows-specific test assumptions\n+- Add platform skip attributes where needed: `[SkipOnPlatform(TestPlatforms.Windows)]`\n+- Target: 80%+ code coverage on Core\n+\n+#### Task 4.1.2 — Integration tests\n+- **File:** `mRemoteNGTests/Integration/`\n+- SSH connection test (against test Docker container)\n+- VNC connection test\n+- Settings save/load round-trip\n+- Encryption/decryption round-trip\n+\n+#### Task 4.1.3 — UI automation tests\n+- **Package:** `Avalonia.Headless.NUnit`\n+- Screenshot comparison tests\n+- Connection tree interaction tests\n+- Dialog open/close tests\n+\n+---\n+\n+### 4.2 Linux Packaging\n+\n+#### Task 4.2.1 — AppImage\n+- **Tool:** `appimagetool`\n+- **File:** `packaging/linux/AppRun`\n+- Self-contained: bundles .NET runtime\n+- Target: Ubuntu 22.04+, Fedora 38+\n+\n+#### Task 4.2.2 — Flatpak\n+- **File:** `packaging/linux/org.mRemoteNG.mRemoteNG.yml`\n+- Freedesktop runtime\n+- Sandboxed permissions\n+\n+#### Task 4.2.3 — Snap\n+- **File:** `packaging/linux/snap/snapcraft.yaml`\n+- Strict confinement\n+- Auto-update via Snap store\n+\n+#### Task 4.2.4 — Debian package (.deb)\n+- **File:** `packaging/linux/debian/`\n+- For Ubuntu/Debian apt repos\n+\n+---\n+\n+### 4.3 macOS Packaging\n+\n+#### Task 4.3.1 — macOS `.app` bundle\n+- **File:** `packaging/macos/Info.plist`\n+- Code signing with Apple Developer ID\n+- Notarization via `xcrun altool`\n+\n+#### Task 4.3.2 — DMG installer\n+- **Tool:** `create-dmg`\n+- **File:** `packaging/macos/create-dmg.sh`\n+- Drag-to-Applications UI\n+\n+#### Task 4.3.3 — Homebrew cask\n+- **File:** `packaging/macos/mremoteng.rb`\n+- Submit to Homebrew Cask\n+\n+---\n+\n+### 4.4 CI/CD Pipeline\n+\n+#### Task 4.4.1 — Multi-platform build matrix\n+- **File:** `.github/workflows/cross-platform.yml`\n+- Build on: `ubuntu-latest`, `macos-latest`, `windows-latest`\n+- Test on all platforms\n+- Artifact upload per platform\n+\n+#### Task 4.4.2 — Nightly builds\n+- Automated nightly builds for all platforms\n+- Published to GitHub releases as pre-releases\n+\n+#### Task 4.4.3 — Code signing pipeline\n+- Windows: Authenticode signing\n+- macOS: Apple code signing + notarization\n+- Linux: GPG signing of packages\n+\n+---\n+\n+### 4.5 Documentation\n+\n+#### Task 4.5.1 — Update README\n+- Cross-platform installation instructions\n+- Linux prerequisites (xfreerdp, libsecret, etc.)\n+- macOS prerequisites (freerdp via Homebrew)\n+\n+#### Task 4.5.2 — User migration guide\n+- How settings migrate from old Windows registry installation\n+- How to import existing connection files\n+\n+#### Task 4.5.3 — Developer guide\n+- How to build on each platform\n+- Platform abstraction architecture\n+- How to add a new protocol\n+\n+---\n+\n+## Dependencies Reference\n+\n+### New packages to add\n+| Package | Version | Purpose |\n+|---------|---------|---------|\n+| `Avalonia` | 11.x | Core UI framework |\n+| `Avalonia.Desktop` | 11.x | Desktop app support |\n+| `Avalonia.Themes.Fluent` | 11.x | Default theme |\n+| `Avalonia.ReactiveUI` | 11.x | MVVM support |\n+| `ReactiveUI` | 20.x | MVVM framework |\n+| `Dock.Avalonia` | 0.14.x | Docking panels |\n+| `Avalonia.WebView` | 0.1.x | Cross-platform web view |\n+| `VtNetCore` | latest | Terminal emulator core |\n+| `Microsoft.Extensions.DependencyInjection` | 10.x | DI container |\n+| `Microsoft.Extensions.Logging` | 10.x | Logging abstraction |\n+\n+### Packages to remove\n+| Package | Reason |\n+|---------|--------|\n+| `DockPanelSuite` | WinForms-only; replaced by Dock.Avalonia |\n+| `Microsoft.Web.WebView2` | Windows-only; replaced by Avalonia.WebView |\n+| `Microsoft-WindowsAPICodePack-Shell` | Windows Shell API, not needed |\n+| `System.Windows.Extensions` | Windows-only graphics |\n+| `Microsoft.Xaml.Behaviors.Wpf` | WPF-only |\n+\n+### Packages to keep (already cross-platform)\n+| Package | Purpose |\n+|---------|---------|\n+| `SSH.NET` / `Renci.SshNet.Async` | SSH protocol |\n+| `VncSharpCore` | VNC protocol |\n+| `BouncyCastle.Cryptography` | Cryptography |\n+| `Newtonsoft.Json` | JSON serialization |\n+| `Google.Protobuf` | Protobuf serialization |\n+| `LiteDB` | Embedded database |\n+| `MySql.Data` | MySQL connector |\n+| `Microsoft.Data.SqlClient` | SQL Server |\n+| `log4net` | Logging |\n+| `NUnit` | Testing |\n+| `NSubstitute` | Test mocking |\n+\n+---\n+\n+## Risk Register\n+\n+| Risk | Probability | Impact | Mitigation |\n+|------|-------------|--------|------------|\n+| FreeRDP integration complexity | High | High | Use subprocess+embed approach; fallback to external window |\n+| Avalonia terminal emulator quality | Medium | High | Evaluate VtNetCore, XtermSharp; may need custom impl |\n+| Window embedding on Wayland (Linux) | High | Medium | Use XWayland for X11 apps; native Wayland for Avalonia |\n+| macOS Gatekeeper/Notarization | Low | Medium | Automate signing in CI |\n+| RDP feature parity gaps | High | Medium | Document limitations; keep Windows-only MSTSCLib as option |\n+| SSH.NET missing PuTTY-specific features | Low | Low | Fallback to PuTTY binary on Windows |\n+| Performance regression (VNC rendering) | Medium | Medium | Profile Avalonia rendering; use GPU acceleration |\n+| Breaking changes in existing configs | Low | High | Maintain XML schema backward compatibility |\n+\n+---\n+\n+## Milestone Checklist\n+\n+### Milestone 1 (End of Phase 1)\n+- [ ] Project compiles on Linux without errors\n+- [ ] Project compiles on macOS without errors\n+- [ ] All settings read/write without registry\n+- [ ] All encryption works without DPAPI\n+- [ ] DI container wires up platform services\n+\n+### Milestone 2 (End of Phase 2)\n+- [ ] Main window renders on all 3 platforms\n+- [ ] Connection tree functional\n+- [ ] Settings dialog functional\n+- [ ] All dialogs functional\n+- [ ] Theme switching works\n+\n+### Milestone 3 (End of Phase 3)\n+- [ ] SSH connections work on Linux\n+- [ ] SSH connections work on macOS\n+- [ ] VNC connections work cross-platform\n+- [ ] RDP connections work on Linux (FreeRDP)\n+- [ ] HTTP/HTTPS rendering works cross-platform\n+\n+### Milestone 4 (End of Phase 4)\n+- [ ] AppImage built and tested on Ubuntu\n+- [ ] DMG built and tested on macOS Ventura+\n+- [ ] Windows installer still works\n+- [ ] CI/CD pipeline builds all platforms on every PR\n+- [ ] 80%+ test coverage on Core\n+\n+---\n+\n+*Plan created: March 10, 2026*\n+*Based on codebase analysis of mRemoteNG v1.78.2-dev (526 C# source files)*\n--- MIGRATION_PROGRESS.md\n@@ -0,0 +1,520 @@\n+# mRemoteNG Cross-Platform Migration — Progress Tracker\n+\n+> **Instructions for developers:**\n+> - Update status: `[ ]` = todo, `[~]` = in progress, `[x]` = done, `[!]` = blocked\n+> - Add your GitHub handle and date when starting a task: `[~] Task — @username 2026-03-10`\n+> - Add notes under tasks using `>` blockquote\n+> - Run `grep -r \"\\[~\\]\" MIGRATION_PROGRESS.md` to see active tasks\n+> - Each PR should reference the task ID (e.g. \"Implements P1-1.1.1\")\n+\n+**Last updated:** 2026-03-10\n+**Current Phase:** Phase 1 — Foundation & Abstraction Layer\n+**Branch:** `claude/analyze-cross-platform-portability-FndER`\n+\n+---\n+\n+## Summary Dashboard\n+\n+| Phase | Tasks | Done | In Progress | Blocked | % Complete |\n+|-------|-------|------|-------------|---------|------------|\n+| Phase 1 — Foundation | 24 | 13 | 0 | 0 | 54% |\n+| Phase 2 — Avalonia UI | 38 | 2 | 0 | 0 | 5% |\n+| Phase 3 — Protocols | 22 | 0 | 0 | 0 | 0% |\n+| Phase 4 — Packaging | 16 | 1 | 0 | 0 | 6% |\n+| **TOTAL** | **100** | **16** | **0** | **0** | **16%** |\n+\n+---\n+\n+## PHASE 1 — Foundation & Abstraction Layer\n+\n+### Milestone 1 Goal: Project compiles on Linux and macOS without errors.\n+\n+---\n+\n+#### 1.1 Project Structure\n+\n+- [ ] **P1-1.1.1** — Create `mRemoteNG.Core` project (`net10.0`)\n+  - Move domain logic, models, config serializers out of main project\n+  - Files to move: `App/Info/`, `App/Runtime.cs`, `Config/`, `Security/`, `Tree/`, `Container/`, `Credential/`\n+  - PR: — *(next: move source files in Phase 1 loop continuation)*\n+\n+- [x] **P1-1.1.2** — Create `mRemoteNG.Platform` abstraction project (`net10.0`) — @automated 2026-03-10\n+  - Interfaces created: `IClipboardService`, `IWindowService`, `IProcessService`, `ISettingsProvider`, `ICryptoProvider`, `ISystemTrayService`, `INotificationService`\n+  - `PlatformServiceFactory` with OS detection and reflection-based registrar loading\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.1.3** — Create `mRemoteNG.Platform.Windows` project (`net10.0-windows`) — @automated 2026-03-10\n+  - `WindowsClipboardService` — WinForms clipboard\n+  - `WindowsWindowService` — Win32 P/Invoke (user32.dll)\n+  - `WindowsProcessService` — Job Object child tracking\n+  - `WindowsSettingsProvider` — XML to %APPDATA%\\mRemoteNG\\\n+  - `DpapiCryptoProvider` — DPAPI encryption\n+  - `WindowsNotificationService`, `WindowsSystemTrayService` stubs\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.1.4** — Create `mRemoteNG.Platform.Linux` project (`net10.0`) — @automated 2026-03-10\n+  - `LinuxClipboardService` — xclip/wl-clipboard auto-detection\n+  - `LinuxProcessService` — AppDomain.ProcessExit + prctl notes\n+  - `LinuxSettingsProvider` — XDG config dir (~/.config/mRemoteNG/)\n+  - `LinuxCryptoProvider` — AES-256-GCM with keyfile\n+  - `LinuxNotificationService` — notify-send\n+  - `NullWindowService` — Avalonia handles windows\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.1.5** — Create `mRemoteNG.Platform.Mac` project (`net10.0`) — @automated 2026-03-10\n+  - `MacClipboardService` — pbcopy/pbpaste\n+  - `MacProcessService` — AppDomain.ProcessExit\n+  - `MacSettingsProvider` — ~/Library/Application Support/mRemoteNG/\n+  - `MacCryptoProvider` — AES-256-GCM with keyfile\n+  - `MacNotificationService` — osascript\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.1.6** — Update `mRemoteNG.sln` to include all new projects — @automated 2026-03-10\n+  - Added: Platform, Platform.Windows, Platform.Linux, Platform.Mac, Avalonia\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+---\n+\n+#### 1.2 Settings System Migration\n+\n+- [~] **P1-1.2.1** — Remove `#if PORTABLE` gates from `PortableSettingsProvider.cs`\n+  - Make file-based settings unconditionally available\n+  - Platform-specific path: Linux `~/.config/mRemoteNG/`, macOS `~/Library/Application Support/mRemoteNG/`, Windows `%APPDATA%\\mRemoteNG\\`\n+  - PR: —\n+\n+- [ ] **P1-1.2.2** — Create `SettingsMigrationHelper.cs`\n+  - Detect first run after migration from registry\n+  - Import registry settings to XML on first run (Windows only)\n+  - PR: —\n+\n+- [ ] **P1-1.2.3** — Refactor 10 registry settings page classes\n+  - Files: `OptRegistry*.cs`, `RegistryLoader.cs`, `RegistrySettingsLoader.cs`\n+  - Create `ISettingsPage` interface\n+  - Each page reads from `ISettingsProvider`\n+  - PR: —\n+\n+- [ ] **P1-1.2.4** — Create `IPuttySessionsProvider` + implementations\n+  - `WindowsPuttySessionsProvider` — registry (Windows)\n+  - `FilePuttySessionsProvider` — `~/.ssh/config` (Linux/macOS)\n+  - PR: —\n+\n+---\n+\n+#### 1.3 Encryption Migration\n+\n+- [x] **P1-1.3.1** — Create `ICryptoProvider` interface — @automated 2026-03-10\n+  - File: `mRemoteNG.Platform/Security/ICryptoProvider.cs`\n+  - Methods: `Protect`, `Unprotect`, `CanDecrypt`\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.3.2** — Create `DpapiCryptoProvider` (Windows) — @automated 2026-03-10\n+  - File: `mRemoteNG.Platform.Windows/Security/DpapiCryptoProvider.cs`\n+  - Wraps `System.Security.Cryptography.ProtectedData` with entropy\n+  - Ciphertext prefix: `DPAPI:`\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.3.3** — Create `AesGcmCryptoProvider` (cross-platform) — @automated 2026-03-10\n+  - File: `mRemoteNG.Platform/Security/AesGcmCryptoProvider.cs`\n+  - BouncyCastle AES-256-GCM, nonce per encryption, PBKDF2 key derivation\n+  - Ciphertext prefix: `AESGCM:`, used by Linux & macOS providers\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [ ] **P1-1.3.4** — Update `SecureXmlHelper` to use `ICryptoProvider`\n+  - Replace direct DPAPI calls with injected provider\n+  - PR: —\n+\n+---\n+\n+#### 1.4 Win32 P/Invoke Abstraction\n+\n+- [x] **P1-1.4.1** — Create `IWindowService` interface — @automated 2026-03-10\n+  - File: `mRemoteNG.Platform/IWindowService.cs`\n+  - Methods: MoveWindow, SetForeground, IsMinimized, PostMessage, SendMessage, ShowWindow, SetWindowPosition\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.4.2** — Create `IClipboardService` interface — @automated 2026-03-10\n+  - File: `mRemoteNG.Platform/IClipboardService.cs`\n+  - Methods: GetText, SetText, Clear, ContainsText\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.4.3** — Implement Windows services — @automated 2026-03-10\n+  - `WindowsWindowService.cs` — user32.dll P/Invoke (MoveWindow, SetForegroundWindow, etc.)\n+  - `WindowsClipboardService.cs` — WinForms Clipboard\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.4.4** — Implement Linux clipboard service — @automated 2026-03-10\n+  - `LinuxClipboardService.cs` — detects Wayland vs X11, uses wl-copy/xclip\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+- [x] **P1-1.4.5** — Implement macOS clipboard service — @automated 2026-03-10\n+  - `MacClipboardService.cs` — pbcopy/pbpaste subprocess\n+  - PR: claude/analyze-cross-platform-portability-FndER\n+\n+---\n+\n+#### 1.5 Dependency Injection\n+\n+- [ ] **P1-1.5.1** — Add `Microsoft.Extensions.DependencyInjection` to `mRemoteNG.Core`\n+  - Wire up service registrations per platform\n+  - `PlatformServiceFactory.Create()` returns correct implementations\n+  - PR: —\n+\n+- [ ] **P1-1.5.2** — Update `App/Startup.cs` to use DI container\n+  - Boot sequence with DI resolution\n+  - PR: —\n+\n+---\n+\n+#### 1.6 Compilation Gate\n+\n+- [ ] **P1-1.6.1** — Change main project TFM from `net10.0-windows10.0.26100.0` to `net10.0`\n+  - Update `mRemoteNG.csproj`\n+  - Fix all compilation errors from removed Windows-only APIs\n+  - PR: —\n+\n+- [ ] **P1-1.6.2** — Verify project builds on Ubuntu 22.04 CI agent\n+  - Add Linux build job to GitHub Actions\n+  - PR: —\n+\n+- [ ] **P1-1.6.3** — Verify project builds on macOS 14 CI agent\n+  - Add macOS build job to GitHub Actions\n+  - PR: —\n+\n+---\n+\n+## PHASE 2 — Avalonia UI Migration\n+\n+### Milestone 2 Goal: Main window renders and is interactive on all 3 platforms.\n+\n+---\n+\n+#### 2.1 Project Setup\n+\n+- [x] **P2-2.1.1** — Create `mRemoteNG.Avalonia` project — @automated 2026-03-10\n+  - Packages: Avalonia 11.x, Avalonia.Desktop, Avalonia.Themes.Fluent, Avalonia.ReactiveUI, Dock.Avalonia\n+  - PR: —\n+\n+- [x] **P2-2.1.2** — Set up ReactiveUI MVVM architecture — @automated 2026-03-10\n+  - ViewModels directory, Views directory, base classes\n+  - PR: —\n+\n+- [ ] **P2-2.1.3** — Set up theming system\n+  - Dark and light themes, system theme detection\n+  - PR: —\n+\n+- [ ] **P2-2.1.4** — Port icon/image resources to Avalonia\n+  - Convert embedded `.ico`/`.png` to Avalonia resources\n+  - PR: —\n+\n+---\n+\n+#### 2.2 Main Window\n+\n+- [ ] **P2-2.2.1** — Main window shell (`MainWindow.axaml`)\n+  - Menu bar, status bar, docking layout host, toolbar\n+  - PR: —\n+\n+- [ ] **P2-2.2.2** — Docking system (`DockFactory.cs`)\n+  - Dock.Avalonia integration\n+  - 4 panels: Connection Tree, Log, Connection Tabs, Credentials\n+  - PR: —\n+\n+- [ ] **P2-2.2.3** — Menu system (File, View, Tools, Help, External Tools)\n+  - macOS native menu support\n+  - PR: —\n+\n+- [ ] **P2-2.2.4** — Toolbar (`MainToolbar.axaml`)\n+  - Quick connect, action buttons, search\n+  - PR: —\n+\n+- [ ] **P2-2.2.5** — Status bar (`MainStatusBar.axaml`)\n+  - Connection count, status, update notification\n+  - PR: —\n+\n+---\n+\n+#### 2.3 Connection Tree\n+\n+- [ ] **P2-2.3.1** — TreeView control (`ConnectionTreeView.axaml`)\n+  - Hierarchical binding, drag-and-drop, right-click menu, inline rename, search\n+  - PR: —\n+\n+- [ ] **P2-2.3.2** — Connection tree ViewModel (`ConnectionTreeViewModel.cs`)\n+  - ObservableCollection, ReactiveCommand, filter observable\n+  - PR: —\n+\n+- [ ] **P2-2.3.3** — Connection context menus (`ConnectionContextMenu.axaml`)\n+  - Connect, Edit, Delete, Move, Export, Set credentials\n+  - PR: —\n+\n+---\n+\n+#### 2.4 Connection Tabs\n+\n+- [ ] **P2-2.4.1** — Tab host (`ConnectionTabHost.axaml`)\n+  - TabControl in dock, tab drag-and-drop, context menu\n+  - PR: —\n+\n+- [ ] **P2-2.4.2** — Embedded connection view (`EmbeddedConnectionView.axaml`)\n+  - Native window embedding surface (per-platform)\n+  - Fullscreen toggle, toolbar overlay\n+  - PR: —\n+\n+---\n+\n+#### 2.5 Options Dialog\n+\n+- [ ] **P2-2.5.1** — Options window shell (`OptionsWindow.axaml`)\n+  - Category tree + settings page area\n+  - PR: —\n+\n+- [ ] **P2-2.5.2** — Appearance settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.3** — Connection settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.4** — Tabs settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.5** — Security settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.6** — Advanced settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.7** — Updates settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.8** — Notifications settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.9** — Credentials settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.10** — Theme settings page\n+  - PR: —\n+\n+- [ ] **P2-2.5.11** — Protocols settings page\n+  - PR: —\n+\n+---\n+\n+#### 2.6 Dialogs\n+\n+- [ ] **P2-2.6.1** — About dialog\n+- [ ] **P2-2.6.2** — Connection add/edit dialog\n+- [ ] **P2-2.6.3** — Credential manager dialog\n+- [ ] **P2-2.6.4** — Quick connect dialog\n+- [ ] **P2-2.6.5** — Port scanner dialog\n+- [ ] **P2-2.6.6** — SSH file transfer dialog\n+- [ ] **P2-2.6.7** — Import dialog\n+- [ ] **P2-2.6.8** — Export dialog\n+- [ ] **P2-2.6.9** — External tools dialog\n+\n+---\n+\n+#### 2.7 System Tray & Splash\n+\n+- [ ] **P2-2.7.1** — System tray icon (`TrayIconService.cs`)\n+  - Avalonia TrayIcon, context menu, per-platform behavior\n+  - PR: —\n+\n+- [ ] **P2-2.7.2** — Avalonia splash screen (`SplashScreen.axaml`)\n+  - Replace WPF splash with Avalonia version\n+  - PR: —\n+\n+---\n+\n+## PHASE 3 — Protocol Replacement\n+\n+### Milestone 3 Goal: SSH, VNC, RDP, and HTTP connections work on Linux and macOS.\n+\n+---\n+\n+#### 3.1 SSH (PuTTYNG → SSH.NET)\n+\n+- [ ] **P3-3.1.1** — Create `SshNetProtocol.cs`\n+  - SSH.NET integration, auth methods, port forwarding\n+  - PR: —\n+\n+- [ ] **P3-3.1.2** — Avalonia terminal emulator\n+  - VtNetCore or XtermSharp integration\n+  - Full VT100/xterm emulation\n+  - PR: —\n+\n+- [ ] **P3-3.1.3** — SSH session manager\n+  - Session multiplexing, reconnect, logging\n+  - PR: —\n+\n+- [ ] **P3-3.1.4** — SFTP browser view\n+  - File tree, upload/download with progress\n+  - PR: —\n+\n+- [ ] **P3-3.1.5** — SSH config file importer\n+  - Parse `~/.ssh/config`, import as connections\n+  - PR: —\n+\n+---\n+\n+#### 3.2 Telnet & Rlogin (PuTTYNG → Custom)\n+\n+- [ ] **P3-3.2.1** — Create `TelnetProtocol.cs`\n+  - Pure .NET TcpClient, option negotiation\n+  - PR: —\n+\n+- [ ] **P3-3.2.2** — Create `RloginProtocol.cs`\n+  - RFC 1282 implementation\n+  - PR: —\n+\n+---\n+\n+#### 3.3 RDP (MSTSCLib → FreeRDP)\n+\n+- [ ] **P3-3.3.1** — Evaluate and decide on FreeRDP integration approach\n+  - Options: FreeRDP-Sharp, subprocess+embed, AwesomeRDP\n+  - Document decision in ADR (Architecture Decision Record)\n+  - PR: —\n+\n+- [ ] **P3-3.3.2** — Create `FreeRdpProtocol.cs`\n+  - Spawn xfreerdp/wfreerdp subprocess\n+  - Window embedding in Avalonia surface\n+  - PR: —\n+\n+- [ ] **P3-3.3.3** — Keep `WindowsRdpProtocol.cs` (MSTSCLib fallback)\n+  - Guard with `[SupportedOSPlatform(\"windows\")]`\n+  - PR: —\n+\n+- [ ] **P3-3.3.4** — RDP feature parity validation\n+  - Test: multi-monitor, audio, clipboard, drive redirect, NLA, gateway\n+  - PR: —\n+\n+---\n+\n+#### 3.4 VNC\n+\n+- [ ] **P3-3.4.1** — Create Avalonia VNC view\n+  - VncSharpCore + Avalonia canvas renderer\n+  - Keyboard/mouse forwarding, clipboard sync\n+  - PR: —\n+\n+---\n+\n+#### 3.5 HTTP/HTTPS\n+\n+- [ ] **P3-3.5.1** — Integrate `Avalonia.WebView`\n+  - WebView2 on Windows, WebKitGtk on Linux, WKWebView on macOS\n+  - Address bar, navigation, cert handling\n+  - PR: —\n+\n+---\n+\n+#### 3.6 PowerShell & Serial\n+\n+- [ ] **P3-3.6.1** — Cross-platform PowerShell protocol (`pwsh`)\n+  - PR: —\n+\n+- [ ] **P3-3.6.2** — Cross-platform serial port protocol\n+  - `System.IO.Ports`, `/dev/tty*` on Linux/macOS\n+  - PR: —\n+\n+---\n+\n+#### 3.7 External App Protocols\n+\n+- [ ] **P3-3.7.1** — Generic external app protocol\n+  - AnyDesk, ARD, custom external tools\n+  - PR: —\n+\n+---\n+\n+## PHASE 4 — Integration, Polish & Packaging\n+\n+### Milestone 4 Goal: Installable packages available for all 3 platforms.\n+\n+---\n+\n+#### 4.1 Testing\n+\n+- [ ] **P4-4.1.1** — Update all test projects to `net10.0`\n+- [ ] **P4-4.1.2** — Integration tests (SSH, VNC, settings round-trip)\n+- [ ] **P4-4.1.3** — UI automation tests (Avalonia headless)\n+\n+---\n+\n+#### 4.2 Linux Packaging\n+\n+- [ ] **P4-4.2.1** — AppImage packaging\n+- [ ] **P4-4.2.2** — Flatpak manifest\n+- [ ] **P4-4.2.3** — Snap packaging\n+- [ ] **P4-4.2.4** — .deb package\n+\n+---\n+\n+#### 4.3 macOS Packaging\n+\n+- [ ] **P4-4.3.1** — `.app` bundle + code signing\n+- [ ] **P4-4.3.2** — DMG installer\n+- [ ] **P4-4.3.3** — Homebrew cask\n+\n+---\n+\n+#### 4.4 CI/CD\n+\n+- [x] **P4-4.4.1** — Multi-platform GitHub Actions matrix — @automated 2026-03-10\n+- [ ] **P4-4.4.2** — Nightly builds for all platforms\n+- [ ] **P4-4.4.3** — Code signing pipeline\n+\n+---\n+\n+#### 4.5 Documentation\n+\n+- [ ] **P4-4.5.1** — Update README with cross-platform install instructions\n+- [ ] **P4-4.5.2** — User migration guide (from Windows registry)\n+- [ ] **P4-4.5.3** — Developer contributing guide (cross-platform)\n+\n+---\n+\n+## Architecture Decision Records\n+\n+| ADR | Status | Decision |\n+|-----|--------|---------|\n+| ADR-001 | DECIDED | Use Avalonia UI 11.x as cross-platform UI framework |\n+| ADR-002 | DECIDED | Use ReactiveUI for MVVM pattern |\n+| ADR-003 | DECIDED | Use Dock.Avalonia for docking panel layout |\n+| ADR-004 | DECIDED | Use SSH.NET to replace PuTTYNG.exe |\n+| ADR-005 | DECIDED | Use BouncyCastle AES-256-GCM to replace DPAPI |\n+| ADR-006 | PENDING | RDP implementation: FreeRDP subprocess vs FreeRDP-Sharp bindings |\n+| ADR-007 | DECIDED | Use `Microsoft.Extensions.DependencyInjection` for IoC |\n+| ADR-008 | PENDING | Terminal emulator: VtNetCore vs XtermSharp vs custom |\n+| ADR-009 | DECIDED | Keep MSTSCLib COM as Windows-only RDP fallback |\n+| ADR-010 | PENDING | Linux clipboard: xclip vs wl-clipboard detection |\n+\n+---\n+\n+## Blocked Items Log\n+\n+_No blocked items yet._\n+\n+---\n+\n+## Changelog\n+\n+| Date | Change | Author |\n+|------|--------|--------|\n+| 2026-03-10 | Initial migration plan and progress tracker created | automated |\n+| 2026-03-10 | Phase 1 implementation started | automated |\n+| 2026-03-10 | P1-1.1.2 through P1-1.1.6: All 5 new projects created and added to solution | automated |\n+| 2026-03-10 | P1-1.3.1–1.3.3: ICryptoProvider, DpapiCryptoProvider, AesGcmCryptoProvider implemented | automated |\n+| 2026-03-10 | P1-1.4.1–1.4.5: IWindowService, IClipboardService + all 3 platform impls | automated |\n+| 2026-03-10 | P2-2.1.1, P2-2.1.2: Avalonia project skeleton + ReactiveUI MVVM structure | automated |\n+| 2026-03-10 | P4-4.4.1: GitHub Actions cross-platform CI/CD pipeline created | automated |\n+\n+---\n+\n+## Notes\n+\n+- When updating this file in a PR, always update the **Summary Dashboard** counts.\n+- Use `[!]` for blocked items and add an entry to the **Blocked Items Log** with the reason.\n+- Label your PRs with `migration-phase-1`, `migration-phase-2`, etc. for tracking.\n+- Breaking changes to the connection XML schema **must** maintain backward compatibility.\n--- mRemoteNG.Avalonia/App.axaml\n@@ -0,0 +1,18 @@\n+<Application xmlns=\"https://github.com/avaloniaui\"\n+             xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n+             x:Class=\"mRemoteNG.Avalonia.App\"\n+             RequestedThemeVariant=\"Dark\">\n+\n+    <Application.Resources>\n+        <!-- Application-wide resources defined here -->\n+        <ResourceDictionary>\n+            <!-- Colors will be defined per theme in Phase 2 -->\n+        </ResourceDictionary>\n+    </Application.Resources>\n+\n+    <Application.Styles>\n+        <FluentTheme />\n+        <!-- Phase 2: Add custom mRemoteNG theme overrides here -->\n+    </Application.Styles>\n+\n+</Application>\n--- mRemoteNG.Avalonia/App.axaml.cs\n@@ -0,0 +1,26 @@\n+using Avalonia;\n+using Avalonia.Controls.ApplicationLifetimes;\n+using Avalonia.Markup.Xaml;\n+using mRemoteNG.Avalonia.Views;\n+using mRemoteNG.Avalonia.ViewModels;\n+\n+namespace mRemoteNG.Avalonia;\n+\n+public partial class App : Application\n+{\n+    public override void Initialize() =>\n+        AvaloniaXamlLoader.Load(this);\n+\n+    public override void OnFrameworkInitializationCompleted()\n+    {\n+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)\n+        {\n+            desktop.MainWindow = new MainWindow\n+            {\n+                DataContext = AppServices.GetRequired<MainWindowViewModel>(),\n+            };\n+        }\n+\n+        base.OnFrameworkInitializationCompleted();\n+    }\n+}\n--- mRemoteNG.Avalonia/AppServices.cs\n@@ -0,0 +1,35 @@\n+using Microsoft.Extensions.DependencyInjection;\n+\n+namespace mRemoteNG.Avalonia;\n+\n+/// <summary>\n+/// Global service locator for the Avalonia app.\n+/// Provides access to the DI container after it has been built.\n+/// ViewModels should prefer constructor injection; use this only at roots.\n+/// </summary>\n+public static class AppServices\n+{\n+    private static IServiceProvider? _provider;\n+\n+    public static IServiceProvider Provider\n+    {\n+        get => _provider ?? throw new InvalidOperationException(\"DI container not initialized yet.\");\n+        set => _provider = value;\n+    }\n+\n+    public static T GetRequired<T>() where T : notnull =>\n+        Provider.GetRequiredService<T>();\n+\n+    /// <summary>Registers application-level (non-platform) services.</summary>\n+    public static void Register(IServiceCollection services)\n+    {\n+        // ViewModels\n+        services.AddTransient<ViewModels.MainWindowViewModel>();\n+        services.AddTransient<ViewModels.ConnectionTreeViewModel>();\n+        services.AddTransient<ViewModels.OptionsWindowViewModel>();\n+\n+        // Application services (to be expanded in Phase 2 & 3)\n+        // services.AddSingleton<IConnectionsService, ConnectionsService>();\n+        // services.AddSingleton<ICredentialService, CredentialService>();\n+    }\n+}\n--- mRemoteNG.Avalonia/Program.cs\n@@ -0,0 +1,32 @@\n+using Avalonia;\n+using Microsoft.Extensions.DependencyInjection;\n+using mRemoteNG.Platform;\n+\n+namespace mRemoteNG.Avalonia;\n+\n+internal sealed class Program\n+{\n+    // Avalonia entry point — must remain synchronous and unmodified.\n+    [STAThread]\n+    public static void Main(string[] args)\n+    {\n+        // Bootstrap the DI container with platform-specific services.\n+        var services = new ServiceCollection();\n+        PlatformServiceFactory.Register(services);\n+\n+        // Register application-level services.\n+        AppServices.Register(services);\n+\n+        AppServices.Provider = services.BuildServiceProvider();\n+\n+        BuildAvaloniaApp()\n+            .StartWithClassicDesktopLifetime(args);\n+    }\n+\n+    // Avalonia configuration — do not modify (used by the designer).\n+    public static AppBuilder BuildAvaloniaApp()\n+        => AppBuilder.Configure<App>()\n+            .UsePlatformDetect()\n+            .WithInterFont()\n+            .LogToTrace();\n+}\n--- mRemoteNG.Avalonia/ViewModels/BoolToIconConverter.cs\n@@ -0,0 +1,19 @@\n+using System.Globalization;\n+using Avalonia.Data.Converters;\n+\n+namespace mRemoteNG.Avalonia.ViewModels;\n+\n+/// <summary>\n+/// Converts a boolean (IsFolder) to a folder or connection icon character.\n+/// Uses Unicode symbols that render on all platforms via system fonts.\n+/// </summary>\n+public sealed class BoolToIconConverter : IValueConverter\n+{\n+    public static readonly BoolToIconConverter Instance = new();\n+\n+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>\n+        value is true ? \"📁\" : \"🖥\";\n+\n+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>\n+        throw new NotSupportedException();\n+}\n--- mRemoteNG.Avalonia/ViewModels/ConnectionTreeViewModel.cs\n@@ -0,0 +1,126 @@\n+using System.Collections.ObjectModel;\n+using ReactiveUI;\n+using System.Reactive;\n+\n+namespace mRemoteNG.Avalonia.ViewModels;\n+\n+/// <summary>\n+/// Represents a single node in the connection tree (folder or connection).\n+/// </summary>\n+public sealed class ConnectionNodeViewModel : ReactiveObject\n+{\n+    private string _name = string.Empty;\n+    private string _protocol = string.Empty;\n+    private string _hostname = string.Empty;\n+    private bool _isFolder;\n+    private bool _isExpanded;\n+\n+    public string Name\n+    {\n+        get => _name;\n+        set => this.RaiseAndSetIfChanged(ref _name, value);\n+    }\n+\n+    public string Protocol\n+    {\n+        get => _protocol;\n+        set => this.RaiseAndSetIfChanged(ref _protocol, value);\n+    }\n+\n+    public string Hostname\n+    {\n+        get => _hostname;\n+        set => this.RaiseAndSetIfChanged(ref _hostname, value);\n+    }\n+\n+    public bool IsFolder\n+    {\n+        get => _isFolder;\n+        set => this.RaiseAndSetIfChanged(ref _isFolder, value);\n+    }\n+\n+    public bool IsExpanded\n+    {\n+        get => _isExpanded;\n+        set => this.RaiseAndSetIfChanged(ref _isExpanded, value);\n+    }\n+\n+    public ObservableCollection<ConnectionNodeViewModel> Children { get; } = [];\n+\n+    public ReactiveCommand<Unit, Unit> ConnectCommand { get; }\n+    public ReactiveCommand<Unit, Unit> EditCommand { get; }\n+    public ReactiveCommand<Unit, Unit> DeleteCommand { get; }\n+\n+    public ConnectionNodeViewModel()\n+    {\n+        ConnectCommand = ReactiveCommand.Create(OnConnect);\n+        EditCommand = ReactiveCommand.Create(OnEdit);\n+        DeleteCommand = ReactiveCommand.Create(OnDelete);\n+    }\n+\n+    private void OnConnect() { /* Phase 2: initiate protocol connection */ }\n+    private void OnEdit() { /* Phase 2: open edit dialog */ }\n+    private void OnDelete() { /* Phase 2: confirm and remove */ }\n+}\n+\n+/// <summary>\n+/// ViewModel for the connection tree panel.\n+/// Owns the root collection of connection nodes and tree-level commands.\n+/// </summary>\n+public sealed class ConnectionTreeViewModel : ReactiveObject\n+{\n+    private string _searchFilter = string.Empty;\n+    private ConnectionNodeViewModel? _selectedNode;\n+\n+    public ObservableCollection<ConnectionNodeViewModel> Nodes { get; } = [];\n+\n+    public string SearchFilter\n+    {\n+        get => _searchFilter;\n+        set => this.RaiseAndSetIfChanged(ref _searchFilter, value);\n+    }\n+\n+    public ConnectionNodeViewModel? SelectedNode\n+    {\n+        get => _selectedNode;\n+        set => this.RaiseAndSetIfChanged(ref _selectedNode, value);\n+    }\n+\n+    public ReactiveCommand<Unit, Unit> ConnectSelectedCommand { get; }\n+    public ReactiveCommand<Unit, Unit> NewFolderCommand { get; }\n+    public ReactiveCommand<Unit, Unit> NewConnectionCommand { get; }\n+    public ReactiveCommand<Unit, Unit> DeleteSelectedCommand { get; }\n+    public ReactiveCommand<Unit, Unit> SortCommand { get; }\n+\n+    public ConnectionTreeViewModel()\n+    {\n+        var hasSelection = this.WhenAnyValue(x => x.SelectedNode, n => n != null);\n+\n+        ConnectSelectedCommand = ReactiveCommand.Create(OnConnectSelected, hasSelection);\n+        NewFolderCommand = ReactiveCommand.Create(OnNewFolder);\n+        NewConnectionCommand = ReactiveCommand.Create(OnNewConnection);\n+        DeleteSelectedCommand = ReactiveCommand.Create(OnDeleteSelected, hasSelection);\n+        SortCommand = ReactiveCommand.Create(OnSort);\n+\n+        // Populate with a demo root node for Phase 2 scaffolding.\n+        LoadDemoData();\n+    }\n+\n+    private void LoadDemoData()\n+    {\n+        var root = new ConnectionNodeViewModel { Name = \"Connections\", IsFolder = true, IsExpanded = true };\n+        var servers = new ConnectionNodeViewModel { Name = \"Servers\", IsFolder = true, IsExpanded = true };\n+        servers.Children.Add(new ConnectionNodeViewModel\n+            { Name = \"Web Server 01\", Protocol = \"SSH\", Hostname = \"192.168.1.10\" });\n+        servers.Children.Add(new ConnectionNodeViewModel\n+            { Name = \"DB Server\", Protocol = \"RDP\", Hostname = \"192.168.1.20\" });\n+        root.Children.Add(servers);\n+        Nodes.Add(root);\n+    }\n+\n+    private void OnConnectSelected() { /* Phase 2 */ }\n+    private void OnNewFolder() { /* Phase 2 */ }\n+    private void OnNewConnection() { /* Phase 2 */ }\n+    private void OnDeleteSelected() { /* Phase 2 */ }\n+    private void OnSort() { /* Phase 2 */ }\n+}\n--- mRemoteNG.Avalonia/ViewModels/MainWindowViewModel.cs\n@@ -0,0 +1,70 @@\n+using ReactiveUI;\n+using System.Reactive;\n+\n+namespace mRemoteNG.Avalonia.ViewModels;\n+\n+/",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/cross-platform.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Avalonia/mRemoteNG.Avalonia.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG.Platform.Linux/Clipboard/LinuxClipboardService.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    },
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG.Platform.Linux/Notifications/LinuxNotificationService.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    },
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG.Platform.Linux/Process/LinuxProcessService.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Platform.Linux/Security/LinuxCryptoProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Platform.Linux/mRemoteNG.Platform.Linux.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG.Platform.Mac/Clipboard/MacClipboardService.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    },
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG.Platform.Mac/Notifications/MacNotificationService.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    },
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG.Platform.Mac/Process/MacProcessService.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Platform.Mac/Security/MacCryptoProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Platform.Mac/mRemoteNG.Platform.Mac.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "process-exec",
+      "severity": "critical",
+      "file": "mRemoteNG.Platform.Windows/Process/WindowsProcessService.cs",
+      "reason": "added code spawns a process or evaluates a string as code"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Platform.Windows/Security/DpapiCryptoProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Platform.Windows/mRemoteNG.Platform.Windows.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Platform/Security/AesGcmCryptoProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG.Platform/Security/ICryptoProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG.Platform/mRemoteNG.Platform.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:34Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": 137,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Speculative 53-file Avalonia migration skeleton; #137 (macOS) already wontfix. Huge scope, CI/dependency security flags, incompatible with our COM-ref WinForms build.",
+    "agent": "claude",
+    "at": "2026-07-25T16:40:54Z"
+  }
+}

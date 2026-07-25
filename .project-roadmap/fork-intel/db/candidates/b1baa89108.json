@@ -1,0 +1,42 @@
+{
+  "sha": "b1baa8910846e37ccb8bbfaca648e0925babeed9",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "Fixed incorrect menu showed on left click",
+  "body": "Fixed incorrect menu showed on left click\n\nIC was taken from a tab that was not the actual tab, changed to TabHelper",
+  "author_name": "Camilo Alvarez",
+  "author_login": "jotatsu",
+  "date": "2019-02-18T23:45:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b1baa8910846e37ccb8bbfaca648e0925babeed9",
+  "stats": {
+    "files": 1,
+    "additions": 3,
+    "deletions": 7,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Connection/InterfaceControl.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 7
+    }
+  ],
+  "patch": "--- mRemoteV1/Connection/InterfaceControl.cs\n@@ -1,4 +1,4 @@\n-using mRemoteNG.App;\n+﻿using mRemoteNG.App;\n using mRemoteNG.Connection.Protocol;\n using System;\n using System.Drawing;\n@@ -37,12 +37,8 @@ public InterfaceControl(Control parent, ProtocolBase protocol, ConnectionInfo in\n \n         public static InterfaceControl FindInterfaceControl(DockPanel DockPnl)\n         {\n-            if (!(DockPnl.ActiveDocument is ConnectionTab ct)) return null;\n-            if (ct.Controls.Count < 1) return null;\n-            if (ct.Controls[0] is InterfaceControl ic)\n-                return ic;\n-\n-            return null;\n+            if (TabHelper.Instance.CurrentTab == null) return null;\n+            return FindInterfaceControl(TabHelper.Instance.CurrentTab);\n         }\n \n         public static InterfaceControl FindInterfaceControl(ConnectionTab tab)",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:18Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 4,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "[Source](https://github.com/azet/mRemoteNG/commit/b1baa8910846e37ccb8bbfaca648e0925babeed9): Obsolete mRemoteV1 workaround uses potentially stale global TabHelper; current pane-local lookup also handles floating ActiveContent.",
+    "agent": "codex",
+    "at": "2026-07-25T18:15:15Z"
+  }
+}

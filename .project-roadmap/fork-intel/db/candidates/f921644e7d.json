@@ -1,0 +1,13 @@
+{
+  "sha": "f921644e7d814134621f7376f9986d2c27043ca0",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "Merge branch 'develop' into cefsharp",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-24T09:09:44Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f921644e7d814134621f7376f9986d2c27043ca0",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T16:30:55Z"
+}

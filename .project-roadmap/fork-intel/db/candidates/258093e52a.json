@@ -1,0 +1,13 @@
+{
+  "sha": "258093e52a3573a90f89b53c7d7ae52cfd22778f",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "when harvesting creds, consider Password when determining if a credential set is a duplicate",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2018-12-28T22:23:52Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/258093e52a3573a90f89b53c7d7ae52cfd22778f",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

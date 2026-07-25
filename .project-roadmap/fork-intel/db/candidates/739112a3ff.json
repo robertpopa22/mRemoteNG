@@ -1,0 +1,13 @@
+{
+  "sha": "739112a3ff5d101c243490f03305dd805648e314",
+  "fork": "azet/mRemoteNG",
+  "owner": "azet",
+  "subject": "added tests for SaveConnectionsOnEdit",
+  "author_name": "David Sparer",
+  "author_login": "sparerd",
+  "date": "2019-01-20T21:45:09Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/739112a3ff5d101c243490f03305dd805648e314",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (sparerd) - merge-base artifact",
+  "screened_at": "2026-07-25T16:28:22Z"
+}

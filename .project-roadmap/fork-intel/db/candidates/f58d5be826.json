@@ -1,0 +1,13 @@
+{
+  "sha": "f58d5be82657d30a789e530245cb97e14e70a0a5",
+  "fork": "jackoff482940/mRemoteNG",
+  "owner": "jackoff482940",
+  "subject": "Bump BouncyCastle.Cryptography",
+  "author_name": "dependabot[bot]",
+  "author_login": "dependabot[bot]",
+  "date": "2024-05-14T20:26:37Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f58d5be82657d30a789e530245cb97e14e70a0a5",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T16:29:49Z"
+}

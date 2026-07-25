@@ -1,0 +1,42 @@
+{
+  "sha": "d03faccf484ed801f9c324f0fb17e7aa3510aa4f",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "fix(rdp): resolve ambiguous Message reference in ConnectionBarPinner (build fix)",
+  "body": "fix(rdp): resolve ambiguous Message reference in ConnectionBarPinner (build fix)\n\nСборка упала с CS0104 (Message неоднозначен между mRemoteNG.Messages и\nSystem.Windows.Forms в RdpProtocol6.cs). Уточнено полное имя\nSystem.Windows.Forms.Message в WndProc сабкласса.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "Claude Code",
+  "author_login": "claude",
+  "date": "2026-06-16T15:48:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d03faccf484ed801f9c324f0fb17e7aa3510aa4f",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol6.cs\n@@ -2722,7 +2722,7 @@ public void Dispose()\n                 ReleaseHandle();\n             }\n \n-            protected override void WndProc(ref Message m)\n+            protected override void WndProc(ref System.Windows.Forms.Message m)\n             {\n                 if (m.Msg == WM_WINDOWPOSCHANGING && m.LParam != IntPtr.Zero)\n                 {",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:29:15Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fixes build ambiguity in guvity's passive-RDP subclass ConnectionBarPinner in RdpProtocol6.cs. Neither the class nor the file exists in our fork.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:57:27Z"
+  }
+}

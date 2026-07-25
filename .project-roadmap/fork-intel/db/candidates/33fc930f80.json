@@ -1,0 +1,523 @@
+{
+  "sha": "33fc930f809a3fd18da9acf88ac9470e5dff0fc8",
+  "fork": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "subject": "removed gecko and ie rendering engines",
+  "body": "removed gecko and ie rendering engines",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-22T18:27:53Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/33fc930f809a3fd18da9acf88ac9470e5dff0fc8",
+  "stats": {
+    "files": 60,
+    "additions": 3946,
+    "deletions": 6217,
+    "binary_files": 20
+  },
+  "files": [
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 14
+    },
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsSerializerMremotengFormat.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/MsSql/DataTableDeserializer.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/MsSql/DataTableSerializer.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 9
+    },
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer26.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer27.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteV1/Connection/AbstractConnectionRecord.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteV1/Connection/ConnectionInfo.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/Connection/ConnectionInfoInheritance.cs",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTP.DownloadHandler.cs",
+      "status": "added",
+      "additions": 34,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTP.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTPBase.cs",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 220
+    },
+    {
+      "filename": "mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTPS.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/Connection/Protocol/ProtocolFactory.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/Documentation/mssql_db_setup.sql",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/Documentation/mysql_db_setup.sql",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteV1/Firefox/AccessibleHandler.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/AccessibleMarshal.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/IA2Marshal.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/breakpadinjector.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/d3dcompiler_47.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/freebl3.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/lgpllibs.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/libEGL.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/libGLESv2.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/mozavcodec.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/mozavutil.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/mozglue.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/nss3.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/nssckbi.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/nssdbm3.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/omni.ja",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/plugin-container.exe",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/plugin-hang-ui.exe",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/qipcap.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/softokn3.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Firefox/xul.dll",
+      "status": "removed",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.Designer.cs",
+      "status": "modified",
+      "additions": 2697,
+      "deletions": 4545
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.cs-CZ.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.de.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.en-US.resx",
+      "status": "modified",
+      "additions": 130,
+      "deletions": 136
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.es.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.fr.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.it.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.ja-JP.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.ko-KR.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.lt.resx",
+      "status": "modified",
+      "additions": 130,
+      "deletions": 136
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.nb-NO.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.nl.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.pl.resx",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 19
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.pt.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.resx",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 16
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.ru.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.tr-TR.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.uk.resx",
+      "status": "modified",
+      "additions": 916,
+      "deletions": 922
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.zh-CN.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 12
+    },
+    {
+      "filename": "mRemoteV1/Resources/Language/Language.zh-TW.resx",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/app.config",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteV1/mRemoteV1.csproj",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 26
+    }
+  ],
+  "patch": "--- mRemoteV1/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs\n@@ -171,13 +171,6 @@ private ConnectionInfo ParseConnectionInfo(IList<string> headers, string[] conne\n                     connectionRecord.UseEnhancedMode = value;\n             }\n \n-            if (headers.Contains(\"RenderingEngine\"))\n-            {\n-                HTTPBase.RenderingEngine value;\n-                if (Enum.TryParse(connectionCsv[headers.IndexOf(\"RenderingEngine\")], out value))\n-                    connectionRecord.RenderingEngine = value;\n-            }\n-\n             if (headers.Contains(\"ICAEncryptionStrength\"))\n             {\n                 IcaProtocol.EncryptionStrength value;\n@@ -578,13 +571,6 @@ private ConnectionInfo ParseConnectionInfo(IList<string> headers, string[] conne\n                     connectionRecord.Inheritance.UseEnhancedMode = value;\n             }\n \n-            if (headers.Contains(\"InheritRenderingEngine\"))\n-            {\n-                bool value;\n-                if (bool.TryParse(connectionCsv[headers.IndexOf(\"InheritRenderingEngine\")], out value))\n-                    connectionRecord.Inheritance.RenderingEngine = value;\n-            }\n-\n             if (headers.Contains(\"InheritUsername\"))\n             {\n                 bool value;\n--- mRemoteV1/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsSerializerMremotengFormat.cs\n@@ -56,7 +56,7 @@ private void WriteCsvHeader(StringBuilder sb)\n             if (_saveFilter.SaveDomain)\n                 sb.Append(\"Domain;\");\n \n-            sb.Append(\"Hostname;Port;VmId;Protocol;PuttySession;ConnectToConsole;UseCredSsp;UseVmId;UseEnhancedMode;RenderingEngine;ICAEncryptionStrength;RDPAuthenticationLevel;\" +\n+            sb.Append(\"Hostname;Port;VmId;Protocol;PuttySession;ConnectToConsole;UseCredSsp;UseVmId;UseEnhancedMode;ICAEncryptionStrength;RDPAuthenticationLevel;\" +\n                       \"LoadBalanceInfo;Colors;Resolution;AutomaticResize;DisplayWallpaper;DisplayThemes;EnableFontSmoothing;EnableDesktopComposition;\" +\n                       \"CacheBitmaps;RedirectDiskDrives;RedirectPorts;RedirectPrinters;RedirectClipboard;RedirectSmartCards;RedirectSound;RedirectKeys;\" +\n                       \"PreExtApp;PostExtApp;MacAddress;UserField;ExtApp;Favorite;VNCCompression;VNCEncoding;VNCAuthMode;VNCProxyType;VNCProxyIP;\" +\n@@ -68,7 +68,7 @@ private void WriteCsvHeader(StringBuilder sb)\n                           \"InheritEnableFontSmoothing;InheritEnableDesktopComposition;InheritDomain;InheritIcon;InheritPanel;InheritPassword;InheritPort;\" +\n                           \"InheritProtocol;InheritPuttySession;InheritRedirectDiskDrives;InheritRedirectKeys;InheritRedirectPorts;InheritRedirectPrinters;\" +\n                           \"InheritRedirectClipboard;InheritRedirectSmartCards;InheritRedirectSound;InheritResolution;InheritAutomaticResize;\" +\n-                          \"InheritUseConsoleSession;InheritUseCredSsp;InheritUseVmId;InheritUseEnhancedMode;InheritVmId;InheritRenderingEngine;InheritUsername;InheritICAEncryptionStrength;\" +\n+                          \"InheritUseConsoleSession;InheritUseCredSsp;InheritUseVmId;InheritUseEnhancedMode;InheritVmId;InheritUsername;InheritICAEncryptionStrength;\" +\n                           \"InheritRDPAuthenticationLevel;InheritLoadBalanceInfo;InheritPreExtApp;InheritPostExtApp;InheritMacAddress;InheritUserField;\" +\n                           \"InheritFavorite;InheritExtApp;InheritVNCCompression;InheritVNCEncoding;InheritVNCAuthMode;InheritVNCProxyType;InheritVNCProxyIP;\" +\n                           \"InheritVNCProxyPort;InheritVNCProxyUsername;InheritVNCProxyPassword;InheritVNCColors;InheritVNCSmartSizeMode;InheritVNCViewOnly;\" +\n@@ -124,7 +124,6 @@ private void SerializeConnectionInfo(ConnectionInfo con, StringBuilder sb)\n               .Append(FormatForCsv(con.UseCredSsp))\n               .Append(FormatForCsv(con.UseVmId))\n               .Append(FormatForCsv(con.UseEnhancedMode))\n-              .Append(FormatForCsv(con.RenderingEngine))\n               .Append(FormatForCsv(con.ICAEncryptionStrength))\n               .Append(FormatForCsv(con.RDPAuthenticationLevel))\n               .Append(FormatForCsv(con.LoadBalanceInfo))\n@@ -201,7 +200,6 @@ private void SerializeConnectionInfo(ConnectionInfo con, StringBuilder sb)\n               .Append(FormatForCsv(con.Inheritance.UseVmId))\n               .Append(FormatForCsv(con.Inheritance.UseEnhancedMode))\n               .Append(FormatForCsv(con.Inheritance.VmId))\n-              .Append(FormatForCsv(con.Inheritance.RenderingEngine))\n               .Append(FormatForCsv(con.Inheritance.Username))\n               .Append(FormatForCsv(con.Inheritance.ICAEncryptionStrength))\n               .Append(FormatForCsv(con.Inheritance.RDPAuthenticationLevel))\n--- mRemoteV1/Config/Serializers/ConnectionSerializers/MsSql/DataTableDeserializer.cs\n@@ -96,8 +96,6 @@ private void PopulateConnectionInfoFromDatarow(DataRow dataRow, ConnectionInfo c\n             connectionInfo.UseConsoleSession = (bool)dataRow[\"ConnectToConsole\"];\n             connectionInfo.UseCredSsp = (bool)dataRow[\"UseCredSsp\"];\n             connectionInfo.UseVmId = (bool)dataRow[\"UseVmId\"];\n-            connectionInfo.RenderingEngine = (HTTPBase.RenderingEngine)Enum.Parse(typeof(HTTPBase.RenderingEngine),\n-                                                                                  (string)dataRow[\"RenderingEngine\"]);\n             connectionInfo.ICAEncryptionStrength =\n                 (IcaProtocol.EncryptionStrength)Enum.Parse(typeof(IcaProtocol.EncryptionStrength),\n                                                            (string)dataRow[\"ICAEncryptionStrength\"]);\n@@ -198,7 +196,6 @@ private void PopulateConnectionInfoFromDatarow(DataRow dataRow, ConnectionInfo c\n             connectionInfo.Inheritance.UseVmId = (bool)dataRow[\"InheritUseVmId\"];\n             connectionInfo.Inheritance.UseEnhancedMode = (bool)dataRow[\"InheritUseEnhancedMode\"];\n             connectionInfo.Inheritance.VmId = (bool)dataRow[\"InheritVmId\"];\n-            connectionInfo.Inheritance.RenderingEngine = (bool)dataRow[\"InheritRenderingEngine\"];\n             connectionInfo.Inheritance.Username = (bool)dataRow[\"InheritUsername\"];\n             connectionInfo.Inheritance.ICAEncryptionStrength = (bool)dataRow[\"InheritICAEncryptionStrength\"];\n             connectionInfo.Inheritance.RDPAuthenticationLevel = (bool)dataRow[\"InheritRDPAuthenticationLevel\"];\n--- mRemoteV1/Config/Serializers/ConnectionSerializers/MsSql/DataTableSerializer.cs\n@@ -114,7 +114,6 @@ private void CreateSchema(DataTable dataTable)\n             dataTable.Columns.Add(\"Port\", typeof(int));\n             dataTable.Columns.Add(\"ConnectToConsole\", typeof(bool));\n             dataTable.Columns.Add(\"UseCredSsp\", typeof(bool));\n-            dataTable.Columns.Add(\"RenderingEngine\", typeof(string));\n             dataTable.Columns.Add(\"ICAEncryptionStrength\", typeof(string));\n             dataTable.Columns.Add(\"RDPAuthenticationLevel\", typeof(string));\n             dataTable.Columns.Add(\"Colors\", typeof(string));\n@@ -180,7 +179,6 @@ private void CreateSchema(DataTable dataTable)\n             dataTable.Columns.Add(\"InheritResolution\", typeof(bool));\n             dataTable.Columns.Add(\"InheritUseConsoleSession\", typeof(bool));\n             dataTable.Columns.Add(\"InheritUseCredSsp\", typeof(bool));\n-            dataTable.Columns.Add(\"InheritRenderingEngine\", typeof(bool));\n             dataTable.Columns.Add(\"InheritICAEncryptionStrength\", typeof(bool));\n             dataTable.Columns.Add(\"InheritRDPAuthenticationLevel\", typeof(bool));\n             dataTable.Columns.Add(\"InheritUsername\", typeof(bool));\n@@ -271,8 +269,6 @@ public bool isRowUpdated(ConnectionInfo connectionInfo, DataRow dataRow)\n             isFieldNotChange = isFieldNotChange &&\n             dataRow[\"UseEnhancedMode\"].Equals(connectionInfo.UseEnhancedMode);\n             isFieldNotChange = isFieldNotChange &&\n-            dataRow[\"RenderingEngine\"].Equals(connectionInfo.RenderingEngine.ToString());\n-            isFieldNotChange = isFieldNotChange &&\n             dataRow[\"ICAEncryptionStrength\"].Equals(connectionInfo.ICAEncryptionStrength.ToString());\n             isFieldNotChange = isFieldNotChange &&\n             dataRow[\"RDPAuthenticationLevel\"].Equals(connectionInfo.RDPAuthenticationLevel.ToString());\n@@ -359,7 +355,6 @@ public bool isRowUpdated(ConnectionInfo connectionInfo, DataRow dataRow)\n                 dataRow[\"InheritAutomaticResize\"].Equals(connectionInfo.Inheritance.AutomaticResize) &&\n                 dataRow[\"InheritUseConsoleSession\"].Equals(connectionInfo.Inheritance.UseConsoleSession) &&\n                 dataRow[\"InheritUseCredSsp\"].Equals(connectionInfo.Inheritance.UseCredSsp) &&\n-                dataRow[\"InheritRenderingEngine\"].Equals(connectionInfo.Inheritance.RenderingEngine) &&\n                 dataRow[\"InheritUsername\"].Equals(connectionInfo.Inheritance.Username) &&\n                 dataRow[\"InheritVmId\"].Equals(connectionInfo.Inheritance.VmId) &&\n                 dataRow[\"InheritUseVmId\"].Equals(connectionInfo.Inheritance.UseVmId) &&\n@@ -422,7 +417,6 @@ public bool isRowUpdated(ConnectionInfo connectionInfo, DataRow dataRow)\n                 dataRow[\"InheritAutomaticResize\"].Equals(false) &&\n                 dataRow[\"InheritUseConsoleSession\"].Equals(false) &&\n                 dataRow[\"InheritUseCredSsp\"].Equals(false) &&\n-                dataRow[\"InheritRenderingEngine\"].Equals(false) &&\n                 dataRow[\"InheritUsername\"].Equals(false) &&\n                 dataRow[\"InheritICAEncryptionStrength\"].Equals(false) &&\n                 dataRow[\"InheritRDPAuthenticationLevel\"].Equals(false) &&\n@@ -503,7 +497,6 @@ private void SerializeConnectionInfo(ConnectionInfo connectionInfo)\n             dataRow[\"UseCredSsp\"] = connectionInfo.UseCredSsp;\n             dataRow[\"UseVmId\"] = connectionInfo.UseVmId;\n             dataRow[\"UseEnhancedMode\"] = connectionInfo.UseEnhancedMode;\n-            dataRow[\"RenderingEngine\"] = connectionInfo.RenderingEngine;\n             dataRow[\"ICAEncryptionStrength\"] = connectionInfo.ICAEncryptionStrength;\n             dataRow[\"RDPAuthenticationLevel\"] = connectionInfo.RDPAuthenticationLevel;\n             dataRow[\"RDPMinutesToIdleTimeout\"] = connectionInfo.RDPMinutesToIdleTimeout;\n@@ -582,7 +575,6 @@ private void SerializeConnectionInfo(ConnectionInfo connectionInfo)\n                 dataRow[\"InheritAutomaticResize\"] = connectionInfo.Inheritance.AutomaticResize;\n                 dataRow[\"InheritUseConsoleSession\"] = connectionInfo.Inheritance.UseConsoleSession;\n                 dataRow[\"InheritUseCredSsp\"] = connectionInfo.Inheritance.UseCredSsp;\n-                dataRow[\"InheritRenderingEngine\"] = connectionInfo.Inheritance.RenderingEngine;\n                 dataRow[\"InheritUsername\"] = connectionInfo.Inheritance.Username;\n                 dataRow[\"InheritVmId\"] = connectionInfo.Inheritance.VmId;\n                 dataRow[\"InheritUseVmId\"] = connectionInfo.Inheritance.UseVmId;\n@@ -645,7 +637,6 @@ private void SerializeConnectionInfo(ConnectionInfo connectionInfo)\n                 dataRow[\"InheritAutomaticResize\"] = false;\n                 dataRow[\"InheritUseConsoleSession\"] = false;\n                 dataRow[\"InheritUseCredSsp\"] = false;\n-                dataRow[\"InheritRenderingEngine\"] = false;\n                 dataRow[\"InheritUsername\"] = false;\n                 dataRow[\"InheritICAEncryptionStrength\"] = false;\n                 dataRow[\"InheritRDPAuthenticationLevel\"] = false;\n--- mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer26.cs\n@@ -73,7 +73,6 @@ private void SetElementAttributes(XContainer element, ConnectionInfo connectionI\n             element.Add(new XAttribute(\"ConnectToConsole\",\n                                        connectionInfo.UseConsoleSession.ToString().ToLowerInvariant()));\n             element.Add(new XAttribute(\"UseCredSsp\", connectionInfo.UseCredSsp.ToString().ToLowerInvariant()));\n-            element.Add(new XAttribute(\"RenderingEngine\", connectionInfo.RenderingEngine));\n             element.Add(new XAttribute(\"ICAEncryptionStrength\", connectionInfo.ICAEncryptionStrength));\n             element.Add(new XAttribute(\"RDPAuthenticationLevel\", connectionInfo.RDPAuthenticationLevel));\n             element.Add(new XAttribute(\"RDPMinutesToIdleTimeout\", connectionInfo.RDPMinutesToIdleTimeout));\n@@ -211,8 +210,6 @@ private void SetInheritanceAttributes(XContainer element, IInheritable connectio\n                                            connectionInfo.Inheritance.UseConsoleSession.ToString().ToLowerInvariant()));\n                 element.Add(new XAttribute(\"InheritUseCredSsp\",\n                                            connectionInfo.Inheritance.UseCredSsp.ToString().ToLowerInvariant()));\n-                element.Add(new XAttribute(\"InheritRenderingEngine\",\n-                                           connectionInfo.Inheritance.RenderingEngine.ToString().ToLowerInvariant()));\n                 element.Add(new XAttribute(\"InheritUsername\",\n                                            connectionInfo.Inheritance.Username.ToString().ToLowerInvariant()));\n                 element.Add(new XAttribute(\"InheritICAEncryptionStrength\",\n@@ -305,7 +302,6 @@ private void SetInheritanceAttributes(XContainer element, IInheritable connectio\n                 element.Add(new XAttribute(\"InheritAutomaticResize\", falseString));\n                 element.Add(new XAttribute(\"InheritUseConsoleSession\", falseString));\n                 element.Add(new XAttribute(\"InheritUseCredSsp\", falseString));\n-                element.Add(new XAttribute(\"InheritRenderingEngine\", falseString));\n                 element.Add(new XAttribute(\"InheritUsername\", falseString));\n                 element.Add(new XAttribute(\"InheritICAEncryptionStrength\", falseString));\n                 element.Add(new XAttribute(\"InheritRDPAuthenticationLevel\", falseString));\n--- mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer27.cs\n@@ -81,7 +81,6 @@ private void SetElementAttributes(XContainer element, ConnectionInfo connectionI\n             element.Add(new XAttribute(\"ConnectToConsole\",\n                                        connectionInfo.UseConsoleSession.ToString().ToLowerInvariant()));\n             element.Add(new XAttribute(\"UseCredSsp\", connectionInfo.UseCredSsp.ToString().ToLowerInvariant()));\n-            element.Add(new XAttribute(\"RenderingEngine\", connectionInfo.RenderingEngine));\n             element.Add(new XAttribute(\"ICAEncryptionStrength\", connectionInfo.ICAEncryptionStrength));\n             element.Add(new XAttribute(\"RDPAuthenticationLevel\", connectionInfo.RDPAuthenticationLevel));\n             element.Add(new XAttribute(\"RDPMinutesToIdleTimeout\", connectionInfo.RDPMinutesToIdleTimeout));\n@@ -226,8 +225,6 @@ private void SetInheritanceAttributes(XContainer element, IInheritable connectio\n                                            connectionInfo.Inheritance.UseConsoleSession.ToString().ToLowerInvariant()));\n                 element.Add(new XAttribute(\"InheritUseCredSsp\",\n                                            connectionInfo.Inheritance.UseCredSsp.ToString().ToLowerInvariant()));\n-                element.Add(new XAttribute(\"InheritRenderingEngine\",\n-                                           connectionInfo.Inheritance.RenderingEngine.ToString().ToLowerInvariant()));\n                 element.Add(new XAttribute(\"InheritUsername\",\n                                            connectionInfo.Inheritance.Username.ToString().ToLowerInvariant()));\n                 element.Add(new XAttribute(\"InheritICAEncryptionStrength\",\n@@ -330,7 +327,6 @@ private void SetInheritanceAttributes(XContainer element, IInheritable connectio\n                 element.Add(new XAttribute(\"InheritAutomaticResize\", falseString));\n                 element.Add(new XAttribute(\"InheritUseConsoleSession\", falseString));\n                 element.Add(new XAttribute(\"InheritUseCredSsp\", falseString));\n-                element.Add(new XAttribute(\"InheritRenderingEngine\", falseString));\n                 element.Add(new XAttribute(\"InheritUsername\", falseString));\n                 element.Add(new XAttribute(\"InheritICAEncryptionStrength\", falseString));\n                 element.Add(new XAttribute(\"InheritRDPAuthenticationLevel\", falseString));\n--- mRemoteV1/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs\n@@ -449,10 +449,7 @@ private ConnectionInfo GetConnectionInfoFromXml(XmlNode xmlnode)\n \n                 if (_confVersion >= 1.9)\n                 {\n-                    connectionInfo.RenderingEngine =\n-                        xmlnode.GetAttributeAsEnum<HTTPBase.RenderingEngine>(\"RenderingEngine\");\n                     connectionInfo.MacAddress = xmlnode.GetAttributeAsString(\"MacAddress\");\n-                    connectionInfo.Inheritance.RenderingEngine = xmlnode.GetAttributeAsBool(\"InheritRenderingEngine\");\n                     connectionInfo.Inheritance.MacAddress = xmlnode.GetAttributeAsBool(\"InheritMacAddress\");\n                 }\n \n--- mRemoteV1/Connection/AbstractConnectionRecord.cs\n@@ -38,7 +38,6 @@ public abstract class AbstractConnectionRecord : INotifyPropertyChanged\n         private int _rdpMinutesToIdleTimeout;\n         private bool _rdpAlertIdleTimeout;\n         private string _loadBalanceInfo;\n-        private HTTPBase.RenderingEngine _renderingEngine;\n         private bool _useCredSsp;\n         private bool _useVmId;\n \n@@ -312,17 +311,6 @@ public string LoadBalanceInfo\n             set => SetField(ref _loadBalanceInfo, value?.Trim(), \"LoadBalanceInfo\");\n         }\n \n-        [LocalizedAttributes.LocalizedCategory(nameof(Language.strCategoryProtocol), 3),\n-         LocalizedAttributes.LocalizedDisplayName(nameof(Language.strPropertyNameRenderingEngine)),\n-         LocalizedAttributes.LocalizedDescription(nameof(Language.strPropertyDescriptionRenderingEngine)),\n-         TypeConverter(typeof(MiscTools.EnumTypeConverter)),\n-         UsedInProtocol(ProtocolType.HTTP, ProtocolType.HTTPS)]\n-        public HTTPBase.RenderingEngine RenderingEngine\n-        {\n-            get => GetPropertyValue(\"RenderingEngine\", _renderingEngine);\n-            set => SetField(ref _renderingEngine, value, \"RenderingEngine\");\n-        }\n-\n         [LocalizedAttributes.LocalizedCategory(nameof(Language.strCategoryProtocol), 3),\n          LocalizedAttributes.LocalizedDisplayName(nameof(Language.strPropertyNameUseCredSsp)),\n          LocalizedAttributes.LocalizedDescription(nameof(Language.strPropertyDescriptionUseCredSsp)),\n--- mRemoteV1/Connection/ConnectionInfo.cs\n@@ -308,8 +308,6 @@ private void SetProtocolDefaults()\n             RDPMinutesToIdleTimeout = Settings.Default.ConDefaultRDPMinutesToIdleTimeout;\n             RDPAlertIdleTimeout = Settings.Default.ConDefaultRDPAlertIdleTimeout;\n             LoadBalanceInfo = Settings.Default.ConDefaultLoadBalanceInfo;\n-            RenderingEngine = (HTTPBase.RenderingEngine)Enum.Parse(typeof(HTTPBase.RenderingEngine),\n-                                                                   Settings.Default.ConDefaultRenderingEngine);\n             UseCredSsp = Settings.Default.ConDefaultUseCredSsp;\n             UseVmId = Settings.Default.ConDefaultUseVmId;\n             UseEnhancedMode = Settings.Default.ConDefaultUseEnhancedMode;\n--- mRemoteV1/Connection/ConnectionInfoInheritance.cs\n@@ -142,12 +142,6 @@ public bool EverythingInherited\n          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]\n         public bool LoadBalanceInfo { get; set; }\n \n-        [LocalizedAttributes.LocalizedCategory(nameof(Language.strCategoryProtocol), 4),\n-         LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.strPropertyNameRenderingEngine)),\n-         LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.strPropertyDescriptionRenderingEngine)),\n-         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]\n-        public bool RenderingEngine { get; set; }\n-\n         [LocalizedAttributes.LocalizedCategory(nameof(Language.strCategoryProtocol), 4),\n          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.strPropertyNameUseConsoleSession)),\n          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.strPropertyDescriptionUseConsoleSession)),\n--- mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTP.DownloadHandler.cs\n@@ -0,0 +1,34 @@\n+﻿// Copyright © 2013 The CefSharp Authors. All rights reserved.\n+//\n+// Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.\n+\n+using CefSharp;\n+using System;\n+\n+namespace mRemoteNG.Connection.Protocol.Http\n+{\n+    public class DownloadHandler : IDownloadHandler\n+    {\n+        public event EventHandler<DownloadItem> OnBeforeDownloadFired;\n+\n+        public event EventHandler<DownloadItem> OnDownloadUpdatedFired;\n+\n+        public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)\n+        {\n+            OnBeforeDownloadFired?.Invoke(this, downloadItem);\n+\n+            if (!callback.IsDisposed)\n+            {\n+                using (callback)\n+                {\n+                    callback.Continue(downloadItem.SuggestedFileName, showDialog: true);\n+                }\n+            }\n+        }\n+\n+        public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)\n+        {\n+            OnDownloadUpdatedFired?.Invoke(this, downloadItem);\n+        }\n+    }\n+}\n\\ No newline at end of file\n--- mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTP.cs\n@@ -1,8 +1,8 @@\n-namespace mRemoteNG.Connection.Protocol.Http\n+﻿namespace mRemoteNG.Connection.Protocol.Http\n {\n     public class ProtocolHTTP : HTTPBase\n     {\n-        public ProtocolHTTP(RenderingEngine RenderingEngine) : base(RenderingEngine)\n+        public ProtocolHTTP() : base()\n         {\n             httpOrS = \"http\";\n             defaultPort = (int)Defaults.Port;\n--- mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTPBase.cs\n@@ -1,10 +1,7 @@\n ﻿using System;\n-using System.IO;\n using System.Windows.Forms;\n-using Gecko;\n using CefSharp;\n using CefSharp.WinForms;\n-using mRemoteNG.Tools;\n using mRemoteNG.App;\n using mRemoteNG.UI.Tabs;\n \n@@ -26,39 +23,14 @@ public class HTTPBase : ProtocolBase\n \n         #region Public Methods\n \n-        protected HTTPBase(RenderingEngine RenderingEngine)\n+        protected HTTPBase()\n         {\n             try\n             {\n-                if (RenderingEngine == RenderingEngine.Gecko)\n+                Control = new ChromiumWebBrowser(\"about:blank\")\n                 {\n-                    if (!Xpcom.IsInitialized)\n-                        Xpcom.Initialize(\"Firefox\");\n-\n-                    Control = new GeckoWebBrowser();\n-\n-                    var culture = Settings.Default.OverrideUICulture;\n-                    if (string.IsNullOrEmpty(culture))\n-                    {\n-                        GeckoPreferences.User[\"intl.accept_languages\"] =\n-                            System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;\n-                    }\n-                    else\n-                    {\n-                        GeckoPreferences.User[\"intl.accept_languages\"] = culture;\n-                    }\n-                }\n-                else if (RenderingEngine == RenderingEngine.CEF)\n-                {\n-                    Control = new ChromiumWebBrowser(\"about:blank\")\n-                    {\n-                        Dock = DockStyle.Fill,\n-                    };\n-                }\n-                else\n-                {\n-                    Control = new WebBrowser();\n-                }\n+                    Dock = DockStyle.Fill,\n+                };\n             }\n             catch (Exception ex)\n             {\n@@ -83,47 +55,18 @@ public override bool Initialize()\n             {\n                 wBrowser = Control;\n \n-                if (InterfaceControl.Info.RenderingEngine == RenderingEngine.Gecko)\n+                var CEFBrowser = (ChromiumWebBrowser)wBrowser;\n+                if (CEFBrowser != null)\n                 {\n-                    var GeckoBrowser = (GeckoWebBrowser)wBrowser;\n-                    if (GeckoBrowser != null)\n-                    {\n-                        GeckoBrowser.DocumentTitleChanged += wBrowser_DocumentTitleChanged;\n-                        LauncherDialog.Download += geckoBrowser_LauncherDialog_Download;\n-                        GeckoBrowser.NSSError += CertEvent.GeckoBrowser_NSSError;\n-                        browserInitialised = true;\n-                    }\n-                    else\n-                    {\n-                        throw new Exception(\"Failed to initialize Gecko Rendering Engine.\");\n-                    }\n-                }\n-                else if (InterfaceControl.Info.RenderingEngine == RenderingEngine.CEF)\n-                {\n-                    var CEFBrowser = (ChromiumWebBrowser)wBrowser;\n-                    if (CEFBrowser != null)\n-                    {\n-                        CEFBrowser.LoadingStateChanged += cefBrowser_LoadingStateChanged;\n-                        CEFBrowser.TitleChanged += wBrowser_DocumentTitleChanged;\n-                    }\n-                    else\n-                    {\n-                        throw new Exception(\"Failed to initialize CEF Rendering Engine.\");\n-                    }\n+                    CEFBrowser.LoadingStateChanged += cefBrowser_LoadingStateChanged;\n+                    CEFBrowser.TitleChanged += wBrowser_DocumentTitleChanged;\n                 }\n                 else\n                 {\n-                    var objWebBrowser = (WebBrowser)wBrowser;\n-                    objWebBrowser.ScrollBarsEnabled = true;\n-\n-                    // http://stackoverflow.com/questions/4655662/how-to-ignore-script-errors-in-webbrowser\n-                    objWebBrowser.ScriptErrorsSuppressed = true;\n-\n-                    objWebBrowser.Navigated += wBrowser_Navigated;\n-                    objWebBrowser.DocumentTitleChanged += wBrowser_DocumentTitleChanged;\n-                    browserInitialised = true;\n+                    throw new Exception(\"Failed to initialize CEF Rendering Engine.\");\n                 }\n \n+\n                 return true;\n             }\n             catch (Exception ex)\n@@ -137,22 +80,8 @@ public override bool Connect()\n         {\n             try\n             {\n-                if (InterfaceControl.Info.RenderingEngine == RenderingEngine.Gecko)\n-                {\n-                    ((GeckoWebBrowser)wBrowser).Navigate(GetURL());\n-                }\n-                else if (InterfaceControl.Info.RenderingEngine == RenderingEngine.CEF)\n-                {\n-                    if (browserInitialised)\n-                    {\n-                        ((ChromiumWebBrowser)wBrowser).Load(GetURL());\n-                    }\n-                }\n-                else\n-                {\n-                    ((WebBrowser)wBrowser).Navigate(GetURL());\n-                }\n-\n+                if (browserInitialised) ((ChromiumWebBrowser)wBrowser).Load(GetURL());\n+                \n                 base.Connect();\n                 connectCalled = true;\n                 return true;\n@@ -173,43 +102,27 @@ private string GetURL()\n             try\n             {\n                 var strHost = InterfaceControl.Info.Hostname;\n-                /* \n-                 * Commenting out since this codes doesn't actually do anything at this time...\n-                 * Possibly related to MR-221 and/or MR-533 ????\n-                 * \n-\t\t\t\tstring strAuth = \"\";\n \n-                if (((int)Force & (int)ConnectionInfo.Force.NoCredentials) != (int)ConnectionInfo.Force.NoCredentials && !string.IsNullOrEmpty(InterfaceControl.Info.Username) && !string.IsNullOrEmpty(InterfaceControl.Info.Password))\n-\t\t\t\t{\n-\t\t\t\t\tstrAuth = \"Authorization: Basic \" + Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(InterfaceControl.Info.Username + \":\" + InterfaceControl.Info.Password)) + Environment.NewLine;\n-\t\t\t\t}\n-\t\t\t\t*/\n                 if (InterfaceControl.Info.Port != defaultPort)\n                 {\n                     if (strHost.EndsWith(\"/\"))\n-                    {\n                         strHost = strHost.Substring(0, strHost.Length - 1);\n-                    }\n \n                     if (strHost.Contains(httpOrS + \"://\") == false)\n-                    {\n                         strHost = httpOrS + \"://\" + strHost;\n-                    }\n \n                     strHost = strHost + \":\" + InterfaceControl.Info.Port;\n                 }\n                 else\n                 {\n                     if (strHost.Contains(httpOrS + \"://\") == false)\n-                    {\n                         strHost = httpOrS + \"://\" + strHost;\n-                    }\n                 }\n                 return strHost;\n             }\n             catch (Exception ex)\n             {\n-                Runtime.MessageCollector.AddExceptionStackTrace(Language.strHTTPFailedURLBuild, ex);\n+                Runtime.MessageCollector.AddExceptionStackTrace(Language.strHttpFailedURLBuild, ex);\n                 return string.Empty;\n             }\n         }\n@@ -252,37 +165,15 @@ private void wBrowser_DocumentTitleChanged(object sender, EventArgs e)\n                 if (!(InterfaceControl.Parent is ConnectionTab tabP)) return;\n                 string shortTitle;\n \n-                if (InterfaceControl.Info.RenderingEngine == RenderingEngine.Gecko)\n-                {\n-                    if (((GeckoWebBrowser)wBrowser).DocumentTitle.Length >= 15)\n-                    {\n-                        shortTitle = ((GeckoWebBrowser)wBrowser).DocumentTitle.Substring(0, 10) + \"...\";\n-                    }\n-                    else\n-                    {\n-                        shortTitle = ((GeckoWebBrowser)wBrowser).DocumentTitle;\n-                    }\n-                }\n-                else if (InterfaceControl.Info.RenderingEngine == RenderingEngine.CEF)\n+                \n                 {\n                     if (((TitleChangedEventArgs)e).Title.Length >= 15)\n                     {\n                         shortTitle = ((TitleChangedEventArgs)e).Title.Substring(0, 10) + \"...\";\n                     }\n                     else\n                     {\n-                        shortTitle = ((CefSharp.TitleChangedEventArgs)e).Title;\n-                    }\n-                }\n-                else\n-                {\n-                    if (((WebBrowser)wBrowser).DocumentTitle.Length >= 15)\n-                    {\n-                        shortTitle = ((WebBrowser)wBrowser).DocumentTitle.Substring(0, 10) + \"...\";\n-                    }\n-                    else\n-                    {\n-                        shortTitle = ((WebBrowser)wBrowser).DocumentTitle;\n+                        shortTitle = ((TitleChangedEventArgs)e).Title;\n                     }\n                 }\n \n@@ -301,102 +192,6 @@ private void wBrowser_DocumentTitleChanged(object sender, EventArgs e)\n             }\n         }\n \n-\n-        private void geckoBrowser_DocumentTitleChanged(object sender, EventArgs e)\n-        {\n-            try\n-            {\n-                if (!(InterfaceControl.Parent is ConnectionTab tabP)) return;\n-                string shortTitle;\n-\n-                if (InterfaceControl.Info.RenderingEngine == RenderingEngine.Gecko)\n-                {\n-                    if (((GeckoWebBrowser)wBrowser).DocumentTitle.Length >= 15)\n-                    {\n-                        shortTitle = ((GeckoWebBrowser)wBrowser).DocumentTitle.Substring(0, 10) + \"...\";\n-                    }\n-                    else\n-                    {\n-                        shortTitle = ((GeckoWebBrowser)wBrowser).DocumentTitle;\n-                    }\n-                }\n-                else\n-                {\n-                    if (((WebBrowser)wBrowser).DocumentTitle.Length >= 15)\n-                    {\n-                        shortTitle = ((WebBrowser)wBrowser).DocumentTitle.Substring(0, 10) + \"...\";\n-                    }\n-                    else\n-                    {\n-                        shortTitle = ((WebBrowser)wBrowser).DocumentTitle;\n-                    }\n-                }\n-\n-                if (!string.IsNullOrEmpty(tabTitle))\n-                {\n-                  tabP.TabText = tabTitle + @\" - \" + shortTitle;\n-                }\n-                else\n-                {\n-                  tabP.TabText = shortTitle;\n-                }\n-            }\n-            catch (Exception ex)\n-            {\n-                Runtime.MessageCollector.AddExceptionStackTrace(Language.strHttpDocumentTileChangeFailed, ex);\n-            }\n-        }\n-\n-        private void geckoBrowser_LauncherDialog_Download(object sender, Gecko.LauncherDialogEvent e)\n-        {\n-            var objTarget = Xpcom.CreateInstance<nsILocalFileWin>(\"@mozilla.org/file/local;1\");\n-            using (var tmp = new nsAString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @\"\\mremoteng.download\"))\n-            {\n-                objTarget.InitWithPath(tmp);\n-            }\n-\n-            //Save file dialog\n-            var saveFileDialog = new SaveFileDialog\n-            {\n-                Filter = \"All files (*.*)|*.*\",\n-                FilterIndex = 2,\n-                RestoreDirectory = true,\n-                FileName = e.Filename\n-            };\n-\n-            if (saveFileDialog.ShowDialog() == DialogResult.OK)\n-            {\n-                var source = IOService.CreateNsIUri(e.Url);\n-                var dest = IOService.CreateNsIUri(new Uri(saveFileDialog.FileName).AbsoluteUri);\n-                var t = (nsAStringBase)new nsAString(Path.GetFileName(saveFileDialog.FileName));\n-                var persist = Xpcom.CreateInstance<nsIWebBrowserPersist>(\"@mozilla.org/embedding/browser/nsWebBrowserPersist;1\");\n-                var nst = Xpcom.CreateInstance<nsITransfer>(\"@mozilla.org/transfer;1\");\n-\n-                nst.Init(source, dest, t, e.Mime, 0, null, persist, false);\n-                persist.SetPersistFlagsAttribute(2 | 32 | 16384);\n-                persist.SetProgressListenerAttribute(nst);\n-                persist.SaveURI(source, null, null, (uint)Gecko.nsIHttpChannelConsts.REFERRER_POLICY_NO_REFERRER, null, null, (nsISupports)dest, null);\n-            }\n-\n-            saveFileDialog.Dispose();\n-        }\n-\n-        #endregion\n-\n-        #region Enums\n-\n-        public enum RenderingEngine\n-        {\n-            [LocalizedAttributes.LocalizedDescription(nameof(Language.strHttpInternetExplorer))]\n-            IE = 1,\n-\n-            [LocalizedAttributes.LocalizedDescription(nameof(Language.strHttpGecko))]\n-            Gecko = 2,\n-\n-            [LocalizedAttributes.LocalizedDescription(nameof(Language.strHttpCEF))]\n-            CEF = 3\n-        }\n-\n         #endregion\n     }\n }\n--- mRemoteV1/Connection/Protocol/Http/Connection.Protocol.HTTPS.cs\n@@ -1,8 +1,8 @@\n-namespace mRemoteNG.Connection.Protocol.Http\n+﻿namespace mRemoteNG.Connection.Protocol.Http\n {\n     public class ProtocolHTTPS : HTTPBase\n     {\n-        public ProtocolHTTPS(RenderingEngine RenderingEngine) : base(RenderingEngine)\n+        public ProtocolHTTPS() : base()\n         {\n             httpOrS = \"https\";\n             defaultPort = (int)Defaults.Port;\n--- mRemoteV1/Connection/Protocol/ProtocolFactory.cs\n@@ -37,9 +37,9 @@ public ProtocolBase CreateProtocol(ConnectionInfo connectionInfo)\n                 case ProtocolType.RAW:\n                     return new RawProtocol();\n                 case ProtocolType.HTTP:\n-                    return new ProtocolHTTP(connectionInfo.RenderingEngine);\n+                    return new ProtocolHTTP();\n                 case ProtocolType.HTTPS:\n-                    return new ProtocolHTTPS(connectionInfo.RenderingEngine);\n+                    return new ProtocolHTTPS();\n                 case ProtocolType.ICA:\n                     var icaProtocol = new IcaProtocol();\n                     icaProtocol.tmrReconnect.Elapsed += icaProtocol.tmrReconnect_Elapsed;\n--- mRemoteV1/Documentation/mssql_db_setup.sql\n@@ -34,7 +34,6 @@ CREATE TABLE [dbo].[tblCons] (\n \tPort int NOT NULL,\n \tConnectToConsole bit NOT NULL,\n \tUseCredSsp bit NOT NULL,\n-\tRenderingEngine varchar(10),\n \tICAEncryptionStrength varchar(32) NOT NULL,\n \tRDPAuthenticationLevel varchar(32) NOT NULL,\n \tRDPMinutesToIdleTimeout int NOT NULL,\n@@ -102,7 +101,6 @@ CREATE TABLE [dbo].[tblCons] (\n \tInheritResolution bit NOT NULL,\n \tInheritUseConsoleSession bit NOT NULL,\n \tInheritUseCredSsp bit NOT NULL,\n-\tInheritRenderingEngine bit NOT NULL,\n \tInheritICAEncryptionStrength bit NOT NULL,\n \tInheritRDPAuthenticationLevel bit NOT NULL,\n \tInheritRDPMinutesToIdleTimeout bit NOT NULL,\n--- mRemoteV1/Documentation/mysql_db_setup.sql\n@@ -37,7 +37,6 @@ CREATE TABLE `tblCons` (\n     `Port` int(11) NOT NULL,\n     `ConnectToConsole` tinyint(1) NOT NULL,\n     `UseCredSsp` tinyint(1) NOT NULL,\n-    `RenderingEngine` varchar(10) DEFAULT NULL,\n     `ICAEncryptionStrength` varchar(32) NOT NULL,\n     `RDPAuthenticationLevel` varchar(32) NOT NULL,\n     `RDPMinutesToIdleTimeout` int(11) NOT NULL,\n@@ -105,7 +104,6 @@ CREATE TABLE `tblCons` (\n     `InheritResolution` tinyint(1) NOT NULL,\n     `InheritUseConsoleSession` tinyint(1) NOT NULL,\n     `InheritUseCredSsp` tinyint(1) NOT NULL,\n-    `InheritRenderingEngine` tinyint(1) NOT NULL,\n     `InheritICAEncryptionStrength` tinyint(1) NOT NULL,\n     `InheritRDPAuthenticationLevel` tinyint(1) NOT NULL,\n     `InheritRDPMinutesToIdleTimeout` tinyint(1) NOT NULL,\n--- mRemoteV1/Firefox/AccessibleHandler.dll\n(no text diff)\n--- mRemoteV1/Firefox/AccessibleMarshal.dll\n(no text diff)\n--- mRemoteV1/Firefox/IA2Marshal.dll\n(no text diff)",
+  "security_flags": [
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/AccessibleHandler.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/AccessibleMarshal.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/IA2Marshal.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/breakpadinjector.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/d3dcompiler_47.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/freebl3.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/lgpllibs.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/libEGL.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/libGLESv2.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/mozavcodec.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/mozavutil.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/mozglue.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/nss3.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/nssckbi.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/nssdbm3.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/plugin-container.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/plugin-hang-ui.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/qipcap.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/softokn3.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteV1/Firefox/xul.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteV1/mRemoteV1.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:30:50Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "We already handle removed Gecko (#113 TryParse fix) and keep RenderingEngine columns intentionally for schema/CSV compat; 60-file removal on mRemoteV1 tree would break our migrations.",
+    "agent": "claude",
+    "at": "2026-07-25T16:34:37Z"
+  }
+}

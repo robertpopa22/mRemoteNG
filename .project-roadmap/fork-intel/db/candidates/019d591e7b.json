@@ -1,0 +1,42 @@
+{
+  "sha": "019d591e7bdf914ff58622379a8f068eb97d4570",
+  "fork": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "subject": "Refactored the ExpandCollapseAnimationTimer_Tick to reduce cognitive load.",
+  "body": "Refactored the ExpandCollapseAnimationTimer_Tick to reduce cognitive load.\n\nExtracted per-container animation steps into AdvanceContainerAnimation for clarity. Moved expansion and collapse finalization to dedicated methods, improving code readability, maintainability, and separation of concerns.",
+  "author_name": "Julian Bobbett (DHCW - Software Development)",
+  "author_login": "julian-dhcw",
+  "date": "2026-07-21T13:35:55Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/019d591e7bdf914ff58622379a8f068eb97d4570",
+  "stats": {
+    "files": 1,
+    "additions": 42,
+    "deletions": 25,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs",
+      "status": "modified",
+      "additions": 42,
+      "deletions": 25
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs\n@@ -287,50 +287,67 @@ private void ExpandCollapseAnimationTimer_Tick(object sender, EventArgs e)\n \n             foreach (KeyValuePair<ContainerInfo, bool> entry in _activeAnimations)\n             {\n-                ContainerInfo container = entry.Key;\n-                bool isExpanding = entry.Value;\n-                int totalChildren = container.Children.Count;\n-                int currentLimit = _revealLimits.TryGetValue(container, out int limit) ? limit : 0;\n+                AdvanceContainerAnimation(entry.Key, entry.Value, finishedExpansions, finishedCollapses);\n+            }\n \n-                if (isExpanding)\n-                {\n-                    currentLimit = Math.Min(totalChildren, currentLimit + RowsRevealedPerTick);\n-                    _revealLimits[container] = currentLimit;\n-                    RefreshObject(container);\n+            FinalizeFinishedExpansions(finishedExpansions);\n+            FinalizeFinishedCollapses(finishedCollapses);\n \n-                    if (currentLimit >= totalChildren)\n-                        finishedExpansions.Add(container);\n-                }\n-                else\n-                {\n-                    currentLimit = Math.Max(0, currentLimit - RowsRevealedPerTick);\n-                    _revealLimits[container] = currentLimit;\n-                    RefreshObject(container);\n+            AutoResizeColumn(Columns[0]);\n \n-                    if (currentLimit <= 0)\n-                        finishedCollapses.Add(container);\n-                }\n+            if (_activeAnimations.Count == 0)\n+                _expandCollapseAnimationTimer.Stop();\n+        }\n+\n+        /// <summary>\n+        /// Advances the reveal limit for a single container by one animation tick and\n+        /// records the container as finished if its expansion or collapse has completed.\n+        /// </summary>\n+        private void AdvanceContainerAnimation(ContainerInfo container, bool isExpanding,\n+            List<ContainerInfo> finishedExpansions, List<ContainerInfo> finishedCollapses)\n+        {\n+            int totalChildren = container.Children.Count;\n+            int currentLimit = _revealLimits.TryGetValue(container, out int limit) ? limit : 0;\n+\n+            if (isExpanding)\n+            {\n+                currentLimit = Math.Min(totalChildren, currentLimit + RowsRevealedPerTick);\n+                _revealLimits[container] = currentLimit;\n+                RefreshObject(container);\n+\n+                if (currentLimit >= totalChildren)\n+                    finishedExpansions.Add(container);\n+            }\n+            else\n+            {\n+                currentLimit = Math.Max(0, currentLimit - RowsRevealedPerTick);\n+                _revealLimits[container] = currentLimit;\n+                RefreshObject(container);\n+\n+                if (currentLimit <= 0)\n+                    finishedCollapses.Add(container);\n             }\n+        }\n \n+        private void FinalizeFinishedExpansions(List<ContainerInfo> finishedExpansions)\n+        {\n             foreach (ContainerInfo container in finishedExpansions)\n             {\n                 _activeAnimations.Remove(container);\n                 _revealLimits.Remove(container);\n                 RefreshObject(container);\n             }\n+        }\n \n+        private void FinalizeFinishedCollapses(List<ContainerInfo> finishedCollapses)\n+        {\n             foreach (ContainerInfo container in finishedCollapses)\n             {\n                 _activeAnimations.Remove(container);\n                 _collapseFinalizing.Add(container);\n                 Collapse(container);\n                 _revealLimits.Remove(container);\n             }\n-\n-            AutoResizeColumn(Columns[0]);\n-\n-            if (_activeAnimations.Count == 0)\n-                _expandCollapseAnimationTimer.Stop();\n         }\n \n         /// <summary>",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:30:21Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 5,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Pure extraction around an animation subsystem our tree lacks. The target method and state fields are absent, yielding no user-visible benefit and requiring prerequisite feature work.",
+    "agent": "codex",
+    "at": "2026-07-25T16:39:19Z"
+  }
+}

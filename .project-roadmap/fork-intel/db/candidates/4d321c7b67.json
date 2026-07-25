@@ -1,0 +1,54 @@
+{
+  "sha": "4d321c7b67599fd8ee5defd88ede37abaa417575",
+  "fork": "eran132/mRemoteNG",
+  "owner": "eran132",
+  "subject": "Extract shared InputDialog to eliminate code duplication",
+  "body": "Extract shared InputDialog to eliminate code duplication\n\nMove duplicated PromptInput method from SftpBrowserPanel and\nSftpBrowserWindow into a shared InputDialog.Prompt utility class.\nEliminates the only code duplication flagged by SonarCloud.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "author_name": "Eran Markus",
+  "author_login": "eran132",
+  "date": "2026-04-07T13:07:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4d321c7b67599fd8ee5defd88ede37abaa417575",
+  "stats": {
+    "files": 3,
+    "additions": 42,
+    "deletions": 49,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Controls/SftpBrowserPanel.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 22
+    },
+    {
+      "filename": "mRemoteNG/UI/InputDialog.cs",
+      "status": "added",
+      "additions": 37,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/SFTPBrowserWindow.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 27
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Controls/SftpBrowserPanel.cs\n@@ -548,7 +548,7 @@ await _service.DownloadFileAsync(item.FullPath, sfd.FileName, bytes =>\n         private async void OnNewFolderClick(object sender, EventArgs e)\n         {\n             if (_service?.IsConnected != true) return;\n-            var name = PromptInput(\"New Folder\", \"Folder name:\");\n+            var name = InputDialog.Prompt(\"New Folder\", \"Folder name:\");\n             if (string.IsNullOrWhiteSpace(name)) return;\n             try\n             {\n@@ -562,7 +562,7 @@ private async void OnNewFolderClick(object sender, EventArgs e)\n         private async void OnNewFileClick(object sender, EventArgs e)\n         {\n             if (_service?.IsConnected != true) return;\n-            var name = PromptInput(\"New File\", \"File name:\");\n+            var name = InputDialog.Prompt(\"New File\", \"File name:\");\n             if (string.IsNullOrWhiteSpace(name)) return;\n             try\n             {\n@@ -602,7 +602,7 @@ private async void OnRenameClick(object sender, EventArgs e)\n         {\n             var item = _fileList.SelectedObject as SftpFileItem;\n             if (item == null || item.Name == \"..\" || _service?.IsConnected != true) return;\n-            var newName = PromptInput(\"Rename\", \"New name:\", item.Name);\n+            var newName = InputDialog.Prompt(\"Rename\", \"New name:\", item.Name);\n             if (string.IsNullOrWhiteSpace(newName) || newName == item.Name) return;\n             try\n             {\n@@ -914,25 +914,6 @@ private static bool IsTextFile(string fileName)\n             return false;\n         }\n \n-        private static string PromptInput(string title, string prompt, string defaultValue = \"\")\n-        {\n-            using var form = new Form\n-            {\n-                Text = title, Width = 350, Height = 150,\n-                FormBorderStyle = FormBorderStyle.FixedDialog,\n-                StartPosition = FormStartPosition.CenterParent,\n-                MaximizeBox = false, MinimizeBox = false\n-            };\n-            var lbl = new Label { Left = 10, Top = 15, Width = 310, Text = prompt };\n-            var txt = new TextBox { Left = 10, Top = 40, Width = 310, Text = defaultValue };\n-            var btnOk = new Button { Text = \"OK\", Left = 160, Top = 75, Width = 75, DialogResult = DialogResult.OK };\n-            var btnCancel = new Button { Text = \"Cancel\", Left = 245, Top = 75, Width = 75, DialogResult = DialogResult.Cancel };\n-            form.Controls.AddRange(new Control[] { lbl, txt, btnOk, btnCancel });\n-            form.AcceptButton = btnOk;\n-            form.CancelButton = btnCancel;\n-            return form.ShowDialog() == DialogResult.OK ? txt.Text : null;\n-        }\n-\n         #endregion\n \n         protected override void Dispose(bool disposing)\n--- mRemoteNG/UI/InputDialog.cs\n@@ -0,0 +1,37 @@\n+using System.Runtime.Versioning;\n+using System.Windows.Forms;\n+\n+namespace mRemoteNG.UI\n+{\n+    [SupportedOSPlatform(\"windows\")]\n+    internal static class InputDialog\n+    {\n+        /// <summary>\n+        /// Shows a simple input dialog and returns the entered text, or null if cancelled.\n+        /// </summary>\n+        public static string Prompt(string title, string prompt, string defaultValue = \"\")\n+        {\n+            using var form = new Form\n+            {\n+                Text = title,\n+                Width = 350,\n+                Height = 150,\n+                FormBorderStyle = FormBorderStyle.FixedDialog,\n+                StartPosition = FormStartPosition.CenterParent,\n+                MaximizeBox = false,\n+                MinimizeBox = false\n+            };\n+\n+            var lbl = new Label { Left = 10, Top = 15, Width = 310, Text = prompt };\n+            var txt = new TextBox { Left = 10, Top = 40, Width = 310, Text = defaultValue };\n+            var btnOk = new Button { Text = \"OK\", Left = 160, Top = 75, Width = 75, DialogResult = DialogResult.OK };\n+            var btnCancel = new Button { Text = \"Cancel\", Left = 245, Top = 75, Width = 75, DialogResult = DialogResult.Cancel };\n+\n+            form.Controls.AddRange(new Control[] { lbl, txt, btnOk, btnCancel });\n+            form.AcceptButton = btnOk;\n+            form.CancelButton = btnCancel;\n+\n+            return form.ShowDialog() == DialogResult.OK ? txt.Text : null;\n+        }\n+    }\n+}\n--- mRemoteNG/UI/Window/SFTPBrowserWindow.cs\n@@ -555,7 +555,7 @@ private async void OnNewFolderClick(object sender, EventArgs e)\n         {\n             if (_service?.IsConnected != true) return;\n \n-            var name = PromptInput(\"New Folder\", \"Enter folder name:\");\n+            var name = InputDialog.Prompt(\"New Folder\", \"Enter folder name:\");\n             if (string.IsNullOrWhiteSpace(name)) return;\n \n             try\n@@ -604,7 +604,7 @@ private async void OnRenameClick(object sender, EventArgs e)\n             var item = _fileList.SelectedObject as SftpFileItem;\n             if (item == null || item.Name == \"..\" || _service?.IsConnected != true) return;\n \n-            var newName = PromptInput(\"Rename\", \"Enter new name:\", item.Name);\n+            var newName = InputDialog.Prompt(\"Rename\", \"Enter new name:\", item.Name);\n             if (string.IsNullOrWhiteSpace(newName) || newName == item.Name) return;\n \n             try\n@@ -754,31 +754,6 @@ private void SetButtonsEnabled(bool enabled)\n             _btnDelete.Enabled = false;\n         }\n \n-        private static string PromptInput(string title, string prompt, string defaultValue = \"\")\n-        {\n-            using var form = new Form\n-            {\n-                Text = title,\n-                Width = 350,\n-                Height = 150,\n-                FormBorderStyle = FormBorderStyle.FixedDialog,\n-                StartPosition = FormStartPosition.CenterParent,\n-                MaximizeBox = false,\n-                MinimizeBox = false\n-            };\n-\n-            var lbl = new Label { Left = 10, Top = 15, Width = 310, Text = prompt };\n-            var txt = new TextBox { Left = 10, Top = 40, Width = 310, Text = defaultValue };\n-            var btnOk = new Button { Text = \"OK\", Left = 160, Top = 75, Width = 75, DialogResult = DialogResult.OK };\n-            var btnCancel = new Button { Text = \"Cancel\", Left = 245, Top = 75, Width = 75, DialogResult = DialogResult.Cancel };\n-\n-            form.Controls.AddRange(new Control[] { lbl, txt, btnOk, btnCancel });\n-            form.AcceptButton = btnOk;\n-            form.CancelButton = btnCancel;\n-\n-            return form.ShowDialog() == DialogResult.OK ? txt.Text : null;\n-        }\n-\n         #endregion\n     }\n }",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T16:28:42Z",
+  "triage": {
+    "category": "refactor",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 3,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "SftpBrowserPanel and SFTPBrowserWindow do not exist in our fork; we do not have an embedded SFTP browser.",
+    "agent": "gemini",
+    "at": "2026-07-25T16:38:39Z"
+  }
+}

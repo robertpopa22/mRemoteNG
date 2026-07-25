@@ -1,0 +1,49 @@
+{
+  "sha": "37bc079c10e13f2a4fcae9c971374f3f764b3f79",
+  "fork": "changsongyang/mRemoteNG",
+  "owner": "changsongyang",
+  "subject": "Rename COPYING.TXT to COPYING.txt",
+  "body": "Rename COPYING.TXT to COPYING.txt",
+  "author_name": "Faryan Rezagholi",
+  "author_login": "farosch",
+  "date": "2020-05-24T00:31:57Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/37bc079c10e13f2a4fcae9c971374f3f764b3f79",
+  "stats": {
+    "files": 1,
+    "additions": 0,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "COPYING.txt",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- COPYING.txt\n(no text diff)",
+  "security_flags": [
+    {
+      "id": "license",
+      "severity": "medium",
+      "file": "COPYING.txt",
+      "reason": "licence edits change redistribution terms"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T16:28:35Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Exact case-only rename already exists in efea9f085; current tracked file is COPYING.txt. Reapplying is redundant and conflicts because the destination already exists.",
+    "agent": "codex",
+    "at": "2026-07-25T17:11:48Z"
+  }
+}
