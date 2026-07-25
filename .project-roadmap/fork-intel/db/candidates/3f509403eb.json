@@ -1,0 +1,13 @@
+{
+  "sha": "3f509403ebc8762cfc2d0ed985db1e755fcf116c",
+  "fork": "vindict6/mRemoteNG",
+  "owner": "vindict6",
+  "subject": "Update Build_mR-NB.yml",
+  "author_name": "|ZAPS| BONE",
+  "author_login": "vindict6",
+  "date": "2026-07-15T19:49:06Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f509403ebc8762cfc2d0ed985db1e755fcf116c",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

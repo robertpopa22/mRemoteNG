@@ -1,0 +1,41 @@
+{
+  "system": "mRemoteNG Fork Intelligence",
+  "version": "1.0.0",
+  "upstream": "mRemoteNG/mRemoteNG",
+  "our_fork": "robertpopa22/mRemoteNG",
+  "last_run": {
+    "discover": {
+      "at": "2026-07-25T10:56:56Z",
+      "api_calls": 17,
+      "cutoff": "2026-01-26T10:56:24Z",
+      "forks_seen": 1698,
+      "candidates": 127,
+      "skipped_stale": 1570,
+      "skipped_excluded": 0
+    },
+    "diverge": {
+      "at": "2026-07-25T10:58:57Z",
+      "api_calls": 128,
+      "processed": 127,
+      "diverged": 24,
+      "no_divergence": 102,
+      "failed": 1
+    },
+    "screen": {
+      "at": "2026-07-25T11:00:29Z",
+      "api_calls": 45,
+      "commits_seen": 306,
+      "dropped": 137,
+      "quarantined": 25,
+      "clean": 20,
+      "reused": 124
+    },
+    "triage": {
+      "at": "2026-07-25T11:03:30Z",
+      "api_calls": 0,
+      "judged": 6,
+      "failed": 0,
+      "agent": "claude"
+    }
+  }
+}

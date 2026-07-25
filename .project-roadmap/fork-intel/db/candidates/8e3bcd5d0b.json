@@ -1,0 +1,13 @@
+{
+  "sha": "8e3bcd5d0b0d3556bec17e88e9ce02a25f661793",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Merge branch 'develop' into fix-rdp-error-2825-nla",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-08T15:55:07Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8e3bcd5d0b0d3556bec17e88e9ce02a25f661793",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

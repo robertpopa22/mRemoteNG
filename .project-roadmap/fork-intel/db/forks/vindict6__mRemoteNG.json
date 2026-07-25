@@ -1,0 +1,169 @@
+{
+  "full_name": "vindict6/mRemoteNG",
+  "owner": "vindict6",
+  "html_url": "https://github.com/vindict6/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-07-16T00:17:31Z",
+  "created_at": "2026-07-15T19:17:32Z",
+  "size_kb": 268217,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 15,
+  "behind_by": 49,
+  "commits": [
+    {
+      "sha": "742c46f389b200bb4d00c07aa2b76cb94a8aa008",
+      "subject": "Update Build_mR-NB.yml",
+      "author_name": "|ZAPS| BONE",
+      "author_login": "vindict6",
+      "date": "2026-07-15T19:33:43Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/742c46f389b200bb4d00c07aa2b76cb94a8aa008"
+    },
+    {
+      "sha": "27576bd94ac73b903d5ff43fd3eb4fdbc761dec6",
+      "subject": "Update Build_mR-NB.yml",
+      "author_name": "|ZAPS| BONE",
+      "author_login": "vindict6",
+      "date": "2026-07-15T19:48:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/27576bd94ac73b903d5ff43fd3eb4fdbc761dec6"
+    },
+    {
+      "sha": "3f509403ebc8762cfc2d0ed985db1e755fcf116c",
+      "subject": "Update Build_mR-NB.yml",
+      "author_name": "|ZAPS| BONE",
+      "author_login": "vindict6",
+      "date": "2026-07-15T19:49:06Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f509403ebc8762cfc2d0ed985db1e755fcf116c"
+    },
+    {
+      "sha": "f1f3df5526af44818e8a6a5b690b0fb28f9b06f8",
+      "subject": "Update Build_mR-NB.yml",
+      "author_name": "|ZAPS| BONE",
+      "author_login": "vindict6",
+      "date": "2026-07-15T19:59:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1f3df5526af44818e8a6a5b690b0fb28f9b06f8"
+    },
+    {
+      "sha": "51fc9ba53c1346f5ecd344fb9a8f99c523430ff4",
+      "subject": "Update Build_mR-NB.yml",
+      "author_name": "|ZAPS| BONE",
+      "author_login": "vindict6",
+      "date": "2026-07-15T20:11:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51fc9ba53c1346f5ecd344fb9a8f99c523430ff4"
+    },
+    {
+      "sha": "457fcad4a08d67d7e3975d33577ec158af4515f9",
+      "subject": "Fix NB build workflow",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-15T21:37:05Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/457fcad4a08d67d7e3975d33577ec158af4515f9"
+    },
+    {
+      "sha": "73267c1fcfc95daccb3abd954b2a122c6007bd09",
+      "subject": "Tag releases with the version that was built; honor release_flag",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-15T21:41:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/73267c1fcfc95daccb3abd954b2a122c6007bd09"
+    },
+    {
+      "sha": "3f94a2c23980a384cbf15386ae7ffc506a92e6e5",
+      "subject": "Dark mode: follow the OS, honor the theming setting, dark title bars",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-15T22:04:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f94a2c23980a384cbf15386ae7ffc506a92e6e5"
+    },
+    {
+      "sha": "567f108484aaf48c62cc291f874521f4a79a007e",
+      "subject": "Run the unit tests in CI",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-15T22:40:18Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/567f108484aaf48c62cc291f874521f4a79a007e"
+    },
+    {
+      "sha": "2c92360d63d7190e125cb6194ba1611856fe48a5",
+      "subject": "Add master key primitives for machine-bound connection files",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-15T23:40:16Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c92360d63d7190e125cb6194ba1611856fe48a5"
+    },
+    {
+      "sha": "58ebf6e3faf513390fbcdbfb1dd033651dd00475",
+      "subject": "Read and write machine-bound connection files",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-15T23:54:42Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/58ebf6e3faf513390fbcdbfb1dd033651dd00475"
+    },
+    {
+      "sha": "7241b81225eefc24e07cc6830fdb818b638a785d",
+      "subject": "Add a workflow to build PuTTYNG from a pinned PuTTY tag",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-16T00:01:37Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7241b81225eefc24e07cc6830fdb818b638a785d"
+    },
+    {
+      "sha": "a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
+      "subject": "Only require PuTTYNG end anchors to follow their start anchor",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-16T00:09:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a0809b0d01dbbb247e74c00c12da8e69b2c777f3"
+    },
+    {
+      "sha": "4e5bc4402415db3b351bdb4845d3b70613796856",
+      "subject": "Update bundled PuTTYNG to 0.84",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-16T00:13:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4e5bc4402415db3b351bdb4845d3b70613796856"
+    },
+    {
+      "sha": "bcc65a861a88d82f44168135e83d974422c2c058",
+      "subject": "Add passphrase key derivation for exported connection files",
+      "author_name": "vindict6",
+      "author_login": "vindict6",
+      "date": "2026-07-16T00:17:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bcc65a861a88d82f44168135e83d974422c2c058"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:19Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "ea1f87d228d692e686aee9edb1677fafa8ee9b7f",
+  "compared_at": "2026-07-25T10:58:45Z",
+  "screened_shas": [
+    "457fcad4a08d67d7e3975d33577ec158af4515f9",
+    "73267c1fcfc95daccb3abd954b2a122c6007bd09",
+    "3f94a2c23980a384cbf15386ae7ffc506a92e6e5",
+    "567f108484aaf48c62cc291f874521f4a79a007e",
+    "2c92360d63d7190e125cb6194ba1611856fe48a5",
+    "58ebf6e3faf513390fbcdbfb1dd033651dd00475",
+    "7241b81225eefc24e07cc6830fdb818b638a785d",
+    "a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
+    "4e5bc4402415db3b351bdb4845d3b70613796856",
+    "bcc65a861a88d82f44168135e83d974422c2c058"
+  ]
+}

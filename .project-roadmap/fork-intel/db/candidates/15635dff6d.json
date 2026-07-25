@@ -1,0 +1,61 @@
+{
+  "sha": "15635dff6d0d6ad9d2a435430c50a41ba319e6c3",
+  "fork": "hthvdmeer/mRemoteNG",
+  "owner": "hthvdmeer",
+  "subject": "added copy password option",
+  "body": "added copy password option",
+  "author_name": "takemaker63",
+  "author_login": "takemaker63",
+  "date": "2026-05-01T13:32:42Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15635dff6d0d6ad9d2a435430c50a41ba319e6c3",
+  "stats": {
+    "files": 3,
+    "additions": 24,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Properties/AssemblyInfo.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/UI/Controls/ConnectionContextMenu.cs",
+      "status": "modified",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Properties/AssemblyInfo.cs\n@@ -10,7 +10,7 @@\n \n // Compute version values\n \n-//Build nr: 3489\n+//Build nr: 3491\n \n // General Information\n [assembly: AssemblyTitle(\"mRemoteNG\")]\n@@ -23,7 +23,7 @@\n [assembly: AssemblyCulture(\"\")]\n \n // Version information\n-[assembly: AssemblyVersion(\"1.78.2.3489\")]\n-[assembly: AssemblyFileVersion(\"1.78.2.3489\")]\n+[assembly: AssemblyVersion(\"1.78.2.3491\")]\n+[assembly: AssemblyFileVersion(\"1.78.2.3491\")]\n [assembly: NeutralResourcesLanguageAttribute(\"en-US\")]\n-[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3489) x64\")]\n\\ No newline at end of file\n+[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3491) x64\")]\n\\ No newline at end of file\n--- mRemoteNG/UI/Controls/ConnectionContextMenu.cs\n@@ -45,6 +45,7 @@ public sealed class ConnectionContextMenu : ContextMenuStrip\n         private ToolStripMenuItem _cMenTreeRename;\n         private ToolStripMenuItem _cMenTreeDelete;\n         private ToolStripMenuItem _cMenTreeCopyHostname;\n+        private ToolStripMenuItem _cMenTreeCopyPassword;\n         private ToolStripSeparator _cMenTreeSep4;\n         private ToolStripMenuItem _cMenTreeMoveUp;\n         private ToolStripMenuItem _cMenTreeMoveDown;\n@@ -104,6 +105,7 @@ private void InitializeComponent()\n             _cMenTreeRename = new ToolStripMenuItem();\n             _cMenTreeDelete = new ToolStripMenuItem();\n             _cMenTreeCopyHostname = new ToolStripMenuItem();\n+            _cMenTreeCopyPassword = new ToolStripMenuItem();\n             _cMenTreeSep3 = new ToolStripSeparator();\n             _cMenTreeImport = new ToolStripMenuItem();\n             _cMenTreeImportFile = new ToolStripMenuItem();\n@@ -144,6 +146,7 @@ private void InitializeComponent()\n                 _cMenTreeRename,\n                 _cMenTreeDelete,\n                 _cMenTreeCopyHostname,\n+                _cMenTreeCopyPassword,\n                 _cMenInheritanceSubMenu,\n                 _cMenTreeSep3,\n                 _cMenTreeImport,\n@@ -298,6 +301,13 @@ private void InitializeComponent()\n             _cMenTreeCopyHostname.Text = \"Copy Hostname\";\n             _cMenTreeCopyHostname.Click += OnCopyHostnameClicked;\n             //\n+            // cMenTreeCopyPassword\n+            //\n+            _cMenTreeCopyPassword.Name = \"_cMenTreeCopyPassword\";\n+            _cMenTreeCopyPassword.Size = new System.Drawing.Size(199, 22);\n+            _cMenTreeCopyPassword.Text = \"Copy Password\";\n+            _cMenTreeCopyPassword.Click += OnCopyPasswordClicked;\n+            //\n             // cMenTreeSep3\n             //\n             _cMenTreeSep3.Name = \"_cMenTreeSep3\";\n@@ -573,6 +583,7 @@ internal void ShowHideMenuItemsForRootConnectionNode()\n             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;\n             _cMenTreeApplyInheritanceToChildren.Enabled = false;\n             _cMenTreeApplyDefaultInheritance.Enabled = false;\n+            _cMenTreeCopyPassword.Enabled = false;\n         }\n \n         internal void ShowHideMenuItemsForContainer(ContainerInfo containerInfo)\n@@ -585,6 +596,7 @@ internal void ShowHideMenuItemsForContainer(ContainerInfo containerInfo)\n \n             _cMenTreeToolsTransferFile.Enabled = false;\n             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;\n+            _cMenTreeCopyPassword.Enabled = false;\n         }\n \n         internal void ShowHideMenuItemsForPuttyNode(PuttySessionInfo connectionInfo)\n@@ -891,6 +903,13 @@ private void OnCopyHostnameClicked(object sender, EventArgs e)\n             _connectionTree.CopyHostnameSelectedNode(new WindowsClipboard());\n         }\n \n+        private void OnCopyPasswordClicked(object sender, EventArgs e)\n+        {\n+            string password = _connectionTree.SelectedNode?.Password;\n+            if (string.IsNullOrEmpty(password)) return;\n+            new WindowsClipboard().SetText(password);\n+        }\n+\n         private void OnImportFileClicked(object sender, EventArgs e)\n         {\n             ContainerInfo selectedNodeAsContainer;\n--- mRemoteNG/mRemoteNG.csproj\n@@ -586,5 +586,5 @@\n     <RemoveDir Directories=\"$(TempBuildDir)\" />\n     <RemoveDir Directories=\"$(ProjectDir)bin\\x64\\Release Self-Contained\" />\n   </Target>\n-  <Import Project=\"$(MSBuildExtensionsPath)\\Microsoft\\VisualStudio\\v18.0\\TextTemplating\\Microsoft.TextTemplating.targets\" />\n+  <Import Project=\"$(MSBuildExtensionsPath)\\Microsoft\\VisualStudio\\v18.0\\TextTemplating\\Microsoft.TextTemplating.targets\" Condition=\"Exists('$(MSBuildExtensionsPath)\\Microsoft\\VisualStudio\\v18.0\\TextTemplating\\Microsoft.TextTemplating.targets')\" />\n </Project>",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:04Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": 128,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 2,
+    "risk": 4,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Plaintext SetText copy with no re-auth gate; our 0e7b9c75e already ships gated copy/reveal with SetSecret clipboard hygiene. Importing would regress security.",
+    "agent": "claude",
+    "at": "2026-07-25T11:03:29Z"
+  }
+}

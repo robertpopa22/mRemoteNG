@@ -1,0 +1,29 @@
+{
+  "sha": "a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Fix ambiguous WinForms Message reference",
+  "body": "Fix ambiguous WinForms Message reference",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-15T22:00:10Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n@@ -643,7 +643,7 @@ public RdpInputBlocker(Control control)\n                 }\r\n             }\r\n \r\n-            protected override void WndProc(ref Message m)\r\n+            protected override void WndProc(ref System.Windows.Forms.Message m)\r\n             {\r\n                 if (Enabled && IsBlockedInputMessage(m.Msg))\r\n                 {\r",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T11:00:03Z"
+}

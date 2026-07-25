@@ -1,0 +1,13 @@
+{
+  "sha": "90b623189cccbf34bda204de83786ec4dd73a1fc",
+  "fork": "BuloZB/mRemoteNG",
+  "owner": "BuloZB",
+  "subject": "Merge branch 'mRemoteNG:v1.78.2-dev' into develop",
+  "author_name": "Bulo",
+  "author_login": "BuloZB",
+  "date": "2026-07-19T17:46:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/90b623189cccbf34bda204de83786ec4dd73a1fc",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T10:59:59Z"
+}

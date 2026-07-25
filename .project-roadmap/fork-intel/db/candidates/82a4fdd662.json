@@ -1,0 +1,13 @@
+{
+  "sha": "82a4fdd662b36af0a4486f04c9a921c6658cc04e",
+  "fork": "wolverine2k/mRemoteNG",
+  "owner": "wolverine2k",
+  "subject": "Merge pull request #2268 from s-laffont/postgresql",
+  "author_name": "Dimitrij",
+  "author_login": "Kvarkas",
+  "date": "2022-07-30T17:48:35Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/82a4fdd662b36af0a4486f04c9a921c6658cc04e",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T11:00:22Z"
+}

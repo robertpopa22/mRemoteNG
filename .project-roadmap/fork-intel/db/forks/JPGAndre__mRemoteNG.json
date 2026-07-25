@@ -1,0 +1,21 @@
+{
+  "full_name": "JPGAndre/mRemoteNG",
+  "owner": "JPGAndre",
+  "html_url": "https://github.com/JPGAndre/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-02-27T17:49:12Z",
+  "created_at": "2026-02-27T21:23:11Z",
+  "size_kb": 269019,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 359,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "d9e206eaa669853e1d78a5791f02b6a2969ac4aa",
+  "compared_at": "2026-07-25T10:58:02Z"
+}

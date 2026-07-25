@@ -1,0 +1,7 @@
+{
+  "_description": "Permanent denylist plus the memory of past decisions. `discover` skips listed owners; `report` skips commits already decided. Written by the `mark` subcommand - safe to edit by hand.",
+  "owners": [],
+  "commits": {},
+  "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",
+  "_owner_reasons": {}
+}

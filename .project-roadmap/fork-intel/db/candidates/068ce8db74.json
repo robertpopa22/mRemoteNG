@@ -1,0 +1,13 @@
+{
+  "sha": "068ce8db749a548fcc7496ab84c9cbdb5f384355",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Resolve merge conflicts and synchronize with develop",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-08T15:45:00Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/068ce8db749a548fcc7496ab84c9cbdb5f384355",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

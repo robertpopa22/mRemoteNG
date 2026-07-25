@@ -1,0 +1,21 @@
+{
+  "full_name": "hjtamaral/mRemoteNG",
+  "owner": "hjtamaral",
+  "html_url": "https://github.com/hjtamaral/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-02-11T22:12:27Z",
+  "created_at": "2026-02-12T09:58:30Z",
+  "size_kb": 268576,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 470,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "f7326aff628283cffd6fbc58d1068fefacde0722",
+  "compared_at": "2026-07-25T10:57:52Z"
+}

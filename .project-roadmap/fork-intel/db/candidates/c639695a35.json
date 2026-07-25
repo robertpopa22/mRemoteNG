@@ -1,0 +1,13 @@
+{
+  "sha": "c639695a358bcc2f5f5f401b29573b4934a84aa0",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Resolve conflicts and support multi-selection Enter",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-08T15:42:11Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c639695a358bcc2f5f5f401b29573b4934a84aa0",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

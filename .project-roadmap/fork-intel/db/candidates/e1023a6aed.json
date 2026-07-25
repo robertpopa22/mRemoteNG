@@ -1,0 +1,13 @@
+{
+  "sha": "e1023a6aed95be55e3a5807a5fdac9d56824fa50",
+  "fork": "bartuszekj/mRemoteNG",
+  "owner": "bartuszekj",
+  "subject": "done",
+  "author_name": "தமிழ் நேரம்",
+  "author_login": null,
+  "date": "2025-05-02T12:29:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e1023a6aed95be55e3a5807a5fdac9d56824fa50",
+  "status": "dropped",
+  "drop_reason": "noise subject pattern (^done$)",
+  "screened_at": "2026-07-25T10:59:59Z"
+}

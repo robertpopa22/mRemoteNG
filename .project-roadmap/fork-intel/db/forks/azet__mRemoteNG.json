@@ -1,0 +1,21 @@
+{
+  "full_name": "azet/mRemoteNG",
+  "owner": "azet",
+  "html_url": "https://github.com/azet/mRemoteNG",
+  "default_branch": "develop",
+  "pushed_at": "2026-04-14T02:48:38Z",
+  "created_at": "2020-03-11T16:18:56Z",
+  "size_kb": 246944,
+  "stars": 0,
+  "open_issues": 1,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 2515,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:47Z",
+  "last_seen": "2026-07-25T10:56:47Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "9257b7ac52cc5ecbba530ab45e81e85c20572331",
+  "compared_at": "2026-07-25T10:57:29Z"
+}

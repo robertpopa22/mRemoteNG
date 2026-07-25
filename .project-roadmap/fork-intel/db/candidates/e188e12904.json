@@ -1,0 +1,53 @@
+{
+  "sha": "e188e129048b62a027908f8a4bdda754def50522",
+  "fork": "hthvdmeer/mRemoteNG",
+  "owner": "hthvdmeer",
+  "subject": "Config now read tools from the command line config position",
+  "body": "Config now read tools from the command line config position",
+  "author_name": "takemaker63",
+  "author_login": "takemaker63",
+  "date": "2026-05-05T10:06:15Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e188e129048b62a027908f8a4bdda754def50522",
+  "stats": {
+    "files": 5,
+    "additions": 38,
+    "deletions": 26,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/App/ProgramRoot.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/ExternalAppsLoader.cs",
+      "status": "modified",
+      "additions": 23,
+      "deletions": 15
+    },
+    {
+      "filename": "mRemoteNG/Config/Settings/ExternalAppsSaver.cs",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 6
+    },
+    {
+      "filename": "mRemoteNG/Properties/AssemblyInfo.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    },
+    {
+      "filename": "mRemoteNG/Properties/launchSettings.json",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/App/ProgramRoot.cs\n@@ -31,6 +31,9 @@ public static class ProgramRoot\n         /// <summary>Set when --config/--cfg is used; contains just the filename (no path).</summary>\n         public static string? ConfigFileName { get; private set; }\n \n+        /// <summary>Set when --config/--cfg is used; contains the directory of the source config file.</summary>\n+        public static string? ConfigFileDirectory { get; private set; }\n+\n         [STAThread]\n         public static void Main(string[] args)\n         {\n@@ -121,6 +124,7 @@ private static void ApplyConfigFileArg(string[] args)\n                     Directory.CreateDirectory(Path.GetDirectoryName(destPath)!);\n                     File.Copy(sourcePath, destPath, overwrite: true);\n                     ConfigFileName = Path.GetFileName(sourcePath);\n+                    ConfigFileDirectory = Path.GetDirectoryName(Path.GetFullPath(sourcePath));\n                 }\n                 catch (Exception ex)\n                 {\n--- mRemoteNG/Config/Settings/ExternalAppsLoader.cs\n@@ -34,27 +34,35 @@ public ExternalAppsLoader(FrmMain mainForm, MessageCollector messageCollector, E\n         }\n \n \n+        private static string ExtAppsPath =>\n+            Path.Combine(\n+                ProgramRoot.ConfigFileDirectory ?? SettingsFileInfo.SettingsPath,\n+                SettingsFileInfo.ExtAppsFilesName);\n+\n         public void LoadExternalAppsFromXML()\n         {\n-#if !PORTABLE\n-            string oldPath =\n- Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), GeneralAppInfo.ProductName, SettingsFileInfo.ExtAppsFilesName);\n-#endif\n-            string newPath = Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.ExtAppsFilesName);\n+            string extAppsPath = ExtAppsPath;\n             XmlDocument xDom;\n-            if (File.Exists(newPath))\n+            if (File.Exists(extAppsPath))\n             {\n-                _messageCollector.AddMessage(MessageClass.InformationMsg, $\"Loading External Apps from: {newPath}\",\n-                                             true);\n-                xDom = SecureXmlHelper.LoadXmlFromFile(newPath);\n+                _messageCollector.AddMessage(MessageClass.InformationMsg, $\"Loading External Apps from: {extAppsPath}\", true);\n+                xDom = SecureXmlHelper.LoadXmlFromFile(extAppsPath);\n             }\n #if !PORTABLE\n-\t\t\telse if (File.Exists(oldPath))\n-\t\t\t{\n-                _messageCollector.AddMessage(MessageClass.InformationMsg, $\"Loading External Apps from: {oldPath}\", true);\n-                xDom = SecureXmlHelper.LoadXmlFromFile(oldPath);\n-\n-\t\t\t}\n+            else if (ProgramRoot.ConfigFileDirectory == null)\n+            {\n+                string oldPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), GeneralAppInfo.ProductName, SettingsFileInfo.ExtAppsFilesName);\n+                if (File.Exists(oldPath))\n+                {\n+                    _messageCollector.AddMessage(MessageClass.InformationMsg, $\"Loading External Apps from: {oldPath}\", true);\n+                    xDom = SecureXmlHelper.LoadXmlFromFile(oldPath);\n+                }\n+                else\n+                {\n+                    _messageCollector.AddMessage(MessageClass.WarningMsg, \"Loading External Apps failed: Could not FIND file!\");\n+                    return;\n+                }\n+            }\n #endif\n             else\n             {\n--- mRemoteNG/Config/Settings/ExternalAppsSaver.cs\n@@ -17,14 +17,13 @@ public void Save(IEnumerable<ExternalTool> externalTools)\n         {\n             try\n             {\n-                if (Directory.Exists(SettingsFileInfo.SettingsPath) == false)\n-                {\n-                    Directory.CreateDirectory(SettingsFileInfo.SettingsPath);\n-                }\n+                string saveDir = ProgramRoot.ConfigFileDirectory ?? SettingsFileInfo.SettingsPath;\n+                if (!Directory.Exists(saveDir))\n+                    Directory.CreateDirectory(saveDir);\n \n+                string savePath = Path.Combine(saveDir, SettingsFileInfo.ExtAppsFilesName);\n                 XmlTextWriter xmlTextWriter =\n-                    new(SettingsFileInfo.SettingsPath + \"\\\\\" + SettingsFileInfo.ExtAppsFilesName,\n-                                      Encoding.UTF8)\n+                    new(savePath, Encoding.UTF8)\n                     {\n                         Formatting = Formatting.Indented,\n                         Indentation = 4\n--- mRemoteNG/Properties/AssemblyInfo.cs\n@@ -10,7 +10,7 @@\n \n // Compute version values\n \n-//Build nr: 3491\n+//Build nr: 3508\n \n // General Information\n [assembly: AssemblyTitle(\"mRemoteNG\")]\n@@ -23,7 +23,7 @@\n [assembly: AssemblyCulture(\"\")]\n \n // Version information\n-[assembly: AssemblyVersion(\"1.78.2.3491\")]\n-[assembly: AssemblyFileVersion(\"1.78.2.3491\")]\n+[assembly: AssemblyVersion(\"1.78.2.3508\")]\n+[assembly: AssemblyFileVersion(\"1.78.2.3508\")]\n [assembly: NeutralResourcesLanguageAttribute(\"en-US\")]\n-[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3491) x64\")]\n\\ No newline at end of file\n+[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3508) x64\")]\n\\ No newline at end of file\n--- mRemoteNG/Properties/launchSettings.json\n@@ -2,7 +2,8 @@\n   \"profiles\": {\n     \"mRemoteNG\": {\n       \"commandName\": \"Project\",\n-      \"commandLineArgs\": \"--config \\\"C:\\\\Users\\\\henk\\\\AppData\\\\Local\\\\Profi-KOM_Ltd\\\\mRemoteNG_Url_glhht3ehkxvbhqcpxulc130klbqb1rbt\\\\1.78.2.3489\\\\user.nas.config\\\" -cl\"\n+      \"commandLineArgs\": \"--config \\\"C:\\\\Users\\\\henk\\\\SynologyDrive\\\\Tools\\\\user.nas.test.config\\\" -cl\",\n+      \"commandLineArgs2\": \"--config \\\"C:\\\\Users\\\\henk\\\\AppData\\\\Local\\\\Profi-KOM_Ltd\\\\mRemoteNG_Url_glhht3ehkxvbhqcpxulc130klbqb1rbt\\\\1.78.2.3489\\\\user.nas.config\\\" -cl\"\n     }\n   }\n }\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T11:00:05Z"
+}

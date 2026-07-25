@@ -1,0 +1,13 @@
+{
+  "sha": "86429a1ad9b9016111571515402b551a996bb13f",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Merge branch 'develop' into fix/rdp-error-2825-message-11677157769299200714",
+  "author_name": "s v s",
+  "author_login": "suleyman-shb",
+  "date": "2026-05-08T15:51:09Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/86429a1ad9b9016111571515402b551a996bb13f",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

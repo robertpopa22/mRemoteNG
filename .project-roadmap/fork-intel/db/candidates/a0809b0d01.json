@@ -1,0 +1,36 @@
+{
+  "sha": "a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
+  "fork": "vindict6/mRemoteNG",
+  "owner": "vindict6",
+  "subject": "Only require PuTTYNG end anchors to follow their start anchor",
+  "body": "Only require PuTTYNG end anchors to follow their start anchor\n\nThe strict check rejected window.c: sfree(title); occurs six times, and\nrequiring exactly one match is only correct for a start anchor, which has to\nidentify one place unambiguously. An end anchor just delimits the block and is\nmatched at its first occurrence after the start, as upstream does.\n\nStill fatal when the end anchor never occurs after the start.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "vindict6",
+  "author_login": "vindict6",
+  "date": "2026-07-16T00:09:10Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
+  "stats": {
+    "files": 1,
+    "additions": 7,
+    "deletions": 4,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/Build_PuTTYNG.yml",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 4
+    }
+  ],
+  "patch": "--- .github/workflows/Build_PuTTYNG.yml\n@@ -55,21 +55,24 @@ jobs:\n             }\n           }\n \n+          # The start anchor must identify one place unambiguously. The end anchor only has to occur\n+          # somewhere after it: `sfree(title);` legitimately appears six times in window.c, and the\n+          # block ends at the first one following the start.\n           function Replace-Block([string]$File, [string]$StartAnchor, [string]$EndAnchor, [string]$NewBlock) {\n             $content = Get-Content -Path $File -Raw\n             Assert-Anchor $content $StartAnchor $File\n-            Assert-Anchor $content $EndAnchor $File\n \n             $startIndex = $content.IndexOf($StartAnchor) + $StartAnchor.Length + 1\n             $endIndex = $content.IndexOf($EndAnchor, $startIndex)\n-            if ($endIndex -lt $startIndex) {\n-              Write-Host \"ERROR: end anchor precedes start anchor in $File\" -ForegroundColor Red\n+            if ($endIndex -lt 0) {\n+              Write-Host \"ERROR: end anchor never occurs after the start anchor in $File\" -ForegroundColor Red\n+              Write-Host \"       end anchor: $EndAnchor\" -ForegroundColor Red\n               exit 1\n             }\n \n             $modified = $content.Remove($startIndex, $endIndex - $startIndex).Insert($startIndex, $NewBlock)\n             Set-Content -Path $File -Value $modified\n-            Write-Host \"Patched block in $File\" -ForegroundColor Green\n+            Write-Host \"Patched block in $File (removed $($endIndex - $startIndex) chars)\" -ForegroundColor Green\n           }\n \n           # --- cmdline.c: accept -hwndparent (embedding) and -auth-plugin ---",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_PuTTYNG.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:20Z"
+}

@@ -1,0 +1,29 @@
+{
+  "sha": "bcaa39f4db1b25d19f4335019d0b709fc40d0865",
+  "fork": "nickbeentjes/mRemoteNG",
+  "owner": "nickbeentjes",
+  "subject": "windows-agent: add file logging so it runs silently in background",
+  "body": "windows-agent: add file logging so it runs silently in background\n\nAlways logs to poller.log alongside the script. Override with LOG_FILE env var.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>",
+  "author_name": "Kees",
+  "author_login": null,
+  "date": "2026-04-23T02:31:12Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bcaa39f4db1b25d19f4335019d0b709fc40d0865",
+  "stats": {
+    "files": 1,
+    "additions": 9,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "windows-agent/poller.py",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- windows-agent/poller.py\n@@ -30,16 +30,22 @@\n \n # ── Config (edit these or set as env vars) ───────────────────────────────────\n \n-HQ_URL       = os.environ.get(\"HQ_URL\",       \"https://keess-mac-mini.taile6c48b.ts.net\")\n-AGENT_TOKEN  = os.environ.get(\"AGENT_TOKEN\",  \"change-me\")\n-POLL_INTERVAL = int(os.environ.get(\"POLL_INTERVAL\", \"5\"))  # seconds\n+HQ_URL        = os.environ.get(\"HQ_URL\",        \"https://keess-mac-mini.taile6c48b.ts.net\")\n+AGENT_TOKEN   = os.environ.get(\"AGENT_TOKEN\",   \"change-me\")\n+POLL_INTERVAL = int(os.environ.get(\"POLL_INTERVAL\", \"5\"))\n+LOG_FILE      = os.environ.get(\"LOG_FILE\", os.path.join(os.path.dirname(__file__), \"poller.log\"))\n \n # ── Logging ───────────────────────────────────────────────────────────────────\n \n+_handlers = [logging.StreamHandler(sys.stdout)]\n+if LOG_FILE:\n+    _handlers.append(logging.FileHandler(LOG_FILE, encoding=\"utf-8\"))\n+\n logging.basicConfig(\n     level=logging.INFO,\n     format=\"%(asctime)s  %(levelname)-8s  %(message)s\",\n     datefmt=\"%Y-%m-%d %H:%M:%S\",\n+    handlers=_handlers,\n )\n log = logging.getLogger(\"nickhq-agent\")\n ",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T11:00:09Z"
+}

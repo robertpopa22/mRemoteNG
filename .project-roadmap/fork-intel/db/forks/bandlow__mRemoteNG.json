@@ -1,0 +1,21 @@
+{
+  "full_name": "bandlow/mRemoteNG",
+  "owner": "bandlow",
+  "html_url": "https://github.com/bandlow/mRemoteNG",
+  "default_branch": "1.78.2-dev",
+  "pushed_at": "2026-03-28T08:23:33Z",
+  "created_at": "2023-11-25T09:20:18Z",
+  "size_kb": 267244,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 278,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:33Z",
+  "last_seen": "2026-07-25T10:56:33Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "f801785c0a74bf64887a35bfa3dc1457c7a0d602",
+  "compared_at": "2026-07-25T10:57:29Z"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+  "fork": "wolverine2k/mRemoteNG",
+  "owner": "wolverine2k",
+  "subject": "fixed WinSCP extended arguments",
+  "body": "fixed WinSCP extended arguments",
+  "author_name": "radiosti",
+  "author_login": "radiosti",
+  "date": "2023-04-11T13:18:49Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+  "stats": {
+    "files": 1,
+    "additions": 1,
+    "deletions": 1,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNGDocumentation/external_tools_cheat_sheet.rst",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNGDocumentation/external_tools_cheat_sheet.rst\n@@ -27,7 +27,7 @@ WinSCP is a free GUI Secure Copy program.\n \n - Filename: C:\\\\Program Files\\\\WinSCP\\\\WinSCP.exe (example path)\n - Arguments: scp://%Username%:%Password%@%Hostname%/\n-- Optional Arguments - turn on compression and ignore any host key errors: -rawsetting Compression=1 -hostkey=*\n+- Optional Arguments - turn on compression and ignore any host key errors: -rawsettings Compression=1 -hostkey=*\n - Can integrate: No\n \n `FileZilla S/FTP <https://filezilla-project.org/>`_",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T11:00:23Z",
+  "triage": {
+    "category": "docs",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "likely",
+    "action": "IMPORT",
+    "rationale": "One-char docs typo: WinSCP flag is -rawsettings not -rawsetting. Trivial, correct, zero risk if cheat sheet file still exists.",
+    "agent": "claude",
+    "at": "2026-07-25T11:04:06Z"
+  }
+}

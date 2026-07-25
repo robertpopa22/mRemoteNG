@@ -1,0 +1,21 @@
+{
+  "full_name": "seansoANDseanson/mRemoteNG",
+  "owner": "seansoANDseanson",
+  "html_url": "https://github.com/seansoANDseanson/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-04-04T18:55:09Z",
+  "created_at": "2026-04-05T19:01:00Z",
+  "size_kb": 269261,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 244,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "6daba1c55b63c21852fe40edc895d51772fade2a",
+  "compared_at": "2026-07-25T10:58:38Z"
+}

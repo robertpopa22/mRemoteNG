@@ -1,0 +1,13 @@
+{
+  "sha": "e7c66de0986dfbb193d375a0e16ea079f2cd6be2",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Fix serialization and localization bugs in ConnectionInfo",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-04-20T11:01:22Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e7c66de0986dfbb193d375a0e16ea079f2cd6be2",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

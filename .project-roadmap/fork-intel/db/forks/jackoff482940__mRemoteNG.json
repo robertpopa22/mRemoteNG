@@ -1,0 +1,21 @@
+{
+  "full_name": "jackoff482940/mRemoteNG",
+  "owner": "jackoff482940",
+  "html_url": "https://github.com/jackoff482940/mRemoteNG",
+  "default_branch": "v1.77.3-dev",
+  "pushed_at": "2026-04-14T01:50:46Z",
+  "created_at": "2024-05-03T12:05:50Z",
+  "size_kb": 261188,
+  "stars": 0,
+  "open_issues": 2,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 1432,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:33Z",
+  "last_seen": "2026-07-25T10:56:33Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "711a751117921dabc6d601f74693cff92ec6278a",
+  "compared_at": "2026-07-25T10:57:56Z"
+}

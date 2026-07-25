@@ -1,0 +1,49 @@
+{
+  "sha": "3e43d6855db0d441befaa429ff56c37a687e0a74",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Fix passive RDP portable build workflow",
+  "body": "Fix passive RDP portable build workflow",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-15T19:14:43Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e43d6855db0d441befaa429ff56c37a687e0a74",
+  "stats": {
+    "files": 1,
+    "additions": 9,
+    "deletions": 11,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-build.yml",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 11
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-build.yml\n@@ -12,20 +12,13 @@ jobs:\n \n     steps:\n       - name: Checkout repository\n-        uses: actions/checkout@v6\n+        uses: actions/checkout@v4\n \n       - name: Setup .NET 10 SDK\n-        uses: actions/setup-dotnet@v5\n+        uses: actions/setup-dotnet@v4\n         with:\n           dotnet-version: '10.0.x'\n \n-      - name: Setup MSBuild\n-        uses: microsoft/setup-msbuild@v2\n-\n-      - name: Restore NuGet packages\n-        shell: pwsh\n-        run: dotnet restore mRemoteNG.sln\n-\n       - name: Transform AssemblyInfo T4\n         shell: pwsh\n         run: |\n@@ -34,12 +27,17 @@ jobs:\n           $vsPath = \"C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\PublicAssemblies\"\n           t4 \"$env:GITHUB_WORKSPACE\\mRemoteNG\\Properties\\AssemblyInfo.tt\" -P platformType=x64 -r:\"$vsPath\\EnvDTE.dll\" -r:\"$vsPath\\Microsoft.VisualStudio.Interop.dll\"\n \n+      - name: Restore portable x64 dependencies\n+        shell: pwsh\n+        run: |\n+          dotnet restore .\\mRemoteNG\\mRemoteNG.csproj --runtime win-x64 --property:Configuration=\"Release Self-Contained\" --property:Platform=x64 --property:SelfContained=true\n+\n       - name: Publish portable self-contained x64\n         shell: pwsh\n         run: |\n           $out = \"$env:GITHUB_WORKSPACE\\_publish\\mRemoteNG-passive-rdp-win-x64\"\n           New-Item -ItemType Directory -Force -Path $out | Out-Null\n-          msbuild mRemoteNG.sln /t:Publish /m /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=false /p:PublishDir=\"$out\\\" /verbosity:minimal\n+          dotnet publish .\\mRemoteNG\\mRemoteNG.csproj --configuration \"Release Self-Contained\" --runtime win-x64 --self-contained true --no-restore --output \"$out\" --property:Platform=x64 --property:PublishSingleFile=false\n \n       - name: Create zip\n         shell: pwsh\n@@ -51,7 +49,7 @@ jobs:\n           Get-Item $zip | Select-Object FullName, Length\n \n       - name: Upload artifact\n-        uses: actions/upload-artifact@v7\n+        uses: actions/upload-artifact@v4\n         with:\n           name: mRemoteNG-passive-rdp-win-x64\n           path: mRemoteNG-passive-rdp-win-x64.zip",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-build.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:00Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fixes that fork's own passive-rdp workflow; file doesn't exist here. Also downgrades action versions and our CI model differs entirely.",
+    "agent": "claude",
+    "at": "2026-07-25T11:04:06Z"
+  }
+}

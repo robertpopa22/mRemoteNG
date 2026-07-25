@@ -1,0 +1,13 @@
+{
+  "sha": "b040ff4b7219baae9d294b5a3f8cd01506342fc3",
+  "fork": "JamethCook/mRemoteNG",
+  "owner": "JamethCook",
+  "subject": "Update sql_configuration.rst",
+  "author_name": "mike33333333",
+  "author_login": "mike33333333",
+  "date": "2026-06-04T11:58:14Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b040ff4b7219baae9d294b5a3f8cd01506342fc3",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T11:00:05Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "21d6e49eff7d1648d31746da2cd5aaf76d8c8de2",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Improve error message for RDP error 2825 (NLA required)",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-02T23:41:09Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/21d6e49eff7d1648d31746da2cd5aaf76d8c8de2",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

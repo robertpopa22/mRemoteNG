@@ -1,0 +1,21 @@
+{
+  "full_name": "Nilas1994/mRemoteNG",
+  "owner": "Nilas1994",
+  "html_url": "https://github.com/Nilas1994/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-03-21T21:09:17Z",
+  "created_at": "2026-03-23T08:07:04Z",
+  "size_kb": 269095,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 287,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "9aeaca5486a4786c29c0ddf272f50f7edeb1b16d",
+  "compared_at": "2026-07-25T10:58:24Z"
+}

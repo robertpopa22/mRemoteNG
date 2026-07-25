@@ -1,0 +1,21 @@
+{
+  "full_name": "truehaolix/mRemoteNG",
+  "owner": "truehaolix",
+  "html_url": "https://github.com/truehaolix/mRemoteNG",
+  "default_branch": "develop",
+  "pushed_at": "2026-03-25T10:38:24Z",
+  "created_at": "2021-01-13T03:26:59Z",
+  "size_kb": 269122,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 278,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:45Z",
+  "last_seen": "2026-07-25T10:56:45Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "f801785c0a74bf64887a35bfa3dc1457c7a0d602",
+  "compared_at": "2026-07-25T10:58:44Z"
+}

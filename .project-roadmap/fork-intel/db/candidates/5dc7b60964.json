@@ -1,0 +1,13 @@
+{
+  "sha": "5dc7b609641ea7ba15d0855d7d955cca801c4e0b",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Support multi-selection Enter to open connections",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-04-23T23:45:38Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dc7b609641ea7ba15d0855d7d955cca801c4e0b",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

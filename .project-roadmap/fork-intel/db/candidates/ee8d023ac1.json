@@ -1,0 +1,13 @@
+{
+  "sha": "ee8d023ac14235bdf4ed2a4e3de9c3654d92a5ad",
+  "fork": "BuloZB/mRemoteNG",
+  "owner": "BuloZB",
+  "subject": "chore: activity sync [2026-03-29]",
+  "author_name": "Bulo",
+  "author_login": "BuloZB",
+  "date": "2026-03-29T00:17:19Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ee8d023ac14235bdf4ed2a4e3de9c3654d92a5ad",
+  "status": "dropped",
+  "drop_reason": "noise subject pattern (^chore: activity sync)",
+  "screened_at": "2026-07-25T10:59:59Z"
+}

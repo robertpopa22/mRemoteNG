@@ -1,0 +1,408 @@
+{
+  "sha": "b03292708796b64ab08f2b230ff0521aeefe6208",
+  "fork": "YuLiangLin/mRemoteNG",
+  "owner": "YuLiangLin",
+  "subject": "Modernize remote connection UX while preserving session state",
+  "body": "Modernize remote connection UX while preserving session state\n\nCentralize managed PuTTY profiles, prevent unwanted IME capture in SSH, embed the VNC runtime dependency, refresh connection icons with source attribution, and preserve RDP aspect ratio without resizing SmartSize sessions.\n\nConstraint: SmartSize must not renegotiate Linux/xRDP desktop dimensions.\n\nRejected: Dynamic SmartSize session resize | it can create or resume a different Linux work session.\n\nConfidence: high\n\nScope-risk: moderate\n\nDirective: Preserve mRemoteNG brand icons and keep third-party license/source manifests with redistributed assets.\n\nTested: x64 Debug build; RDP resize policy smoke harness; live reconnect to the existing Linux desktop.\n\nNot-tested: Full mRemoteNGTests build remains blocked by the pre-existing OptionsRepositoryTests CS1503 OptionsStore/ISettingsStore mismatch.\n\nCo-authored-by: OmX <omx@oh-my-codex.dev>",
+  "author_name": "Nathan Lin",
+  "author_login": "nathanlin-autodevteam",
+  "date": "2026-07-25T06:49:05Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b03292708796b64ab08f2b230ff0521aeefe6208",
+  "stats": {
+    "files": 60,
+    "additions": 777,
+    "deletions": 152,
+    "binary_files": 1
+  },
+  "files": [
+    {
+      "filename": "Directory.Packages.props",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/App/NativeMethods.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/App/Startup.cs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Config/Putty/ManagedPuttySession.cs",
+      "status": "added",
+      "additions": 107,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Config/Putty/PuttySessionsManager.cs",
+      "status": "modified",
+      "additions": 41,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 2
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs",
+      "status": "modified",
+      "additions": 55,
+      "deletions": 47
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpProtocol8.cs",
+      "status": "modified",
+      "additions": 116,
+      "deletions": 87
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/RDP/RdpResizePolicy.cs",
+      "status": "added",
+      "additions": 44,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/SshInputLanguageManager.cs",
+      "status": "added",
+      "additions": 43,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Connection/Protocol/VNC/Connection.Protocol.VNC.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Icons/Admin.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Anti Virus.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Apple.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Backup.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Build Server.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Console.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Database.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Domain Controller.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/ESX.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/FLUENT-LICENSE.txt",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/FLUENT-SOURCES.md",
+      "status": "added",
+      "additions": 46,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Fax.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/File Server.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Finance.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Firewall.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Infrastructure.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Linux.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Log.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Mail Server.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/PowerShell.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Production.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/PuTTY.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/RaspberryPi.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Remote Desktop.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Router.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/SSH.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/SharePoint.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Staging.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Switch.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Tel.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Telnet.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Terminal Server.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Test Server.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Virtual Machine.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/WSL.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Web Server.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/WiFi.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Windows.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Icons/Workstation.ico",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Properties/Settings.Designer.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Properties/Settings.settings",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/References/VncSharpCore.SOURCE.md",
+      "status": "added",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/References/VncSharpCore.dll",
+      "status": "added",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNGTests/Config/Putty/ManagedPuttySessionTests.cs",
+      "status": "added",
+      "additions": 125,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/RdpProtocol8ResizeTests.cs",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/RdpResizePolicyTests.cs",
+      "status": "added",
+      "additions": 58,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/SshInputLanguageManagerTests.cs",
+      "status": "added",
+      "additions": 39,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/Connection/Protocol/VncSharpResourceTests.cs",
+      "status": "added",
+      "additions": 22,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- Directory.Packages.props\n@@ -100,7 +100,6 @@\n     <PackageVersion Include=\"System.Windows.Extensions\" Version=\"10.0.10\" />\n     <PackageVersion Include=\"System.Xml.ReaderWriter\" Version=\"4.3.1\" />\n     <PackageVersion Include=\"VaultSharp\" Version=\"1.17.5.1\" />\n-    <PackageVersion Include=\"VncSharpCore\" Version=\"1.2.1\" />\n     <PackageVersion Include=\"ZstdSharp.Port\" Version=\"0.8.8\" />\n   </ItemGroup>\n-</Project>\n\\ No newline at end of file\n+</Project>\n--- mRemoteNG/App/NativeMethods.cs\n@@ -30,6 +30,9 @@ internal static extern IntPtr FindWindowEx(IntPtr parentHandle,\n         [DllImport(\"user32.dll\", SetLastError = true, CharSet = CharSet.Unicode)]\n         internal static extern IntPtr GetForegroundWindow();\n \n+        [DllImport(\"user32.dll\", SetLastError = true)]\n+        internal static extern int GetKeyboardLayoutList(int nBuff, [Out] IntPtr[]? lpList);\n+\n         [DllImport(\"user32.dll\", SetLastError = true, CharSet = CharSet.Unicode)]\n         internal static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);\n \n@@ -578,4 +581,4 @@ public static int HIWORD(IntPtr value)\n \n         #endregion\n     }\n-}\n\\ No newline at end of file\n+}\n--- mRemoteNG/App/Startup.cs\n@@ -7,6 +7,7 @@\n using mRemoteNG.App.Initialization;\n using mRemoteNG.App.Update;\n using mRemoteNG.Config.Connections.Multiuser;\n+using mRemoteNG.Config.Putty;\n using mRemoteNG.Config.Settings.Registry;\n using mRemoteNG.Connection;\n using mRemoteNG.Messages;\n@@ -45,6 +46,7 @@ public void InitializeProgram(MessageCollector messageCollector)\n             ParseCommandLineArgs(messageCollector);\n             IeBrowserEmulation.Register();\n             _connectionIconLoader.GetConnectionIcons();\n+            PuttySessionsManager.Instance.EnsureManagedSession();\n             DefaultConnectionInfo.Instance.LoadFrom(Settings.Default, a => \"ConDefault\" + a);\n             DefaultConnectionInheritance.Instance.LoadFrom(Settings.Default, a => \"InhDefault\" + a);\n \n@@ -106,4 +108,4 @@ public async Task CheckForUpdate()\n             }\n         }\n     }\n-}\n\\ No newline at end of file\n+}\n--- mRemoteNG/Config/Putty/ManagedPuttySession.cs\n@@ -0,0 +1,107 @@\n+using System;\n+using System.Collections.Generic;\n+using System.Linq;\n+using System.Runtime.Versioning;\n+using Microsoft.Win32;\n+using mRemoteNG.Tools.WindowsRegistry;\n+\n+namespace mRemoteNG.Config.Putty\n+{\n+    [SupportedOSPlatform(\"windows\")]\n+    internal sealed class ManagedPuttySession\n+    {\n+        public const string SessionName = \"mRemoteNG-Modern\";\n+\n+        private const string DefaultSessionName = \"Default Settings\";\n+        private const string SessionsKey = @\"Software\\SimonTatham\\PuTTY\\Sessions\";\n+        private const string SessionKey = SessionsKey + @\"\\\" + SessionName;\n+        private const string VersionValueName = \"mRemoteNGThemeVersion\";\n+        private const int CurrentVersion = 1;\n+\n+        private static readonly IReadOnlyList<RegistrySetting> ModernDarkSettings =\n+        [\n+            new(\"Font\", \"Cascadia Mono\", RegistryValueKind.String),\n+            new(\"FontHeight\", 14, RegistryValueKind.DWord),\n+            new(\"FontIsBold\", 0, RegistryValueKind.DWord),\n+            new(\"FontCharSet\", 0, RegistryValueKind.DWord),\n+            new(\"FontQuality\", 3, RegistryValueKind.DWord),\n+            new(\"LineCodePage\", \"UTF-8\", RegistryValueKind.String),\n+            new(\"UTF8Override\", 1, RegistryValueKind.DWord),\n+            new(\"TerminalType\", \"xterm-256color\", RegistryValueKind.String),\n+            new(\"ANSIColour\", 1, RegistryValueKind.DWord),\n+            new(\"Xterm256Colour\", 1, RegistryValueKind.DWord),\n+            new(\"TrueColour\", 1, RegistryValueKind.DWord),\n+            new(\"UseSystemColours\", 0, RegistryValueKind.DWord),\n+            new(\"BoldAsColour\", 1, RegistryValueKind.DWord),\n+            new(\"ScrollbackLines\", 10000, RegistryValueKind.DWord),\n+            new(\"Colour0\", \"248,248,242\", RegistryValueKind.String),\n+            new(\"Colour1\", \"255,255,255\", RegistryValueKind.String),\n+            new(\"Colour2\", \"40,42,54\", RegistryValueKind.String),\n+            new(\"Colour3\", \"68,71,90\", RegistryValueKind.String),\n+            new(\"Colour4\", \"40,42,54\", RegistryValueKind.String),\n+            new(\"Colour5\", \"80,250,123\", RegistryValueKind.String),\n+            new(\"Colour6\", \"33,34,44\", RegistryValueKind.String),\n+            new(\"Colour7\", \"98,114,164\", RegistryValueKind.String),\n+            new(\"Colour8\", \"255,85,85\", RegistryValueKind.String),\n+            new(\"Colour9\", \"255,110,110\", RegistryValueKind.String),\n+            new(\"Colour10\", \"80,250,123\", RegistryValueKind.String),\n+            new(\"Colour11\", \"105,255,148\", RegistryValueKind.String),\n+            new(\"Colour12\", \"241,250,140\", RegistryValueKind.String),\n+            new(\"Colour13\", \"255,255,165\", RegistryValueKind.String),\n+            new(\"Colour14\", \"189,147,249\", RegistryValueKind.String),\n+            new(\"Colour15\", \"214,172,255\", RegistryValueKind.String),\n+            new(\"Colour16\", \"255,121,198\", RegistryValueKind.String),\n+            new(\"Colour17\", \"255,146,223\", RegistryValueKind.String),\n+            new(\"Colour18\", \"139,233,253\", RegistryValueKind.String),\n+            new(\"Colour19\", \"164,255,255\", RegistryValueKind.String),\n+            new(\"Colour20\", \"248,248,242\", RegistryValueKind.String),\n+            new(\"Colour21\", \"255,255,255\", RegistryValueKind.String)\n+        ];\n+\n+        private readonly IRegistry _registry;\n+\n+        public ManagedPuttySession(IRegistry registry)\n+        {\n+            _registry = registry ?? throw new ArgumentNullException(nameof(registry));\n+        }\n+\n+        public bool EnsureCreated()\n+        {\n+            if (IsCurrent())\n+                return true;\n+\n+            foreach (RegistrySetting setting in ModernDarkSettings)\n+                _registry.SetValue(RegistryHive.CurrentUser, SessionKey, setting.Name, setting.Value, setting.Kind);\n+\n+            // Written last so an interrupted write is repaired on the next launch.\n+            _registry.SetValue(RegistryHive.CurrentUser, SessionKey, VersionValueName, CurrentVersion, RegistryValueKind.DWord);\n+            return IsCurrent();\n+        }\n+\n+        public string ResolveSessionName(string configuredSessionName)\n+        {\n+            string requestedSession = string.IsNullOrWhiteSpace(configuredSessionName)\n+                ? DefaultSessionName\n+                : configuredSessionName;\n+\n+            if (requestedSession.Equals(SessionName, StringComparison.OrdinalIgnoreCase))\n+                return IsCurrent() ? SessionName : DefaultSessionName;\n+\n+            bool usesBuiltInDefault = requestedSession.Equals(DefaultSessionName, StringComparison.OrdinalIgnoreCase);\n+            return usesBuiltInDefault && IsCurrent() ? SessionName : requestedSession;\n+        }\n+\n+        private bool IsCurrent()\n+        {\n+            return _registry.GetSubKeyNames(RegistryHive.CurrentUser, SessionsKey)\n+                       .Contains(SessionName, StringComparer.OrdinalIgnoreCase)\n+                   && _registry.GetIntegerValue(\n+                       RegistryHive.CurrentUser,\n+                       SessionKey,\n+                       VersionValueName,\n+                       defaultValue: 0) == CurrentVersion;\n+        }\n+\n+        private sealed record RegistrySetting(string Name, object Value, RegistryValueKind Kind);\n+    }\n+}\n--- mRemoteNG/Config/Putty/PuttySessionsManager.cs\n@@ -2,7 +2,11 @@\n using System.Collections.Specialized;\n using System.ComponentModel;\n using System.Runtime.Versioning;\n+using System;\n+using mRemoteNG.App;\n+using mRemoteNG.Messages;\n using mRemoteNG.Tools;\n+using mRemoteNG.Tools.WindowsRegistry;\n using mRemoteNG.Tree.Root;\n \n // ReSharper disable ArrangeAccessorOwnerBody\n@@ -15,13 +19,15 @@ public class PuttySessionsManager\n         public static PuttySessionsManager Instance { get; } = new PuttySessionsManager();\n \n         private readonly List<AbstractPuttySessionsProvider> _providers = [];\n+        private readonly ManagedPuttySession _managedSession;\n \n         public IEnumerable<AbstractPuttySessionsProvider> Providers => _providers;\n \n         public List<RootPuttySessionsNodeInfo> RootPuttySessionsNodes { get; } = [];\n \n         private PuttySessionsManager()\n         {\n+            _managedSession = new ManagedPuttySession(new WinRegistry());\n             AddProvider(new PuttySessionsRegistryProvider());\n         }\n \n@@ -36,6 +42,40 @@ public void AddSessions()\n             }\n         }\n \n+        public bool EnsureManagedSession()\n+        {\n+            try\n+            {\n+                return _managedSession.EnsureCreated();\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector?.AddExceptionMessage(\n+                    \"Unable to create the managed PuTTY session. PuTTY defaults will be used.\",\n+                    ex,\n+                    MessageClass.WarningMsg);\n+                return false;\n+            }\n+        }\n+\n+        public string ResolveSessionName(string configuredSessionName)\n+        {\n+            try\n+            {\n+                return _managedSession.ResolveSessionName(configuredSessionName);\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector?.AddExceptionMessage(\n+                    \"Unable to resolve the managed PuTTY session. PuTTY defaults will be used.\",\n+                    ex,\n+                    MessageClass.WarningMsg);\n+                return string.IsNullOrWhiteSpace(configuredSessionName)\n+                    ? \"Default Settings\"\n+                    : configuredSessionName;\n+            }\n+        }\n+\n         private void AddSessionsFromProvider(AbstractPuttySessionsProvider puttySessionProvider)\n         {\n             puttySessionProvider.ThrowIfNull(nameof(puttySessionProvider));\n@@ -167,4 +207,4 @@ protected void RaiseSessionProvidersCollectionChangedEvent(NotifyCollectionChang\n             SessionProvidersCollectionChanged?.Invoke(this, args);\n         }\n     }\n-}\n\\ No newline at end of file\n+}\n--- mRemoteNG/Connection/Protocol/PuttyBase.cs\n@@ -1,4 +1,5 @@\n ﻿using mRemoteNG.App;\n+using mRemoteNG.Config.Putty;\n using mRemoteNG.Messages;\n using mRemoteNG.Resources.Language;\n using mRemoteNG.Security;\n@@ -97,7 +98,9 @@ public override bool Connect()\n \n                 CommandLineArguments arguments = new() { EscapeForShell = false };\n \n-                arguments.Add(\"-load\", InterfaceControl.Info.PuttySession);\n+                arguments.Add(\n+                    \"-load\",\n+                    PuttySessionsManager.Instance.ResolveSessionName(InterfaceControl.Info.PuttySession));\n \n                 if (!(InterfaceControl.Info is PuttySessionInfo))\n                 {\n@@ -375,6 +378,11 @@ public override bool Connect()\n                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PuttyTitle, PuttyProcess.MainWindowTitle), true);\n                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PanelHandle, InterfaceControl.Parent.Handle), true);\n \n+                if (PuttyProtocol == Putty_Protocol.ssh)\n+                {\n+                    SshInputLanguageManager.TryUseEnglish(PuttyHandle);\n+                }\n+\n                 if (!string.IsNullOrEmpty(InterfaceControl.Info?.OpeningCommand))\n                 {\n                     NativeMethods.SetForegroundWindow(PuttyHandle);\n@@ -540,4 +548,4 @@ private static (string Username, string Hostname, uint Port) DeserializeData(str\n         }\n         #endregion\n     }\n-}\n\\ No newline at end of file\n+}\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n@@ -11,8 +11,9 @@\n using mRemoteNG.UI.Tabs;\r\n using MSTSCLib;\r\n using System;\r\n-using System.Diagnostics;\r\n-using System.IO;\r\n+using System.Diagnostics;\n+using System.Drawing;\n+using System.IO;\n using System.Runtime.InteropServices;\r\n using System.Runtime.Versioning;\r\n using System.Threading;\r\n@@ -38,7 +39,8 @@ public class RdpProtocol : ProtocolBase, ISupportsViewOnly\n         protected Version RdpVersion;\r\n         private readonly DisplayProperties _displayProperties;\r\n         protected readonly FrmMain _frmMain = FrmMain.Default;\r\n-        protected bool loginComplete;\r\n+        protected bool loginComplete;\n+        protected Size RemoteDesktopSize { get; set; }\n         private bool _redirectKeys;\r\n         private bool _alertOnIdleDisconnect;\r\n         protected uint DesktopScaleFactor => (uint)(_displayProperties.ResolutionScalingFactor.Width * 100);\r\n@@ -712,55 +714,61 @@ private void SetResolution()\n                 SetExtendedProperty(\"DesktopScaleFactor\", DesktopScaleFactor);\r\n                 SetExtendedProperty(\"DeviceScaleFactor\", DeviceScaleFactor);\r\n \r\n-                if (Force.HasFlag(ConnectionInfo.Force.Fullscreen))\r\n-                {\r\n-                    _rdpClient.FullScreen = true;\r\n-                    _rdpClient.DesktopWidth = Screen.FromControl(_frmMain).Bounds.Width;\r\n-                    _rdpClient.DesktopHeight = Screen.FromControl(_frmMain).Bounds.Height;\r\n-\r\n-                    return;\r\n-                }\r\n+                if (Force.HasFlag(ConnectionInfo.Force.Fullscreen))\n+                {\n+                    _rdpClient.FullScreen = true;\n+                    RemoteDesktopSize = RdpResizePolicy.NormalizeDesktopSize(\n+                        Screen.FromControl(_frmMain).Bounds.Size);\n+                    _rdpClient.DesktopWidth = RemoteDesktopSize.Width;\n+                    _rdpClient.DesktopHeight = RemoteDesktopSize.Height;\n+\n+                    return;\n+                }\n \r\n                 switch (InterfaceControl.Info.Resolution)\r\n                 {\r\n                     case RDPResolutions.FitToWindow:\r\n                         // Lock the RDP session to the current content area size.\r\n                         // The control is undocked so it keeps this fixed size;\r\n                         // AutoScroll on the parent panel provides scrollbars\r\n-                        // when the panel shrinks below the session resolution.\r\n-                        // Use DisplayRectangle to respect Padding (connection frame border).\r\n-                        var fitRect = InterfaceControl.DisplayRectangle;\r\n-                        _rdpClient.DesktopWidth = fitRect.Width;\r\n-                        _rdpClient.DesktopHeight = fitRect.Height;\r\n-                        Control.Dock = DockStyle.None;\r\n-                        Control.Location = fitRect.Location;\r\n-                        Control.Size = fitRect.Size;\r\n+                        // when the panel shrinks below the session resolution.\n+                        // Use DisplayRectangle to respect Padding (connection frame border).\n+                        var fitRect = InterfaceControl.DisplayRectangle;\n+                        RemoteDesktopSize = RdpResizePolicy.NormalizeDesktopSize(fitRect.Size);\n+                        _rdpClient.DesktopWidth = RemoteDesktopSize.Width;\n+                        _rdpClient.DesktopHeight = RemoteDesktopSize.Height;\n+                        Control.Dock = DockStyle.None;\n+                        Control.Location = fitRect.Location;\n+                        Control.Size = fitRect.Size;\n                         InterfaceControl.AutoScroll = true;\r\n                         InterfaceControl.AutoScrollMinSize = fitRect.Size;\r\n                         break;\r\n-                    case RDPResolutions.SmartSize:\r\n-                        // Connect at the full screen resolution so the remote\r\n-                        // desktop is rendered at high quality, then SmartSizing\r\n-                        // scales the image to fit whatever the panel size is.\r\n-                        // Use Anchor instead of Dock.Fill because the AxHost\r\n-                        // ActiveX wrapper doesn't forward Dock-triggered resizes\r\n-                        // to the COM control's internal rendering surface.\r\n-                        // Use DisplayRectangle to respect Padding (connection frame border).\r\n-                        var screen = Screen.FromControl(_frmMain);\r\n-                        _rdpClient.DesktopWidth = screen.Bounds.Width;\r\n-                        _rdpClient.DesktopHeight = screen.Bounds.Height;\r\n-                        _rdpClient.AdvancedSettings2.SmartSizing = true;\r\n-                        var smartRect = InterfaceControl.DisplayRectangle;\r\n-                        Control.Dock = DockStyle.None;\r\n-                        Control.Location = smartRect.Location;\r\n-                        Control.Size = smartRect.Size;\r\n-                        Control.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;\r\n-                        break;\r\n-                    case RDPResolutions.Fullscreen:\r\n-                        _rdpClient.FullScreen = true;\r\n-                        _rdpClient.DesktopWidth = Screen.FromControl(_frmMain).Bounds.Width;\r\n-                        _rdpClient.DesktopHeight = Screen.FromControl(_frmMain).Bounds.Height;\r\n-                        break;\r\n+                    case RDPResolutions.SmartSize:\n+                        // Keep the remote desktop at the monitor resolution. Linux/xRDP\n+                        // servers can create or resume a different session when the client\n+                        // negotiates a new desktop size, so SmartSize only changes the local\n+                        // presentation and never the remote working-session dimensions.\n+                        var smartRect = InterfaceControl.DisplayRectangle;\n+                        RemoteDesktopSize = RdpResizePolicy.NormalizeDesktopSize(\n+                            Screen.FromControl(_frmMain).Bounds.Size);\n+                        _rdpClient.DesktopWidth = RemoteDesktopSize.Width;\n+                        _rdpClient.DesktopHeight = RemoteDesktopSize.Height;\n+                        _rdpClient.AdvancedSettings2.SmartSizing = true;\n+                        InterfaceControl.AutoScroll = false;\n+                        InterfaceControl.BackColor = Color.Black;\n+                        Control.Dock = DockStyle.None;\n+                        Control.Bounds = RdpResizePolicy.CalculateAspectFitBounds(\n+                            smartRect,\n+                            RemoteDesktopSize);\n+                        Control.Anchor = AnchorStyles.None;\n+                        break;\n+                    case RDPResolutions.Fullscreen:\n+                        _rdpClient.FullScreen = true;\n+                        RemoteDesktopSize = RdpResizePolicy.NormalizeDesktopSize(\n+                            Screen.FromControl(_frmMain).Bounds.Size);\n+                        _rdpClient.DesktopWidth = RemoteDesktopSize.Width;\n+                        _rdpClient.DesktopHeight = RemoteDesktopSize.Height;\n+                        break;\n                 }\r\n             }\r\n             catch (Exception ex)\r\n@@ -980,10 +988,10 @@ private void RDPEvent_OnConnected()\n             Event_Connected(this);\r\n         }\r\n \r\n-        private void RDPEvent_OnLoginComplete()\r\n-        {\r\n-            loginComplete = true;\r\n-        }\r\n+        protected virtual void RDPEvent_OnLoginComplete()\n+        {\n+            loginComplete = true;\n+        }\n \r\n         private void RDPEvent_OnLeaveFullscreenMode()\r\n         {\r\n@@ -1050,4 +1058,4 @@ private void tmrReconnect_Elapsed(object sender, ElapsedEventArgs e)\n         #endregion\r\n \r\n     }\r\n-}\n\\ No newline at end of file\n+}\n--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol8.cs\n@@ -93,15 +93,16 @@ protected override void Resize(object sender, EventArgs e)\n             // Actual RDP session resize is deferred to ResizeEnd() to prevent flickering\r\n             DoResizeControl();\r\n \r\n-            // Only resize RDP session on window state changes (Maximize/Restore)\r\n-            // Manual drag-resizing will be handled by ResizeEnd()\r\n-            if (LastWindowState != _frmMain.WindowState)\r\n-            {\r\n-                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\r\n-                    $\"Resize() - Window state changed from {LastWindowState} to {_frmMain.WindowState}, calling DoResizeClient()\");\r\n-                LastWindowState = _frmMain.WindowState;\r\n-                DoResizeClient();\r\n-            }\r\n+            // Window state changes fire before the child layout has settled.\n+            // Debounce them just like manual drag-resizing so the session receives\n+            // the final panel size instead of the previous window size.\n+            if (LastWindowState != _frmMain.WindowState)\n+            {\n+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n+                    $\"Resize() - Window state changed from {LastWindowState} to {_frmMain.WindowState}, scheduling final session resize\");\n+                LastWindowState = _frmMain.WindowState;\n+                ScheduleDebouncedResize();\n+            }\n             else\r\n             {\r\n                 Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\r\n@@ -168,20 +169,20 @@ private void ResizeDebounceTimer_Elapsed(object sender, System.Timers.ElapsedEve\n             Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\r\n                 $\"Debounce timer fired - executing delayed resize to {_pendingResizeSize.Width}x{_pendingResizeSize.Height}\");\r\n \r\n-            // Marshal to the UI thread because DoResizeClient() accesses WinForms and COM objects.\r\n+            // Marshal to the UI thread because the pending resize accesses WinForms and COM objects.\n             // Wrap in try/catch: even after the guards above, there is a disposal race between\r\n             // this timer thread and the UI thread that can cause ObjectDisposedException or\r\n             // InvalidOperationException from BeginInvoke.\r\n             try\r\n             {\r\n-                if (InterfaceControl.InvokeRequired)\r\n-                {\r\n-                    InterfaceControl.BeginInvoke(new Action(DoResizeClient));\r\n-                }\r\n-                else\r\n-                {\r\n-                    DoResizeClient();\r\n-                }\r\n+                if (InterfaceControl.InvokeRequired)\n+                {\n+                    InterfaceControl.BeginInvoke(new Action(ApplyPendingResize));\n+                }\n+                else\n+                {\n+                    ApplyPendingResize();\n+                }\n             }\r\n             catch (ObjectDisposedException ex)\r\n             {\r\n@@ -192,10 +193,20 @@ private void ResizeDebounceTimer_Elapsed(object sender, System.Timers.ElapsedEve\n             {\r\n                 Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\r\n                     $\"ResizeDebounceTimer_Elapsed: control handle unavailable during BeginInvoke ({ex.GetType().Name})\");\r\n-            }\r\n-        }\r\n-\r\n-        private void OnDisplaySettingsChanged(object sender, EventArgs e)\r\n+            }\n+        }\n+\n+        private void ApplyPendingResize()\n+        {\n+            // The first Resize event can arrive before WinForms has finished laying out the\n+            // connection panel. Re-apply the aspect-fit bounds after the debounce interval\n+            // even while the RDP login sequence is still running. The session resize itself\n+            // remains guarded by loginComplete inside DoResizeClient().\n+            DoResizeControl();\n+            DoResizeClient();\n+        }\n+\n+        private void OnDisplaySettingsChanged(object sender, EventArgs e)\n         {\r\n             // When display settings change (e.g., outer RDP session reconnects with a different\r\n             // resolution/viewport), schedule a debounced resize so the inner RDP session is\r\n@@ -215,12 +226,19 @@ private void OnDisplaySettingsChanged(object sender, EventArgs e)\n             }\r\n         }\r\n \r\n-        protected override AxHost CreateActiveXRdpClientControl()\r\n-        {\r\n-            return new AxMsRdpClient8NotSafeForScripting();\r\n-        }\r\n-\r\n-        private void DoResizeClient()\r\n+        protected override AxHost CreateActiveXRdpClientControl()\n+        {\n+            return new AxMsRdpClient8NotSafeForScripting();\n+        }\n+\n+        protected override void RDPEvent_OnLoginComplete()\n+        {\n+            base.RDPEvent_OnLoginComplete();\n+            DoResizeControl();\n+            ScheduleDebouncedResize();\n+        }\n+\n+        private void DoResizeClient()\n         {\r\n             if (!loginComplete)\r\n             {\r\n@@ -236,34 +254,32 @@ private void DoResizeClient()\n                 return;\r\n             }\r\n \r\n-            // FitToWindow: fixed resolution set at connect time, scrollbars handle overflow.\r\n-            // SmartSize: SmartSizing scales the image client-side, no session resize needed.\r\n-            // Only Fullscreen benefits from dynamically changing the remote session resolution.\r\n-            if (InterfaceControl.Info.Resolution != RDPResolutions.Fullscreen)\r\n-            {\r\n-                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\r\n-                    $\"Resize skipped for '{connectionInfo.Hostname}': Resolution is {InterfaceControl.Info.Resolution} (only Fullscreen supports dynamic resize)\");\r\n-                return;\r\n-            }\r\n+            // FitToWindow keeps its connect-time resolution and uses scrollbars.\n+            // SmartSize also keeps its connect-time resolution because renegotiating\n+            // Linux/xRDP session dimensions can create or resume a different working\n+            // session. Only true fullscreen mode updates the remote session size.\n+            if (!RdpResizePolicy.UsesDynamicSessionResize(InterfaceControl.Info.Resolution))\n+            {\n+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n+                    $\"Resize skipped for '{connectionInfo.Hostname}': Resolution is {InterfaceControl.Info.Resolution} (dynamic resize is disabled for this mode)\");\n+                return;\n+            }\n \r\n             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\r\n                 $\"Resizing RDP connection to host '{connectionInfo.Hostname}'\");\r\n \r\n             try\r\n             {\r\n-                // Use InterfaceControl.Size instead of Control.Size because Control may be docked\r\n-                // and not reflect the actual available space\r\n-                Size size = Fullscreen\r\n-                    ? Screen.FromControl(Control).Bounds.Size\r\n-                    : InterfaceControl.Size;\r\n-\r\n-                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\r\n-                    $\"Calling UpdateSessionDisplaySettings({size.Width}, {size.Height}) for '{connectionInfo.Hostname}' (Control.Size={Control.Size}, InterfaceControl.Size={InterfaceControl.Size})\");\r\n-\r\n-                UpdateSessionDisplaySettings((uint)size.Width, (uint)size.Height);\r\n-\r\n-                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\r\n-                    $\"Successfully resized RDP session for '{connectionInfo.Hostname}' to {size.Width}x{size.Height}\");\r\n+                // True fullscreen follows the monitor bounds.\n+                Size size = RdpResizePolicy.NormalizeDesktopSize(\n+                    Screen.FromControl(Control).Bounds.Size);\n+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n+                    $\"Calling UpdateSessionDisplaySettings({size.Width}, {size.Height}) for '{connectionInfo.Hostname}' (Control.Size={Control.Size}, InterfaceControl.Size={InterfaceControl.Size})\");\n+\n+                UpdateSessionDisplaySettings((uint)size.Width, (uint)size.Height);\n+                RemoteDesktopSize = size;\n+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,\n+                    $\"Successfully resized RDP session for '{connectionInfo.Hostname}' to {size.Width}x{size.Height}\");\n             }\r\n             catch (Exception ex)\r\n             {\r\n@@ -284,43 +300,56 @@ private bool DoResizeControl()\n             if (InterfaceControl.Info.Resolution == RDPResolutions.FitToWindow)\r\n                 return false;\r\n \r\n-            Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\r\n-                $\"DoResizeControl - Before: Control.Size={Control.Size}, InterfaceControl.Size={InterfaceControl.Size}, Control.Dock={Control.Dock}\");\r\n-\r\n-            // If control is docked, we need to temporarily undock it, resize it, then redock it\r\n-            // because WinForms ignores Size assignments on docked controls\r\n-            bool wasDocked = Control.Dock == DockStyle.Fill;\r\n-\r\n-            if (wasDocked)\r\n-            {\r\n-                Control.Dock = DockStyle.None;\r\n-            }\r\n-\r\n-            Control.Location = InterfaceControl.Location;\r\n-\r\n-            if (Control.Size == InterfaceControl.Size || InterfaceControl.Size == Size.Empty)\r\n-            {\r\n-                // Restore docking if we changed it\r\n-                if (wasDocked)\r\n-                {\r\n-                    Control.Dock = DockStyle.Fill;\r\n-                }\r\n-\r\n-                Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\r\n-                    $\"DoResizeControl - Skipped: Sizes already match or InterfaceControl.Size is empty\");\r\n-                return false;\r\n-            }\r\n-\r\n-            Control.Size = InterfaceControl.Size;\r\n-\r\n-            // Restore docking\r\n-            if (wasDocked)\r\n-            {\r\n-                Control.Dock = DockStyle.Fill;\r\n-            }\r\n-\r\n-            Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\r\n-                $\"DoResizeControl - After: Control.Size={Control.Size}, Control.Dock={Control.Dock}\");\r\n+            Rectangle viewport = InterfaceControl.DisplayRectangle;\n+            if (viewport.Size == Size.Empty) return false;\n+\n+            Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\n+                $\"DoResizeControl - Before: Control.Bounds={Control.Bounds}, Viewport={viewport}, Control.Dock={Control.Dock}\");\n+\n+            if (InterfaceControl.Info.Resolution == RDPResolutions.SmartSize)\n+            {\n+                Rectangle targetBounds = RdpResizePolicy.CalculateAspectFitBounds(\n+                    viewport,\n+                    RemoteDesktopSize);\n+\n+                Control.Dock = DockStyle.None;\n+                Control.Anchor = AnchorStyles.None;\n+\n+                bool boundsChanged = Control.Bounds != targetBounds;\n+                if (boundsChanged)\n+                    Control.Bounds = targetBounds;\n+\n+                // Reapply this after setting the AxHost bounds. MSTSC can keep its\n+                // previous renderer size during the connection/login animation unless\n+                // SmartSizing is refreshed after the resize.\n+                SmartSize = true;\n+                Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\n+                    $\"DoResizeControl - SmartSize aspect-fit bounds={Control.Bounds}, RemoteDesktopSize={RemoteDesktopSize}\");\n+                return boundsChanged;\n+            }\n+\n+            // Fullscreen uses the complete viewport.\n+            bool wasDocked = Control.Dock == DockStyle.Fill;\n+            if (wasDocked)\n+                Control.Dock = DockStyle.None;\n+\n+            if (Control.Bounds == viewport)\n+            {\n+                if (wasDocked)\n+                    Control.Dock = DockStyle.Fill;\n+\n+                Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\n+                    \"DoResizeControl - Skipped: bounds already match viewport\");\n+                return false;\n+            }\n+\n+            Control.Bounds = viewport;\n+\n+            if (wasDocked)\n+                Control.Dock = DockStyle.Fill;\n+\n+            Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,\n+                $\"DoResizeControl - After: Control.Bounds={Control.Bounds}, Control.Dock={Control.Dock}\");\n \r\n             return true;\r\n         }\r\n--- mRemoteNG/Connection/Protocol/RDP/RdpResizePolicy.cs\n@@ -0,0 +1,44 @@\n+using System;\n+using System.Drawing;\n+\n+namespace mRemoteNG.Connection.Protocol.RDP\n+{\n+    internal static class RdpResizePolicy\n+    {\n+        private const int MinimumDesktopDimension = 200;\n+        private const int MaximumDesktopDimension = 8192;\n+\n+        internal static bool UsesDynamicSessionResize(RDPResolutions resolution)\n+        {\n+            return resolution == RDPResolutions.Fullscreen;\n+        }\n+\n+        internal static Size NormalizeDesktopSize(Size requestedSize)\n+        {\n+            return new Size(\n+                Math.Clamp(requestedSize.Width, MinimumDesktopDimension, MaximumDesktopDimension),\n+                Math.Clamp(requestedSize.Height, MinimumDesktopDimension, MaximumDesktopDimension));\n+        }\n+\n+        internal static Rectangle CalculateAspectFitBounds(Rectangle viewport, Size contentSize)\n+        {\n+            if (viewport.Width <= 0 || viewport.Height <= 0 ||\n+                contentSize.Width <= 0 || contentSize.Height <= 0)\n+            {\n+                return viewport;\n+            }\n+\n+            double scale = Math.Min(\n+                viewport.Width / (double)contentSize.Width,\n+                viewport.Height / (double)contentSize.Height);\n+            int width = Math.Min(viewport.Width, (int)Math.Round(contentSize.Width * scale));\n+            int height = Math.Min(viewport.Height, (int)Math.Round(contentSize.Height * scale));\n+\n+            return new Rectangle(\n+                viewport.X + (viewport.Width - width) / 2,\n+                viewport.Y + (viewport.Height - height) / 2,\n+                width,\n+                height);\n+        }\n+    }\n+}\n--- mRemoteNG/Connection/Protocol/SshInputLanguageManager.cs\n@@ -0,0 +1,43 @@\n+using System;\n+using System.Collections.Generic;\n+using System.Linq;\n+using System.Runtime.Versioning;\n+using mRemoteNG.App;\n+\n+namespace mRemoteNG.Connection.Protocol\n+{\n+    [SupportedOSPlatform(\"windows\")]\n+    internal static class SshInputLanguageManager\n+    {\n+        private const int WmInputLanguageChangeRequest = 0x0050;\n+        private const int EnglishUnitedStatesLanguageId = 0x0409;\n+\n+        public static bool TryUseEnglish(IntPtr windowHandle)\n+        {\n+            if (windowHandle == IntPtr.Zero)\n+                return false;\n+\n+            int layoutCount = NativeMethods.GetKeyboardLayoutList(0, null);\n+            if (layoutCount <= 0)\n+                return false;\n+\n+            IntPtr[] layouts = new IntPtr[layoutCount];\n+            int copiedCount = NativeMethods.GetKeyboardLayoutList(layouts.Length, layouts);\n+            IntPtr englishLayout = FindEnglishLayout(layouts.Take(copiedCount));\n+            if (englishLayout == IntPtr.Zero)\n+                return false;\n+\n+            return NativeMethods.PostMessage(\n+                windowHandle,\n+                WmInputLanguageChangeRequest,\n+                IntPtr.Zero,\n+                englishLayout);\n+        }\n+\n+        internal static IntPtr FindEnglishLayout(IEnumerable<IntPtr> layouts)\n+        {\n+            return layouts.FirstOrDefault(layout =>\n+                (layout.ToInt64() & 0xFFFF) == EnglishUnitedStatesLanguageId);\n+        }\n+    }\n+}\n--- mRemoteNG/Connection/Protocol/VNC/Connection.Protocol.VNC.cs\n@@ -67,9 +67,8 @@ public override bool Connect()\n             }\n             catch (Exception ex)\n             {\n-                Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg,\n-                                                    Language.ConnectionOpenFailed + Environment.NewLine +\n-                                                    ex.Message);\n+                Runtime.MessageCollector.AddExceptionMessage(Language.ConnectionOpenFailed, ex,\n+                                                             Messages.MessageClass.ErrorMsg, false);\n                 return false;\n             }\n \n--- mRemoteNG/Icons/Admin.ico\n(no text diff)\n--- mRemoteNG/Icons/Anti Virus.ico\n(no text diff)\n--- mRemoteNG/Icons/Apple.ico\n(no text diff)\n--- mRemoteNG/Icons/Backup.ico\n(no text diff)\n--- mRemoteNG/Icons/Build Server.ico\n(no text diff)\n--- mRemoteNG/Icons/Console.ico\n(no text diff)\n--- mRemoteNG/Icons/Database.ico\n(no text diff)\n--- mRemoteNG/Icons/Domain Controller.ico\n(no text diff)\n--- mRemoteNG/Icons/ESX.ico\n(no text diff)",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "Directory.Packages.props",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    },
+    {
+      "id": "license",
+      "severity": "medium",
+      "file": "mRemoteNG/Icons/FLUENT-LICENSE.txt",
+      "reason": "licence edits change redistribution terms"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteNG/References/VncSharpCore.dll",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    },
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:25Z"
+}

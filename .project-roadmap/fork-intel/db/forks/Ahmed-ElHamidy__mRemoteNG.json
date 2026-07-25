@@ -1,0 +1,62 @@
+{
+  "full_name": "Ahmed-ElHamidy/mRemoteNG",
+  "owner": "Ahmed-ElHamidy",
+  "html_url": "https://github.com/Ahmed-ElHamidy/mRemoteNG",
+  "default_branch": "v1.87.3-dev",
+  "pushed_at": "2026-05-15T12:41:30Z",
+  "created_at": "2025-12-31T14:52:02Z",
+  "size_kb": 269329,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 4,
+  "behind_by": 167,
+  "commits": [
+    {
+      "sha": "7dd9011eec0bb331b14d2f4d5ba4b1535247d665",
+      "subject": "Enhance Prot_Event_Closed with exception handling",
+      "author_name": "Ahmed Omar ElHamidy",
+      "author_login": "Ahmed-ElHamidy",
+      "date": "2025-12-31T15:06:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7dd9011eec0bb331b14d2f4d5ba4b1535247d665"
+    },
+    {
+      "sha": "96f2bf2c770b9d7eac71667a25267ac2401d9b1b",
+      "subject": "Merge branch 'mRemoteNG:v1.78.2-dev' into v1.87.3-dev",
+      "author_name": "Ahmed Omar ElHamidy",
+      "author_login": "Ahmed-ElHamidy",
+      "date": "2026-01-06T07:41:27Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/96f2bf2c770b9d7eac71667a25267ac2401d9b1b"
+    },
+    {
+      "sha": "9c48be30086691de64e7a4d2a29c3cb241e45f87",
+      "subject": "bump minor version and build number up",
+      "author_name": "AHMED OMAR ELHAMIDY",
+      "author_login": "Ahmed-ElHamidy",
+      "date": "2026-01-23T10:40:46Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c48be30086691de64e7a4d2a29c3cb241e45f87"
+    },
+    {
+      "sha": "1a4bdd761777d82c2caa3fea6532318b033c7904",
+      "subject": "Merge branch 'v1.78.2-dev' into v1.87.3-dev",
+      "author_name": "Ahmed-ElHamidy",
+      "author_login": "neo21181",
+      "date": "2026-05-15T11:35:25Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1a4bdd761777d82c2caa3fea6532318b033c7904"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:28Z",
+  "last_seen": "2026-07-25T10:56:28Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "1b2ced3134bdcdbdeaf087f82dbce48c4af7053d",
+  "compared_at": "2026-07-25T10:57:25Z",
+  "screened_shas": [
+    "7dd9011eec0bb331b14d2f4d5ba4b1535247d665",
+    "9c48be30086691de64e7a4d2a29c3cb241e45f87"
+  ]
+}

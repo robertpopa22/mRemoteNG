@@ -1,0 +1,53 @@
+{
+  "full_name": "raohj1987/mRemoteNG",
+  "owner": "raohj1987",
+  "html_url": "https://github.com/raohj1987/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-05-14T09:33:28Z",
+  "created_at": "2026-05-13T09:03:40Z",
+  "size_kb": 269383,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 3,
+  "behind_by": 167,
+  "commits": [
+    {
+      "sha": "eeb7944d3d6d973e20390cfb1067c10c7adeefff",
+      "subject": "Add SFTP connection to Linux remote server for file transfer functionality",
+      "author_name": "raohj1987",
+      "author_login": "raohj1987",
+      "date": "2026-05-14T09:04:31Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eeb7944d3d6d973e20390cfb1067c10c7adeefff"
+    },
+    {
+      "sha": "5b7e2ae0fb3f5527b5ff2df538ca082be09c7054",
+      "subject": "Add translations in other languages",
+      "author_name": "raohj1987",
+      "author_login": "raohj1987",
+      "date": "2026-05-14T09:32:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5b7e2ae0fb3f5527b5ff2df538ca082be09c7054"
+    },
+    {
+      "sha": "6db5d2854093a9d1356ccb326ca741477a6732b9",
+      "subject": "Merge branch 'mRemoteNG:v1.78.2-dev' into v1.78.2-dev",
+      "author_name": "IT40Years",
+      "author_login": "raohj1987",
+      "date": "2026-05-14T09:33:27Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6db5d2854093a9d1356ccb326ca741477a6732b9"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "1b2ced3134bdcdbdeaf087f82dbce48c4af7053d",
+  "compared_at": "2026-07-25T10:58:32Z",
+  "screened_shas": [
+    "eeb7944d3d6d973e20390cfb1067c10c7adeefff",
+    "5b7e2ae0fb3f5527b5ff2df538ca082be09c7054"
+  ]
+}

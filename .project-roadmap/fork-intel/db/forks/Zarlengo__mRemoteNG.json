@@ -1,0 +1,84 @@
+{
+  "full_name": "Zarlengo/mRemoteNG",
+  "owner": "Zarlengo",
+  "html_url": "https://github.com/Zarlengo/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-02-27T19:48:59Z",
+  "created_at": "2026-02-20T23:47:42Z",
+  "size_kb": 267069,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 6,
+  "behind_by": 383,
+  "commits": [
+    {
+      "sha": "1534a261c8d547df36f73588f9e37c924e314abd",
+      "subject": "Heavy refactor & move to fork",
+      "author_name": "Chris Zarlengo",
+      "author_login": "Zarlengo",
+      "date": "2026-02-24T18:41:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1534a261c8d547df36f73588f9e37c924e314abd"
+    },
+    {
+      "sha": "eb4787f9e4bf591713f4341c6fa21dece2b024d3",
+      "subject": "Add additional unlock methods",
+      "author_name": "Chris Zarlengo",
+      "author_login": "Zarlengo",
+      "date": "2026-02-24T21:26:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eb4787f9e4bf591713f4341c6fa21dece2b024d3"
+    },
+    {
+      "sha": "3dc00ad1aedd73bd1002e70b02dd5c947a6d29ca",
+      "subject": "Add options",
+      "author_name": "Chris Zarlengo",
+      "author_login": "Zarlengo",
+      "date": "2026-02-25T01:14:40Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3dc00ad1aedd73bd1002e70b02dd5c947a6d29ca"
+    },
+    {
+      "sha": "c5606cccf5d8b618df63b2b4e7e32bdf84584462",
+      "subject": "Hide username/password",
+      "author_name": "Chris Zarlengo",
+      "author_login": "Zarlengo",
+      "date": "2026-02-25T21:59:51Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c5606cccf5d8b618df63b2b4e7e32bdf84584462"
+    },
+    {
+      "sha": "d78f3317ec089aae42c2bf6c320d7ceba7ae5c0a",
+      "subject": "Allow item name & handle revoked tokens + logging",
+      "author_name": "Chris Zarlengo",
+      "author_login": "Zarlengo",
+      "date": "2026-02-26T00:57:17Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d78f3317ec089aae42c2bf6c320d7ceba7ae5c0a"
+    },
+    {
+      "sha": "92eae2e42e1f2805bced75e4d80829ec0f2f47e7",
+      "subject": "Fix errors",
+      "author_name": "Chris Zarlengo",
+      "author_login": null,
+      "date": "2026-02-27T19:44:50Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/92eae2e42e1f2805bced75e4d80829ec0f2f47e7"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "e23b3d76b1177bb6c2af4171a97d64e868bac904",
+  "compared_at": "2026-07-25T10:58:54Z",
+  "screened_shas": [
+    "1534a261c8d547df36f73588f9e37c924e314abd",
+    "eb4787f9e4bf591713f4341c6fa21dece2b024d3",
+    "3dc00ad1aedd73bd1002e70b02dd5c947a6d29ca",
+    "c5606cccf5d8b618df63b2b4e7e32bdf84584462",
+    "d78f3317ec089aae42c2bf6c320d7ceba7ae5c0a",
+    "92eae2e42e1f2805bced75e4d80829ec0f2f47e7"
+  ]
+}

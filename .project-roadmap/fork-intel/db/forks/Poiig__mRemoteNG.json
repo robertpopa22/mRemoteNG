@@ -1,0 +1,21 @@
+{
+  "full_name": "Poiig/mRemoteNG",
+  "owner": "Poiig",
+  "html_url": "https://github.com/Poiig/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-05-21T09:18:24Z",
+  "created_at": "2026-03-04T15:40:04Z",
+  "size_kb": 267404,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 157,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "51a3c3a36a31905003c2d422e453a3348f743d6f",
+  "compared_at": "2026-07-25T10:58:31Z"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "9c48be30086691de64e7a4d2a29c3cb241e45f87",
+  "fork": "Ahmed-ElHamidy/mRemoteNG",
+  "owner": "Ahmed-ElHamidy",
+  "subject": "bump minor version and build number up",
+  "body": "bump minor version and build number up",
+  "author_name": "AHMED OMAR ELHAMIDY",
+  "author_login": "Ahmed-ElHamidy",
+  "date": "2026-01-23T10:40:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c48be30086691de64e7a4d2a29c3cb241e45f87",
+  "stats": {
+    "files": 3,
+    "additions": 7,
+    "deletions": 7,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Properties/AssemblyInfo.cs",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 5
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    }
+  ],
+  "patch": "--- mRemoteNG/Properties/AssemblyInfo.cs\n@@ -1,4 +1,4 @@\n-\n+﻿\n     \n \n //Generated for platform: x64\n@@ -11,7 +11,7 @@\n \n // Compute version values\n \n-//Build nr: 3225\n+//Build nr: 3226\n \n // General Information\n [assembly: AssemblyTitle(\"mRemoteNG\")]\n@@ -24,7 +24,7 @@\n [assembly: AssemblyCulture(\"\")]\n \n // Version information\n-[assembly: AssemblyVersion(\"1.78.2.3225\")]\n-[assembly: AssemblyFileVersion(\"1.78.2.3225\")]\n+[assembly: AssemblyVersion(\"1.78.3.3226\")]\n+[assembly: AssemblyFileVersion(\"1.78.3.3226\")]\n [assembly: NeutralResourcesLanguageAttribute(\"en-US\")]\n-[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3225) x64\")]\n\\ No newline at end of file\n+[assembly: AssemblyInformationalVersion(\"1.78.3 (Nightly Build 3226) x64\")]\n\\ No newline at end of file\n--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -835,7 +835,7 @@ public void Prot_Event_Closed(object sender)\n             }\n             catch (Exception ex)\n             {\n-                Runtime.MessageCollector.AddExceptionMessage(\"CloseTab (UI.Window.ConnectionWindow) failed\", ex);\n+                Runtime.MessageCollector.AddExceptionMessage(\"CloseTab (UI.Window.ConnectionWindow) failed: \", ex);\n             }\n         }\n \n--- mRemoteNG/mRemoteNG.csproj\n@@ -9,7 +9,7 @@\n     <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>\n     <UseWindowsForms>true</UseWindowsForms>\n     <ApplicationIcon>Icons\\mRemoteNG.ico</ApplicationIcon>\n-    <Version>1.78.2-dev</Version>\n+    <Version>1.78.3-dev</Version>\n     <Description>Multi-protocol remote connections manager</Description>\n     <Copyright>$([System.DateTime]::Now.Year) mRemoteNG Dev Team, 2010-2013 Riley McArdle, 2007-2009 Felix Deimel</Copyright>\n     <PackageLicenseFile>COPYING.TXT</PackageLicenseFile>",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T10:59:59Z"
+}

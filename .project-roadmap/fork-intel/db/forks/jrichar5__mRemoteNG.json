@@ -1,0 +1,21 @@
+{
+  "full_name": "jrichar5/mRemoteNG",
+  "owner": "jrichar5",
+  "html_url": "https://github.com/jrichar5/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-05-06T09:40:11Z",
+  "created_at": "2026-05-06T12:45:13Z",
+  "size_kb": 269335,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 179,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "38181780138f27251fc456e5bd281042e1a45eb1",
+  "compared_at": "2026-07-25T10:58:04Z"
+}

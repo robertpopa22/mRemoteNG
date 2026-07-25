@@ -1,0 +1,21 @@
+{
+  "full_name": "mm86133/mRemoteNG",
+  "owner": "mm86133",
+  "html_url": "https://github.com/mm86133/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-03-23T10:45:19Z",
+  "created_at": "2025-11-18T10:02:36Z",
+  "size_kb": 269071,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 287,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:28Z",
+  "last_seen": "2026-07-25T10:56:28Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "9aeaca5486a4786c29c0ddf272f50f7edeb1b16d",
+  "compared_at": "2026-07-25T10:58:18Z"
+}

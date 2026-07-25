@@ -1,0 +1,383 @@
+{
+  "full_name": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "html_url": "https://github.com/suleyman-shb/mRemoteNG",
+  "default_branch": "develop",
+  "pushed_at": "2026-06-26T23:53:29Z",
+  "created_at": "2020-08-25T09:53:17Z",
+  "size_kb": 269451,
+  "stars": 0,
+  "open_issues": 8,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 40,
+  "behind_by": 215,
+  "commits": [
+    {
+      "sha": "e7c66de0986dfbb193d375a0e16ea079f2cd6be2",
+      "subject": "Fix serialization and localization bugs in ConnectionInfo",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-20T11:01:22Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e7c66de0986dfbb193d375a0e16ea079f2cd6be2"
+    },
+    {
+      "sha": "691bbeea7edb043ea08620dbcbb4efab81c22095",
+      "subject": "Merge pull request #1 from suleyman-shb/fix-serialization-and-localization-bugs-8213730634601306085",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-04-20T11:01:42Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/691bbeea7edb043ea08620dbcbb4efab81c22095"
+    },
+    {
+      "sha": "0768b807276907f4242c26cbff9ccdbd8cbf0ac4",
+      "subject": "Fix build environment issues and enforce lowercase boolean values",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-20T11:16:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0768b807276907f4242c26cbff9ccdbd8cbf0ac4"
+    },
+    {
+      "sha": "2ee17a3b84172602533d4ac6ae35094af324514f",
+      "subject": "Fix build environment issues and enforce lowercase boolean values",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-20T11:39:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ee17a3b84172602533d4ac6ae35094af324514f"
+    },
+    {
+      "sha": "9086e0f8b11f1daeebe7ee47d18c2c2bab8902fa",
+      "subject": "Merge pull request #2 from suleyman-shb/fix-build-environment-v2-16267754017608674559",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-04-20T13:33:53Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9086e0f8b11f1daeebe7ee47d18c2c2bab8902fa"
+    },
+    {
+      "sha": "164fde80a6638521db06f1c1e51f6462a6ae4610",
+      "subject": "Support multi-selection Enter key to open multiple connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-20T23:14:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/164fde80a6638521db06f1c1e51f6462a6ae4610"
+    },
+    {
+      "sha": "ce496c3893c506a0f43878754ad6fe1a3628b032",
+      "subject": "Add multi-selection Enter key support to Connection Tree",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-21T23:35:41Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce496c3893c506a0f43878754ad6fe1a3628b032"
+    },
+    {
+      "sha": "5dc7b609641ea7ba15d0855d7d955cca801c4e0b",
+      "subject": "Support multi-selection Enter to open connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-23T23:45:38Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dc7b609641ea7ba15d0855d7d955cca801c4e0b"
+    },
+    {
+      "sha": "4a75e6258e51a5edf918aff7e78024d011435902",
+      "subject": "Improve error message for RDP error 2825 (NLA not enabled)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-25T23:28:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4a75e6258e51a5edf918aff7e78024d011435902"
+    },
+    {
+      "sha": "d1ae90bf8c358387849e03326bedcf3319127730",
+      "subject": "Support multi-selection Enter key to open multiple connections",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-28T23:19:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d1ae90bf8c358387849e03326bedcf3319127730"
+    },
+    {
+      "sha": "216622022753052ea49bd7eb83edc9d74ebbd86e",
+      "subject": "Improve error message of RDP error 2825 (NLA not enabled)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-04-30T23:28:15Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/216622022753052ea49bd7eb83edc9d74ebbd86e"
+    },
+    {
+      "sha": "21d6e49eff7d1648d31746da2cd5aaf76d8c8de2",
+      "subject": "Improve error message for RDP error 2825 (NLA required)",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-02T23:41:09Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/21d6e49eff7d1648d31746da2cd5aaf76d8c8de2"
+    },
+    {
+      "sha": "ca9326e43fba5dfeab12a4722e04a23f0a8458b7",
+      "subject": "Support multi-selection Enter key to open multiple connections in Connection Tree",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-03T23:30:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca9326e43fba5dfeab12a4722e04a23f0a8458b7"
+    },
+    {
+      "sha": "1d7827d6eae7e04e58a91efd6217ff6c2e3e0e1c",
+      "subject": "feat: implement content-based file type detection for import",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-04T23:36:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1d7827d6eae7e04e58a91efd6217ff6c2e3e0e1c"
+    },
+    {
+      "sha": "4d05815a6cc2e7aedb385454082d8017e822c3a0",
+      "subject": "Improve RDP error 2825 message and fix localization",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-06T23:33:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4d05815a6cc2e7aedb385454082d8017e822c3a0"
+    },
+    {
+      "sha": "d30aa2e9333565f6a0403b551c6bf471e228a2ba",
+      "subject": "Merge pull request #3 from suleyman-shb/feature/multi-select-enter-open-connections-11705643404611443427",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:28:56Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d30aa2e9333565f6a0403b551c6bf471e228a2ba"
+    },
+    {
+      "sha": "27ddebed64ff292456a8207239e451e24e55a654",
+      "subject": "Merge pull request #19 from suleyman-shb/fix-rdp-error-2825-11812080304878045516",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:34:24Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/27ddebed64ff292456a8207239e451e24e55a654"
+    },
+    {
+      "sha": "2e41c782353de4b37edcc25dfe99cc04fd318499",
+      "subject": "Merge pull request #17 from suleyman-shb/feature/content-based-import-detection-10491940046281214640",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:35:04Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2e41c782353de4b37edcc25dfe99cc04fd318499"
+    },
+    {
+      "sha": "d96de9a8695821202fd7dca6843ae6b5f0012b2b",
+      "subject": "Resolve merge conflicts and update multi-selection logic",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:36:24Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d96de9a8695821202fd7dca6843ae6b5f0012b2b"
+    },
+    {
+      "sha": "c639695a358bcc2f5f5f401b29573b4934a84aa0",
+      "subject": "Resolve conflicts and support multi-selection Enter",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:42:11Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c639695a358bcc2f5f5f401b29573b4934a84aa0"
+    },
+    {
+      "sha": "85f66159541b8a140f993ec65d521872727bd8cf",
+      "subject": "Resolve merge conflict and use SelectedNodes property",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:42:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/85f66159541b8a140f993ec65d521872727bd8cf"
+    },
+    {
+      "sha": "168532e51f2dbf94040a29195c2b50ec1fa9eaff",
+      "subject": "Support multi-selection Enter key to open multiple connections in Connection Tree",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:42:56Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/168532e51f2dbf94040a29195c2b50ec1fa9eaff"
+    },
+    {
+      "sha": "068ce8db749a548fcc7496ab84c9cbdb5f384355",
+      "subject": "Resolve merge conflicts and synchronize with develop",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:45:00Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/068ce8db749a548fcc7496ab84c9cbdb5f384355"
+    },
+    {
+      "sha": "ae62022053d81b64af312385ec541ece6cf4eb43",
+      "subject": "Merge branch 'origin/develop' into fix-rdp-error-2825-nla to resolve conflicts",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:46:34Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ae62022053d81b64af312385ec541ece6cf4eb43"
+    },
+    {
+      "sha": "746474dd54e8561d6a5f7029d90b188812b78afd",
+      "subject": "Merge branch 'develop' into multi-selection-enter-support-6528758530502572424",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:46:37Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/746474dd54e8561d6a5f7029d90b188812b78afd"
+    },
+    {
+      "sha": "cecfd2ada2be3d9672644bfbb0a69fffe449ebc7",
+      "subject": "Merge pull request #6 from suleyman-shb/multi-selection-enter-support-6528758530502572424",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:46:48Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cecfd2ada2be3d9672644bfbb0a69fffe449ebc7"
+    },
+    {
+      "sha": "f6d99f6910382f4566b8f281b9b153edf1ba4aea",
+      "subject": "Merge branch 'develop' into feature/multi-select-enter-open-2125888325479306262",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:47:29Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f6d99f6910382f4566b8f281b9b153edf1ba4aea"
+    },
+    {
+      "sha": "a41bc352906c98ceacbd289d20bbfecaa2bf0554",
+      "subject": "Merge pull request #11 from suleyman-shb/feature/multi-select-enter-open-2125888325479306262",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:47:36Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a41bc352906c98ceacbd289d20bbfecaa2bf0554"
+    },
+    {
+      "sha": "a9292982f2b334aff59380530c4eab1b0893f7cd",
+      "subject": "Resolve merge conflict and cleanup duplicate resources",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:47:57Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9292982f2b334aff59380530c4eab1b0893f7cd"
+    },
+    {
+      "sha": "88359683c93d10100edc2ca56eebec69d912cba9",
+      "subject": "Merge branch 'develop' into multi-selection-enter-open-connections-5733313433497900038",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:48:04Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88359683c93d10100edc2ca56eebec69d912cba9"
+    },
+    {
+      "sha": "5e2fcc578f717a1d1263d70378e0ded505271070",
+      "subject": "Merge pull request #16 from suleyman-shb/multi-selection-enter-open-connections-5733313433497900038",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:48:13Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e2fcc578f717a1d1263d70378e0ded505271070"
+    },
+    {
+      "sha": "fcd2b8223ddb1e9e38853169c7db3ee29e2f17b6",
+      "subject": "Merge branch 'develop' into fix-rdp-error-2825-nla-4958572924990496218",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:50:06Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fcd2b8223ddb1e9e38853169c7db3ee29e2f17b6"
+    },
+    {
+      "sha": "b8cc3c370676ebbbc3ac06abd37a30d1f28f9e73",
+      "subject": "Merge pull request #8 from suleyman-shb/fix-rdp-error-2825-nla-4958572924990496218",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:50:13Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b8cc3c370676ebbbc3ac06abd37a30d1f28f9e73"
+    },
+    {
+      "sha": "86429a1ad9b9016111571515402b551a996bb13f",
+      "subject": "Merge branch 'develop' into fix/rdp-error-2825-message-11677157769299200714",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:51:09Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/86429a1ad9b9016111571515402b551a996bb13f"
+    },
+    {
+      "sha": "3e668e6dcc41470b3f197724b798a83b6e9d1b74",
+      "subject": "Merge pull request #15 from suleyman-shb/fix/rdp-error-2825-message-11677157769299200714",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:51:40Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e668e6dcc41470b3f197724b798a83b6e9d1b74"
+    },
+    {
+      "sha": "e94b1042d598288ce8f7a5f3446f00c4b9756e1f",
+      "subject": "Merge branch 'develop' into feature/multi-selection-enter-key-15762117081734358401",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:52:16Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e94b1042d598288ce8f7a5f3446f00c4b9756e1f"
+    },
+    {
+      "sha": "3fcd3b1c5557019ce11a62f0c03db26ea91315fb",
+      "subject": "Merge pull request #4 from suleyman-shb/feature/multi-selection-enter-key-15762117081734358401",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T15:52:24Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3fcd3b1c5557019ce11a62f0c03db26ea91315fb"
+    },
+    {
+      "sha": "8e3bcd5d0b0d3556bec17e88e9ce02a25f661793",
+      "subject": "Merge branch 'develop' into fix-rdp-error-2825-nla",
+      "author_name": "google-labs-jules[bot]",
+      "author_login": "google-labs-jules[bot]",
+      "date": "2026-05-08T15:55:07Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8e3bcd5d0b0d3556bec17e88e9ce02a25f661793"
+    },
+    {
+      "sha": "f4702e3442a39d988a3c243bb66151e8883aaf8a",
+      "subject": "Merge branch 'develop' into fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T16:02:00Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f4702e3442a39d988a3c243bb66151e8883aaf8a"
+    },
+    {
+      "sha": "a09e5e4db835b03230df5ac117ec43af0b7c88d1",
+      "subject": "Merge pull request #13 from suleyman-shb/fix-rdp-error-2825-nla-4958572924990496218-14181124528954603653",
+      "author_name": "s v s",
+      "author_login": "suleyman-shb",
+      "date": "2026-05-08T16:02:10Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a09e5e4db835b03230df5ac117ec43af0b7c88d1"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:47Z",
+  "last_seen": "2026-07-25T10:56:47Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "c84abb179c3ca223d42144460c7cd6c4474d8e02",
+  "compared_at": "2026-07-25T10:58:42Z",
+  "screened_shas": []
+}

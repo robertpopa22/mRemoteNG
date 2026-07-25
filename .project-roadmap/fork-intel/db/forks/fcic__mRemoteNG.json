@@ -1,0 +1,21 @@
+{
+  "full_name": "fcic/mRemoteNG",
+  "owner": "fcic",
+  "html_url": "https://github.com/fcic/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-04-19T21:40:23Z",
+  "created_at": "2026-04-20T01:21:40Z",
+  "size_kb": 269295,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 215,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "c84abb179c3ca223d42144460c7cd6c4474d8e02",
+  "compared_at": "2026-07-25T10:57:45Z"
+}

@@ -1,0 +1,21 @@
+{
+  "full_name": "Brunojoe1994/mRemoteNG",
+  "owner": "Brunojoe1994",
+  "html_url": "https://github.com/Brunojoe1994/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-04-17T16:30:52Z",
+  "created_at": "2026-04-17T21:00:15Z",
+  "size_kb": 269291,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 215,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "c84abb179c3ca223d42144460c7cd6c4474d8e02",
+  "compared_at": "2026-07-25T10:57:32Z"
+}

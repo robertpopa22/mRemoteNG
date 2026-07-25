@@ -1,0 +1,13 @@
+{
+  "sha": "27ddebed64ff292456a8207239e451e24e55a654",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Merge pull request #19 from suleyman-shb/fix-rdp-error-2825-11812080304878045516",
+  "author_name": "s v s",
+  "author_login": "suleyman-shb",
+  "date": "2026-05-08T15:34:24Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/27ddebed64ff292456a8207239e451e24e55a654",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

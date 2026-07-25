@@ -1,0 +1,13 @@
+{
+  "sha": "691bbeea7edb043ea08620dbcbb4efab81c22095",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Merge pull request #1 from suleyman-shb/fix-serialization-and-localization-bugs-8213730634601306085",
+  "author_name": "s v s",
+  "author_login": "suleyman-shb",
+  "date": "2026-04-20T11:01:42Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/691bbeea7edb043ea08620dbcbb4efab81c22095",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

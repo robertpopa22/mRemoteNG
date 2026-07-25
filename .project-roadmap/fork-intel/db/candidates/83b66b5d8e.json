@@ -1,0 +1,49 @@
+{
+  "sha": "83b66b5d8e0daa1d1324eb53d4da65b5df871f81",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Build passive RDP with VS 2026 runner",
+  "body": "Build passive RDP with VS 2026 runner",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-15T20:09:27Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/83b66b5d8e0daa1d1324eb53d4da65b5df871f81",
+  "stats": {
+    "files": 1,
+    "additions": 22,
+    "deletions": 6,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-build.yml",
+      "status": "modified",
+      "additions": 22,
+      "deletions": 6
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-build.yml\n@@ -8,7 +8,7 @@ permissions:\n \n jobs:\n   build-win-x64:\n-    runs-on: windows-2022\n+    runs-on: windows-2025-vs2026\n \n     steps:\n       - name: Checkout repository\n@@ -19,28 +19,44 @@ jobs:\n         with:\n           dotnet-version: '10.0.x'\n \n-      - name: Setup MSBuild\n+      - name: Setup MSBuild 18\n         uses: microsoft/setup-msbuild@v2\n+        with:\n+          vs-version: '[18.0,19.0)'\n+          msbuild-architecture: x64\n+\n+      - name: Show build tools\n+        shell: pwsh\n+        run: |\n+          where.exe msbuild\n+          msbuild -version\n+          dotnet --info\n \n       - name: Transform AssemblyInfo T4\n         shell: pwsh\n         run: |\n           dotnet tool install --global dotnet-t4\n           $env:PATH += \";$env:USERPROFILE\\.dotnet\\tools\"\n-          $vsPath = \"C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\PublicAssemblies\"\n-          t4 \"$env:GITHUB_WORKSPACE\\mRemoteNG\\Properties\\AssemblyInfo.tt\" -P platformType=x64 -r:\"$vsPath\\EnvDTE.dll\" -r:\"$vsPath\\Microsoft.VisualStudio.Interop.dll\"\n+\n+          $vswhere = \"${env:ProgramFiles(x86)}\\Microsoft Visual Studio\\Installer\\vswhere.exe\"\n+          $vsPath = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath\n+          if (-not $vsPath) { throw \"Visual Studio installation not found\" }\n+\n+          $publicAssemblies = Join-Path $vsPath \"Common7\\IDE\\PublicAssemblies\"\n+          t4 \"$env:GITHUB_WORKSPACE\\mRemoteNG\\Properties\\AssemblyInfo.tt\" -P platformType=x64 -r:\"$publicAssemblies\\EnvDTE.dll\" -r:\"$publicAssemblies\\Microsoft.VisualStudio.Interop.dll\"\n \n       - name: Restore portable x64 dependencies\n         shell: pwsh\n         run: |\n-          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Restore /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:VisualStudioVersion=17.0 /verbosity:minimal\n+          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Restore /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:VisualStudioVersion=18.0 /verbosity:minimal\n \n       - name: Publish portable self-contained x64\n         shell: pwsh\n         run: |\n           $out = \"$env:GITHUB_WORKSPACE\\_publish\\mRemoteNG-passive-rdp-win-x64\"\n           New-Item -ItemType Directory -Force -Path $out | Out-Null\n-          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Publish /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=false /p:PublishDir=\"$out\\\" /p:VisualStudioVersion=17.0 /verbosity:minimal\n+\n+          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Publish /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=false /p:PublishDir=\"$out\\\" /p:VisualStudioVersion=18.0 /verbosity:minimal\n \n       - name: Create zip\n         shell: pwsh",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-build.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:02Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fork-private workflow file we don't have; our CI already runs windows-2025-vs2026 with MSBuild 18 and our build.ps1 handles VS detection. Nothing to import.",
+    "agent": "claude",
+    "at": "2026-07-25T11:06:25Z"
+  }
+}

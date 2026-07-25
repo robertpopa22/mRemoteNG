@@ -1,0 +1,61 @@
+{
+  "sha": "4e5bc4402415db3b351bdb4845d3b70613796856",
+  "fork": "vindict6/mRemoteNG",
+  "owner": "vindict6",
+  "subject": "Update bundled PuTTYNG to 0.84",
+  "body": "Update bundled PuTTYNG to 0.84\n\nPicks up the three security fixes in PuTTY 0.84 that 0.83 is exposed to: a\nremotely triggerable double-free in RSA key exchange, a remotely triggerable\ncrash in NIST ECDSA signature verification, and trust-sigil marking for Telnet\nand Rlogin sessions after proxy authentication, which let a server spoof repeat\nproxy password prompts. None carry CVEs.\n\nBuilt by the Build PuTTYNG workflow from PuTTY git tag 0.84 (cda57ec7):\n  FileVersion:    Release 0.84 mRemoteNG (without embedded help)\n  ProductVersion: Release 0.84 mRemoteNG\n  SHA256:         EC9821ED9E3E1AE788898B90C56A4BD660FB0E1E506202B7F168DF9C8605321E\n\nSelf-built and unsigned. Upstream mRemoteNG has published no PuTTYNG 0.84; the\nnewest is v0.83.0.1.x64 from October 2025. The version resource matches the\nbinary it replaces field for field apart from the version itself, including\nInternalName, so PuttyTypeDetector behaves exactly as before.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "vindict6",
+  "author_login": "vindict6",
+  "date": "2026-07-16T00:13:33Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4e5bc4402415db3b351bdb4845d3b70613796856",
+  "stats": {
+    "files": 2,
+    "additions": 12,
+    "deletions": 3,
+    "binary_files": 1
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/Build_PuTTYNG.yml",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/PuTTYNG.exe",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/workflows/Build_PuTTYNG.yml\n@@ -185,13 +185,22 @@ jobs:\n           $vi = (Get-Item \"artifact\\PuTTYNG.exe\").VersionInfo\n           $hash = (Get-FileHash \"artifact\\PuTTYNG.exe\" -Algorithm SHA256).Hash\n \n-          # mRemoteNG's PuttyTypeDetector keys off InternalName containing \"PuTTYNG\", and treats a\n-          # plain PuTTY differently (it starts it minimised and expects window borders). A binary\n-          # that failed this check would be mis-detected at runtime rather than at build time.\n+          # ProductVersion is the check that means something here. It proves the version.h patch\n+          # landed, and therefore that this is a build of the requested tag rather than of whatever\n+          # master happened to be.\n+          #\n+          # Note InternalName stays \"PuTTY\": upstream never renames it, so PuttyTypeDetector.IsPuttyNg\n+          # (InternalName.Contains(\"PuTTYNG\")) does not match the shipped binary and never has. That is\n+          # pre-existing behaviour and is left alone here; this build matches the committed 0.83\n+          # binary field for field, so detection behaves exactly as it does today.\n           if ($vi.ProductVersion -notmatch 'mRemoteNG') {\n             Write-Host \"ERROR: version resource does not identify an mRemoteNG build: $($vi.ProductVersion)\" -ForegroundColor Red\n             exit 1\n           }\n+          if ($vi.ProductVersion -notmatch [regex]::Escape(\"${{ inputs.putty_tag }}\")) {\n+            Write-Host \"ERROR: built binary is not the requested tag: $($vi.ProductVersion)\" -ForegroundColor Red\n+            exit 1\n+          }\n \n           $summary = @\"\n           ## PuTTYNG build\n--- mRemoteNG/PuTTYNG.exe\n(no text diff)",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_PuTTYNG.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    },
+    {
+      "id": "binary-artifact",
+      "severity": "critical",
+      "file": "mRemoteNG/PuTTYNG.exe",
+      "reason": "committed binary cannot be reviewed (OpenSSF Scorecard)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:21Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 2,
+    "risk": 3,
+    "applies_cleanly": "conflict",
+    "action": "REIMPLEMENT",
+    "rationale": "PuTTYNG 0.84 bump worthwhile, but never import third-party binary. Rebuild via our Build_PuTTYNG.yml from tag; tag-check workflow tweak worth porting.",
+    "agent": "claude",
+    "at": "2026-07-25T11:04:45Z"
+  }
+}

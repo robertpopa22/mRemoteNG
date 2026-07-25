@@ -1,0 +1,121 @@
+{
+  "sha": "2c92360d63d7190e125cb6194ba1611856fe48a5",
+  "fork": "vindict6/mRemoteNG",
+  "owner": "vindict6",
+  "subject": "Add master key primitives for machine-bound connection files",
+  "body": "Add master key primitives for machine-bound connection files\n\nFirst step toward keying connection files to the machine instead of the\nhardcoded \"mR3m\" default: the key material and the keyed cipher path. Nothing\nreads or writes connection files differently yet, so this changes no behaviour.\n\nSecrets are currently encrypted one field at a time, each with its own random\nsalt, so PBKDF2 runs once per secret rather than once per file. That is why the\niteration count sits at 10,000: raising it to current guidance (600k) would cost\nroughly a minute of PBKDF2 per load on a 100-connection file. A random master key\nremoves the per-field derivation entirely, which is what makes strong protection\naffordable here.\n\n- MasterKey: random 256-bit key, sized for AES-GCM, with best-effort zeroing.\n- DpapiMasterKeyProtector: wraps that key with DPAPI CurrentUser, so a copied\n  file cannot be read by another Windows account or machine. CurrentUser rather\n  than LocalMachine, which would expose every credential to any local account.\n- AeadCryptographyProvider.EncryptWithKey/DecryptWithKey: encrypt with an\n  already-derived key. Output omits the salt, so it is deliberately not\n  interchangeable with the password form; the file will record which is in use.\n\nTests cover round-trips, wrong keys, tampering, nonce reuse, unicode, and that\nthe two ciphertext formats cannot be confused for each other.\n\nGate CI on the security tests only: the full suite is 84/2099 red and was\nalready so before these changes, verified against a baseline build.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "vindict6",
+  "author_login": "vindict6",
+  "date": "2026-07-15T23:40:16Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c92360d63d7190e125cb6194ba1611856fe48a5",
+  "stats": {
+    "files": 8,
+    "additions": 426,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/Build_mR-NB.yml",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/Security/KeyProtection/DpapiMasterKeyProtector.cs",
+      "status": "added",
+      "additions": 64,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Security/KeyProtection/IMasterKeyProtector.cs",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Security/KeyProtection/MasterKey.cs",
+      "status": "added",
+      "additions": 41,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Security/SymmetricEncryption/AeadCryptographyProvider.cs",
+      "status": "modified",
+      "additions": 32,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/Security/KeyProtection/DpapiMasterKeyProtectorTests.cs",
+      "status": "added",
+      "additions": 91,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/Security/KeyProtection/MasterKeyTests.cs",
+      "status": "added",
+      "additions": 47,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNGTests/Security/KeyedCryptographyTests.cs",
+      "status": "added",
+      "additions": 119,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/workflows/Build_mR-NB.yml\n@@ -195,10 +195,15 @@ jobs:\n             exit 1\n           }\n \n-          Write-Host \"Running tests from $testDll\" -ForegroundColor Cyan\n-          & $vstest $testDll /Platform:x64 /logger:console`;verbosity=minimal\n+          # Scoped to the Security namespace deliberately. The full suite is 84/2099 red on this\n+          # branch and was equally red before any of these changes (verified against a baseline of\n+          # the pre-existing tree), so gating on all of it would wedge the build permanently. The\n+          # security tests guard credential handling and must stay green; the other 84 are a\n+          # separate cleanup.\n+          Write-Host \"Running security tests from $testDll\" -ForegroundColor Cyan\n+          & $vstest $testDll /Platform:x64 /TestCaseFilter:\"FullyQualifiedName~mRemoteNGTests.Security\" /logger:console`;verbosity=minimal\n           if ($LASTEXITCODE -ne 0) {\n-            Write-Host \"ERROR: unit tests failed (exit $LASTEXITCODE)\" -ForegroundColor Red\n+            Write-Host \"ERROR: security unit tests failed (exit $LASTEXITCODE)\" -ForegroundColor Red\n             exit $LASTEXITCODE\n           }\n \n--- mRemoteNG/Security/KeyProtection/DpapiMasterKeyProtector.cs\n@@ -0,0 +1,64 @@\n+using System;\n+using System.Runtime.Versioning;\n+using System.Security.Cryptography;\n+using System.Text;\n+\n+namespace mRemoteNG.Security.KeyProtection\n+{\n+    /// <summary>\n+    /// Binds a connection file's master key to the current Windows user account via DPAPI.\n+    /// </summary>\n+    /// <remarks>\n+    /// A wrapped key is only recoverable by the same Windows account on the same machine, so a copied\n+    /// connection file is inert: there is no passphrase to guess and no shared constant to look up.\n+    /// Moving a file between machines deliberately goes through export, which re-keys the copy under a\n+    /// passphrase the user chooses, rather than exposing this key.\n+    ///\n+    /// CurrentUser rather than LocalMachine: LocalMachine would let any account on the same box, including\n+    /// low-privilege service accounts, recover every stored credential.\n+    /// </remarks>\n+    [SupportedOSPlatform(\"windows\")]\n+    public sealed class DpapiMasterKeyProtector : IMasterKeyProtector\n+    {\n+        /// <summary>\n+        /// Additional entropy, mixed in so that a blob taken from this application cannot be unwrapped by\n+        /// simply handing it to ProtectedData from another application running as the same user. It is a\n+        /// domain separator, not a secret, and must never change: an altered value strands existing files.\n+        /// </summary>\n+        private static readonly byte[] Entropy = Encoding.UTF8.GetBytes(\"mRemoteNG.ConnectionFile.MasterKey.v1\");\n+\n+        public byte[] Protect(byte[] masterKey)\n+        {\n+            if (masterKey == null || masterKey.Length == 0)\n+                throw new ArgumentException(@\"A master key is required.\", nameof(masterKey));\n+\n+            try\n+            {\n+                return ProtectedData.Protect(masterKey, Entropy, DataProtectionScope.CurrentUser);\n+            }\n+            catch (CryptographicException ex)\n+            {\n+                throw new EncryptionException(\"Could not protect the master key with DPAPI.\", ex);\n+            }\n+        }\n+\n+        public byte[] Unprotect(byte[] protectedKey)\n+        {\n+            if (protectedKey == null || protectedKey.Length == 0)\n+                throw new ArgumentException(@\"A protected key is required.\", nameof(protectedKey));\n+\n+            try\n+            {\n+                return ProtectedData.Unprotect(protectedKey, Entropy, DataProtectionScope.CurrentUser);\n+            }\n+            catch (CryptographicException ex)\n+            {\n+                // The expected path when a file is copied from another machine or another Windows account.\n+                // The caller turns this into \"import this file instead\", so the message has to stay accurate.\n+                throw new EncryptionException(\n+                    \"This connection file's master key belongs to a different Windows user or machine. \" +\n+                    \"Use an exported copy and its export key to move connections between machines.\", ex);\n+            }\n+        }\n+    }\n+}\n--- mRemoteNG/Security/KeyProtection/IMasterKeyProtector.cs\n@@ -0,0 +1,24 @@\n+namespace mRemoteNG.Security.KeyProtection\n+{\n+    /// <summary>\n+    /// Wraps and unwraps a connection file's random master key.\n+    /// </summary>\n+    /// <remarks>\n+    /// The master key encrypts the individual secrets in a connection file. Keeping it separate from\n+    /// the secrets is what allows the key derivation to run once per file instead of once per field,\n+    /// which is what made a strong KDF unaffordable in the password-per-field scheme.\n+    /// </remarks>\n+    public interface IMasterKeyProtector\n+    {\n+        /// <summary>\n+        /// Wraps a master key for storage alongside the connection file.\n+        /// </summary>\n+        byte[] Protect(byte[] masterKey);\n+\n+        /// <summary>\n+        /// Recovers a master key previously wrapped by <see cref=\"Protect\"/>.\n+        /// </summary>\n+        /// <exception cref=\"EncryptionException\">The key cannot be unwrapped here.</exception>\n+        byte[] Unprotect(byte[] protectedKey);\n+    }\n+}\n--- mRemoteNG/Security/KeyProtection/MasterKey.cs\n@@ -0,0 +1,41 @@\n+using System;\n+using System.Security.Cryptography;\n+\n+namespace mRemoteNG.Security.KeyProtection\n+{\n+    /// <summary>\n+    /// The random symmetric key that protects the secrets inside a single connection file.\n+    /// </summary>\n+    public static class MasterKey\n+    {\n+        /// <summary>\n+        /// Matches AeadCryptographyProvider.KeyBitSize; AES-256-GCM rejects any other length.\n+        /// </summary>\n+        public const int KeySizeInBytes = 32;\n+\n+        /// <summary>\n+        /// Creates a new master key from a cryptographically secure source.\n+        /// </summary>\n+        /// <remarks>\n+        /// Random, never derived from a passphrase: nothing the user knows or reuses can weaken it, and\n+        /// there is nothing to brute force. Confidentiality rests entirely on how the key is wrapped.\n+        /// </remarks>\n+        public static byte[] Generate()\n+        {\n+            return RandomNumberGenerator.GetBytes(KeySizeInBytes);\n+        }\n+\n+        /// <summary>\n+        /// Overwrites key material once it is no longer needed.\n+        /// </summary>\n+        /// <remarks>\n+        /// Best effort only. The runtime may already have copied the array during a GC compaction, so\n+        /// this narrows the window rather than closing it.\n+        /// </remarks>\n+        public static void Clear(byte[]? key)\n+        {\n+            if (key == null) return;\n+            CryptographicOperations.ZeroMemory(key);\n+        }\n+    }\n+}\n--- mRemoteNG/Security/SymmetricEncryption/AeadCryptographyProvider.cs\n@@ -100,6 +100,38 @@ public string Encrypt(string plainText, SecureString encryptionKey)\n             return encryptedText;\n         }\n \n+        /// <summary>\n+        /// Encrypts using an already-derived key, with no key derivation step.\n+        /// </summary>\n+        /// <remarks>\n+        /// The password overloads derive a key per call from a per-ciphertext salt, so protecting a\n+        /// connection file costs one KDF run per secret. Callers holding a master key use this instead:\n+        /// derivation happens once for the file, which is what makes a slow, strong KDF affordable.\n+        ///\n+        /// The output has no salt, so it is NOT interchangeable with <see cref=\"Encrypt\"/> output. The\n+        /// reader must already know which form it is; the connection file records that per file.\n+        /// </remarks>\n+        public string EncryptWithKey(string plainText, byte[] key)\n+        {\n+            if (string.IsNullOrEmpty(plainText))\n+                return \"\";\n+\n+            byte[] cipherText = SimpleEncrypt(_encoding.GetBytes(plainText), key);\n+            return Convert.ToBase64String(cipherText);\n+        }\n+\n+        /// <summary>\n+        /// Decrypts output of <see cref=\"EncryptWithKey\"/>.\n+        /// </summary>\n+        public string DecryptWithKey(string cipherText, byte[] key)\n+        {\n+            if (string.IsNullOrWhiteSpace(cipherText))\n+                return \"\";\n+\n+            byte[] plainText = SimpleDecrypt(Convert.FromBase64String(cipherText), key);\n+            return _encoding.GetString(plainText);\n+        }\n+\n         private string SimpleEncryptWithPassword(string secretMessage, string password, byte[]? nonSecretPayload = null)\n         {\n             if (string.IsNullOrEmpty(secretMessage))\n--- mRemoteNGTests/Security/KeyProtection/DpapiMasterKeyProtectorTests.cs\n@@ -0,0 +1,91 @@\n+using System;\n+using mRemoteNG.Security;\n+using mRemoteNG.Security.KeyProtection;\n+using NUnit.Framework;\n+\n+namespace mRemoteNGTests.Security.KeyProtection\n+{\n+    public class DpapiMasterKeyProtectorTests\n+    {\n+        private DpapiMasterKeyProtector _protector;\n+\n+        [SetUp]\n+        public void Setup()\n+        {\n+            _protector = new DpapiMasterKeyProtector();\n+        }\n+\n+        [Test]\n+        public void ProtectedKeyRoundTripsBackToTheOriginal()\n+        {\n+            byte[] masterKey = MasterKey.Generate();\n+\n+            byte[] recovered = _protector.Unprotect(_protector.Protect(masterKey));\n+\n+            Assert.That(recovered, Is.EqualTo(masterKey));\n+        }\n+\n+        [Test]\n+        public void ProtectDoesNotLeaveTheKeyInTheClear()\n+        {\n+            byte[] masterKey = MasterKey.Generate();\n+\n+            byte[] protectedKey = _protector.Protect(masterKey);\n+\n+            // The wrapped blob must not simply contain the key bytes.\n+            Assert.That(IndexOfSequence(protectedKey, masterKey), Is.EqualTo(-1));\n+        }\n+\n+        [Test]\n+        public void TamperedBlobIsRejectedRatherThanReturningWrongKey()\n+        {\n+            byte[] protectedKey = _protector.Protect(MasterKey.Generate());\n+            protectedKey[protectedKey.Length / 2] ^= 0xFF;\n+\n+            // Silently returning corrupted key material would surface as unreadable secrets later,\n+            // so this has to fail loudly at unwrap time.\n+            Assert.That(() => _protector.Unprotect(protectedKey), Throws.TypeOf<EncryptionException>());\n+        }\n+\n+        [Test]\n+        public void ProtectingTheSameKeyTwiceProducesDifferentBlobs()\n+        {\n+            byte[] masterKey = MasterKey.Generate();\n+\n+            byte[] first = _protector.Protect(masterKey);\n+            byte[] second = _protector.Protect(masterKey);\n+\n+            Assert.That(first, Is.Not.EqualTo(second));\n+        }\n+\n+        [Test]\n+        public void ProtectRejectsAnEmptyKey()\n+        {\n+            Assert.That(() => _protector.Protect(Array.Empty<byte>()), Throws.TypeOf<ArgumentException>());\n+        }\n+\n+        [Test]\n+        public void UnprotectRejectsAnEmptyBlob()\n+        {\n+            Assert.That(() => _protector.Unprotect(Array.Empty<byte>()), Throws.TypeOf<ArgumentException>());\n+        }\n+\n+        private static int IndexOfSequence(byte[] haystack, byte[] needle)\n+        {\n+            for (int i = 0; i + needle.Length <= haystack.Length; i++)\n+            {\n+                bool match = true;\n+                for (int j = 0; j < needle.Length; j++)\n+                {\n+                    if (haystack[i + j] == needle[j]) continue;\n+                    match = false;\n+                    break;\n+                }\n+\n+                if (match) return i;\n+            }\n+\n+            return -1;\n+        }\n+    }\n+}\n--- mRemoteNGTests/Security/KeyProtection/MasterKeyTests.cs\n@@ -0,0 +1,47 @@\n+using System.Linq;\n+using mRemoteNG.Security.KeyProtection;\n+using NUnit.Framework;\n+\n+namespace mRemoteNGTests.Security.KeyProtection\n+{\n+    public class MasterKeyTests\n+    {\n+        [Test]\n+        public void GeneratedKeyIsTheSizeAes256Requires()\n+        {\n+            Assert.That(MasterKey.Generate().Length, Is.EqualTo(32));\n+        }\n+\n+        [Test]\n+        public void GeneratedKeysAreNotRepeated()\n+        {\n+            // A repeat here would mean the key source is broken, which no amount of wrapping survives.\n+            byte[][] keys = Enumerable.Range(0, 50).Select(_ => MasterKey.Generate()).ToArray();\n+            int distinct = keys.Select(System.Convert.ToBase64String).Distinct().Count();\n+\n+            Assert.That(distinct, Is.EqualTo(keys.Length));\n+        }\n+\n+        [Test]\n+        public void GeneratedKeyIsNotAllZeroes()\n+        {\n+            Assert.That(MasterKey.Generate().All(b => b == 0), Is.False);\n+        }\n+\n+        [Test]\n+        public void ClearOverwritesTheKeyMaterial()\n+        {\n+            byte[] key = MasterKey.Generate();\n+\n+            MasterKey.Clear(key);\n+\n+            Assert.That(key.All(b => b == 0), Is.True);\n+        }\n+\n+        [Test]\n+        public void ClearToleratesNull()\n+        {\n+            Assert.That(() => MasterKey.Clear(null), Throws.Nothing);\n+        }\n+    }\n+}\n--- mRemoteNGTests/Security/KeyedCryptographyTests.cs\n@@ -0,0 +1,119 @@\n+using System;\n+using mRemoteNG.Security;\n+using mRemoteNG.Security.KeyProtection;\n+using mRemoteNG.Security.SymmetricEncryption;\n+using NUnit.Framework;\n+\n+namespace mRemoteNGTests.Security\n+{\n+    public class KeyedCryptographyTests\n+    {\n+        private AeadCryptographyProvider _provider;\n+        private byte[] _key;\n+\n+        [SetUp]\n+        public void Setup()\n+        {\n+            _provider = new AeadCryptographyProvider();\n+            _key = MasterKey.Generate();\n+        }\n+\n+        [Test]\n+        public void SecretRoundTripsWithTheSameKey()\n+        {\n+            const string plainText = \"MySecret!\";\n+\n+            string cipherText = _provider.EncryptWithKey(plainText, _key);\n+\n+            Assert.That(_provider.DecryptWithKey(cipherText, _key), Is.EqualTo(plainText));\n+        }\n+\n+        [Test]\n+        public void CipherTextDoesNotContainThePlainText()\n+        {\n+            const string plainText = \"MySecret!\";\n+\n+            string cipherText = _provider.EncryptWithKey(plainText, _key);\n+\n+            Assert.That(cipherText, Does.Not.Contain(plainText));\n+        }\n+\n+        [Test]\n+        public void EncryptingTheSameSecretTwiceProducesDifferentCipherText()\n+        {\n+            // A fresh nonce per call; equal outputs would reveal which connections share a password.\n+            string first = _provider.EncryptWithKey(\"MySecret!\", _key);\n+            string second = _provider.EncryptWithKey(\"MySecret!\", _key);\n+\n+            Assert.That(first, Is.Not.EqualTo(second));\n+        }\n+\n+        [Test]\n+        public void DecryptingWithTheWrongKeyFails()\n+        {\n+            string cipherText = _provider.EncryptWithKey(\"MySecret!\", _key);\n+            byte[] otherKey = MasterKey.Generate();\n+\n+            // GCM authenticates, so a wrong key must throw rather than return garbage.\n+            Assert.That(() => _provider.DecryptWithKey(cipherText, otherKey), Throws.Exception);\n+        }\n+\n+        [Test]\n+        public void TamperedCipherTextIsRejected()\n+        {\n+            string cipherText = _provider.EncryptWithKey(\"MySecret!\", _key);\n+            byte[] raw = Convert.FromBase64String(cipherText);\n+            raw[raw.Length - 1] ^= 0xFF;\n+            string tampered = Convert.ToBase64String(raw);\n+\n+            Assert.That(() => _provider.DecryptWithKey(tampered, _key), Throws.Exception);\n+        }\n+\n+        [Test]\n+        public void UnicodeSecretsSurviveTheRoundTrip()\n+        {\n+            const string plainText = \"pässwörd-日本語-🔐\";\n+\n+            string cipherText = _provider.EncryptWithKey(plainText, _key);\n+\n+            Assert.That(_provider.DecryptWithKey(cipherText, _key), Is.EqualTo(plainText));\n+        }\n+\n+        [Test]\n+        public void EmptyInputRoundTripsToEmpty()\n+        {\n+            // Matches the password overloads, which return \"\" rather than throwing. Connection files are\n+            // full of empty optional secrets, so this is the common case, not an edge case.\n+            Assert.That(_provider.EncryptWithKey(\"\", _key), Is.EqualTo(\"\"));\n+            Assert.That(_provider.DecryptWithKey(\"\", _key), Is.EqualTo(\"\"));\n+        }\n+\n+        [Test]\n+        public void KeyedOutputIsShorterThanPasswordOutputBecauseItCarriesNoSalt()\n+        {\n+            string keyed = _provider.EncryptWithKey(\"MySecret!\", _key);\n+            string passworded = _provider.Encrypt(\"MySecret!\", \"mypassword111111\".ConvertToSecureString());\n+\n+            // Guards the format difference the file format has to record: keyed output omits the\n+            // 16-byte salt that the password form prepends.\n+            Assert.That(Convert.FromBase64String(keyed).Length,\n+                        Is.EqualTo(Convert.FromBase64String(passworded).Length - 16));\n+        }\n+\n+        [Test]\n+        public void DecryptingPasswordCipherTextWithAKeyDoesNotSilentlySucceed()\n+        {\n+            string passworded = _provider.Encrypt(\"MySecret!\", \"mypassword111111\".ConvertToSecureString());\n+\n+            // The two formats must never be confused for one another.\n+            Assert.That(() => _provider.DecryptWithKey(passworded, _key), Throws.Exception);\n+        }\n+\n+        [Test]\n+        public void WrongLengthKeyIsRejected()\n+        {\n+            Assert.That(() => _provider.EncryptWithKey(\"MySecret!\", new byte[16]),\n+                        Throws.TypeOf<ArgumentException>());\n+        }\n+    }\n+}",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_mR-NB.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/KeyProtection/DpapiMasterKeyProtector.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/KeyProtection/IMasterKeyProtector.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/KeyProtection/MasterKey.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNG/Security/SymmetricEncryption/AeadCryptographyProvider.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    },
+    {
+      "id": "security-code",
+      "severity": "high",
+      "file": "mRemoteNGTests/Security/KeyedCryptographyTests.cs",
+      "reason": "credential and crypto paths need human review regardless of intent"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:18Z",
+  "triage": {
+    "category": "security",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "conflict",
+    "action": "WATCH",
+    "rationale": "DPAPI-bound master key is sound but unwired primitives; breaks file portability, CI change gates tests to Security only. Our KDF-cost issue already fixed (#120). Revisit if integrated.",
+    "agent": "claude",
+    "at": "2026-07-25T11:03:29Z"
+  }
+}

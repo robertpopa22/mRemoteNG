@@ -1,0 +1,49 @@
+{
+  "sha": "66ad958c477e0217554c90af1963098f67c88a65",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "subject": "Fix Visual Studio targets path in passive RDP build",
+  "body": "Fix Visual Studio targets path in passive RDP build",
+  "author_name": "guvity",
+  "author_login": "guvity",
+  "date": "2026-05-15T19:32:23Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/66ad958c477e0217554c90af1963098f67c88a65",
+  "stats": {
+    "files": 1,
+    "additions": 2,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/passive-rdp-monitor-build.yml",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- .github/workflows/passive-rdp-monitor-build.yml\n@@ -33,14 +33,14 @@ jobs:\n       - name: Restore portable x64 dependencies\n         shell: pwsh\n         run: |\n-          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Restore /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /verbosity:minimal\n+          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Restore /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:VisualStudioVersion=17.0 /verbosity:minimal\n \n       - name: Publish portable self-contained x64\n         shell: pwsh\n         run: |\n           $out = \"$env:GITHUB_WORKSPACE\\_publish\\mRemoteNG-passive-rdp-win-x64\"\n           New-Item -ItemType Directory -Force -Path $out | Out-Null\n-          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Publish /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=false /p:PublishDir=\"$out\\\" /verbosity:minimal\n+          msbuild .\\mRemoteNG\\mRemoteNG.csproj /t:Publish /p:Configuration=\"Release Self-Contained\" /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=false /p:PublishDir=\"$out\\\" /p:VisualStudioVersion=17.0 /verbosity:minimal\n \n       - name: Create zip\n         shell: pwsh",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/passive-rdp-monitor-build.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:01Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fixes a workflow file (passive-rdp-monitor-build.yml) that only exists in that fork; our build.ps1/CI already auto-detect VS. Not applicable.",
+    "agent": "claude",
+    "at": "2026-07-25T11:05:16Z"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "full_name": "yosale2011/mRemoteNG",
+  "owner": "yosale2011",
+  "html_url": "https://github.com/yosale2011/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-07-03T21:06:11Z",
+  "created_at": "2026-07-03T18:53:13Z",
+  "size_kb": 267777,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 1,
+  "behind_by": 57,
+  "commits": [
+    {
+      "sha": "4cded1cc376680b686a5fd219c982e16920e7fd4",
+      "subject": "Add master password feature with startup unlock, hint, and settings migration",
+      "author_name": "Yosale2011",
+      "author_login": null,
+      "date": "2026-07-03T19:58:29Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4cded1cc376680b686a5fd219c982e16920e7fd4"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:19Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "0deb69cfd33bfea6ade00af5bd2c89cd2ac4f785",
+  "compared_at": "2026-07-25T10:58:52Z",
+  "screened_shas": [
+    "4cded1cc376680b686a5fd219c982e16920e7fd4"
+  ]
+}

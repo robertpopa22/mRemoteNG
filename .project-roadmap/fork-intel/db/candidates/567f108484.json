@@ -1,0 +1,49 @@
+{
+  "sha": "567f108484aaf48c62cc291f874521f4a79a007e",
+  "fork": "vindict6/mRemoteNG",
+  "owner": "vindict6",
+  "subject": "Run the unit tests in CI",
+  "body": "Run the unit tests in CI\n\nThe solution has a substantial NUnit suite that the Build workflow never ran,\nso nothing verified it. Run it on the framework-dependent leg, which already\nbuilds the whole solution and therefore mRemoteNGTests.dll.\n\nUses vstest.console from the installed VS rather than `dotnet test`: the .NET\nCore MSBuild cannot evaluate mRemoteNG.csproj at all because of the\nCOMReference (MSB4803), even just to locate the test assembly.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "vindict6",
+  "author_login": "vindict6",
+  "date": "2026-07-15T22:40:18Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/567f108484aaf48c62cc291f874521f4a79a007e",
+  "stats": {
+    "files": 1,
+    "additions": 31,
+    "deletions": 0,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/Build_mR-NB.yml",
+      "status": "modified",
+      "additions": 31,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- .github/workflows/Build_mR-NB.yml\n@@ -171,6 +171,37 @@ jobs:\n           $count = (Get-ChildItem $sourceDir -Recurse -File).Count\n           Write-Host \"Output OK: $sourceDir ($count files)\" -ForegroundColor Green\n \n+      # Runs on the framework-dependent leg only: it is the one that builds the whole solution, so\n+      # mRemoteNGTests.dll is already compiled. vstest.console from the installed VS is used rather\n+      # than `dotnet test`, because the .NET Core MSBuild cannot evaluate mRemoteNG.csproj at all\n+      # (COMReference/MSB4803), even to work out where the test assembly is.\n+      - name: (08.5) Run unit tests\n+        if: matrix.deployment == 'framework-dependent'\n+        shell: pwsh\n+        run: |\n+          $testDll = \"$Env:GITHUB_WORKSPACE\\mRemoteNGTests\\bin\\${{ matrix.platform }}\\Release\\mRemoteNGTests.dll\"\n+          if (-not (Test-Path $testDll)) {\n+            Write-Host \"ERROR: test assembly not found at $testDll\" -ForegroundColor Red\n+            Get-ChildItem \"$Env:GITHUB_WORKSPACE\\mRemoteNGTests\\bin\" -Recurse -Filter \"*.dll\" |\n+              Select-Object -First 20 -ExpandProperty FullName\n+            exit 1\n+          }\n+\n+          $vswhere = \"${env:ProgramFiles(x86)}\\Microsoft Visual Studio\\Installer\\vswhere.exe\"\n+          $vsPath = & $vswhere -latest -products * -property installationPath\n+          $vstest = Join-Path $vsPath \"Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe\"\n+          if (-not (Test-Path $vstest)) {\n+            Write-Host \"ERROR: vstest.console.exe not found at $vstest\" -ForegroundColor Red\n+            exit 1\n+          }\n+\n+          Write-Host \"Running tests from $testDll\" -ForegroundColor Cyan\n+          & $vstest $testDll /Platform:x64 /logger:console`;verbosity=minimal\n+          if ($LASTEXITCODE -ne 0) {\n+            Write-Host \"ERROR: unit tests failed (exit $LASTEXITCODE)\" -ForegroundColor Red\n+            exit $LASTEXITCODE\n+          }\n+\n       - name: (09) Release Information\n         id: version\n         shell: pwsh",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_mR-NB.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:17Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Our CI already runs full test suite (run-tests.ps1, nightly trx collection); vstest.console approach inferior to our headless runner. Nothing to gain.",
+    "agent": "claude",
+    "at": "2026-07-25T11:05:16Z"
+  }
+}

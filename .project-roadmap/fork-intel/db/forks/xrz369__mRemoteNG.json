@@ -1,0 +1,21 @@
+{
+  "full_name": "xrz369/mRemoteNG",
+  "owner": "xrz369",
+  "html_url": "https://github.com/xrz369/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-02-02T13:36:51Z",
+  "created_at": "2026-02-04T13:04:56Z",
+  "size_kb": 268585,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 494,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "86d986a63388c02e06628c231a0662a901396abd",
+  "compared_at": "2026-07-25T10:58:50Z"
+}

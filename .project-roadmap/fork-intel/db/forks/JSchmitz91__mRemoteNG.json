@@ -1,0 +1,21 @@
+{
+  "full_name": "JSchmitz91/mRemoteNG",
+  "owner": "JSchmitz91",
+  "html_url": "https://github.com/JSchmitz91/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-03-16T08:03:26Z",
+  "created_at": "2026-03-13T13:43:09Z",
+  "size_kb": 267131,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 300,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "aa0ae70f856f360e91f19bd5ee8cb1fd80fe8149",
+  "compared_at": "2026-07-25T10:58:05Z"
+}

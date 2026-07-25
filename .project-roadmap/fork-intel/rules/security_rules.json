@@ -1,0 +1,144 @@
+{
+  "_description": "Screening rules for fork commits. Data, not code, so the rules can be audited and tuned without touching fork_intel.py. Layer A drops noise; layer B quarantines anything that could carry a supply-chain payload.",
+  "_references": [
+    "OpenSSF Scorecard - Binary-Artifacts check (committed binaries cannot be reviewed)",
+    "2026 GitHub PR campaigns - pull_request_target abuse, workflow injection, env/secret exfiltration"
+  ],
+  "version": "1.0.0",
+
+  "noise": {
+    "_comment": "Layer A. Matched against the commit subject unless stated otherwise.",
+    "subject_patterns": [
+      "^chore: activity sync",
+      "^activity sync",
+      "^update readme$",
+      "^update$",
+      "^done$",
+      "^wip$",
+      "^\\d+$",
+      "^test$",
+      "^\\.$",
+      "^merge branch",
+      "^merge pull request",
+      "^merge remote-tracking"
+    ],
+    "bot_authors": [
+      "[bot]",
+      "google-labs-jules",
+      "renovate",
+      "dependabot",
+      "github-actions",
+      "imgbot",
+      "allcontributors",
+      "copilot"
+    ],
+    "upstream_maintainers": [
+      "Dimitrij",
+      "dimitrij",
+      "sparerd",
+      "kmscode",
+      "mRemoteNG"
+    ],
+    "min_subject_length": 8
+  },
+
+  "security": {
+    "_comment": "Layer B. Any hit sets QUARANTINE: the change never reaches the import queue automatically, no matter how valuable the triage stage thinks it is.",
+    "path_rules": [
+      {
+        "id": "ci-workflow",
+        "severity": "critical",
+        "glob": [".github/workflows/", ".github/actions/"],
+        "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+      },
+      {
+        "id": "ci-config",
+        "severity": "high",
+        "glob": ["appveyor.yml", "azure-pipelines.yml", ".gitlab-ci.yml", "Dockerfile", "docker-compose"],
+        "reason": "build pipeline definition runs with credentials"
+      },
+      {
+        "id": "dependency-manifest",
+        "severity": "high",
+        "glob": ["Directory.Packages.props", "packages.lock.json", "packages.config", "nuget.config", ".csproj"],
+        "reason": "a new or repointed package can pull arbitrary code at restore time"
+      },
+      {
+        "id": "security-code",
+        "severity": "high",
+        "glob": ["mRemoteNG/Security/", "Crypt", "Password", "Credential"],
+        "reason": "credential and crypto paths need human review regardless of intent"
+      },
+      {
+        "id": "build-script",
+        "severity": "high",
+        "glob": ["build.ps1", "run-tests.ps1", "scripts/", ".sh", ".ps1", ".bat", ".cmd"],
+        "reason": "scripts execute on a maintainer machine"
+      },
+      {
+        "id": "license",
+        "severity": "medium",
+        "glob": ["COPYING", "LICENSE", "NOTICE"],
+        "reason": "licence edits change redistribution terms"
+      },
+      {
+        "id": "installer",
+        "severity": "high",
+        "glob": ["mRemoteNGInstaller/", ".wxs", ".msi"],
+        "reason": "installer content ships signed to end users"
+      }
+    ],
+    "binary_extensions": [
+      ".dll", ".exe", ".msi", ".zip", ".7z", ".rar", ".gz", ".cab",
+      ".pdb", ".bin", ".dat", ".so", ".dylib", ".jar", ".pfx", ".snk"
+    ],
+    "content_patterns": [
+      {
+        "id": "network-download",
+        "severity": "critical",
+        "regex": "(Invoke-WebRequest|Invoke-RestMethod|DownloadString|DownloadFile|WebClient\\(|curl\\s+-|wget\\s+http|HttpClient\\(\\)\\.(Get|Post)Async)",
+        "reason": "added code fetches remote content at build or run time"
+      },
+      {
+        "id": "process-exec",
+        "severity": "critical",
+        "regex": "(Process\\.Start|ShellExecute|cmd\\s*/c|powershell\\s+-(enc|e |EncodedCommand)|Invoke-Expression|IEX\\s*\\()",
+        "reason": "added code spawns a process or evaluates a string as code"
+      },
+      {
+        "id": "env-secret-access",
+        "severity": "critical",
+        "regex": "(GITHUB_TOKEN|ACTIONS_RUNTIME_TOKEN|secrets\\.|Environment\\.GetEnvironmentVariables\\(\\)|\\$env:[A-Z_]*(TOKEN|SECRET|KEY))",
+        "reason": "added code reads credentials or CI secrets"
+      },
+      {
+        "id": "base64-blob",
+        "severity": "high",
+        "regex": "[A-Za-z0-9+/]{240,}={0,2}",
+        "reason": "long base64 blob - obfuscated payload or embedded binary"
+      },
+      {
+        "id": "suspicious-host",
+        "severity": "high",
+        "regex": "(pastebin\\.com|paste\\.ee|transfer\\.sh|ngrok\\.io|webhook\\.site|discord\\.com/api/webhooks|t\\.me/)",
+        "reason": "exfiltration-friendly endpoint"
+      },
+      {
+        "id": "telemetry-add",
+        "severity": "medium",
+        "regex": "(analytics|telemetry|tracking)\\.(send|track|report)",
+        "reason": "new outbound reporting of user activity"
+      }
+    ]
+  },
+
+  "thresholds": {
+    "_comment": "Applied by the report stage.",
+    "max_files_for_auto_tier_a": 25,
+    "max_lines_for_auto_tier_a": 1500,
+    "min_author_account_age_days": 90,
+    "score_tier_a": 12,
+    "score_tier_b": 6,
+    "score_tier_c": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "full_name": "Allann/Remote",
+  "owner": "Allann",
+  "html_url": "https://github.com/Allann/Remote",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-03-01T22:15:36Z",
+  "created_at": "2026-03-01T23:40:27Z",
+  "size_kb": 269029,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 352,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "600f06e998b2688add7bea0ca562ef6a79e71e99",
+  "compared_at": "2026-07-25T10:57:27Z"
+}

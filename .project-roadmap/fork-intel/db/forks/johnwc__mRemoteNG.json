@@ -1,0 +1,21 @@
+{
+  "full_name": "johnwc/mRemoteNG",
+  "owner": "johnwc",
+  "html_url": "https://github.com/johnwc/mRemoteNG",
+  "default_branch": "develop",
+  "pushed_at": "2026-02-20T18:45:44Z",
+  "created_at": "2020-08-29T20:05:44Z",
+  "size_kb": 259574,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 2042,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:47Z",
+  "last_seen": "2026-07-25T10:56:47Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "fc65c2583ed9118359602be27ddd18623d551223",
+  "compared_at": "2026-07-25T10:58:00Z"
+}

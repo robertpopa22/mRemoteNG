@@ -1,0 +1,21 @@
+{
+  "full_name": "hnjm/mRemoteNG",
+  "owner": "hnjm",
+  "html_url": "https://github.com/hnjm/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-06-21T18:30:43Z",
+  "created_at": "2023-05-01T08:22:42Z",
+  "size_kb": 267655,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 87,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:35Z",
+  "last_seen": "2026-07-25T10:56:35Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "ef48aaec0f1e25e540cef1b160dbc8a0a78b69d8",
+  "compared_at": "2026-07-25T10:57:52Z"
+}

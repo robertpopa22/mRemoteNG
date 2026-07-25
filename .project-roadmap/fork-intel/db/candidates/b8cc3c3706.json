@@ -1,0 +1,13 @@
+{
+  "sha": "b8cc3c370676ebbbc3ac06abd37a30d1f28f9e73",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Merge pull request #8 from suleyman-shb/fix-rdp-error-2825-nla-4958572924990496218",
+  "author_name": "s v s",
+  "author_login": "suleyman-shb",
+  "date": "2026-05-08T15:50:13Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b8cc3c370676ebbbc3ac06abd37a30d1f28f9e73",
+  "status": "dropped",
+  "drop_reason": "merge commit",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

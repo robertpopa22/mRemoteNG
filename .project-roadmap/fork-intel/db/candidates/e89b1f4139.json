@@ -1,0 +1,13 @@
+{
+  "sha": "e89b1f4139a9b7a7467042b152f1b0a5d4c9842a",
+  "fork": "bartuszekj/mRemoteNG",
+  "owner": "bartuszekj",
+  "subject": "Update to PuTTYNG 83.0.1 #2670",
+  "author_name": "Dimitrij",
+  "author_login": "Kvarkas",
+  "date": "2025-02-11T11:18:10Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e89b1f4139a9b7a7467042b152f1b0a5d4c9842a",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (Dimitrij) - merge-base artifact",
+  "screened_at": "2026-07-25T10:59:59Z"
+}

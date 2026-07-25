@@ -1,0 +1,42 @@
+{
+  "sha": "006f651ddc4f02d36163b53f55197cf696c8632f",
+  "fork": "wolverine2k/mRemoteNG",
+  "owner": "wolverine2k",
+  "subject": "Fix misleading version label",
+  "body": "Fix misleading version label",
+  "author_name": "Manuel Thalmann",
+  "author_login": "neurolag",
+  "date": "2023-08-15T06:45:33Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/006f651ddc4f02d36163b53f55197cf696c8632f",
+  "stats": {
+    "files": 1,
+    "additions": 2,
+    "deletions": 2,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Window/UpdateWindow.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Window/UpdateWindow.cs\n@@ -66,7 +66,7 @@ private void ApplyLanguage()\n                 : Language.DownloadAndInstall;\n             lblChangeLogLabel.Text = Language.Changelog;\n             lblInstalledVersion.Text = Language.Version;\n-            lblInstalledVersionLabel.Text = $\"{Language.AvailableVersion}:\";\n+            lblInstalledVersionLabel.Text = $\"{Language.Version}:\";\n             lblLatestVersion.Text = Language.Version;\n             lblLatestVersionLabel.Text = $\"{Language.AvailableVersion}:\";\n         }\n@@ -232,4 +232,4 @@ private async Task DownloadUpdateAsync()\n \n         #endregion\n     }\n-}\n\\ No newline at end of file\n+}",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T11:00:23Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Our UpdateWindow.cs line 76 already shows Language.Version for installed-version label; identical fix present after #136 update-flow rework.",
+    "agent": "claude",
+    "at": "2026-07-25T11:02:55Z"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "a9292982f2b334aff59380530c4eab1b0893f7cd",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Resolve merge conflict and cleanup duplicate resources",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-05-08T15:47:57Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9292982f2b334aff59380530c4eab1b0893f7cd",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

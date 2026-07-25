@@ -1,0 +1,21 @@
+{
+  "full_name": "wptz-it/mRemoteNG",
+  "owner": "wptz-it",
+  "html_url": "https://github.com/wptz-it/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-06-17T08:28:26Z",
+  "created_at": "2026-06-17T19:34:55Z",
+  "size_kb": 269583,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 93,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "66a3902f6e38dfdc64494a2c4c71d3b8d8455f52",
+  "compared_at": "2026-07-25T10:58:49Z"
+}

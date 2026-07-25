@@ -1,0 +1,13 @@
+{
+  "sha": "a7e8d8523a517d62d716d0346f348432e723f4a5",
+  "fork": "bartuszekj/mRemoteNG",
+  "owner": "bartuszekj",
+  "subject": "fix(doc): the list format in the command_line_switches.rst is incorrect.",
+  "author_name": "Neptunium93",
+  "author_login": "Neptunium931",
+  "date": "2025-11-13T08:50:59Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a7e8d8523a517d62d716d0346f348432e723f4a5",
+  "status": "dropped",
+  "drop_reason": "already in our history (subject match)",
+  "screened_at": "2026-07-25T10:59:59Z"
+}

@@ -1,0 +1,21 @@
+{
+  "full_name": "MyLabs-LLC/mRemoteNG",
+  "owner": "MyLabs-LLC",
+  "html_url": "https://github.com/MyLabs-LLC/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-02-13T14:48:58Z",
+  "created_at": "2026-02-13T14:11:12Z",
+  "size_kb": 266785,
+  "stars": 0,
+  "open_issues": 1,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 458,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "db1496d4a29174d0b00df31dd8a331556197ae69",
+  "compared_at": "2026-07-25T10:58:21Z"
+}

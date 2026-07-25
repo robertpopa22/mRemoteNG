@@ -1,0 +1,49 @@
+{
+  "sha": "73267c1fcfc95daccb3abd954b2a122c6007bd09",
+  "fork": "vindict6/mRemoteNG",
+  "owner": "vindict6",
+  "subject": "Tag releases with the version that was built; honor release_flag",
+  "body": "Tag releases with the version that was built; honor release_flag\n\nThe release tag and the zip filenames disagreed: tag 20260715-v1.78.2-NB-(3562)\nshipped assets named ...-NB-3612-x64-FD.zip. The build number comes from the T4\ntransform, which only runs in the build job, so Create-Combined-Release reading\nthe committed AssemblyInfo.cs always saw a stale number.\n\nPublish the version/build/tag/message from the build job as job outputs and have\nthe release job consume them, so the tag can no longer drift from the assets.\n\nAlso wire up the release_flag input, which was declared but never referenced:\ndispatching with release_flag=false now builds and uploads the zips as workflow\nartifacts without publishing a release or creating a tag.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+  "author_name": "vindict6",
+  "author_login": "vindict6",
+  "date": "2026-07-15T21:41:46Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/73267c1fcfc95daccb3abd954b2a122c6007bd09",
+  "stats": {
+    "files": 1,
+    "additions": 18,
+    "deletions": 24,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": ".github/workflows/Build_mR-NB.yml",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 24
+    }
+  ],
+  "patch": "--- .github/workflows/Build_mR-NB.yml\n@@ -42,6 +42,16 @@ jobs:\n       github.event_name == 'workflow_dispatch' ||\n       (github.event_name == 'push' && contains(github.event.head_commit.message, 'NB release'))\n \n+    # Published so Create-Combined-Release tags with the version that was actually built.\n+    # It cannot re-derive it: the build number comes from the T4 transform, which only runs\n+    # here, so reading the committed AssemblyInfo.cs there yields a stale build number.\n+    # Both matrix legs transform within seconds of each other and so produce the same value.\n+    outputs:\n+      version: ${{ steps.version.outputs.version }}\n+      build: ${{ steps.version.outputs.build }}\n+      tag: ${{ steps.version.outputs.tag }}\n+      message: ${{ steps.version.outputs.message }}\n+\n     steps:\n       - name: (01) Checkout Repository\n         uses: actions/checkout@v7\n@@ -237,6 +247,10 @@ jobs:\n   Create-Combined-Release:\n     needs: NB-Build-and-Release\n     runs-on: windows-latest\n+    # Skipping this job is what makes a build-only run possible: dispatch with\n+    # release_flag=false to compile and get the zips as workflow artifacts without\n+    # publishing a release or creating a tag.\n+    if: github.event_name != 'workflow_dispatch' || inputs.release_flag == 'true'\n     steps:\n       - name: Checkout Repository\n         uses: actions/checkout@v7\n@@ -246,26 +260,6 @@ jobs:\n         with:\n           path: artifacts\n \n-      - name: Extract version info\n-        id: version\n-        shell: pwsh\n-        run: |\n-          $assemblyInfoPath = \"${{ github.workspace }}\\mRemoteNG\\Properties\\AssemblyInfo.cs\"\n-          $line = Get-Content $assemblyInfoPath | Where-Object { $_ -match 'AssemblyVersion\\(\"(.+?)\"\\)' }\n-          if ($line -match 'AssemblyVersion\\(\"(?<ver>\\d+\\.\\d+\\.\\d+)\\.(?<build>\\d+)\"\\)') {\n-            $version = $matches['ver']\n-            $build = $matches['build']\n-          } else {\n-            throw \"Could not extract version and build number\"\n-          }\n-          $date = Get-Date -Format \"yyyyMMdd\"\n-          $tag = \"$date-v$version-NB-($build)\"\n-          $message = git log -1 --pretty=%B\n-          echo \"version=$version\" >> $env:GITHUB_OUTPUT\n-          echo \"build=$build\" >> $env:GITHUB_OUTPUT\n-          echo \"tag=$tag\" >> $env:GITHUB_OUTPUT\n-          echo \"message=$message\" >> $env:GITHUB_OUTPUT\n-\n       - name: Extract Changelog\n         id: changelog\n         shell: pwsh\n@@ -311,11 +305,11 @@ jobs:\n         env:\n           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n         with:\n-          tag_name: ${{ steps.version.outputs.tag }}\n-          name: \"mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}\"\n+          tag_name: ${{ needs.NB-Build-and-Release.outputs.tag }}\n+          name: \"mRemoteNG ${{ needs.NB-Build-and-Release.outputs.version }} NB ${{ needs.NB-Build-and-Release.outputs.build }}\"\n           files: '*.zip'\n           body: |\n-            ## mRemoteNG ${{ steps.version.outputs.version }} NB Build ${{ steps.version.outputs.build }}\n+            ## mRemoteNG ${{ needs.NB-Build-and-Release.outputs.version }} NB Build ${{ needs.NB-Build-and-Release.outputs.build }}\n             \n             ### 📦 Available Downloads\n             \n@@ -337,7 +331,7 @@ jobs:\n             ${{ steps.changelog.outputs.log }}\n             \n             ### 💬 Last Commit Message\n-            ${{ steps.version.outputs.message }}\n+            ${{ needs.NB-Build-and-Release.outputs.message }}\n \n           draft: false\n           prerelease: true",
+  "security_flags": [
+    {
+      "id": "ci-workflow",
+      "severity": "critical",
+      "file": ".github/workflows/Build_mR-NB.yml",
+      "reason": "CI workflow changes are the primary supply-chain vector (pull_request_target abuse, workflow injection)"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:16Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 3,
+    "risk": 3,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fixes dated-NB tagging our fork removed; 2-release model (ef6420d9a) tags from csproj Version, no T4 build numbers. Obsolete.",
+    "agent": "claude",
+    "at": "2026-07-25T11:05:50Z"
+  }
+}

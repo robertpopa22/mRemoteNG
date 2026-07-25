@@ -1,0 +1,85 @@
+{
+  "sha": "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+  "fork": "wolverine2k/mRemoteNG",
+  "owner": "wolverine2k",
+  "subject": "postregsql database support",
+  "body": "postregsql database support",
+  "author_name": "Sylvain LAFFONT",
+  "author_login": "s-laffont-vsa",
+  "date": "2022-07-30T13:06:48Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+  "stats": {
+    "files": 7,
+    "additions": 121,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/Config/DataProviders/SqlDataProvider.cs",
+      "status": "modified",
+      "additions": 23,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Config/DatabaseConnectors/DatabaseConnectorFactory.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Config/DatabaseConnectors/PostgreSQLDatabaseConnector.cs",
+      "status": "added",
+      "additions": 84,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/Config/Serializers/ConnectionSerializers/MsSql/SqlDatabaseMetaDataRetriever.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Tools/MiscTools.cs",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 3
+    },
+    {
+      "filename": "mRemoteNG/UI/Forms/OptionsPages/SqlServerPage.Designer.cs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/mRemoteNG.csproj",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    }
+  ],
+  "patch": "--- mRemoteNG/Config/DataProviders/SqlDataProvider.cs\n@@ -5,6 +5,7 @@\n using mRemoteNG.Properties;\n using MySql.Data.MySqlClient;\n using System.Data.SqlClient;\n+using Npgsql;\n \n namespace mRemoteNG.Config.DataProviders\n {\n@@ -95,6 +96,28 @@ public void Save(DataTable dataTable)\n                     }\n                 }\n             }\n+            else if (DatabaseConnector.GetType() == typeof(PostgreSQLDatabaseConnector))\n+            {\n+                var dbConnection = (NpgsqlConnection)DatabaseConnector.DbConnection();\n+                using (NpgsqlTransaction transaction = dbConnection.BeginTransaction(System.Data.IsolationLevel.Serializable))\n+                {\n+                    using (NpgsqlCommand sqlCommand = new NpgsqlCommand())\n+                    {\n+                        sqlCommand.Connection = dbConnection;\n+                        sqlCommand.Transaction = transaction;\n+                        sqlCommand.CommandText = \"SELECT * FROM tblCons\";\n+                        using (NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(sqlCommand))\n+                        {\n+                            //dataAdapter.UpdateBatchSize = 1000;\n+                            using (NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(dataAdapter))\n+                            {\n+                                dataAdapter.Update(dataTable);\n+                                transaction.Commit();\n+                            }\n+                        }\n+                    }\n+                }\n+            }\n         }\n \n         public void OpenConnection()\n--- mRemoteNG/Config/DatabaseConnectors/DatabaseConnectorFactory.cs\n@@ -22,6 +22,8 @@ public static IDatabaseConnector DatabaseConnector(string type, string server, s\n         {\n             switch (type)\n             {\n+                case \"postgresql\":\n+                    return new PostgreSQLDatabaseConnector(server, database, username, password);\n                 case \"mysql\":\n                     return new MySqlDatabaseConnector(server, database, username, password);\n                 case \"mssql\":\n--- mRemoteNG/Config/DatabaseConnectors/PostgreSQLDatabaseConnector.cs\n@@ -0,0 +1,84 @@\n+﻿using System.Data;\n+using System.Data.Common;\n+using System.Threading.Tasks;\n+using Npgsql;\n+\n+\n+namespace mRemoteNG.Config.DatabaseConnectors\n+{\n+    public class PostgreSQLDatabaseConnector : IDatabaseConnector\n+    {\n+        private DbConnection _dbConnection { get; set; } = default(NpgsqlConnection);\n+        private string _dbConnectionString = \"\";\n+        private readonly string _dbHost;\n+        private readonly string _dbPort;\n+        private readonly string _dbName;\n+        private readonly string _dbUsername;\n+        private readonly string _dbPassword;\n+\n+        public DbConnection DbConnection()\n+        {\n+            return _dbConnection;\n+        }\n+\n+        public DbCommand DbCommand(string dbCommand)\n+        {\n+            return new NpgsqlCommand(dbCommand, (NpgsqlConnection)_dbConnection);\n+        }\n+\n+        public bool IsConnected => (_dbConnection.State == ConnectionState.Open);\n+\n+        public PostgreSQLDatabaseConnector(string host, string database, string username, string password)\n+        {\n+            string[] hostParts = host.Split(new char[] { ':' }, 2);\n+            _dbHost = hostParts[0];\n+            _dbPort = (hostParts.Length == 2) ? hostParts[1] : \"5432\";\n+            _dbName = database;\n+            _dbUsername = username;\n+            _dbPassword = password;\n+            Initialize();\n+        }\n+\n+        private void Initialize()\n+        {\n+            BuildSqlConnectionString();\n+            _dbConnection = new NpgsqlConnection(_dbConnectionString);\n+        }\n+\n+        private void BuildSqlConnectionString()\n+        {\n+            _dbConnectionString = $\"Server={_dbHost};User Id={_dbUsername};Database={_dbName};Port={_dbPort};Password={_dbPassword}\";\n+        }\n+\n+        public void Connect()\n+        {\n+            _dbConnection.Open();\n+        }\n+\n+        public async Task ConnectAsync()\n+        {\n+            await _dbConnection.OpenAsync();\n+        }\n+\n+        public void Disconnect()\n+        {\n+            _dbConnection.Close();\n+        }\n+\n+        public void AssociateItemToThisConnector(DbCommand dbCommand)\n+        {\n+            dbCommand.Connection = (NpgsqlConnection)_dbConnection;\n+        }\n+\n+        public void Dispose()\n+        {\n+            Dispose(true);\n+        }\n+        private void Dispose(bool itIsSafeToFreeManagedObjects)\n+        {\n+            if (!itIsSafeToFreeManagedObjects) return;\n+            _dbConnection.Close();\n+            _dbConnection.Dispose();\n+        }\n+    }\n+}\n\\ No newline at end of file\n--- mRemoteNG/Config/Serializers/ConnectionSerializers/MsSql/SqlDatabaseMetaDataRetriever.cs\n@@ -34,7 +34,7 @@ public SqlConnectionListMetaData GetDatabaseMetaData(IDatabaseConnector database\n                 {\n                     Name = dbDataReader[\"Name\"] as string ?? \"\",\n                     Protected = dbDataReader[\"Protected\"] as string ?? \"\",\n-                    Export = (bool)dbDataReader[\"Export\"],\n+                    Export = Convert.ToBoolean(dbDataReader[\"Export\"]),\n                     ConfVersion =\n                         new Version(Convert.ToString(dbDataReader[\"confVersion\"], CultureInfo.InvariantCulture))\n                 };\n--- mRemoteNG/Tools/MiscTools.cs\n@@ -68,7 +68,9 @@ public static string DBDate(DateTime Dt)\n \t\t{\n \t\t\tswitch (Properties.OptionsDBsPage.Default.SQLServerType)\n \t\t\t{\n-\t\t\t\tcase \"mysql\":\n+                case \"postgresql\":\n+                    return Dt.ToString(\"yyyy-MM-dd HH:mm:ss.fff\");\n+                case \"mysql\":\n \t\t\t\t\treturn Dt.ToString(\"yyyy/MM/dd HH:mm:ss\");\n \t\t\t\tcase \"mssql\":\n \t\t\t\tdefault:\n@@ -80,7 +82,9 @@ public static Type DBTimeStampType()\n \t\t{\n \t\t\tswitch (Properties.OptionsDBsPage.Default.SQLServerType)\n \t\t\t{\n-\t\t\t\tcase \"mysql\":\n+                case \"postgresql\":\n+                    return typeof(DateTime);\n+                case \"mysql\":\n \t\t\t\t\treturn typeof(MySqlDateTime);\n \t\t\t\tcase \"mssql\":\n \t\t\t\tdefault:\n@@ -95,7 +99,8 @@ public static object DBTimeStampNow()\n \t\t\t\tcase \"mysql\":\n \t\t\t\t\treturn new MySqlDateTime(DateTime.Now);\n \t\t\t\tcase \"mssql\":\n-\t\t\t\tdefault:\n+                case \"postgresql\":\n+                default:\n \t\t\t\t\treturn DateTime.Now;\n \t\t\t}\n \t\t}\n--- mRemoteNG/UI/Forms/OptionsPages/SqlServerPage.Designer.cs\n@@ -247,7 +247,8 @@ private void InitializeComponent()\n             this.txtSQLType.FormattingEnabled = true;\n             this.txtSQLType.Items.AddRange(new object[] {\n             \"mssql\",\n-            \"mysql\"});\n+            \"mysql\",\n+            \"postgresql\"});\n             this.txtSQLType.Location = new System.Drawing.Point(163, 3);\n             this.txtSQLType.Name = \"txtSQLType\";\n             this.txtSQLType.Size = new System.Drawing.Size(235, 21);\n--- mRemoteNG/mRemoteNG.csproj\n@@ -81,6 +81,7 @@\n     <PackageReference Include=\"Microsoft.Web.WebView2\" Version=\"1.0.1264.42\" />\n     <PackageReference Include=\"MySql.Data\" Version=\"8.0.30\" />\n     <PackageReference Include=\"Newtonsoft.Json\" Version=\"13.0.1\" />\n+    <PackageReference Include=\"Npgsql\" Version=\"7.0.0-preview.6\" />\n     <PackageReference Include=\"ObjectListView.Official\" Version=\"2.9.1\" />\n     <PackageReference Include=\"OpenCover\" Version=\"4.7.1221\" />\n     <PackageReference Include=\"Portable.BouncyCastle\" Version=\"1.9.0\" />",
+  "security_flags": [
+    {
+      "id": "dependency-manifest",
+      "severity": "high",
+      "file": "mRemoteNG/mRemoteNG.csproj",
+      "reason": "a new or repointed package can pull arbitrary code at restore time"
+    }
+  ],
+  "status": "quarantine",
+  "screened_at": "2026-07-25T11:00:22Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "WATCH",
+    "rationale": "PostgreSQL backend is genuinely new, but code targets pre-rework SQL layer (old SqlClient, no v3.5 schema/upgrade path, SELECT * CommandBuilder our #145/#148 fixes replaced). Reimplement only if users ask.",
+    "agent": "claude",
+    "at": "2026-07-25T11:06:25Z"
+  }
+}

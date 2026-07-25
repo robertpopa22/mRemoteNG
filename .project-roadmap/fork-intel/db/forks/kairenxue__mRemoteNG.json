@@ -1,0 +1,21 @@
+{
+  "full_name": "kairenxue/mRemoteNG",
+  "owner": "kairenxue",
+  "html_url": "https://github.com/kairenxue/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-05-31T14:35:17Z",
+  "created_at": "2026-06-01T10:06:44Z",
+  "size_kb": 269571,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 117,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "c6b4e1ffe06f096318641b2ff8b8bd41fa674e81",
+  "compared_at": "2026-07-25T10:58:07Z"
+}

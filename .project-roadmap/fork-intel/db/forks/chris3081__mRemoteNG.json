@@ -1,0 +1,21 @@
+{
+  "full_name": "chris3081/mRemoteNG",
+  "owner": "chris3081",
+  "html_url": "https://github.com/chris3081/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-06-30T22:33:45Z",
+  "created_at": "2026-07-01T11:19:23Z",
+  "size_kb": 269585,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 65,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:19Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "f4215cd15dc228c394ea4013d0274a4e5653c0af",
+  "compared_at": "2026-07-25T10:57:37Z"
+}

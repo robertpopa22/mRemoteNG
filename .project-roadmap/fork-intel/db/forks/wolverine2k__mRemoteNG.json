@@ -1,0 +1,81 @@
+{
+  "full_name": "wolverine2k/mRemoteNG",
+  "owner": "wolverine2k",
+  "html_url": "https://github.com/wolverine2k/mRemoteNG",
+  "default_branch": "develop",
+  "pushed_at": "2026-02-06T13:34:43Z",
+  "created_at": "2020-03-24T12:02:39Z",
+  "size_kb": 260983,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 6,
+  "behind_by": 1771,
+  "commits": [
+    {
+      "sha": "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+      "subject": "postregsql database support",
+      "author_name": "Sylvain LAFFONT",
+      "author_login": "s-laffont-vsa",
+      "date": "2022-07-30T13:06:48Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ae75ec5d2012a91457c3d210a2a7e97724feda6"
+    },
+    {
+      "sha": "82a4fdd662b36af0a4486f04c9a921c6658cc04e",
+      "subject": "Merge pull request #2268 from s-laffont/postgresql",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2022-07-30T17:48:35Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/82a4fdd662b36af0a4486f04c9a921c6658cc04e"
+    },
+    {
+      "sha": "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+      "subject": "fixed WinSCP extended arguments",
+      "author_name": "radiosti",
+      "author_login": "radiosti",
+      "date": "2023-04-11T13:18:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/374eb8a34ab3e07a26554751cbfc0f67280ec28a"
+    },
+    {
+      "sha": "d19b99511f516b32c672e3858777e4ecec9e0109",
+      "subject": "Merge pull request #2423 from radiosti/develop",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2023-04-11T21:51:18Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d19b99511f516b32c672e3858777e4ecec9e0109"
+    },
+    {
+      "sha": "006f651ddc4f02d36163b53f55197cf696c8632f",
+      "subject": "Fix misleading version label",
+      "author_name": "Manuel Thalmann",
+      "author_login": "neurolag",
+      "date": "2023-08-15T06:45:33Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/006f651ddc4f02d36163b53f55197cf696c8632f"
+    },
+    {
+      "sha": "d51d9c1ca77ef7ec278c4a135e0302b141bb0dc3",
+      "subject": "Merge pull request #2475 from manuth/manuth-patch-1",
+      "author_name": "Dimitrij",
+      "author_login": "Kvarkas",
+      "date": "2023-08-15T08:50:48Z",
+      "parents": 2,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d51d9c1ca77ef7ec278c4a135e0302b141bb0dc3"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:47Z",
+  "last_seen": "2026-07-25T10:56:47Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "1ee03e863cc44aecc2e47ed8e9459eaf4cf04ee3",
+  "compared_at": "2026-07-25T10:58:48Z",
+  "screened_shas": [
+    "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+    "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+    "006f651ddc4f02d36163b53f55197cf696c8632f"
+  ]
+}

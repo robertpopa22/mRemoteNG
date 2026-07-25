@@ -1,0 +1,13 @@
+{
+  "sha": "0768b807276907f4242c26cbff9ccdbd8cbf0ac4",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Fix build environment issues and enforce lowercase boolean values",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-04-20T11:16:00Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0768b807276907f4242c26cbff9ccdbd8cbf0ac4",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

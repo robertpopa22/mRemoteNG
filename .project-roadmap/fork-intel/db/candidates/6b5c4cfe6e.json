@@ -1,0 +1,48 @@
+{
+  "sha": "6b5c4cfe6e45f37d9c1fa46a46b83170fe4d8fc2",
+  "fork": "nickbeentjes/mRemoteNG",
+  "owner": "nickbeentjes",
+  "subject": "Fix DockState namespace reference and update build number",
+  "body": "Fix DockState namespace reference and update build number\n\n- Fix DockState reference in AppWindows.cs with fully qualified namespace\n- Update build number from 3480 to 3492\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+  "author_name": "Nick Beentjes",
+  "author_login": "nickbeentjes",
+  "date": "2026-04-23T03:34:27Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6b5c4cfe6e45f37d9c1fa46a46b83170fe4d8fc2",
+  "stats": {
+    "files": 2,
+    "additions": 5,
+    "deletions": 5,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/App/AppWindows.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "mRemoteNG/Properties/AssemblyInfo.cs",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4
+    }
+  ],
+  "patch": "--- mRemoteNG/App/AppWindows.cs\n@@ -107,7 +107,7 @@ public static void Show(WindowType windowType)\n                     case WindowType.ScpTransfer:\n                         if (_scpTransferForm == null || _scpTransferForm.IsDisposed)\n                             _scpTransferForm = new ScpTransferWindow();\n-                        _scpTransferForm.Show(dockPanel, DockState.DockBottom);\n+                        _scpTransferForm.Show(dockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);\n                         break;\n                 }\n             }\n--- mRemoteNG/Properties/AssemblyInfo.cs\n@@ -10,7 +10,7 @@\n \n // Compute version values\n \n-//Build nr: 3480\n+//Build nr: 3492\n \n // General Information\n [assembly: AssemblyTitle(\"mRemoteNG\")]\n@@ -23,7 +23,7 @@\n [assembly: AssemblyCulture(\"\")]\n \n // Version information\n-[assembly: AssemblyVersion(\"1.78.2.3480\")]\n-[assembly: AssemblyFileVersion(\"1.78.2.3480\")]\n+[assembly: AssemblyVersion(\"1.78.2.3492\")]\n+[assembly: AssemblyFileVersion(\"1.78.2.3492\")]\n [assembly: NeutralResourcesLanguageAttribute(\"en-US\")]\n-[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3480) x64\")]\n\\ No newline at end of file\n+[assembly: AssemblyInformationalVersion(\"1.78.2 (Nightly Build 3492) x64\")]\n\\ No newline at end of file",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T11:00:11Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Cosmetic namespace qualification plus nightly build-number bump on 1.78.2 AssemblyInfo; our .NET 10 fork versions via csproj, no benefit.",
+    "agent": "claude",
+    "at": "2026-07-25T11:05:50Z"
+  }
+}

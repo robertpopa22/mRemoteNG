@@ -1,0 +1,21 @@
+{
+  "full_name": "foobar18/mRemoteNG",
+  "owner": "foobar18",
+  "html_url": "https://github.com/foobar18/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-03-17T21:12:50Z",
+  "created_at": "2026-03-18T11:48:13Z",
+  "size_kb": 269091,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 293,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "f8b0625d6cc0a34d6c4240c1adbb1d45652e867d",
+  "compared_at": "2026-07-25T10:57:46Z"
+}

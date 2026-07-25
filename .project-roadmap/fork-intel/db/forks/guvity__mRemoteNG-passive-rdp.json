@@ -1,0 +1,84 @@
+{
+  "full_name": "guvity/mRemoteNG-passive-rdp",
+  "owner": "guvity",
+  "html_url": "https://github.com/guvity/mRemoteNG-passive-rdp",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-06-16T17:12:48Z",
+  "created_at": "2026-05-15T16:51:30Z",
+  "size_kb": 267704,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 6,
+  "behind_by": 165,
+  "commits": [
+    {
+      "sha": "0707b71af5eddbb73d7abf6fbafd26ea6daafaa1",
+      "subject": "Add passive RDP monitor mode",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T18:52:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0707b71af5eddbb73d7abf6fbafd26ea6daafaa1"
+    },
+    {
+      "sha": "3e43d6855db0d441befaa429ff56c37a687e0a74",
+      "subject": "Fix passive RDP portable build workflow",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T19:14:43Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e43d6855db0d441befaa429ff56c37a687e0a74"
+    },
+    {
+      "sha": "9f03e57d3b91f45a2976d3f43a1030a828d3ee5e",
+      "subject": "Use MSBuild for passive RDP portable publish",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T19:25:26Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9f03e57d3b91f45a2976d3f43a1030a828d3ee5e"
+    },
+    {
+      "sha": "66ad958c477e0217554c90af1963098f67c88a65",
+      "subject": "Fix Visual Studio targets path in passive RDP build",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T19:32:23Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/66ad958c477e0217554c90af1963098f67c88a65"
+    },
+    {
+      "sha": "83b66b5d8e0daa1d1324eb53d4da65b5df871f81",
+      "subject": "Build passive RDP with VS 2026 runner",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T20:09:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/83b66b5d8e0daa1d1324eb53d4da65b5df871f81"
+    },
+    {
+      "sha": "a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
+      "subject": "Fix ambiguous WinForms Message reference",
+      "author_name": "guvity",
+      "author_login": "guvity",
+      "date": "2026-05-15T22:00:10Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3241cac85258c371bdc3ce97a7a0d94d76af1f1"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "054a61a4030f81750cf82d85a90b0a4a5af7e927",
+  "compared_at": "2026-07-25T10:57:50Z",
+  "screened_shas": [
+    "0707b71af5eddbb73d7abf6fbafd26ea6daafaa1",
+    "3e43d6855db0d441befaa429ff56c37a687e0a74",
+    "9f03e57d3b91f45a2976d3f43a1030a828d3ee5e",
+    "66ad958c477e0217554c90af1963098f67c88a65",
+    "83b66b5d8e0daa1d1324eb53d4da65b5df871f81",
+    "a3241cac85258c371bdc3ce97a7a0d94d76af1f1"
+  ]
+}

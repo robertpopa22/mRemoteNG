@@ -1,0 +1,21 @@
+{
+  "full_name": "Morgadoo/mRemoteNG",
+  "owner": "Morgadoo",
+  "html_url": "https://github.com/Morgadoo/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-03-17T17:25:58Z",
+  "created_at": "2026-03-10T12:03:43Z",
+  "size_kb": 267397,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 294,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "0d29227054f9debdf5b0386194ae311032dde8e3",
+  "compared_at": "2026-07-25T10:58:19Z"
+}

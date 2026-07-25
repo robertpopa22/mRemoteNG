@@ -1,0 +1,35 @@
+{
+  "sha": "ff3ed60e8807fb80b95c7227ee1cf59862127484",
+  "fork": "nickbeentjes/mRemoteNG",
+  "owner": "nickbeentjes",
+  "subject": "Disable auto-update + fix Claude API key setup",
+  "body": "Disable auto-update + fix Claude API key setup\n\n- frmMain: early return in CheckForUpdates() — fork would break with upstream updates\n- ClaudeChatWindow: load API key from env var or saved file instead of throwing;\n  add 'cgo --setkey sk-ant-...' command to set and persist the key from the chat panel\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>",
+  "author_name": "Kees",
+  "author_login": null,
+  "date": "2026-04-23T03:39:53Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ff3ed60e8807fb80b95c7227ee1cf59862127484",
+  "stats": {
+    "files": 2,
+    "additions": 34,
+    "deletions": 3,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Forms/frmMain.cs",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "mRemoteNG/UI/Window/ClaudeChatWindow.cs",
+      "status": "modified",
+      "additions": 33,
+      "deletions": 3
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Forms/frmMain.cs\n@@ -457,6 +457,7 @@ private void PromptForUpdatesPreference()\n \n         private async Task CheckForUpdates()\n         {\n+            return; // disabled — running a custom fork, upstream updates would overwrite our changes\n             if (!CommonRegistrySettings.AllowCheckForUpdates) return;\n             if (!CommonRegistrySettings.AllowCheckForUpdatesAutomatical) return;\n \n--- mRemoteNG/UI/Window/ClaudeChatWindow.cs\n@@ -1,6 +1,7 @@\n using System;\n using System.Collections.Generic;\n using System.Drawing;\n+using System.IO;\n using System.Net.Http;\n using System.Text;\n using System.Text.Json;\n@@ -146,9 +147,15 @@ private void HandleCgoCommand(string args)\n             {\n                 AppendLine(\"[System] GSD launcher not yet wired — coming in Phase 3\");\n             }\n+            else if (args.StartsWith(\"--setkey \", StringComparison.OrdinalIgnoreCase))\n+            {\n+                string key = args.Substring(\"--setkey \".Length).Trim();\n+                SaveApiKey(key);\n+                AppendLine(\"[System] API key saved.\");\n+            }\n             else\n             {\n-                AppendLine(\"[System] Usage: cgo --connect <name> | cgo --discover | cgo --gsd <cmd>\");\n+                AppendLine(\"[System] Usage: cgo --connect <name> | cgo --discover | cgo --gsd <cmd> | cgo --setkey <key>\");\n             }\n \n             AppendLine(\"\");\n@@ -157,9 +164,12 @@ private void HandleCgoCommand(string args)\n \n         private async Task<string> SendToClaudeAsync(string userMessage)\n         {\n-            string apiKey = Environment.GetEnvironmentVariable(\"CLAUDE_API_KEY\") ?? string.Empty;\n+            string apiKey = LoadApiKey();\n             if (string.IsNullOrEmpty(apiKey))\n-                throw new InvalidOperationException(\"CLAUDE_API_KEY environment variable is not set.\");\n+            {\n+                AppendLine(\"[System] No Claude API key set. Use Options → Claude API Key to configure.\");\n+                return string.Empty;\n+            }\n \n             _conversationHistory.Add(new { role = \"user\", content = userMessage });\n \n@@ -227,6 +237,26 @@ private async Task ExecuteHostCallsAsync(string responseText)\n             }\n         }\n \n+        private static readonly string _keyFilePath = Path.Combine(\n+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),\n+            \"mRemoteNG\", \"claude_api_key.txt\");\n+\n+        private static string LoadApiKey()\n+        {\n+            // env var takes priority\n+            var envKey = Environment.GetEnvironmentVariable(\"CLAUDE_API_KEY\");\n+            if (!string.IsNullOrEmpty(envKey)) return envKey;\n+            // fall back to saved file\n+            if (File.Exists(_keyFilePath)) return File.ReadAllText(_keyFilePath).Trim();\n+            return string.Empty;\n+        }\n+\n+        private static void SaveApiKey(string key)\n+        {\n+            Directory.CreateDirectory(Path.GetDirectoryName(_keyFilePath)!);\n+            File.WriteAllText(_keyFilePath, key.Trim());\n+        }\n+\n         private void AppendLine(string text)\n         {\n             if (_txtHistory.InvokeRequired)",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T11:00:12Z"
+}

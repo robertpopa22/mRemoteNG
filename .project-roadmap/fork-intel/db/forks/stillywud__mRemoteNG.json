@@ -1,0 +1,21 @@
+{
+  "full_name": "stillywud/mRemoteNG",
+  "owner": "stillywud",
+  "html_url": "https://github.com/stillywud/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-04-26T18:28:35Z",
+  "created_at": "2026-04-27T08:38:29Z",
+  "size_kb": 269303,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 201,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "60d9abb25206f257ff1c1e0c561c5ddeaafad450",
+  "compared_at": "2026-07-25T10:58:40Z"
+}

@@ -1,0 +1,13 @@
+{
+  "sha": "b5c431b8e7779b6f7c6d3af7745352a9069ed7bb",
+  "fork": "bartuszekj/mRemoteNG",
+  "owner": "bartuszekj",
+  "subject": "fix ssh quickconnect exception #2668",
+  "author_name": "Dimitrij",
+  "author_login": "Kvarkas",
+  "date": "2025-02-05T14:24:53Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b5c431b8e7779b6f7c6d3af7745352a9069ed7bb",
+  "status": "dropped",
+  "drop_reason": "upstream maintainer (Dimitrij) - merge-base artifact",
+  "screened_at": "2026-07-25T10:59:59Z"
+}

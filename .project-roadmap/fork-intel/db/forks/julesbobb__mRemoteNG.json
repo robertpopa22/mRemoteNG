@@ -1,0 +1,21 @@
+{
+  "full_name": "julesbobb/mRemoteNG",
+  "owner": "julesbobb",
+  "html_url": "https://github.com/julesbobb/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-07-21T14:17:58Z",
+  "created_at": "2026-04-02T11:24:15Z",
+  "size_kb": 268666,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 12,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "964d7c299702ff5adeca3c87f37efeabdea4d284",
+  "compared_at": "2026-07-25T10:58:06Z"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "7dd9011eec0bb331b14d2f4d5ba4b1535247d665",
+  "fork": "Ahmed-ElHamidy/mRemoteNG",
+  "owner": "Ahmed-ElHamidy",
+  "subject": "Enhance Prot_Event_Closed with exception handling",
+  "body": "Enhance Prot_Event_Closed with exception handling\n\nAdded error logging for protocol close event under UI.window.ConnectionWindow.",
+  "author_name": "Ahmed Omar ElHamidy",
+  "author_login": "Ahmed-ElHamidy",
+  "date": "2025-12-31T15:06:51Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7dd9011eec0bb331b14d2f4d5ba4b1535247d665",
+  "stats": {
+    "files": 1,
+    "additions": 13,
+    "deletions": 6,
+    "binary_files": 0
+  },
+  "files": [
+    {
+      "filename": "mRemoteNG/UI/Window/ConnectionWindow.cs",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 6
+    }
+  ],
+  "patch": "--- mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -824,12 +824,19 @@ private void RenameTab()\n \n         public void Prot_Event_Closed(object sender)\n         {\n-            ProtocolBase protocolBase = sender as ProtocolBase;\n-            if (!(protocolBase?.InterfaceControl.Parent is ConnectionTab tabPage)) return;\n-            if (tabPage.Disposing || tabPage.IsDisposed) return;\n-            if (IsDisposed || Disposing) return;\n-            tabPage.protocolClose = true;\n-            Invoke(new Action(() => tabPage.Close()));\n+            try\n+            {\n+                ProtocolBase protocolBase = sender as ProtocolBase;\n+                if (!(protocolBase?.InterfaceControl.Parent is ConnectionTab tabPage)) return;\n+                if (tabPage.Disposing || tabPage.IsDisposed) return;\n+                if (IsDisposed || Disposing) return;\n+                tabPage.protocolClose = true;\n+                Invoke(new Action(() => tabPage.Close()));\n+            }\n+            catch (Exception ex)\n+            {\n+                Runtime.MessageCollector.AddExceptionMessage(\"CloseTab (UI.Window.ConnectionWindow) failed\", ex);\n+            }\n         }\n \n         #endregion",
+  "security_flags": [],
+  "status": "screened",
+  "screened_at": "2026-07-25T10:59:58Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": 142,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Blanket catch that swallows close errors. Our fork already guards this path (disposed checks, deferred QueueCloseTab NRE-guarded, 6c788ae45). Masking exceptions is a regression.",
+    "agent": "claude",
+    "at": "2026-07-25T11:06:25Z"
+  }
+}

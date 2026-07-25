@@ -1,0 +1,21 @@
+{
+  "full_name": "stdexception/mRemoteNG",
+  "owner": "stdexception",
+  "html_url": "https://github.com/stdexception/mRemoteNG",
+  "default_branch": "develop",
+  "pushed_at": "2026-05-27T07:59:22Z",
+  "created_at": "2020-06-11T03:23:03Z",
+  "size_kb": 269446,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 153,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:47Z",
+  "last_seen": "2026-07-25T10:56:47Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "e8c927d6a7fbe992a042dc42aaf6923c6b38f6d5",
+  "compared_at": "2026-07-25T10:58:39Z"
+}

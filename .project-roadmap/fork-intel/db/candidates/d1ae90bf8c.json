@@ -1,0 +1,13 @@
+{
+  "sha": "d1ae90bf8c358387849e03326bedcf3319127730",
+  "fork": "suleyman-shb/mRemoteNG",
+  "owner": "suleyman-shb",
+  "subject": "Support multi-selection Enter key to open multiple connections",
+  "author_name": "google-labs-jules[bot]",
+  "author_login": "google-labs-jules[bot]",
+  "date": "2026-04-28T23:19:57Z",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d1ae90bf8c358387849e03326bedcf3319127730",
+  "status": "dropped",
+  "drop_reason": "bot author ([bot])",
+  "screened_at": "2026-07-25T11:00:15Z"
+}

@@ -1,0 +1,94 @@
+{
+  "full_name": "nickbeentjes/mRemoteNG",
+  "owner": "nickbeentjes",
+  "html_url": "https://github.com/nickbeentjes/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-04-23T04:04:50Z",
+  "created_at": "2026-04-22T23:53:02Z",
+  "size_kb": 269399,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "screened",
+  "ahead_by": 7,
+  "behind_by": 207,
+  "commits": [
+    {
+      "sha": "888cc44fdae9f83a989724966d1816efd17138ed",
+      "subject": "Add AI layer: Claude chat, session logging, SCP transfers, host-call protocol, Windows agent",
+      "author_name": "Kees",
+      "author_login": null,
+      "date": "2026-04-23T02:26:39Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/888cc44fdae9f83a989724966d1816efd17138ed"
+    },
+    {
+      "sha": "bcaa39f4db1b25d19f4335019d0b709fc40d0865",
+      "subject": "windows-agent: add file logging so it runs silently in background",
+      "author_name": "Kees",
+      "author_login": null,
+      "date": "2026-04-23T02:31:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bcaa39f4db1b25d19f4335019d0b709fc40d0865"
+    },
+    {
+      "sha": "bfcf3c26d484e82baee96cfef319acc1d1c1b572",
+      "subject": "Add NickHQ session controller — register terminal tabs, poll + execute remote commands",
+      "author_name": "Kees",
+      "author_login": null,
+      "date": "2026-04-23T02:43:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bfcf3c26d484e82baee96cfef319acc1d1c1b572"
+    },
+    {
+      "sha": "6b5c4cfe6e45f37d9c1fa46a46b83170fe4d8fc2",
+      "subject": "Fix DockState namespace reference and update build number",
+      "author_name": "Nick Beentjes",
+      "author_login": "nickbeentjes",
+      "date": "2026-04-23T03:34:27Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6b5c4cfe6e45f37d9c1fa46a46b83170fe4d8fc2"
+    },
+    {
+      "sha": "ff3ed60e8807fb80b95c7227ee1cf59862127484",
+      "subject": "Disable auto-update + fix Claude API key setup",
+      "author_name": "Kees",
+      "author_login": null,
+      "date": "2026-04-23T03:39:53Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ff3ed60e8807fb80b95c7227ee1cf59862127484"
+    },
+    {
+      "sha": "bef31a3ca23b4784bfc97be21f022febf983a4f3",
+      "subject": "NickHQ multi-server config: settings UI, auto-connect on startup",
+      "author_name": "Kees",
+      "author_login": null,
+      "date": "2026-04-23T03:46:12Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bef31a3ca23b4784bfc97be21f022febf983a4f3"
+    },
+    {
+      "sha": "d49f440d5279c765b6c0412628a22170f98da961",
+      "subject": "Add orchestrator engine + rich notifications panel; drop Telegram",
+      "author_name": "Kees",
+      "author_login": null,
+      "date": "2026-04-23T04:04:49Z",
+      "parents": 1,
+      "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d49f440d5279c765b6c0412628a22170f98da961"
+    }
+  ],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "ac17c76e1871341282892bfeb8feb41c1ae0ccda",
+  "compared_at": "2026-07-25T10:58:23Z",
+  "screened_shas": [
+    "888cc44fdae9f83a989724966d1816efd17138ed",
+    "bcaa39f4db1b25d19f4335019d0b709fc40d0865",
+    "bfcf3c26d484e82baee96cfef319acc1d1c1b572",
+    "6b5c4cfe6e45f37d9c1fa46a46b83170fe4d8fc2",
+    "ff3ed60e8807fb80b95c7227ee1cf59862127484",
+    "bef31a3ca23b4784bfc97be21f022febf983a4f3",
+    "d49f440d5279c765b6c0412628a22170f98da961"
+  ]
+}

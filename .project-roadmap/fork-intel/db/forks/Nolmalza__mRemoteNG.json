@@ -1,0 +1,21 @@
+{
+  "full_name": "Nolmalza/mRemoteNG",
+  "owner": "Nolmalza",
+  "html_url": "https://github.com/Nolmalza/mRemoteNG",
+  "default_branch": "v1.78.2-dev",
+  "pushed_at": "2026-06-24T08:57:03Z",
+  "created_at": "2026-06-25T16:28:19Z",
+  "size_kb": 269584,
+  "stars": 0,
+  "open_issues": 0,
+  "archived": false,
+  "status": "no-divergence",
+  "ahead_by": 0,
+  "behind_by": 71,
+  "commits": [],
+  "discovered_at": "2026-07-25T10:56:25Z",
+  "last_seen": "2026-07-25T10:56:25Z",
+  "base_branch": "v1.78.2-dev",
+  "merge_base": "19e475204fbf5b19572772fab992042e8e0a8df5",
+  "compared_at": "2026-07-25T10:58:27Z"
+}
