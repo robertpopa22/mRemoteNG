@@ -194,6 +194,9 @@ namespace mRemoteNG.Tools
             if (_connectionInfo == null) return replacement;
             switch (variable.ToLowerInvariant())
             {
+                case "guid":
+                    replacement = _connectionInfo.ConstantID;
+                    break;
                 case "name":
                     replacement = _connectionInfo.Name;
                     break;

@@ -85,6 +85,26 @@ namespace mRemoteNGTests.Tools
         }
 
         [Test]
+        public void GuidVariableResolvesToTheConnectionsConstantId()
+        {
+            var connectionInfo = new ConnectionInfo { Name = "server" };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+
+            var parsedText = parser.ParseArguments("--id %GUID%");
+
+            Assert.That(parsedText, Is.EqualTo($"--id {connectionInfo.ConstantID}"));
+        }
+
+        [Test]
+        public void GuidVariableIsCaseInsensitiveLikeEveryOtherVariable()
+        {
+            var connectionInfo = new ConnectionInfo { Name = "server" };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+
+            Assert.That(parser.ParseArguments("%guid%"), Is.EqualTo(connectionInfo.ConstantID));
+        }
+
+        [Test]
         public void NullConnectionInfoResultsInEmptyVariables()
         {
             var parser = new ExternalToolArgumentParser(null);

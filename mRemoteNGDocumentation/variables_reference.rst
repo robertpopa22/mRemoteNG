@@ -11,6 +11,11 @@ Available Variables
 
 mRemoteNG supports the following variables:
 
+%GUID%
+    The unique, stable identifier of the connection. Unlike the name or hostname it never
+    changes, so it is the right token to pass to a script that has to correlate a launch
+    with a specific connection entry.
+
 %NAME%
     The display name of the connection.
 
