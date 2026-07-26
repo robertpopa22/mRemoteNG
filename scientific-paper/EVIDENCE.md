@@ -361,3 +361,96 @@ Also fixed 2 pre-existing build errors (StatusImageList Icon→Bitmap, AppWindow
 | CI workflows | 6/6 GREEN | GitHub Actions |
 | Startup time (200 conn) | ≤1 second | Stopwatch instrumentation |
 | User-reported issues fixed | 8/8 responded, 6/8 code-fixed | GitHub issue comments |
+
+---
+
+## Phase 8: Fork Network Intelligence (2026-07-25 to 2026-07-26)
+
+Upstream `mRemoteNG/mRemoteNG` has ~1600 forks. The question this phase answers is whether
+any of them carry work this fork should adopt — and, just as importantly, what it costs to
+find out. System: `.project-roadmap/fork-intel/` (see its README for the pipeline).
+
+### Result
+
+| Stage | Volume |
+|-------|--------|
+| Forks enumerated | 1,698 |
+| Pushed within the 6-month window | 127 |
+| Actually ahead of upstream | 58 |
+| Commits belonging to those forks | 1,794 |
+| Dropped by deterministic noise filters | 204 |
+| Quarantined by security screening | 114 |
+| Clean, AI-triaged | 186 |
+| Tier A (ready to cherry-pick) | 2 |
+| Tier B (worth porting by hand) | 14 |
+| **Imported** | **2** |
+
+**Signal ratio: 2 of 1,794 commits — about 0.1%.**
+
+Imported: `3814bf47c` (cherry-picked from `k-meeks`, author preserved — connection tree
+jumped to a random node when the search box held its placeholder) and `a03da0082`
+(`%GUID%` external-tool variable, reimplemented from `Hovn` whose patch targeted the
+pre-2015 `mRemoteV1/` tree).
+
+### Resource cost
+
+| Resource | Consumption |
+|----------|-------------|
+| GitHub REST calls (pipeline stages) | 830 |
+| GitHub REST calls (exploration, verification, forensics) | ~270 |
+| **GitHub REST total** | **~1,100** of a 5,000/hour budget |
+| AI reviewer/triage calls | ~250 across claude, codex, gemini and grok |
+| Candidates AI-triaged | 299 |
+| Candidates put to a counter-opinion vote | 36 |
+| Full builds | 3 |
+| Full test-suite runs | 3 (6,341 → 6,345 tests) |
+| Elapsed | ~18 hours, predominantly unattended background execution |
+| Code produced | 1,452 lines of pipeline + 321 lines of tests (51 unit tests) |
+
+Re-runs are cached by commit SHA, so the marginal cost of a subsequent scan is a small
+fraction of the above — the expense documented here is one-time discovery, not recurring.
+
+### Methodological findings
+
+**The measurement method determined the answer.** The first pass compared only each fork's
+default branch and concluded that nothing worth importing existed. Re-running across all
+branches — while skipping branches still parked on upstream's head, which every fork
+inherits — changed every number:
+
+| | Default branch only | All branches |
+|---|---|---|
+| Diverged forks | 24 | 58 |
+| Commits examined | 306 | 1,794 |
+| Candidates | 45 | 300 |
+| Tier A | 0 | 2 |
+
+1,488 commits existed only on side branches. A negative result from an unvalidated method
+is an absence of measurement, not a finding.
+
+**Value concentrates in individuals, not in the network.** Two authors (`k-meeks`, `Hovn`)
+produced 11 of the 16 tier A/B candidates; the remaining 56 diverged forks produced 5
+between them. Continuous monitoring should track a handful of people rather than re-scan
+1,698 repositories.
+
+**The most useful outcome was negative.** No fork in the ecosystem is meaningfully ahead of
+this one. That closes a question which otherwise remains permanently open, and it is the
+justification for the cost recorded above.
+
+### Defects the system revealed about itself
+
+Four, of which three failed as *silence* rather than as an error — the dangerous class for
+any process that aggregates opinions:
+
+1. prompts passed as command-line arguments exceeded the Windows limit (`WinError 206`) and
+   silently lost 8 candidates; prompts now travel through stdin
+2. `codex` and `gemini` are npm `.cmd` shims that bare-name `subprocess` cannot resolve;
+   executables are now resolved through `shutil.which`
+3. grok answered with reasoning prose instead of the requested verdict, so a genuine
+   opinion registered as no answer; fixed with a system turn plus
+   `response_format: {"type":"json_object"}`
+4. an arbiter that was also a reviewer voted twice, turning "2 of 3 approved" into one model
+   family outvoting another. Re-running the three affected candidates with an independent
+   arbiter flipped **all three** back to manual review — the guard was not theoretical
+
+The counter-opinion gate treats a missing answer as dissent. While one provider was down,
+that rule was the only thing that prevented a broken CLI from reading as tacit approval.
