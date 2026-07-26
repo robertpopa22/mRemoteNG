@@ -10,14 +10,14 @@ Fork code is never executed - only metadata and text patches are fetched.
 
 Pipeline (each stage writes JSON and is resumable):
 
-    discover -> diverge -> screen -> triage -> report
-                                              mark
+    discover -> diverge -> screen -> triage -> preapprove -> report -> mark
 
 Usage:
-    python fork_intel.py discover [--since-months 6] [--limit N]
-    python fork_intel.py diverge  [--limit N]
-    python fork_intel.py screen   [--limit N]
-    python fork_intel.py triage   [--limit N] [--agent claude|codex|gemini]
+    python fork_intel.py discover   [--since-months 6] [--limit N]
+    python fork_intel.py diverge    [--all-branches] [--limit N]
+    python fork_intel.py screen     [--limit N]
+    python fork_intel.py triage     [--agent claude|codex|gemini] [--shard i/n]
+    python fork_intel.py preapprove [--reviewers codex,gemini] [--arbiter grok]
     python fork_intel.py report
     python fork_intel.py mark --sha <sha> --decision imported|rejected|deferred [--note "..."]
     python fork_intel.py status

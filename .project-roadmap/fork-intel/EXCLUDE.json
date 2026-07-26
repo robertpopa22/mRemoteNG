@@ -1,7 +1,18 @@
 {
   "_description": "Permanent denylist plus the memory of past decisions. `discover` skips listed owners; `report` skips commits already decided. Written by the `mark` subcommand - safe to edit by hand.",
   "owners": [],
-  "commits": {},
+  "commits": {
+    "691476fe7fede603caf1ce1dd0249c0f17507901": {
+      "decision": "imported",
+      "note": "cherry-picked as 3814bf47c, author preserved",
+      "at": "2026-07-26T04:53:09Z"
+    },
+    "20245100e0423262d8e4b3b1a714db56a1ad2289": {
+      "decision": "imported",
+      "note": "reimplemented as a03da0082 (original targeted mRemoteV1 tree)",
+      "at": "2026-07-26T04:53:09Z"
+    }
+  },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",
   "_owner_reasons": {}
 }

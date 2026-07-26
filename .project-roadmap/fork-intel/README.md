@@ -23,19 +23,58 @@ python .project-roadmap/fork-intel/fork_intel.py mark --sha <sha> --decision imp
 
 `status` prints what the local database currently holds. Every stage is resumable and cached by commit SHA, so a second run costs almost nothing.
 
-## What the first live run found
+## What the first full run found (2026-07-25/26)
 
 | Stage | Result |
 |---|---|
-| Forks of upstream | 1698 seen |
+| Forks of upstream seen | 1698 |
 | Pushed within 6 months | 127 |
-| Actually ahead of upstream | 24 |
-| Own commits in those forks | 306 |
-| Dropped as noise | 137 |
-| Quarantined for security review | 25 |
-| Clean, worth judging | 20 |
+| Actually ahead of upstream | **58** |
+| Their own commits | 1794 |
+| Dropped as noise | 204 |
+| Quarantined for security review | 89 |
+| Clean, worth judging | 166 |
+| **Tier A — ready to cherry-pick** | **2** |
+| Tier B — worth porting by hand | 14 |
 
-The whole pass costs about 190 GitHub API calls against a 5000/hour limit.
+Cost: about 830 GitHub API calls against a 5000/hour limit, plus roughly 250 AI calls.
+Everything is cached by commit SHA, so a repeat run is nearly free.
+
+**Signal ratio: ~0.1%.** Two commits out of 1794 were worth taking as they stand. That
+number is the point of the system, not a disappointment: it is the cost of *knowing*
+rather than guessing what the ecosystem holds.
+
+**Value concentrates in people, not in the network.** Of the 16 tier A/B candidates,
+`k-meeks` accounted for 7 and `Hovn` for 4 — the other 56 diverged forks produced 5
+between them. Ongoing monitoring should watch a handful of individuals rather than
+dredge 1698 repositories.
+
+**The most useful result was the negative one.** Nobody in the ecosystem is meaningfully
+ahead of this fork. That closes a question which otherwise stays open indefinitely.
+
+### What was actually imported
+
+| Commit | From | How |
+|---|---|---|
+| Connection tree jumping to a random "…Research" node when the search box holds its placeholder | Kyle Meeks (`k-meeks`) | cherry-picked, author preserved |
+| `%GUID%` variable for external tools | `Hovn` | reimplemented — the original targeted the pre-2015 `mRemoteV1/` tree |
+
+### Scan the branches, not just the branch
+
+The first pass compared only each fork's **default branch** and concluded that nobody had
+added anything worth having. That conclusion was an artefact of the method: serious
+contributors keep their work on feature branches and never touch the branch the fork was
+created with. Re-running with `--all-branches`:
+
+| | Default branch only | All branches |
+|---|---|---|
+| Diverged forks | 24 | **58** |
+| Commits examined | 306 | **1794** |
+| Candidates | 45 | **300** |
+| Tier A | **0** | **2** |
+
+1488 commits existed *only* on side branches. When a scan of this kind reports "there is
+nothing here", suspect the scan before believing the terrain.
 
 ## Directory structure
 
@@ -152,6 +191,33 @@ mRemoteNG is GPL-2.0, and so is every fork of it, so importing is licence-compat
 - **Always build and test after a cherry-pick**: `build.ps1`, then `run-tests.ps1 -Headless`.
 - **Never contact fork authors automatically.** Any outreach is written by a human.
 - Run `test_fork_intel.py` after touching the filters — its fixtures are calibrated against real observed forks.
+
+## What building this taught us
+
+Three defects surfaced by *using* the system, not by testing it. All three failed the same
+way — as **silence rather than as an error**, which is the dangerous class for anything that
+aggregates opinions:
+
+- prompts passed as command-line arguments blew past the Windows limit (`WinError 206`) and
+  quietly lost 8 candidates. Prompts now go through stdin.
+- `codex` and `gemini` are npm `.cmd` shims that a bare-name `subprocess` call cannot
+  resolve. Executables are now resolved with `shutil.which`.
+- grok answered with reasoning prose instead of the verdict, so a real opinion read as no
+  answer. A system turn plus `response_format: {"type":"json_object"}` makes the shape
+  non-optional.
+
+This is why **a missing answer counts as dissent**: while one provider was down, that rule
+was the only thing preventing a broken CLI from being read as tacit approval.
+
+A fourth defect was worse, because it produced confident wrong output rather than nothing.
+Running with `--reviewers codex,grok` while the arbiter defaulted to `grok` let the same
+model vote twice, turning "2 of 3 approved" into one family outvoting another. Re-running
+the three affected candidates with an independent arbiter flipped **all three** back to
+manual review. An arbiter that is already a reviewer is now refused up front.
+
+The lesson generalises past this tool: **independence between reviewers has to be enforced
+mechanically, not assumed** — and the mechanism built to avoid correlated error is exactly
+where correlated error hid.
 
 ## Prior art
 

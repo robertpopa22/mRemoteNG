@@ -1,6 +1,6 @@
 # Import Queue
 
-Generated 2026-07-25 from the fork radar. **Nothing is applied automatically.**
+Generated 2026-07-26 from the fork radar. **Nothing is applied automatically.**
 
 Both mRemoteNG and its forks are GPL-2.0, so importing is licence-compatible. `git cherry-pick` preserves the original author and `-x` records the source commit; add a `Ported-from:` trailer with the upstream URL so the origin stays visible.
 
@@ -11,20 +11,6 @@ python .project-roadmap/fork-intel/fork_intel.py mark --sha <sha> --decision imp
 ```
 
 ## Tier A - ready to cherry-pick
-
-### `691476fe7f` Fix connection tree jumping to a random "...Research" connection - **PRE-APPROVED**
-
-Prevents the tree view from jumping to a matching node (like 'Research') when the search text is empty or shows the 'Search' placeholder.  
-Source: https://github.com/mRemoteNG/mRemoteNG/commit/691476fe7fede603caf1ce1dd0249c0f17507901
-
-Counter-opinions: codex **APPROVE** / gemini **APPROVE**
-
-```bash
-git remote add fi-k-meeks https://github.com/k-meeks/mRemoteNG.git
-git fetch fi-k-meeks --depth=50 691476fe7fede603caf1ce1dd0249c0f17507901
-git cherry-pick -x 691476fe7fede603caf1ce1dd0249c0f17507901
-# then: build.ps1 + run-tests.ps1 -Headless before committing anything
-```
 
 ### `7349e5a6aa` Fix main window stuck behind other windows after startup - needs manual review
 
@@ -43,16 +29,6 @@ git cherry-pick -x 7349e5a6aa3b85440a6f934e5269555c476fbb04
 ```
 
 ## Tier B - worth porting by hand
-
-### `20245100e0` 外部工具增加可供使用的新变量：%GUID% - **PRE-APPROVED**
-
-Adds %GUID% variable support in external tool arguments, resolving to connection's ConstantID. Trivial, useful feature with zero risk.  
-Source: https://github.com/mRemoteNG/mRemoteNG/commit/20245100e0423262d8e4b3b1a714db56a1ad2289
-
-Counter-opinions: codex **REJECT** / gemini **APPROVE** / grok **APPROVE**
-- codex: REJECT - The capability is plausible and absent, but this fork maintains token discoverability and exhaustive parser coverage; require a complete menu-and-test patch.
-
-Port by hand - the patch will not apply cleanly over our tree. Read the source diff, reimplement, and credit the original author in the commit body.
 
 ### `dd54616a2e` Fix NullReferenceException + recursive dialog cascade on failed decrypt - needs manual review
 
