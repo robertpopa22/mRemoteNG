@@ -1092,9 +1092,17 @@ namespace mRemoteNG.UI.Forms
 
                 clicked.Focus();
                 bool afterFocus = HasWin32Focus(clicked);
+                IntPtr setFocusResult = IntPtr.Zero;
+                int lastError = 0;
                 if (!afterFocus)
-                    NativeMethods.SetFocus(clicked.Handle);
-                Diag118($"refocus {clicked.GetType().Name}: afterFocus={afterFocus} afterSetFocus={HasWin32Focus(clicked)}");
+                {
+                    setFocusResult = NativeMethods.SetFocus(clicked.Handle);
+                    lastError = Marshal.GetLastWin32Error();
+                }
+
+                Diag118($"refocus {clicked.GetType().Name}: afterFocus={afterFocus} " +
+                        $"setFocusRet=0x{setFocusResult.ToInt64():X} err={lastError} " +
+                        $"afterSetFocus={HasWin32Focus(clicked)}");
             }
             catch (Exception ex)
             {
