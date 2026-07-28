@@ -27,7 +27,17 @@ regexes = [
 
 # Test projects may contain synthetic credentials for unit-testing the
 # encryption / decryption code.  Allow the entire test trees.
+#
+# .project-roadmap/fork-intel/db/ is machine-generated fork intelligence: it
+# stores verbatim commit patches harvested from public downstream forks so that
+# candidate changes can be triaged before being cherry-picked.  Those patches
+# routinely contain synthetic test fixtures (for example an OPENSSH test key in
+# a deleted line of an SSH authentication unit test), which the default ruleset
+# reports as private-key findings.  None of it is an mRemoteNG credential and
+# all of it is already public in the upstream fork it was copied from, so the
+# harvest directory is allowlisted to keep real leaks visible.
 paths = [
   '''mRemoteNGTests/''',
   '''mRemoteNGSpecs/''',
+  '''\.project-roadmap/fork-intel/db/''',
 ]
