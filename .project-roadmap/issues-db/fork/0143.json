@@ -8,9 +8,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-07-23T12:36:02Z",
+  "github_updated_at": "2026-07-27T02:53:14Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -85,6 +85,26 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 8,
+      "date": "2026-07-28",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 9,
+      "date": "2026-07-28",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -150,12 +170,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABLzJhng",
+      "author": "happpyg",
+      "date": "2026-07-27T02:53:14Z",
+      "snippet": "See logs below.  NOTE - I am using the portable verison.  I did not find the log file in the %localappdata% path but have used the one in the unzipped portable folder location called \"mRemoteNG Connection Manager.log\".  I also left in a line I saw about \"UIParentWindowHandle\" if that is relevent.\n\n- There is no caret in the search box\n- I cannot see the character going to any other session, it goes nowhere as far as I can tell\n- Capture was made with RDP\n2026-07-27 10:45:18,026 [2] INFO  - [#118...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-07-23T12:36:02Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-07-27T02:53:14Z",
+  "unread_comments": 4,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-23T12:36:02Z",
-  "notes": "nightly 3619 still reproduces after three focus fixes; request #143-diag and #118-diag from one exact reproduction before any fourth patch"
+  "waiting_for_us": true,
+  "last_synced": "2026-07-28T11:29:19Z",
+  "notes": "fix shipped d3fd18120 (attempt 4, trace-backed) + richer SetFocus instrumentation; awaiting reporter confirm on nightly"
 }
