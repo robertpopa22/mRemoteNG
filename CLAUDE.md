@@ -2,6 +2,10 @@
 
 > **Project canon for all agents.** [AGENTS.md](AGENTS.md) is only the discovery bootstrap for tools that do not load `CLAUDE.md` directly.
 
+## Integrare operațională GESEIDL
+
+Respectă integral canonul părinte [../CLAUDE.md](../CLAUDE.md). Pentru orice sistem, date, email, document, share, identitate sau infrastructură GESEIDL, folosește mai întâi MCP-urile Geseidl namespacate. Dacă MCP-ul necesar lipsește ori eșuează, anunță înainte în commentary operația blocată, eroarea exactă, fallback-ul propus și riscul; apoi oprește-te până la acordul explicit al utilizatorului. Ierarhia unică pentru email este: MCP Geseidl, apoi IMAP direct numai prin `secure_connect.py`, apoi Thunderbird local; etapele 2/3 cer acord explicit după eroarea MCP. Outlook, COM, MAPI, Graph și fallback-urile locale tăcute sunt interzise.
+
 ## Output Efficiency (CRITICAL — output tokens are 97% of API cost)
 
 Every output token costs 5x an input token. Your #1 priority after correctness is minimal output.
