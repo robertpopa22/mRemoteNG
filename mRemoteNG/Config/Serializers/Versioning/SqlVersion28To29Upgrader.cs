@@ -38,7 +38,6 @@ ALTER TABLE tblCons ADD COLUMN `EC2Region` varchar(32) DEFAULT NULL;
 ALTER TABLE tblCons ADD COLUMN `EC2InstanceId` varchar(32) DEFAULT NULL;
 ALTER TABLE tblCons ADD COLUMN `ExternalCredentialProvider` varchar(256) DEFAULT NULL;
 ALTER TABLE tblCons ADD COLUMN `ExternalAddressProvider` varchar(256) DEFAULT NULL;
-SET SQL_SAFE_UPDATES=0;
 UPDATE tblCons SET InheritUseEnhancedMode = 0 WHERE InheritUseEnhancedMode IS NULL;
 ALTER TABLE tblCons MODIFY COLUMN InheritUseEnhancedMode tinyint NOT NULL;
 UPDATE tblCons SET UseEnhancedMode = 0 WHERE UseEnhancedMode IS NULL;
@@ -49,7 +48,6 @@ UPDATE tblCons SET InheritUseVmId = 0 WHERE InheritUseVmId IS NULL;
 ALTER TABLE tblCons MODIFY COLUMN InheritUseVmId tinyint NOT NULL;
 UPDATE tblCons SET UseVmId = 0 WHERE UseVmId IS NULL;
 ALTER TABLE tblCons MODIFY COLUMN UseVmId tinyint NOT NULL;
-SET SQL_SAFE_UPDATES=1;
 ALTER TABLE tblRoot MODIFY COLUMN ConfVersion VARCHAR(15) NOT NULL;
 ";
 

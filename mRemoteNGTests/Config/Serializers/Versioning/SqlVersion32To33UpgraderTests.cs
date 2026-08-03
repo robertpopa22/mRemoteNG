@@ -137,14 +137,14 @@ public class SqlVersion32To33UpgraderTests
         var result = sut.Upgrade();
 
         Assert.That(result, Is.EqualTo(new Version(3, 3)));
-        // 6 individual ALTERs + 1 version update = 7 commands
-        Assert.That(commandTexts, Has.Count.EqualTo(7));
-        Assert.That(commandTexts[0], Does.Contain("Hidden"));
-        Assert.That(commandTexts[1], Does.Contain("AuthType"));
-        Assert.That(commandTexts[2], Does.Contain("AuthUsername"));
-        Assert.That(commandTexts[3], Does.Contain("AuthPassword"));
-        Assert.That(commandTexts[4], Does.Contain("PrivateKeyFile"));
-        Assert.That(commandTexts[5], Does.Contain("Passphrase"));
+        // safe-updates read + disable (#145) + 6 individual ALTERs + 1 version update = 9 commands
+        Assert.That(commandTexts, Has.Count.EqualTo(9));
+        Assert.That(commandTexts[2], Does.Contain("Hidden"));
+        Assert.That(commandTexts[3], Does.Contain("AuthType"));
+        Assert.That(commandTexts[4], Does.Contain("AuthUsername"));
+        Assert.That(commandTexts[5], Does.Contain("AuthPassword"));
+        Assert.That(commandTexts[6], Does.Contain("PrivateKeyFile"));
+        Assert.That(commandTexts[7], Does.Contain("Passphrase"));
         transaction.Received(1).Commit();
     }
 

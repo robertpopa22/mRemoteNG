@@ -2,6 +2,7 @@ using mRemoteNG.Config.DatabaseConnectors;
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Globalization;
 using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 
@@ -11,7 +12,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
     internal static class SqlMigrationHelper
     {
         private const string MsSqlVersionUpdate = "UPDATE tblRoot SET ConfVersion=@confVersion;";
-        private const string MySqlVersionUpdate = "SET SQL_SAFE_UPDATES=0; UPDATE tblRoot SET ConfVersion=?; SET SQL_SAFE_UPDATES=1;";
+        private const string MySqlVersionUpdate = "UPDATE tblRoot SET ConfVersion=?;";
 
         /// <summary>
         /// Executes a database migration with separate SQL for MS-SQL and MySQL backends,
@@ -25,41 +26,52 @@ namespace mRemoteNG.Config.Serializers.Versioning
         {
             using DbTransaction sqlTran = connector.DbConnection().BeginTransaction(IsolationLevel.Serializable);
             DbCommand dbCommand;
-            if (connector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
+            MySqlSafeUpdatesScope? safeUpdatesScope = null;
+            try
             {
-                if (!string.IsNullOrEmpty(msSqlAlter))
+                if (connector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
                 {
-                    dbCommand = connector.DbCommand(MakeMssqlColumnAddsIdempotent(msSqlAlter));
+                    if (!string.IsNullOrEmpty(msSqlAlter))
+                    {
+                        dbCommand = connector.DbCommand(MakeMssqlColumnAddsIdempotent(msSqlAlter));
+                        dbCommand.Transaction = sqlTran;
+                        dbCommand.ExecuteNonQuery();
+                    }
+
+                    dbCommand = connector.DbCommand(MsSqlVersionUpdate);
                     dbCommand.Transaction = sqlTran;
-                    dbCommand.ExecuteNonQuery();
                 }
-
-                dbCommand = connector.DbCommand(MsSqlVersionUpdate);
-                dbCommand.Transaction = sqlTran;
-            }
-            else if (connector is MySqlDatabaseConnector)
-            {
-                if (!string.IsNullOrEmpty(mySqlAlter))
+                else if (connector is MySqlDatabaseConnector)
                 {
-                    ExecuteMySqlBatchIdempotent(connector, sqlTran, mySqlAlter);
+                    safeUpdatesScope = new MySqlSafeUpdatesScope(connector, sqlTran);
+
+                    if (!string.IsNullOrEmpty(mySqlAlter))
+                    {
+                        ExecuteMySqlBatchIdempotent(connector, sqlTran, mySqlAlter);
+                    }
+
+                    dbCommand = connector.DbCommand(MySqlVersionUpdate);
+                    dbCommand.Transaction = sqlTran;
+                }
+                else
+                {
+                    throw new NotSupportedException("Unknown database back-end");
                 }
 
-                dbCommand = connector.DbCommand(MySqlVersionUpdate);
-                dbCommand.Transaction = sqlTran;
+                DbParameter pConfVersion = dbCommand.CreateParameter();
+                pConfVersion.ParameterName = "confVersion";
+                pConfVersion.Value = toVersion.ToString();
+                pConfVersion.DbType = DbType.String;
+                pConfVersion.Direction = ParameterDirection.Input;
+                dbCommand.Parameters.Add(pConfVersion);
+
+                dbCommand.ExecuteNonQuery();
             }
-            else
+            finally
             {
-                throw new NotSupportedException("Unknown database back-end");
+                safeUpdatesScope?.Dispose();
             }
 
-            DbParameter pConfVersion = dbCommand.CreateParameter();
-            pConfVersion.ParameterName = "confVersion";
-            pConfVersion.Value = toVersion.ToString();
-            pConfVersion.DbType = DbType.String;
-            pConfVersion.Direction = ParameterDirection.Input;
-            dbCommand.Parameters.Add(pConfVersion);
-
-            dbCommand.ExecuteNonQuery();
             sqlTran.Commit();
         }
 
@@ -106,47 +118,118 @@ namespace mRemoteNG.Config.Serializers.Versioning
         {
             using DbTransaction sqlTran = connector.DbConnection().BeginTransaction(IsolationLevel.Serializable);
             DbCommand dbCommand;
-            if (connector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
+            MySqlSafeUpdatesScope? safeUpdatesScope = null;
+            try
             {
-                dbCommand = connector.DbCommand(MakeMssqlColumnAddsIdempotent(msSqlAlter));
-                dbCommand.Transaction = sqlTran;
-                dbCommand.ExecuteNonQuery();
-                dbCommand = connector.DbCommand(MsSqlVersionUpdate);
-                dbCommand.Transaction = sqlTran;
-            }
-            else if (connector is MySqlDatabaseConnector)
-            {
-                foreach (string alterSql in mySqlAlters)
+                if (connector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
                 {
-                    try
+                    dbCommand = connector.DbCommand(MakeMssqlColumnAddsIdempotent(msSqlAlter));
+                    dbCommand.Transaction = sqlTran;
+                    dbCommand.ExecuteNonQuery();
+                    dbCommand = connector.DbCommand(MsSqlVersionUpdate);
+                    dbCommand.Transaction = sqlTran;
+                }
+                else if (connector is MySqlDatabaseConnector)
+                {
+                    safeUpdatesScope = new MySqlSafeUpdatesScope(connector, sqlTran);
+
+                    foreach (string alterSql in mySqlAlters)
                     {
-                        dbCommand = connector.DbCommand(alterSql);
-                        dbCommand.Transaction = sqlTran;
-                        dbCommand.ExecuteNonQuery();
+                        try
+                        {
+                            dbCommand = connector.DbCommand(alterSql);
+                            dbCommand.Transaction = sqlTran;
+                            dbCommand.ExecuteNonQuery();
+                        }
+                        catch (Exception ex) when (ex.Message.Contains("Duplicate column", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // Column already exists -- safe to ignore
+                        }
                     }
-                    catch (Exception ex) when (ex.Message.Contains("Duplicate column", StringComparison.OrdinalIgnoreCase))
-                    {
-                        // Column already exists -- safe to ignore
-                    }
+
+                    dbCommand = connector.DbCommand(MySqlVersionUpdate);
+                    dbCommand.Transaction = sqlTran;
+                }
+                else
+                {
+                    throw new NotSupportedException("Unknown database back-end");
                 }
 
-                dbCommand = connector.DbCommand(MySqlVersionUpdate);
-                dbCommand.Transaction = sqlTran;
+                DbParameter pConfVersion = dbCommand.CreateParameter();
+                pConfVersion.ParameterName = "confVersion";
+                pConfVersion.Value = toVersion.ToString();
+                pConfVersion.DbType = DbType.String;
+                pConfVersion.Direction = ParameterDirection.Input;
+                dbCommand.Parameters.Add(pConfVersion);
+
+                dbCommand.ExecuteNonQuery();
             }
-            else
+            finally
             {
-                throw new NotSupportedException("Unknown database back-end");
+                safeUpdatesScope?.Dispose();
             }
 
-            DbParameter pConfVersion = dbCommand.CreateParameter();
-            pConfVersion.ParameterName = "confVersion";
-            pConfVersion.Value = toVersion.ToString();
-            pConfVersion.DbType = DbType.String;
-            pConfVersion.Direction = ParameterDirection.Input;
-            dbCommand.Parameters.Add(pConfVersion);
-
-            dbCommand.ExecuteNonQuery();
             sqlTran.Commit();
+        }
+
+        /// <summary>
+        /// Turns MySQL/MariaDB "safe updates" mode off for the duration of a migration and puts it
+        /// back to whatever the session had before, instead of unconditionally forcing it back on.
+        ///
+        /// The migrations issue keyless UPDATEs (e.g. "UPDATE tblCons SET x = 0 WHERE x IS NULL"),
+        /// which safe-updates mode rejects, so it has to be disabled while they run. The old code
+        /// ended every MySQL migration with a hard-coded "SET SQL_SAFE_UPDATES=1". For anyone whose
+        /// server/session default is 0 that silently *enabled* the mode, and because MySql.Data pools
+        /// connections without resetting session state, the forced value outlived the migration on
+        /// that physical connection and made later keyless statements fail with error 1175. (#145)
+        /// </summary>
+        private sealed class MySqlSafeUpdatesScope : IDisposable
+        {
+            private readonly IDatabaseConnector _connector;
+            private readonly DbTransaction _transaction;
+            private readonly bool _originalValue;
+            private bool _disposed;
+
+            public MySqlSafeUpdatesScope(IDatabaseConnector connector, DbTransaction transaction)
+            {
+                _connector = connector;
+                _transaction = transaction;
+
+                using DbCommand readCommand = connector.DbCommand("SELECT @@SESSION.sql_safe_updates;");
+                readCommand.Transaction = transaction;
+                _originalValue = Convert.ToBoolean(readCommand.ExecuteScalar(), CultureInfo.InvariantCulture);
+
+                SetValue(false);
+            }
+
+            public void Dispose()
+            {
+                if (_disposed)
+                    return;
+
+                _disposed = true;
+
+                if (!_originalValue)
+                    return;
+
+                try
+                {
+                    SetValue(true);
+                }
+                catch (DbException)
+                {
+                    // Best effort: the migration itself already failed hard enough to take the
+                    // connection with it, and masking that exception would hide the real cause.
+                }
+            }
+
+            private void SetValue(bool enabled)
+            {
+                using DbCommand command = _connector.DbCommand(
+                    enabled ? "SET SESSION sql_safe_updates=1;" : "SET SESSION sql_safe_updates=0;");
+                command.Transaction = _transaction;
+                command.ExecuteNonQuery();
+            }
         }
 
         /// <summary>

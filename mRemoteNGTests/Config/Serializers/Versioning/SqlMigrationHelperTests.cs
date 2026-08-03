@@ -74,9 +74,12 @@ public class SqlMigrationHelperTests
 
         // The MySQL batch is now split per statement and trimmed (no trailing ';') so each
         // ADD COLUMN can be run individually with duplicate-column idempotency (#113).
-        Assert.That(_commandTexts, Has.Count.EqualTo(2));
-        Assert.That(_commandTexts[0], Is.EqualTo("ALTER TABLE t ADD col int"));
-        Assert.That(_commandTexts[1], Does.Contain("SET SQL_SAFE_UPDATES=0;"));
+        // Safe-updates mode is read, disabled, and restored around the whole batch (#145).
+        Assert.That(_commandTexts, Has.Count.EqualTo(4));
+        Assert.That(_commandTexts[0], Does.Contain("SELECT @@SESSION.sql_safe_updates;"));
+        Assert.That(_commandTexts[1], Does.Contain("SET SESSION sql_safe_updates=0;"));
+        Assert.That(_commandTexts[2], Is.EqualTo("ALTER TABLE t ADD col int"));
+        Assert.That(_commandTexts[3], Does.Contain("UPDATE tblRoot SET ConfVersion=?;"));
         _transaction.Received(1).Commit();
     }
 
@@ -88,18 +91,17 @@ public class SqlMigrationHelperTests
         SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null,
             "ALTER TABLE t ADD COLUMN a int;\nALTER TABLE t ADD COLUMN b int;");
 
-        // 2 split ALTERs (trimmed) + 1 version update.
-        Assert.That(_commandTexts, Has.Count.EqualTo(3));
-        Assert.That(_commandTexts[0], Is.EqualTo("ALTER TABLE t ADD COLUMN a int"));
-        Assert.That(_commandTexts[1], Is.EqualTo("ALTER TABLE t ADD COLUMN b int"));
-        Assert.That(_commandTexts[2], Does.Contain("SET SQL_SAFE_UPDATES=0;"));
+        // safe-updates read + disable, 2 split ALTERs (trimmed), 1 version update.
+        Assert.That(_commandTexts, Has.Count.EqualTo(5));
+        Assert.That(_commandTexts[2], Is.EqualTo("ALTER TABLE t ADD COLUMN a int"));
+        Assert.That(_commandTexts[3], Is.EqualTo("ALTER TABLE t ADD COLUMN b int"));
+        Assert.That(_commandTexts[4], Does.Contain("UPDATE tblRoot SET ConfVersion=?;"));
         _transaction.Received(1).Commit();
     }
 
     [Test]
     public void ExecuteMigration_MySql_CatchesDuplicateColumnError()
     {
-        int callCount = 0;
         DbCommand CreateCommandWithDuplicateError(string sql)
         {
             _commandTexts.Add(sql);
@@ -107,8 +109,7 @@ public class SqlMigrationHelperTests
             cmd.Parameters.Returns(Substitute.For<DbParameterCollection>());
             cmd.CreateParameter().Returns(Substitute.For<DbParameter>());
 
-            callCount++;
-            if (callCount == 1)
+            if (sql.Contains("COLUMN a"))
             {
                 // First ADD COLUMN duplicates a column already added by the schema
                 // forward-port — must be caught, not abort the upgrade (#113).
@@ -139,8 +140,10 @@ public class SqlMigrationHelperTests
 
         SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null, null);
 
-        Assert.That(_commandTexts, Has.Count.EqualTo(1));
-        Assert.That(_commandTexts[0], Does.Contain("SET SQL_SAFE_UPDATES=0;"));
+        Assert.That(_commandTexts, Has.Count.EqualTo(3));
+        Assert.That(_commandTexts[0], Does.Contain("SELECT @@SESSION.sql_safe_updates;"));
+        Assert.That(_commandTexts[1], Does.Contain("SET SESSION sql_safe_updates=0;"));
+        Assert.That(_commandTexts[2], Does.Contain("UPDATE tblRoot SET ConfVersion=?;"));
         _transaction.Received(1).Commit();
     }
 
@@ -151,8 +154,72 @@ public class SqlMigrationHelperTests
 
         SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null, "");
 
-        Assert.That(_commandTexts, Has.Count.EqualTo(1));
+        Assert.That(_commandTexts, Has.Count.EqualTo(3));
         _transaction.Received(1).Commit();
+    }
+
+    [Test]
+    public void ExecuteMigration_MySql_RestoresSafeUpdatesWhenItWasEnabled()
+    {
+        var connector = new TestMysqlConnector(_connection, CreateCommandReadingSafeUpdates(1));
+
+        SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null, "ALTER TABLE t ADD col int;");
+
+        Assert.That(_commandTexts[1], Does.Contain("SET SESSION sql_safe_updates=0;"));
+        Assert.That(_commandTexts[^1], Does.Contain("SET SESSION sql_safe_updates=1;"));
+    }
+
+    [Test]
+    public void ExecuteMigration_MySql_DoesNotEnableSafeUpdatesWhenItWasDisabled()
+    {
+        var connector = new TestMysqlConnector(_connection, CreateCommandReadingSafeUpdates(0));
+
+        SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null, "ALTER TABLE t ADD col int;");
+
+        // The session had safe-updates off; the migration must leave it off. Forcing it back
+        // on poisoned the pooled connection and broke later keyless statements (#145).
+        Assert.That(_commandTexts, Has.None.Contains("sql_safe_updates=1"));
+    }
+
+    [Test]
+    public void ExecuteMigration_MySql_RestoresSafeUpdatesWhenMigrationThrows()
+    {
+        DbCommand CreateFailingCommand(string sql)
+        {
+            _commandTexts.Add(sql);
+            var cmd = Substitute.For<DbCommand>();
+            cmd.Parameters.Returns(Substitute.For<DbParameterCollection>());
+            cmd.CreateParameter().Returns(Substitute.For<DbParameter>());
+            cmd.ExecuteScalar().Returns(1L);
+
+            if (sql.Contains("ADD col"))
+                cmd.When(c => c.ExecuteNonQuery()).Do(_ => throw new InvalidOperationException("boom"));
+            else
+                cmd.ExecuteNonQuery().Returns(1);
+
+            return cmd;
+        }
+
+        var connector = new TestMysqlConnector(_connection, CreateFailingCommand);
+
+        Assert.Throws<InvalidOperationException>(() =>
+            SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null, "ALTER TABLE t ADD col int;"));
+
+        Assert.That(_commandTexts[^1], Does.Contain("SET SESSION sql_safe_updates=1;"));
+    }
+
+    private Func<string, DbCommand> CreateCommandReadingSafeUpdates(long originalValue)
+    {
+        return sql =>
+        {
+            _commandTexts.Add(sql);
+            var cmd = Substitute.For<DbCommand>();
+            cmd.Parameters.Returns(Substitute.For<DbParameterCollection>());
+            cmd.CreateParameter().Returns(Substitute.For<DbParameter>());
+            cmd.ExecuteNonQuery().Returns(1);
+            cmd.ExecuteScalar().Returns(originalValue);
+            return cmd;
+        };
     }
 
     #endregion
@@ -229,18 +296,17 @@ public class SqlMigrationHelperTests
             "IF NOT EXISTS ...",
             ["ALTER TABLE t ADD COLUMN col1 int", "ALTER TABLE t ADD COLUMN col2 int"]);
 
-        // 2 individual ALTERs + 1 version update = 3 commands
-        Assert.That(_commandTexts, Has.Count.EqualTo(3));
-        Assert.That(_commandTexts[0], Does.Contain("col1"));
-        Assert.That(_commandTexts[1], Does.Contain("col2"));
-        Assert.That(_commandTexts[2], Does.Contain("SET SQL_SAFE_UPDATES=0;"));
+        // safe-updates read + disable, 2 individual ALTERs, 1 version update = 5 commands
+        Assert.That(_commandTexts, Has.Count.EqualTo(5));
+        Assert.That(_commandTexts[2], Does.Contain("col1"));
+        Assert.That(_commandTexts[3], Does.Contain("col2"));
+        Assert.That(_commandTexts[4], Does.Contain("UPDATE tblRoot SET ConfVersion=?;"));
         _transaction.Received(1).Commit();
     }
 
     [Test]
     public void ExecuteMigrationIdempotent_MySql_CatchesDuplicateColumnError()
     {
-        int callCount = 0;
         DbCommand CreateCommandWithDuplicateError(string sql)
         {
             _commandTexts.Add(sql);
@@ -248,8 +314,7 @@ public class SqlMigrationHelperTests
             cmd.Parameters.Returns(Substitute.For<DbParameterCollection>());
             cmd.CreateParameter().Returns(Substitute.For<DbParameter>());
 
-            callCount++;
-            if (callCount == 1)
+            if (sql.Contains("col1"))
             {
                 // First ALTER throws "Duplicate column" — should be caught
                 cmd.When(c => c.ExecuteNonQuery()).Do(_ =>
