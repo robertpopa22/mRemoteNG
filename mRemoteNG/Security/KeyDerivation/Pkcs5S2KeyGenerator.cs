@@ -29,8 +29,7 @@ namespace mRemoteNG.Security.KeyDerivation
                 // Use .NET native PBKDF2-HMAC-SHA1 (CNG-accelerated) instead of
                 // BouncyCastle's managed Pkcs5S2ParametersGenerator.
                 // Output is identical (RFC 2898) but ~5x faster at high iteration counts.
-                using Rfc2898DeriveBytes kdf = new(passwordInBytes, salt, _iterations, HashAlgorithmName.SHA1);
-                return kdf.GetBytes(keyLengthBytes);
+                return Rfc2898DeriveBytes.Pbkdf2(passwordInBytes, salt, _iterations, HashAlgorithmName.SHA1, keyLengthBytes);
             }
             finally
             {

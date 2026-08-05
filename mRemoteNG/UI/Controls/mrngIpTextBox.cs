@@ -47,6 +47,7 @@ namespace mRemoteNG.UI.Controls
         }
 
         /* Set or Get the string that represents the value in the box */
+        [System.Diagnostics.CodeAnalysis.AllowNull]
         public override string Text
         {
             get => (Octet1.Text ?? string.Empty) + @"." + (Octet2.Text ?? string.Empty) + @"." + (Octet3.Text ?? string.Empty) + @"." + (Octet4.Text ?? string.Empty);
