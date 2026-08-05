@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Linq;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Json;
 using mRemoteNG.Connection;
