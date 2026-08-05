@@ -250,7 +250,6 @@
     <PackageReference Include="System.Management" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" />
     <PackageReference Include="VncSharpCore" />
-    <PackageReference Include="ZstdSharp.Port" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Language\Language.Designer.cs">
