@@ -25,7 +25,6 @@
     <PackageReference Include="BouncyCastle.Cryptography" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="VaultSharp" />
-    <PackageReference Include="System.DirectoryServices" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="AWS\AWSConnectionForm.cs" />
