@@ -110,6 +110,71 @@ namespace mRemoteNGTests.UI.Tabs
         });
 
         [Test]
+        public void CancellingATabClose_LeavesTheActiveTabUnchanged() => RunWithMessagePump(() =>
+        {
+            // Arrange
+            using var hostForm = new Form
+            {
+                Width = 800,
+                Height = 600,
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.Manual,
+                Location = new System.Drawing.Point(-10000, -10000)
+            };
+
+            var dockPanel = new DockPanel
+            {
+                Dock = DockStyle.Fill,
+                DocumentStyle = DocumentStyle.DockingWindow,
+                Theme = new VS2015LightTheme()
+            };
+
+            dockPanel.Theme.Extender.DockPaneStripFactory = new MremoteDockPaneStripFactory();
+
+            hostForm.Controls.Add(dockPanel);
+            hostForm.Show();
+
+            var doc1 = new DockContent { Text = "Doc1", CloseButton = true, CloseButtonVisible = true };
+            var doc2 = new DockContent { Text = "Doc2", CloseButton = true, CloseButtonVisible = true };
+            var doc3 = new DockContent { Text = "Doc3", CloseButton = true, CloseButtonVisible = true };
+
+            doc1.Show(dockPanel, DockState.Document);
+            doc2.Show(dockPanel, DockState.Document);
+            doc3.Show(dockPanel, DockState.Document);
+
+            Application.DoEvents();
+
+            // Stands in for the user dismissing the close confirmation. No dialog is shown,
+            // so the test stays headless.
+            doc2.FormClosing += (_, e) => e.Cancel = true;
+
+            doc2.DockHandler.Activate();
+            Application.DoEvents();
+            Assert.That(doc2.DockHandler.Pane.ActiveContent, Is.SameAs(doc2), "Doc2 should start out active");
+
+            Control dockPaneStrip = FindDockPaneStripNG(dockPanel);
+            Assert.That(dockPaneStrip, Is.Not.Null, "Could not find DockPaneStripNG control");
+
+            MethodInfo middleClickMethod = dockPaneStrip.GetType().GetMethod("MiddleClickCloseTab", BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.That(middleClickMethod, Is.Not.Null, "Could not find MiddleClickCloseTab method");
+
+            // Act - close Doc2, which is not the first tab, so DockPanelSuite would otherwise
+            // select Doc1 once the close attempt returns.
+            middleClickMethod.Invoke(dockPaneStrip, new object[] { 1 });
+
+            DateTime start = DateTime.Now;
+            while ((DateTime.Now - start).TotalSeconds < 2)
+            {
+                Application.DoEvents();
+                Thread.Sleep(10);
+            }
+
+            // Assert
+            Assert.That(doc2.DockState, Is.EqualTo(DockState.Document), "Doc2 should still be open");
+            Assert.That(doc2.DockHandler.Pane.ActiveContent, Is.SameAs(doc2), "Doc2 should still be the active tab");
+        });
+
+        [Test]
         public void IsWithinUndockSuppressionZone_ReturnsTrue_WhenPointerIsJustOutsideStrip()
         {
             var tabStripBounds = new Rectangle(0, 0, 120, 24);
