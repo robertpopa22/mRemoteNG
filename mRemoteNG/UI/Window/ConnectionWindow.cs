@@ -1842,6 +1842,7 @@ namespace mRemoteNG.UI.Window
                         return;
                 }
 
+                selectedTab.disconnectOnly = true;
                 selectedTab.Close();
             }
             catch (Exception ex)
@@ -2261,7 +2262,9 @@ namespace mRemoteNG.UI.Window
                 if (closedConnectionInfo != null)
                     tabPage.TrackConnection(closedConnectionInfo);
 
-                if (keepTabOpen)
+                // A tab that is already closing must not be revived with the closed state
+                // panel - the user asked for the tab itself to go away, not to disconnect.
+                if (keepTabOpen && !tabPage.Disposing)
                 {
                     if (protocolBase.InterfaceControl != null)
                     {
