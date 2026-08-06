@@ -30,6 +30,13 @@ namespace mRemoteNG.UI.Tabs
         /// </summary>
         public bool protocolClose { get; set; }
 
+        /// <summary>
+        /// Disconnect-only close (tab context menu "Disconnect"). The tab is kept open
+        /// showing the reconnect panel when KeepTabsOpenAfterDisconnect is enabled.
+        /// Closing the tab itself always removes the tab, regardless of that option.
+        /// </summary>
+        public bool disconnectOnly { get; set; }
+
         public ConnectionInfo? TrackedConnectionInfo { get; private set; }
 
         private Label? _closedStateLabel;
@@ -227,16 +234,14 @@ namespace mRemoteNG.UI.Tabs
                         else
                         {
                             CloseProtocolSafe();
-                            // Protocol close handler (HandleProtocolClosed) will show closed state.
-                            // Cancel form close so the tab stays open with Connect button (#61).
-                            if (Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect)
+                            if (KeepTabOpenAfterDisconnect)
                                 e.Cancel = true;
                         }
                     }
                     else
                     {
                         CloseProtocolSafe();
-                        if (Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect)
+                        if (KeepTabOpenAfterDisconnect)
                             e.Cancel = true;
                     }
                 }
@@ -249,6 +254,14 @@ namespace mRemoteNG.UI.Tabs
 
             base.OnFormClosing(e);
         }
+
+        /// <summary>
+        /// The protocol close handler (HandleProtocolClosed) shows the closed state with a
+        /// Connect button (#61), so the form close is cancelled to keep the tab alive. This
+        /// only applies to a disconnect request - closing the tab must close the tab.
+        /// </summary>
+        private bool KeepTabOpenAfterDisconnect =>
+            disconnectOnly && Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect;
 
         private void CloseProtocolSafe()
         {
