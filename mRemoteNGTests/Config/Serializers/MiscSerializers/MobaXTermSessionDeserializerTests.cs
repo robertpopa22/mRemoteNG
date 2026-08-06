@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using mRemoteNG.Config.Serializers.MiscSerializers;
 using mRemoteNG.Connection;
@@ -40,7 +41,7 @@ public class MobaXTermSessionDeserializerTests
     public void DeserializesRdpSession()
     {
         var servers = _connectionTreeModel.RootNodes.First().Children.OfType<ContainerInfo>().First();
-        var rdp = servers.Children.OfType<ConnectionInfo>().First(c => c.Name == "RDP Server");
+        var rdp = servers.Children.OfType<ConnectionInfo>().First(c => string.Equals(c.Name, "RDP Server", StringComparison.Ordinal));
         Assert.That(rdp.Hostname, Is.EqualTo("rdphost.example.com"));
         Assert.That(rdp.Port, Is.EqualTo(3389));
         Assert.That(rdp.Username, Is.EqualTo("admin"));
@@ -51,7 +52,7 @@ public class MobaXTermSessionDeserializerTests
     public void DeserializesSshSession()
     {
         var servers = _connectionTreeModel.RootNodes.First().Children.OfType<ContainerInfo>().First();
-        var ssh = servers.Children.OfType<ConnectionInfo>().First(c => c.Name == "SSH Server");
+        var ssh = servers.Children.OfType<ConnectionInfo>().First(c => string.Equals(c.Name, "SSH Server", StringComparison.Ordinal));
         Assert.That(ssh.Hostname, Is.EqualTo("sshhost.example.com"));
         Assert.That(ssh.Port, Is.EqualTo(22));
         Assert.That(ssh.Username, Is.EqualTo("root"));
@@ -62,7 +63,7 @@ public class MobaXTermSessionDeserializerTests
     public void DeserializesVncSession()
     {
         var servers = _connectionTreeModel.RootNodes.First().Children.OfType<ContainerInfo>().First();
-        var vnc = servers.Children.OfType<ConnectionInfo>().First(c => c.Name == "VNC Server");
+        var vnc = servers.Children.OfType<ConnectionInfo>().First(c => string.Equals(c.Name, "VNC Server", StringComparison.Ordinal));
         Assert.That(vnc.Hostname, Is.EqualTo("vnchost.example.com"));
         Assert.That(vnc.Port, Is.EqualTo(5900));
         Assert.That(vnc.Protocol, Is.EqualTo(ProtocolType.VNC));
@@ -72,7 +73,7 @@ public class MobaXTermSessionDeserializerTests
     public void DeserializesTelnetSession()
     {
         var network = _connectionTreeModel.RootNodes.First().Children.OfType<ContainerInfo>().Last();
-        var telnet = network.Children.OfType<ConnectionInfo>().First(c => c.Name == "Telnet Switch");
+        var telnet = network.Children.OfType<ConnectionInfo>().First(c => string.Equals(c.Name, "Telnet Switch", StringComparison.Ordinal));
         Assert.That(telnet.Hostname, Is.EqualTo("switch.example.com"));
         Assert.That(telnet.Port, Is.EqualTo(23));
         Assert.That(telnet.Username, Is.EqualTo("netadmin"));
@@ -83,7 +84,7 @@ public class MobaXTermSessionDeserializerTests
     public void HandlesUnknownProtocolDefaultsToRdp()
     {
         var network = _connectionTreeModel.RootNodes.First().Children.OfType<ContainerInfo>().Last();
-        var unknown = network.Children.OfType<ConnectionInfo>().First(c => c.Name == "Unknown Proto");
+        var unknown = network.Children.OfType<ConnectionInfo>().First(c => string.Equals(c.Name, "Unknown Proto", StringComparison.Ordinal));
         Assert.That(unknown.Protocol, Is.EqualTo(ProtocolType.RDP));
     }
 
@@ -101,7 +102,7 @@ public class MobaXTermSessionDeserializerTests
         const string content = "[Bookmarks]\nSubRep=\nImgNum=42\nMyServer=#91#host.test%3389%user%%%0%0%0\n";
         var result = new MobaXTermSessionDeserializer().Deserialize(content);
         var root = result.RootNodes.First();
-        var conn = root.Children.OfType<ConnectionInfo>().FirstOrDefault(c => c.Name == "MyServer");
+        var conn = root.Children.OfType<ConnectionInfo>().FirstOrDefault(c => string.Equals(c.Name, "MyServer", StringComparison.Ordinal));
         Assert.That(conn, Is.Not.Null);
         Assert.That(conn.Hostname, Is.EqualTo("host.test"));
     }

@@ -90,9 +90,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     innerTextLength = rootXmlElement.InnerText?.Length ?? 0;
                     if (fullFileEncryptionValue)
                     {
-                        string decryptedContent = _decryptor.Decrypt(rootXmlElement.InnerText);
+                        string? decryptedContent = _decryptor.Decrypt(rootXmlElement.InnerText ?? string.Empty);
                         decryptedLength = decryptedContent?.Length ?? 0;
-                        rootXmlElement.InnerXml = decryptedContent;
+                        rootXmlElement.InnerXml = decryptedContent ?? string.Empty;
                     }
                 }
                 long fullDecryptMs = phaseSw.ElapsedMilliseconds;

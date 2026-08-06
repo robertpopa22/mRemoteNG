@@ -261,7 +261,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             // SmartSize handles smooth scaling during intermediate resize states.
 
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
-                $"Resizing RDP connection to host '{connectionInfo.Hostname}' (SmartSize={SmartSize})");
+                $"Resizing RDP connection to host '{connectionInfo?.Hostname}' (SmartSize={SmartSize})");
 
             try
             {
