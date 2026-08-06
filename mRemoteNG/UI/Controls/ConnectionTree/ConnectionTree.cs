@@ -35,7 +35,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         private ThemeManager _themeManager;
 
         private readonly ConnectionTreeSearchTextFilter _connectionTreeSearchTextFilter = new();
-        private System.Collections.IEnumerable? _preFilterExpandedObjects;
+        private List<object>? _preFilterExpandedObjects;
+        private bool _columnAutoResizeSuspended;
 
         private bool _nodeInEditMode;
         private bool _allowEdit;
@@ -770,7 +771,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             {
                 // Update the pre-filter expanded state to include all containers
                 // so that when the filter is cleared, everything stays expanded.
-                var allContainers = new List<ContainerInfo>();
+                var allContainers = new List<object>();
                 if (ConnectionTreeModel != null)
                 {
                     foreach (ContainerInfo root in ConnectionTreeModel.RootNodes)
@@ -791,7 +792,10 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         {
             if (!UseFiltering)
             {
-                _preFilterExpandedObjects = ExpandedObjects;
+                // ExpandedObjects is a live view over the tree model's internal map, not a
+                // snapshot. Copy it, otherwise the ExpandAll() below rewrites the "pre-filter"
+                // state and RemoveFilter() ends up restoring from a collection it just cleared.
+                _preFilterExpandedObjects = ExpandedObjects.Cast<object>().ToList();
             }
 
             UseFiltering = true;
@@ -805,14 +809,38 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         /// </summary>
         public void RemoveFilter()
         {
-            UseFiltering = false;
-            ResetColumnFiltering();
-
-            if (_preFilterExpandedObjects != null)
+            // Clearing the filter takes several passes: dropping UseFiltering and the column
+            // filter each run UpdateFiltering, then the tree is rebuilt below. Batch them —
+            // hold painting for the whole method so the intermediate states never reach the
+            // screen, and collapse the per-pass column auto-resize (which measures every
+            // visible row) into the single call at the end.
+            BeginUpdate();
+            _columnAutoResizeSuspended = true;
+            try
             {
-                ExpandedObjects = _preFilterExpandedObjects;
-                _preFilterExpandedObjects = null;
+                UseFiltering = false;
+                ResetColumnFiltering();
+
+                if (_preFilterExpandedObjects != null)
+                {
+                    // Assigning ExpandedObjects only updates the tree model's expansion map; the
+                    // branch structure and the virtual list size keep the filtered layout until
+                    // the tree is rebuilt. Without the rebuild the tree renders the wrong
+                    // expand/collapse state and IndexOf() hands out row indexes that no longer
+                    // exist, which makes EnsureVisible throw. RebuildAll restores expansion and
+                    // the row list together.
+                    RebuildAll(SelectedObjects, _preFilterExpandedObjects, null);
+                    _preFilterExpandedObjects = null;
+                }
             }
+            finally
+            {
+                _columnAutoResizeSuspended = false;
+                EndUpdate();
+            }
+
+            if (Columns.Count > 0)
+                AutoResizeColumn(Columns[0]);
         }
 
         private void HandleCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -900,6 +928,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         protected override void UpdateFiltering()
         {
             base.UpdateFiltering();
+            if (_columnAutoResizeSuspended)
+                return;
             if (Columns.Count > 0)
                 AutoResizeColumn(Columns[0]);
         }
