@@ -270,7 +270,7 @@ namespace mRemoteNG.UI.Window
             //
             this.clmHostName.AspectName = "HostName";
             this.clmHostName.Text = "Hostname";
-            this.clmHostName.Width = 130;
+            this.clmHostName.Width = 260;
             //
             // clmHostIP
             //
