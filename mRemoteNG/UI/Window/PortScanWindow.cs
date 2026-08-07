@@ -268,8 +268,12 @@ namespace mRemoteNG.UI.Window
         {
             if (InvokeRequired)
             {
-                Invoke(new PortScannerHostScannedDelegate(PortScanner_HostScanned),
-                       new object[] {host, scannedCount, totalCount});
+                // BeginInvoke (async), not Invoke: results arrive from many worker threads at once, and
+                // a synchronous Invoke would block each of them on the UI pump and make the window (and
+                // the Stop button) feel frozen.
+                if (IsHandleCreated)
+                    BeginInvoke(new PortScannerHostScannedDelegate(PortScanner_HostScanned),
+                                host, scannedCount, totalCount);
                 return;
             }
 
@@ -286,7 +290,8 @@ namespace mRemoteNG.UI.Window
         {
             if (InvokeRequired)
             {
-                Invoke(new PortScannerScanComplete(PortScanner_ScanComplete), new object[] {hosts});
+                if (IsHandleCreated)
+                    BeginInvoke(new PortScannerScanComplete(PortScanner_ScanComplete), hosts);
                 return;
             }
 

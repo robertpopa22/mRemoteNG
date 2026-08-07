@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Numerics;
 using System.Runtime.Versioning;
 using System.Threading;
+using System.Threading.Tasks;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
 
@@ -18,9 +20,13 @@ namespace mRemoteNG.Tools
     {
         private readonly List<IPAddress> _ipAddresses = [];
         private readonly List<int> _ports = [];
-        private Thread? _scanThread;
         private readonly List<ScanHost> _scannedHosts = [];
         private readonly int _timeoutInMilliseconds;
+        private CancellationTokenSource? _cancellation;
+
+        // Bounds how many hosts are probed at once. Keeps the scan fast without firing thousands of
+        // concurrent pings/sockets (the old code fanned out over the whole range at once).
+        private const int MaxConcurrentHosts = 64;
 
         #region Public Methods
 
@@ -88,24 +94,18 @@ namespace mRemoteNG.Tools
 
         public void StartScan()
         {
-            _scanThread = new Thread(ScanAsync);
+            _cancellation = new CancellationTokenSource();
 
-            if(OperatingSystem.IsWindows())
-                _scanThread.SetApartmentState(ApartmentState.STA);
-
-            _scanThread.IsBackground = true;
-            _scanThread.Start();
+            // Fire and forget: the whole scan is async and internally bounded, so it no longer needs
+            // a dedicated blocking thread. Errors are handled inside ScanAllAsync.
+            _ = ScanAllAsync(_cancellation.Token);
         }
 
         public void StopScan()
         {
-            foreach (Ping p in _pings)
-            {
-                p.SendAsyncCancel();
-            }
-
-            // Obsolete: https://learn.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/5.0/thread-abort-obsolete
-            //_scanThread.Abort();
+            // Cancels the pings AND the in-flight TCP connects promptly, unlike the old code which
+            // could only cancel pings and left blocking socket connects running.
+            _cancellation?.Cancel();
         }
 
         public static bool IsPortOpen(string hostname, string port)
@@ -126,161 +126,162 @@ namespace mRemoteNG.Tools
 
         #region Private Methods
 
-        private int _hostCount;
-        private readonly List<Ping> _pings = [];
-
-        private void ScanAsync()
+        private async Task ScanAllAsync(CancellationToken token)
         {
+            int total = _ipAddresses.Count;
+            int scanned = 0;
+
             try
             {
-                _hostCount = 0;
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, $"Tools.PortScan: Starting scan of {_ipAddresses.Count} hosts...", true);
-                foreach (IPAddress ipAddress in _ipAddresses)
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"Tools.PortScan: Starting scan of {total} hosts...", true);
+
+                ParallelOptions options = new()
+                {
+                    MaxDegreeOfParallelism = Math.Max(1, Math.Min(MaxConcurrentHosts, total)),
+                    CancellationToken = token
+                };
+
+                await Parallel.ForEachAsync(_ipAddresses, options, async (ipAddress, ct) =>
                 {
                     RaiseBeginHostScanEvent(ipAddress);
 
-                    Ping pingSender = new();
-                    _pings.Add(pingSender);
+                    ScanHost scanHost = await ScanHostAsync(ipAddress, ct).ConfigureAwait(false);
 
-                    try
-                    {
-                        pingSender.PingCompleted += PingSender_PingCompleted;
-                        pingSender.SendAsync(ipAddress, _timeoutInMilliseconds, ipAddress);
-                    }
-                    catch (Exception ex)
-                    {
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, $"Tools.PortScan: Ping failed for {ipAddress} {Environment.NewLine} {ex.Message}", true);
-                    }
-                }
+                    int done = Interlocked.Increment(ref scanned);
+                    lock (_scannedHosts)
+                        _scannedHosts.Add(scanHost);
+
+                    RaiseHostScannedEvent(scanHost, done, total);
+                }).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Tools.PortScan: Scan cancelled.", true);
             }
             catch (Exception ex)
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, $"StartScanBG failed (Tools.PortScan) {Environment.NewLine} {ex.Message}", true);
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                    $"Tools.PortScan: Scan failed {Environment.NewLine} {ex.Message}", true);
+            }
+            finally
+            {
+                List<ScanHost> results;
+                lock (_scannedHosts)
+                    results = [.. _scannedHosts];
+
+                RaiseScanCompleteEvent(results);
             }
         }
 
-        /* Some examples found here:
-         * http://stackoverflow.com/questions/2114266/convert-ping-application-to-multithreaded-version-to-increase-speed-c-sharp
-         */
-        private void PingSender_PingCompleted(object sender, PingCompletedEventArgs e)
+        private async Task<ScanHost> ScanHostAsync(IPAddress ipAddress, CancellationToken token)
         {
-            // used for clean up later...
-            Ping p = (Ping)sender;
+            ScanHost scanHost = new(ipAddress.ToString());
 
-            // UserState is the IP Address
-            string ip = e.UserState?.ToString() ?? string.Empty;
-            ScanHost scanHost = new(ip);
-            _hostCount++;
-
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                $"Tools.PortScan: Scanning {_hostCount} of {_ipAddresses.Count} hosts: {scanHost.HostIp}",
-                                                true);
-
-
-            if (e.Cancelled)
+            bool reachable = false;
+            try
+            {
+                using Ping ping = new();
+                PingReply reply = await ping.SendPingAsync(ipAddress, TimeSpan.FromMilliseconds(_timeoutInMilliseconds), cancellationToken: token)
+                                            .ConfigureAwait(false);
+                reachable = reply.Status == IPStatus.Success;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    $"Tools.PortScan: CANCELLED host: {scanHost.HostIp}", true);
-                // cleanup
-                p.PingCompleted -= PingSender_PingCompleted;
-                p.Dispose();
-                return;
+                    $"Tools.PortScan: Ping failed for {scanHost.HostIp} {Environment.NewLine} {ex.Message}", true);
             }
 
-            if (e.Error != null)
+            if (!reachable)
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    $"Ping failed to {e.UserState} {Environment.NewLine} {e.Error.Message}",
-                                                    true);
                 scanHost.ClosedPorts.AddRange(_ports);
                 scanHost.SetAllProtocols(false);
+                scanHost.HostName = scanHost.HostIp;
+                return scanHost;
             }
-            else if (e.Reply?.Status == IPStatus.Success)
+
+            // Reachable: resolve the hostname (best-effort) then probe every port concurrently.
+            try
             {
-                /* ping was successful, try to resolve the hostname */
-                try
-                {
-                    scanHost.HostName = Dns.GetHostEntry(scanHost.HostIp).HostName;
-                }
-                catch (Exception dnsex)
-                {
-                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                        $"Tools.PortScan: Could not resolve {scanHost.HostIp} {Environment.NewLine} {dnsex.Message}",
-                                                        true);
-                }
-
-                if (string.IsNullOrEmpty(scanHost.HostName))
-                {
-                    scanHost.HostName = scanHost.HostIp;
-                }
-
-                foreach (int port in _ports)
-                {
-                    bool isPortOpen;
-                    try
-                    {
-                        TcpClient tcpClient = new(ip, port);
-                        isPortOpen = true;
-                        scanHost.OpenPorts.Add(port);
-                        tcpClient.Close();
-                    }
-                    catch (Exception)
-                    {
-                        isPortOpen = false;
-                        scanHost.ClosedPorts.Add(port);
-                    }
-
-                    if (port == ScanHost.SshPort)
-                    {
-                        scanHost.Ssh = isPortOpen;
-                    }
-                    else if (port == ScanHost.TelnetPort)
-                    {
-                        scanHost.Telnet = isPortOpen;
-                    }
-                    else if (port == ScanHost.HttpPort)
-                    {
-                        scanHost.Http = isPortOpen;
-                    }
-                    else if (port == ScanHost.HttpsPort)
-                    {
-                        scanHost.Https = isPortOpen;
-                    }
-                    else if (port == ScanHost.RloginPort)
-                    {
-                        scanHost.Rlogin = isPortOpen;
-                    }
-                    else if (port == ScanHost.RdpPort)
-                    {
-                        scanHost.Rdp = isPortOpen;
-                    }
-                    else if (port == ScanHost.VncPort)
-                    {
-                        scanHost.Vnc = isPortOpen;
-                    }
-                }
+                IPHostEntry entry = await Dns.GetHostEntryAsync(scanHost.HostIp, token).ConfigureAwait(false);
+                scanHost.HostName = entry.HostName;
             }
-            else if (e.Reply?.Status != IPStatus.Success)
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception dnsex)
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    $"Ping did not complete to {e.UserState} : {e.Reply?.Status}", true);
-                scanHost.ClosedPorts.AddRange(_ports);
-                scanHost.SetAllProtocols(false);
+                    $"Tools.PortScan: Could not resolve {scanHost.HostIp} {Environment.NewLine} {dnsex.Message}", true);
             }
 
-            // cleanup
-            p.PingCompleted -= PingSender_PingCompleted;
-            p.Dispose();
+            if (string.IsNullOrEmpty(scanHost.HostName))
+                scanHost.HostName = scanHost.HostIp;
 
-            string h = string.IsNullOrEmpty(scanHost.HostName) ? "HostNameNotFound" : scanHost.HostName;
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                $"Tools.PortScan: Scan of {scanHost.HostIp} ({h}) complete.", true);
+            bool[] portResults = await Task.WhenAll(
+                _ports.Select(port => IsPortOpenAsync(ipAddress, port, token))).ConfigureAwait(false);
 
-            _scannedHosts.Add(scanHost);
-            RaiseHostScannedEvent(scanHost, _hostCount, _ipAddresses.Count);
+            for (int i = 0; i < _ports.Count; i++)
+            {
+                int port = _ports[i];
+                bool isOpen = portResults[i];
 
-            if (_scannedHosts.Count == _ipAddresses.Count)
-                RaiseScanCompleteEvent(_scannedHosts);
+                if (isOpen)
+                    scanHost.OpenPorts.Add(port);
+                else
+                    scanHost.ClosedPorts.Add(port);
+
+                AssignProtocol(scanHost, port, isOpen);
+            }
+
+            return scanHost;
+        }
+
+        private async Task<bool> IsPortOpenAsync(IPAddress ipAddress, int port, CancellationToken token)
+        {
+            try
+            {
+                using TcpClient tcpClient = new(ipAddress.AddressFamily);
+                using CancellationTokenSource timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(token);
+                // Honour the user's timeout for the TCP connect too (the old blocking constructor used
+                // the OS default of ~21s), and let StopScan cancel it immediately.
+                timeoutCts.CancelAfter(_timeoutInMilliseconds);
+
+                await tcpClient.ConnectAsync(ipAddress, port, timeoutCts.Token).ConfigureAwait(false);
+                return tcpClient.Connected;
+            }
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
+            {
+                throw new OperationCanceledException(token);
+            }
+            catch (Exception)
+            {
+                // Connection refused / timed out / unreachable — port is not open.
+                return false;
+            }
+        }
+
+        private static void AssignProtocol(ScanHost scanHost, int port, bool isOpen)
+        {
+            if (port == ScanHost.SshPort)
+                scanHost.Ssh = isOpen;
+            else if (port == ScanHost.TelnetPort)
+                scanHost.Telnet = isOpen;
+            else if (port == ScanHost.HttpPort)
+                scanHost.Http = isOpen;
+            else if (port == ScanHost.HttpsPort)
+                scanHost.Https = isOpen;
+            else if (port == ScanHost.RloginPort)
+                scanHost.Rlogin = isOpen;
+            else if (port == ScanHost.RdpPort)
+                scanHost.Rdp = isOpen;
+            else if (port == ScanHost.VncPort)
+                scanHost.Vnc = isOpen;
         }
 
         // Cap the range so an inverted/huge range (in particular an IPv6 range, which can span an
