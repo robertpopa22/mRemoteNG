@@ -8,9 +8,7 @@ namespace mRemoteNG.UI.Window
 	{
         #region  Windows Form Designer generated code
 				
-		internal Controls.MrngLabel lblEndIP;
 		internal Controls.MrngLabel lblStartIP;
-		internal MrngIpTextBox ipEnd;
 		internal Controls.MrngListView olvHosts;
 		internal BrightIdeasSoftware.OLVColumn clmHostName;
 		internal BrightIdeasSoftware.OLVColumn clmHostIP;
@@ -26,19 +24,15 @@ namespace mRemoteNG.UI.Window
 		internal Controls.MrngProgressBar prgBar;
 		internal Controls.MrngLabel lblOnlyImport;
 		internal MrngComboBox cbProtocol;
-		internal Controls.MrngNumericUpDown portEnd;
-		internal Controls.MrngNumericUpDown portStart;
 		internal MrngButton btnImport;
-		internal MrngIpTextBox ipStart;
+		internal MrngIpTextBox txtIpRange;
 				
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortScanWindow));
-            this.ipStart = new mRemoteNG.UI.Controls.MrngIpTextBox();
-            this.ipEnd = new mRemoteNG.UI.Controls.MrngIpTextBox();
+            this.txtIpRange = new mRemoteNG.UI.Controls.MrngIpTextBox();
             this.lblStartIP = new mRemoteNG.UI.Controls.MrngLabel();
-            this.lblEndIP = new mRemoteNG.UI.Controls.MrngLabel();
             this.olvHosts = new mRemoteNG.UI.Controls.MrngListView();
             this.resultsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.importHTTPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,64 +59,44 @@ namespace mRemoteNG.UI.Window
             this.prgBar = new mRemoteNG.UI.Controls.MrngProgressBar();
             this.numericSelectorTimeout = new mRemoteNG.UI.Controls.MrngNumericUpDown();
             this.lblTimeout = new System.Windows.Forms.Label();
-            this.portEnd = new mRemoteNG.UI.Controls.MrngNumericUpDown();
-            this.portStart = new mRemoteNG.UI.Controls.MrngNumericUpDown();
             this.pnlIp = new System.Windows.Forms.TableLayoutPanel();
             this.btnScan = new MrngButton();
-            this.chkPortRange = new MrngCheckBox();
-            this.pnlIpRange = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlTimeout = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlCustomPorts = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnCommonPorts = new MrngButton();
             this.lblParallelScans = new mRemoteNG.UI.Controls.MrngLabel();
             this.numericParallelScans = new mRemoteNG.UI.Controls.MrngNumericUpDown();
-            this.pnlPortRange = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblStartPort = new mRemoteNG.UI.Controls.MrngLabel();
-            this.lblToEndPort = new mRemoteNG.UI.Controls.MrngLabel();
+            this.pnlPortMode = new System.Windows.Forms.FlowLayoutPanel();
+            this.rdoCommonPorts = new MrngRadioButton();
+            this.rdoAllPorts = new MrngRadioButton();
+            this.rdoCustomPorts = new MrngRadioButton();
             this.pnlImport = new System.Windows.Forms.TableLayoutPanel();
             this.pnlMain = new System.Windows.Forms.TableLayoutPanel();
-            this.lblCustomPorts = new mRemoteNG.UI.Controls.MrngLabel();
+            this.lblPorts = new mRemoteNG.UI.Controls.MrngLabel();
             this.txtCustomPorts = new mRemoteNG.UI.Controls.MrngTextBox();
             this.portScanToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.olvHosts)).BeginInit();
             this.resultsMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSelectorTimeout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericParallelScans)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.portEnd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.portStart)).BeginInit();
             this.pnlIp.SuspendLayout();
-            this.pnlIpRange.SuspendLayout();
             this.pnlTimeout.SuspendLayout();
-            this.pnlCustomPorts.SuspendLayout();
-            this.pnlPortRange.SuspendLayout();
+            this.pnlPortMode.SuspendLayout();
             this.pnlImport.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ipStart
-            // 
-            this.ipStart.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ipStart.Location = new System.Drawing.Point(0, 3);
-            this.ipStart.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.ipStart.Name = "ipStart";
-            // Wide enough for a full-length IPv6 address (39 chars, e.g.
-            // ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff).
-            this.ipStart.Size = new System.Drawing.Size(265, 22);
-            this.ipStart.TabIndex = 1;
-            this.ipStart.ToolTipText = "";
-            // 
-            // ipEnd
-            // 
-            this.ipEnd.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ipEnd.Location = new System.Drawing.Point(0, 3);
-            this.ipEnd.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.ipEnd.Name = "ipEnd";
-            this.ipEnd.Size = new System.Drawing.Size(265, 22);
-            this.ipEnd.TabIndex = 2;
-            this.ipEnd.ToolTipText = "";
-            // 
+            // txtIpRange
+            //
+            this.txtIpRange.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtIpRange.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIpRange.Margin = new System.Windows.Forms.Padding(0);
+            this.txtIpRange.Name = "txtIpRange";
+            // Wide enough for a range of two full-length IPv6 addresses (39 chars each).
+            this.txtIpRange.Size = new System.Drawing.Size(460, 22);
+            this.txtIpRange.TabIndex = 1;
+            this.txtIpRange.ToolTipText = "";
+            //
             // lblStartIP
-            // 
+            //
             this.lblStartIP.AutoSize = true;
             this.lblStartIP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStartIP.Location = new System.Drawing.Point(3, 0);
@@ -131,16 +105,7 @@ namespace mRemoteNG.UI.Window
             this.lblStartIP.TabIndex = 0;
             this.lblStartIP.Text = "IP Range";
             this.lblStartIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblEndIP
-            // 
-            this.lblEndIP.AutoSize = true;
-            this.lblEndIP.Margin = new System.Windows.Forms.Padding(6, 5, 6, 0);
-            this.lblEndIP.Name = "lblEndIP";
-            this.lblEndIP.TabIndex = 5;
-            this.lblEndIP.Text = "-";
-            this.lblEndIP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+            //
             // olvHosts
             // 
             this.olvHosts.CellEditUseWholeCell = false;
@@ -230,7 +195,7 @@ namespace mRemoteNG.UI.Window
             this.btnImport.Location = new System.Drawing.Point(765, 27);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(110, 24);
-            this.btnImport.TabIndex = 8;
+            this.btnImport.TabIndex = 10;
             this.btnImport.Text = "&Import";
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
@@ -253,7 +218,7 @@ namespace mRemoteNG.UI.Window
             this.cbProtocol.Location = new System.Drawing.Point(3, 27);
             this.cbProtocol.Name = "cbProtocol";
             this.cbProtocol.Size = new System.Drawing.Size(144, 21);
-            this.cbProtocol.TabIndex = 7;
+            this.cbProtocol.TabIndex = 9;
             // 
             // lblOnlyImport
             // 
@@ -354,7 +319,7 @@ namespace mRemoteNG.UI.Window
             0});
             this.numericSelectorTimeout.Name = "numericSelectorTimeout";
             this.numericSelectorTimeout.Size = new System.Drawing.Size(67, 22);
-            this.numericSelectorTimeout.TabIndex = 5;
+            this.numericSelectorTimeout.TabIndex = 6;
             this.numericSelectorTimeout.Value = new decimal(new int[] {
             5,
             0,
@@ -372,46 +337,8 @@ namespace mRemoteNG.UI.Window
             this.lblTimeout.Text = "Timeout [seconds]";
             this.lblTimeout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // portEnd
-            // 
-            this.portEnd.Enabled = false;
-            this.portEnd.Location = new System.Drawing.Point(133, 75);
-            this.portEnd.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.portEnd.Name = "portEnd";
-            this.portEnd.Size = new System.Drawing.Size(67, 22);
-            this.portEnd.TabIndex = 4;
-            this.portEnd.Value = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.portEnd.Enter += new System.EventHandler(this.portEnd_Enter);
-            // 
-            // portStart
-            // 
-            this.portStart.Enabled = false;
-            this.portStart.Location = new System.Drawing.Point(133, 51);
-            this.portStart.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.portStart.Name = "portStart";
-            this.portStart.Size = new System.Drawing.Size(67, 22);
-            this.portStart.TabIndex = 3;
-            this.portStart.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.portStart.Enter += new System.EventHandler(this.portStart_Enter);
-            // 
             // pnlIp
-            // 
+            //
             this.pnlIp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlIp.ColumnCount = 3;
@@ -419,14 +346,13 @@ namespace mRemoteNG.UI.Window
             this.pnlIp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.pnlIp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.pnlIp.Controls.Add(this.lblStartIP, 0, 0);
-            this.pnlIp.Controls.Add(this.pnlIpRange, 1, 0);
-            this.pnlIp.SetColumnSpan(this.pnlIpRange, 2);
-            this.pnlIp.Controls.Add(this.chkPortRange, 0, 1);
-            this.pnlIp.Controls.Add(this.pnlPortRange, 1, 1);
-            this.pnlIp.SetColumnSpan(this.pnlPortRange, 2);
-            this.pnlIp.Controls.Add(this.lblCustomPorts, 0, 2);
-            this.pnlIp.Controls.Add(this.pnlCustomPorts, 1, 2);
-            this.pnlIp.SetColumnSpan(this.pnlCustomPorts, 2);
+            this.pnlIp.Controls.Add(this.txtIpRange, 1, 0);
+            this.pnlIp.SetColumnSpan(this.txtIpRange, 2);
+            this.pnlIp.Controls.Add(this.lblPorts, 0, 1);
+            this.pnlIp.Controls.Add(this.pnlPortMode, 1, 1);
+            this.pnlIp.SetColumnSpan(this.pnlPortMode, 2);
+            this.pnlIp.Controls.Add(this.txtCustomPorts, 1, 2);
+            this.pnlIp.SetColumnSpan(this.txtCustomPorts, 2);
             this.pnlIp.Controls.Add(this.lblTimeout, 0, 3);
             this.pnlIp.Controls.Add(this.pnlTimeout, 1, 3);
             this.pnlIp.SetColumnSpan(this.pnlTimeout, 2);
@@ -449,41 +375,21 @@ namespace mRemoteNG.UI.Window
             this.btnScan.Margin = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(110, 24);
-            this.btnScan.TabIndex = 6;
+            this.btnScan.TabIndex = 8;
             this.btnScan.Text = "&Scan";
             this.btnScan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnScan.UseVisualStyleBackColor = true;
             this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
-            // chkPortRange
+            // lblPorts
             //
-            this.chkPortRange._mice = MrngCheckBox.MouseState.OUT;
-            this.chkPortRange.AutoSize = true;
-            this.chkPortRange.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.chkPortRange.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPortRange.Location = new System.Drawing.Point(3, 51);
-            this.chkPortRange.Name = "chkPortRange";
-            this.chkPortRange.Size = new System.Drawing.Size(84, 17);
-            this.chkPortRange.TabIndex = 17;
-            this.chkPortRange.Text = "Port Range";
-            this.chkPortRange.UseVisualStyleBackColor = true;
-            this.chkPortRange.CheckedChanged += new System.EventHandler(this.ChkPortRange_CheckedChanged);
-            //
-            // pnlIpRange
-            //
-            this.pnlIpRange.AutoSize = true;
-            this.pnlIpRange.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlIpRange.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pnlIpRange.Controls.Add(this.ipStart);
-            this.pnlIpRange.Controls.Add(this.lblEndIP);
-            this.pnlIpRange.Controls.Add(this.ipEnd);
-            this.pnlIpRange.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
-            this.pnlIpRange.Location = new System.Drawing.Point(133, 0);
-            this.pnlIpRange.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlIpRange.Name = "pnlIpRange";
-            this.pnlIpRange.Size = new System.Drawing.Size(536, 26);
-            this.pnlIpRange.TabIndex = 1;
-            this.pnlIpRange.WrapContents = false;
+            this.lblPorts.AutoSize = true;
+            this.lblPorts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPorts.Name = "lblPorts";
+            this.lblPorts.Size = new System.Drawing.Size(124, 28);
+            this.lblPorts.TabIndex = 17;
+            this.lblPorts.Text = "Ports";
+            this.lblPorts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             //
             // pnlTimeout
             //
@@ -502,75 +408,65 @@ namespace mRemoteNG.UI.Window
             this.pnlTimeout.TabIndex = 5;
             this.pnlTimeout.WrapContents = false;
             //
-            // pnlPortRange
+            // pnlPortMode
             //
-            this.pnlPortRange.AutoSize = true;
-            this.pnlPortRange.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlPortRange.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pnlPortRange.Controls.Add(this.lblStartPort);
-            this.pnlPortRange.Controls.Add(this.portStart);
-            this.pnlPortRange.Controls.Add(this.lblToEndPort);
-            this.pnlPortRange.Controls.Add(this.portEnd);
-            this.pnlPortRange.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
-            this.pnlPortRange.Location = new System.Drawing.Point(133, 48);
-            this.pnlPortRange.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlPortRange.Name = "pnlPortRange";
-            this.pnlPortRange.Size = new System.Drawing.Size(340, 24);
-            this.pnlPortRange.TabIndex = 18;
-            this.pnlPortRange.WrapContents = false;
+            this.pnlPortMode.AutoSize = true;
+            this.pnlPortMode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlPortMode.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pnlPortMode.Controls.Add(this.rdoCommonPorts);
+            this.pnlPortMode.Controls.Add(this.rdoAllPorts);
+            this.pnlPortMode.Controls.Add(this.rdoCustomPorts);
+            this.pnlPortMode.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
+            this.pnlPortMode.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlPortMode.Name = "pnlPortMode";
+            this.pnlPortMode.Size = new System.Drawing.Size(400, 22);
+            this.pnlPortMode.TabIndex = 2;
+            this.pnlPortMode.WrapContents = false;
             //
-            // lblStartPort
+            // rdoCommonPorts
             //
-            this.lblStartPort.AutoSize = true;
-            this.lblStartPort.Enabled = false;
-            this.lblStartPort.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this.lblStartPort.Name = "lblStartPort";
-            this.lblStartPort.Text = "Start Port";
-            this.lblStartPort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rdoCommonPorts.Checked = true;
+            this.rdoCommonPorts.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoCommonPorts.Margin = new System.Windows.Forms.Padding(0, 3, 12, 0);
+            this.rdoCommonPorts.Name = "rdoCommonPorts";
+            this.rdoCommonPorts.Size = new System.Drawing.Size(105, 17);
+            this.rdoCommonPorts.TabIndex = 2;
+            this.rdoCommonPorts.TabStop = true;
+            this.rdoCommonPorts.Text = "Common ports";
+            this.rdoCommonPorts.UseVisualStyleBackColor = true;
+            this.rdoCommonPorts.CheckedChanged += new System.EventHandler(this.PortMode_CheckedChanged);
             //
-            // lblToEndPort
+            // rdoAllPorts
             //
-            this.lblToEndPort.AutoSize = true;
-            this.lblToEndPort.Enabled = false;
-            this.lblToEndPort.Margin = new System.Windows.Forms.Padding(10, 6, 3, 0);
-            this.lblToEndPort.Name = "lblToEndPort";
-            this.lblToEndPort.Text = "to End Port";
-            this.lblToEndPort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rdoAllPorts.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoAllPorts.Margin = new System.Windows.Forms.Padding(0, 3, 12, 0);
+            this.rdoAllPorts.Name = "rdoAllPorts";
+            this.rdoAllPorts.Size = new System.Drawing.Size(75, 17);
+            this.rdoAllPorts.TabIndex = 3;
+            this.rdoAllPorts.Text = "All ports";
+            this.rdoAllPorts.UseVisualStyleBackColor = true;
+            this.rdoAllPorts.CheckedChanged += new System.EventHandler(this.PortMode_CheckedChanged);
             //
-            // lblCustomPorts
+            // rdoCustomPorts
             //
-            this.lblCustomPorts.AutoSize = true;
-            this.lblCustomPorts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCustomPorts.Location = new System.Drawing.Point(3, 96);
-            this.lblCustomPorts.Name = "lblCustomPorts";
-            this.lblCustomPorts.Size = new System.Drawing.Size(124, 24);
-            this.lblCustomPorts.TabIndex = 19;
-            this.lblCustomPorts.Text = "Custom ports:";
-            this.lblCustomPorts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rdoCustomPorts.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoCustomPorts.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.rdoCustomPorts.Name = "rdoCustomPorts";
+            this.rdoCustomPorts.Size = new System.Drawing.Size(70, 17);
+            this.rdoCustomPorts.TabIndex = 4;
+            this.rdoCustomPorts.Text = "Custom";
+            this.rdoCustomPorts.UseVisualStyleBackColor = true;
+            this.rdoCustomPorts.CheckedChanged += new System.EventHandler(this.PortMode_CheckedChanged);
             //
             // txtCustomPorts
             //
+            this.txtCustomPorts.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtCustomPorts.Enabled = false;
             this.txtCustomPorts.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCustomPorts.Location = new System.Drawing.Point(0, 1);
-            this.txtCustomPorts.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.txtCustomPorts.Margin = new System.Windows.Forms.Padding(0);
             this.txtCustomPorts.Name = "txtCustomPorts";
-            this.txtCustomPorts.Size = new System.Drawing.Size(265, 22);
-            this.txtCustomPorts.TabIndex = 20;
-            //
-            // pnlCustomPorts
-            //
-            this.pnlCustomPorts.AutoSize = true;
-            this.pnlCustomPorts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlCustomPorts.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pnlCustomPorts.Controls.Add(this.txtCustomPorts);
-            this.pnlCustomPorts.Controls.Add(this.btnCommonPorts);
-            this.pnlCustomPorts.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
-            this.pnlCustomPorts.Location = new System.Drawing.Point(133, 0);
-            this.pnlCustomPorts.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlCustomPorts.Name = "pnlCustomPorts";
-            this.pnlCustomPorts.Size = new System.Drawing.Size(420, 26);
-            this.pnlCustomPorts.TabIndex = 21;
-            this.pnlCustomPorts.WrapContents = false;
+            this.txtCustomPorts.Size = new System.Drawing.Size(460, 22);
+            this.txtCustomPorts.TabIndex = 5;
             //
             // lblParallelScans
             //
@@ -596,23 +492,12 @@ namespace mRemoteNG.UI.Window
             0});
             this.numericParallelScans.Name = "numericParallelScans";
             this.numericParallelScans.Size = new System.Drawing.Size(60, 22);
-            this.numericParallelScans.TabIndex = 6;
+            this.numericParallelScans.TabIndex = 7;
             this.numericParallelScans.Value = new decimal(new int[] {
             64,
             0,
             0,
             0});
-            //
-            // btnCommonPorts
-            //
-            this.btnCommonPorts._mice = MrngButton.MouseState.OUT;
-            this.btnCommonPorts.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.btnCommonPorts.Name = "btnCommonPorts";
-            this.btnCommonPorts.Size = new System.Drawing.Size(120, 24);
-            this.btnCommonPorts.TabIndex = 22;
-            this.btnCommonPorts.Text = "Set common ports";
-            this.btnCommonPorts.UseVisualStyleBackColor = true;
-            this.btnCommonPorts.Click += new System.EventHandler(this.BtnCommonPorts_Click);
             //
             // pnlImport
             // 
@@ -669,16 +554,10 @@ namespace mRemoteNG.UI.Window
             this.resultsMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericSelectorTimeout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericParallelScans)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.portEnd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.portStart)).EndInit();
-            this.pnlPortRange.ResumeLayout(false);
-            this.pnlPortRange.PerformLayout();
-            this.pnlIpRange.ResumeLayout(false);
-            this.pnlIpRange.PerformLayout();
+            this.pnlPortMode.ResumeLayout(false);
+            this.pnlPortMode.PerformLayout();
             this.pnlTimeout.ResumeLayout(false);
             this.pnlTimeout.PerformLayout();
-            this.pnlCustomPorts.ResumeLayout(false);
-            this.pnlCustomPorts.PerformLayout();
             this.pnlIp.ResumeLayout(false);
             this.pnlIp.PerformLayout();
             this.pnlImport.ResumeLayout(false);
@@ -704,18 +583,15 @@ namespace mRemoteNG.UI.Window
         private System.Windows.Forms.TableLayoutPanel pnlImport;
         internal MrngButton btnScan;
         private System.Windows.Forms.TableLayoutPanel pnlMain;
-        private MrngCheckBox chkPortRange;
-        private System.Windows.Forms.FlowLayoutPanel pnlPortRange;
-        private System.Windows.Forms.FlowLayoutPanel pnlIpRange;
+        private System.Windows.Forms.FlowLayoutPanel pnlPortMode;
         private System.Windows.Forms.FlowLayoutPanel pnlTimeout;
-        private System.Windows.Forms.FlowLayoutPanel pnlCustomPorts;
-        internal MrngButton btnCommonPorts;
         private Controls.MrngLabel lblParallelScans;
         internal Controls.MrngNumericUpDown numericParallelScans;
-        private Controls.MrngLabel lblStartPort;
-        private Controls.MrngLabel lblToEndPort;
         private System.Windows.Forms.ToolTip portScanToolTip;
-        private Controls.MrngLabel lblCustomPorts;
+        private Controls.MrngLabel lblPorts;
+        internal MrngRadioButton rdoCommonPorts;
+        internal MrngRadioButton rdoAllPorts;
+        internal MrngRadioButton rdoCustomPorts;
         private Controls.MrngTextBox txtCustomPorts;
     }
 }
