@@ -70,6 +70,8 @@ namespace mRemoteNG.UI.Window
             this.pnlIp = new System.Windows.Forms.TableLayoutPanel();
             this.btnScan = new MrngButton();
             this.chkPortRange = new MrngCheckBox();
+            this.pnlIpRange = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlTimeout = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlPortRange = new System.Windows.Forms.FlowLayoutPanel();
             this.lblStartPort = new mRemoteNG.UI.Controls.MrngLabel();
             this.lblToEndPort = new mRemoteNG.UI.Controls.MrngLabel();
@@ -84,6 +86,8 @@ namespace mRemoteNG.UI.Window
             ((System.ComponentModel.ISupportInitialize)(this.portEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portStart)).BeginInit();
             this.pnlIp.SuspendLayout();
+            this.pnlIpRange.SuspendLayout();
+            this.pnlTimeout.SuspendLayout();
             this.pnlPortRange.SuspendLayout();
             this.pnlImport.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -92,18 +96,22 @@ namespace mRemoteNG.UI.Window
             // ipStart
             // 
             this.ipStart.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ipStart.Location = new System.Drawing.Point(133, 3);
+            this.ipStart.Location = new System.Drawing.Point(0, 3);
+            this.ipStart.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.ipStart.Name = "ipStart";
-            this.ipStart.Size = new System.Drawing.Size(250, 18);
+            // Wide enough for a full-length IPv6 address (39 chars, e.g.
+            // ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff).
+            this.ipStart.Size = new System.Drawing.Size(265, 22);
             this.ipStart.TabIndex = 1;
             this.ipStart.ToolTipText = "";
             // 
             // ipEnd
             // 
             this.ipEnd.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ipEnd.Location = new System.Drawing.Point(133, 27);
+            this.ipEnd.Location = new System.Drawing.Point(0, 3);
+            this.ipEnd.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.ipEnd.Name = "ipEnd";
-            this.ipEnd.Size = new System.Drawing.Size(250, 18);
+            this.ipEnd.Size = new System.Drawing.Size(265, 22);
             this.ipEnd.TabIndex = 2;
             this.ipEnd.ToolTipText = "";
             // 
@@ -113,21 +121,19 @@ namespace mRemoteNG.UI.Window
             this.lblStartIP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStartIP.Location = new System.Drawing.Point(3, 0);
             this.lblStartIP.Name = "lblStartIP";
-            this.lblStartIP.Size = new System.Drawing.Size(124, 24);
+            this.lblStartIP.Size = new System.Drawing.Size(124, 26);
             this.lblStartIP.TabIndex = 0;
-            this.lblStartIP.Text = "First IP";
+            this.lblStartIP.Text = "IP Range";
             this.lblStartIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblEndIP
             // 
             this.lblEndIP.AutoSize = true;
-            this.lblEndIP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblEndIP.Location = new System.Drawing.Point(3, 24);
+            this.lblEndIP.Margin = new System.Windows.Forms.Padding(6, 5, 6, 0);
             this.lblEndIP.Name = "lblEndIP";
-            this.lblEndIP.Size = new System.Drawing.Size(124, 24);
             this.lblEndIP.TabIndex = 5;
-            this.lblEndIP.Text = "Last IP";
-            this.lblEndIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblEndIP.Text = "-";
+            this.lblEndIP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // olvHosts
             // 
@@ -333,7 +339,8 @@ namespace mRemoteNG.UI.Window
             // 
             // numericSelectorTimeout
             // 
-            this.numericSelectorTimeout.Location = new System.Drawing.Point(133, 123);
+            this.numericSelectorTimeout.Location = new System.Drawing.Point(0, 0);
+            this.numericSelectorTimeout.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.numericSelectorTimeout.Maximum = new decimal(new int[] {
             2147482,
             0,
@@ -406,38 +413,34 @@ namespace mRemoteNG.UI.Window
             this.pnlIp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.pnlIp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.pnlIp.Controls.Add(this.lblStartIP, 0, 0);
-            this.pnlIp.Controls.Add(this.ipEnd, 1, 1);
-            this.pnlIp.Controls.Add(this.ipStart, 1, 0);
-            this.pnlIp.SetColumnSpan(this.ipStart, 2);
-            this.pnlIp.SetColumnSpan(this.ipEnd, 2);
-            this.pnlIp.Controls.Add(this.lblEndIP, 0, 1);
-            this.pnlIp.Controls.Add(this.chkPortRange, 0, 2);
-            this.pnlIp.Controls.Add(this.pnlPortRange, 1, 2);
+            this.pnlIp.Controls.Add(this.pnlIpRange, 1, 0);
+            this.pnlIp.SetColumnSpan(this.pnlIpRange, 2);
+            this.pnlIp.Controls.Add(this.chkPortRange, 0, 1);
+            this.pnlIp.Controls.Add(this.pnlPortRange, 1, 1);
             this.pnlIp.SetColumnSpan(this.pnlPortRange, 2);
-            this.pnlIp.Controls.Add(this.lblCustomPorts, 0, 3);
-            this.pnlIp.Controls.Add(this.txtCustomPorts, 1, 3);
+            this.pnlIp.Controls.Add(this.lblCustomPorts, 0, 2);
+            this.pnlIp.Controls.Add(this.txtCustomPorts, 1, 2);
             this.pnlIp.SetColumnSpan(this.txtCustomPorts, 2);
-            this.pnlIp.Controls.Add(this.lblTimeout, 0, 4);
-            this.pnlIp.Controls.Add(this.numericSelectorTimeout, 1, 4);
-            this.pnlIp.Controls.Add(this.btnScan, 2, 4);
+            this.pnlIp.Controls.Add(this.lblTimeout, 0, 3);
+            this.pnlIp.Controls.Add(this.pnlTimeout, 1, 3);
+            this.pnlIp.SetColumnSpan(this.pnlTimeout, 2);
             this.pnlIp.Location = new System.Drawing.Point(3, 3);
             this.pnlIp.Name = "pnlIp";
-            this.pnlIp.RowCount = 5;
-            this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.pnlIp.RowCount = 4;
+            this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.pnlIp.Size = new System.Drawing.Size(878, 131);
+            this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.pnlIp.Size = new System.Drawing.Size(878, 113);
             this.pnlIp.TabIndex = 103;
             // 
             // btnScan
             // 
             this.btnScan._mice = MrngButton.MouseState.OUT;
-            this.btnScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnScan.Image = global::mRemoteNG.Properties.Resources.Search_16x;
             this.btnScan.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnScan.Location = new System.Drawing.Point(765, 123);
+            this.btnScan.Location = new System.Drawing.Point(75, 0);
+            this.btnScan.Margin = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(110, 24);
             this.btnScan.TabIndex = 6;
@@ -459,6 +462,37 @@ namespace mRemoteNG.UI.Window
             this.chkPortRange.Text = "Port Range";
             this.chkPortRange.UseVisualStyleBackColor = true;
             this.chkPortRange.CheckedChanged += new System.EventHandler(this.ChkPortRange_CheckedChanged);
+            //
+            // pnlIpRange
+            //
+            this.pnlIpRange.AutoSize = true;
+            this.pnlIpRange.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlIpRange.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pnlIpRange.Controls.Add(this.ipStart);
+            this.pnlIpRange.Controls.Add(this.lblEndIP);
+            this.pnlIpRange.Controls.Add(this.ipEnd);
+            this.pnlIpRange.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
+            this.pnlIpRange.Location = new System.Drawing.Point(133, 0);
+            this.pnlIpRange.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlIpRange.Name = "pnlIpRange";
+            this.pnlIpRange.Size = new System.Drawing.Size(536, 26);
+            this.pnlIpRange.TabIndex = 1;
+            this.pnlIpRange.WrapContents = false;
+            //
+            // pnlTimeout
+            //
+            this.pnlTimeout.AutoSize = true;
+            this.pnlTimeout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlTimeout.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pnlTimeout.Controls.Add(this.numericSelectorTimeout);
+            this.pnlTimeout.Controls.Add(this.btnScan);
+            this.pnlTimeout.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
+            this.pnlTimeout.Location = new System.Drawing.Point(133, 0);
+            this.pnlTimeout.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlTimeout.Name = "pnlTimeout";
+            this.pnlTimeout.Size = new System.Drawing.Size(220, 26);
+            this.pnlTimeout.TabIndex = 5;
+            this.pnlTimeout.WrapContents = false;
             //
             // pnlPortRange
             //
@@ -570,6 +604,10 @@ namespace mRemoteNG.UI.Window
             ((System.ComponentModel.ISupportInitialize)(this.portStart)).EndInit();
             this.pnlPortRange.ResumeLayout(false);
             this.pnlPortRange.PerformLayout();
+            this.pnlIpRange.ResumeLayout(false);
+            this.pnlIpRange.PerformLayout();
+            this.pnlTimeout.ResumeLayout(false);
+            this.pnlTimeout.PerformLayout();
             this.pnlIp.ResumeLayout(false);
             this.pnlIp.PerformLayout();
             this.pnlImport.ResumeLayout(false);
@@ -597,6 +635,8 @@ namespace mRemoteNG.UI.Window
         private System.Windows.Forms.TableLayoutPanel pnlMain;
         private MrngCheckBox chkPortRange;
         private System.Windows.Forms.FlowLayoutPanel pnlPortRange;
+        private System.Windows.Forms.FlowLayoutPanel pnlIpRange;
+        private System.Windows.Forms.FlowLayoutPanel pnlTimeout;
         private Controls.MrngLabel lblStartPort;
         private Controls.MrngLabel lblToEndPort;
         private System.Windows.Forms.ToolTip portScanToolTip;

@@ -138,8 +138,9 @@ namespace mRemoteNG.UI.Window
 
         private void ApplyLanguage()
         {
-            lblStartIP.Text = Language.FirstIp;
-            lblEndIP.Text = Language.LastIp;
+            // Single "IP Range  <first> - <last>" row; lblEndIP is the separator between the two fields.
+            lblStartIP.Text = "IP Range";
+            lblEndIP.Text = "-";
             const string ipHint = "IPv4 or IPv6 address (e.g. 192.168.1.1 or 2001:db8::1)";
             ipStart.ToolTipText = ipHint;
             ipEnd.ToolTipText = ipHint;
