@@ -46,15 +46,22 @@ namespace mRemoteNG.Tools
                            int timeoutInMilliseconds = 5000,
                            int maxConcurrentHosts = DefaultConcurrentHosts)
         {
+            ArgumentNullException.ThrowIfNull(ports);
+
             IPAddress ipAddressStart = IpAddressMin(ipAddress1, ipAddress2);
             IPAddress ipAddressEnd = IpAddressMax(ipAddress1, ipAddress2);
 
             ArgumentOutOfRangeException.ThrowIfNegative(timeoutInMilliseconds);
 
+            // Materialise once: the sequence may be lazy, and validating it separately from
+            // AddRange would otherwise enumerate it twice.
+            List<int> requestedPorts = [.. ports];
+            ValidatePorts(requestedPorts, nameof(ports));
+
             _timeoutInMilliseconds = timeoutInMilliseconds;
             _maxConcurrentHosts = Math.Clamp(maxConcurrentHosts, MinConcurrentHosts, MaxConcurrentHosts);
             _ports.Clear();
-            _ports.AddRange(ports);
+            _ports.AddRange(requestedPorts);
 
             _ipAddresses.Clear();
             _ipAddresses.AddRange(IpAddressArrayFromRange(ipAddressStart, ipAddressEnd));
@@ -296,6 +303,25 @@ namespace mRemoteNG.Tools
                 scanHost.Rdp = isOpen;
             else if (port == ScanHost.VncPort)
                 scanHost.Vnc = isOpen;
+        }
+
+        /// <summary>
+        /// Rejects an unusable port list up front. Without this an empty list scans every host for
+        /// nothing, and an out-of-range value only surfaces much later as a failure inside the
+        /// per-port TcpClient connect, by which time the scan is already running.
+        /// </summary>
+        private static void ValidatePorts(List<int> ports, string paramName)
+        {
+            if (ports.Count == 0)
+                throw new ArgumentException(Language.PortScanPortListHint, paramName);
+
+            foreach (int port in ports)
+            {
+                if (port is < PortListParser.MinPort or > PortListParser.MaxPort)
+                    throw new ArgumentOutOfRangeException(paramName,
+                        string.Format(CultureInfo.CurrentCulture, Language.PortScanInvalidPort,
+                                      port, PortListParser.MinPort, PortListParser.MaxPort));
+            }
         }
 
         // Cap the range so an inverted/huge range (in particular an IPv6 range, which can span an

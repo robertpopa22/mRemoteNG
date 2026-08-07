@@ -108,4 +108,63 @@ public class PortScannerTests
             IPAddress.Parse("2001:db8::1"),
             Port80), Throws.InstanceOf<ArgumentException>());
     }
+
+    [Test]
+    public void NullPorts_Throws()
+    {
+        Assert.That(() => new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            null!), Throws.InstanceOf<ArgumentNullException>());
+    }
+
+    [Test]
+    public void EmptyPorts_Throws()
+    {
+        // An empty list would otherwise ping every host in the range and probe nothing.
+        Assert.That(() => new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            []), Throws.InstanceOf<ArgumentException>());
+    }
+
+    [TestCase(0)]
+    [TestCase(-1)]
+    [TestCase(65536)]
+    public void PortOutsideValidRange_Throws(int port)
+    {
+        // Without the up-front guard this only failed later, inside the per-port TcpClient connect.
+        Assert.That(() => new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            new[] { 80, port }), Throws.InstanceOf<ArgumentOutOfRangeException>());
+    }
+
+    [Test]
+    public void LazyPortSequence_IsEnumeratedOnlyOnce()
+    {
+        int enumerations = 0;
+
+        IEnumerable<int> CountingPorts()
+        {
+            enumerations++;
+            yield return 80;
+        }
+
+        _ = new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            CountingPorts());
+
+        Assert.That(enumerations, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void ValidPortBoundaries_AreAccepted()
+    {
+        Assert.DoesNotThrow(() => _ = new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            new[] { PortListParser.MinPort, PortListParser.MaxPort }));
+    }
 }
