@@ -91,7 +91,7 @@ namespace mRemoteNG.UI.Window
             this.ipStart.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ipStart.Location = new System.Drawing.Point(133, 3);
             this.ipStart.Name = "ipStart";
-            this.ipStart.Size = new System.Drawing.Size(124, 18);
+            this.ipStart.Size = new System.Drawing.Size(250, 18);
             this.ipStart.TabIndex = 1;
             this.ipStart.ToolTipText = "";
             // 
@@ -100,7 +100,7 @@ namespace mRemoteNG.UI.Window
             this.ipEnd.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ipEnd.Location = new System.Drawing.Point(133, 27);
             this.ipEnd.Name = "ipEnd";
-            this.ipEnd.Size = new System.Drawing.Size(124, 18);
+            this.ipEnd.Size = new System.Drawing.Size(250, 18);
             this.ipEnd.TabIndex = 2;
             this.ipEnd.ToolTipText = "";
             // 
@@ -400,6 +400,8 @@ namespace mRemoteNG.UI.Window
             this.pnlIp.Controls.Add(this.lblStartIP, 0, 0);
             this.pnlIp.Controls.Add(this.ipEnd, 1, 1);
             this.pnlIp.Controls.Add(this.ipStart, 1, 0);
+            this.pnlIp.SetColumnSpan(this.ipStart, 2);
+            this.pnlIp.SetColumnSpan(this.ipEnd, 2);
             this.pnlIp.Controls.Add(this.lblEndIP, 0, 1);
             this.pnlIp.Controls.Add(this.portStart, 1, 2);
             this.pnlIp.Controls.Add(this.portEnd, 1, 3);

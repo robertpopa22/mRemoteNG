@@ -47,47 +47,14 @@ namespace mRemoteNG.UI.Window
         {
             get
             {
-                if (string.IsNullOrEmpty(ipStart.Octet1.Text))
-                {
+                if (!IPAddress.TryParse(ipStart.Text?.Trim(), out IPAddress? start))
                     return false;
-                }
 
-                if (string.IsNullOrEmpty(ipStart.Octet2.Text))
-                {
+                if (!IPAddress.TryParse(ipEnd.Text?.Trim(), out IPAddress? end))
                     return false;
-                }
 
-                if (string.IsNullOrEmpty(ipStart.Octet3.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipStart.Octet4.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet1.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet2.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet3.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet4.Text))
-                {
-                    return false;
-                }
-
-                return true;
+                // A range must be within a single address family (both IPv4 or both IPv6).
+                return start.AddressFamily == end.AddressFamily;
             }
         }
 
@@ -173,6 +140,9 @@ namespace mRemoteNG.UI.Window
         {
             lblStartIP.Text = Language.FirstIp;
             lblEndIP.Text = Language.LastIp;
+            const string ipHint = "IPv4 or IPv6 address (e.g. 192.168.1.1 or 2001:db8::1)";
+            ipStart.ToolTipText = ipHint;
+            ipEnd.ToolTipText = ipHint;
             btnScan.Text = Language._Scan;
             btnImport.Text = Language._Import;
             lblOnlyImport.Text = Language.ProtocolToImport;
@@ -205,8 +175,8 @@ namespace mRemoteNG.UI.Window
                 SwitchButtonText();
                 olvHosts.Items.Clear();
 
-                IPAddress ipAddressStart = IPAddress.Parse(ipStart.Text);
-                IPAddress ipAddressEnd = IPAddress.Parse(ipEnd.Text);
+                IPAddress ipAddressStart = IPAddress.Parse(ipStart.Text.Trim());
+                IPAddress ipAddressEnd = IPAddress.Parse(ipEnd.Text.Trim());
 
                 string customPortsText = txtCustomPorts.Text.Trim();
                 if (!string.IsNullOrEmpty(customPortsText))

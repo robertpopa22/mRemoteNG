@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Runtime.Versioning;
 using System.Threading;
 using mRemoteNG.App;
@@ -283,34 +283,36 @@ namespace mRemoteNG.Tools
                 RaiseScanCompleteEvent(_scannedHosts);
         }
 
-        // Cap the range at a /16 so an inverted/huge range cannot trigger an OutOfMemoryException.
+        // Cap the range so an inverted/huge range (in particular an IPv6 range, which can span an
+        // astronomically large number of addresses) cannot trigger an OutOfMemoryException. Every
+        // address in the range is pinged, so this is a practical scan limit, not just a memory guard.
         private const long MaxScanRange = 65536;
 
         private static IEnumerable<IPAddress> IpAddressArrayFromRange(IPAddress ipAddress1, IPAddress ipAddress2)
         {
-            IPAddress startIpAddress = IpAddressMin(ipAddress1, ipAddress2);
-            IPAddress endIpAddress = IpAddressMax(ipAddress1, ipAddress2);
+            if (ipAddress1.AddressFamily != ipAddress2.AddressFamily)
+                throw new ArgumentException("The start and end addresses must be the same type (both IPv4 or both IPv6).", nameof(ipAddress2));
 
-            // IPv4 addresses must be treated as UNSIGNED: a signed Int32 makes any address
-            // >= 128.0.0.0 negative, which inverted Min/Max ordering and the range count for any
-            // range straddling 128.0.0.0.
-            uint startAddress = IpAddressToUInt32(startIpAddress);
-            uint endAddress = IpAddressToUInt32(endIpAddress);
-            long addressCount = (long)endAddress - startAddress + 1;
+            AddressFamily family = ipAddress1.AddressFamily;
+
+            // Addresses are treated as UNSIGNED big-endian integers so ordering and counting are
+            // correct across the whole space (e.g. an IPv4 range straddling 128.0.0.0). BigInteger
+            // covers both the 32-bit IPv4 and 128-bit IPv6 spaces.
+            BigInteger startAddress = IpAddressToBigInteger(IpAddressMin(ipAddress1, ipAddress2));
+            BigInteger endAddress = IpAddressToBigInteger(IpAddressMax(ipAddress1, ipAddress2));
+
+            BigInteger addressCount = endAddress - startAddress + 1;
             if (addressCount > MaxScanRange)
                 throw new ArgumentOutOfRangeException(nameof(ipAddress2),
                     $"The address range is too large to scan ({addressCount} addresses); the limit is {MaxScanRange}.");
 
-            IPAddress[] addressArray = new IPAddress[addressCount];
-            int index = 0;
-            for (uint address = startAddress; address <= endAddress; address++)
+            List<IPAddress> addresses = new((int)addressCount);
+            for (BigInteger address = startAddress; address <= endAddress; address++)
             {
-                addressArray[index] = IpAddressFromUInt32(address);
-                index++;
-                if (address == uint.MaxValue) break; // guard against wraparound at the top of the space
+                addresses.Add(IpAddressFromBigInteger(address, family));
             }
 
-            return addressArray;
+            return addresses;
         }
 
         private static IPAddress IpAddressMin(IPAddress ipAddress1, IPAddress ipAddress2)
@@ -325,36 +327,25 @@ namespace mRemoteNG.Tools
 
         private static int IpAddressCompare(IPAddress ipAddress1, IPAddress ipAddress2)
         {
-            return IpAddressToUInt32(ipAddress1).CompareTo(IpAddressToUInt32(ipAddress2));
+            return IpAddressToBigInteger(ipAddress1).CompareTo(IpAddressToBigInteger(ipAddress2));
         }
 
-        private static uint IpAddressToUInt32(IPAddress ipAddress)
+        private static BigInteger IpAddressToBigInteger(IPAddress ipAddress)
         {
-            if (ipAddress.AddressFamily != AddressFamily.InterNetwork)
-            {
-                throw new ArgumentException("Only IPv4 addresses are supported.", nameof(ipAddress));
-            }
-
-            byte[] addressBytes = ipAddress.GetAddressBytes(); // in network order (big-endian)
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(addressBytes); // to host order (little-endian)
-            }
-
-            Debug.Assert(addressBytes.Length == 4);
-
-            return BitConverter.ToUInt32(addressBytes, 0);
+            // GetAddressBytes() is big-endian (network order). Interpret it as an unsigned value.
+            return new BigInteger(ipAddress.GetAddressBytes(), isUnsigned: true, isBigEndian: true);
         }
 
-        private static IPAddress IpAddressFromUInt32(uint ipAddress)
+        private static IPAddress IpAddressFromBigInteger(BigInteger value, AddressFamily family)
         {
-            byte[] addressBytes = BitConverter.GetBytes(ipAddress); // in host order
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(addressBytes); // to network order (big-endian)
-            }
+            int length = family == AddressFamily.InterNetworkV6 ? 16 : 4;
+            byte[] addressBytes = new byte[length];
 
-            Debug.Assert(addressBytes.Length == 4);
+            // ToByteArray gives the minimal big-endian representation; right-align it into a
+            // fixed-width, zero-padded buffer so IPAddress gets a valid 4- or 16-byte address.
+            byte[] raw = value.ToByteArray(isUnsigned: true, isBigEndian: true);
+            int copyLength = Math.Min(raw.Length, length);
+            Array.Copy(raw, raw.Length - copyLength, addressBytes, length - copyLength, copyLength);
 
             return new IPAddress(addressBytes);
         }
