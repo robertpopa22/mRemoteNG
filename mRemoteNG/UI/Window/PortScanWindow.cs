@@ -167,6 +167,10 @@ namespace mRemoteNG.UI.Window
             lblCustomPorts.Text = "Custom ports (e.g. 22,80,443):";
             btnCommonPorts.Text = "Set common ports";
             portScanToolTip.SetToolTip(btnCommonPorts, "Fill the custom ports box with commonly scanned service ports");
+            lblParallelScans.Text = "Parallel scans";
+            portScanToolTip.SetToolTip(numericParallelScans,
+                $"How many hosts are probed at once ({PortScanner.MinConcurrentHosts}-{PortScanner.MaxConcurrentHosts}). " +
+                "Lower this if the scan saturates your network or machine.");
             lblTimeout.Text = Language.TimeoutInSeconds;
             TabText = Language.PortScan;
             Text = Language.PortScan;
@@ -193,6 +197,7 @@ namespace mRemoteNG.UI.Window
                 IPAddress ipAddressStart = IPAddress.Parse(ipStart.Text.Trim());
                 IPAddress ipAddressEnd = IPAddress.Parse(ipEnd.Text.Trim());
                 int timeoutMs = (int)numericSelectorTimeout.Value * 1000;
+                int parallelScans = (int)numericParallelScans.Value;
 
                 string customPortsText = txtCustomPorts.Text.Trim();
                 if (!string.IsNullOrEmpty(customPortsText))
@@ -203,15 +208,15 @@ namespace mRemoteNG.UI.Window
                         Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.CannotStartPortScan);
                         return;
                     }
-                    scanner = new PortScanner(ipAddressStart, ipAddressEnd, customPorts, timeoutMs);
+                    scanner = new PortScanner(ipAddressStart, ipAddressEnd, customPorts, timeoutMs, parallelScans);
                 }
                 else if (!chkPortRange.Checked)
                     // No custom ports and no explicit range: probe the well-known protocol ports.
                     scanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
-                                              (int)portEnd.Value, timeoutMs, true);
+                                              (int)portEnd.Value, timeoutMs, true, parallelScans);
                 else
                     scanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
-                                              (int)portEnd.Value, timeoutMs);
+                                              (int)portEnd.Value, timeoutMs, false, parallelScans);
             }
             catch (ArgumentException ex)
             {

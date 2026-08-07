@@ -74,6 +74,8 @@ namespace mRemoteNG.UI.Window
             this.pnlTimeout = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlCustomPorts = new System.Windows.Forms.FlowLayoutPanel();
             this.btnCommonPorts = new MrngButton();
+            this.lblParallelScans = new mRemoteNG.UI.Controls.MrngLabel();
+            this.numericParallelScans = new mRemoteNG.UI.Controls.MrngNumericUpDown();
             this.pnlPortRange = new System.Windows.Forms.FlowLayoutPanel();
             this.lblStartPort = new mRemoteNG.UI.Controls.MrngLabel();
             this.lblToEndPort = new mRemoteNG.UI.Controls.MrngLabel();
@@ -85,6 +87,7 @@ namespace mRemoteNG.UI.Window
             ((System.ComponentModel.ISupportInitialize)(this.olvHosts)).BeginInit();
             this.resultsMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSelectorTimeout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericParallelScans)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portStart)).BeginInit();
             this.pnlIp.SuspendLayout();
@@ -488,6 +491,8 @@ namespace mRemoteNG.UI.Window
             this.pnlTimeout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlTimeout.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pnlTimeout.Controls.Add(this.numericSelectorTimeout);
+            this.pnlTimeout.Controls.Add(this.lblParallelScans);
+            this.pnlTimeout.Controls.Add(this.numericParallelScans);
             this.pnlTimeout.Controls.Add(this.btnScan);
             this.pnlTimeout.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
             this.pnlTimeout.Location = new System.Drawing.Point(133, 0);
@@ -567,6 +572,37 @@ namespace mRemoteNG.UI.Window
             this.pnlCustomPorts.TabIndex = 21;
             this.pnlCustomPorts.WrapContents = false;
             //
+            // lblParallelScans
+            //
+            this.lblParallelScans.AutoSize = true;
+            this.lblParallelScans.Margin = new System.Windows.Forms.Padding(16, 5, 4, 0);
+            this.lblParallelScans.Name = "lblParallelScans";
+            this.lblParallelScans.Text = "Parallel scans";
+            this.lblParallelScans.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            //
+            // numericParallelScans
+            //
+            this.numericParallelScans.Location = new System.Drawing.Point(0, 0);
+            this.numericParallelScans.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.numericParallelScans.Maximum = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.numericParallelScans.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericParallelScans.Name = "numericParallelScans";
+            this.numericParallelScans.Size = new System.Drawing.Size(60, 22);
+            this.numericParallelScans.TabIndex = 6;
+            this.numericParallelScans.Value = new decimal(new int[] {
+            64,
+            0,
+            0,
+            0});
+            //
             // btnCommonPorts
             //
             this.btnCommonPorts._mice = MrngButton.MouseState.OUT;
@@ -630,6 +666,7 @@ namespace mRemoteNG.UI.Window
             ((System.ComponentModel.ISupportInitialize)(this.olvHosts)).EndInit();
             this.resultsMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericSelectorTimeout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericParallelScans)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.portEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.portStart)).EndInit();
             this.pnlPortRange.ResumeLayout(false);
@@ -671,6 +708,8 @@ namespace mRemoteNG.UI.Window
         private System.Windows.Forms.FlowLayoutPanel pnlTimeout;
         private System.Windows.Forms.FlowLayoutPanel pnlCustomPorts;
         internal MrngButton btnCommonPorts;
+        private Controls.MrngLabel lblParallelScans;
+        internal Controls.MrngNumericUpDown numericParallelScans;
         private Controls.MrngLabel lblStartPort;
         private Controls.MrngLabel lblToEndPort;
         private System.Windows.Forms.ToolTip portScanToolTip;

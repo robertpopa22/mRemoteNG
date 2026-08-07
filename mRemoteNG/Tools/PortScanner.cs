@@ -22,18 +22,28 @@ namespace mRemoteNG.Tools
         private readonly List<int> _ports = [];
         private readonly List<ScanHost> _scannedHosts = [];
         private readonly int _timeoutInMilliseconds;
+        private readonly int _maxConcurrentHosts;
         private CancellationTokenSource? _cancellation;
 
-        // Bounds how many hosts are probed at once. Keeps the scan fast without firing thousands of
-        // concurrent pings/sockets (the old code fanned out over the whole range at once).
-        private const int MaxConcurrentHosts = 64;
+        /// <summary>How many hosts are probed at once unless the caller specifies otherwise.</summary>
+        public const int DefaultConcurrentHosts = 64;
+
+        /// <summary>Lowest permitted concurrency (a strictly sequential scan).</summary>
+        public const int MinConcurrentHosts = 1;
+
+        /// <summary>
+        /// Highest permitted concurrency. Bounds how many pings/sockets are in flight at once so a
+        /// large range cannot exhaust sockets or the thread pool.
+        /// </summary>
+        public const int MaxConcurrentHosts = 128;
 
         #region Public Methods
 
         public PortScanner(IPAddress ipAddress1,
                            IPAddress ipAddress2,
                            IEnumerable<int> ports,
-                           int timeoutInMilliseconds = 5000)
+                           int timeoutInMilliseconds = 5000,
+                           int maxConcurrentHosts = DefaultConcurrentHosts)
         {
             IPAddress ipAddressStart = IpAddressMin(ipAddress1, ipAddress2);
             IPAddress ipAddressEnd = IpAddressMax(ipAddress1, ipAddress2);
@@ -41,6 +51,7 @@ namespace mRemoteNG.Tools
             ArgumentOutOfRangeException.ThrowIfNegative(timeoutInMilliseconds);
 
             _timeoutInMilliseconds = timeoutInMilliseconds;
+            _maxConcurrentHosts = Math.Clamp(maxConcurrentHosts, MinConcurrentHosts, MaxConcurrentHosts);
             _ports.Clear();
             _ports.AddRange(ports);
 
@@ -55,7 +66,8 @@ namespace mRemoteNG.Tools
                            int port1,
                            int port2,
                            int timeoutInMilliseconds = 5000,
-                           bool checkDefaultPortsOnly = false)
+                           bool checkDefaultPortsOnly = false,
+                           int maxConcurrentHosts = DefaultConcurrentHosts)
         {
             IPAddress ipAddressStart = IpAddressMin(ipAddress1, ipAddress2);
             IPAddress ipAddressEnd = IpAddressMax(ipAddress1, ipAddress2);
@@ -70,6 +82,7 @@ namespace mRemoteNG.Tools
             ArgumentOutOfRangeException.ThrowIfNegative(timeoutInMilliseconds);
 
             _timeoutInMilliseconds = timeoutInMilliseconds;
+            _maxConcurrentHosts = Math.Clamp(maxConcurrentHosts, MinConcurrentHosts, MaxConcurrentHosts);
             _ports.Clear();
 
             if (checkDefaultPortsOnly)
@@ -138,7 +151,7 @@ namespace mRemoteNG.Tools
 
                 ParallelOptions options = new()
                 {
-                    MaxDegreeOfParallelism = Math.Max(1, Math.Min(MaxConcurrentHosts, total)),
+                    MaxDegreeOfParallelism = Math.Max(1, Math.Min(_maxConcurrentHosts, total)),
                     CancellationToken = token
                 };
 
