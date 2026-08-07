@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
@@ -25,6 +27,7 @@ namespace mRemoteNG.UI.Window
         public PortScanWindow()
         {
             InitializeComponent();
+            _scanResultsTimer.Tick += ScanResultsTimer_Tick;
             Icon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.SearchAndApps_16x);
             WindowType = WindowType.PortScan;
             DockPnl = new DockContent();
@@ -64,6 +67,13 @@ namespace mRemoteNG.UI.Window
 
         private PortScanner? _portScanner;
         private bool _scanning;
+
+        // Scan results are produced by many worker threads; they are queued here and drained onto the
+        // results list in batches by _scanResultsTimer (see PortScanner_HostScanned).
+        private readonly ConcurrentQueue<ScanHost> _pendingHosts = new();
+        private readonly System.Windows.Forms.Timer _scanResultsTimer = new() { Interval = 200 };
+        private int _scannedHostCount;
+        private int _totalHostCount;
 
         #endregion
 
@@ -155,6 +165,8 @@ namespace mRemoteNG.UI.Window
             lblStartPort.Text = "Start Port";
             lblToEndPort.Text = "to End Port";
             lblCustomPorts.Text = "Custom ports (e.g. 22,80,443):";
+            btnCommonPorts.Text = "Set common ports";
+            portScanToolTip.SetToolTip(btnCommonPorts, "Fill the custom ports box with commonly scanned service ports");
             lblTimeout.Text = Language.TimeoutInSeconds;
             TabText = Language.PortScan;
             Text = Language.PortScan;
@@ -224,6 +236,11 @@ namespace mRemoteNG.UI.Window
             SwitchButtonText();
             olvHosts.Items.Clear();
 
+            _pendingHosts.Clear();
+            Volatile.Write(ref _scannedHostCount, 0);
+            Volatile.Write(ref _totalHostCount, 0);
+            _scanResultsTimer.Start();
+
             _portScanner.StartScan();
         }
 
@@ -236,8 +253,26 @@ namespace mRemoteNG.UI.Window
                 _portScanner.ScanComplete -= PortScanner_ScanComplete;
                 _portScanner.StopScan();
             }
+
+            // Show whatever has already come back, then stop polling.
+            _scanResultsTimer.Stop();
+            FlushScanResults();
+
             _scanning = false;
             SwitchButtonText();
+        }
+
+        /// <summary>
+        /// Commonly scanned service ports: FTP/SSH/Telnet/SMTP/DNS/HTTP(S), Windows RPC/NetBIOS/SMB,
+        /// LDAP(S), IMAP/POP3 (incl. TLS), the usual databases, RDP, VNC, WinRM and common app ports.
+        /// </summary>
+        private const string CommonPorts =
+            "21,22,23,25,53,80,110,111,135,139,143,389,443,445,465,587,636,993,995," +
+            "1433,1521,2049,3306,3389,5432,5900,5985,5986,6379,8080,8443,9200,27017";
+
+        private void BtnCommonPorts_Click(object sender, EventArgs e)
+        {
+            txtCustomPorts.Text = CommonPorts;
         }
 
         private static List<int> ParsePortList(string portListText)
@@ -262,29 +297,61 @@ namespace mRemoteNG.UI.Window
 
         private static void PortScanner_BeginHostScan(string host)
         {
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Scanning " + host, true);
+            // Deliberately does not log: this fires once per address, on a worker thread, and
+            // MessageCollector runs its writer chain (including synchronous log file I/O) inline on
+            // the caller. At scan scale that serialised every worker on the log appender's lock.
         }
 
-        private delegate void PortScannerHostScannedDelegate(ScanHost host, int scannedCount, int totalCount);
-
+        /// <summary>
+        /// Called from scan worker threads. Only queues the result — no marshalling, no logging and no
+        /// list manipulation here. <see cref="FlushScanResults"/> drains the queue on the UI thread a
+        /// few times a second, so a flood of results costs a handful of batched UI updates instead of
+        /// one cross-thread post plus one list rebuild per host.
+        /// </summary>
         private void PortScanner_HostScanned(ScanHost host, int scannedCount, int totalCount)
         {
-            if (InvokeRequired)
+            _pendingHosts.Enqueue(host);
+            Volatile.Write(ref _scannedHostCount, scannedCount);
+            Volatile.Write(ref _totalHostCount, totalCount);
+        }
+
+        private void ScanResultsTimer_Tick(object? sender, EventArgs e)
+        {
+            FlushScanResults();
+        }
+
+        /// <summary>
+        /// Moves any queued scan results into the results list in one batch (UI thread only).
+        /// </summary>
+        private void FlushScanResults()
+        {
+            int total = Volatile.Read(ref _totalHostCount);
+            int scanned = Volatile.Read(ref _scannedHostCount);
+
+            List<ScanHost> batch = new();
+            while (_pendingHosts.TryDequeue(out ScanHost? host))
+                batch.Add(host);
+
+            if (batch.Count > 0)
             {
-                // BeginInvoke (async), not Invoke: results arrive from many worker threads at once, and
-                // a synchronous Invoke would block each of them on the UI pump and make the window (and
-                // the Stop button) feel frozen.
-                if (IsHandleCreated)
-                    BeginInvoke(new PortScannerHostScannedDelegate(PortScanner_HostScanned),
-                                host, scannedCount, totalCount);
-                return;
+                // AddObjects once per batch: ObjectListView rebuilds on every add, so adding one at a
+                // time made the cost grow with the number of results already shown.
+                olvHosts.BeginUpdate();
+                try
+                {
+                    olvHosts.AddObjects(batch);
+                }
+                finally
+                {
+                    olvHosts.EndUpdate();
+                }
             }
 
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Host scanned " + host.HostIp, true);
-
-            olvHosts.AddObject(host);
-            prgBar.Maximum = totalCount;
-            prgBar.Value = scannedCount;
+            if (total > 0)
+            {
+                prgBar.Maximum = total;
+                prgBar.Value = Math.Min(scanned, total);
+            }
         }
 
         private delegate void PortScannerScanComplete(IList<ScanHost> hosts);
@@ -297,6 +364,10 @@ namespace mRemoteNG.UI.Window
                     BeginInvoke(new PortScannerScanComplete(PortScanner_ScanComplete), hosts);
                 return;
             }
+
+            // Drain anything still queued, then stop polling.
+            _scanResultsTimer.Stop();
+            FlushScanResults();
 
             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.PortScanComplete);
 

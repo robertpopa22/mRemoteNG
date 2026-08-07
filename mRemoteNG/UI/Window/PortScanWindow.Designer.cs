@@ -72,6 +72,8 @@ namespace mRemoteNG.UI.Window
             this.chkPortRange = new MrngCheckBox();
             this.pnlIpRange = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlTimeout = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlCustomPorts = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnCommonPorts = new MrngButton();
             this.pnlPortRange = new System.Windows.Forms.FlowLayoutPanel();
             this.lblStartPort = new mRemoteNG.UI.Controls.MrngLabel();
             this.lblToEndPort = new mRemoteNG.UI.Controls.MrngLabel();
@@ -88,6 +90,7 @@ namespace mRemoteNG.UI.Window
             this.pnlIp.SuspendLayout();
             this.pnlIpRange.SuspendLayout();
             this.pnlTimeout.SuspendLayout();
+            this.pnlCustomPorts.SuspendLayout();
             this.pnlPortRange.SuspendLayout();
             this.pnlImport.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -419,8 +422,8 @@ namespace mRemoteNG.UI.Window
             this.pnlIp.Controls.Add(this.pnlPortRange, 1, 1);
             this.pnlIp.SetColumnSpan(this.pnlPortRange, 2);
             this.pnlIp.Controls.Add(this.lblCustomPorts, 0, 2);
-            this.pnlIp.Controls.Add(this.txtCustomPorts, 1, 2);
-            this.pnlIp.SetColumnSpan(this.txtCustomPorts, 2);
+            this.pnlIp.Controls.Add(this.pnlCustomPorts, 1, 2);
+            this.pnlIp.SetColumnSpan(this.pnlCustomPorts, 2);
             this.pnlIp.Controls.Add(this.lblTimeout, 0, 3);
             this.pnlIp.Controls.Add(this.pnlTimeout, 1, 3);
             this.pnlIp.SetColumnSpan(this.pnlTimeout, 2);
@@ -543,10 +546,37 @@ namespace mRemoteNG.UI.Window
             // txtCustomPorts
             //
             this.txtCustomPorts.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCustomPorts.Location = new System.Drawing.Point(133, 99);
+            this.txtCustomPorts.Location = new System.Drawing.Point(0, 1);
+            this.txtCustomPorts.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.txtCustomPorts.Name = "txtCustomPorts";
-            this.txtCustomPorts.Size = new System.Drawing.Size(200, 22);
+            this.txtCustomPorts.Size = new System.Drawing.Size(265, 22);
             this.txtCustomPorts.TabIndex = 20;
+            //
+            // pnlCustomPorts
+            //
+            this.pnlCustomPorts.AutoSize = true;
+            this.pnlCustomPorts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlCustomPorts.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pnlCustomPorts.Controls.Add(this.txtCustomPorts);
+            this.pnlCustomPorts.Controls.Add(this.btnCommonPorts);
+            this.pnlCustomPorts.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
+            this.pnlCustomPorts.Location = new System.Drawing.Point(133, 0);
+            this.pnlCustomPorts.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlCustomPorts.Name = "pnlCustomPorts";
+            this.pnlCustomPorts.Size = new System.Drawing.Size(420, 26);
+            this.pnlCustomPorts.TabIndex = 21;
+            this.pnlCustomPorts.WrapContents = false;
+            //
+            // btnCommonPorts
+            //
+            this.btnCommonPorts._mice = MrngButton.MouseState.OUT;
+            this.btnCommonPorts.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.btnCommonPorts.Name = "btnCommonPorts";
+            this.btnCommonPorts.Size = new System.Drawing.Size(120, 24);
+            this.btnCommonPorts.TabIndex = 22;
+            this.btnCommonPorts.Text = "Set common ports";
+            this.btnCommonPorts.UseVisualStyleBackColor = true;
+            this.btnCommonPorts.Click += new System.EventHandler(this.BtnCommonPorts_Click);
             //
             // pnlImport
             // 
@@ -608,6 +638,8 @@ namespace mRemoteNG.UI.Window
             this.pnlIpRange.PerformLayout();
             this.pnlTimeout.ResumeLayout(false);
             this.pnlTimeout.PerformLayout();
+            this.pnlCustomPorts.ResumeLayout(false);
+            this.pnlCustomPorts.PerformLayout();
             this.pnlIp.ResumeLayout(false);
             this.pnlIp.PerformLayout();
             this.pnlImport.ResumeLayout(false);
@@ -637,6 +669,8 @@ namespace mRemoteNG.UI.Window
         private System.Windows.Forms.FlowLayoutPanel pnlPortRange;
         private System.Windows.Forms.FlowLayoutPanel pnlIpRange;
         private System.Windows.Forms.FlowLayoutPanel pnlTimeout;
+        private System.Windows.Forms.FlowLayoutPanel pnlCustomPorts;
+        internal MrngButton btnCommonPorts;
         private Controls.MrngLabel lblStartPort;
         private Controls.MrngLabel lblToEndPort;
         private System.Windows.Forms.ToolTip portScanToolTip;
