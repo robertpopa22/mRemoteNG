@@ -150,8 +150,9 @@ namespace mRemoteNG.UI.Window
             clmHostName.Text = "Hostname";
             clmOpenPorts.Text = Language.OpenPorts;
             clmClosedPorts.Text = Language.ClosedPorts;
-            ngCheckFirstPort.Text = Language.FirstPort;
-            ngCheckLastPort.Text = Language.LastPort;
+            chkPortRange.Text = "Port Range";
+            lblStartPort.Text = "Start Port";
+            lblToEndPort.Text = "to End Port";
             lblCustomPorts.Text = "Custom ports (e.g. 22,80,443):";
             lblTimeout.Text = Language.TimeoutInSeconds;
             TabText = Language.PortScan;
@@ -191,7 +192,8 @@ namespace mRemoteNG.UI.Window
                     }
                     scanner = new PortScanner(ipAddressStart, ipAddressEnd, customPorts, timeoutMs);
                 }
-                else if (!ngCheckFirstPort.Checked && !ngCheckLastPort.Checked)
+                else if (!chkPortRange.Checked)
+                    // No custom ports and no explicit range: probe the well-known protocol ports.
                     scanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
                                               (int)portEnd.Value, timeoutMs, true);
                 else
@@ -419,16 +421,18 @@ namespace mRemoteNG.UI.Window
             importSelectedHosts(ProtocolType.HTTP);
         }
 
-        private void NgCheckFirstPort_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// A port range is scanned only when the box is ticked; otherwise the well-known protocol
+        /// ports are probed. The start/end fields follow the checkbox, so they can never be left in a
+        /// half-configured state (the old UI had a separate checkbox per field).
+        /// </summary>
+        private void ChkPortRange_CheckedChanged(object sender, EventArgs e)
         {
-            portStart.Enabled = ngCheckFirstPort.Checked;
-        }
-
-        private void NgCheckLastPort_CheckedChanged(object sender, EventArgs e)
-        {
-            portEnd.Enabled = ngCheckLastPort.Checked;
-
-            portEnd.Value = portEnd.Enabled ? 65535 : 0;
+            bool useRange = chkPortRange.Checked;
+            portStart.Enabled = useRange;
+            portEnd.Enabled = useRange;
+            lblStartPort.Enabled = useRange;
+            lblToEndPort.Enabled = useRange;
         }
     }
 }
