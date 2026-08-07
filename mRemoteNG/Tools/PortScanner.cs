@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
+using mRemoteNG.Resources.Language;
 
 
 namespace mRemoteNG.Tools
@@ -305,7 +306,7 @@ namespace mRemoteNG.Tools
         private static IEnumerable<IPAddress> IpAddressArrayFromRange(IPAddress ipAddress1, IPAddress ipAddress2)
         {
             if (ipAddress1.AddressFamily != ipAddress2.AddressFamily)
-                throw new ArgumentException("The start and end addresses must be the same type (both IPv4 or both IPv6).");
+                throw new ArgumentException(Language.PortScanMixedAddressFamilies);
 
             AddressFamily family = ipAddress1.AddressFamily;
 
@@ -318,7 +319,8 @@ namespace mRemoteNG.Tools
             BigInteger addressCount = endAddress - startAddress + 1;
             if (addressCount > MaxScanRange)
                 throw new ArgumentOutOfRangeException(paramName: null,
-                    $"The address range is too large to scan ({addressCount:N0} addresses); the limit is {MaxScanRange:N0}.");
+                    string.Format(CultureInfo.CurrentCulture, Language.PortScanRangeTooLarge,
+                                  addressCount, MaxScanRange));
 
             List<IPAddress> addresses = new((int)addressCount);
             for (BigInteger address = startAddress; address <= endAddress; address++)

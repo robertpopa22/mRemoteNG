@@ -119,33 +119,32 @@ namespace mRemoteNG.UI.Window
         private void ApplyLanguage()
         {
             // One field takes a single address, an explicit range or a CIDR block (IPv4 or IPv6).
-            lblStartIP.Text = "IP / Range / CIDR";
+            lblStartIP.Text = Language.PortScanAddressRange;
             txtIpRange.ToolTipText = IpRangeParser.SyntaxHint;
-            txtIpRange.PlaceholderText = "192.168.1.1  |  192.168.1.1 - 192.168.1.254  |  192.168.1.0/24";
+            txtIpRange.PlaceholderText = Language.PortScanAddressRangePlaceholder;
             btnScan.Text = Language._Scan;
             btnImport.Text = Language._Import;
             lblOnlyImport.Text = Language.ProtocolToImport;
-            clmHostIP.Text = "IP Address";
-            clmHostName.Text = "Hostname";
+            clmHostIP.Text = Language.PortScanIpAddress;
+            clmHostName.Text = Language.PortScanHostname;
             clmOpenPorts.Text = Language.OpenPorts;
             clmClosedPorts.Text = Language.ClosedPorts;
-            lblPorts.Text = "Ports";
-            rdoCommonPorts.Text = "Common ports";
-            rdoAllPorts.Text = "All ports";
-            rdoCustomPorts.Text = "Custom";
-            txtCustomPorts.PlaceholderText = "22, 80, 443, 3389, 8000-8100";
+            lblPorts.Text = Language.Ports;
+            rdoCommonPorts.Text = Language.PortScanCommonPorts;
+            rdoAllPorts.Text = Language.PortScanAllPorts;
+            rdoCustomPorts.Text = Language.PortScanCustomPorts;
+            txtCustomPorts.PlaceholderText = Language.PortScanCustomPortsPlaceholder;
             portScanToolTip.SetToolTip(rdoCommonPorts,
-                "Probe the commonly used service ports only:" + Environment.NewLine +
+                Language.PortScanCommonPortsHint + Environment.NewLine +
                 string.Join(", ", CommonPorts));
             portScanToolTip.SetToolTip(rdoAllPorts,
-                $"Probe every port from {PortListParser.MinPort} to {PortListParser.MaxPort}. " +
-                "This is thorough but slow.");
-            portScanToolTip.SetToolTip(rdoCustomPorts,
-                "Probe a list of ports you specify, e.g. 22, 80, 443, 3389, 8000-8100");
-            lblParallelScans.Text = "Parallel scans";
+                string.Format(CultureInfo.CurrentCulture, Language.PortScanAllPortsHint,
+                              PortListParser.MinPort, PortListParser.MaxPort));
+            portScanToolTip.SetToolTip(rdoCustomPorts, Language.PortScanCustomPortsHint);
+            lblParallelScans.Text = Language.PortScanParallelScans;
             portScanToolTip.SetToolTip(numericParallelScans,
-                $"How many hosts are probed at once ({PortScanner.MinConcurrentHosts}-{PortScanner.MaxConcurrentHosts}). " +
-                "Lower this if the scan saturates your network or machine.");
+                string.Format(CultureInfo.CurrentCulture, Language.PortScanParallelScansHint,
+                              PortScanner.MinConcurrentHosts, PortScanner.MaxConcurrentHosts));
             lblTimeout.Text = Language.TimeoutInSeconds;
             TabText = Language.PortScan;
             Text = Language.PortScan;
