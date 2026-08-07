@@ -437,7 +437,7 @@ namespace mRemoteNG.UI.Window
             this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.pnlIp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.pnlIp.Size = new System.Drawing.Size(878, 113);
+            this.pnlIp.Size = new System.Drawing.Size(878, 110);
             this.pnlIp.TabIndex = 103;
             // 
             // btnScan
@@ -643,7 +643,9 @@ namespace mRemoteNG.UI.Window
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.RowCount = 4;
-            this.pnlMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 159F));
+            // Sized to pnlIp's four rows (28+28+26+28) plus its 3px top/bottom margins. Keep in step
+            // with pnlIp's RowStyles, otherwise a gap opens up above the progress bar.
+            this.pnlMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 116F));
             this.pnlMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.pnlMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.pnlMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
