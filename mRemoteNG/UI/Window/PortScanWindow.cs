@@ -169,14 +169,16 @@ namespace mRemoteNG.UI.Window
 
         private void StartScan()
         {
+            // Build the scanner FIRST. Constructing it validates and enumerates the address range and
+            // can throw (e.g. the range exceeds the scan limit, or the endpoints are different IP
+            // families). Do this before flipping into the "scanning" state so a failure can't leave the
+            // Scan/Stop button stuck on "Stop" with nothing running.
+            PortScanner scanner;
             try
             {
-                _scanning = true;
-                SwitchButtonText();
-                olvHosts.Items.Clear();
-
                 IPAddress ipAddressStart = IPAddress.Parse(ipStart.Text.Trim());
                 IPAddress ipAddressEnd = IPAddress.Parse(ipEnd.Text.Trim());
+                int timeoutMs = (int)numericSelectorTimeout.Value * 1000;
 
                 string customPortsText = txtCustomPorts.Text.Trim();
                 if (!string.IsNullOrEmpty(customPortsText))
@@ -185,30 +187,41 @@ namespace mRemoteNG.UI.Window
                     if (customPorts.Count == 0)
                     {
                         Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.CannotStartPortScan);
-                        _scanning = false;
-                        SwitchButtonText();
                         return;
                     }
-                    _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, customPorts,
-                                                   (int)numericSelectorTimeout.Value * 1000);
+                    scanner = new PortScanner(ipAddressStart, ipAddressEnd, customPorts, timeoutMs);
                 }
                 else if (!ngCheckFirstPort.Checked && !ngCheckLastPort.Checked)
-                    _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
-                                                   (int)portEnd.Value, (int)numericSelectorTimeout.Value * 1000, true);
+                    scanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
+                                              (int)portEnd.Value, timeoutMs, true);
                 else
-                    _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
-                                                   (int)portEnd.Value, (int)numericSelectorTimeout.Value * 1000);
-
-                _portScanner.BeginHostScan += PortScanner_BeginHostScan;
-                _portScanner.HostScanned += PortScanner_HostScanned;
-                _portScanner.ScanComplete += PortScanner_ScanComplete;
-
-                _portScanner.StartScan();
+                    scanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
+                                              (int)portEnd.Value, timeoutMs);
+            }
+            catch (ArgumentException ex)
+            {
+                // Range too large, mixed IPv4/IPv6 endpoints, or an unparsable address — surface the
+                // reason instead of silently doing nothing.
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, ex.Message);
+                MessageBox.Show(this, ex.Message, Language.PortScan, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("StartScan failed (UI.Window.PortScan)", ex);
+                return;
             }
+
+            _portScanner = scanner;
+            _portScanner.BeginHostScan += PortScanner_BeginHostScan;
+            _portScanner.HostScanned += PortScanner_HostScanned;
+            _portScanner.ScanComplete += PortScanner_ScanComplete;
+
+            _scanning = true;
+            SwitchButtonText();
+            olvHosts.Items.Clear();
+
+            _portScanner.StartScan();
         }
 
         private void StopScan()
