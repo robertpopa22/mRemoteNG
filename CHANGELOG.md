@@ -28,8 +28,9 @@ and adapted (including SQL-schema support upstream does not have).
 - `MasterPasswordGate` (password copy/reveal re-authentication) now has direct unit-test coverage, including the multi-root bypass case
 
 ### Changed
-- Dependencies synced to upstream levels: Microsoft.Data.SqlClient 7.0.2, log4net 3.3.2, WebView2 1.0.4022.49, AWSSDK current
+- Dependencies synced to upstream levels: Microsoft.Data.SqlClient 7.0.2, WebView2 1.0.4022.49, AWSSDK current
 - Test suite grown to **6,329 tests** (0 failures)
+- **Replaced log4net with Serilog** for file-based diagnostic logging — same rolling-file policy (10MB per file, 5 backups), same log fields (timestamp, thread id, level, message), but the on-disk line format now comes from a Serilog output template instead of log4net's `PatternLayout`; any external tooling doing strict text parsing of `mRemoteNG.log` may need to adjust
 
 ## [1.82.0] - 2026-07-02
 

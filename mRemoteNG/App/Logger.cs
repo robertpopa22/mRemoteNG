@@ -1,20 +1,25 @@
-﻿using System;
+using System;
+using System.Globalization;
 using System.IO;
 using System.Runtime.Versioning;
+using System.Threading;
 using System.Windows.Forms;
-using log4net;
-using log4net.Appender;
-using log4net.Config;
-using log4net.Repository;
+using Serilog;
 
 namespace mRemoteNG.App
 {
     [SupportedOSPlatform("windows")]
     public class Logger
     {
+        private const long MaxFileSizeBytes = 10 * 1024 * 1024;
+        private const int MaxRetainedFiles = 5;
+        private const string OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss,fff} [{ThreadId}] {Level:u6}- {Message:lj}{NewLine}{Exception}";
+
         public static readonly Logger Instance = new();
 
-        public ILog? Log { get; private set; }
+        private readonly Lock _rebuildLock = new();
+
+        public ILogger? Log { get; private set; }
 
         public static string DefaultLogPath => BuildLogFilePath();
 
@@ -25,8 +30,6 @@ namespace mRemoteNG.App
 
         private void Initialize()
         {
-            LogManager.CreateRepository("mRemoteNG");
-
             if (string.IsNullOrEmpty(Properties.OptionsNotificationsPage.Default.LogFilePath))
             {
                 Properties.OptionsNotificationsPage.Default.LogFilePath = BuildLogFilePath();
@@ -37,21 +40,25 @@ namespace mRemoteNG.App
 
         public void SetLogPath(string path)
         {
-            ILoggerRepository repository = LogManager.GetRepository("mRemoteNG");
-
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-
-            IAppender[] appenders = repository.GetAppenders();
-
-            foreach (IAppender appender in appenders)
+            lock (_rebuildLock)
             {
-                RollingFileAppender fileAppender = (RollingFileAppender)appender;
-                if (fileAppender is not { Name: "LogFileAppender" }) continue;
-                fileAppender.File = path;
-                fileAppender.ActivateOptions();
-            }
+                ILogger? previous = Log;
 
-            Log = LogManager.GetLogger("mRemoteNG", "Logger");
+                Log = new LoggerConfiguration()
+                    .MinimumLevel.Verbose()
+                    .Enrich.WithThreadId()
+                    .WriteTo.File(
+                        path,
+                        rollingInterval: RollingInterval.Infinite,
+                        fileSizeLimitBytes: MaxFileSizeBytes,
+                        rollOnFileSizeLimit: true,
+                        retainedFileCountLimit: MaxRetainedFiles,
+                        outputTemplate: OutputTemplate,
+                        formatProvider: CultureInfo.InvariantCulture)
+                    .CreateLogger();
+
+                (previous as IDisposable)?.Dispose();
+            }
         }
 
         private static string BuildLogFilePath()

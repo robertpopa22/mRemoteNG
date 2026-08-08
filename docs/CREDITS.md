@@ -98,8 +98,8 @@ MIT License
 Copyright © 2018 @roken and @lextm (formerly Weifen Luo)  
 MIT License
 
-**[log4net](http://logging.apache.org/log4net/)**  
-Copyright © 2001-2015 The Apache Software Foundation  
+**[Serilog](https://serilog.net/)**  
+Copyright © 2013-2025 Serilog Contributors  
 Apache License Version 2.0
 
 **[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/)**  

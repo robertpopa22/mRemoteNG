@@ -313,7 +313,7 @@ namespace mRemoteNG.UI.Forms
             // Ensure we have items loaded before trying to access them
             if (lstOptionPages.Items.Count == 0)
             {
-                Logger.Instance.Log?.Warn($"[SetActivatedPage] No items in lstOptionPages, cannot set active page to '{_pageName}'");
+                Logger.Instance.Log?.Warning($"[SetActivatedPage] No items in lstOptionPages, cannot set active page to '{_pageName}'");
                 return;
             }
 
@@ -372,7 +372,7 @@ namespace mRemoteNG.UI.Forms
             // Guard against recursive calls that can cause infinite loops
             if (_isHandlingSelectionChange)
             {
-                Logger.Instance.Log?.Warn($"[LstOptionPages_SelectedIndexChanged] RECURSIVE CALL BLOCKED - Preventing infinite loop");
+                Logger.Instance.Log?.Warning($"[LstOptionPages_SelectedIndexChanged] RECURSIVE CALL BLOCKED - Preventing infinite loop");
                 return;
             }
 
@@ -387,7 +387,7 @@ namespace mRemoteNG.UI.Forms
                 }
                 else
                 {
-                    Logger.Instance.Log?.Warn($"[LstOptionPages_SelectedIndexChanged] Page is NULL - cannot display. This may indicate a selection issue.");
+                    Logger.Instance.Log?.Warning($"[LstOptionPages_SelectedIndexChanged] Page is NULL - cannot display. This may indicate a selection issue.");
                     return;
                 }
 

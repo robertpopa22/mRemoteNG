@@ -14,13 +14,13 @@ namespace mRemoteNG.Messages.MessageWriters
             switch (message.Class)
             {
                 case MessageClass.InformationMsg:
-                    _logger.Log?.Info(message.Text);
+                    _logger.Log?.Information(message.Text);
                     break;
                 case MessageClass.DebugMsg:
                     _logger.Log?.Debug(message.Text);
                     break;
                 case MessageClass.WarningMsg:
-                    _logger.Log?.Warn(message.Text);
+                    _logger.Log?.Warning(message.Text);
                     break;
                 case MessageClass.ErrorMsg:
                     _logger.Log?.Error(message.Text);

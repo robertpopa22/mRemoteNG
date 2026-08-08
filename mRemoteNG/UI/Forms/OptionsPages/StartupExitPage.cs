@@ -78,7 +78,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             }
             catch (Exception ex)
             {
-                Logger.Instance.Log?.Warn($"[StartupExitPage] Could not read Windows startup registry entry: {ex.Message}");
+                Logger.Instance.Log?.Warning($"[StartupExitPage] Could not read Windows startup registry entry: {ex.Message}");
                 return false;
             }
         }
@@ -100,7 +100,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             }
             catch (Exception ex)
             {
-                Logger.Instance.Log?.Warn($"[StartupExitPage] Could not update Windows startup registry entry: {ex.Message}");
+                Logger.Instance.Log?.Warning($"[StartupExitPage] Could not update Windows startup registry entry: {ex.Message}");
             }
         }
 

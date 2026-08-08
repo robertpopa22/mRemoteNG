@@ -233,7 +233,6 @@
     <PackageReference Include="Google.Apis.Drive.v3" />
     <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="LiteDB" />
-    <PackageReference Include="log4net" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" />
     <PackageReference Include="Microsoft.Data.SqlClient" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
@@ -246,6 +245,9 @@
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="Newtonsoft.Json.Schema" />
     <PackageReference Include="Renci.SshNet.Async" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Enrichers.Thread" />
+    <PackageReference Include="Serilog.Sinks.File" />
     <PackageReference Include="SSH.NET" />
     <PackageReference Include="System.Management" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" />
@@ -508,9 +510,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Icons\Workstation.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Properties\OptionsBackupPage.settings">
