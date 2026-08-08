@@ -94,6 +94,7 @@ namespace mRemoteNG.Tools
             _ports.Clear();
 
             if (checkDefaultPortsOnly)
+                // port1/port2 are ignored in this mode, so they are deliberately not validated.
                 _ports.AddRange(new[]
                 {
                     ScanHost.SshPort, ScanHost.TelnetPort, ScanHost.HttpPort, ScanHost.HttpsPort, ScanHost.RloginPort,
@@ -101,6 +102,12 @@ namespace mRemoteNG.Tools
                 });
             else
             {
+                // Validated after the 0-means-unspecified rule above has been applied, so passing
+                // (0, 3389) still scans the single port, and before the loop expands the range, so
+                // an absurd endpoint cannot allocate its way to a million entries first.
+                ValidatePort(portStart, nameof(port1));
+                ValidatePort(portEnd, nameof(port2));
+
                 for (int port = portStart; port <= portEnd; port++)
                 {
                     _ports.Add(port);
@@ -317,11 +324,17 @@ namespace mRemoteNG.Tools
 
             foreach (int port in ports)
             {
-                if (port is < PortListParser.MinPort or > PortListParser.MaxPort)
-                    throw new ArgumentOutOfRangeException(paramName,
-                        string.Format(CultureInfo.CurrentCulture, Language.PortScanInvalidPort,
-                                      port, PortListParser.MinPort, PortListParser.MaxPort));
+                ValidatePort(port, paramName);
             }
+        }
+
+        /// <summary>Rejects a single port outside the usable 1..65535 range.</summary>
+        private static void ValidatePort(int port, string paramName)
+        {
+            if (port is < PortListParser.MinPort or > PortListParser.MaxPort)
+                throw new ArgumentOutOfRangeException(paramName,
+                    string.Format(CultureInfo.CurrentCulture, Language.PortScanInvalidPort,
+                                  port, PortListParser.MinPort, PortListParser.MaxPort));
         }
 
         // Cap the range so an inverted/huge range (in particular an IPv6 range, which can span an

@@ -167,4 +167,46 @@ public class PortScannerTests
             IPAddress.Parse("192.168.1.1"),
             new[] { PortListParser.MinPort, PortListParser.MaxPort }));
     }
+
+    private static List<int> GetScannedPorts(PortScanner scanner)
+    {
+        FieldInfo field = typeof(PortScanner).GetField("_ports", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        return (List<int>)field.GetValue(scanner)!;
+    }
+
+    [Test]
+    public void PortRangeCtor_ZeroStartStillMeansASinglePort()
+    {
+        // (0, 3389) is this overload's "only one port was specified" convention. Validation must
+        // run after that has been resolved, or the convention would start throwing.
+        var scanner = new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            0, 3389);
+
+        Assert.That(GetScannedPorts(scanner), Is.EqualTo(new[] { 3389 }));
+    }
+
+    [TestCase(0, 0)]
+    [TestCase(-1, 80)]
+    [TestCase(80, 65536)]
+    public void PortRangeCtor_InvalidBounds_Throw(int port1, int port2)
+    {
+        Assert.That(() => new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            port1, port2), Throws.InstanceOf<ArgumentOutOfRangeException>());
+    }
+
+    [Test]
+    public void PortRangeCtor_DefaultPortsOnly_IgnoresThePortArguments()
+    {
+        // port1/port2 are unused in this mode, so they must not be validated either.
+        var scanner = new PortScanner(
+            IPAddress.Parse("192.168.1.1"),
+            IPAddress.Parse("192.168.1.1"),
+            0, 0, checkDefaultPortsOnly: true);
+
+        Assert.That(GetScannedPorts(scanner), Does.Contain(ScanHost.RdpPort));
+    }
 }
