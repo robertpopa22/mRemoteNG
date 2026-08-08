@@ -1,0 +1,255 @@
+name: Pre-release
+
+# Cuts a beta pre-release: builds x64, runs the suite, packages the binaries as a
+# portable ZIP and publishes it as a GitHub pre-release. No MSI — see Build_mR-NB.yml
+# for the full stable release with the installer.
+#
+# Manual only: publishing a release is outward-facing, so it stays a deliberate act.
+on:
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: 'Build and package, but do not publish the release'
+        type: boolean
+        required: false
+        default: false
+
+permissions: {}
+
+# Two concurrent runs would race on the next beta number.
+concurrency:
+  group: prerelease
+  cancel-in-progress: false
+
+jobs:
+  prerelease:
+    name: Build, test & publish pre-release (x64)
+    permissions:
+      contents: write
+    runs-on: windows-2025-vs2026
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          # Full history + tags: the version is derived from the existing release tags.
+          fetch-depth: 0
+
+      # Betas lead the release of the same version (v1.81.0-beta.2 -> v1.81.0-beta.3 ->
+      # v1.81.0), so the base is the latest *released* version with the minor bumped.
+      # csproj <Version> is deliberately not used as the base: it tracks the last
+      # release, so it would produce a beta tag that sorts before an existing release.
+      - name: Compute pre-release version
+        id: version
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $released = git tag --list 'v*' |
+            Where-Object { $_ -match '^v\d+\.\d+\.\d+$' } |
+            ForEach-Object { [pscustomobject]@{ Tag = $_; Ver = [version]($_ -replace '^v', '') } } |
+            Sort-Object Ver -Descending
+
+          if ($released) {
+            $latest = $released[0]
+            $base = "{0}.{1}.0" -f $latest.Ver.Major, ($latest.Ver.Minor + 1)
+            Write-Host "Latest release tag: $($latest.Tag) -> base $base"
+          } else {
+            # No release tags yet (e.g. a fresh fork): fall back to the csproj version.
+            $csproj = Get-Content "mRemoteNG/mRemoteNG.csproj" -Raw
+            if ($csproj -notmatch '<Version>([^<]+)</Version>') { throw "Could not find <Version> in csproj" }
+            $base = ($matches[1].Trim() -replace '-.*$', '')
+            Write-Host "No release tags found; falling back to csproj version -> base $base"
+          }
+
+          $escaped = [regex]::Escape($base)
+          $betas = git tag --list "v$base-beta.*" |
+            ForEach-Object { if ($_ -match "^v$escaped-beta\.(\d+)$") { [int]$matches[1] } }
+
+          $next = if ($betas) { ($betas | Measure-Object -Maximum).Maximum + 1 } else { 1 }
+          $tag = "v$base-beta.$next"
+
+          if (git tag --list $tag) { throw "Tag $tag already exists" }
+
+          $sha = "${{ github.sha }}".Substring(0, 7)
+          Write-Host "Pre-release version: $tag (commit $sha)"
+
+          "base=$base"               >> $env:GITHUB_OUTPUT
+          "beta=$next"               >> $env:GITHUB_OUTPUT
+          "tag=$tag"                 >> $env:GITHUB_OUTPUT
+          "version=$base-beta.$next" >> $env:GITHUB_OUTPUT
+          "sha=$sha"                 >> $env:GITHUB_OUTPUT
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5
+        with:
+          dotnet-version: 10.0.x
+
+      # dotnet build fails with MSB4803 on the MSTSCLib COM reference.
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57 # v3.0.0
+        with:
+          vs-version: "[18.0,19.0)"
+
+      - name: Cache NuGet
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-x64-nuget-${{ hashFiles('**/*.csproj', '**/*.wixproj') }}
+          restore-keys: |
+            ${{ runner.os }}-x64-nuget-
+
+      # Same shape as nightly.yml, but the version comes from the computed beta tag
+      # rather than csproj, so the About box matches the release it ships in.
+      - name: Generate AssemblyInfo.cs
+        shell: pwsh
+        run: |
+          $base = "${{ steps.version.outputs.base }}"
+          $major, $minor, $revision = $base -split '\.'
+          $prerelease = "-beta.${{ steps.version.outputs.beta }}"
+          $channel = "Pre-release"
+          $baseDate = [datetime]"2019-09-02"
+          $build = [int](([datetime]::UtcNow - $baseDate).TotalMinutes / 1000)
+          $platform = "x64"
+          $year = [datetime]::UtcNow.Year
+          $content = @"
+          //Generated for platform: $platform
+          using System.Reflection;
+          using System.Resources;
+          //Build nr: $build
+          [assembly: AssemblyTitle("mRemoteNG")]
+          [assembly: AssemblyDescription("Multi-Remote Next Generation Connection Manager")]
+          [assembly: AssemblyConfiguration("$platform")]
+          [assembly: AssemblyCompany("Profi-KOM Ltd.")]
+          [assembly: AssemblyProduct("mRemoteNG Connection Manager")]
+          [assembly: AssemblyCopyright("(c) $year mRemoteNG")]
+          [assembly: AssemblyTrademark("Profi-KOM LTd.")]
+          [assembly: AssemblyCulture("")]
+          [assembly: AssemblyVersion("$major.$minor.$revision.$build")]
+          [assembly: AssemblyFileVersion("$major.$minor.$revision.$build")]
+          [assembly: NeutralResourcesLanguageAttribute("en-US")]
+          [assembly: AssemblyInformationalVersion("$major.$minor.$revision$prerelease ($channel $build) $platform")]
+          "@
+          Set-Content -Path "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.cs" -Value $content -Encoding UTF8
+          Write-Host "Generated AssemblyInfo.cs: $base$prerelease.$build ($channel) $platform"
+
+      - name: Build x64 Release
+        run: msbuild mRemoteNG.sln /restore -m /verbosity:minimal -p:Configuration=Release -p:Platform=x64
+
+      - name: Smoke test (app starts)
+        shell: pwsh
+        run: |
+          # WinExe app needs Start-Process (no attached console for & operator)
+          $proc = Start-Process -FilePath ".\mRemoteNG\bin\x64\Release\mRemoteNG.exe" -ArgumentList "--version" -Wait -PassThru -WindowStyle Hidden
+          if ($proc.ExitCode -ne 0) { throw "Smoke test failed: exit code $($proc.ExitCode)" }
+          Write-Host "Smoke test passed (exit code: $($proc.ExitCode))"
+
+      # Never publish a pre-release that fails its own suite.
+      - name: Run tests
+        shell: bash
+        run: bash run-tests-core.sh
+
+      - name: Package binaries
+        id: package
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $version = "${{ steps.version.outputs.version }}"
+          $sha = "${{ steps.version.outputs.sha }}"
+          $zipName = "mRemoteNG-v$version-$sha-x64.zip"
+          $sourceDir = "mRemoteNG\bin\x64\Release"
+
+          # Defense-in-depth: strip anything that could contain user connection data
+          # before packaging. CI runners should never stage these, but the extra sweep
+          # costs a few ms and the blast radius of a miss is too high to skip.
+          $settingsPath = Join-Path $sourceDir 'Settings'
+          if (Test-Path $settingsPath) {
+            Write-Host "Removing stray Settings/ before packaging"
+            Remove-Item -Recurse -Force $settingsPath
+          }
+          Get-ChildItem -Path $sourceDir -Recurse -File -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -like 'confCons*' -or $_.Name -like '*.xml.backup*' -or $_.Name -like '*.settings' } |
+            ForEach-Object {
+              Write-Host "Removing forbidden file: $($_.FullName)"
+              Remove-Item -Force $_.FullName
+            }
+
+          # Drop build scaffolding and the other-RID folders; keep everything needed to run.
+          $items = Get-ChildItem -Path $sourceDir | Where-Object {
+            $_.Name -notin @('ref','publish','win-x64','win-x86','win-arm64','win-x64-sc','Settings')
+          }
+          Compress-Archive -Path $items.FullName -DestinationPath $zipName -Force
+          Write-Host "Created: $zipName ($('{0:N1} MB' -f ((Get-Item $zipName).Length / 1MB)))"
+
+          # Post-zip sanity check — fail the workflow if anything sensitive slipped
+          # through. Uses .NET ZipFile so it does not depend on runner tar.exe.
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $archive = [System.IO.Compression.ZipFile]::OpenRead((Resolve-Path $zipName))
+          try {
+            # Schemas/mremoteng_confcons_v2_8.xsd is a legitimate shipped asset,
+            # so exclude *.xsd matches from the leak pattern.
+            $leaks = $archive.Entries | ForEach-Object { $_.FullName } | Where-Object {
+              ($_ -like 'Settings/*') -or
+              ($_ -like '*.xml.backup*') -or
+              ($_ -like '*.settings') -or
+              ($_ -like '*confCons*' -and $_ -notlike '*.xsd')
+            }
+          }
+          finally { $archive.Dispose() }
+          if ($leaks) {
+            Write-Error "Pre-release ZIP contains forbidden paths:`n  $($leaks -join "`n  ")"
+            exit 1
+          }
+          Write-Host "Sanity check passed: no Settings/confCons/backup entries in ZIP"
+
+          "zipname=$zipName" >> $env:GITHUB_OUTPUT
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mRemoteNG-${{ steps.version.outputs.tag }}-x64
+          path: ${{ steps.package.outputs.zipname }}
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Publish pre-release
+        if: ${{ !inputs.dryRun }}
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Pre-release ${{ steps.version.outputs.tag }}"
+          prerelease: true
+          make_latest: false
+          files: ${{ steps.package.outputs.zipname }}
+          body: |
+            ## Pre-release ${{ steps.version.outputs.tag }}
+
+            **Version:** ${{ steps.version.outputs.version }}
+            **Commit:** [${{ steps.version.outputs.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            **Architecture:** x64 (framework-dependent — needs the .NET desktop runtime)
+            **Tests:** full suite passed
+
+            ### Download
+
+            | Format | Description |
+            |--------|-------------|
+            | **ZIP** | Portable — extract and run `mRemoteNG.exe` |
+
+            > [!WARNING]
+            > This is an unstable pre-release build for testing. Back up your connection
+            > file before using it, and do not use it as your only copy of your data.
+
+      - name: Summary
+        shell: pwsh
+        run: |
+          $published = if ("${{ inputs.dryRun }}" -eq "true") { "no (dry run)" } else { "yes" }
+          @"
+          ### Pre-release ${{ steps.version.outputs.tag }}
+
+          | | |
+          |---|---|
+          | Package | ``${{ steps.package.outputs.zipname }}`` |
+          | Commit | ${{ steps.version.outputs.sha }} |
+          | Published | $published |
+          "@ >> $env:GITHUB_STEP_SUMMARY
