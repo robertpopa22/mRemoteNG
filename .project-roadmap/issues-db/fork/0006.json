@@ -2,7 +2,7 @@
   "number": 6,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.TypeInitializationException: The type initializer for 'mRemoteNG.App.Logger' threw an exception.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",

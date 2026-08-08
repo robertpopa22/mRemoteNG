@@ -2,7 +2,7 @@
   "number": 52,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the colle...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "P2-medium"
   ],
@@ -47,7 +47,7 @@
   ],
   "comments_cursor": "2026-03-14T07:50:52Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-14T08:07:39Z",
   "notes": ""

@@ -2,7 +2,7 @@
   "number": 2,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ArgumentException: Parameter is not valid.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",

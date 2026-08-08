@@ -2,7 +2,7 @@
   "number": 101,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Connection to Azure AD or Entra ID clients",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "enhancement"
   ],
@@ -67,7 +67,7 @@
   ],
   "comments_cursor": "2026-05-23T11:19:47Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-06-11T16:16:02Z",
   "notes": "Entra ID shipped 2e40adc6b; no reporter response 3wk after nudge; closed, reopen on request"

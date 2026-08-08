@@ -2,7 +2,7 @@
   "number": 119,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ObjectDisposedException: Cannot access a disposed object.\r\nObject name: 'System.Timers.Timer'.",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "knavet",
   "created_at": "2026-05-26T00:57:56Z",

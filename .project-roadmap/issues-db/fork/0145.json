@@ -2,13 +2,13 @@
   "number": 145,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Bug Report: Permission Denied in Program Files and Serialization Exception (MariaDB)",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-07-29T15:22:41Z",
+  "github_updated_at": "2026-08-05T15:35:32Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -133,6 +133,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 13,
+      "date": "2026-08-08",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -216,12 +226,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABM9Z4Mw",
+      "author": "robertpopa22",
+      "date": "2026-08-03T09:32:49Z",
+      "snippet": "Confirmed, and your diagnosis was right — with one correction to the mechanism: it isn't thread-local state, it's the database session itself.\n\n**What was happening:** the schema migrations have to issue keyless `UPDATE`s (e.g. `UPDATE tblCons SET InheritUseEnhancedMode = 0 WHERE InheritUseEnhancedMode IS NULL`), which safe-updates mode rejects, so the migration turns the mode off while it runs. The bug was in how it turned it back on — two places ended with a hard-coded `SET SQL_SAFE_UPDATES=1`...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABNZQfaA",
+      "author": "n3cr0cr0w",
+      "date": "2026-08-05T15:35:32Z",
+      "snippet": "Testing for several hours now. This is the most stable mRemoteNG has felt with a DB backend. Thank you for the fix!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-07-29T15:22:41Z",
-  "unread_comments": 4,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-03T09:32:54Z",
-  "notes": "fix shipped 1f00e9ebe; awaiting reporter confirm on nightly"
+  "comments_cursor": "2026-08-05T15:35:32Z",
+  "unread_comments": 5,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-08-08T10:24:56Z",
+  "notes": "reporter confirms stable after hours of testing; all 3 parts fixed (ProgFiles writes, GUID PK FormatException bf52a6457, safe-updates leak 1f00e9ebe)"
 }

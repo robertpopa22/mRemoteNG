@@ -2,7 +2,7 @@
   "number": 11,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ObjectDisposedException: Cannot access a disposed object.\r\nObject name: 'mRemoteNG.UI.Window.ConnectionWi...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -21,7 +21,7 @@
   "comments": [],
   "comments_cursor": "2026-02-16T08:33:38Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-16T09:19:21Z",
   "notes": ""

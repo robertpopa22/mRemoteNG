@@ -2,7 +2,7 @@
   "number": 118,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Connecting to a server via RDP stops text boxes being responsive while the server is the active tab",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "RyanNHS",
   "created_at": "2026-05-14T12:36:18Z",
@@ -103,7 +103,7 @@
   ],
   "comments_cursor": "2026-06-05T08:19:50Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-06-05T09:47:36Z",
   "notes": "diag build 11d9c4fbc shipped ([#118-diag] refocus-path trace); prior fix e592f8d8f didnt reach refocus per RyanNHS; awaiting trace"

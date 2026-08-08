@@ -2,7 +2,7 @@
   "number": 13,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.TypeInitializationException: The type initializer for 'Microsoft.Data.SqlClient.TdsParser' threw an exception...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -21,7 +21,7 @@
   "comments": [],
   "comments_cursor": "2026-02-20T10:48:33Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-20T15:19:29Z",
   "notes": ""

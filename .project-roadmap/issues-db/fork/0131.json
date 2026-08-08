@@ -2,7 +2,7 @@
   "number": 131,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.TypeInitializationException: The type initializer for 'System.Resources.Extensions.BinaryFormat.BinaryFormatt...",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "CrAzEpAnDa-28",
   "created_at": "2026-06-15T12:55:37Z",

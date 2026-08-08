@@ -2,7 +2,7 @@
   "number": 135,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ArgumentOutOfRangeException: index ('1') must be less than '0'. (Parameter 'index')\r\nActual value was 1.",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "San9K1",
   "created_at": "2026-06-30T04:57:52Z",

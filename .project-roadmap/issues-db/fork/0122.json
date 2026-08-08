@@ -2,7 +2,7 @@
   "number": 122,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ObjectListView, Version=2.9.3.24576, Culture=ne...",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "klob77",
   "created_at": "2026-05-29T15:09:17Z",

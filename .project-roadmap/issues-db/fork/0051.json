@@ -2,7 +2,7 @@
   "number": 51,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Update not working on nightly builds",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "P2-medium"
   ],

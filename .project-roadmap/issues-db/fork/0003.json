@@ -2,7 +2,7 @@
   "number": 3,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: Error creating window handle.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",

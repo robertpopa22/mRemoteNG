@@ -2,7 +2,7 @@
   "number": 114,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: Erreur lors de la création d'un handle de fenêtre.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -42,7 +42,7 @@
   ],
   "comments_cursor": "2026-05-23T11:19:46Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-06-11T16:16:02Z",
   "notes": "stale-closed: non-fatal DPI ComboBox handle recreation on old 1.80.0; no response after retest request; reopen if repro on nightly"

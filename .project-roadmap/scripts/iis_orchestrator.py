@@ -5172,8 +5172,23 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
                 try:
                     local = iis_read_json(file_path)
                     if local.get("github_updated_at") == gh_updated_at:
+                        # Nothing changed on GitHub, but the *derived* flags may still be
+                        # stale if their logic changed since the record was written. Recompute
+                        # them from the cached payload (no network) so a fix to the queue
+                        # rules heals existing records instead of only new ones.
+                        local_comments = local.get("comments") or []
+                        if local_comments:
+                            local_waiting = not local_comments[-1].get("is_ours")
+                        else:
+                            local_author = local.get("author", "")
+                            local_waiting = bool(local_author) and local_author != our_user
+                        if local.get("waiting_for_us") != local_waiting:
+                            local["waiting_for_us"] = local_waiting
+                            iis_write_json(file_path, local)
                         skipped_unchanged += 1
                         stats["issues_updated"] += 1
+                        if local_waiting:
+                            stats["waiting_for_us"] += 1
                         continue
                 except Exception:
                     pass  # corrupted JSON — re-fetch
@@ -5248,9 +5263,16 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
             )
             needs_action = unread_count > 0 or is_new
 
-            # Determine waiting_for_us (last comment is from someone else)
+            # Determine waiting_for_us (last comment is from someone else).
+            # An issue somebody else opened that we have not answered yet is equally
+            # waiting on us -- keying this off the last *comment* alone silently hid
+            # brand-new zero-comment bug reports from the work queue.
             last_comment = gh_comments[-1] if gh_comments else None
-            waiting_for_us = bool(last_comment and not last_comment["is_ours"])
+            issue_author = gh_full.get("author", {}).get("login", "")
+            if last_comment:
+                waiting_for_us = not last_comment["is_ours"]
+            else:
+                waiting_for_us = bool(issue_author) and issue_author != our_user
 
             # Body snippet
             body_raw = gh_full.get("body") or ""
@@ -5309,6 +5331,29 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
 
         if skipped_unchanged > 0:
             print(f"  Skipped {skipped_unchanged} unchanged issues (same updatedAt)")
+
+        # An open-state listing never revisits an issue once it is closed, so a local record
+        # keeps state="open" forever and can keep surfacing in work queues after the issue is
+        # done. Reconcile: anything we hold as open that GitHub no longer lists as open is
+        # closed. Only safe when the listing was not truncated by the limit.
+        if not issue_numbers and not include_closed and len(issues_list) < max_issues:
+            open_on_github = {i["number"] for i in issues_list}
+            reconciled = 0
+            for local_file in repo_dir.glob("*.json"):
+                try:
+                    local = iis_read_json(local_file)
+                except Exception:
+                    continue
+                if local.get("state") != "open" or local.get("number") in open_on_github:
+                    continue
+                local["state"] = "closed"
+                local["waiting_for_us"] = False
+                local["needs_action"] = False
+                iis_write_json(local_file, local)
+                reconciled += 1
+            if reconciled > 0:
+                print(f"  Reconciled {reconciled} issue(s) closed on GitHub")
+
         stats["repos_synced"].append(repo_name)
         print()
 

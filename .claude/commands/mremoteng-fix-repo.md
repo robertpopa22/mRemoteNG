@@ -21,7 +21,7 @@ Explicitly fork-scoped — never sync or modify upstream here.
 
 ### Step 2: Build the work queue
 ```bash
-python -c "import json,glob; rows=[(j['number'], j.get('title','')[:70]) for j in (json.load(open(f,encoding='utf-8')) for f in glob.glob(r'D:/github/mRemoteNG/.project-roadmap/issues-db/fork/*.json')) if j.get('state')=='open' and j.get('unread_comments',0)>0 and j.get('waiting_for_us') and (j.get('comments') and not j['comments'][-1].get('is_ours'))]; [print(f'#{n}\t{t}') for n,t in sorted(rows)]"
+python -c "import json,glob; rows=[(j['number'], ('NEW' if not j.get('comments') else 'comment'), j.get('title','')[:70]) for j in (json.load(open(f,encoding='utf-8')) for f in glob.glob(r'D:/github/mRemoteNG/.project-roadmap/issues-db/fork/*.json')) if j.get('state')=='open' and j.get('waiting_for_us') and (j.get('unread_comments',0)>0 or not j.get('comments'))]; [print(f'#{n}\t{k}\t{t}') for n,k,t in sorted(rows)]"
 ```
 If a single issue number was given, restrict to it. For each queued issue, fetch the full new comment(s):
 ```bash
@@ -97,4 +97,5 @@ Write a session memory file under the project memory dir + add a one-line pointe
 - **Reviewers are read-only.** `codex:codex-rescue` defaults to `--write` (it edits the working tree, auto-applied, uncommitted) unless the prompt explicitly says read-only/diagnosis. Always invoke it read-only + `--wait` for the dual review, and `git status --short` after — the main thread is the sole author of edits/builds/commits.
 - Build: `build.ps1` (NOT `dotnet build` — COM refs fail MSB4803). Tests: `run-tests.ps1 -Headless`, `--verbosity normal` only.
 - Issue DB: `.project-roadmap/issues-db/fork/*.json`; flags used — `unread_comments`, `waiting_for_us`, `comments[].is_ours`.
+- **The queue includes brand-new zero-comment issues.** A fresh report by an external author has no comments at all, so it has `unread_comments == 0`; gating the queue on that flag alone silently hid new bug reports (they only showed as `[needs action]` in the sync summary, which is easy to skim past). `waiting_for_us` is now also true for an unanswered issue opened by someone other than us.
 - This is the codified version of the manual #113/#110 maintenance loop.

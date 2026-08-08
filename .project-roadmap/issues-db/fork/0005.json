@@ -2,7 +2,7 @@
   "number": 5,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.NullReferenceException: Object reference not set to an instance of an object.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
