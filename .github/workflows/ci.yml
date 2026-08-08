@@ -1,0 +1,96 @@
+name: CI
+
+# Fills the gap left by PR_Validation, which compiles mRemoteNGTests but never runs it:
+# until now the suite only executed after a merge to main, via Nightly Build.
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & Test (x64)
+    permissions:
+      contents: read
+    runs-on: windows-2025-vs2026
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5
+        with:
+          dotnet-version: 10.0.x
+
+      # dotnet build fails with MSB4803 on the MSTSCLib COM reference, so the full
+      # VS BuildTools MSBuild is required rather than the SDK build.
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57 # v3.0.0
+        with:
+          vs-version: "[18.0,19.0)"
+
+      - name: Cache NuGet
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-x64-nuget-${{ hashFiles('**/*.csproj', '**/*.wixproj') }}
+          restore-keys: |
+            ${{ runner.os }}-x64-nuget-
+
+      # Builds mRemoteNGTests too, so run-tests-core.sh finds the DLL it expects at
+      # mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll.
+      - name: Build solution
+        run: msbuild mRemoteNG.sln /restore -m /verbosity:minimal -p:Configuration=Release -p:Platform=x64
+
+      - name: Smoke test (app starts)
+        shell: pwsh
+        run: |
+          # WinExe app needs Start-Process (no attached console for & operator)
+          $proc = Start-Process -FilePath ".\mRemoteNG\bin\x64\Release\mRemoteNG.exe" -ArgumentList "--version" -Wait -PassThru -WindowStyle Hidden
+          if ($proc.ExitCode -ne 0) { throw "Smoke test failed: exit code $($proc.ExitCode)" }
+          Write-Host "Smoke test passed (exit code: $($proc.ExitCode))"
+
+      # The repo's canonical runner: throttled parallel groups plus the isolated
+      # FrmOptions tests that need a message pump, and a coverage gate (exit 96) if a
+      # namespace in the DLL is not claimed by any group in test-config.json.
+      - name: Run tests
+        shell: bash
+        run: bash run-tests-core.sh
+
+      - name: Collect test results on failure
+        if: failure()
+        shell: pwsh
+        run: |
+          $outDir = "$env:GITHUB_WORKSPACE\test-results-dump"
+          New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+          # run-tests-core.sh preserves failed trx into $REPO_ROOT/test-results-dump
+          # directly. Also walk the common temp roots in case of a crash before that.
+          $roots = @($outDir, $env:TEMP, $env:TMP, "$env:GITHUB_WORKSPACE",
+                     "C:\Users\runneradmin\AppData\Local\Temp",
+                     "C:\Windows\Temp") | Where-Object { $_ -and (Test-Path $_) } | Select-Object -Unique
+          $trx = foreach ($r in $roots) { Get-ChildItem $r -Recurse -Filter *.trx -ErrorAction SilentlyContinue }
+          $trx = $trx | Sort-Object FullName -Unique
+          foreach ($f in $trx) {
+            Copy-Item $f.FullName -Destination $outDir -Force -ErrorAction SilentlyContinue
+          }
+          Write-Host "Collected $($trx.Count) trx file(s)"
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-results-${{ github.sha }}
+          path: test-results-dump/
+          retention-days: 14
+          if-no-files-found: warn

@@ -33,7 +33,8 @@ Unless the user explicitly requests a documentation or orchestrator task, issue-
 
 - Work only in `mRemoteNG/`, `mRemoteNGTests/`, or `mRemoteNGSpecs/`.
 - Never read or modify `.project-roadmap/`.
-- Never modify `run-tests.ps1`, `build.ps1`, `mRemoteNG.sln`, `Directory.Build.props`, `Directory.Packages.props`, or `.github/workflows/*`.
+- Never modify `run-tests.ps1`, `build.ps1`, `mRemoteNG.sln`, `Directory.Build.props`, or `Directory.Packages.props`.
+- `.github/workflows/*` may be changed when the user explicitly asks for CI work. It stays off-limits for an ordinary issue fix — never edit a workflow as a side effect of another task.
 - Never run `git add`, `git commit`, `git push`, or other repository-mutating Git commands; the orchestrator owns commits.
 - Preserve existing behavior outside the reported issue and never add interactive tests.
 
