@@ -35,14 +35,23 @@ jobs:
           fetch-depth: 0
 
       # Betas lead the release of the same version (v1.81.0-beta.2 -> v1.81.0-beta.3 ->
-      # v1.81.0), so the base is the latest *released* version with the minor bumped.
-      # csproj <Version> is deliberately not used as the base: it tracks the last
-      # release, so it would produce a beta tag that sorts before an existing release.
+      # v1.81.0), so the base must be a version that has not shipped here yet.
+      #
+      # Two sources disagree in a fork. csproj <Version> tracks the code, but goes stale
+      # if nobody bumps it. The tags track what this repo has actually released, but a
+      # fork's tags lag the code it has merged from upstream. Taking the higher of the
+      # two covers both: csproj wins while the code is ahead of the fork's releases,
+      # otherwise the latest tag is minor-bumped.
       - name: Compute pre-release version
         id: version
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
+
+          $csproj = Get-Content "mRemoteNG/mRemoteNG.csproj" -Raw
+          if ($csproj -notmatch '<Version>([^<]+)</Version>') { throw "Could not find <Version> in csproj" }
+          $csprojBase = ($matches[1].Trim() -replace '-.*$', '')
+          Write-Host "csproj <Version>: $csprojBase"
 
           $released = git tag --list 'v*' |
             Where-Object { $_ -match '^v\d+\.\d+\.\d+$' } |
@@ -51,15 +60,23 @@ jobs:
 
           if ($released) {
             $latest = $released[0]
-            $base = "{0}.{1}.0" -f $latest.Ver.Major, ($latest.Ver.Minor + 1)
-            Write-Host "Latest release tag: $($latest.Tag) -> base $base"
+            Write-Host "Latest release tag: $($latest.Tag)"
+            if ([version]$csprojBase -gt $latest.Ver) {
+              # Code is ahead of anything released here, so csproj names the next version.
+              $base = $csprojBase
+              Write-Host "csproj is ahead of the tags -> base $base"
+            } else {
+              # csproj has already shipped here; the next version is a minor bump.
+              $base = "{0}.{1}.0" -f $latest.Ver.Major, ($latest.Ver.Minor + 1)
+              Write-Host "csproj already released -> minor bump -> base $base"
+            }
           } else {
-            # No release tags yet (e.g. a fresh fork): fall back to the csproj version.
-            $csproj = Get-Content "mRemoteNG/mRemoteNG.csproj" -Raw
-            if ($csproj -notmatch '<Version>([^<]+)</Version>') { throw "Could not find <Version> in csproj" }
-            $base = ($matches[1].Trim() -replace '-.*$', '')
-            Write-Host "No release tags found; falling back to csproj version -> base $base"
+            # No release tags yet (e.g. a fresh fork): csproj is the only signal.
+            $base = $csprojBase
+            Write-Host "No release tags found -> base $base"
           }
+
+          if (git tag --list "v$base") { throw "v$base is already tagged; bump <Version> in mRemoteNG.csproj" }
 
           $escaped = [regex]::Escape($base)
           $betas = git tag --list "v$base-beta.*" |
