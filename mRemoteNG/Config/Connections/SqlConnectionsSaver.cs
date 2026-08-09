@@ -7,6 +7,7 @@ using mRemoteNG.App;
 using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.Serializers;
+using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 using mRemoteNG.Config.Serializers.Versioning;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
@@ -106,7 +107,20 @@ namespace mRemoteNG.Config.Connections
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    bool rolledBack = true;
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception rollbackEx)
+                    {
+                        // A rollback can itself fail (connection already dropped). Report that
+                        // honestly rather than claiming the changes were undone. (#148)
+                        rolledBack = false;
+                        Runtime.MessageCollector.AddExceptionStackTrace("Rollback after a failed save also failed", rollbackEx);
+                    }
+
+                    SqlCommandDiagnostics.LogFailure(ex, "SqlConnectionsSaver.Save", rolledBack);
                     Runtime.MessageCollector.AddExceptionStackTrace(Language.ErrorConnectionListSaveFailed, ex);
                     throw;
                 }
@@ -184,7 +198,7 @@ namespace mRemoteNG.Config.Connections
                 lastUpdateParam.Value = MiscTools.DBTimeStampNow();
                 dbQuery.Parameters.Add(lastUpdateParam);
 
-                dbQuery.ExecuteNonQuery();
+                SqlCommandDiagnostics.ExecuteNonQuery(dbQuery, "UpdateUpdatesTable");
                 
                 if (mustDisposeTransaction)
                 {

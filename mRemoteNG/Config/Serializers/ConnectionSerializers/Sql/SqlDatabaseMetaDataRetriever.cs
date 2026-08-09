@@ -154,7 +154,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     confVersionParam.Value = ConnectionsFileInfo.ConnectionFileVersion.ToString();
                     cmd.Parameters.Add(confVersionParam);
 
-                    cmd.ExecuteNonQuery();
+                    SqlCommandDiagnostics.ExecuteNonQuery(cmd, "WriteDatabaseMetaData");
                 }
                 else
                 {

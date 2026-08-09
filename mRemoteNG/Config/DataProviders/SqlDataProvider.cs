@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using mRemoteNG.Config.DatabaseConnectors;
+using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 using mRemoteNG.Messages;
 using mRemoteNG.App;
 using MySql.Data.MySqlClient;
@@ -106,6 +108,9 @@ namespace mRemoteNG.Config.DataProviders
                     dataAdapter.UpdateCommand = builder.GetUpdateCommand();
                     dataAdapter.DeleteCommand = builder.GetDeleteCommand();
                     dataAdapter.InsertCommand = builder.GetInsertCommand();
+                    // The adapter generates its own statements, so a failure here would otherwise
+                    // report no SQL at all. Tag the row error with the statement behind it. (#148)
+                    dataAdapter.RowUpdated += SqlCommandDiagnostics.OnRowUpdated;
                     dataAdapter.Update(dataTable);
 
                     if (mustDisposeTransaction)
@@ -167,6 +172,9 @@ namespace mRemoteNG.Config.DataProviders
                     dataAdapter.UpdateCommand = cb.GetUpdateCommand();
                     dataAdapter.DeleteCommand = cb.GetDeleteCommand();
                     dataAdapter.InsertCommand = cb.GetInsertCommand();
+                    // The adapter generates its own statements, so a failure here would otherwise
+                    // report no SQL at all. Tag the row error with the statement behind it. (#148)
+                    dataAdapter.RowUpdated += SqlCommandDiagnostics.OnRowUpdated;
                     dataAdapter.Update(dataTable);
 
                     if (mustDisposeTransaction)
@@ -216,6 +224,9 @@ namespace mRemoteNG.Config.DataProviders
                     dataAdapter.UpdateCommand = builder.GetUpdateCommand();
                     dataAdapter.DeleteCommand = builder.GetDeleteCommand();
                     dataAdapter.InsertCommand = builder.GetInsertCommand();
+                    // The adapter generates its own statements, so a failure here would otherwise
+                    // report no SQL at all. Tag the row error with the statement behind it. (#148)
+                    dataAdapter.RowUpdated += SqlCommandDiagnostics.OnRowUpdated;
                     dataAdapter.Update(dataTable);
 
                     if (mustDisposeTransaction)

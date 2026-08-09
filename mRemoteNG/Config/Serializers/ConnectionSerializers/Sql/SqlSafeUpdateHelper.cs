@@ -19,7 +19,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 using DbCommand command = databaseConnector.DbCommand(
                     useLimitedDelete ? deleteSingleCommandText : deleteAllCommandText);
                 command.Transaction = transaction;
-                deletedRows = command.ExecuteNonQuery();
+                deletedRows = SqlCommandDiagnostics.ExecuteNonQuery(command, "DeleteAllRows");
             }
             while (useLimitedDelete && deletedRows > 0);
         }
