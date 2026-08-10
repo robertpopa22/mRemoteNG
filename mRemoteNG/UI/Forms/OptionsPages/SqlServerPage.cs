@@ -241,7 +241,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             string password = crypto.Decrypt(Properties.OptionsDBsPage.Default.SQLPass, Runtime.EncryptionKey);
             string authType = Properties.OptionsDBsPage.Default.SQLAuthType;
 
-            var testResult = await DatabaseConnectionTester.TestConnectivity(type, server, database, username, password, authType);
+            var testOutcome = await DatabaseConnectionTester.TestConnectivityDetailed(type, server, database, username, password, authType);
+            var testResult = testOutcome.Result;
 
             if (testResult == ConnectionTestResult.UnknownDatabase)
             {
@@ -287,10 +288,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 lblTestConnectionResults.Text = testResult switch
                 {
                     ConnectionTestResult.ServerNotAccessible =>
-                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.ServerNotAccessible, server)),
+                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.ServerNotAccessible, server), testOutcome.ErrorDetail),
                     ConnectionTestResult.CredentialsRejected =>
-                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.LoginFailedForUser, username)),
-                    _ => BuildTestFailedMessage(Language.RdpErrorUnknown)
+                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.LoginFailedForUser, username), testOutcome.ErrorDetail),
+                    _ => BuildTestFailedMessage(DescribeUnknownFailure(testOutcome.ErrorDetail))
                 };
                 return;
             }
@@ -411,7 +412,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             imgConnectionStatus.Image = Properties.Resources.Loading_Spinner;
             btnTestConnection.Enabled = false;
 
-            ConnectionTestResult connectionTestResult = await DatabaseConnectionTester.TestConnectivity(type, server, database, username, password, authType);
+            DatabaseConnectionTestOutcome testOutcome = await DatabaseConnectionTester.TestConnectivityDetailed(type, server, database, username, password, authType);
+            ConnectionTestResult connectionTestResult = testOutcome.Result;
 
             btnTestConnection.Enabled = true;
 
@@ -424,12 +426,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 case ConnectionTestResult.ServerNotAccessible:
                     UpdateConnectionImage(false);
                     lblTestConnectionResults.Text =
-                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.ServerNotAccessible, server));
+                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.ServerNotAccessible, server), testOutcome.ErrorDetail);
                     break;
                 case ConnectionTestResult.CredentialsRejected:
                     UpdateConnectionImage(false);
                     lblTestConnectionResults.Text =
-                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.LoginFailedForUser, username));
+                        BuildTestFailedMessage(string.Format(CultureInfo.CurrentCulture, Language.LoginFailedForUser, username), testOutcome.ErrorDetail);
                     break;
                 case ConnectionTestResult.UnknownDatabase:
                     UpdateConnectionImage(false);
@@ -453,11 +455,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     break;
                 case ConnectionTestResult.UnknownError:
                     UpdateConnectionImage(false);
-                    lblTestConnectionResults.Text = BuildTestFailedMessage(Language.RdpErrorUnknown);
+                    lblTestConnectionResults.Text = BuildTestFailedMessage(DescribeUnknownFailure(testOutcome.ErrorDetail));
                     break;
                 default:
                     UpdateConnectionImage(false);
-                    lblTestConnectionResults.Text = BuildTestFailedMessage(Language.RdpErrorUnknown);
+                    lblTestConnectionResults.Text = BuildTestFailedMessage(DescribeUnknownFailure(testOutcome.ErrorDetail));
                     break;
             }
         }
@@ -504,6 +506,30 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private static string BuildTestFailedMessage(string specificMessage)
         {
             return Language.ConnectionOpenFailed + Environment.NewLine + specificMessage;
+        }
+
+        /// <summary>
+        /// Appends the provider's own error to a classified message. The classification alone is
+        /// often too coarse to act on — "server not accessible" does not distinguish a wrong
+        /// instance name from a blocked port or a timeout. (#165)
+        /// </summary>
+        private static string BuildTestFailedMessage(string specificMessage, string? errorDetail)
+        {
+            return string.IsNullOrWhiteSpace(errorDetail)
+                ? BuildTestFailedMessage(specificMessage)
+                : BuildTestFailedMessage(specificMessage + Environment.NewLine + errorDetail);
+        }
+
+        /// <summary>
+        /// Message for a failure the tester could not classify. This used to render
+        /// Language.RdpErrorUnknown — an RDP protocol string carrying {0}/{1} placeholders that
+        /// nothing ever filled in, so the dialog literally showed "on {0} (Error {1})". (#165)
+        /// </summary>
+        private static string DescribeUnknownFailure(string? errorDetail)
+        {
+            return string.IsNullOrWhiteSpace(errorDetail)
+                ? "The database provider reported an unspecified error. See the log for details."
+                : errorDetail;
         }
 
         private void txtSQLAuthType_SelectedIndexChanged(object sender, EventArgs e)

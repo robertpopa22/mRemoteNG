@@ -1,7 +1,9 @@
 using System;
 using System.Data.Common;
 using System.Data.Odbc;
+using System.Globalization;
 using System.Runtime.Versioning;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
@@ -16,40 +18,72 @@ namespace mRemoteNG.Config.DatabaseConnectors
     {
         public static async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password, string? authType = null)
         {
+            return (await TestConnectivityDetailed(type, server, database, username, password, authType)).Result;
+        }
+
+        /// <summary>
+        /// Same test, but also returns the provider's own error text. The classified enum alone
+        /// cannot tell the user what went wrong — a timeout reaching a named instance and a
+        /// blocked port both collapse to ServerNotAccessible, and anything unrecognized became a
+        /// bare "unknown error" with no way to act on it. (#165)
+        /// </summary>
+        public static async Task<DatabaseConnectionTestOutcome> TestConnectivityDetailed(string type, string server, string database, string username, string password, string? authType = null)
+        {
             try
             {
                 using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, database, username, password, authType);
                 await dbConnector.ConnectAsync();
-                return ConnectionTestResult.ConnectionSucceded;
+                return new DatabaseConnectionTestOutcome(ConnectionTestResult.ConnectionSucceded, null);
             }
             catch (SqlException ex)
             {
-                return HandleSqlException(ex);
+                return new DatabaseConnectionTestOutcome(HandleSqlException(ex), DescribeError(ex, ex.Number));
             }
             catch (MySqlException ex)
             {
-                return HandleMySqlException(ex);
+                return new DatabaseConnectionTestOutcome(HandleMySqlException(ex), DescribeError(ex, ex.Number));
             }
             catch (OdbcException ex)
             {
-                return HandleOdbcException(ex);
+                return new DatabaseConnectionTestOutcome(HandleOdbcException(ex), DescribeError(ex, null));
             }
             catch (Exception ex)
             {
                 // Generic fallback using string matching (supports all connector types)
                 string message = ex.Message;
+                ConnectionTestResult result;
                 if (message.Contains("server was not found", StringComparison.OrdinalIgnoreCase)
                     || message.Contains("network-related", StringComparison.OrdinalIgnoreCase)
                     || message.Contains("instance-specific", StringComparison.OrdinalIgnoreCase))
-                    return ConnectionTestResult.ServerNotAccessible;
-                if (message.Contains("Cannot open database", StringComparison.OrdinalIgnoreCase)
+                    result = ConnectionTestResult.ServerNotAccessible;
+                else if (message.Contains("Cannot open database", StringComparison.OrdinalIgnoreCase)
                     || message.Contains("Unknown database", StringComparison.OrdinalIgnoreCase))
-                    return ConnectionTestResult.UnknownDatabase;
-                if (message.Contains("Login failed", StringComparison.OrdinalIgnoreCase)
+                    result = ConnectionTestResult.UnknownDatabase;
+                else if (message.Contains("Login failed", StringComparison.OrdinalIgnoreCase)
                     || message.Contains("Access denied", StringComparison.OrdinalIgnoreCase))
-                    return ConnectionTestResult.CredentialsRejected;
-                return ConnectionTestResult.UnknownError;
+                    result = ConnectionTestResult.CredentialsRejected;
+                else
+                    result = ConnectionTestResult.UnknownError;
+
+                return new DatabaseConnectionTestOutcome(result, DescribeError(ex, null));
             }
+        }
+
+        /// <summary>
+        /// The provider message plus its error number. Credentials are never part of a provider
+        /// error message, but the connection string can be — strip anything password-shaped
+        /// before this reaches a dialog or a log.
+        /// </summary>
+        internal static string DescribeError(Exception ex, int? number)
+        {
+            string message = Regex.Replace(
+                ex.Message,
+                @"(?i)\b(password|pwd)\s*=\s*[^;]*",
+                "$1=***");
+
+            return number is null or 0
+                ? message
+                : string.Format(CultureInfo.InvariantCulture, "{0} (error {1})", message, number);
         }
 
         private static ConnectionTestResult HandleSqlException(SqlException sqlException)
