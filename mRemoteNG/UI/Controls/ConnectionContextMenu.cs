@@ -96,8 +96,6 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeApplyDefaultInheritance = null!;
         private ToolStripMenuItem _cMenTreeConfigureDynamicSource = null!;
         private ToolStripMenuItem _cMenTreeRefreshDynamicSource = null!;
-        private ToolStripMenuItem _cMenTreeExcludeFromSearch = null!;
-        private ToolStripMenuItem _cMenTreeViewThumbnails = null!;
         private ToolStripSeparator _cMenTreeSep5 = null!;
         private ToolStripMenuItem _cMenTreeOptions = null!;
         private readonly ConnectionTree.ConnectionTree _connectionTree;
@@ -174,8 +172,6 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyDefaultInheritance = new ToolStripMenuItem();
             _cMenTreeConfigureDynamicSource = new ToolStripMenuItem();
             _cMenTreeRefreshDynamicSource = new ToolStripMenuItem();
-            _cMenTreeExcludeFromSearch = new ToolStripMenuItem();
-            _cMenTreeViewThumbnails = new ToolStripMenuItem();
             _cMenTreeExportFile = new ToolStripMenuItem();
             _cMenTreeSep4 = new ToolStripSeparator();
             _cMenTreeAddConnection = new ToolStripMenuItem();
@@ -210,7 +206,6 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptions,
                 _cMenTreeDisconnect,
                 _cMenTreeReconnect,
-                _cMenTreeViewThumbnails,
                 _cMenTreeOpenInBrowser,
                 _cMenTreeTypeUsername,
                 _cMenTreeTypePassword,
@@ -234,7 +229,6 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeProperties,
                 _cMenTreeConfigureDynamicSource,
                 _cMenTreeRefreshDynamicSource,
-                _cMenTreeExcludeFromSearch,
                 _cMenTreeSep3,
                 _cMenTreeLoadAdditionalFile,
                 _cMenTreeImport,
