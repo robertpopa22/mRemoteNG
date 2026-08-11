@@ -135,7 +135,12 @@ namespace mRemoteNG.UI.Window
             _pGrid.Name = "_pGrid";
             _pGrid.PropertySort = PropertySort.Categorized;
             _pGrid.TabIndex = 0;
-            _pGrid.UseCompatibleTextRendering = true;
+            // Must stay false. The app sets Application.SetCompatibleTextRenderingDefault(false)
+            // so every other control paints text through GDI/TextRenderer with ClearType; this
+            // grid was the one control opting back into GDI+ Graphics.DrawString, which renders
+            // noticeably softer and worse under fractional DPI scaling. It also disagreed with
+            // CalculateRequiredPropertyGridLabelWidth below, which measures with TextRenderer. (#163)
+            _pGrid.UseCompatibleTextRendering = false;
             //
             //propertyGridContextMenu
             //
