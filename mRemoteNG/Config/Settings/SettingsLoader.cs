@@ -102,7 +102,19 @@ namespace mRemoteNG.Config.Settings
         private void SetSupportedCulture()
         {
             if (Properties.Settings.Default.OverrideUICulture == "" || !SupportedCultures.IsNameSupported(Properties.Settings.Default.OverrideUICulture)) return;
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Properties.Settings.Default.OverrideUICulture);
+
+            CultureInfo culture = new(Properties.Settings.Default.OverrideUICulture);
+
+            // Nothing assigns Language.Culture, so every Language.* lookup resolves against the
+            // *calling thread's* CurrentUICulture. Setting only this thread leaves thread-pool
+            // threads and threads created later on the OS culture, so a string resolved off the
+            // UI thread comes back in a different language than the rest of the window.
+            // Note this whole method is skipped under "Automatically Detect" (OverrideUICulture
+            // is empty), so it only hardens the explicit-language-override case. It is also
+            // best-effort: DefaultThreadCurrentUICulture reaches threads created or recycled
+            // after this point, so a pool thread the runtime already started keeps its own.
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
             _messageCollector.AddMessage(MessageClass.InformationMsg, $"Override Culture: {Thread.CurrentThread.CurrentUICulture.Name}/{Thread.CurrentThread.CurrentUICulture.NativeName}", true);
         }
 
