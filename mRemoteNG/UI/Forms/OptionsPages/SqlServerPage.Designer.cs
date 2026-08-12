@@ -172,7 +172,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlServerBlock.Controls.Add(picboxLogo);
             pnlServerBlock.Location = new System.Drawing.Point(15, 120);
             pnlServerBlock.Name = "pnlServerBlock";
-            pnlServerBlock.Size = new System.Drawing.Size(600, 550);
+            pnlServerBlock.Size = new System.Drawing.Size(600, 620);
             pnlServerBlock.TabIndex = 27;
             pnlServerBlock.Visible = false;
             // 
@@ -1093,7 +1093,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // imgConnectionStatus
             // 
             imgConnectionStatus.Image = Properties.Resources.F1Help_16x;
-            imgConnectionStatus.Location = new System.Drawing.Point(243, 495);
+            imgConnectionStatus.Location = new System.Drawing.Point(17, 528);
             imgConnectionStatus.Name = "imgConnectionStatus";
             imgConnectionStatus.Size = new System.Drawing.Size(16, 16);
             imgConnectionStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -1102,8 +1102,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // lblTestConnectionResults
             // 
+            // Sits on its own row under the buttons and wraps inside the panel: provider error
+            // messages are long, and an unconstrained AutoSize label grew straight across the
+            // Test Connection / Advanced buttons and off the panel edge, cutting the text. (#165)
             lblTestConnectionResults.AutoSize = true;
-            lblTestConnectionResults.Location = new System.Drawing.Point(17, 498);
+            lblTestConnectionResults.MaximumSize = new System.Drawing.Size(541, 0);
+            lblTestConnectionResults.Location = new System.Drawing.Point(39, 525);
             lblTestConnectionResults.Name = "lblTestConnectionResults";
             lblTestConnectionResults.Size = new System.Drawing.Size(124, 13);
             lblTestConnectionResults.TabIndex = 31;

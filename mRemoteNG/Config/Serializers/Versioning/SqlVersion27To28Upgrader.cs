@@ -3,7 +3,6 @@ using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Messages;
 using System;
 using System.Data.Common;
-using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.Config.Serializers.Versioning
@@ -58,9 +57,11 @@ UPDATE tblRoot SET ConfVersion='2.8';";
             
                 dbCommand.ExecuteNonQuery();
             }
-            catch (SqlException)
+            catch (DbException)
             {
-                // no-op
+                // Same reason as the 2.6 -> 2.7 upgrader: these statements re-apply changes the
+                // schema forward-port has usually already made, and the resulting failure must be
+                // ignored for every backend, not just Microsoft.Data.SqlClient. (#165)
             }
             return new Version(2, 8);
         }

@@ -796,7 +796,13 @@ CREATE TABLE `tblExternalTools` (
                 // Null means the bulk fetch failed; callers fall back to per-column checks.
                 ISet<string>? existingColumns = GetExistingColumns(databaseConnector, "tblCons");
 
-                if (databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
+                // ODBC talks to the same SQL Server as MSSqlDatabaseConnector, and every other
+                // schema path here already treats the two alike (InitializeDatabaseSchema,
+                // SqlMigrationHelper). Excluding it meant an ODBC profile never got the
+                // add-missing-columns-with-DEFAULT pass, so the raw legacy upgraders ran against
+                // an un-forward-ported table and died on "ALTER TABLE only allows columns to be
+                // added that can contain nulls, or have a DEFAULT definition specified". (#165)
+                if (databaseConnector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
                 {
                     UpgradeMssqlSchema(databaseConnector, existingColumns);
                 }
@@ -823,7 +829,7 @@ CREATE TABLE `tblExternalTools` (
                     existingColumns?.Add("Role");
                 }
 
-                if (databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
+                if (databaseConnector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
                 {
                      if (!ColumnExists(databaseConnector, existingColumns, "tblCons", "RowVersion"))
                      {
