@@ -23,7 +23,7 @@ namespace mRemoteNG.Tools
                     OrderPrefix += Convert.ToString("\t", CultureInfo.InvariantCulture);
                 }
 
-                return OrderPrefix + Language.ResourceManager.GetString(value, CultureInfo.CurrentCulture);
+                return OrderPrefix + Language.ResourceManager.GetString(value, CultureInfo.CurrentUICulture);
             }
         }
 
@@ -39,7 +39,7 @@ namespace mRemoteNG.Tools
                     if (!Localized)
                     {
                         Localized = true;
-                        DisplayNameValue = Language.ResourceManager.GetString(DisplayNameValue, CultureInfo.CurrentCulture) ?? DisplayNameValue;
+                        DisplayNameValue = Language.ResourceManager.GetString(DisplayNameValue, CultureInfo.CurrentUICulture) ?? DisplayNameValue;
                     }
 
                     return base.DisplayName;
@@ -59,7 +59,7 @@ namespace mRemoteNG.Tools
                     if (!Localized)
                     {
                         Localized = true;
-                        DescriptionValue = Language.ResourceManager.GetString(DescriptionValue, CultureInfo.CurrentCulture) ?? DescriptionValue;
+                        DescriptionValue = Language.ResourceManager.GetString(DescriptionValue, CultureInfo.CurrentUICulture) ?? DescriptionValue;
                     }
 
                     return base.Description;
@@ -68,7 +68,7 @@ namespace mRemoteNG.Tools
         }
 
         [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-        public class LocalizedDefaultValueAttribute(string name) : DefaultValueAttribute(Language.ResourceManager.GetString(name, CultureInfo.CurrentCulture))
+        public class LocalizedDefaultValueAttribute(string name) : DefaultValueAttribute(Language.ResourceManager.GetString(name, CultureInfo.CurrentUICulture))
         {
 
             // This allows localized attributes in a derived class to override a matching
@@ -91,7 +91,7 @@ namespace mRemoteNG.Tools
                     {
                         Localized = true;
                         DisplayNameValue = string.Format(CultureInfo.CurrentCulture, Language.FormatInherit,
-                                                         Language.ResourceManager.GetString(DisplayNameValue, CultureInfo.CurrentCulture));
+                                                         Language.ResourceManager.GetString(DisplayNameValue, CultureInfo.CurrentUICulture));
                     }
 
                     return base.DisplayName;
@@ -112,7 +112,7 @@ namespace mRemoteNG.Tools
                     {
                         Localized = true;
                         DescriptionValue = string.Format(CultureInfo.CurrentCulture, Language.FormatInheritDescription,
-                                                         Language.ResourceManager.GetString(DescriptionValue, CultureInfo.CurrentCulture));
+                                                         Language.ResourceManager.GetString(DescriptionValue, CultureInfo.CurrentUICulture));
                     }
 
                     return base.Description;
