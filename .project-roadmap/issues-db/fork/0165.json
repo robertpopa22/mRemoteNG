@@ -8,7 +8,7 @@
   "created_at": "2026-08-10T10:46:48Z",
   "github_updated_at": "2026-08-11T11:42:51Z",
   "body_snippet": "After upgrading to mRemoteNG 1.82 from original 1.76 (first install) when setting up the SQL Server option setting the same data:\nServer name: 192.168.10.202\\SQL19SAP10\nAuthentication: SQL Server AUthentication\nUser: sa\nPassword: (correctPassword)\n\n\nConnection Properties:\nDatabase: mRemoteNGUsernamex (existing database used in the old program)\n\nTested too setting:\nDatabase:mRemoteNG (clean one not existing database in sql)\n\n\nIt returns an error:\nAn unkown error has ocurred on {0} (Error {1}).\n\n(...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -43,6 +43,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-08-12",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -69,6 +79,6 @@
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-12T10:33:38Z",
-  "notes": "ODBC excluded from schema forward-port + legacy 2.6->2.7 NOT NULL adds without DEFAULT; fix 0e7d4c87f"
+  "last_synced": "2026-08-12T11:20:11Z",
+  "notes": "fix 0e7d4c87f shipped; awaiting reporter confirm on nightly"
 }
