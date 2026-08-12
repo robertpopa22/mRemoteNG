@@ -1046,8 +1046,68 @@ If you run into such an error, please create a new connection file!</value>
   <data name="PleaseFillAllFields" xml:space="preserve">
     <value>Please fill all fields</value>
   </data>
+  <data name="PortScanAddressRange" xml:space="preserve">
+    <value>IP / Range / CIDR</value>
+  </data>
+  <data name="PortScanAddressRangeHint" xml:space="preserve">
+    <value>Enter a single address (192.168.1.1), a range (192.168.1.1 - 192.168.1.254) or a CIDR block (192.168.1.0/24). IPv4 and IPv6 are both supported.</value>
+  </data>
+  <data name="PortScanAddressRangePlaceholder" xml:space="preserve">
+    <value>192.168.1.1  |  192.168.1.1 - 192.168.1.254  |  192.168.1.0/24</value>
+  </data>
+  <data name="PortScanAllPorts" xml:space="preserve">
+    <value>All ports</value>
+  </data>
+  <data name="PortScanAllPortsHint" xml:space="preserve">
+    <value>Probe every port from {0} to {1}. This is thorough but slow.</value>
+  </data>
+  <data name="PortScanCommonPorts" xml:space="preserve">
+    <value>Common ports</value>
+  </data>
+  <data name="PortScanCommonPortsHint" xml:space="preserve">
+    <value>Probe the commonly used service ports only:</value>
+  </data>
   <data name="PortScanComplete" xml:space="preserve">
     <value>Port scan complete.</value>
+  </data>
+  <data name="PortScanCustomPorts" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="PortScanCustomPortsHint" xml:space="preserve">
+    <value>Probe a list of ports you specify, e.g. 22, 80, 443, 3389, 8000-8100</value>
+  </data>
+  <data name="PortScanCustomPortsPlaceholder" xml:space="preserve">
+    <value>22, 80, 443, 3389, 8000-8100</value>
+  </data>
+  <data name="PortScanHostname" xml:space="preserve">
+    <value>Hostname</value>
+  </data>
+  <data name="PortScanInvalidAddress" xml:space="preserve">
+    <value>'{0}' is not a valid IPv4 or IPv6 address.</value>
+  </data>
+  <data name="PortScanInvalidPort" xml:space="preserve">
+    <value>'{0}' is not a valid port; ports must be between {1} and {2}.</value>
+  </data>
+  <data name="PortScanInvalidPrefixLength" xml:space="preserve">
+    <value>'{0}' is not a valid prefix length; use a value between 0 and {1}.</value>
+  </data>
+  <data name="PortScanIpAddress" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="PortScanMixedAddressFamilies" xml:space="preserve">
+    <value>The start and end addresses must be the same type (both IPv4 or both IPv6).</value>
+  </data>
+  <data name="PortScanParallelScans" xml:space="preserve">
+    <value>Parallel scans</value>
+  </data>
+  <data name="PortScanParallelScansHint" xml:space="preserve">
+    <value>How many hosts are probed at once ({0}-{1}). Lower this if the scan saturates your network or machine.</value>
+  </data>
+  <data name="PortScanPortListHint" xml:space="preserve">
+    <value>Enter at least one port, e.g. 22, 80, 443, 3389, 8000-8100</value>
+  </data>
+  <data name="PortScanRangeTooLarge" xml:space="preserve">
+    <value>The address range is too large to scan ({0:N0} addresses); the limit is {1:N0}.</value>
   </data>
   <data name="PortScanCouldNotLoadPanel" xml:space="preserve">
     <value>Couldn't load PortScan panel!</value>

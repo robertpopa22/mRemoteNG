@@ -172,5 +172,90 @@ namespace mRemoteNGTests.UI.Controls
                 Assert.That(tree.IsExpanded(folder2), Is.True, "Folder2 should be expanded");
             });
         }
+
+        [Test]
+        public void RemoveFilter_RestoresPreFilterExpansionState()
+        {
+            RunWithMessagePump(tree =>
+            {
+                var model = new ConnectionTreeModel();
+                var root = new RootNodeInfo(RootNodeType.Connection);
+
+                var folder1 = new ContainerInfo { Name = "Folder1" };
+                folder1.AddChild(new ConnectionInfo { Name = "Match" });
+
+                var folder2 = new ContainerInfo { Name = "Folder2" };
+                folder2.AddChild(new ConnectionInfo { Name = "NoMatch" });
+
+                root.AddChild(folder1);
+                root.AddChild(folder2);
+
+                model.AddRootNode(root);
+                tree.ConnectionTreeModel = model;
+
+                tree.CollapseAll();
+                tree.Expand(root);
+                tree.Expand(folder1);
+                Application.DoEvents();
+
+                tree.ApplyFilter("Match");
+                Application.DoEvents();
+                Assert.That(tree.IsExpanded(folder2), Is.True, "Filtering expands everything");
+
+                tree.RemoveFilter();
+                Application.DoEvents();
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(tree.IsExpanded(root), Is.True, "Root was expanded before filtering");
+                    Assert.That(tree.IsExpanded(folder1), Is.True, "Folder1 was expanded before filtering");
+                    Assert.That(tree.IsExpanded(folder2), Is.False, "Folder2 was collapsed before filtering");
+                });
+            });
+        }
+
+        [Test]
+        public void RemoveFilter_RebuildsRowsToMatchRestoredExpansionState()
+        {
+            RunWithMessagePump(tree =>
+            {
+                var model = new ConnectionTreeModel();
+                var root = new RootNodeInfo(RootNodeType.Connection);
+
+                var folder1 = new ContainerInfo { Name = "Folder1" };
+                var match = new ConnectionInfo { Name = "Match" };
+                folder1.AddChild(match);
+
+                var folder2 = new ContainerInfo { Name = "Folder2" };
+                folder2.AddChild(new ConnectionInfo { Name = "NoMatch" });
+
+                root.AddChild(folder1);
+                root.AddChild(folder2);
+
+                model.AddRootNode(root);
+                tree.ConnectionTreeModel = model;
+
+                tree.CollapseAll();
+                tree.Expand(root);
+                tree.Expand(folder1);
+                Application.DoEvents();
+
+                int rowsBeforeFilter = tree.GetItemCount();
+
+                tree.ApplyFilter("Match");
+                Application.DoEvents();
+
+                tree.RemoveFilter();
+                Application.DoEvents();
+
+                // Restoring the expansion map without rebuilding leaves the rows in their
+                // filtered (fully expanded) layout, so row indexes no longer line up with
+                // what the tree reports as expanded — that mismatch is what makes
+                // EnsureVisible fail with an invalid index.
+                Assert.That(tree.GetItemCount(), Is.EqualTo(rowsBeforeFilter),
+                            "Row count should match the pre-filter expansion state");
+                Assert.DoesNotThrow(() => tree.EnsureModelVisible(match));
+            });
+        }
     }
 }

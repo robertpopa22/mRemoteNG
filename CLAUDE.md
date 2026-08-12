@@ -47,8 +47,27 @@ Unless the user explicitly requests a documentation or orchestrator task, issue-
 
 1. **Verify and plan before editing:** inspect every suggested file that exists, search by symptom/error/class, trace the actual call path, and analyze why previous attempts failed. Write a plan of at most five lines naming the root cause and exact files.
 2. **Implement only the fix:** make the smallest change that resolves the reported issue without unrelated behavior changes.
-3. **Verify:** run the full build command from [Build Instructions](#build-instructions), then the preferred full test command from [Testing](#testing).
+3. **Verify proportionately:** see [Verification Effort](#verification-effort). Do not reflexively run a full build + full test suite after every edit.
 4. **Repair regressions:** fix any build or test failure caused by the change before finishing.
+
+## Verification Effort
+
+Build and test runs are expensive (~70–120s build, ~140s full suite). Match the verification to the change instead of running everything every time.
+
+| Change | Verify with |
+|--------|-------------|
+| Docs/markdown/comments only | Nothing |
+| Single project, small edit | Compile that project only (`msbuild mRemoteNG/mRemoteNG.csproj`) |
+| Logic change with existing tests | Compile + the **targeted** test filter (`--filter "FullyQualifiedName~<Fixture>"`) |
+| Multi-file/cross-project, or public API change | Full build + affected test group(s) |
+| Dependency/package bumps, analyzer config, csproj/props | Full build (restore) + full suite |
+| Before finishing a multi-file session, or before commit/PR | Full build; full suite only if logic in tested areas changed |
+
+Rules:
+- **Don't re-run what you just ran** when the follow-up edit can't affect the result (e.g. a comment reword after a green build).
+- Prefer a targeted `--filter` over the whole suite; run the full suite when the blast radius is unclear.
+- A build failing only on **file-copy locks** (running mRemoteNG.exe holds `bin\`) is not a code failure — compile succeeded. Ask the user to close the app, or build to a temp `OutputPath` to verify.
+- Never skip verification for the categories that need it, and never report success for a build or test run that was not actually performed.
 
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
@@ -177,10 +196,11 @@ git fetch upstream && git merge upstream/v1.78.2-dev
 
 ## Session Discipline — Build Verification
 
-1. **Run build before ending session** — especially for multi-file changes
+1. **Run a build before ending a session that changed code** — especially for multi-file changes. Skip it only when nothing compilable changed (docs/comments), or when the build already ran green after the last code edit.
 2. If build fails, fix BEFORE reporting progress
 3. **Never leave uncompilable code** — worse than slower progress
 4. Prefer small verified steps over massive unverified refactoring
+5. Scale intermediate checks to the change — see [Verification Effort](#verification-effort)
 
 ## Developer Guide
 

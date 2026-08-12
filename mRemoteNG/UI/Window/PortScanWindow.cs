@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
@@ -25,6 +27,7 @@ namespace mRemoteNG.UI.Window
         public PortScanWindow()
         {
             InitializeComponent();
+            _scanResultsTimer.Tick += ScanResultsTimer_Tick;
             Icon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.SearchAndApps_16x);
             WindowType = WindowType.PortScan;
             DockPnl = new DockContent();
@@ -41,62 +44,17 @@ namespace mRemoteNG.UI.Window
             base.ApplyTheme();
         }
 
-        #region Private Properties
-
-        private bool IpsValid
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(ipStart.Octet1.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipStart.Octet2.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipStart.Octet3.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipStart.Octet4.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet1.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet2.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet3.Text))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(ipEnd.Octet4.Text))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-        }
-
-        #endregion
-
         #region Private Fields
 
         private PortScanner? _portScanner;
         private bool _scanning;
+
+        // Scan results are produced by many worker threads; they are queued here and drained onto the
+        // results list in batches by _scanResultsTimer (see PortScanner_HostScanned).
+        private readonly ConcurrentQueue<ScanHost> _pendingHosts = new();
+        private readonly System.Windows.Forms.Timer _scanResultsTimer = new() { Interval = 200 };
+        private int _scannedHostCount;
+        private int _totalHostCount;
 
         #endregion
 
@@ -118,6 +76,7 @@ namespace mRemoteNG.UI.Window
                 ShowImportControls(true);
                 cbProtocol.SelectedIndex = 0;
                 numericSelectorTimeout.Value = 5;
+                UpdatePortModeControls();
             }
             catch (Exception ex)
             {
@@ -125,33 +84,21 @@ namespace mRemoteNG.UI.Window
             }
         }
 
-        private void portStart_Enter(object sender, EventArgs e)
-        {
-            portStart.Select(0, portStart.Text.Length);
-        }
-
-        private void portEnd_Enter(object sender, EventArgs e)
-        {
-            portEnd.Select(0, portEnd.Text.Length);
-        }
-
         private void btnScan_Click(object sender, EventArgs e)
         {
             if (_scanning)
-            {
                 StopScan();
-            }
             else
-            {
-                if (IpsValid)
-                {
-                    StartScan();
-                }
-                else
-                {
-                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.CannotStartPortScan);
-                }
-            }
+                StartScan();
+        }
+
+        /// <summary>
+        /// The custom port list is only editable while the "Custom" option is selected, so the three
+        /// port options can never be left in a half-configured state.
+        /// </summary>
+        private void PortMode_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePortModeControls();
         }
 
         private void btnImport_Click(object sender, EventArgs e)
@@ -171,18 +118,33 @@ namespace mRemoteNG.UI.Window
 
         private void ApplyLanguage()
         {
-            lblStartIP.Text = Language.FirstIp;
-            lblEndIP.Text = Language.LastIp;
+            // One field takes a single address, an explicit range or a CIDR block (IPv4 or IPv6).
+            lblStartIP.Text = Language.PortScanAddressRange;
+            txtIpRange.ToolTipText = IpRangeParser.SyntaxHint;
+            txtIpRange.PlaceholderText = Language.PortScanAddressRangePlaceholder;
             btnScan.Text = Language._Scan;
             btnImport.Text = Language._Import;
             lblOnlyImport.Text = Language.ProtocolToImport;
-            clmHostIP.Text = "IP Address";
-            clmHostName.Text = "Hostname";
+            clmHostIP.Text = Language.PortScanIpAddress;
+            clmHostName.Text = Language.PortScanHostname;
             clmOpenPorts.Text = Language.OpenPorts;
             clmClosedPorts.Text = Language.ClosedPorts;
-            ngCheckFirstPort.Text = Language.FirstPort;
-            ngCheckLastPort.Text = Language.LastPort;
-            lblCustomPorts.Text = "Custom ports (e.g. 22,80,443):";
+            lblPorts.Text = Language.Ports;
+            rdoCommonPorts.Text = Language.PortScanCommonPorts;
+            rdoAllPorts.Text = Language.PortScanAllPorts;
+            rdoCustomPorts.Text = Language.PortScanCustomPorts;
+            txtCustomPorts.PlaceholderText = Language.PortScanCustomPortsPlaceholder;
+            portScanToolTip.SetToolTip(rdoCommonPorts,
+                Language.PortScanCommonPortsHint + Environment.NewLine +
+                string.Join(", ", CommonPorts));
+            portScanToolTip.SetToolTip(rdoAllPorts,
+                string.Format(CultureInfo.CurrentCulture, Language.PortScanAllPortsHint,
+                              PortListParser.MinPort, PortListParser.MaxPort));
+            portScanToolTip.SetToolTip(rdoCustomPorts, Language.PortScanCustomPortsHint);
+            lblParallelScans.Text = Language.PortScanParallelScans;
+            portScanToolTip.SetToolTip(numericParallelScans,
+                string.Format(CultureInfo.CurrentCulture, Language.PortScanParallelScansHint,
+                              PortScanner.MinConcurrentHosts, PortScanner.MaxConcurrentHosts));
             lblTimeout.Text = Language.TimeoutInSeconds;
             TabText = Language.PortScan;
             Text = Language.PortScan;
@@ -199,46 +161,58 @@ namespace mRemoteNG.UI.Window
 
         private void StartScan()
         {
+            // Build the scanner FIRST. Constructing it validates and enumerates the address range and
+            // can throw (e.g. the range exceeds the scan limit, or the endpoints are different IP
+            // families). Do this before flipping into the "scanning" state so a failure can't leave the
+            // Scan/Stop button stuck on "Stop" with nothing running.
+            if (!IpRangeParser.TryParse(txtIpRange.Text, out IPAddress? ipAddressStart, out IPAddress? ipAddressEnd,
+                                       out string ipError))
+            {
+                ReportInvalidInput(ipError);
+                return;
+            }
+
+            if (!TryGetSelectedPorts(out List<int> ports, out string portError))
+            {
+                ReportInvalidInput(portError);
+                return;
+            }
+
+            PortScanner scanner;
             try
             {
-                _scanning = true;
-                SwitchButtonText();
-                olvHosts.Items.Clear();
+                int timeoutMs = (int)numericSelectorTimeout.Value * 1000;
+                int parallelScans = (int)numericParallelScans.Value;
 
-                IPAddress ipAddressStart = IPAddress.Parse(ipStart.Text);
-                IPAddress ipAddressEnd = IPAddress.Parse(ipEnd.Text);
-
-                string customPortsText = txtCustomPorts.Text.Trim();
-                if (!string.IsNullOrEmpty(customPortsText))
-                {
-                    List<int> customPorts = ParsePortList(customPortsText);
-                    if (customPorts.Count == 0)
-                    {
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.CannotStartPortScan);
-                        _scanning = false;
-                        SwitchButtonText();
-                        return;
-                    }
-                    _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, customPorts,
-                                                   (int)numericSelectorTimeout.Value * 1000);
-                }
-                else if (!ngCheckFirstPort.Checked && !ngCheckLastPort.Checked)
-                    _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
-                                                   (int)portEnd.Value, (int)numericSelectorTimeout.Value * 1000, true);
-                else
-                    _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
-                                                   (int)portEnd.Value, (int)numericSelectorTimeout.Value * 1000);
-
-                _portScanner.BeginHostScan += PortScanner_BeginHostScan;
-                _portScanner.HostScanned += PortScanner_HostScanned;
-                _portScanner.ScanComplete += PortScanner_ScanComplete;
-
-                _portScanner.StartScan();
+                scanner = new PortScanner(ipAddressStart!, ipAddressEnd!, ports, timeoutMs, parallelScans);
+            }
+            catch (ArgumentException ex)
+            {
+                // Range too large — surface the reason instead of silently doing nothing.
+                ReportInvalidInput(ex.Message);
+                return;
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("StartScan failed (UI.Window.PortScan)", ex);
+                return;
             }
+
+            _portScanner = scanner;
+            _portScanner.BeginHostScan += PortScanner_BeginHostScan;
+            _portScanner.HostScanned += PortScanner_HostScanned;
+            _portScanner.ScanComplete += PortScanner_ScanComplete;
+
+            _scanning = true;
+            SwitchButtonText();
+            olvHosts.Items.Clear();
+
+            _pendingHosts.Clear();
+            Volatile.Write(ref _scannedHostCount, 0);
+            Volatile.Write(ref _totalHostCount, 0);
+            _scanResultsTimer.Start();
+
+            _portScanner.StartScan();
         }
 
         private void StopScan()
@@ -250,20 +224,59 @@ namespace mRemoteNG.UI.Window
                 _portScanner.ScanComplete -= PortScanner_ScanComplete;
                 _portScanner.StopScan();
             }
+
+            // Show whatever has already come back, then stop polling.
+            _scanResultsTimer.Stop();
+            FlushScanResults();
+
             _scanning = false;
             SwitchButtonText();
         }
 
-        private static List<int> ParsePortList(string portListText)
+        /// <summary>
+        /// Commonly scanned service ports: FTP/SSH/Telnet/SMTP/DNS/HTTP(S), Windows RPC/NetBIOS/SMB,
+        /// LDAP(S), IMAP/POP3 (incl. TLS), rlogin, the usual databases, RDP, VNC, WinRM and common app
+        /// ports. Every port backing a protocol column in the results list is included, so the
+        /// SSH/Telnet/HTTP/HTTPS/Rlogin/RDP/VNC columns are still populated in this mode.
+        /// </summary>
+        private static readonly int[] CommonPorts =
+        [
+            21, 22, 23, 25, 53, 80, 110, 111, 135, 139, 143, 389, 443, 445, 465, 513, 587, 636, 993, 995,
+            1433, 1521, 2049, 3306, 3389, 5432, 5900, 5985, 5986, 6379, 8080, 8443, 9200, 27017
+        ];
+
+        private void UpdatePortModeControls()
         {
-            List<int> ports = new();
-            foreach (string part in portListText.Split(',', ';', ' '))
+            txtCustomPorts.Enabled = rdoCustomPorts.Checked;
+        }
+
+        /// <summary>
+        /// Resolves the ports to probe from the selected port option. Returns false, with a
+        /// user-readable reason, when the custom list is empty or malformed.
+        /// </summary>
+        private bool TryGetSelectedPorts(out List<int> ports, out string error)
+        {
+            error = string.Empty;
+
+            if (rdoAllPorts.Checked)
             {
-                string trimmed = part.Trim();
-                if (int.TryParse(trimmed, out int port) && port >= 1 && port <= 65535)
-                    ports.Add(port);
+                ports = PortListParser.AllPorts();
+                return true;
             }
-            return ports;
+
+            if (!rdoCustomPorts.Checked)
+            {
+                ports = [.. CommonPorts];
+                return true;
+            }
+
+            return PortListParser.TryParse(txtCustomPorts.Text, out ports, out error);
+        }
+
+        private void ReportInvalidInput(string message)
+        {
+            Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, message);
+            MessageBox.Show(this, message, Language.PortScan, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void SwitchButtonText()
@@ -276,25 +289,61 @@ namespace mRemoteNG.UI.Window
 
         private static void PortScanner_BeginHostScan(string host)
         {
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Scanning " + host, true);
+            // Deliberately does not log: this fires once per address, on a worker thread, and
+            // MessageCollector runs its writer chain (including synchronous log file I/O) inline on
+            // the caller. At scan scale that serialised every worker on the log appender's lock.
         }
 
-        private delegate void PortScannerHostScannedDelegate(ScanHost host, int scannedCount, int totalCount);
-
+        /// <summary>
+        /// Called from scan worker threads. Only queues the result — no marshalling, no logging and no
+        /// list manipulation here. <see cref="FlushScanResults"/> drains the queue on the UI thread a
+        /// few times a second, so a flood of results costs a handful of batched UI updates instead of
+        /// one cross-thread post plus one list rebuild per host.
+        /// </summary>
         private void PortScanner_HostScanned(ScanHost host, int scannedCount, int totalCount)
         {
-            if (InvokeRequired)
+            _pendingHosts.Enqueue(host);
+            Volatile.Write(ref _scannedHostCount, scannedCount);
+            Volatile.Write(ref _totalHostCount, totalCount);
+        }
+
+        private void ScanResultsTimer_Tick(object? sender, EventArgs e)
+        {
+            FlushScanResults();
+        }
+
+        /// <summary>
+        /// Moves any queued scan results into the results list in one batch (UI thread only).
+        /// </summary>
+        private void FlushScanResults()
+        {
+            int total = Volatile.Read(ref _totalHostCount);
+            int scanned = Volatile.Read(ref _scannedHostCount);
+
+            List<ScanHost> batch = new();
+            while (_pendingHosts.TryDequeue(out ScanHost? host))
+                batch.Add(host);
+
+            if (batch.Count > 0)
             {
-                Invoke(new PortScannerHostScannedDelegate(PortScanner_HostScanned),
-                       new object[] {host, scannedCount, totalCount});
-                return;
+                // AddObjects once per batch: ObjectListView rebuilds on every add, so adding one at a
+                // time made the cost grow with the number of results already shown.
+                olvHosts.BeginUpdate();
+                try
+                {
+                    olvHosts.AddObjects(batch);
+                }
+                finally
+                {
+                    olvHosts.EndUpdate();
+                }
             }
 
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Host scanned " + host.HostIp, true);
-
-            olvHosts.AddObject(host);
-            prgBar.Maximum = totalCount;
-            prgBar.Value = scannedCount;
+            if (total > 0)
+            {
+                prgBar.Maximum = total;
+                prgBar.Value = Math.Min(scanned, total);
+            }
         }
 
         private delegate void PortScannerScanComplete(IList<ScanHost> hosts);
@@ -303,9 +352,14 @@ namespace mRemoteNG.UI.Window
         {
             if (InvokeRequired)
             {
-                Invoke(new PortScannerScanComplete(PortScanner_ScanComplete), new object[] {hosts});
+                if (IsHandleCreated)
+                    BeginInvoke(new PortScannerScanComplete(PortScanner_ScanComplete), hosts);
                 return;
             }
+
+            // Drain anything still queued, then stop polling.
+            _scanResultsTimer.Stop();
+            FlushScanResults();
 
             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.PortScanComplete);
 
@@ -429,18 +483,6 @@ namespace mRemoteNG.UI.Window
         private void importHTTPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             importSelectedHosts(ProtocolType.HTTP);
-        }
-
-        private void NgCheckFirstPort_CheckedChanged(object sender, EventArgs e)
-        {
-            portStart.Enabled = ngCheckFirstPort.Checked;
-        }
-
-        private void NgCheckLastPort_CheckedChanged(object sender, EventArgs e)
-        {
-            portEnd.Enabled = ngCheckLastPort.Checked;
-
-            portEnd.Value = portEnd.Enabled ? 65535 : 0;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace mRemoteNG.Config.Settings.Providers
             _initialized = true;
 
             _sharedProvider = new ChooseProvider();
-            _sharedProvider.Initialize(_sharedProvider.Name, null);
+            _sharedProvider.Initialize(_sharedProvider.Name, null!);
 
             WireProvider(Properties.Settings.Default);
             WireProvider(Properties.App.Default);

@@ -3,11 +3,15 @@
     <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
     <LangVersion>preview</LangVersion>
+    <!-- Annotations-only: allows `T?` in test code without enabling nullable flow analysis warnings. -->
+    <Nullable>annotations</Nullable>
     <IsPackable>false</IsPackable>
     <Platforms>x86;x64;arm64</Platforms>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Configurations>Debug;Release;Debug Portable;Release Portable;Release Installer;Deploy to github</Configurations>
-    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
+    <!-- Must not exceed mRemoteNG.csproj's minimum, or the test host refuses to run on
+         any OS older than this (e.g. Windows 11 23H2 / 10.0.22631). -->
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
   <ItemGroup>
@@ -29,7 +33,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Data.Odbc" />
-    <PackageReference Include="ZstdSharp.Port" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mRemoteNG\mRemoteNG.csproj" />

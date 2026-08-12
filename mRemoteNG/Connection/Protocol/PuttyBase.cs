@@ -36,6 +36,11 @@ namespace mRemoteNG.Connection.Protocol
         private const int TerminalTitlePollIntervalMs = 500;
         private const int WindowTextBufferLength = 512;
         private const int OpeningCommandPollIntervalMs = 250;
+        private const int GracefulCloseTimeoutMs = 1000;
+        private const int GracefulClosePollIntervalMs = 50;
+        private const int MessageBoxIdOk = 1;
+        private const string DialogWindowClassName = "#32770";
+        private const string PuttyExitConfirmationTitle = "Exit Confirmation";
         private bool _isPuttyNg;
         private readonly DisplayProperties _display = new();
         private readonly Lock _terminalTitleSync = new();
@@ -755,7 +760,7 @@ namespace mRemoteNG.Connection.Protocol
                                 if (InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP)
                                     ExternalConnectors.VO.VaultOpenbao.ReadOtpSSH($"{InterfaceControl.Info?.VaultOpenbaoMount}", $"{InterfaceControl.Info?.VaultOpenbaoRole}", $"{InterfaceControl.Info?.Username}", $"{InterfaceControl.Info?.Hostname}", out password);
                                 else
-                                    ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH((int)InterfaceControl.Info?.VaultOpenbaoSecretEngine, InterfaceControl.Info?.VaultOpenbaoMount ?? "", InterfaceControl.Info?.VaultOpenbaoRole ?? "", InterfaceControl.Info?.Username ?? "root", out password);
+                                    ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH((int)InterfaceControl.Info!.VaultOpenbaoSecretEngine, InterfaceControl.Info?.VaultOpenbaoMount ?? "", InterfaceControl.Info?.VaultOpenbaoRole ?? "", InterfaceControl.Info?.Username ?? "root", out password);
                             } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                                 Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                             }
@@ -1174,7 +1179,83 @@ namespace mRemoteNG.Connection.Protocol
             if (!closeRequested)
                 return false;
 
-            return PuttyProcess.WaitForExit(1000);
+            // PuTTY answers WM_CLOSE with its own "Are you sure you want to close this
+            // session?" box whenever warn-on-close is enabled for the session. mRemoteNG
+            // already asked the user to confirm the disconnect, so acknowledge that box on
+            // their behalf instead of making them answer the same question twice.
+            int waitedMs = 0;
+            while (waitedMs < GracefulCloseTimeoutMs)
+            {
+                if (PuttyProcess.WaitForExit(GracefulClosePollIntervalMs))
+                    return true;
+
+                waitedMs += GracefulClosePollIntervalMs;
+                DismissPuttyExitConfirmation();
+            }
+
+            return PuttyProcess.HasExited;
+        }
+
+        private void DismissPuttyExitConfirmation()
+        {
+            IntPtr confirmationDialog = FindPuttyExitConfirmationDialog();
+            if (confirmationDialog == IntPtr.Zero)
+                return;
+
+            NativeMethods.PostMessage(confirmationDialog,
+                                      NativeMethods.WM_COMMAND,
+                                      (IntPtr)MessageBoxIdOk,
+                                      IntPtr.Zero);
+        }
+
+        private IntPtr FindPuttyExitConfirmationDialog()
+        {
+            uint puttyProcessId;
+            try
+            {
+                if (PuttyProcess == null)
+                    return IntPtr.Zero;
+
+                puttyProcessId = (uint)PuttyProcess.Id;
+            }
+            catch (InvalidOperationException)
+            {
+                return IntPtr.Zero;
+            }
+
+            IntPtr dialogHandle = IntPtr.Zero;
+
+            NativeMethods.EnumWindows((hWnd, lParam) =>
+            {
+                _ = NativeMethods.GetWindowThreadProcessId(hWnd, out uint windowProcessId);
+                if (windowProcessId != puttyProcessId)
+                    return true;
+
+                StringBuilder className = new(WindowTextBufferLength);
+                _ = NativeMethods.GetClassName(hWnd, className, className.Capacity);
+
+                StringBuilder windowTitle = new(WindowTextBufferLength);
+                _ = NativeMethods.GetWindowText(hWnd, windowTitle, windowTitle.Capacity);
+
+                if (!IsPuttyExitConfirmation(className.ToString(), windowTitle.ToString()))
+                    return true;
+
+                dialogHandle = hWnd;
+                return false;
+            }, IntPtr.Zero);
+
+            return dialogHandle;
+        }
+
+        /// <summary>
+        /// Identifies PuTTY's warn-on-close message box. Only that box may be answered
+        /// automatically - every other PuTTY dialog (host key security alert, settings)
+        /// must stay under user control.
+        /// </summary>
+        internal static bool IsPuttyExitConfirmation(string windowClassName, string windowTitle)
+        {
+            return string.Equals(windowClassName, DialogWindowClassName, StringComparison.Ordinal) &&
+                   windowTitle.Contains(PuttyExitConfirmationTitle, StringComparison.OrdinalIgnoreCase);
         }
 
         public override void Close()

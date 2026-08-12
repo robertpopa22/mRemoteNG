@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Runtime.Versioning;
 using System.Threading;
+using System.Threading.Tasks;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
+using mRemoteNG.Resources.Language;
 
 
 namespace mRemoteNG.Tools
@@ -18,25 +21,47 @@ namespace mRemoteNG.Tools
     {
         private readonly List<IPAddress> _ipAddresses = [];
         private readonly List<int> _ports = [];
-        private Thread? _scanThread;
         private readonly List<ScanHost> _scannedHosts = [];
         private readonly int _timeoutInMilliseconds;
+        private readonly int _maxConcurrentHosts;
+        private CancellationTokenSource? _cancellation;
+
+        /// <summary>How many hosts are probed at once unless the caller specifies otherwise.</summary>
+        public const int DefaultConcurrentHosts = 64;
+
+        /// <summary>Lowest permitted concurrency (a strictly sequential scan).</summary>
+        public const int MinConcurrentHosts = 1;
+
+        /// <summary>
+        /// Highest permitted concurrency. Bounds how many pings/sockets are in flight at once so a
+        /// large range cannot exhaust sockets or the thread pool.
+        /// </summary>
+        public const int MaxConcurrentHosts = 128;
 
         #region Public Methods
 
         public PortScanner(IPAddress ipAddress1,
                            IPAddress ipAddress2,
                            IEnumerable<int> ports,
-                           int timeoutInMilliseconds = 5000)
+                           int timeoutInMilliseconds = 5000,
+                           int maxConcurrentHosts = DefaultConcurrentHosts)
         {
+            ArgumentNullException.ThrowIfNull(ports);
+
             IPAddress ipAddressStart = IpAddressMin(ipAddress1, ipAddress2);
             IPAddress ipAddressEnd = IpAddressMax(ipAddress1, ipAddress2);
 
             ArgumentOutOfRangeException.ThrowIfNegative(timeoutInMilliseconds);
 
+            // Materialise once: the sequence may be lazy, and validating it separately from
+            // AddRange would otherwise enumerate it twice.
+            List<int> requestedPorts = [.. ports];
+            ValidatePorts(requestedPorts, nameof(ports));
+
             _timeoutInMilliseconds = timeoutInMilliseconds;
+            _maxConcurrentHosts = Math.Clamp(maxConcurrentHosts, MinConcurrentHosts, MaxConcurrentHosts);
             _ports.Clear();
-            _ports.AddRange(ports);
+            _ports.AddRange(requestedPorts);
 
             _ipAddresses.Clear();
             _ipAddresses.AddRange(IpAddressArrayFromRange(ipAddressStart, ipAddressEnd));
@@ -49,7 +74,8 @@ namespace mRemoteNG.Tools
                            int port1,
                            int port2,
                            int timeoutInMilliseconds = 5000,
-                           bool checkDefaultPortsOnly = false)
+                           bool checkDefaultPortsOnly = false,
+                           int maxConcurrentHosts = DefaultConcurrentHosts)
         {
             IPAddress ipAddressStart = IpAddressMin(ipAddress1, ipAddress2);
             IPAddress ipAddressEnd = IpAddressMax(ipAddress1, ipAddress2);
@@ -64,9 +90,11 @@ namespace mRemoteNG.Tools
             ArgumentOutOfRangeException.ThrowIfNegative(timeoutInMilliseconds);
 
             _timeoutInMilliseconds = timeoutInMilliseconds;
+            _maxConcurrentHosts = Math.Clamp(maxConcurrentHosts, MinConcurrentHosts, MaxConcurrentHosts);
             _ports.Clear();
 
             if (checkDefaultPortsOnly)
+                // port1/port2 are ignored in this mode, so they are deliberately not validated.
                 _ports.AddRange(new[]
                 {
                     ScanHost.SshPort, ScanHost.TelnetPort, ScanHost.HttpPort, ScanHost.HttpsPort, ScanHost.RloginPort,
@@ -74,6 +102,12 @@ namespace mRemoteNG.Tools
                 });
             else
             {
+                // Validated after the 0-means-unspecified rule above has been applied, so passing
+                // (0, 3389) still scans the single port, and before the loop expands the range, so
+                // an absurd endpoint cannot allocate its way to a million entries first.
+                ValidatePort(portStart, nameof(port1));
+                ValidatePort(portEnd, nameof(port2));
+
                 for (int port = portStart; port <= portEnd; port++)
                 {
                     _ports.Add(port);
@@ -88,24 +122,18 @@ namespace mRemoteNG.Tools
 
         public void StartScan()
         {
-            _scanThread = new Thread(ScanAsync);
+            _cancellation = new CancellationTokenSource();
 
-            if(OperatingSystem.IsWindows())
-                _scanThread.SetApartmentState(ApartmentState.STA);
-
-            _scanThread.IsBackground = true;
-            _scanThread.Start();
+            // Fire and forget: the whole scan is async and internally bounded, so it no longer needs
+            // a dedicated blocking thread. Errors are handled inside ScanAllAsync.
+            _ = ScanAllAsync(_cancellation.Token);
         }
 
         public void StopScan()
         {
-            foreach (Ping p in _pings)
-            {
-                p.SendAsyncCancel();
-            }
-
-            // Obsolete: https://learn.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/5.0/thread-abort-obsolete
-            //_scanThread.Abort();
+            // Cancels the pings AND the in-flight TCP connects promptly, unlike the old code which
+            // could only cancel pings and left blocking socket connects running.
+            _cancellation?.Cancel();
         }
 
         public static bool IsPortOpen(string hostname, string port)
@@ -126,191 +154,220 @@ namespace mRemoteNG.Tools
 
         #region Private Methods
 
-        private int _hostCount;
-        private readonly List<Ping> _pings = [];
-
-        private void ScanAsync()
+        private async Task ScanAllAsync(CancellationToken token)
         {
+            int total = _ipAddresses.Count;
+            int scanned = 0;
+
             try
             {
-                _hostCount = 0;
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, $"Tools.PortScan: Starting scan of {_ipAddresses.Count} hosts...", true);
-                foreach (IPAddress ipAddress in _ipAddresses)
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"Tools.PortScan: Starting scan of {total} hosts...", true);
+
+                ParallelOptions options = new()
+                {
+                    MaxDegreeOfParallelism = Math.Max(1, Math.Min(_maxConcurrentHosts, total)),
+                    CancellationToken = token
+                };
+
+                await Parallel.ForEachAsync(_ipAddresses, options, async (ipAddress, ct) =>
                 {
                     RaiseBeginHostScanEvent(ipAddress);
 
-                    Ping pingSender = new();
-                    _pings.Add(pingSender);
+                    ScanHost scanHost = await ScanHostAsync(ipAddress, ct).ConfigureAwait(false);
 
-                    try
-                    {
-                        pingSender.PingCompleted += PingSender_PingCompleted;
-                        pingSender.SendAsync(ipAddress, _timeoutInMilliseconds, ipAddress);
-                    }
-                    catch (Exception ex)
-                    {
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, $"Tools.PortScan: Ping failed for {ipAddress} {Environment.NewLine} {ex.Message}", true);
-                    }
-                }
+                    int done = Interlocked.Increment(ref scanned);
+                    lock (_scannedHosts)
+                        _scannedHosts.Add(scanHost);
+
+                    RaiseHostScannedEvent(scanHost, done, total);
+                }).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Tools.PortScan: Scan cancelled.", true);
             }
             catch (Exception ex)
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, $"StartScanBG failed (Tools.PortScan) {Environment.NewLine} {ex.Message}", true);
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                    $"Tools.PortScan: Scan failed {Environment.NewLine} {ex.Message}", true);
+            }
+            finally
+            {
+                List<ScanHost> results;
+                lock (_scannedHosts)
+                    results = [.. _scannedHosts];
+
+                RaiseScanCompleteEvent(results);
             }
         }
 
-        /* Some examples found here:
-         * http://stackoverflow.com/questions/2114266/convert-ping-application-to-multithreaded-version-to-increase-speed-c-sharp
-         */
-        private void PingSender_PingCompleted(object sender, PingCompletedEventArgs e)
+        private async Task<ScanHost> ScanHostAsync(IPAddress ipAddress, CancellationToken token)
         {
-            // used for clean up later...
-            Ping p = (Ping)sender;
+            ScanHost scanHost = new(ipAddress.ToString());
 
-            // UserState is the IP Address
-            string ip = e.UserState?.ToString() ?? string.Empty;
-            ScanHost scanHost = new(ip);
-            _hostCount++;
-
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                $"Tools.PortScan: Scanning {_hostCount} of {_ipAddresses.Count} hosts: {scanHost.HostIp}",
-                                                true);
-
-
-            if (e.Cancelled)
+            bool reachable = false;
+            try
+            {
+                using Ping ping = new();
+                PingReply reply = await ping.SendPingAsync(ipAddress, TimeSpan.FromMilliseconds(_timeoutInMilliseconds), cancellationToken: token)
+                                            .ConfigureAwait(false);
+                reachable = reply.Status == IPStatus.Success;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    $"Tools.PortScan: CANCELLED host: {scanHost.HostIp}", true);
-                // cleanup
-                p.PingCompleted -= PingSender_PingCompleted;
-                p.Dispose();
-                return;
+                    $"Tools.PortScan: Ping failed for {scanHost.HostIp} {Environment.NewLine} {ex.Message}", true);
             }
 
-            if (e.Error != null)
+            if (!reachable)
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    $"Ping failed to {e.UserState} {Environment.NewLine} {e.Error.Message}",
-                                                    true);
                 scanHost.ClosedPorts.AddRange(_ports);
                 scanHost.SetAllProtocols(false);
+                scanHost.HostName = scanHost.HostIp;
+                return scanHost;
             }
-            else if (e.Reply?.Status == IPStatus.Success)
+
+            // Reachable: resolve the hostname (best-effort) then probe every port concurrently.
+            try
             {
-                /* ping was successful, try to resolve the hostname */
-                try
-                {
-                    scanHost.HostName = Dns.GetHostEntry(scanHost.HostIp).HostName;
-                }
-                catch (Exception dnsex)
-                {
-                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                        $"Tools.PortScan: Could not resolve {scanHost.HostIp} {Environment.NewLine} {dnsex.Message}",
-                                                        true);
-                }
-
-                if (string.IsNullOrEmpty(scanHost.HostName))
-                {
-                    scanHost.HostName = scanHost.HostIp;
-                }
-
-                foreach (int port in _ports)
-                {
-                    bool isPortOpen;
-                    try
-                    {
-                        TcpClient tcpClient = new(ip, port);
-                        isPortOpen = true;
-                        scanHost.OpenPorts.Add(port);
-                        tcpClient.Close();
-                    }
-                    catch (Exception)
-                    {
-                        isPortOpen = false;
-                        scanHost.ClosedPorts.Add(port);
-                    }
-
-                    if (port == ScanHost.SshPort)
-                    {
-                        scanHost.Ssh = isPortOpen;
-                    }
-                    else if (port == ScanHost.TelnetPort)
-                    {
-                        scanHost.Telnet = isPortOpen;
-                    }
-                    else if (port == ScanHost.HttpPort)
-                    {
-                        scanHost.Http = isPortOpen;
-                    }
-                    else if (port == ScanHost.HttpsPort)
-                    {
-                        scanHost.Https = isPortOpen;
-                    }
-                    else if (port == ScanHost.RloginPort)
-                    {
-                        scanHost.Rlogin = isPortOpen;
-                    }
-                    else if (port == ScanHost.RdpPort)
-                    {
-                        scanHost.Rdp = isPortOpen;
-                    }
-                    else if (port == ScanHost.VncPort)
-                    {
-                        scanHost.Vnc = isPortOpen;
-                    }
-                }
+                IPHostEntry entry = await Dns.GetHostEntryAsync(scanHost.HostIp, token).ConfigureAwait(false);
+                scanHost.HostName = entry.HostName;
             }
-            else if (e.Reply?.Status != IPStatus.Success)
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception dnsex)
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    $"Ping did not complete to {e.UserState} : {e.Reply?.Status}", true);
-                scanHost.ClosedPorts.AddRange(_ports);
-                scanHost.SetAllProtocols(false);
+                    $"Tools.PortScan: Could not resolve {scanHost.HostIp} {Environment.NewLine} {dnsex.Message}", true);
             }
 
-            // cleanup
-            p.PingCompleted -= PingSender_PingCompleted;
-            p.Dispose();
+            if (string.IsNullOrEmpty(scanHost.HostName))
+                scanHost.HostName = scanHost.HostIp;
 
-            string h = string.IsNullOrEmpty(scanHost.HostName) ? "HostNameNotFound" : scanHost.HostName;
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                $"Tools.PortScan: Scan of {scanHost.HostIp} ({h}) complete.", true);
+            bool[] portResults = await Task.WhenAll(
+                _ports.Select(port => IsPortOpenAsync(ipAddress, port, token))).ConfigureAwait(false);
 
-            _scannedHosts.Add(scanHost);
-            RaiseHostScannedEvent(scanHost, _hostCount, _ipAddresses.Count);
+            for (int i = 0; i < _ports.Count; i++)
+            {
+                int port = _ports[i];
+                bool isOpen = portResults[i];
 
-            if (_scannedHosts.Count == _ipAddresses.Count)
-                RaiseScanCompleteEvent(_scannedHosts);
+                if (isOpen)
+                    scanHost.OpenPorts.Add(port);
+                else
+                    scanHost.ClosedPorts.Add(port);
+
+                AssignProtocol(scanHost, port, isOpen);
+            }
+
+            return scanHost;
         }
 
-        // Cap the range at a /16 so an inverted/huge range cannot trigger an OutOfMemoryException.
+        private async Task<bool> IsPortOpenAsync(IPAddress ipAddress, int port, CancellationToken token)
+        {
+            try
+            {
+                using TcpClient tcpClient = new(ipAddress.AddressFamily);
+                using CancellationTokenSource timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(token);
+                // Honour the user's timeout for the TCP connect too (the old blocking constructor used
+                // the OS default of ~21s), and let StopScan cancel it immediately.
+                timeoutCts.CancelAfter(_timeoutInMilliseconds);
+
+                await tcpClient.ConnectAsync(ipAddress, port, timeoutCts.Token).ConfigureAwait(false);
+                return tcpClient.Connected;
+            }
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
+            {
+                throw new OperationCanceledException(token);
+            }
+            catch (Exception)
+            {
+                // Connection refused / timed out / unreachable — port is not open.
+                return false;
+            }
+        }
+
+        private static void AssignProtocol(ScanHost scanHost, int port, bool isOpen)
+        {
+            if (port == ScanHost.SshPort)
+                scanHost.Ssh = isOpen;
+            else if (port == ScanHost.TelnetPort)
+                scanHost.Telnet = isOpen;
+            else if (port == ScanHost.HttpPort)
+                scanHost.Http = isOpen;
+            else if (port == ScanHost.HttpsPort)
+                scanHost.Https = isOpen;
+            else if (port == ScanHost.RloginPort)
+                scanHost.Rlogin = isOpen;
+            else if (port == ScanHost.RdpPort)
+                scanHost.Rdp = isOpen;
+            else if (port == ScanHost.VncPort)
+                scanHost.Vnc = isOpen;
+        }
+
+        /// <summary>
+        /// Rejects an unusable port list up front. Without this an empty list scans every host for
+        /// nothing, and an out-of-range value only surfaces much later as a failure inside the
+        /// per-port TcpClient connect, by which time the scan is already running.
+        /// </summary>
+        private static void ValidatePorts(List<int> ports, string paramName)
+        {
+            if (ports.Count == 0)
+                throw new ArgumentException(Language.PortScanPortListHint, paramName);
+
+            foreach (int port in ports)
+            {
+                ValidatePort(port, paramName);
+            }
+        }
+
+        /// <summary>Rejects a single port outside the usable 1..65535 range.</summary>
+        private static void ValidatePort(int port, string paramName)
+        {
+            if (port is < PortListParser.MinPort or > PortListParser.MaxPort)
+                throw new ArgumentOutOfRangeException(paramName,
+                    string.Format(CultureInfo.CurrentCulture, Language.PortScanInvalidPort,
+                                  port, PortListParser.MinPort, PortListParser.MaxPort));
+        }
+
+        // Cap the range so an inverted/huge range (in particular an IPv6 range, which can span an
+        // astronomically large number of addresses) cannot trigger an OutOfMemoryException. Every
+        // address in the range is pinged, so this is a practical scan limit, not just a memory guard.
         private const long MaxScanRange = 65536;
 
         private static IEnumerable<IPAddress> IpAddressArrayFromRange(IPAddress ipAddress1, IPAddress ipAddress2)
         {
-            IPAddress startIpAddress = IpAddressMin(ipAddress1, ipAddress2);
-            IPAddress endIpAddress = IpAddressMax(ipAddress1, ipAddress2);
+            if (ipAddress1.AddressFamily != ipAddress2.AddressFamily)
+                throw new ArgumentException(Language.PortScanMixedAddressFamilies);
 
-            // IPv4 addresses must be treated as UNSIGNED: a signed Int32 makes any address
-            // >= 128.0.0.0 negative, which inverted Min/Max ordering and the range count for any
-            // range straddling 128.0.0.0.
-            uint startAddress = IpAddressToUInt32(startIpAddress);
-            uint endAddress = IpAddressToUInt32(endIpAddress);
-            long addressCount = (long)endAddress - startAddress + 1;
+            AddressFamily family = ipAddress1.AddressFamily;
+
+            // Addresses are treated as UNSIGNED big-endian integers so ordering and counting are
+            // correct across the whole space (e.g. an IPv4 range straddling 128.0.0.0). BigInteger
+            // covers both the 32-bit IPv4 and 128-bit IPv6 spaces.
+            BigInteger startAddress = IpAddressToBigInteger(IpAddressMin(ipAddress1, ipAddress2));
+            BigInteger endAddress = IpAddressToBigInteger(IpAddressMax(ipAddress1, ipAddress2));
+
+            BigInteger addressCount = endAddress - startAddress + 1;
             if (addressCount > MaxScanRange)
-                throw new ArgumentOutOfRangeException(nameof(ipAddress2),
-                    $"The address range is too large to scan ({addressCount} addresses); the limit is {MaxScanRange}.");
+                throw new ArgumentOutOfRangeException(paramName: null,
+                    string.Format(CultureInfo.CurrentCulture, Language.PortScanRangeTooLarge,
+                                  addressCount, MaxScanRange));
 
-            IPAddress[] addressArray = new IPAddress[addressCount];
-            int index = 0;
-            for (uint address = startAddress; address <= endAddress; address++)
+            List<IPAddress> addresses = new((int)addressCount);
+            for (BigInteger address = startAddress; address <= endAddress; address++)
             {
-                addressArray[index] = IpAddressFromUInt32(address);
-                index++;
-                if (address == uint.MaxValue) break; // guard against wraparound at the top of the space
+                addresses.Add(IpAddressFromBigInteger(address, family));
             }
 
-            return addressArray;
+            return addresses;
         }
 
         private static IPAddress IpAddressMin(IPAddress ipAddress1, IPAddress ipAddress2)
@@ -325,36 +382,25 @@ namespace mRemoteNG.Tools
 
         private static int IpAddressCompare(IPAddress ipAddress1, IPAddress ipAddress2)
         {
-            return IpAddressToUInt32(ipAddress1).CompareTo(IpAddressToUInt32(ipAddress2));
+            return IpAddressToBigInteger(ipAddress1).CompareTo(IpAddressToBigInteger(ipAddress2));
         }
 
-        private static uint IpAddressToUInt32(IPAddress ipAddress)
+        private static BigInteger IpAddressToBigInteger(IPAddress ipAddress)
         {
-            if (ipAddress.AddressFamily != AddressFamily.InterNetwork)
-            {
-                throw new ArgumentException("Only IPv4 addresses are supported.", nameof(ipAddress));
-            }
-
-            byte[] addressBytes = ipAddress.GetAddressBytes(); // in network order (big-endian)
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(addressBytes); // to host order (little-endian)
-            }
-
-            Debug.Assert(addressBytes.Length == 4);
-
-            return BitConverter.ToUInt32(addressBytes, 0);
+            // GetAddressBytes() is big-endian (network order). Interpret it as an unsigned value.
+            return new BigInteger(ipAddress.GetAddressBytes(), isUnsigned: true, isBigEndian: true);
         }
 
-        private static IPAddress IpAddressFromUInt32(uint ipAddress)
+        private static IPAddress IpAddressFromBigInteger(BigInteger value, AddressFamily family)
         {
-            byte[] addressBytes = BitConverter.GetBytes(ipAddress); // in host order
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(addressBytes); // to network order (big-endian)
-            }
+            int length = family == AddressFamily.InterNetworkV6 ? 16 : 4;
+            byte[] addressBytes = new byte[length];
 
-            Debug.Assert(addressBytes.Length == 4);
+            // ToByteArray gives the minimal big-endian representation; right-align it into a
+            // fixed-width, zero-padded buffer so IPAddress gets a valid 4- or 16-byte address.
+            byte[] raw = value.ToByteArray(isUnsigned: true, isBigEndian: true);
+            int copyLength = Math.Min(raw.Length, length);
+            Array.Copy(raw, raw.Length - copyLength, addressBytes, length - copyLength, copyLength);
 
             return new IPAddress(addressBytes);
         }

@@ -15,7 +15,7 @@ namespace mRemoteNG.Config.Connections.Multiuser
     {
         private readonly System.Timers.Timer _updateTimer;
         private readonly IConnectionsUpdateChecker _updateChecker;
-        private readonly object _timerLock = new();
+        private readonly System.Threading.Lock _timerLock = new();
         private bool _disposed;
 
         public double TimerIntervalInMilliseconds

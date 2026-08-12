@@ -67,8 +67,9 @@ namespace mRemoteNG.Connection.Protocol.VNC
             }
             finally
             {
-                if (hKey != 0) BCryptDestroyKey(hKey);
-                if (hAlg != 0) BCryptCloseAlgorithmProvider(hAlg, 0);
+                // Cleanup status is intentionally ignored — nothing actionable can be done in a finally block.
+                if (hKey != 0) _ = BCryptDestroyKey(hKey);
+                if (hAlg != 0) _ = BCryptCloseAlgorithmProvider(hAlg, 0);
             }
         }
 
