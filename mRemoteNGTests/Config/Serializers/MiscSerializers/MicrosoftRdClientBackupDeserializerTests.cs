@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using mRemoteNG.Config.Serializers.MiscSerializers;
 using mRemoteNG.Connection;
@@ -82,14 +83,14 @@ public class MicrosoftRdClientBackupDeserializerTests
     public void ConnectionWithoutGroupGoesToRoot()
     {
         var rootChildren = _connectionTreeModel.RootNodes.First().Children.OfType<ConnectionInfo>().ToList();
-        Assert.That(rootChildren.Any(c => c.Name == "Server 2"), Is.True);
+        Assert.That(rootChildren.Any(c => string.Equals(c.Name, "Server 2", StringComparison.Ordinal)), Is.True);
     }
 
     [Test]
     public void ConnectionWithoutCredentialsHasEmptyUsername()
     {
         var rootChildren = _connectionTreeModel.RootNodes.First().Children.OfType<ConnectionInfo>().ToList();
-        var server2 = rootChildren.First(c => c.Name == "Server 2");
+        var server2 = rootChildren.First(c => string.Equals(c.Name, "Server 2", StringComparison.Ordinal));
         Assert.That(server2.Username, Is.EqualTo(""));
     }
 

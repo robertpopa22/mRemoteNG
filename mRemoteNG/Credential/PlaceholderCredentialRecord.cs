@@ -11,7 +11,11 @@ namespace mRemoteNG.Credential
     [SupportedOSPlatform("windows")]
     public class PlaceholderCredentialRecord(IEnumerable<Guid> id) : ICredentialRecord
     {
+        // Placeholder records are immutable stand-ins for unavailable credentials,
+        // so this ICredentialRecord event is never raised.
+#pragma warning disable CS0067
         public event PropertyChangedEventHandler? PropertyChanged;
+#pragma warning restore CS0067
 
         public Guid Id { get; } = id.FirstOrDefault();
 

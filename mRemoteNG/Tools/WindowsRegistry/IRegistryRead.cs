@@ -18,7 +18,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <summary>
         /// Gets the value of a registry entry specified by its name.
         /// </summary>
-        string GetValue(RegistryHive hive, string path, string name);
+        string? GetValue(RegistryHive hive, string path, string? name);
 
         /// <summary>
         /// Gets the string value of a registry entry specified by its name.

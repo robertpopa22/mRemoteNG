@@ -168,7 +168,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv.RemoteDesktopMa
                     AddChildrenRecursive(group, groupParts, parentContainer);
                 }
 
-            return string.IsNullOrEmpty(group) ? (connectionInfo, default) : (connectionInfo, group);
+            return string.IsNullOrEmpty(group) ? (connectionInfo, string.Empty) : (connectionInfo, group);
         }
 
         /// <summary>

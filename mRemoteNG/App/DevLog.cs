@@ -11,7 +11,7 @@ namespace mRemoteNG.App
     /// </summary>
     internal static class DevLog
     {
-        private static readonly object _lock = new();
+        private static readonly Lock _lock = new();
         private static string? _logPath;
         private static bool _initialized;
         private static bool _enabled;
@@ -58,7 +58,7 @@ namespace mRemoteNG.App
 
         private static void WriteCore(string message, string? caller)
         {
-            string line = $"{DateTime.Now:HH:mm:ss.fff} [{Thread.CurrentThread.ManagedThreadId,3}] {caller}: {message}";
+            string line = $"{DateTime.Now:HH:mm:ss.fff} [{Environment.CurrentManagedThreadId,3}] {caller}: {message}";
             lock (_lock)
             {
                 try

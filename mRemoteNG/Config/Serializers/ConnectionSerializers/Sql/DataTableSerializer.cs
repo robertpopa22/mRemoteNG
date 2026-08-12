@@ -383,7 +383,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
         private static void SetPrimaryKey(DataTable dataTable)
         {
-            dataTable.PrimaryKey = new[] { dataTable.Columns["ConstantID"] };
+            DataColumn constantIdColumn = dataTable.Columns["ConstantID"]
+                                          ?? throw new InvalidOperationException("The 'ConstantID' column is missing from the connections table.");
+            dataTable.PrimaryKey = [constantIdColumn];
         }
 
         private void SerializeNodesRecursive(ConnectionInfo connectionInfo)
