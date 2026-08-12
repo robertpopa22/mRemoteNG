@@ -2,23 +2,54 @@
   "number": 163,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Config dialog text appears blurry/low-definition compared to rest of UI",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-08-07T16:13:10Z",
   "github_updated_at": "2026-08-07T16:13:10Z",
   "body_snippet": "**Version**: Nightly Build — 20260804 (v1.82.0)\n\n**Environment**:\nWindows 10/11\n\nReproducible especially on HiDPI/fractional scaling (125%, 150%, mixed DPI monitors)\n\n**Observed**:\nText in the Config panel (connection properties grid) appears softer/blurry (low-defined) than text in the rest of the UI.\n\n**Expected**:\nText rendering quality in Config panel should match the rest of the application and appear crisp.\n\n**Technical analysis**:\nConfig panel property grid explicitly enables compatible t...",
-  "our_status": "new",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-10",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-11",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-08-11",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [],
   "comments_cursor": "2026-08-07T16:13:10Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-08T10:23:57Z",
-  "notes": ""
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-08-11T07:44:24Z",
+  "notes": "fix shipped 44d560efc; awaiting reporter visual confirm at 125/150/175% DPI"
 }

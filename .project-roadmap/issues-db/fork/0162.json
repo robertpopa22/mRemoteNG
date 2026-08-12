@@ -6,19 +6,79 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-08-07T13:55:25Z",
-  "github_updated_at": "2026-08-07T13:55:25Z",
+  "github_updated_at": "2026-08-11T16:28:51Z",
   "body_snippet": "**Summary**\nWhen mRemoteNG is set to Automatically Detect language, the main UI appears in English, but the connection file configuration dialogs (Open/Save) appear in Italian on systems configured with Windows display language en-US and locale/format it-IT.\n\nThis creates an inconsistent user experience and suggests different culture sources are used by different UI components.\n\n**Version**\nNightly Build — 20260804 (v1.82.0)\n\n**Environment**\nOS: Windows 10/11\nWindows display/UI language: en-US\nW...",
-  "our_status": "new",
+  "our_status": "triaged",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-08-07T13:55:25Z",
-  "unread_comments": 0,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-10",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-11",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-08-11",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-08-12",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABOPL6Zg",
+      "author": "robertpopa22",
+      "date": "2026-08-11T07:44:19Z",
+      "snippet": "Thanks for the detailed write-up — your `AppearancePage.cs:87` reference is correct and it's what makes this tricky.\n\nI traced it, and I need one thing from you before I can call it fixed, because the answer splits cleanly in two.\n\n**What the app actually controls in those dialogs.** `BuildLoadConnectionsDialog` and the Save As dialog set only two things: an (empty) `Title` and the `Filter` — the file-type dropdown, built from `Language.FiltermRemoteXML` and `Language.FilterAll`. Everything else...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOTVQ-w",
+      "author": "bruste77",
+      "date": "2026-08-11T14:48:53Z",
+      "snippet": "The italian text is visible inside the config dialog where the connection details are shown.\nFor instance some italian texts are:\nSchermo\nNome\nDescrizione\nIcona\nPannello\nPorta\nNome Utente\nProtocollo\n...\n\nHere a screenshot of the config dialog\n<img width=\"417\" height=\"410\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/0469ef68-8799-4bb6-8b7c-9fb4ede42177\" />\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-08-11T16:28:51Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-08T10:23:57Z",
-  "notes": ""
+  "last_synced": "2026-08-12T10:33:38Z",
+  "notes": "real bug: property-grid attributes resolved via CurrentCulture (region) not CurrentUICulture (display language); fix 734ee29c0"
 }

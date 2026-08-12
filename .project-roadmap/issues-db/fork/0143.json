@@ -8,9 +8,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-07-28T11:29:15Z",
+  "github_updated_at": "2026-08-10T15:47:00Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
-  "our_status": "testing",
+  "our_status": "needs_info",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -105,6 +105,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 10,
+      "date": "2026-08-10",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -188,12 +198,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABODJQWA",
+      "author": "happpyg",
+      "date": "2026-08-10T08:32:00Z",
+      "snippet": "Tried again today, still the same issue. \n\nLog as below with the 143 and 118 lines\n\n2026-08-10 16:26:02,490 [2] INFO  - [#118-diag] entry GetFocus=0x71398 icOwnsFocus=False clicked=CommandButton\n2026-08-10 16:26:02,490 [2] INFO  - [#118-diag] abort: FindInterfaceControl(GetFocus()) == null (guard short-circuit)\n2026-08-10 16:26:43,306 [2] INFO  - [#118-diag] entry GetFocus=0x121170 icOwnsFocus=False clicked=CheckBox\n2026-08-10 16:26:43,306 [2] INFO  - [#118-diag] abort: FindInterfaceControl(GetF...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOHtfdA",
+      "author": "robertpopa22",
+      "date": "2026-08-10T15:47:00Z",
+      "snippet": "That log is exactly what I needed, and it kills my last theory rather than confirming it. Thank you for running it again.\n\nThe decisive lines are these:\n\n```\n[#143-diag] click globalFocus=0x113FA ... sharedQueue=True attached=False\n            setFocusRet=0x113FA err=0 focusAfterSetFocus=0x113FA\n```\n\nReading that back: the input queues are **already shared** (`sharedQueue=True`), so the cross-queue bridge I added last round correctly does nothing. `SetFocus` is called, returns a valid previous-f...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-28T11:29:15Z",
-  "unread_comments": 4,
+  "comments_cursor": "2026-08-10T15:47:00Z",
+  "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-08-03T09:06:09Z",
-  "notes": "fix shipped d3fd18120 (attempt 4, trace-backed) + richer SetFocus instrumentation; awaiting reporter confirm on nightly"
+  "last_synced": "2026-08-11T07:21:25Z",
+  "notes": "trace refutes cross-queue premise: SetFocus succeeds, focus bounces back inside the call; next build instruments ActiveControl chain to separate ActiveX re-grab vs WinForms restore"
 }

@@ -1,0 +1,74 @@
+{
+  "number": 165,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "SQL Server option gives errors using same setup as original mRemoteNG 1.76",
+  "state": "open",
+  "labels": [],
+  "author": "vansanper",
+  "created_at": "2026-08-10T10:46:48Z",
+  "github_updated_at": "2026-08-11T11:42:51Z",
+  "body_snippet": "After upgrading to mRemoteNG 1.82 from original 1.76 (first install) when setting up the SQL Server option setting the same data:\nServer name: 192.168.10.202\\SQL19SAP10\nAuthentication: SQL Server AUthentication\nUser: sa\nPassword: (correctPassword)\n\n\nConnection Properties:\nDatabase: mRemoteNGUsernamex (existing database used in the old program)\n\nTested too setting:\nDatabase:mRemoteNG (clean one not existing database in sql)\n\n\nIt returns an error:\nAn unkown error has ocurred on {0} (Error {1}).\n\n(...",
+  "our_status": "triaged",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-10",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-10",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-08-12",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABOHtepg",
+      "author": "robertpopa22",
+      "date": "2026-08-10T15:46:59Z",
+      "snippet": "Two separate things here, and you found a real bug in the first one.\n\n**The `{0}` / `{1}` message is our fault.** The options page was rendering `Language.RdpErrorUnknown` for a failed SQL test — that's an *RDP protocol* string (\"An unknown error has occurred on {0} (Error {1})\"), and nothing ever formatted it, so you saw the placeholders verbatim.\n\nWorse, there was nothing better to show even if it had been formatted: the connection tester caught the provider exception, mapped it to a five-valu...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABORW81w",
+      "author": "vansanper",
+      "date": "2026-08-11T11:42:51Z",
+      "snippet": "Thanks for the fast response. I downloaded the nightly and tested it, these are my observations:\n\n-Now it shows the error on button text \"correctly\" (there is a drawing problem that cuts the labels and buttons, screenshot included)\n-in MSSQL developed by Microsoft with 192.168.10.202\\SQL19SAP10 returns \"A network-related or instance-specific error ocurred while establishing a connection to SQL Server. The server was not f\" (the error label is cut at this point i imagine it would continue with ti...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-08-11T11:42:51Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-08-12T10:33:38Z",
+  "notes": "ODBC excluded from schema forward-port + legacy 2.6->2.7 NOT NULL adds without DEFAULT; fix 0e7d4c87f"
+}
