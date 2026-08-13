@@ -42,6 +42,8 @@ namespace mRemoteNG.Connection
         private readonly IDataProvider<string> _localConnectionPropertiesDataProvider = new FileDataProvider(Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LocalConnectionProperties));
         private readonly LocalConnectionPropertiesXmlSerializer _localConnectionPropertiesSerializer = new LocalConnectionPropertiesXmlSerializer();
         private bool _batchingSaves;
+        private readonly object _debounceTriggerLock = new();
+        private string? _debouncedPropertyNameTrigger;
         private bool _saveRequested;
         private bool _saveAsyncRequested;
         private System.Threading.Timer? _saveDebounceTimer;
@@ -409,9 +411,20 @@ namespace mRemoteNG.Connection
         {
             _batchingSaves = false;
 
-            if (_saveAsyncRequested)
+            // Clear the request flags before dispatching. They used to survive the batch, so
+            // the first batched operation that asked for an async save turned every later
+            // EndBatchingSaves into an async (debounced) save regardless of what that batch
+            // actually requested, and every batch fired a save even when nothing had changed.
+            // Tree moves, duplicates and deletes all run inside a batch, which is why this
+            // leaked into ordinary use. (#148)
+            bool asyncRequested = _saveAsyncRequested;
+            bool saveRequested = _saveRequested;
+            _saveAsyncRequested = false;
+            _saveRequested = false;
+
+            if (asyncRequested)
                 SaveConnectionsAsync();
-            else if (_saveRequested)
+            else if (saveRequested)
                 SaveConnections();
         }
 
@@ -548,17 +561,53 @@ namespace mRemoteNG.Connection
             // events (e.g. from HostStatusMonitor or bulk edits) coalesce into a single
             // save instead of queuing N independent saves — each of which re-encrypts
             // every password with PBKDF2 at 600K iterations. See issue #83.
+            // Coalescing must not let a local-only property mask a database-relevant one. The
+            // callback used to close over whichever trigger arrived last, so a root rename
+            // followed within the debounce window by an OpenConnections / IsExpanded / Favorite
+            // change saved under that second name — and SqlConnectionsSaver skips the database
+            // entirely for local-only triggers, dropping the rename with only a debug line. When
+            // a window coalesces different triggers, report none, which is never local-only. (#148)
+            lock (_debounceTriggerLock)
+            {
+                if (_saveDebounceTimer == null)
+                    _debouncedPropertyNameTrigger = propertyNameTrigger;
+                else if (!string.Equals(_debouncedPropertyNameTrigger, propertyNameTrigger, StringComparison.Ordinal))
+                    _debouncedPropertyNameTrigger = "";
+            }
+
             _saveDebounceTimer?.Dispose();
+
+            // Hold the multiuser reload off for the length of the debounce, not just for the
+            // save itself. SaveConnections disables the syncronizer on entry and re-enables it
+            // in its finally, but that leaves this waiting window unguarded: the reload timer
+            // could fire inside it and swap ConnectionTreeModel for a freshly loaded one, and
+            // because the callback below re-reads the model when it fires rather than capturing
+            // it, the pending edit was then serialized away silently — no error, no log. (#148)
+            RemoteConnectionsSyncronizer?.Disable();
             _saveDebounceTimer = new System.Threading.Timer(_ =>
             {
+                string coalescedTrigger;
+                lock (_debounceTriggerLock)
+                {
+                    coalescedTrigger = _debouncedPropertyNameTrigger ?? propertyNameTrigger;
+                    _debouncedPropertyNameTrigger = null;
+                    _saveDebounceTimer?.Dispose();
+                    _saveDebounceTimer = null;
+                }
+
                 ConnectionTreeModel? treeModel = ConnectionTreeModel;
                 string? fileName = ConnectionFileName;
                 if (treeModel is null || fileName is null)
+                {
+                    // Nothing to save, so SaveConnections' finally will not run: resume syncing
+                    // here or the reload timer stays off for the rest of the session.
+                    RemoteConnectionsSyncronizer?.Enable();
                     return;
+                }
 
                 lock (SaveLock)
                 {
-                    SaveConnections(treeModel, UsingDatabase, new SaveFilter(), fileName, propertyNameTrigger: propertyNameTrigger);
+                    SaveConnections(treeModel, UsingDatabase, new SaveFilter(), fileName, propertyNameTrigger: coalescedTrigger);
                 }
             }, null, SaveDebounceMs, Timeout.Infinite);
         }

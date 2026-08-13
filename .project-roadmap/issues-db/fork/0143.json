@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-08-10T15:47:00Z",
+  "github_updated_at": "2026-08-12T11:39:14Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
   "our_status": "needs_info",
   "priority": null,
@@ -216,12 +216,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOeU0aA",
+      "author": "happpyg",
+      "date": "2026-08-12T11:39:14Z",
+      "snippet": "Latest log as requested\n\n2026-08-12 19:34:25,323 [2] INFO  - [Startup] SettingsLoad: 171ms\n2026-08-12 19:34:25,331 [2] INFO  - mRemoteNG Connection Manager 1.82.0 (Release 3653) x64 Portable Edition starting.\n2026-08-12 19:34:25,337 [2] INFO  - Microsoft .NET CLR 10.0.8\n2026-08-12 19:34:25,337 [2] INFO  - System Culture: en-US/English (United States)\n2026-08-12 19:34:25,339 [2] INFO  - [Startup]   StartupDataLogger: 8ms\n2026-08-12 19:34:25,340 [2] INFO  - FIPS check skipped: .NET 5+ uses FIPS-va...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-08-10T15:47:00Z",
-  "unread_comments": 5,
+  "comments_cursor": "2026-08-12T11:39:14Z",
+  "unread_comments": 6,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-08-11T07:21:25Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-08-12T11:41:14Z",
   "notes": "trace refutes cross-queue premise: SetFocus succeeds, focus bounces back inside the call; next build instruments ActiveControl chain to separate ActiveX re-grab vs WinForms restore"
 }

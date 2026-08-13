@@ -6,7 +6,7 @@
   "labels": [],
   "author": "vansanper",
   "created_at": "2026-08-10T10:46:48Z",
-  "github_updated_at": "2026-08-11T11:42:51Z",
+  "github_updated_at": "2026-08-12T11:20:06Z",
   "body_snippet": "After upgrading to mRemoteNG 1.82 from original 1.76 (first install) when setting up the SQL Server option setting the same data:\nServer name: 192.168.10.202\\SQL19SAP10\nAuthentication: SQL Server AUthentication\nUser: sa\nPassword: (correctPassword)\n\n\nConnection Properties:\nDatabase: mRemoteNGUsernamex (existing database used in the old program)\n\nTested too setting:\nDatabase:mRemoteNG (clean one not existing database in sql)\n\n\nIt returns an error:\nAn unkown error has ocurred on {0} (Error {1}).\n\n(...",
   "our_status": "testing",
   "priority": null,
@@ -73,12 +73,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOeDF0w",
+      "author": "robertpopa22",
+      "date": "2026-08-12T11:20:06Z",
+      "snippet": "This is an excellent report — you found the exact line, and you were right. Three separate defects here, all ours.\n\n**1. The schema upgrade crash — root cause confirmed, and it is why ODBC in particular broke.**\n\nYou pointed at `SqlVersion26To27Upgrader.cs:28`, and that statement is indeed invalid:\n\n```sql\nADD RedirectClipboard bit NOT NULL,     -- no DEFAULT, so it cannot be added to a table with rows\n    VmId varchar NOT NULL DEFAULT NULL, -- self-contradictory, and bare `varchar` is ONE chara...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-11T11:42:51Z",
+  "comments_cursor": "2026-08-12T11:20:06Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-12T11:20:11Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-08-12T11:41:14Z",
   "notes": "fix 0e7d4c87f shipped; awaiting reporter confirm on nightly"
 }

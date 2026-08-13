@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-08-07T13:55:25Z",
-  "github_updated_at": "2026-08-11T16:28:51Z",
+  "github_updated_at": "2026-08-12T11:20:05Z",
   "body_snippet": "**Summary**\nWhen mRemoteNG is set to Automatically Detect language, the main UI appears in English, but the connection file configuration dialogs (Open/Save) appear in Italian on systems configured with Windows display language en-US and locale/format it-IT.\n\nThis creates an inconsistent user experience and suggests different culture sources are used by different UI components.\n\n**Version**\nNightly Build — 20260804 (v1.82.0)\n\n**Environment**\nOS: Windows 10/11\nWindows display/UI language: en-US\nW...",
   "our_status": "testing",
   "priority": null,
@@ -83,12 +83,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOeDEkQ",
+      "author": "robertpopa22",
+      "date": "2026-08-12T11:20:04Z",
+      "snippet": "That screenshot settles it, and it turns out I was looking at the wrong dialog entirely. Thank you for the precise list of strings — it made this findable in one pass.\n\n**It is our bug, and your \"different culture sources\" hypothesis was right.**\n\nThe Italian text is in the **Config property grid**, not the file dialogs. Every label in that grid comes from `LocalizedCategoryAttribute` / `LocalizedDisplayNameAttribute` / `LocalizedDescriptionAttribute` in `Tools.LocalizedAttributes.cs`, and each ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-11T16:28:51Z",
+  "comments_cursor": "2026-08-12T11:20:05Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-12T11:20:10Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-08-12T11:41:14Z",
   "notes": "fix 734ee29c0 shipped; awaiting reporter confirm on nightly"
 }
