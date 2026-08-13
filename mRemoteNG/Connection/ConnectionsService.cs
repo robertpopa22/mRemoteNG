@@ -42,7 +42,7 @@ namespace mRemoteNG.Connection
         private readonly IDataProvider<string> _localConnectionPropertiesDataProvider = new FileDataProvider(Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LocalConnectionProperties));
         private readonly LocalConnectionPropertiesXmlSerializer _localConnectionPropertiesSerializer = new LocalConnectionPropertiesXmlSerializer();
         private bool _batchingSaves;
-        private readonly object _debounceTriggerLock = new();
+        private readonly Lock _debounceTriggerLock = new();
         private string? _debouncedPropertyNameTrigger;
         private bool _saveRequested;
         private bool _saveAsyncRequested;

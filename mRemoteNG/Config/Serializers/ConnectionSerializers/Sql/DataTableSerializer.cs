@@ -383,7 +383,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
         private static void SetPrimaryKey(DataTable dataTable)
         {
-            dataTable.PrimaryKey = new[] { dataTable.Columns["ConstantID"] };
+            DataColumn constantId = dataTable.Columns["ConstantID"]
+                                   ?? throw new InvalidOperationException(
+                                       "tblCons has no ConstantID column, so no primary key can be set. "
+                                       + "The table is not a usable mRemoteNG connections table.");
+            dataTable.PrimaryKey = [constantId];
         }
 
         private void SerializeNodesRecursive(ConnectionInfo connectionInfo)

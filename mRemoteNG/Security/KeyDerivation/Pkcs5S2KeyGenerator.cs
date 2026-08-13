@@ -29,8 +29,13 @@ namespace mRemoteNG.Security.KeyDerivation
                 // Use .NET native PBKDF2-HMAC-SHA1 (CNG-accelerated) instead of
                 // BouncyCastle's managed Pkcs5S2ParametersGenerator.
                 // Output is identical (RFC 2898) but ~5x faster at high iteration counts.
-                using Rfc2898DeriveBytes kdf = new(passwordInBytes, salt, _iterations, HashAlgorithmName.SHA1);
-                return kdf.GetBytes(keyLengthBytes);
+                //
+                // SHA-1 is not a choice: it is the digest every connection file encrypted by
+                // mRemoteNG to date was keyed with, so changing it would make existing files
+                // undecryptable. The one-shot Pbkdf2 API produces byte-identical output to the
+                // obsolete Rfc2898DeriveBytes constructor it replaces.
+                return Rfc2898DeriveBytes.Pbkdf2(passwordInBytes, salt, _iterations,
+                                                 HashAlgorithmName.SHA1, keyLengthBytes);
             }
             finally
             {

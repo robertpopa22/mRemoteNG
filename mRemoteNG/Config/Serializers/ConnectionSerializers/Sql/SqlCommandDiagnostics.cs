@@ -83,8 +83,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 ex.Data[CommandTextKey] = command.CommandText;
                 ex.Data[ParametersKey] = DescribeParameters(command);
             }
-            catch (Exception)
+            catch (Exception ex2)
             {
+                _ = ex2;
                 // Exception.Data can refuse writes in more than one way: the usual backing store
                 // throws ArgumentException on a bad key, pre-allocated/agile exceptions expose a
                 // read-only dictionary that throws InvalidOperationException, and a custom
@@ -200,9 +201,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             {
                 // Provider type shadows the property — fall through to SQLSTATE.
             }
-            catch (Exception)
+            catch (Exception ex2)
             {
-                // A provider getter threw; a diagnostic detail is not worth propagating.
+                _ = ex2; // A provider getter threw; a diagnostic detail is not worth propagating.
             }
 
             if (number != null)

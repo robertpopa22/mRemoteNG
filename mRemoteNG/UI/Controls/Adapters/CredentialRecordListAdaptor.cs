@@ -42,7 +42,7 @@ namespace mRemoteNG.UI.Controls.Adapters
             return listBox.SelectedItem ?? value;
         }
 
-        private void ListBoxOnSelectedValueChanged([NotNull] object? sender, EventArgs eventArgs)
+        private void ListBoxOnSelectedValueChanged(object? sender, EventArgs eventArgs)
         {
             _editorService?.CloseDropDown();
         }

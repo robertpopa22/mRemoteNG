@@ -21,7 +21,9 @@ namespace mRemoteNG.Config.Settings.Providers
             _initialized = true;
 
             _sharedProvider = new ChooseProvider();
-            _sharedProvider.Initialize(_sharedProvider.Name, null);
+            // SettingsProvider.Initialize declares a non-nullable config collection but documents
+            // null as "no provider-specific configuration", which is what this is.
+            _sharedProvider.Initialize(_sharedProvider.Name, null!);
 
             WireProvider(Properties.Settings.Default);
             WireProvider(Properties.App.Default);

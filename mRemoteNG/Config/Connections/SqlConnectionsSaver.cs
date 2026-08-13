@@ -19,7 +19,6 @@ using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
-using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 
 namespace mRemoteNG.Config.Connections
 {

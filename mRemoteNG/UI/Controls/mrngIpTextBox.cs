@@ -4,6 +4,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows.Forms;
 using mRemoteNG.Themes;
@@ -47,6 +48,10 @@ namespace mRemoteNG.UI.Controls
         }
 
         /* Set or Get the string that represents the value in the box */
+        // Control.Text is [AllowNull]: the setter accepts null and treats it as empty, which the
+        // body below already does. Matching the attribute keeps the override's contract identical
+        // to the base rather than silently promising more.
+        [AllowNull]
         public override string Text
         {
             get => (Octet1.Text ?? string.Empty) + @"." + (Octet2.Text ?? string.Empty) + @"." + (Octet3.Text ?? string.Empty) + @"." + (Octet4.Text ?? string.Empty);

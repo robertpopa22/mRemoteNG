@@ -4,6 +4,7 @@ using mRemoteNG.Properties;
 using mRemoteNG.UI.Forms;
 using System;
 using System.Runtime.Versioning;
+using System.Threading;
 using System.Timers;
 
 // ReSharper disable ArrangeAccessorOwnerBody
@@ -15,7 +16,7 @@ namespace mRemoteNG.Config.Connections.Multiuser
     {
         private readonly System.Timers.Timer _updateTimer;
         private readonly IConnectionsUpdateChecker _updateChecker;
-        private readonly object _timerLock = new();
+        private readonly Lock _timerLock = new();
         private bool _disposed;
 
         public double TimerIntervalInMilliseconds

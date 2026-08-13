@@ -1,6 +1,7 @@
 ﻿using mRemoteNG.Themes;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.Versioning;
@@ -40,7 +41,8 @@ namespace mRemoteNG.UI.TaskDialog
 
         //--------------------------------------------------------------------------------
         // Override this to make sure the control is invalidated (repainted) when 'Text' is changed
-        public override string? Text
+        [AllowNull]
+        public override string Text
         {
             get => base.Text;
             set

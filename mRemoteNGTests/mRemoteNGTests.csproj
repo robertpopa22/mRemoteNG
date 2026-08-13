@@ -3,6 +3,11 @@
     <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
     <LangVersion>preview</LangVersion>
+    <!-- Tests were written with nullable annotations (`string?`) but the project had no nullable
+         context, so every one of them raised CS8632 - 139 warnings that buried real ones. The
+         annotations context honours the syntax without turning on nullable flow analysis, which
+         would be a separate and much larger change to the test code. -->
+    <Nullable>annotations</Nullable>
     <IsPackable>false</IsPackable>
     <Platforms>x86;x64;arm64</Platforms>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

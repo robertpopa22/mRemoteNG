@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 using NSubstitute;
 using NUnit.Framework;
@@ -270,12 +271,19 @@ public class SqlCommandDiagnosticsTests
 
     private class BaseNumberException(string message) : Exception(message)
     {
+        [SuppressMessage("Performance", "CA1822:Mark members as static",
+                         Justification = "Must stay an instance property: the diagnostics look it up "
+                                         + "with Type.GetProperty(\"Number\"), which is what this "
+                                         + "fixture exercises.")]
         public int Number => 1;
     }
 
     /// <summary>Shadows Number, which makes an unguarded Type.GetProperty("Number") ambiguous.</summary>
     private sealed class ShadowedNumberException(string message) : BaseNumberException(message)
     {
+        [SuppressMessage("Performance", "CA1822:Mark members as static",
+                         Justification = "Must stay an instance property to shadow the base member "
+                                         + "and reproduce the ambiguous-lookup case.")]
         public new string Number => "1175";
     }
 
@@ -299,7 +307,8 @@ public class SqlCommandDiagnosticsTests
         public override void CopyTo(Array array, int index) => ((System.Collections.ICollection)_parameters).CopyTo(array, index);
         public override System.Collections.IEnumerator GetEnumerator() => _parameters.GetEnumerator();
         public override int IndexOf(object value) => _parameters.IndexOf((DbParameter)value);
-        public override int IndexOf(string parameterName) => _parameters.FindIndex(p => p.ParameterName == parameterName);
+        public override int IndexOf(string parameterName) =>
+            _parameters.FindIndex(p => string.Equals(p.ParameterName, parameterName, StringComparison.Ordinal));
         public override void Insert(int index, object value) => _parameters.Insert(index, (DbParameter)value);
         public override void Remove(object value) => _parameters.Remove((DbParameter)value);
         public override void RemoveAt(int index) => _parameters.RemoveAt(index);

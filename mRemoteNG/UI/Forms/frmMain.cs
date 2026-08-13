@@ -1557,9 +1557,9 @@ namespace mRemoteNG.UI.Forms
                 for (Control? c = ctrl; c != null; c = c.Parent)
                     if (c is ConfigWindow) return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignore — best-effort guard
+                _ = ex; // ignore — best-effort guard
             }
             return false;
         }
@@ -1689,7 +1689,8 @@ namespace mRemoteNG.UI.Forms
                 {
                     var asm = System.Reflection.Assembly.GetExecutingAssembly().Location;
                     if (!string.IsNullOrEmpty(asm))
-                        titleBuilder.Append($" [DEV {System.IO.File.GetLastWriteTime(asm):HH:mm}]");
+                        titleBuilder.Append(CultureInfo.CurrentCulture,
+                                            $" [DEV {System.IO.File.GetLastWriteTime(asm):HH:mm}]");
                     else
                         titleBuilder.Append(" [DEV]");
                 }
@@ -1913,7 +1914,6 @@ namespace mRemoteNG.UI.Forms
                     (ClipboardchangeEventHandler?)Delegate.Remove(_clipboardChangedEvent, value);
         }
 
-        public event EventHandler? UserInterfaceResize;
 
         #endregion
 

@@ -402,7 +402,9 @@ namespace BrightIdeasSoftware
             this.Overlay.Draw(this.objectListView, g, this.objectListView.ClientRectangle);
         }
 
-        protected void RecalculateBounds() {
+        // Private, not protected: the type is sealed, so protected promises an inheritance that
+        // cannot happen, and every call site is inside this class.
+        private void RecalculateBounds() {
             if (!this.isGlassShown)
                 return;
 

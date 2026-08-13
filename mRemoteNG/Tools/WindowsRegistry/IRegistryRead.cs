@@ -16,9 +16,10 @@ namespace mRemoteNG.Tools.WindowsRegistry
         string[] GetSubKeyNames(RegistryHive hive, string path);
 
         /// <summary>
-        /// Gets the value of a registry entry specified by its name.
+        /// Gets the value of a registry entry specified by its name. Pass a null or empty name to
+        /// read the key's default value; returns null when the value does not exist.
         /// </summary>
-        string GetValue(RegistryHive hive, string path, string name);
+        string? GetValue(RegistryHive hive, string path, string? name);
 
         /// <summary>
         /// Gets the string value of a registry entry specified by its name.
