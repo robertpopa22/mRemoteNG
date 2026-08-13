@@ -1090,19 +1090,76 @@ namespace BrightIdeasSoftware
             }
 
             // In strange cases, this can throw the exceptions too. The best we can do is ignore them :(
+            Exception failure = null;
             try {
                 this.VirtualListSize = newSize;
             }
-            catch (ArgumentOutOfRangeException) {
-                // pass
+            catch (ArgumentOutOfRangeException ex) {
+                failure = ex;
             }
-            catch (NullReferenceException) {
-                // pass
+            catch (NullReferenceException ex) {
+                failure = ex;
+            }
+
+            // Swallowing the failure leaves the control reporting its old row count while the
+            // data source has already moved on, and nothing afterwards reconciles the two. Code
+            // that derives a row range from GetItemCount() then works from a number that is too
+            // small -- the suspected source of "startIndex ('427') must be less than '41'" out of
+            // TreeListView.Expand. The desync has never been reproduced, so report it when it
+            // happens instead of guessing at a fix. (#149)
+            if (failure != null || this.VirtualListSize != newSize) {
+                Action<string> report = SizeChangeDiagnostic;
+                if (report != null) {
+                    try {
+                        report(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                                             "SetVirtualListSize on {0} '{1}': requested={2} old={3} actual={4} "
+                                             + "sourceCount={5} handle={6} virtualMode={7} view={8} topIndex={9} "
+                                             + "exception={10}",
+                                             this.GetType().Name,
+                                             this.Name,
+                                             newSize,
+                                             oldSize,
+                                             this.VirtualListSize,
+                                             this.VirtualListDataSource == null
+                                                 ? -1
+                                                 : this.VirtualListDataSource.GetObjectCount(),
+                                             this.IsHandleCreated,
+                                             this.VirtualMode,
+                                             this.View,
+                                             SafeTopItemIndex(),
+                                             failure == null
+                                                 ? "none (assignment silently ignored)"
+                                                 : failure.GetType().Name + ": " + failure.Message));
+                    }
+                    catch (Exception ex) {
+                        _ = ex; // diagnostics must never break the control
+                    }
+                }
             }
 
             // Tell the world that the size of the list has changed
             this.OnItemsChanged(new ItemsChangedEventArgs(oldSize, this.VirtualListSize));
         }
+
+        /// <summary>
+        /// Reads TopItemIndex without letting its own failure modes escape into the diagnostic.
+        /// </summary>
+        private int SafeTopItemIndex() {
+            try {
+                return this.TopItemIndex;
+            }
+            catch (Exception ex) {
+                _ = ex;
+                return -1;
+            }
+        }
+
+        /// <summary>
+        /// Optional sink for reports that the control's row count could not be updated to match
+        /// its data source. ObjectListView has no dependency on any host logging framework, so the
+        /// host wires this up if it wants the reports. Never invoked on a healthy resize. (#149)
+        /// </summary>
+        public static Action<string> SizeChangeDiagnostic { get; set; }
 
         /// <summary>
         /// Take ownership of the 'objects' collection. This separates our collection from the source.

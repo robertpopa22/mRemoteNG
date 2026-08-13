@@ -48,6 +48,14 @@ namespace mRemoteNG.App
             messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   StartupDataLogger: {sw.ElapsedMilliseconds}ms", true);
 
             CompatibilityChecker.CheckCompatibility(messageCollector);
+
+            // ObjectListView swallows a failure to update a virtual list's row count, which leaves
+            // the control reporting a stale count and is the suspected source of the #149 expand
+            // crash. It cannot log on its own -- it has no dependency on this application -- so
+            // give it somewhere to report. Silent unless a resize actually fails.
+            BrightIdeasSoftware.VirtualObjectListView.SizeChangeDiagnostic = report =>
+                messageCollector.AddMessage(MessageClass.WarningMsg, $"[#149-diag] {report}", true);
+
             ParseCommandLineArgs(messageCollector);
 
             // IE Browser Emulation registry writes are only needed when a WebBrowser control
