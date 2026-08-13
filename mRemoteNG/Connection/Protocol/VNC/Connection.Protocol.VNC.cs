@@ -436,6 +436,14 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 _keepAliveTimer.Enabled = false;
                 _keepAliveTimer.Dispose();
 
+                // Stop the RFB polling thread while the control still has a window handle.
+                // VncSharpCore runs GetRfbUpdates on its own thread and marshals connection loss
+                // back with Control.Invoke; once the handle is gone that throws
+                // InvalidOperationException on a thread we do not own, which kills the process.
+                // Disconnect() does this when it runs, but the control can be disposed without
+                // it -- an aborted connect, or shutdown closing the tab. (#166)
+                StopVncClient();
+
                 // Detach handlers that SetEventHandlers/Connect may have wired up. Disconnect()
                 // and VNCEvent_Disconnected() already do this, but neither runs when the control
                 // is disposed without ConnectionLost firing (e.g. a failed/aborted connect), which
@@ -453,6 +461,35 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 CleanupTraceListener();
             }
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Best-effort shutdown of the VncSharpCore session on the way out. Detaches our handlers
+        /// first so teardown cannot re-enter the disconnect/reconnect path, then closes the
+        /// session only while the control can still service the library's Invoke. (#166)
+        /// </summary>
+        private void StopVncClient()
+        {
+            VncSharpCore.RemoteDesktop? vnc = _vnc;
+            if (vnc == null)
+                return;
+
+            try
+            {
+                vnc.Leave -= VNCEvent_LostFocus;
+                vnc.ConnectionLost -= VNCEvent_Disconnected;
+
+                if (vnc.IsHandleCreated && !vnc.IsDisposed)
+                    vnc.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                // Already torn down, or the library objected. Nothing left to salvage at this
+                // point, and throwing out of Dispose would be worse than the leak.
+                Runtime.MessageCollector?.AddMessage(Messages.MessageClass.DebugMsg,
+                                                     $"VNC client shutdown during dispose failed: {ex.Message}",
+                                                     true);
+            }
         }
 
         public void SendSpecialKeys(SpecialKeys Keys)
