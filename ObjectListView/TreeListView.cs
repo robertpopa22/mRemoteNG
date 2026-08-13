@@ -626,18 +626,22 @@ namespace BrightIdeasSoftware
 
             // Redraw the items that were changed by the expand operation.
             //
-            // The index comes from the tree model's object map; the bound comes from the row
-            // count. A crash report caught the two disagreeing wildly -- index 427 against a 41
-            // row list -- and RedrawItems threw ArgumentOutOfRangeException on a plain expand
-            // click. What desynchronises them is not established: the report is auto-submitted
-            // with no reproduction steps, and two attempts to reproduce it here failed. The
-            // leading suspect is RebuildChildren below, which removes rows and then rebuilds the
-            // object map from a non-zero start index, leaving the removed rows mapped to their
-            // old positions (Collapse performs the same removal but rebuilds from 0).
+            // The index comes from the tree model's flat row list; the bound comes from the row
+            // count the control reports. A crash report caught the two disagreeing wildly --
+            // index 427 against a 41 row list -- and RedrawItems threw on a plain expand click.
             //
-            // Regardless of the source, an out-of-range index makes the redraw meaningless: the
-            // expansion is already applied to the model and the list size already refreshed, so
-            // skipping a repaint hint is safe where throwing is not. (#149)
+            // The model list really was the large one: InsertChildren above inserts at index + 1
+            // and did not throw, so it is the control's count that had fallen behind. That points
+            // at SetVirtualListSize in VirtualObjectListView, which assigns VirtualListSize inside
+            // a try that swallows ArgumentOutOfRangeException -- when that assignment fails the
+            // control keeps its old size while the model has already grown, and nothing corrects
+            // it. (An earlier guess blamed RebuildChildren's non-zero object-map rebuild;
+            // TreeListViewObjectMapTests demonstrates that path leaves no stale entries.)
+            //
+            // An out-of-range index makes the redraw meaningless either way: the expansion is
+            // already applied to the model and the list size already refreshed, so skipping a
+            // repaint hint is safe where throwing aborts the click. RefreshObjects guards the
+            // identical RedrawItems call the same way. (#149)
             int lastItemIndex = this.GetItemCount() - 1;
             if (index > lastItemIndex) {
                 this.OnExpanded(new TreeBranchExpandedEventArgs(model, item));
