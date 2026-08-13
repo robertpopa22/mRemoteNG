@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-08-12T11:39:14Z",
+  "github_updated_at": "2026-08-13T04:26:21Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
   "our_status": "testing",
   "priority": null,
@@ -235,12 +235,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOnitmw",
+      "author": "robertpopa22",
+      "date": "2026-08-13T04:26:21Z",
+      "snippet": "This trace is worth more than the last four fixes put together, and it says all four were aimed at the wrong layer. Thank you for staying with it.\n\n**What your log proves.**\n\n```\n[#143-diag] click globalFocus=0x31F00 focusThread=57776 ownThread=25000\n            sharedQueue=True attached=False\n            setFocusRet=0x31F00 err=0 focusAfterSetFocus=0x31F00 reclaimed=False\n```\n\nReading that line by line:\n\n- `sharedQueue=True` — the input queues are **already** shared with the RDP host. The cross...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-12T11:39:14Z",
+  "comments_cursor": "2026-08-13T04:26:21Z",
   "unread_comments": 6,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-13T04:26:48Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-08-13T08:50:32Z",
   "notes": "diagnostics 3c0e60996 shipped; awaiting managed focus-chain trace"
 }
