@@ -94,4 +94,31 @@ public class ConnectionsServiceBatchingTests
             .GetField("_debouncedPropertyNameTrigger", BindingFlags.Instance | BindingFlags.NonPublic);
         Assert.That((string?)field!.GetValue(service), Is.EqualTo("OpenConnections"));
     }
+
+    [Test]
+    public void RenamingTheRootNodeRaisesPropertyChanged()
+    {
+        var root = new mRemoteNG.Tree.Root.RootNodeInfo(mRemoteNG.Tree.Root.RootNodeType.Connection);
+        string? changed = null;
+        root.PropertyChanged += (_, e) => changed = e.PropertyName;
+
+        root.Name = "Renamed root";
+
+        // Without the notification nothing queues a save, so the rename never reaches
+        // tblRoot unless an unrelated edit flushes it first. (#148)
+        Assert.That(changed, Is.EqualTo(nameof(mRemoteNG.Tree.Root.RootNodeInfo.Name)));
+    }
+
+    [Test]
+    public void SettingTheRootNodeNameToTheSameValueRaisesNothing()
+    {
+        var root = new mRemoteNG.Tree.Root.RootNodeInfo(mRemoteNG.Tree.Root.RootNodeType.Connection);
+        root.Name = "Same";
+        int raised = 0;
+        root.PropertyChanged += (_, _) => raised++;
+
+        root.Name = "Same";
+
+        Assert.That(raised, Is.Zero);
+    }
 }

@@ -31,10 +31,15 @@ namespace mRemoteNG.Tree.Root
          LocalizedAttributes.LocalizedDefaultValue(nameof(Language.Connections)),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Name)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionName))]
+        // The override exists only to carry the property-grid attributes above, but assigning the
+        // backing field directly also dropped the base's change notification. Renaming the root
+        // therefore raised no PropertyChanged and queued no save: the new name reached tblRoot
+        // only if an unrelated later edit happened to flush the same in-memory instance first,
+        // which is why the rename looked like it persisted "sometimes". (#148)
         public override string Name
         {
             get => _name;
-            set => _name = value;
+            set => SetField(ref _name, value, nameof(Name));
         }
         
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous)),
