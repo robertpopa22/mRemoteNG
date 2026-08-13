@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-14T12:35:27Z",
-  "github_updated_at": "2026-08-13T11:14:34Z",
+  "github_updated_at": "2026-08-13T14:31:36Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentOutOfRangeException`\r\n**Message:** startIndex ('427') must be less than '41'. (Parameter 'startIndex')\r\nActual value was 427.\r\n\r\n### Stack Trace\r\n```\r\n   at void ArgumentOutOfRangeException.ThrowGreaterEqual<T>(T value, T other, string paramName)\r\n   at void System.Windows.Forms.ListView.RedrawItems(int startIndex, int endIndex, bool invalidateOnly)\r\n   at void BrightIdeasSoftware.TreeListView.Expand(object model) in D:/a/mRemoteNG/mRem...",
   "our_status": "testing",
   "priority": null,
@@ -57,12 +57,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOtH_sA",
+      "author": "robertpopa22",
+      "date": "2026-08-13T14:31:36Z",
+      "snippet": "Instrumentation shipped in `9dfd8eda7`, as the next step described above.\n\n`SetVirtualListSize` now reports whenever the control's row count does not end up matching what was requested — whether the assignment threw and was swallowed, or was silently ignored. Each report carries the requested, previous and actual sizes, the data source count, and the handle / virtual-mode / view / top-index state that the ListView setter keys its own failure paths off.\n\nObjectListView has no dependency on the ap...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-13T11:14:34Z",
+  "comments_cursor": "2026-08-13T14:31:36Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-08-13T14:31:25Z",
+  "last_synced": "2026-08-13T14:31:50Z",
   "notes": "instrumentation 9dfd8eda7 shipped; RebuildChildren suspicion refuted by ece1c6797"
 }
