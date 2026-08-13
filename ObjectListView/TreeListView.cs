@@ -624,8 +624,27 @@ namespace BrightIdeasSoftware
             using (this.SuspendSelectionEventsDuring())
                 this.SelectedObjects = selection;
 
-            // Redraw the items that were changed by the expand operation
-            this.RedrawItems(index, this.GetItemCount() - 1, true);
+            // Redraw the items that were changed by the expand operation.
+            //
+            // The index comes from the tree model's object map; the bound comes from the row
+            // count. A crash report caught the two disagreeing wildly -- index 427 against a 41
+            // row list -- and RedrawItems threw ArgumentOutOfRangeException on a plain expand
+            // click. What desynchronises them is not established: the report is auto-submitted
+            // with no reproduction steps, and two attempts to reproduce it here failed. The
+            // leading suspect is RebuildChildren below, which removes rows and then rebuilds the
+            // object map from a non-zero start index, leaving the removed rows mapped to their
+            // old positions (Collapse performs the same removal but rebuilds from 0).
+            //
+            // Regardless of the source, an out-of-range index makes the redraw meaningless: the
+            // expansion is already applied to the model and the list size already refreshed, so
+            // skipping a repaint hint is safe where throwing is not. (#149)
+            int lastItemIndex = this.GetItemCount() - 1;
+            if (index > lastItemIndex) {
+                this.OnExpanded(new TreeBranchExpandedEventArgs(model, item));
+                return;
+            }
+
+            this.RedrawItems(index, lastItemIndex, true);
 
             this.OnExpanded(new TreeBranchExpandedEventArgs(model, item));
 
@@ -639,7 +658,9 @@ namespace BrightIdeasSoftware
                     // If all the descendents can't fit into the window, move the model to the top of the window
                     // (which will show as many of the descendents as possible)
                     if (descedentCount < countPerPage) {
-                        this.EnsureVisible(index + descedentCount);
+                        // Descendant counts come from the model as well, so the target row can
+                        // still land past the last row even when index itself is in range.
+                        this.EnsureVisible(Math.Min(index + descedentCount, lastItemIndex));
                     } else {
                         this.TopItemIndex = index;
                     }
