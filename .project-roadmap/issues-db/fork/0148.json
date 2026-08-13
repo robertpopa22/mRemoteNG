@@ -8,7 +8,7 @@
   "created_at": "2026-07-10T21:16:04Z",
   "github_updated_at": "2026-08-12T21:42:07Z",
   "body_snippet": "## Description\n\nWhen using the MariaDB backend, saving the connection list intermittently fails if MariaDB/MySQL safe-update mode is enabled.\n\nThe failure is not consistent. While moving connections around in the connection tree, approximately 50% of save attempts produced the safe-update error. Other save attempts completed successfully. When a save succeeds, the entire connection tree is saved.\n\nBecause the application does not clearly indicate whether the most recent save succeeded, small cha...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -29,6 +29,16 @@
       "date": "2026-08-13",
       "type": "triaged",
       "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-08-13",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -59,6 +69,6 @@
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-13T04:11:34Z",
-  "notes": "partial confirm: safe-update errors gone; residual silent tblRoot save loss under investigation"
+  "last_synced": "2026-08-13T04:26:48Z",
+  "notes": "fixes a5ed9c8be+32df78fa5 shipped; awaiting reporter confirm on nightly"
 }

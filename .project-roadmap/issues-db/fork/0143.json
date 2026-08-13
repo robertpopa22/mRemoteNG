@@ -10,7 +10,7 @@
   "created_at": "2026-07-08T13:43:43Z",
   "github_updated_at": "2026-08-12T11:39:14Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -111,6 +111,16 @@
       "date": "2026-08-10",
       "type": "needs_info",
       "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 11,
+      "date": "2026-08-13",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -231,6 +241,6 @@
   "unread_comments": 6,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-12T11:41:14Z",
-  "notes": "trace refutes cross-queue premise: SetFocus succeeds, focus bounces back inside the call; next build instruments ActiveControl chain to separate ActiveX re-grab vs WinForms restore"
+  "last_synced": "2026-08-13T04:26:48Z",
+  "notes": "diagnostics 3c0e60996 shipped; awaiting managed focus-chain trace"
 }
