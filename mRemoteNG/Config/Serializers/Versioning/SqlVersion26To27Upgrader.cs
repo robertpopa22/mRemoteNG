@@ -46,13 +46,14 @@ UPDATE tblRoot
                 System.Data.Common.DbCommand dbCommand = _databaseConnector.DbCommand(sqlText);
                 dbCommand.ExecuteNonQuery();
             }
-            catch (DbException)
+            catch (DbException ex)
             {
                 // The columns are normally already present, added with proper defaults by the
                 // schema forward-port that runs ahead of the versioned upgraders; the redundant
                 // ALTER then fails as a duplicate column and is ignored here. Catching only
                 // SqlException let the identical ODBC failure (OdbcException) abort the whole
                 // upgrade instead. (#165)
+                SqlMigrationHelper.ReportSkippedStatement(ex, "2.6 -> 2.7");
             }
 
             return new Version(2, 7);

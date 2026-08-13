@@ -57,11 +57,12 @@ UPDATE tblRoot SET ConfVersion='2.8';";
             
                 dbCommand.ExecuteNonQuery();
             }
-            catch (DbException)
+            catch (DbException ex)
             {
                 // Same reason as the 2.6 -> 2.7 upgrader: these statements re-apply changes the
                 // schema forward-port has usually already made, and the resulting failure must be
                 // ignored for every backend, not just Microsoft.Data.SqlClient. (#165)
+                SqlMigrationHelper.ReportSkippedStatement(ex, "2.7 -> 2.8");
             }
             return new Version(2, 8);
         }

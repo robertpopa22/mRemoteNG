@@ -1,4 +1,6 @@
+using mRemoteNG.App;
 using mRemoteNG.Config.DatabaseConnectors;
+using mRemoteNG.Messages;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -13,6 +15,54 @@ namespace mRemoteNG.Config.Serializers.Versioning
     {
         private const string MsSqlVersionUpdate = "UPDATE tblRoot SET ConfVersion=@confVersion;";
         private const string MySqlVersionUpdate = "UPDATE tblRoot SET ConfVersion=?;";
+
+        /// <summary>
+        /// True when a failed schema statement means "this change is already in place". The two
+        /// oldest upgraders re-apply changes the schema forward-port has usually already made, so
+        /// this is their expected outcome; anything else is not.
+        /// </summary>
+        internal static bool IsSchemaAlreadyApplied(Exception ex)
+        {
+            if (ex == null)
+                return false;
+
+            string message = ex.Message ?? "";
+
+            // Matched on text rather than provider error numbers because the same failure arrives
+            // as SqlException 2705, MySqlException 1060 or an OdbcException wrapping the SQL
+            // Server text, depending on which connector the profile uses.
+            return message.Contains("Duplicate column", StringComparison.OrdinalIgnoreCase)
+                   || message.Contains("must be unique", StringComparison.OrdinalIgnoreCase)
+                   || message.Contains("already has a primary key", StringComparison.OrdinalIgnoreCase)
+                   || message.Contains("there is already an object named", StringComparison.OrdinalIgnoreCase)
+                   || message.Contains("already exists", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Records a schema statement that was skipped after failing. The legacy upgraders have
+        /// always swallowed these, which is right for the redundant case and silent for every
+        /// other one -- an unexplained upgrade needed source reading to investigate because
+        /// nothing was written down. The behaviour is unchanged; the failure is now on the record,
+        /// and flagged when it is not the expected redundant-statement error. (#148, #165)
+        /// </summary>
+        internal static void ReportSkippedStatement(Exception ex, string step)
+        {
+            if (ex == null)
+                return;
+
+            bool expected = IsSchemaAlreadyApplied(ex);
+            Runtime.MessageCollector?.AddMessage(
+                expected ? MessageClass.DebugMsg : MessageClass.WarningMsg,
+                string.Format(CultureInfo.InvariantCulture,
+                              "Schema upgrade {0}: statement skipped after {1}: {2}{3}",
+                              step,
+                              ex.GetType().Name,
+                              ex.Message,
+                              expected
+                                  ? " (change already applied -- expected)"
+                                  : " -- this is NOT a duplicate-object error, so the upgrade may be incomplete"),
+                true);
+        }
 
         /// <summary>
         /// Executes a database migration with separate SQL for MS-SQL and MySQL backends,
