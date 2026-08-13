@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-14T12:35:27Z",
-  "github_updated_at": "2026-07-14T12:35:27Z",
+  "github_updated_at": "2026-08-13T11:14:34Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentOutOfRangeException`\r\n**Message:** startIndex ('427') must be less than '41'. (Parameter 'startIndex')\r\nActual value was 427.\r\n\r\n### Stack Trace\r\n```\r\n   at void ArgumentOutOfRangeException.ThrowGreaterEqual<T>(T value, T other, string paramName)\r\n   at void System.Windows.Forms.ListView.RedrawItems(int startIndex, int endIndex, bool invalidateOnly)\r\n   at void BrightIdeasSoftware.TreeListView.Expand(object model) in D:/a/mRemoteNG/mRem...",
   "our_status": "testing",
   "priority": null,
@@ -27,13 +27,42 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-13",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-07-14T12:35:27Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABOpoWuA",
+      "author": "robertpopa22",
+      "date": "2026-08-13T08:51:22Z",
+      "snippet": "Fixed in `10710cc9c` — but as a guard, not as a root-cause fix, and it is worth being explicit about which one this is.\n\n**What crashes.** `TreeListView.Expand` finishes by repainting the rows the expansion touched:\n\n```csharp\nthis.RedrawItems(index, this.GetItemCount() - 1, true);\n```\n\n`index` comes from the tree model's own object map. The bound comes from the live row count. This report caught the two disagreeing by an order of magnitude — index 427 against a 41-row list — so `RedrawItems` th...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOrGD1Q",
+      "author": "robertpopa22",
+      "date": "2026-08-13T11:14:34Z",
+      "snippet": "Correction to my previous comment: the suspect I named was wrong, and the repro proves it.\n\nI claimed `Tree.RebuildChildren` was the likely source of the out-of-range index, because it removes rows and then calls `RebuildObjectMap(index)` with a non-zero start, while `RebuildObjectMap` only clears the map when it starts at zero. I wrote a test to demonstrate that — refresh a branch that has just lost all of its children, then inspect the model's row list against its object map.\n\nIt shows the opp...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-08-13T11:14:34Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-13T08:51:28Z",
-  "notes": "guard 10710cc9c shipped; root cause of index desync unproven, RebuildChildren map rebuild is prime suspect"
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-08-13T14:31:25Z",
+  "notes": "instrumentation 9dfd8eda7 shipped; RebuildChildren suspicion refuted by ece1c6797"
 }
