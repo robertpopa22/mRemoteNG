@@ -5181,7 +5181,13 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
                             local_waiting = not local_comments[-1].get("is_ours")
                         else:
                             local_author = local.get("author", "")
-                            local_waiting = bool(local_author) and local_author != our_user
+                            local_auto = any(
+                                lbl.lower() in ("auto-submitted", "crash-report")
+                                for lbl in (local.get("labels") or [])
+                            )
+                            local_waiting = (
+                                bool(local_author) and local_author != our_user
+                            ) or local_auto
                         if local.get("waiting_for_us") != local_waiting:
                             local["waiting_for_us"] = local_waiting
                             iis_write_json(file_path, local)
@@ -5269,10 +5275,18 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
             # brand-new zero-comment bug reports from the work queue.
             last_comment = gh_comments[-1] if gh_comments else None
             issue_author = gh_full.get("author", {}).get("login", "")
+            # An auto-submitted crash report is filed by the app under the maintainer's own
+            # account, so the author test above can never mark it as waiting. With no comments
+            # either, such a report stayed invisible to the work queue indefinitely -- #149 sat
+            # unanswered for a month. Treat an unanswered auto-submitted report as inbound work,
+            # which is what it is, regardless of who the API says opened it.
+            auto_submitted = any(
+                lbl.lower() in ("auto-submitted", "crash-report") for lbl in labels
+            )
             if last_comment:
                 waiting_for_us = not last_comment["is_ours"]
             else:
-                waiting_for_us = bool(issue_author) and issue_author != our_user
+                waiting_for_us = (bool(issue_author) and issue_author != our_user) or auto_submitted
 
             # Body snippet
             body_raw = gh_full.get("body") or ""
