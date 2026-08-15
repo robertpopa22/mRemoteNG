@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-08-15T12:31:23Z",
+  "github_updated_at": "2026-08-15T17:24:26Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
   "our_status": "testing",
   "priority": null,
@@ -292,10 +292,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T12:31:23Z",
+  "comments_cursor": "2026-08-15T17:24:26Z",
   "unread_comments": 9,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-08-15T13:15:47Z",
+  "last_synced": "2026-08-15T17:32:20Z",
   "notes": "ROOT CAUSE from reporter trace: our ConnDockOnActiveContentChanged Protocol.Focus on hook-driven refresh; fix 21587b593 identity gate; awaiting confirm"
 }

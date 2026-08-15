@@ -1,0 +1,37 @@
+{
+  "number": 167,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "How this fork is maintained: automated pipeline, your testing is the real verification",
+  "state": "open",
+  "labels": [
+    "documentation"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-08-15T16:15:24Z",
+  "github_updated_at": "2026-08-15T17:24:52Z",
+  "body_snippet": "This fork is maintained differently from most projects, and after fair criticism in #143 we want that difference stated plainly rather than discovered through frustration.\r\n\r\n## How this fork is maintained\r\n\r\n**Fixes are developed and verified by an automated pipeline.** Issue triage, root-cause analysis, the fix itself, and verification against the automated test suite (currently 6,400+ tests, full run on every change) are done by AI agents, with adversarial cross-review between independent mod...",
+  "our_status": "wontfix",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-15",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-08-15T17:24:52Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-08-15T17:33:09Z",
+  "notes": "meta/documentation: pinned transparency issue explaining the maintenance model; not a bug, exclude from work queue"
+}
