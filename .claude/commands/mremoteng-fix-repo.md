@@ -167,9 +167,20 @@ anyone outside the thread learns what this pipeline actually achieves.
   belongs in the narrative sections, because those are the honest evidence for the approach.
 - If the issue was listed in **§6.4 Remaining Unsolved Problems**, remove it there and say what
   resolved it. §6.4 losing an entry is the most valuable update this README receives.
-- Keep the figures live: test count, warning count, issue counts, SonarCloud state. **Never leave a
-  number in the README that is no longer true** — a stale "Quality Gate passed" badge is worse than
-  no badge, and this project has already made that mistake once.
+- **Sync the figures mechanically, every run** — the test count changes on almost every session,
+  and hand-maintained numbers drift (this README carried a five-month-stale quality claim):
+
+  ```bash
+  python scripts/sync-readme-metrics.py --tests <passing count from this session's run>
+  ```
+
+  It rewrites the test count and the fork issue counts (queried live from GitHub), and warns when
+  the SonarCloud gate state disagrees with what the README says. The Sonar *prose* is deliberately
+  not auto-written — that wording carries judgement about which findings matter — so act on the
+  warning by hand. `--check` verifies without writing and exits non-zero on drift. Commit the
+  README change together with the fix.
+- **Never leave a number in the README that is no longer true** — a stale "Quality Gate passed"
+  badge is worse than no badge, and this project has already made that mistake once.
 - Write it with the same humility as the issue replies: state what was fixed, credit the reporter
   whose testing or trace made it findable, and do not inflate a guard into a root-cause fix.
 

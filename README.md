@@ -253,7 +253,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (live, 2026-08-15).** Since the fork started accepting reports directly,
-**89 issues have been opened by external reporters and 83 are closed**; 14 issues are open, all of
+**89 issues have been opened by external reporters and 83 are closed**; 6 issues are open, all of
 them either fixed and awaiting reporter confirmation or deliberately left open with the reason
 stated in the thread. The upstream tracker now stands at 873 issues followed, against 841 currently
 open upstream.
