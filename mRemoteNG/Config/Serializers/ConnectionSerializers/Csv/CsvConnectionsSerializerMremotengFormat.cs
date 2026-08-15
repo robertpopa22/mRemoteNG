@@ -104,7 +104,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
 
         private void SerializeConnectionInfo(ConnectionInfo con, StringBuilder sb)
         {
+            // The row is built by appending "value;" per field, so it ends with a separator the
+            // header line does not have. A strict reader counts that as one extra, empty column and
+            // reports a row wider than the header — the trailing separator is trimmed once the row
+            // is complete, at the end of this method.
             sb.AppendLine();
+            int rowStart = sb.Length;
             sb.Append(FormatForCsv(con.Name))
               .Append(FormatForCsv(con.ConstantID))
               .Append(FormatForCsv(con.Parent?.ConstantID ?? ""))
@@ -346,6 +351,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.Inheritance.RetryOnFirstConnect))
               .Append(FormatForCsv(con.Inheritance.WaitForIPAvailability))
               .Append(FormatForCsv(con.Inheritance.WaitForIPTimeout));
+
+            // Drop the separator the last field appended, so the row has exactly as many columns
+            // as the header declares.
+            if (sb.Length > rowStart && sb[^1] == ';')
+                sb.Length -= 1;
         }
 
         private static string FormatForCsv(object value)
