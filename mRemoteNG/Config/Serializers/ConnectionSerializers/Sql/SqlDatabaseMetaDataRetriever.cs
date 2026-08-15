@@ -862,10 +862,14 @@ CREATE TABLE `tblExternalTools` (
         }
 
         /// <summary>
-        /// Columns whose content has no natural upper bound, so the default nvarchar(4000) the
-        /// forward-port hands out would truncate them. A truncating save reports success and the
-        /// user only finds out when they reopen the connection, which is the same silent loss the
-        /// missing Notes column caused. (MySQL is unaffected: its forward-port already uses TEXT.)
+        /// Columns whose content has no length the user would expect to hit, so the nvarchar(4000)
+        /// the forward-port hands out by default would truncate them. A truncating save reports
+        /// success and the user only finds out when they reopen the connection, which is the same
+        /// silent loss the missing Notes column caused.
+        ///
+        /// nvarchar(MAX) is 2GB. MySQL is unaffected by this list because its forward-port already
+        /// uses TEXT for every string column — which is ~64KB, not unbounded, but far past what a
+        /// notes field reaches.
         /// </summary>
         private static readonly HashSet<string> UnboundedTextColumns =
             new(StringComparer.OrdinalIgnoreCase) { "Notes" };

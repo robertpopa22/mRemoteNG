@@ -18,6 +18,10 @@ namespace mRemoteNG.Config.Serializers.Versioning
     /// Notes is free-form and multiline, so it gets the widest text type rather than the varchar
     /// most string columns use — a note is exactly the kind of value that overflows a fixed width,
     /// and a truncating save would be the same silent loss in a smaller form.
+    ///
+    /// The column is nullable with no default, so existing rows read back as NULL rather than "".
+    /// DataTableSerializer.NullableTextEquals exists because of that: without it, the first save
+    /// after this upgrade would consider every connection changed and rewrite the whole table.
     /// </summary>
     [SupportedOSPlatform("windows")]
     public class SqlVersion35To36Upgrader(IDatabaseConnector databaseConnector) : IVersionUpgrader

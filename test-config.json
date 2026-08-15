@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "total_expected": 6632,
-    "min_total_threshold": 5968,
+    "total_expected": 6640,
+    "min_total_threshold": 5976,
     "last_updated": "2026-08-16",
     "stats": {
       "unique_methods": 1249,
@@ -55,7 +55,7 @@
       {
         "name": "Integration",
         "filter": "FullyQualifiedName~mRemoteNGTests.IntegrationTests",
-        "expected": 35
+        "expected": 43
       }
     ],
     "isolated": [

@@ -111,6 +111,13 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             if (dataTable.PrimaryKey.Length != 1 || dataTable.PrimaryKey[0].ColumnName != "ConstantID")
                 SetPrimaryKey(dataTable);
 
+            // Cleared first because BuildTable runs twice on the ConnectionTreeModel path: that
+            // overload builds the table and then delegates to the ConnectionInfo one, which builds
+            // it again. Without the clear, the second pass hit a duplicate key, and the caller's
+            // catch turned the exception into "return the source table untouched" — a save that
+            // silently wrote nothing whenever a source table was set.
+            _sourcePrimaryKeyDict.Clear();
+
             foreach (DataRow row in dataTable.Rows)
             {
                 _sourcePrimaryKeyDict.Add((string)row["ConstantID"], DELETE);
@@ -408,6 +415,26 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             }
         }
 
+        /// <summary>
+        /// Compares a text column that a schema upgrade can leave NULL against an in-memory string
+        /// that defaults to empty.
+        ///
+        /// A column added by a migration has no value on existing rows, so it reads back as DBNull
+        /// while the property holds "". A plain Equals calls those different, so a connection
+        /// nobody touched looks edited on the first save after an upgrade. The two are the same
+        /// absence of text; treat them so.
+        ///
+        /// Honest scope: this makes the comparison correct, not the save cheaper. Change detection
+        /// currently reports every row as changed anyway — serializing an identical tree twice
+        /// marks all rows Modified — so nothing here is what stands between users and a full-table
+        /// rewrite. That is a separate defect, recorded but not addressed by this change.
+        /// </summary>
+        private static bool NullableTextEquals(object columnValue, string? propertyValue)
+        {
+            string column = columnValue is DBNull or null ? "" : columnValue.ToString() ?? "";
+            return string.Equals(column, propertyValue ?? "", StringComparison.Ordinal);
+        }
+
         private bool IsRowUpdated(ConnectionInfo connectionInfo, DataRow dataRow)
         {
             bool isFieldNotChange = dataRow["Name"].Equals(connectionInfo.Name) &&
@@ -416,7 +443,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["PositionID"].Equals(_currentNodeIndex) &&
             dataRow["Expanded"].Equals(false) &&
             dataRow["Description"].Equals(connectionInfo.Description) &&
-            dataRow["Notes"].Equals(connectionInfo.Notes) &&
+            NullableTextEquals(dataRow["Notes"], connectionInfo.Notes) &&
             dataRow["Icon"].Equals(connectionInfo.Icon) &&
             dataRow["Panel"].Equals(connectionInfo.Panel) &&
             dataRow["Username"].Equals(_saveFilter.SaveUsername ? connectionInfo.Username : "") &&

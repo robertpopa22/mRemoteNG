@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Data.SqlClient;
@@ -8,6 +9,7 @@ using mRemoteNG.Config;
 using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
+using mRemoteNG.Config.Serializers.Versioning;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
 using mRemoteNG.Security;
@@ -84,7 +86,11 @@ namespace mRemoteNGTests.IntegrationTests
             RDGatewayHostname = "gw.example.invalid",
             RDGatewayUsername = "gwuser",
             RDGatewayPassword = "gwp@ss",
-            Notes = "notes; with separators and ünïcode",
+            // Deliberately longer than nvarchar(4000). A probe that fits the default width cannot
+            // tell a correctly widened column from a truncating one, so the claim that the live
+            // pass catches truncation would be untrue for the value being tested.
+            Notes = "notes; with separators and ünïcode" + Environment.NewLine
+                    + new string('n', 5000),
             VNCProxyIP = "10.0.0.1",
             VNCProxyPort = 5901,
         };
@@ -186,6 +192,104 @@ namespace mRemoteNGTests.IntegrationTests
             });
         }
 
+        /// <summary>
+        /// The inheritance flags travel on a separate object, so reflecting over ConnectionInfo's
+        /// own properties never sees them. Without this, the deserializer's InheritNotes read could
+        /// be deleted outright and every other test here would still pass.
+        /// </summary>
+        [Test]
+        public void TheInheritanceFlagForNotesSurvivesTheRoundTrip()
+        {
+            ConnectionInfo original = BuildSaturatedConnection();
+            original.Inheritance.Notes = true;
+
+            ConnectionInfo loaded = Deserialize(Serialize(original));
+
+            Assert.That(loaded.Inheritance.Notes, Is.True,
+                        "InheritNotes did not survive — a connection set to inherit its notes from "
+                        + "the parent folder would silently stop doing so");
+        }
+
+        [Test]
+        public void TheInheritanceFlagForNotesIsNotAlwaysTrue()
+        {
+            // Guards the test above: a deserializer that hard-coded true would pass it.
+            ConnectionInfo original = BuildSaturatedConnection();
+            original.Inheritance.Notes = false;
+
+            Assert.That(Deserialize(Serialize(original)).Inheritance.Notes, Is.False);
+        }
+
+        // A test asserting that a NULL Notes column does not mark unmodified rows as changed was
+        // written here and then deleted, because it could not pass for the right reason: the same
+        // model serialized twice, with nothing changed and no stored passwords, already reports
+        // every row as Modified. Change detection in DataTableSerializer never returns "unchanged"
+        // in practice, so no assertion about avoiding a rewrite is reachable. Recorded in
+        // .project-roadmap/VERIFICATION_PLAN.md rather than left as a test that passes by accident.
+
+        /// <summary>
+        /// Serializes an already-built model against an existing table, which is what a save does:
+        /// load the current rows, then write the tree over them.
+        ///
+        /// Takes the model rather than the connection on purpose. Calling ModelContaining twice for
+        /// the same connection re-parents it under a second root, and Serialize swallows the
+        /// resulting exception and hands back the untouched source table — which looks exactly like
+        /// "the row was correctly left alone" and made an earlier version of these tests pass
+        /// without executing any of the code they claim to cover.
+        /// </summary>
+        private static DataTable SerializeAgainst(DataTable source, ConnectionTreeModel model)
+        {
+            AeadCryptographyProvider crypto = new() { KeyDerivationIterations = 1000 };
+            DataTableSerializer serializer =
+                new(new SaveFilter(), crypto, MasterPassword.ConvertToSecureString());
+            serializer.SetSourceDataTable(source);
+            return serializer.Serialize(model);
+        }
+
+        private static DataTable SerializeModel(ConnectionTreeModel model)
+        {
+            AeadCryptographyProvider crypto = new() { KeyDerivationIterations = 1000 };
+            DataTableSerializer serializer =
+                new(new SaveFilter(), crypto, MasterPassword.ConvertToSecureString());
+            return serializer.Serialize(model);
+        }
+
+        /// <summary>
+        /// The serialized table holds the root node as well as the connection, and the root's Notes
+        /// is always empty. Select by identity — picking "the first non-root row" silently read the
+        /// root instead and made one of these tests pass for the wrong reason.
+        /// </summary>
+        private static object NotesCellOf(DataTable table, ConnectionInfo connection)
+        {
+            DataRow? row = table.Rows.Cast<DataRow>()
+                                .FirstOrDefault(r => string.Equals((string)r["ConstantID"],
+                                                                   connection.ConstantID,
+                                                                   StringComparison.Ordinal));
+            Assert.That(row, Is.Not.Null, "the connection's row is not in the serialized table");
+            return row!["Notes"];
+        }
+
+        [Test]
+        public void AnActualNotesEditIsStillDetected()
+        {
+            // Guards the test above: treating NULL as "" must not blind change detection to a real
+            // edit, which would resurrect the bug this whole change exists to fix.
+            ConnectionInfo connection = BuildSaturatedConnection();
+            connection.Notes = "";
+            ConnectionTreeModel model = ModelContaining(connection);
+
+            DataTable source = SerializeModel(model);
+            foreach (DataRow row in source.Rows)
+                row["Notes"] = DBNull.Value;
+            source.AcceptChanges();
+
+            connection.Notes = "a note the user just typed";
+
+            Assert.That(NotesCellOf(SerializeAgainst(source, model), connection),
+                        Is.EqualTo("a note the user just typed"),
+                        "a new note was not written, so it would never reach the database");
+        }
+
         [Test]
         public void TheOracleCoversAMeaningfulNumberOfProperties()
         {
@@ -251,13 +355,19 @@ namespace mRemoteNGTests.IntegrationTests
         }
 
         /// <summary>
-        /// The same comparison, but the data actually goes to disk through a real server. This is
-        /// the only layer that can catch a column narrower than the value the application allows —
-        /// a truncation looks like a successful save and shows up as corrupted data later.
+        /// A fresh database takes the CREATE TABLE path, so nothing that only runs on an existing
+        /// database is covered by the round-trip test below. This winds a current database back to
+        /// what a 3.5 install looks like — the Notes columns gone, tblRoot claiming 3.5, a row
+        /// present so a bad ALTER would be rejected — and then loads it exactly as the application
+        /// would.
+        ///
+        /// Type matters as much as existence here: an upgrade that added Notes as nvarchar(4000)
+        /// would satisfy a column-exists check and still truncate the first long note the user
+        /// writes.
         /// </summary>
         [Test]
         [Category("RequiresSqlServer")]
-        public void EveryPersistedPropertySurvivesARealDatabase()
+        public void ADatabaseAtVersion35GainsAWideNotesColumn()
         {
             if (string.IsNullOrEmpty(_database))
                 Assert.Ignore($"No local SQL Server at {ServerInstance}.");
@@ -269,12 +379,82 @@ namespace mRemoteNGTests.IntegrationTests
             retriever.GetDatabaseMetaData(connector);
             retriever.WriteDatabaseMetaData(new RootNodeInfo(RootNodeType.Connection), connector);
 
-            SqlDataProvider provider = new(connector);
-            ConnectionInfo original = BuildSaturatedConnection();
-            Dictionary<string, object?> before = Snapshot(original);
+            // Wind back to a 3.5-shaped database that already holds a connection. The row is
+            // written through the real save path rather than a hand-written INSERT: tblCons has
+            // dozens of NOT NULL columns and a partial INSERT tests nothing except my ability to
+            // list them. A populated table is the point — an ALTER that adds a NOT NULL column
+            // without a default is rejected only when rows exist, which is the #165 failure.
+            InsertOneConnection(new SqlDataProvider(connector), BuildSaturatedConnection());
 
-            DataTable outgoing = Serialize(original);
+            // InheritNotes carries an auto-named DEFAULT constraint, and SQL Server refuses to drop
+            // a column another object depends on — the same obstacle #113 hit on ALTER COLUMN.
+            DropDefaultConstraint(connector, "InheritNotes");
+            Execute(connector, "ALTER TABLE tblCons DROP COLUMN Notes");
+            Execute(connector, "ALTER TABLE tblCons DROP COLUMN InheritNotes");
+            Execute(connector, "UPDATE tblRoot SET ConfVersion = '3.5'");
+
+            // The application's own load path: metadata retrieval forward-ports the schema, then
+            // the version verifier runs the upgrade chain.
+            SqlConnectionListMetaData? metaData = retriever.GetDatabaseMetaData(connector);
+            Assert.That(metaData, Is.Not.Null, "the wound-back database could not be read at all");
+            new SqlDatabaseVersionVerifier(connector).VerifyDatabaseVersion(metaData!.ConfVersion);
+
+            using DbCommand query = connector.DbCommand(
+                "SELECT c.name, t.name AS type_name, c.max_length FROM sys.columns c "
+                + "JOIN sys.types t ON c.user_type_id = t.user_type_id "
+                + "WHERE c.object_id = OBJECT_ID('tblCons') AND c.name IN ('Notes','InheritNotes')");
+
+            Dictionary<string, (string Type, int MaxLength)> columns = new(StringComparer.OrdinalIgnoreCase);
+            using (DbDataReader reader = query.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    columns[reader.GetString(0)] =
+                        (reader.GetString(1), Convert.ToInt32(reader["max_length"]));
+                }
+            }
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(columns.ContainsKey("Notes"), Is.True,
+                            "the 3.5 -> 3.6 upgrade did not add the Notes column");
+                Assert.That(columns.ContainsKey("InheritNotes"), Is.True,
+                            "the 3.5 -> 3.6 upgrade did not add the InheritNotes column");
+
+                if (columns.TryGetValue("Notes", out (string Type, int MaxLength) notes))
+                {
+                    // sys.columns reports max_length -1 for the MAX types.
+                    Assert.That(notes.MaxLength, Is.EqualTo(-1),
+                                $"Notes was added as {notes.Type}({notes.MaxLength}) instead of a "
+                                + "MAX type, so long notes will be truncated on save");
+                }
+            });
+        }
+
+        private static void Execute(IDatabaseConnector connector, string sql)
+        {
+            using DbCommand command = connector.DbCommand(sql);
+            command.ExecuteNonQuery();
+        }
+
+        private static void DropDefaultConstraint(IDatabaseConnector connector, string column)
+        {
+            Execute(connector, $@"
+DECLARE @name sysname;
+SELECT @name = d.name FROM sys.default_constraints d
+JOIN sys.columns c ON c.object_id = d.parent_object_id AND c.column_id = d.parent_column_id
+WHERE d.parent_object_id = OBJECT_ID('tblCons') AND c.name = '{column}';
+IF @name IS NOT NULL EXEC('ALTER TABLE tblCons DROP CONSTRAINT [' + @name + ']');");
+        }
+
+        /// <summary>
+        /// Writes one connection into the live tblCons through the application's own data provider.
+        /// </summary>
+        private static void InsertOneConnection(SqlDataProvider provider, ConnectionInfo connection)
+        {
+            DataTable outgoing = Serialize(connection);
             DataTable target = provider.Load();
+
             foreach (DataRow row in outgoing.Rows)
             {
                 DataRow copy = target.NewRow();
@@ -286,9 +466,9 @@ namespace mRemoteNGTests.IntegrationTests
                     // The two tables do not agree on every CLR type — the in-memory one carries
                     // LastChange as SqlDateTime where the live one reports DateTime, and unset
                     // values arrive as empty strings that convert to neither. Coerce what converts
-                    // and substitute a type default for the rest, so that NOT NULL columns are
-                    // satisfied. This is scaffolding for getting the row into the database; the
-                    // assertion is on what comes back out.
+                    // and substitute a type default for the rest, so NOT NULL columns are
+                    // satisfied. This is scaffolding for getting a row into the database; the
+                    // assertions are on what comes back out.
                     DataColumn targetColumn = target.Columns[column.ColumnName]!;
                     object value = row[column.ColumnName];
 
@@ -324,8 +504,38 @@ namespace mRemoteNGTests.IntegrationTests
             }
 
             provider.Save(target);
+        }
+
+        /// <summary>
+        /// The same comparison, but the data actually goes to disk through a real server. This is
+        /// the only layer that can catch a column narrower than the value the application allows —
+        /// a truncation looks like a successful save and shows up as corrupted data later.
+        /// </summary>
+        [Test]
+        [Category("RequiresSqlServer")]
+        public void EveryPersistedPropertySurvivesARealDatabase()
+        {
+            if (string.IsNullOrEmpty(_database))
+                Assert.Ignore($"No local SQL Server at {ServerInstance}.");
+
+            using IDatabaseConnector connector =
+                new MSSqlDatabaseConnector(ServerInstance, _database, "", "");
+            connector.Connect();
+            SqlDatabaseMetaDataRetriever retriever = new();
+            retriever.GetDatabaseMetaData(connector);
+            retriever.WriteDatabaseMetaData(new RootNodeInfo(RootNodeType.Connection), connector);
+
+            SqlDataProvider provider = new(connector);
+            ConnectionInfo original = BuildSaturatedConnection();
+            Dictionary<string, object?> before = Snapshot(original);
+
+            InsertOneConnection(provider, original);
 
             Dictionary<string, object?> after = Snapshot(Deserialize(provider.Load()));
+
+            Assert.That(after[nameof(ConnectionInfo.Notes)], Is.EqualTo(original.Notes),
+                        "a Notes value longer than nvarchar(4000) was truncated by the server — "
+                        + "the save reported success and the data is already gone");
 
             Assert.That(Differences(before, after), Is.Empty,
                         "properties did not survive a real SQL Server round trip:"

@@ -118,6 +118,31 @@ defect class (silent data loss on save).
       Proven to fail by writing an empty string instead of the value — both layers reported
       `Notes: wrote [notes; with separators and ünïcode] read back []`.
 
+      **Adversarial review round (Grok + Gemini) found four gaps in the first version of this
+      work, all fixed:** the live pass created a fresh database and so never executed the migration
+      it existed to protect; `Inheritance.Notes` was outside the oracle entirely, so the
+      deserializer's read could be deleted with every test still green; the probe value fitted
+      inside `nvarchar(4000)`, so it could not tell a widened column from a truncating one; and the
+      commit claimed `TEXT` was unbounded when MySQL caps it near 64KB. There is now a test that
+      winds a database back to a 3.5 shape and asserts the column comes back as a MAX type
+      (`Notes was added as nvarchar(8000) instead of a MAX type` when the widening is removed), a
+      pair of inheritance tests, and a 5000-character probe.
+
+      **Two further defects surfaced while chasing those, both fixed:**
+
+      1. `DataTableSerializer.Serialize(ConnectionTreeModel)` built the table, then delegated to the
+         overload that builds it again. The second build threw on a duplicate key and the caller's
+         `catch` returned the source table untouched — a save that silently wrote nothing whenever a
+         source table was set. `BuildTable` now clears its tracking dictionary first.
+      2. Change detection compared a migration-added column (DBNull) against a property defaulting
+         to `""` and called them different. `NullableTextEquals` now treats them as equal.
+
+      **Recorded, not fixed:** change detection never reports a row as unchanged. Serializing an
+      identical tree twice marks every row Modified even with no stored passwords, so every save
+      rewrites every connection. A test asserting otherwise was written and then deleted rather than
+      left passing for the wrong reason — the state it asserted is unreachable. Worth its own
+      investigation: it bears on SQL save cost and on multi-user `RowVersion` conflicts.
+
 ### Stage 4 — Shipped-artifact verification (4.1 DONE, 4.2 TODO)
 
 Matches the packaging defect class (#138 MSI missing, #150 assembly present in the SDK build but
