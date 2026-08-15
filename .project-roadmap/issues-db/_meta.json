@@ -5,7 +5,7 @@
     "upstream": "mRemoteNG/mRemoteNG",
     "fork": "robertpopa22/mRemoteNG"
   },
-  "last_sync": "2026-08-15T13:15:47Z",
+  "last_sync": "2026-08-15T15:18:13Z",
   "last_sync_stats": {
     "repos_synced": [
       "robertpopa22/mRemoteNG"
@@ -13,10 +13,10 @@
     "issues_new": 0,
     "issues_updated": 14,
     "issues_error": 0,
-    "comments_new": 2,
-    "needs_action": 2,
+    "comments_new": 0,
+    "needs_action": 0,
     "waiting_for_us": 0,
-    "duration_sec": 1.9
+    "duration_sec": 0.6
   },
   "our_github_user": "robertpopa22",
   "lifecycle_states": [
@@ -37,10 +37,11 @@
     "P4-debt"
   ],
   "comment_templates": {
-    "triaged_to_roadmap": "Thank you for reporting this! We've triaged this issue and added it to our roadmap for an upcoming release. Will update here with progress.",
-    "in_progress": "Update: A fix is being actively worked on for this issue. Will post the PR link once ready.",
-    "testing": "Update: A fix has been merged and is now in testing. PR: {pr_url}\nWill confirm once it passes validation.",
-    "released": "This fix is now available in **{release_tag}**.\nAvailable from the fork's Releases page (`robertpopa22/mRemoteNG`).\n\nPlease test and let us know if the issue is fully resolved. Thank you!",
-    "iteration_ack": "Thank you for the additional feedback! We've noted the issue is not fully resolved. Working on an updated fix -- will post here when ready."
+    "triaged_to_roadmap": "Thank you for reporting this. Triaged and queued for a fix.\n\nFor transparency: this fork is maintained by an automated pipeline -- fixes are developed and verified against an automated test suite (6,400+ tests), not by human QA. Your environment is the real end-to-end test, so your feedback here is what actually verifies a fix.",
+    "in_progress": "Update: a fix for this is in progress. Will post here when it lands in a nightly.",
+    "testing": "Update: a fix has landed and the automated test suite passes. It will be in the next nightly build.\n\nThe automated tests cannot reproduce your environment, so please treat your next test as the real verification -- report back either way. If the fix does not hold after repeated rounds, the issue is escalated for human attention rather than another automated attempt.",
+    "released": "This fix is available in **{release_tag}** (fork Releases page, `robertpopa22/mRemoteNG`).\n\nThe automated suite passes, but only your environment can confirm the fix end-to-end. Please test and report back either way. Thank you!",
+    "iteration_ack": "Noted -- the issue is not fully resolved. Thank you for retesting.\n\nPer our process: after two fix attempts on an unproven premise, the next build ships instrumentation to capture trace data instead of another guess, and after three failed rounds the issue is flagged for human review. You will not be asked to test blind fixes indefinitely.",
+    "followup_7d": "Checking in: the fix for this issue has been in the nightly for a week. If you have had a chance to test, a quick yes/no here closes the loop -- and if it still fails, say so and it gets escalated. If we do not hear back, the issue simply stays open; no pressure."
   }
 }

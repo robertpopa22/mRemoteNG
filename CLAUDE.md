@@ -50,6 +50,40 @@ Unless the user explicitly requests a documentation or orchestrator task, issue-
 3. **Verify:** run the full build command from [Build Instructions](#build-instructions), then the preferred full test command from [Testing](#testing).
 4. **Repair regressions:** fix any build or test failure caused by the change before finishing.
 
+### Attempt budget (HARD RULE — learned from #143, 4 failed fixes before the real one)
+
+- **Maximum 2 fixes per issue built on an unproven premise.** After the second failed attempt, the
+  next ship MUST be instrumentation (a diagnostic build that produces trace data), never a third
+  guess. The #143 root cause was found by the first diagnostic trace after four mis-aimed fixes.
+- **Attempt local reproduction BEFORE asking the reporter to test.** The FlaUI windows-automation
+  MCP tools (`mcp__flaui__*`) can launch the built app, click controls, and read UI state — a
+  10-minute local repro attempt is cheaper than one reporter test cycle. Only request reporter
+  testing for what genuinely cannot be reproduced here (their network, their server, their locale).
+- After **3 failed rounds total** (2 fixes + 1 diagnostic, or any combination), the issue is
+  flagged for human review: say so in the issue, plainly, and stop shipping until a human or new
+  evidence redirects the work.
+
+## Reporter Communication & Transparency (MANDATORY for every GitHub reply)
+
+This fork is maintained by an **automated pipeline**: fixes are developed and verified by automated
+builds and an automated test suite. There is no human QA — the automated tests cannot reproduce a
+reporter's environment, so **the reporter's confirmation is the only real end-to-end verification**.
+Communication must reflect that honestly:
+
+1. **Never imply human testing happened.** Write "the automated test suite passes and the change is
+   in the next nightly — your environment is the real test", not "this is fixed".
+2. **Match reply length to confidence.** Mechanism proven from a trace or reproduced locally → full
+   explanation is fine. Unproven premise or guard-not-root-cause → **max ~5 lines**: what changed,
+   what to test, one sentence of uncertainty. Long confident essays that turn out wrong are what
+   burned reporter goodwill on #143.
+3. **State the escalation path when asking for another test.** After repeated failures the reporter
+   must know the process changes: "if this round fails too, the issue gets human attention rather
+   than another automated attempt."
+4. **Follow up after 7 days** on issues in `testing` with no reporter response — one short,
+   polite ping, once. Silence after the ping means we leave the issue open and move on.
+5. Closed only on reporter confirmation or clear evidence; never close over an unanswered "still
+   broken".
+
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`

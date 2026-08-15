@@ -86,6 +86,13 @@ python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py update -
 ```
 For `needs-info` / `wontfix` / `confirm-fixed` issues (no commit), draft the reply and include it in the same approval gate.
 
+**Reply rules (transparency — see CLAUDE.md "Reporter Communication & Transparency"):**
+- This is an automated pipeline with automated tests only; never imply human testing happened. The reporter's environment is the real end-to-end test — say so.
+- Reply length follows confidence: trace-proven mechanism → full explanation; unproven premise or guard → max ~5 lines (what changed, what to test, one sentence of uncertainty).
+- **Attempt budget:** max 2 premise-based fixes per issue; the third ship must be a diagnostic build. After 3 failed rounds, flag the issue for human review in the issue itself and stop shipping.
+- Before asking the reporter to test, attempt local repro first (FlaUI MCP tools can drive the built app). Only ask for what cannot be reproduced here.
+- When asking for a repeat test, state the escalation path ("if this fails too, a human takes over, not another automated round").
+
 ### Step 8: Record memory
 Write a session memory file under the project memory dir + add a one-line pointer to `MEMORY.md`: issues handled, root causes (file:line), commit hashes, and any Codex/Gemini divergence resolved.
 
