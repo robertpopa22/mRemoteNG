@@ -12,16 +12,25 @@ namespace mRemoteNG.Tree.Root
 {
     [SupportedOSPlatform("windows")]
     [DefaultProperty("Name")]
-    public class RootNodeInfo(RootNodeType rootType, string uniqueId) : ContainerInfo(uniqueId)
+    public class RootNodeInfo : ContainerInfo
     {
         private string _name = Language.Connections;
         private string _customPassword = "";
 
+        public RootNodeInfo(RootNodeType rootType, string uniqueId) : base(uniqueId)
+        {
+            Type = rootType;
+            // The base ContainerInfo constructor runs SetDefaults(), whose "New Folder" assignment
+            // virtual-dispatches into this class's Name setter and overwrites the field
+            // initializer. Only the other constructor used to repair it, so every root created
+            // through this one -- which is how the SQL deserializer builds the tree root -- was
+            // literally named "New Folder". (#148)
+            _name = Language.Connections;
+        }
+
         public RootNodeInfo(RootNodeType rootType)
             : this(rootType, Guid.NewGuid().ToString())
         {
-            // Re-set name after base ContainerInfo constructor overrides it via SetDefaults()
-            _name = Language.Connections;
         }
 
         #region Public Properties
@@ -90,7 +99,7 @@ namespace mRemoteNG.Tree.Root
             return string.Equals(expectedPassword, suppliedPassword, StringComparison.Ordinal);
         }
 
-        [Browsable(false)] public RootNodeType Type { get; set; } = rootType;
+        [Browsable(false)] public RootNodeType Type { get; set; }
 
         public override TreeNodeType GetTreeNodeType()
         {

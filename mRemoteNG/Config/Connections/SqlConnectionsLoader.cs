@@ -73,7 +73,18 @@ namespace mRemoteNG.Config.Connections
             ConnectionTreeModel connectionTree = deserializer.Deserialize(dataTable);
             ContainerInfo? rootNode = connectionTree.RootNodes.FirstOrDefault(i => i is RootNodeInfo);
             if (rootNode != null)
+            {
+                // Round-trip the root's name. tblRoot has always carried it, and the load path
+                // read it into metaData and then discarded it, so the tree came up with the
+                // constructor default no matter what the user had named the root. Nothing is
+                // subscribed to the freshly deserialized model yet, so this cannot queue a save.
+                // (#148)
+                if (!string.IsNullOrWhiteSpace(metaData.Name))
+                    rootNode.Name = metaData.Name;
+
                 ApplyLocalConnectionProperties(rootNode);
+            }
+
             return connectionTree;
         }
 
