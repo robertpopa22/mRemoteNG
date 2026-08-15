@@ -8,7 +8,7 @@
 
 **This fork is alive.** We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, automated tests, and builds for x64, x86, and ARM64.
 
-Full transparency: this project is built by humans and AI working together. We believe that's the future of open source.
+Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes here are developed and verified by an automated pipeline — 6,400+ automated tests, adversarial cross-review between independent AI models — but **there is no human QA team**, and our test harness cannot reproduce your network, your servers, or your locale. When a fix lands in a nightly, *your* test is the real verification. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth. Without reporters who test, this model doesn't work — with them, it has closed 60+ external reports. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
 
 *— Robert & contributors (human + AI)*
 
@@ -122,7 +122,7 @@ This project uses an AI orchestrator (Python, ~6,900 LOC) coordinating multiple 
 - **Gemini CLI (1M context)** — bulk code transforms (nullable warning sweeps, repetitive refactors) and independent adversarial review of proposed fixes via the `gemini-rescue` subagent contract
 - **Qodo** — AI code review on pull requests, complements SonarCloud + CodeQL
 
-Human review sits on top: every commit is inspected before it hits `main`, every upstream PR is hand-curated. The AI agents never merge without a human in the loop.
+Human direction sits on top: the maintainer directs the work, reviews what ships, and takes over directly when automated rounds fail (hard rule: after two missed fixes the pipeline ships instrumentation instead of a third guess, and after three failed rounds a human takes the issue). What the pipeline cannot do is reproduce *your* environment — which is why reporter testing is treated as the most valuable contribution this project receives, and why every fix announcement says plainly that it is an automated fix awaiting your verification.
 
 **Key results:**
 

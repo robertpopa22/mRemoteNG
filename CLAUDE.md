@@ -71,7 +71,10 @@ reporter's environment, so **the reporter's confirmation is the only real end-to
 Communication must reflect that honestly:
 
 1. **Never imply human testing happened.** Write "the automated test suite passes and the change is
-   in the next nightly — your environment is the real test", not "this is fixed".
+   in the next nightly — your environment is the real test", not "this is fixed". Announce every
+   automated fix with humility: we provide the engineering, infrastructure and model updates; the
+   reporter provides the ground truth. Their testing is the most valuable contribution the project
+   receives, and any suggestion or log they add is genuine debugging help — say so.
 2. **Match reply length to confidence.** Mechanism proven from a trace or reproduced locally → full
    explanation is fine. Unproven premise or guard-not-root-cause → **max ~5 lines**: what changed,
    what to test, one sentence of uncertainty. Long confident essays that turn out wrong are what

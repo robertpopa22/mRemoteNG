@@ -269,6 +269,9 @@ jobs:
             > [!WARNING]
             > This is an automated build from the `main` branch. It includes the latest changes but may not be fully tested in production scenarios. For the stable release, use the [latest release](https://github.com/${{ github.repository }}/releases/latest).
 
+            > [!NOTE]
+            > Fixes in this build were developed and verified by our automated pipeline — the full automated test suite passes, but no test harness can reproduce *your* environment. If a nightly contains a fix for an issue you reported, **your test is the real verification**, and reporting back (either way) is the most valuable contribution you can make. How this fork is maintained: [#167](https://github.com/${{ github.repository }}/issues/167).
+
             The framework-dependent build requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
 
             > [!IMPORTANT]

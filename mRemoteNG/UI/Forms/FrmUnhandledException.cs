@@ -220,6 +220,11 @@ namespace mRemoteNG.UI.Forms
             body.AppendLine();
             body.AppendLine("---");
             body.AppendLine("*Auto-generated crash report from mRemoteNG*");
+            body.AppendLine();
+            body.AppendLine("*This report feeds an automated fix pipeline (see #167). If a fix ships for this crash, " +
+                            "retesting on the nightly and replying here is what actually verifies it — the automated " +
+                            "tests cannot reproduce your environment. Any extra detail about what you were doing " +
+                            "when this happened helps debugging enormously.*");
 
             return body.ToString();
         }
