@@ -86,16 +86,22 @@ because the current tests only prove the code agrees with itself.
       a secret comes back empty. Proven to fail by switching the KDF from SHA-1 to SHA-256 —
       14 of 21 tests fail, which is exactly the silent-upgrade-data-loss scenario.
 
-### Stage 3 — Persistence round-trip oracle (TODO)
+### Stage 3 — Persistence round-trip oracle (XML DONE; SQL/CSV TODO)
 
 The recommendation both counter-opinions ranked first, and the one that matches the project's worst
 defect class (silent data loss on save).
 
-- [ ] **3.1** Build a saturated connection tree — inheritance flags, Unicode names, empty vs.
-      missing notes, culture-ambiguous numerics, nested folders.
-- [ ] **3.2** Write it, dispose every context, reload, and assert **field-level** equality.
-- [ ] **3.3** Change exactly one field, save, reload, and assert that field changed **and nothing
-      else moved**. This is the oracle that catches "the save wrote a subset".
+- [x] **3.1–3.3 for XML — DONE.** `XmlPersistenceRoundTripOracleTests` builds a saturated
+      connection (Unicode, quotes, separators, newlines, credentials, gateway and proxy fields),
+      writes it, reads it back, and compares **every persisted property by reflection** rather than
+      by a hand-written list — so a property added tomorrow is covered without anyone remembering
+      to assert it. The second test changes exactly one field and asserts nothing else moved, which
+      is the oracle that catches a save writing a subset. A third guards the oracle itself: if the
+      exclusion list or type filter ever swallows the surface, it fails rather than going quietly
+      green over nothing.
+
+      Proven to fail by removing one attribute from the node serializer:
+      `MacAddress: wrote [00:11:22:33:44:55] read back []`.
 - [ ] **3.4** Run the same oracle across all three backends: XML, SQL, CSV export/import.
 
 ### Stage 4 — Shipped-artifact verification (TODO)
