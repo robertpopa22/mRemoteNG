@@ -91,7 +91,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 6,511 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 89 reports from this fork's own users, 83 closed. SonarCloud reliability and maintainability at A; the security rating is currently B with 6 open findings, tracked openly in §6.4 rather than papered over.
+**Quality:** 6,511 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 89 reports from this fork's own users, 83 closed. SonarCloud Quality Gate green: reliability, security and maintainability all A, 81.6% coverage on new code, 0.6% duplication, 100% of security hotspots reviewed.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -284,16 +284,23 @@ unguarded dereference in a log message.
 
 **SonarCloud bugs fixed (beta.6):** S2259 (null reference ×6), S2583 (dead branch), S4275 (getter/setter mismatch ×2), S1751 (no-op loop ×2), S3903 (missing namespace ×2), S3456 (redundant ToCharArray ×3), S2674 (unchecked Read), MA0037 (stray semicolon ×4). All ObjectListView issues (25) dismissed as won't fix — vendored dependency outside our control.
 
-**SonarCloud on fork (live, 2026-08-15): Quality Gate is currently RED.** Reliability and
-maintainability hold at A, but the security rating on new code is B, driven by **6 open
-vulnerability findings** — two `Path.GetTempFileName()` uses in the PuTTY credential-pipe path
-(`PuttyBase.cs`), two RSA key-length findings in third-party vault connectors
-(`PasswordstateInterface`, `SecretServerInterface`), one possible hard-coded credential string in
-the 1Password CLI connector, and one missing command timeout in the database connection tester.
-These sit squarely inside the paths the security tripwire protects, so **they are deliberately not
-being auto-fixed by the pipeline** — each needs human review of the security impact before it is
-touched. Tracked openly here rather than quietly: a red gate that is understood is better than a
-green badge that is stale.
+**SonarCloud on fork (live, 2026-08-15): Quality Gate green.** Reliability, security and
+maintainability all rate A, coverage on new code is 81.6% against an 80% threshold, duplication
+0.6%, and 100% of security hotspots are reviewed.
+
+Getting there was not a matter of adjusting thresholds. The gate went red on the security rating
+with six open findings, and each was examined on its merits: the private key a credential vault
+hands to PuTTY was being written to a temp file with a predictable name and an inherited DACL (a
+real weakness — now a random name and an owner-only DACL applied at creation); two regexes running
+over remote-influenced input had no timeout; the RSA "weak key" findings were false positives on a
+method that imports an existing key rather than generating one, and were made unambiguous rather
+than suppressed; and one hard-coded-credential finding is a genuine false positive on 1Password API
+field metadata, left annotated rather than obfuscated to please a scanner.
+
+Then the gate stayed red on coverage, for a reason worth admitting: 63 of the uncovered lines were
+a maintenance script written the day before, being measured as product code. Tooling that never
+reaches a user is now scoped out of analysis, and the rest was covered with real tests rather than
+exclusions — including the SQL diagnostics that only execute while a save is already failing.
 
 The earlier "PASSED — A/A/A, 80.7% coverage" figure was from the March 2026 upstream-PR push and
 was left in this README long after it stopped being true. That is exactly the failure mode this
@@ -331,18 +338,19 @@ user's connections.
 
 *Rewritten 2026-08-15. The previous version of this table described the March 2026 upstream-PR
 push and had gone stale — items were listed as unsolved that were fixed months ago, and the
-genuinely open problems below were missing entirely.*
+genuinely open problems below were missing entirely. The six open security findings that headed
+this list the same day are now resolved and the SonarCloud gate is green; that entry is gone,
+which is the most useful thing that can happen to a row in this table.*
 
 | # | Problem | Status | Why it's hard |
 |---|---------|--------|---------------|
-| 1 | **6 open security findings** (SonarCloud) | Open, deliberately not auto-fixed | Two `Path.GetTempFileName()` uses in the PuTTY credential-pipe path, two RSA key-length findings in third-party vault connectors, one possible hard-coded credential string, one missing command timeout. All sit inside security-sensitive paths where a green test suite proves nothing, so the automated pipeline is blocked from touching them by design. Each needs a human to reason about the security impact and the compatibility cost first |
-| 2 | **Virtual list row-count desync** ([#149](https://github.com/robertpopa22/mRemoteNG/issues/149)) | Guarded, not root-caused | `SetVirtualListSize` swallows an `ArgumentOutOfRangeException` when assigning `VirtualListSize`; the control then reports a stale row count while the model has grown, and an expand computed a redraw range of 427 against a 41-row list. The crash is contained by a guard and the condition is now instrumented, but the failing assignment has never been reproduced. It lives in vendored ObjectListView code shared by every list in the app, so a speculative fix is worse than the guard |
-| 3 | **VNC disconnect race** ([#166](https://github.com/robertpopa22/mRemoteNG/issues/166)) | Narrowed, not closed | VncSharpCore polls the framebuffer on its own thread and marshals connection loss back with `Control.Invoke`; if the handle is gone, that throws on a thread we do not own and kills the process. Our teardown now stops the session while the handle is alive, which closes the common path — but the remaining window belongs to the package (v1.2.1), not to us |
-| 4 | **Legacy SQL upgraders swallow every provider error** | Logged, narrowing deferred | The two oldest schema upgraders catch `DbException` and skip. Correct for the expected duplicate-object error, wrong to do silently for a permission or connectivity failure. They now classify and log what they skipped; tightening the catch waits on real field logs, because guessing the provider error set wrong turns a working legacy import into a hard failure |
-| 5 | **NUnit parallelization impossible** | Architectural | Shared mutable singletons (`DefaultConnectionInheritance.Instance`, `Runtime.EncryptionKey`, `Runtime.ConnectionsService`) make fixture-level parallelism race. Multi-process isolation (9 groups, sliding-window concurrency) works but is slower. Fixing it properly means dependency injection throughout the application — a multi-month refactor |
-| 6 | **MSBuild output path vs. `dotnet test`** | Workaround | MSBuild outputs to `bin/x64/Release/`; `dotnet test --no-build` against the csproj looks in `bin/Release/`. Coverage cannot be collected through the standard `dotnet test --collect` path; the `dotnet-coverage` workaround functions but adds a tool dependency |
-| 7 | **Upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) still open** | Waiting, understandably | 765 files, ~64K insertions. A diff that size is genuinely hard to review responsibly, and the upstream maintainers built this project — their caution is reasonable. The lesson is on our side: future contributions go upstream as smaller, focused PRs |
-| 8 | **Reporter confirmation is the bottleneck** | Structural | Of the fork's closed external issues, a large share were closed on code and test evidence without the reporter ever replying. Those fixes are probably right, but "probably" is the honest word. There is no way around this other than making it easy and worthwhile to reply — which is what the transparency work is for |
+| 1 | **Virtual list row-count desync** ([#149](https://github.com/robertpopa22/mRemoteNG/issues/149)) | Guarded, not root-caused | `SetVirtualListSize` swallows an `ArgumentOutOfRangeException` when assigning `VirtualListSize`; the control then reports a stale row count while the model has grown, and an expand computed a redraw range of 427 against a 41-row list. The crash is contained by a guard and the condition is now instrumented, but the failing assignment has never been reproduced. It lives in vendored ObjectListView code shared by every list in the app, so a speculative fix is worse than the guard |
+| 2 | **VNC disconnect race** ([#166](https://github.com/robertpopa22/mRemoteNG/issues/166)) | Narrowed, not closed | VncSharpCore polls the framebuffer on its own thread and marshals connection loss back with `Control.Invoke`; if the handle is gone, that throws on a thread we do not own and kills the process. Our teardown now stops the session while the handle is alive, which closes the common path — but the remaining window belongs to the package (v1.2.1), not to us |
+| 3 | **Legacy SQL upgraders swallow every provider error** | Logged, narrowing deferred | The two oldest schema upgraders catch `DbException` and skip. Correct for the expected duplicate-object error, wrong to do silently for a permission or connectivity failure. They now classify and log what they skipped; tightening the catch waits on real field logs, because guessing the provider error set wrong turns a working legacy import into a hard failure |
+| 4 | **NUnit parallelization impossible** | Architectural | Shared mutable singletons (`DefaultConnectionInheritance.Instance`, `Runtime.EncryptionKey`, `Runtime.ConnectionsService`) make fixture-level parallelism race. Multi-process isolation (9 groups, sliding-window concurrency) works but is slower. Fixing it properly means dependency injection throughout the application — a multi-month refactor |
+| 5 | **MSBuild output path vs. `dotnet test`** | Workaround | MSBuild outputs to `bin/x64/Release/`; `dotnet test --no-build` against the csproj looks in `bin/Release/`. Coverage cannot be collected through the standard `dotnet test --collect` path; the `dotnet-coverage` workaround functions but adds a tool dependency |
+| 6 | **Upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) still open** | Waiting, understandably | 765 files, ~64K insertions. A diff that size is genuinely hard to review responsibly, and the upstream maintainers built this project — their caution is reasonable. The lesson is on our side: future contributions go upstream as smaller, focused PRs |
+| 7 | **Reporter confirmation is the bottleneck** | Structural | Of the fork's closed external issues, a large share were closed on code and test evidence without the reporter ever replying. Those fixes are probably right, but "probably" is the honest word. There is no way around this other than making it easy and worthwhile to reply — which is what the transparency work is for |
 
 ### 6.5. Gen 5 — Adversarial Verification and Bounded Autonomy (current)
 
