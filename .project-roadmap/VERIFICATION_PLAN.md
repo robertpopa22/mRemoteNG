@@ -54,7 +54,7 @@ Replays the upgrade chain against real SQL Server through both connectors, inclu
 - The 2.9 → 3.0 step was blocked by an auto-named DEFAULT constraint (error 5074), pinning any
   legacy database at 2.9 permanently.
 
-### Stage 2 — Historical fixtures (2.1 DONE, 2.2 TODO)
+### Stage 2 — Historical fixtures (DONE)
 
 Without these, every claim about "migration correctness" and "encryption compatibility" is theatre,
 because the current tests only prove the code agrees with itself.
@@ -73,10 +73,18 @@ because the current tests only prove the code agrees with itself.
         DEFAULT (`InheritUseRestrictedAdmin`, `UserViaAPI` and six others). Fine on an empty table,
         rejected on any real one — the same defect class as #165, which the forward-port had been
         masking because it added those columns first.
-- [ ] **2.2 Old-format encrypted connection file.** Commit a `confCons.xml` encrypted by an older
-      format (synthetic connections, synthetic password) to `mRemoteNGTests/testdata/xml/`, and
-      assert the current build decrypts it and reads every field. Guards the one defect class that
-      silently destroys user data on upgrade.
+- [x] **2.2 Old-format encrypted connection file — DONE.** No new fixture was needed: the
+      repository already carried `confCons_v2_5.xml`, `confCons_v2_6.xml` and their
+      full-encryption, 5,000-iteration and custom-password variants under `mRemoteNGTests/Resources/`.
+
+      **The gap was the oracle, not the data.** Every existing test against those files asserted
+      structure only — a root exists, it has three children, a folder is named Folder1 — all of
+      which pass while every stored credential comes back empty, which is precisely the failure
+      that costs a user their data.
+      `HistoricalConnectionFileDecryptionTests` now asserts the decrypted values: the inherited
+      password resolves to its original plaintext, usernames survive, and no connection that stores
+      a secret comes back empty. Proven to fail by switching the KDF from SHA-1 to SHA-256 —
+      14 of 21 tests fail, which is exactly the silent-upgrade-data-loss scenario.
 
 ### Stage 3 — Persistence round-trip oracle (TODO)
 

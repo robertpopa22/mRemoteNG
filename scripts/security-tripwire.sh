@@ -67,10 +67,19 @@ scripts/security-tripwire\.sh
 \.github/workflows/
 '
 
+# The path scan covers product code and the guard's own infrastructure (this script, the hooks, the
+# workflows). It deliberately does not cover the test project: several of the patterns above are
+# bare words -- Crypto, Encrypt, Decrypt, Password, Credential -- and a test is normally *named*
+# after the thing it exercises, so a file called HistoricalConnectionFileDecryptionTests.cs trips a
+# rule meant for shipped cryptography. Tests do not ship and product code cannot reference them.
+# This is the third false positive of the same shape; leaving it in place would keep teaching the
+# reflex of reaching for the override, which is the failure mode that makes a tripwire useless.
+PRODUCT_FILES=$(printf '%s\n' "$FILES" | grep -v '^mRemoteNGTests/' || true)
+
 HIT_PATHS=""
 while IFS= read -r pattern; do
     [ -z "$pattern" ] && continue
-    match=$(printf '%s\n' "$FILES" | grep -E -e "$pattern" || true)
+    match=$(printf '%s\n' "$PRODUCT_FILES" | grep -E -e "$pattern" || true)
     [ -n "$match" ] && HIT_PATHS="$HIT_PATHS$match"$'\n'
 done <<< "$PATH_PATTERNS"
 HIT_PATHS=$(printf '%s' "$HIT_PATHS" | sort -u | sed '/^$/d')
