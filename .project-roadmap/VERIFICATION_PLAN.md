@@ -104,19 +104,35 @@ defect class (silent data loss on save).
       `MacAddress: wrote [00:11:22:33:44:55] read back []`.
 - [ ] **3.4** Run the same oracle across all three backends: XML, SQL, CSV export/import.
 
-### Stage 4 — Shipped-artifact verification (TODO)
+### Stage 4 — Shipped-artifact verification (4.1 DONE, 4.2 TODO)
 
 Matches the packaging defect class (#138 MSI missing, #150 assembly present in the SDK build but
 not in the shipped layout).
 
-- [ ] **4.1** Assert the publish output and the MSI payload contain what the app needs at runtime —
-      inspected with `dark.exe` / archive listing, **never by installing on this machine**.
+- [x] **4.1 DONE.** `ShippedAssemblyLayoutTests` reads deps.json — the build's own statement of
+      what it expects to load — and asserts every declared runtime assembly is present, in the
+      executable's directory or in `Assemblies\`, which is where the custom `AssemblyResolve`
+      handler looks. That arrangement is the hazard: a newly added package resolves fine in
+      development and throws `FileNotFoundException` on a user's machine if the copy step never
+      learned about it, which is the shape of #150. Using deps.json as the oracle means the test
+      cannot drift the way a hand-written file list would.
+
+      Proven to fail by removing one dependency from `Assemblies\`:
+      `assemblies the build says it needs are absent from the shipped layout: AWSSDK.EC2.dll`.
 - [ ] **4.2** Wire it as a CI check on the release workflow rather than an app-level test.
 
-### Stage 5 — Culture matrix, in-process (TODO, low cost)
+### Stage 5 — Culture matrix, in-process (DONE)
 
-- [ ] **5.1** Serialize and reload with `CurrentCulture` ≠ `CurrentUICulture` (ro-RO formats,
-      en-US display) and assert numerics and dates survive. In-process only — never change the OS.
+- [x] **5.1 DONE.** `CulturePersistenceTests` writes and reads under ro-RO, de-DE, fr-FR and
+      tr-TR against differing display cultures, including a file written under one culture and read
+      under another — the real scenario, since a file that round-trips under a single culture can
+      hide the bug entirely. Turkish is included deliberately: uppercasing "i" there yields a dotted
+      capital, so any code normalising an attribute name with the current culture stops matching.
+
+      Culture is set on the test thread only; the OS is never touched.
+
+      Proven to fail by making one attribute culture-sensitive
+      (`Port.ToString("N2", CurrentCulture)`): 5 of 6 tests fail.
 
 ## Explicitly rejected
 
