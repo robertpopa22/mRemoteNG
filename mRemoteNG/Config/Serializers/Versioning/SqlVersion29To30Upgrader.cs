@@ -158,8 +158,8 @@ IF @dropConsDefaultsSql <> N''
 ALTER TABLE tblCons ALTER COLUMN RenderingEngine varchar(32) NULL;
 ALTER TABLE tblCons ALTER COLUMN RedirectDiskDrives varchar(32) NULL;
 ALTER TABLE tblCons ADD RedirectDiskDrivesCustom varchar(32) DEFAULT NULL;
-ALTER TABLE tblCons ADD InheritRedirectDiskDrivesCustom bit NOT NULL;
-ALTER TABLE tblCons ADD UserViaAPI varchar(512) NOT NULL;
+ALTER TABLE tblCons ADD InheritRedirectDiskDrivesCustom bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD UserViaAPI varchar(512) NOT NULL DEFAULT '';
 ";
 
             SqlMigrationHelper.ExecuteMigration(_databaseConnector, _version, msSqlAlter, mySqlAlter);

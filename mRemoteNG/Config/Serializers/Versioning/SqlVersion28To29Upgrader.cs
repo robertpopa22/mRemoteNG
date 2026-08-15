@@ -51,15 +51,21 @@ ALTER TABLE tblCons MODIFY COLUMN UseVmId tinyint NOT NULL;
 ALTER TABLE tblRoot MODIFY COLUMN ConfVersion VARCHAR(15) NOT NULL;
 ";
 
+            // Every added NOT NULL column needs a DEFAULT: SQL Server refuses to add one to a
+            // table that already has rows without it, which is what any real database looks like.
+            // Invisible while testing against a schema this build generated -- the forward-port had
+            // already added these columns, so the ADDs were skipped -- and fatal on a genuinely
+            // older database. Same defect class as the 2.6 -> 2.7 step in #165, found by replaying
+            // the historical schema fixture.
             const string msSqlAlter = @"
-ALTER TABLE tblCons ADD InheritUseRestrictedAdmin bit NOT NULL;
-ALTER TABLE tblCons ADD UseRCG bit NOT NULL;
-ALTER TABLE tblCons ADD UseRestrictedAdmin bit NOT NULL;
-ALTER TABLE tblCons ADD InheritUseRCG bit NOT NULL;
-ALTER TABLE tblCons ADD InheritRDGatewayExternalCredentialProvider bit NOT NULL;
-ALTER TABLE tblCons ADD InheritRDGatewayUserViaAPI bit NOT NULL;
-ALTER TABLE tblCons ADD InheritExternalCredentialProvider bit NOT NULL;
-ALTER TABLE tblCons ADD InheritUserViaAPI bit NOT NULL;
+ALTER TABLE tblCons ADD InheritUseRestrictedAdmin bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD UseRCG bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD UseRestrictedAdmin bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD InheritUseRCG bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD InheritRDGatewayExternalCredentialProvider bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD InheritRDGatewayUserViaAPI bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD InheritExternalCredentialProvider bit NOT NULL DEFAULT 0;
+ALTER TABLE tblCons ADD InheritUserViaAPI bit NOT NULL DEFAULT 0;
 ALTER TABLE tblCons ADD EC2Region varchar(32) NULL;
 ALTER TABLE tblCons ADD EC2InstanceId varchar(32) NULL;
 ALTER TABLE tblCons ADD ExternalCredentialProvider varchar(256) NULL;

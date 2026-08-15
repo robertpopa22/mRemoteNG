@@ -47,6 +47,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <!-- Historical fixtures (old schemas, old encrypted files) must sit next to the test binary:
+         they exist to be replayed as-is, which is the whole reason they are checked in rather
+         than generated. -->
+    <None Include="testdata\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

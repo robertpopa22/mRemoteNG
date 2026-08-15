@@ -63,6 +63,27 @@ UPDATE tblCons SET
     [ICAEncryptionStrength] = ISNULL([ICAEncryptionStrength], N''),
     [UserViaAPI] = ISNULL([UserViaAPI], N'');
 
+-- Same trap as the tblExternalTools defaults handled further down, and as the 2.9->3.0 step:
+-- columns added by an earlier upgrader with an unnamed DEFAULT (e.g. the 2.9->3.0 step's
+-- ""RedirectDiskDrivesCustom varchar(32) DEFAULT NULL"") get an auto-named constraint such as
+-- DF__tblCons__Redirec__45F365D3, and every ALTER COLUMN below is then rejected with error 5074,
+-- rolling the whole step back and pinning the database at 3.1. Which columns carry such a
+-- constraint depends on the history of the individual database, so rather than list suspects,
+-- drop every auto-named default on the columns this step is about to alter. Found by replaying a
+-- genuinely historical schema through the ODBC connector.
+DECLARE @dropConsAlterDefaults nvarchar(MAX) = N'';
+SELECT @dropConsAlterDefaults = @dropConsAlterDefaults +
+    N'ALTER TABLE tblCons DROP CONSTRAINT ' + QUOTENAME(dc.name) + N';'
+FROM sys.default_constraints dc
+INNER JOIN sys.columns c ON c.object_id = dc.parent_object_id AND c.column_id = dc.parent_column_id
+WHERE dc.parent_object_id = OBJECT_ID(N'dbo.tblCons')
+    AND dc.name LIKE N'DF[_][_]%'
+    AND c.name IN (N'RedirectDiskDrives', N'RedirectDiskDrivesCustom', N'RenderingEngine',
+                   N'SoundQuality', N'ICAEncryptionStrength', N'UserViaAPI', N'Colors',
+                   N'Icon', N'Panel', N'Protocol', N'Type');
+IF @dropConsAlterDefaults <> N''
+    EXEC(@dropConsAlterDefaults);
+
 ALTER TABLE tblCons ALTER COLUMN [ConstantID] nvarchar(128) NOT NULL;
 ALTER TABLE tblCons ALTER COLUMN [ParentID] nvarchar(128) NULL;
 ALTER TABLE tblCons ALTER COLUMN [Name] nvarchar(128) NOT NULL;

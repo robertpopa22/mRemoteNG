@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Data.Common;
 using System.Data.Odbc;
 using Microsoft.Data.SqlClient;
@@ -242,6 +243,55 @@ namespace mRemoteNGTests.IntegrationTests
                 Assert.That(check.ExecuteScalar(), Is.Not.EqualTo(DBNull.Value),
                             $"column {column} was never added — the schema upgrade did not complete");
             }
+        }
+
+        /// <summary>
+        /// The same upgrade, but starting from a schema this build did not generate:
+        /// testdata/sql/schema-2023-03.sql is the CREATE TABLE block extracted verbatim from the
+        /// 2023 upstream commit that first added schema initialisation.
+        ///
+        /// This is the case the other tests here cannot cover. Winding back a schema the current
+        /// code just created reproduces our own column set, our own ordering and our own
+        /// constraint names; a user's database has none of those. Every migration defect this
+        /// project shipped was found by a reporter running a genuinely older database, which is
+        /// exactly what this replays.
+        /// </summary>
+        [TestCase(false, TestName = "Microsoft.Data.SqlClient")]
+        [TestCase(true, TestName = "ODBC Driver 17")]
+        public void AHistoricalSchemaFromTheRepositoryUpgradesCleanly(bool useOdbc)
+        {
+            string fixturePath = Path.Combine(TestContext.CurrentContext.TestDirectory,
+                                              "testdata", "sql", "schema-2023-03.sql");
+            if (!File.Exists(fixturePath))
+                Assert.Ignore($"Historical schema fixture not found at {fixturePath}");
+
+            using IDatabaseConnector connector = OpenConnector(useOdbc);
+
+            // Apply the historical schema as-is, then give it a row and a legacy version so the
+            // upgrade has something it can actually be rejected by.
+            string fixtureSql = File.ReadAllText(fixturePath);
+            using (DbCommand apply = connector.DbCommand(fixtureSql))
+                apply.ExecuteNonQuery();
+
+            using (DbCommand seedRoot = connector.DbCommand(
+                       "IF NOT EXISTS (SELECT 1 FROM tblRoot) "
+                       + "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) "
+                       + "VALUES ('Historical', 0, '', '2.6')"))
+                seedRoot.ExecuteNonQuery();
+
+            SeedOneConnectionRow(connector);
+
+            // Now the real load path: forward-port, then the versioned chain.
+            new SqlDatabaseMetaDataRetriever().GetDatabaseMetaData(connector);
+            bool upgraded = new SqlDatabaseVersionVerifier(connector)
+                .VerifyDatabaseVersion(new Version(2, 6));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(upgraded, Is.True, "a genuinely historical schema failed to upgrade");
+                Assert.That(ReadConfVersion(connector),
+                            Is.EqualTo(SqlDatabaseVersionVerifier.SupportedSchemaVersion.ToString()));
+            });
         }
 
         [Test]
