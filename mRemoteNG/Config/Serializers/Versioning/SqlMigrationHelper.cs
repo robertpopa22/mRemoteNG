@@ -17,6 +17,15 @@ namespace mRemoteNG.Config.Serializers.Versioning
         private const string MySqlVersionUpdate = "UPDATE tblRoot SET ConfVersion=?;";
 
         /// <summary>
+        /// The version update for a connector, using the parameter marker it understands. ODBC
+        /// reaches SQL Server but binds by position, so the named form used for
+        /// Microsoft.Data.SqlClient fails there with "Must declare the scalar variable" — which
+        /// left an ODBC profile unable to record the schema version it had just upgraded to.
+        /// </summary>
+        private static string VersionUpdateFor(IDatabaseConnector connector) =>
+            SqlParameterSyntax.IsPositional(connector) ? MySqlVersionUpdate : MsSqlVersionUpdate;
+
+        /// <summary>
         /// True when a failed schema statement means "this change is already in place". The two
         /// oldest upgraders re-apply changes the schema forward-port has usually already made, so
         /// this is their expected outcome; anything else is not.
@@ -88,7 +97,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
                         dbCommand.ExecuteNonQuery();
                     }
 
-                    dbCommand = connector.DbCommand(MsSqlVersionUpdate);
+                    dbCommand = connector.DbCommand(VersionUpdateFor(connector));
                     dbCommand.Transaction = sqlTran;
                 }
                 else if (connector is MySqlDatabaseConnector)
@@ -108,12 +117,8 @@ namespace mRemoteNG.Config.Serializers.Versioning
                     throw new NotSupportedException("Unknown database back-end");
                 }
 
-                DbParameter pConfVersion = dbCommand.CreateParameter();
-                pConfVersion.ParameterName = "confVersion";
-                pConfVersion.Value = toVersion.ToString();
-                pConfVersion.DbType = DbType.String;
-                pConfVersion.Direction = ParameterDirection.Input;
-                dbCommand.Parameters.Add(pConfVersion);
+                SqlParameterSyntax.AddParameter(connector, dbCommand, "confVersion",
+                                                toVersion.ToString(), DbType.String);
 
                 dbCommand.ExecuteNonQuery();
             }
@@ -176,7 +181,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
                     dbCommand = connector.DbCommand(MakeMssqlColumnAddsIdempotent(msSqlAlter));
                     dbCommand.Transaction = sqlTran;
                     dbCommand.ExecuteNonQuery();
-                    dbCommand = connector.DbCommand(MsSqlVersionUpdate);
+                    dbCommand = connector.DbCommand(VersionUpdateFor(connector));
                     dbCommand.Transaction = sqlTran;
                 }
                 else if (connector is MySqlDatabaseConnector)
@@ -205,12 +210,8 @@ namespace mRemoteNG.Config.Serializers.Versioning
                     throw new NotSupportedException("Unknown database back-end");
                 }
 
-                DbParameter pConfVersion = dbCommand.CreateParameter();
-                pConfVersion.ParameterName = "confVersion";
-                pConfVersion.Value = toVersion.ToString();
-                pConfVersion.DbType = DbType.String;
-                pConfVersion.Direction = ParameterDirection.Input;
-                dbCommand.Parameters.Add(pConfVersion);
+                SqlParameterSyntax.AddParameter(connector, dbCommand, "confVersion",
+                                                toVersion.ToString(), DbType.String);
 
                 dbCommand.ExecuteNonQuery();
             }

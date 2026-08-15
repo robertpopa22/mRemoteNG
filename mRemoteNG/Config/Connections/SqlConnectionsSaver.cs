@@ -189,13 +189,15 @@ namespace mRemoteNG.Config.Connections
                     "DELETE FROM tblUpdate",
                     "DELETE FROM tblUpdate LIMIT 1");
 
-                DbCommand dbQuery = databaseConnector.DbCommand("INSERT INTO tblUpdate (LastUpdate) VALUES(@LastUpdate)");
+                // ODBC binds by position and rejects named markers, so this insert failed there
+                // with "Must declare the scalar variable" on every save.
+                string lastUpdateMarker = SqlParameterSyntax.Marker(databaseConnector, "LastUpdate");
+                DbCommand dbQuery = databaseConnector.DbCommand(
+                    $"INSERT INTO tblUpdate (LastUpdate) VALUES({lastUpdateMarker})");
                 dbQuery.Transaction = transaction;
 
-                DbParameter lastUpdateParam = dbQuery.CreateParameter();
-                lastUpdateParam.ParameterName = "@LastUpdate";
-                lastUpdateParam.Value = MiscTools.DBTimeStampNow();
-                dbQuery.Parameters.Add(lastUpdateParam);
+                SqlParameterSyntax.AddParameter(databaseConnector, dbQuery, "LastUpdate",
+                                                MiscTools.DBTimeStampNow());
 
                 SqlCommandDiagnostics.ExecuteNonQuery(dbQuery, "UpdateUpdatesTable");
                 

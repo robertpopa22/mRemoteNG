@@ -260,8 +260,16 @@ public class SqlMigrationHelperTests
         SqlMigrationHelper.ExecuteMigration(connector, version, "ALTER ...", null);
 
         Assert.That(capturedParam.Value, Is.EqualTo("3.5"));
-        Assert.That(capturedParam.ParameterName, Is.EqualTo("confVersion"));
         Assert.That(capturedParam.DbType, Is.EqualTo(DbType.String));
+
+        // The marker in the statement and the parameter's name must agree. Asserting the bare
+        // "confVersion" pinned an incidental detail — Microsoft.Data.SqlClient accepts the name
+        // with or without the prefix — while saying nothing about the property that actually
+        // matters, which is that the two sides match. ODBC, which binds by position and rejects
+        // named markers outright, is covered separately.
+        string versionStatement = _commandTexts[^1];
+        Assert.That(versionStatement, Does.Contain("@confVersion"));
+        Assert.That(capturedParam.ParameterName, Is.EqualTo("@confVersion"));
     }
 
     #endregion

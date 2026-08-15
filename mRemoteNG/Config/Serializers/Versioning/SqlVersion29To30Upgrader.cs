@@ -138,6 +138,23 @@ ALTER TABLE tblCons MODIFY COLUMN `InheritVmId` tinyint NOT NULL;
 ";
 
             const string msSqlAlter = @"
+-- The schema forward-port adds missing columns as ""NOT NULL DEFAULT 0"" / ""NULL"" without naming
+-- the DEFAULT constraint, so SQL Server auto-names it (DF__tblCons__Redirec__38996AB5). ALTER
+-- COLUMN is then blocked with error 5074 (""one or more objects access this column""), which
+-- rolls this whole step back and pins the database at 2.9 -- an upgrade from a legacy schema
+-- stops dead here. Drop the dependent defaults first; the columns below end up nullable, so
+-- they do not need one afterwards. Same failure mode as the tblExternalTools defaults in the
+-- 3.1->3.2 step. (#113 family, found by the live migration harness)
+DECLARE @dropConsDefaultsSql nvarchar(MAX) = N'';
+SELECT @dropConsDefaultsSql = @dropConsDefaultsSql +
+    N'ALTER TABLE tblCons DROP CONSTRAINT ' + QUOTENAME(dc.name) + N';'
+FROM sys.default_constraints dc
+INNER JOIN sys.columns c ON c.object_id = dc.parent_object_id AND c.column_id = dc.parent_column_id
+WHERE dc.parent_object_id = OBJECT_ID(N'dbo.tblCons')
+    AND c.name IN (N'RenderingEngine', N'RedirectDiskDrives');
+IF @dropConsDefaultsSql <> N''
+    EXEC(@dropConsDefaultsSql);
+
 ALTER TABLE tblCons ALTER COLUMN RenderingEngine varchar(32) NULL;
 ALTER TABLE tblCons ALTER COLUMN RedirectDiskDrives varchar(32) NULL;
 ALTER TABLE tblCons ADD RedirectDiskDrivesCustom varchar(32) DEFAULT NULL;

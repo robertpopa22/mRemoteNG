@@ -133,29 +133,31 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
                 if (rootTreeNode != null)
                 {
+                    // ODBC binds parameters by position and only understands "?" — named markers
+                    // failed there with "Must declare the scalar variable", so an ODBC profile
+                    // could not write its metadata at all, which is every save. Parameters are
+                    // added in marker order because that is what positional binding requires.
+                    string nameMarker = SqlParameterSyntax.Marker(databaseConnector, "Name");
+                    string protectedMarker = SqlParameterSyntax.Marker(databaseConnector, "Protected");
+                    string versionMarker = SqlParameterSyntax.Marker(databaseConnector, "ConfVersion");
+
                     DbCommand cmd = databaseConnector.DbCommand(
-                            "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @ConfVersion)");
+                            $"INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) "
+                            + $"VALUES({nameMarker}, 0, {protectedMarker}, {versionMarker})");
                     cmd.Transaction = transaction;
 
-                    DbParameter nameParam = cmd.CreateParameter();
-                    nameParam.ParameterName = "@Name";
-                    nameParam.Value = rootTreeNode.Name;
-                    cmd.Parameters.Add(nameParam);
+                    SqlParameterSyntax.AddParameter(databaseConnector, cmd, "Name", rootTreeNode.Name);
 
-                    DbParameter protectedParam = cmd.CreateParameter();
-                    protectedParam.ParameterName = "@Protected";
-                    protectedParam.DbType = System.Data.DbType.String;
-                    protectedParam.Size = -1; // nvarchar(MAX) — column is 4048 which exceeds nvarchar param limit of 4000
-                    protectedParam.Value = strProtected;
-                    cmd.Parameters.Add(protectedParam);
+                    // nvarchar(MAX) — the column is 4048, which exceeds the 4000 nvarchar param limit.
+                    SqlParameterSyntax.AddParameter(databaseConnector, cmd, "Protected", strProtected,
+                                                    System.Data.DbType.String, size: -1);
 
-                    DbParameter confVersionParam = cmd.CreateParameter();
-                    confVersionParam.ParameterName = "@ConfVersion";
                     // The SQL schema version, not the XML file-format version: stamping the stale
                     // XML constant regressed ConfVersion on every save and made every load re-run
                     // the upgrade chain. (#148)
-                    confVersionParam.Value = Versioning.SqlDatabaseVersionVerifier.SupportedSchemaVersion.ToString();
-                    cmd.Parameters.Add(confVersionParam);
+                    SqlParameterSyntax.AddParameter(
+                        databaseConnector, cmd, "ConfVersion",
+                        Versioning.SqlDatabaseVersionVerifier.SupportedSchemaVersion.ToString());
 
                     SqlCommandDiagnostics.ExecuteNonQuery(cmd, "WriteDatabaseMetaData");
                 }
