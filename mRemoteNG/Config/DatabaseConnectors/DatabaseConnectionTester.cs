@@ -16,6 +16,12 @@ namespace mRemoteNG.Config.DatabaseConnectors
     [SupportedOSPlatform("windows")]
     public static class DatabaseConnectionTester
     {
+        /// <summary>
+        /// Upper bound for every regex here. These patterns run over data shaped by a remote
+        /// server or by user input, so a pathological input must fail fast rather than spin.
+        /// </summary>
+        private static readonly TimeSpan RegexTimeout = TimeSpan.FromSeconds(2);
+
         public static async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password, string? authType = null)
         {
             return (await TestConnectivityDetailed(type, server, database, username, password, authType)).Result;
@@ -76,10 +82,15 @@ namespace mRemoteNG.Config.DatabaseConnectors
         /// </summary>
         internal static string DescribeError(Exception ex, int? number)
         {
+            // Bounded: this runs over a provider error message, whose content is influenced by the
+            // server being contacted. An unbounded match on hostile input is a denial-of-service
+            // waiting to happen, and a masking step is never worth hanging the UI for (S6444).
             string message = Regex.Replace(
                 ex.Message,
                 @"(?i)\b(password|pwd)\s*=\s*[^;]*",
-                "$1=***");
+                "$1=***",
+                RegexOptions.None,
+                RegexTimeout);
 
             return number is null or 0
                 ? message
@@ -125,7 +136,9 @@ namespace mRemoteNG.Config.DatabaseConnectors
 
             // Database names are user-supplied — validate to prevent injection.
             // Allow only alphanumeric, underscore, hyphen (safe subset).
-            if (!System.Text.RegularExpressions.Regex.IsMatch(database, @"^[A-Za-z0-9_\-]+$"))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(database, @"^[A-Za-z0-9_\-]+$",
+                                                             System.Text.RegularExpressions.RegexOptions.None,
+                                                             RegexTimeout))
                 throw new ArgumentException($"Invalid database name: {database}");
 
             DbCommand cmd = dbConnector.DbCommand($"CREATE DATABASE [{database}]");

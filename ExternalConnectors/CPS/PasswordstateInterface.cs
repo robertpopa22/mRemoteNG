@@ -281,7 +281,17 @@ public static class PasswordstateInterface
         PemReader pr = new PemReader(new StringReader(pem));
         AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();
         RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);
-        RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+
+        // The key size comes from the key being imported, not from a default. This method creates
+        // no key material: it converts an existing private key, supplied by the user's credential
+        // vault, into the format PuTTY expects. Deriving the size from the modulus states that
+        // explicitly instead of leaving a parameterless constructor that reads like weak key
+        // generation (S4426).
+        int keySizeBits = (rsaParams.Modulus?.Length ?? 0) * 8;
+        if (keySizeBits == 0)
+            throw new CryptographicException("The imported private key has no modulus.");
+
+        RSACryptoServiceProvider rsa = new(keySizeBits);
         rsa.ImportParameters(rsaParams);
         return rsa;
     }

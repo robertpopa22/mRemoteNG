@@ -694,12 +694,8 @@ namespace mRemoteNG.Connection.Protocol
 
                                 if (!string.IsNullOrEmpty(privatekey))
                                 {
-                                    optionalTemporaryPrivateKeyPath = Path.GetTempFileName();
-                                    File.WriteAllText(optionalTemporaryPrivateKeyPath, privatekey);
-                                    FileInfo fileInfo = new(optionalTemporaryPrivateKeyPath)
-                                    {
-                                        Attributes = FileAttributes.Temporary
-                                    };
+                                    optionalTemporaryPrivateKeyPath =
+                                        WritePrivateKeyToOwnerOnlyTempFile(privatekey);
                                 }
                             }
                             catch (Exception ex)
@@ -715,12 +711,8 @@ namespace mRemoteNG.Connection.Protocol
 
                                 if (!string.IsNullOrEmpty(privatekey))
                                 {
-                                    optionalTemporaryPrivateKeyPath = Path.GetTempFileName();
-                                    File.WriteAllText(optionalTemporaryPrivateKeyPath, privatekey);
-                                    FileInfo fileInfo = new(optionalTemporaryPrivateKeyPath)
-                                    {
-                                        Attributes = FileAttributes.Temporary
-                                    };
+                                    optionalTemporaryPrivateKeyPath =
+                                        WritePrivateKeyToOwnerOnlyTempFile(privatekey);
                                 }
                             }
                             catch (Exception ex)
@@ -1300,6 +1292,55 @@ namespace mRemoteNG.Connection.Protocol
         }
 
         #endregion
+
+        /// <summary>
+        /// Writes a private key fetched from an external vault to a temporary file that only the
+        /// current user can read, and returns its path.
+        ///
+        /// PuTTY's -i switch takes a file path, not a key in memory, so a key retrieved from
+        /// Delinea Secret Server or ClickStudios PasswordState has to be materialised on disk for
+        /// the length of the session. That makes *how* the file is created a security decision.
+        ///
+        /// Path.GetTempFileName(), which this replaces, was wrong on three counts for this content:
+        /// its names come from a sequential counter and are therefore predictable, the file
+        /// inherits whatever DACL %TEMP% carries instead of being owner-only, and it creates the
+        /// file empty before the caller writes to it, leaving a window in which another process can
+        /// open the handle and read what lands there afterwards.
+        ///
+        /// Here the name is random, the DACL is explicit and protected from inheritance, and the
+        /// permissions are applied at creation rather than after the key is already on disk.
+        /// FileMode.CreateNew means a pre-existing file is an error, not something to overwrite.
+        /// The caller still wipes and deletes the file when the session ends.
+        /// </summary>
+        private static string WritePrivateKeyToOwnerOnlyTempFile(string privateKey)
+        {
+            string path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+            FileSecurity security = new();
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                SecurityIdentifier sid = identity.Owner ?? identity.User
+                    ?? throw new InvalidOperationException("Unable to determine current user SID.");
+                security.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);
+                security.SetOwner(sid);
+                security.AddAccessRule(new FileSystemAccessRule(sid, FileSystemRights.FullControl,
+                                                                AccessControlType.Allow));
+            }
+
+            using (FileStream stream = new FileInfo(path).Create(FileMode.CreateNew,
+                                                                 FileSystemRights.WriteData,
+                                                                 FileShare.None,
+                                                                 bufferSize: 4096,
+                                                                 FileOptions.None,
+                                                                 security))
+            using (StreamWriter writer = new(stream, Utf8NoBom))
+            {
+                writer.Write(privateKey);
+            }
+
+            new FileInfo(path) { Attributes = FileAttributes.Temporary }.Refresh();
+            return path;
+        }
 
         #region VaultOpenbaoUtils
         private static readonly Encoding Utf8NoBom = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
