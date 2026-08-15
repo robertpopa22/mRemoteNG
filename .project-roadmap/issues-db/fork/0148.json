@@ -6,7 +6,7 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-10T21:16:04Z",
-  "github_updated_at": "2026-08-14T16:17:21Z",
+  "github_updated_at": "2026-08-15T12:31:24Z",
   "body_snippet": "## Description\n\nWhen using the MariaDB backend, saving the connection list intermittently fails if MariaDB/MySQL safe-update mode is enabled.\n\nThe failure is not consistent. While moving connections around in the connection tree, approximately 50% of save attempts produced the safe-update error. Other save attempts completed successfully. When a save succeeds, the entire connection tree is saved.\n\nBecause the application does not clearly indicate whether the most recent save succeeded, small cha...",
   "our_status": "testing",
   "priority": null,
@@ -100,12 +100,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPAmlgQ",
+      "author": "robertpopa22",
+      "date": "2026-08-15T12:31:24Z",
+      "snippet": "Both of your observations were precise hits, and each was its own bug. Thank you for including the ConfVersion numbers — they turned this from a mystery into an arrest.\n\n**1. ConfVersion flapping 3.5 → 3.2 (`3f13a6e56`).** Every SQL save was stamping `tblRoot.ConfVersion` from a stale constant that belongs to the *XML file format* — frozen at 3.2 — while the SQL schema is at 3.5. So: you rename → the version verifier runs, \"upgrades\" 3.2→3.5, stamps 3.5. You open a connection → that triggers a s...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-14T16:17:21Z",
+  "comments_cursor": "2026-08-15T12:31:24Z",
   "unread_comments": 3,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-15T12:31:35Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-08-15T13:15:47Z",
   "notes": "ConfVersion 3.2 stale constant 3f13a6e56 + root name round-trip 4c294ced9; awaiting confirm (one manual rename needed)"
 }
