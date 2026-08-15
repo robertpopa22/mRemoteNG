@@ -318,4 +318,70 @@ public class SqlCommandDiagnosticsTests
         protected override void SetParameter(int index, DbParameter value) => _parameters[index] = value;
         protected override void SetParameter(string parameterName, DbParameter value) => _parameters[IndexOf(parameterName)] = value;
     }
+
+    /// <summary>Exception whose Number getter throws, as a third-party provider's can.</summary>
+    private sealed class ThrowingNumberException(string message) : Exception(message)
+    {
+        public static int Number => throw new InvalidOperationException("provider getter failed");
+    }
+
+    /// <summary>A DbException carrying only a SQLSTATE, which is the fallback identifier.</summary>
+    private sealed class SqlStateOnlyException(string message, string sqlState) : DbException(message)
+    {
+        public override string SqlState { get; } = sqlState;
+    }
+
+    [Test]
+    public void DescribingANullExceptionYieldsNothing()
+    {
+        Assert.That(SqlCommandDiagnostics.Describe(null, "Save", rolledBack: true), Is.Null);
+    }
+
+    [Test]
+    public void LoggingAFailureDoesNotThrow()
+    {
+        // LogFailure runs inside the save's catch block: building a diagnostic must never replace
+        // the database exception the caller is about to surface.
+        Assert.DoesNotThrow(() => SqlCommandDiagnostics.LogFailure(
+            new FakeProviderException("Duplicate column name 'x'", 1060), "SqlConnectionsSaver.Save", true));
+    }
+
+    [Test]
+    public void LoggingANullExceptionDoesNotThrow()
+    {
+        Assert.DoesNotThrow(() => SqlCommandDiagnostics.LogFailure(null, "Save", false));
+    }
+
+    [Test]
+    public void AProviderGetterThatThrowsFallsBackToSqlState()
+    {
+        // Reflection over "Number" happens while a failure is already being handled, so a getter
+        // that throws must degrade to SQLSTATE rather than escape.
+        SqlCommandDiagnostics.Annotate(new ThrowingNumberException("boom"),
+                                       BuildCommand("SELECT 1"), "Save");
+        Assert.DoesNotThrow(() => SqlCommandDiagnostics.Describe(
+            new ThrowingNumberException("boom"), "Save", rolledBack: false));
+    }
+
+    [Test]
+    public void AnExceptionWithOnlySqlStateIsIdentifiedByIt()
+    {
+        string? report = SqlCommandDiagnostics.Describe(
+            new SqlStateOnlyException("connection dropped", "08S01"), "Save", rolledBack: true);
+
+        Assert.That(report, Does.Contain("08S01"));
+    }
+
+    [TestCase("EXEC sp_who")]
+    [TestCase("CREATE DATABASE mRemoteNG")]
+    [TestCase("")]
+    public void ACommandThatIsNotOneOfTheKnownVerbsIsReportedAsOther(string commandText)
+    {
+        SqlCommandDiagnostics.Annotate(new FakeProviderException("failed", 1),
+                                       BuildCommand(commandText), "Save");
+        string? report = SqlCommandDiagnostics.Describe(
+            new FakeProviderException("failed", 1), "Save", rolledBack: false);
+
+        Assert.That(report, Is.Not.Null);
+    }
 }

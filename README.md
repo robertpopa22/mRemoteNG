@@ -8,7 +8,7 @@
 
 **This fork is alive.** We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, automated tests, and builds for x64, x86, and ARM64.
 
-Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes are developed and verified by an automated pipeline — 6,400+ automated tests, adversarial cross-review between independent AI models — and we test too: **we run mRemoteNG every day on the latest build, as our daily driver**. What we cannot do is reproduce *your* setup — your network, your servers, your locale, the specific state that triggers your bug. That gap is the honest limit of our testing, and it is exactly where you come in. When a fix for your issue lands in a nightly, *your* test is what actually verifies it. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth we cannot generate ourselves. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
+Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes are developed and verified by an automated pipeline — 6,500+ automated tests, adversarial cross-review between independent AI models — and we test too: **we run mRemoteNG every day on the latest build, as our daily driver**. What we cannot do is reproduce *your* setup — your network, your servers, your locale, the specific state that triggers your bug. That gap is the honest limit of our testing, and it is exactly where you come in. When a fix for your issue lands in a nightly, *your* test is what actually verifies it. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth we cannot generate ourselves. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
 
 *— Robert & contributors (human + AI)*
 
@@ -91,7 +91,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 6,491 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 89 reports from this fork's own users, 83 closed. SonarCloud reliability and maintainability at A; the security rating is currently B with 6 open findings, tracked openly in §6.4 rather than papered over.
+**Quality:** 6,507 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 89 reports from this fork's own users, 83 closed. SonarCloud reliability and maintainability at A; the security rating is currently B with 6 open findings, tracked openly in §6.4 rather than papered over.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -464,7 +464,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**6,491 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**6,507 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
