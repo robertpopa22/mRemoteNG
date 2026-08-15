@@ -55,7 +55,7 @@ jobs:
             /d:sonar.token="$env:SONAR_TOKEN" `
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.cs.vscoveragexml.reportsPaths="**/coverage.opencover.xml" `
-            /d:sonar.exclusions="**/obj/**,**/bin/**,**/*.Designer.cs,**/Interop*.cs,ObjectListView/**,.project-roadmap/**" `
+            /d:sonar.exclusions="**/obj/**,**/bin/**,**/*.Designer.cs,**/Interop*.cs,ObjectListView/**,.project-roadmap/**,scripts/**,.githooks/**" `
             /d:sonar.coverage.exclusions="**/UI/**/*.cs,**/Connection/Protocol/**/*.cs,**/Themes/**/*.cs,**/TaskDialog/**/*.cs,**/App/ProgramRoot.cs,**/App/Runtime.cs,**/App/RestApiService.cs,**/App/CompatibilityChecker.cs,**/App/Diagnostics/**/*.cs,**/App/Initialization/**/*.cs,**/Config/Settings/DockPanelLayoutLoader.cs,**/Config/Settings/LocalSettingsManager.cs,**/Config/Settings/ExternalAppsSaver.cs,**/Config/Settings/ExternalAppsLoader.cs,**/Config/Putty/**/*.cs,**/Config/Connections/SqlConnectionsSaver.cs,**/Config/Connections/Multiuser/**/*.cs,**/Config/Settings/QuickConnectHistoryLoader.cs,**/Connection/ConnectionInitiator.cs,**/Messages/MessageWriters/PopupMessageWriter.cs,**/Tools/PortScanner.cs,**/Tools/IeBrowserEmulation.cs,**/Tools/ProcessController.cs,ExternalConnectors/**/*.cs"
 
       - name: Build with MSBuild

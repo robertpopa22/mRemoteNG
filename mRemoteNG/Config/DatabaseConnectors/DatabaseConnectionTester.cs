@@ -127,19 +127,20 @@ namespace mRemoteNG.Config.DatabaseConnectors
         /// </summary>
         public static async Task<bool> TryCreateDatabaseAsync(string type, string server, string database, string username, string password, string? authType = null)
         {
+            // Validate before connecting, not after. The name is interpolated straight into a
+            // CREATE DATABASE statement, so it is the single piece of user input that must be
+            // rejected on this path — and rejecting it only after a connection has been opened
+            // means an invalid name still costs a round trip and leaves the check untestable
+            // without a live server. Allow only alphanumeric, underscore and hyphen.
+            if (!Regex.IsMatch(database, @"^[A-Za-z0-9_\-]+$", RegexOptions.None, RegexTimeout))
+                throw new ArgumentException($"Invalid database name: {database}");
+
             string masterDb = string.Equals(type, DatabaseConnectorFactory.MySqlType, StringComparison.OrdinalIgnoreCase)
                 ? ""
                 : "master";
 
             using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, masterDb, username, password, authType);
             await dbConnector.ConnectAsync();
-
-            // Database names are user-supplied — validate to prevent injection.
-            // Allow only alphanumeric, underscore, hyphen (safe subset).
-            if (!System.Text.RegularExpressions.Regex.IsMatch(database, @"^[A-Za-z0-9_\-]+$",
-                                                             System.Text.RegularExpressions.RegexOptions.None,
-                                                             RegexTimeout))
-                throw new ArgumentException($"Invalid database name: {database}");
 
             DbCommand cmd = dbConnector.DbCommand($"CREATE DATABASE [{database}]");
             await cmd.ExecuteNonQueryAsync();

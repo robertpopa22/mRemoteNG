@@ -46,4 +46,23 @@ public class SqlMigrationHelperClassificationTests
     {
         Assert.DoesNotThrow(() => SqlMigrationHelper.ReportSkippedStatement(null, "2.6 -> 2.7"));
     }
+
+    [Test]
+    public void ReportingARedundantStatementDoesNotThrow()
+    {
+        // The report runs inside a catch block during a schema upgrade: it must never be able to
+        // turn a skipped statement into a failed upgrade.
+        Assert.DoesNotThrow(() => SqlMigrationHelper.ReportSkippedStatement(
+            new FakeDbException("Duplicate column name 'RedirectClipboard'"), "2.6 -> 2.7"));
+    }
+
+    [Test]
+    public void ReportingAnUnexpectedFailureDoesNotThrow()
+    {
+        // Same for the case that gets flagged as a warning -- an unrecognised error must still
+        // leave the upgrade running, exactly as it did before the logging was added.
+        Assert.DoesNotThrow(() => SqlMigrationHelper.ReportSkippedStatement(
+            new FakeDbException("The ALTER TABLE permission was denied on object 'tblCons'"),
+            "2.7 -> 2.8"));
+    }
 }
