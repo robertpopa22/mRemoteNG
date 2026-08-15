@@ -1,0 +1,105 @@
+# Verification Plan — turning "we cannot reproduce your environment" into a scoped truth
+
+**Status file. Update it as stages complete — it is the memory of this effort across sessions.**
+If you are an agent picking this up cold: read this file first, check `git log` for the commits
+named below, then continue at the first stage marked TODO.
+
+## Why this exists
+
+The pipeline told every reporter that their confirmation was the only real verification. Probing
+the workstation showed that was partly an excuse: SQL Server 2022 Express is installed and running,
+ODBC Driver 17 (the exact driver from #165) is present, and two Windows languages are installed.
+The first harness built on that inventory found **three real defects within an hour**, none of which
+any of the 6,500 existing tests could see.
+
+The goal is not more tests. It is a better *oracle*: tests whose passing condition is something
+other than "the code we wrote ran".
+
+## Rules (non-negotiable)
+
+1. **Every new test must be proven to fail on the broken code.** Reintroduce the defect (checkout
+   the pre-fix file, or edit temporarily), rebuild, confirm the test fails, restore. A regression
+   test that has never failed is decoration.
+2. **If a test cannot be made to fail, delete it and record why.** (Precedent: the #149 repro
+   attempts passed with and without the fix and were deleted.)
+3. **Synthetic secrets only.** Never commit a real credential, a real `confCons.xml`, or a live
+   connection string. Assume anything under `testdata/` will be published.
+4. **Throwaway databases only** — `mRemoteNG*_<guid>`, created and dropped by the test, never a
+   shared or reused database, never `master`.
+5. **Do not do on this workstation:** FlaUI against loopback RDP (it can replace the session you
+   are working in), MSI install/repair, OS display-language or locale changes, VNC server installs.
+   Culture is tested in-process; packaging is inspected without installing.
+6. **Do not add tests for #149 or #151.** #149's fix is a guard, not a root cause — a test would
+   ossify a non-fix. #151 has no reproduction and therefore no assertion.
+
+## Stages
+
+### Stage 0 — Close the cheap gaps (DONE)
+
+| # | What | Commit | Proven to fail before the fix |
+|---|------|--------|-------------------------------|
+| 0.1 | #160 — no context-menu entry renders without a caption | `e0003b971` | yes — named both blank items |
+| 0.2 | #143 — the focus-steal gate cannot regress quietly | `b14841e49` | yes — all three failed |
+| 0.3 | #141 — every CSV inheritance flag is under its own header | `c75654535` | yes — named the shifted window |
+| 0.4 | #148b — a renamed root survives save + reload on a real database | `6d38b3a13` | yes — reload returned "New Folder" |
+
+### Stage 1 — Live SQL migration harness (DONE)
+
+`mRemoteNGTests/IntegrationTests/SqlSchemaMigrationLiveTests.cs`, commit `2f9efecae`.
+Replays the upgrade chain against real SQL Server through both connectors, including ODBC 17.
+
+**Found on first run — two real defects, both fixed in the same commit:**
+- ODBC binds parameters positionally; three statements on the shared path used named markers, so
+  an ODBC profile could not save at all ("Must declare the scalar variable").
+- The 2.9 → 3.0 step was blocked by an auto-named DEFAULT constraint (error 5074), pinning any
+  legacy database at 2.9 permanently.
+
+### Stage 2 — Historical fixtures (TODO — next)
+
+Without these, every claim about "migration correctness" and "encryption compatibility" is theatre,
+because the current tests only prove the code agrees with itself.
+
+- [ ] **2.1 Historical SQL schema fixture.** Script a real pre-upgrade schema (2.6-era) to
+      `mRemoteNGTests/testdata/sql/schema-2.6.sql`, and make the migration harness replay from the
+      script rather than from a schema this build generated and then wound back. The difference
+      matters: a schema we produce cannot contain the column ordering, collation, or leftover
+      constraints of one a user actually has.
+- [ ] **2.2 Old-format encrypted connection file.** Commit a `confCons.xml` encrypted by an older
+      format (synthetic connections, synthetic password) to `mRemoteNGTests/testdata/xml/`, and
+      assert the current build decrypts it and reads every field. Guards the one defect class that
+      silently destroys user data on upgrade.
+
+### Stage 3 — Persistence round-trip oracle (TODO)
+
+The recommendation both counter-opinions ranked first, and the one that matches the project's worst
+defect class (silent data loss on save).
+
+- [ ] **3.1** Build a saturated connection tree — inheritance flags, Unicode names, empty vs.
+      missing notes, culture-ambiguous numerics, nested folders.
+- [ ] **3.2** Write it, dispose every context, reload, and assert **field-level** equality.
+- [ ] **3.3** Change exactly one field, save, reload, and assert that field changed **and nothing
+      else moved**. This is the oracle that catches "the save wrote a subset".
+- [ ] **3.4** Run the same oracle across all three backends: XML, SQL, CSV export/import.
+
+### Stage 4 — Shipped-artifact verification (TODO)
+
+Matches the packaging defect class (#138 MSI missing, #150 assembly present in the SDK build but
+not in the shipped layout).
+
+- [ ] **4.1** Assert the publish output and the MSI payload contain what the app needs at runtime —
+      inspected with `dark.exe` / archive listing, **never by installing on this machine**.
+- [ ] **4.2** Wire it as a CI check on the release workflow rather than an app-level test.
+
+### Stage 5 — Culture matrix, in-process (TODO, low cost)
+
+- [ ] **5.1** Serialize and reload with `CurrentCulture` ≠ `CurrentUICulture` (ro-RO formats,
+      en-US display) and assert numerics and dates survive. In-process only — never change the OS.
+
+## Explicitly rejected
+
+- FlaUI "launch, click, screenshot" suites — flaky, and the focus/handle bugs they would target
+  already ship past 6,500 message-pump tests.
+- Loopback RDP/VNC/SSH protocol lifecycle tests — high session risk, poor fit to the defect history.
+- Multi-monitor screenshot diffing — pixel noise, no usable oracle.
+- Startup-time regression gates — either never fail or fail randomly and get muted.
+- Config fuzzing / truncation resilience — green forever once the outer try/catch exists.
