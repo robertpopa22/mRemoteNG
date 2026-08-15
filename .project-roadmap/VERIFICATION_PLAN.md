@@ -4,6 +4,13 @@
 If you are an agent picking this up cold: read this file first, check `git log` for the commits
 named below, then continue at the first stage marked TODO.
 
+**State on 2026-08-16:** Stages 0–5 are complete except **4.2**, whose script is written and tested
+but whose CI wiring is blocked on a human security review (see
+`.project-roadmap/PENDING_WORKFLOW_CHANGE.md`). There is no unblocked stage left to start. The
+harnesses built here have found **nine** defects nobody reported; the two newest are listed under
+3.4, and one open lead — SQL change detection never reporting a row unchanged — is recorded there
+for separate investigation.
+
 ## Why this exists
 
 The pipeline told every reporter that their confirmation was the only real verification. Probing
@@ -86,7 +93,7 @@ because the current tests only prove the code agrees with itself.
       a secret comes back empty. Proven to fail by switching the KDF from SHA-1 to SHA-256 —
       14 of 21 tests fail, which is exactly the silent-upgrade-data-loss scenario.
 
-### Stage 3 — Persistence round-trip oracle (XML DONE; SQL/CSV TODO)
+### Stage 3 — Persistence round-trip oracle (DONE — XML, SQL and CSV)
 
 The recommendation both counter-opinions ranked first, and the one that matches the project's worst
 defect class (silent data loss on save).
