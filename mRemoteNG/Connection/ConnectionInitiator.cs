@@ -65,6 +65,13 @@ namespace mRemoteNG.Connection
 
             connectionTab.DockHandler.Activate();
             connectionTab.Focus();
+
+            // Deliberate activation must put the keyboard in the session even when this tab was
+            // already the active content: ConnDockOnActiveContentChanged now refocuses the
+            // protocol only on a real content change, so the same-tab case is owned here. (#143)
+            InterfaceControl? activatedControl = interfaceControl ?? connectionTab.Tag as InterfaceControl;
+            activatedControl?.Protocol?.Focus();
+
             return true;
         }
 

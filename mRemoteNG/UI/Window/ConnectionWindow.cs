@@ -1263,17 +1263,37 @@ namespace mRemoteNG.UI.Window
                 _tabActivationHistory.Add(connDock.ActiveContent);
             }
 
+            // Track the active content unconditionally, before any early return: the tracker must
+            // mirror connDock.ActiveContent verbatim, including transitions to null when the dock
+            // empties. Updating it only on the happy path froze it on a departed tab, so moving
+            // that tab out of the panel and back compared equal and skipped the refocus. (#143)
+            bool contentChanged = !ReferenceEquals(connDock.ActiveContent, _lastActivatedContent);
+            _lastActivatedContent = connDock.ActiveContent;
+
             ConnectionTab? selectedTab = GetSelectedTab();
             ConnectionInfo? selectedConnectionInfo = GetConnectionInfoForTab(selectedTab);
             if (selectedConnectionInfo == null) return;
             FrmMain.Default.SelectedConnection = selectedConnectionInfo;
 
-            // Refocus the protocol window so the embedded process (e.g. PuTTY) regains input (#2237).
+            // Refocus the protocol window so the embedded process (e.g. PuTTY) regains input
+            // (#2237) -- but only when the active content actually changed. The docking library's
+            // focus hook raises this event as a focus *refresh* too: clicking any control outside
+            // the dock (most visibly the tree search box) re-entered this handler with the same
+            // tab still active, and the unconditional Protocol.Focus() yanked keyboard focus
+            // straight back to the session. The reporter's WM_KILLFOCUS stacks all end here,
+            // which is why four attempts to reclaim focus from the search box side failed: the
+            // reclaim and the thief were both ours. Deliberate re-activation of the already
+            // active tab is handled explicitly by ConnectionInitiator.SwitchToOpenConnection.
+            // (#143)
             // Skip when the user is interacting with the PropertyGrid so an in-place cell editor
             // keeps keyboard focus during tab activation triggered by navigation.
-            if (selectedTab?.Tag is InterfaceControl activeIc && !FrmMain.IsCursorOverConfigWindow())
+            if (contentChanged && selectedTab?.Tag is InterfaceControl activeIc && !FrmMain.IsCursorOverConfigWindow())
                 activeIc.Protocol?.Focus();
         }
+
+        // Last content seen by ConnDockOnActiveContentChanged, used to tell a real tab switch
+        // from a hook-driven focus refresh of the same tab. (#143)
+        private WeifenLuo.WinFormsUI.Docking.IDockContent? _lastActivatedContent;
 
         private bool HasConnectionTabs()
         {
