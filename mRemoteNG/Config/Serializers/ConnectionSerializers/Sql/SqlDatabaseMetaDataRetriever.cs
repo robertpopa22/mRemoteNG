@@ -151,7 +151,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
                     DbParameter confVersionParam = cmd.CreateParameter();
                     confVersionParam.ParameterName = "@ConfVersion";
-                    confVersionParam.Value = ConnectionsFileInfo.ConnectionFileVersion.ToString();
+                    // The SQL schema version, not the XML file-format version: stamping the stale
+                    // XML constant regressed ConfVersion on every save and made every load re-run
+                    // the upgrade chain. (#148)
+                    confVersionParam.Value = Versioning.SqlDatabaseVersionVerifier.SupportedSchemaVersion.ToString();
                     cmd.Parameters.Add(confVersionParam);
 
                     SqlCommandDiagnostics.ExecuteNonQuery(cmd, "WriteDatabaseMetaData");

@@ -12,7 +12,17 @@ namespace mRemoteNG.Config.Serializers.Versioning
     [SupportedOSPlatform("windows")]
     public class SqlDatabaseVersionVerifier : ISqlDatabaseVersionVerifier
     {
-        private readonly Version _currentSupportedVersion = new(3, 5);
+        /// <summary>
+        /// The SQL schema version this build reads and writes. The single source of truth: the
+        /// upgrade chain below converges on it, and WriteDatabaseMetaData stamps it into
+        /// tblRoot.ConfVersion on every save. Those two used to disagree -- the metadata writer
+        /// stamped a stale constant (3.2) while the chain was at 3.5, so every save regressed the
+        /// recorded version and every subsequent load re-ran three upgrade steps against an
+        /// already-current schema. (#148)
+        /// </summary>
+        public static readonly Version SupportedSchemaVersion = new(3, 5);
+
+        private readonly Version _currentSupportedVersion = SupportedSchemaVersion;
 
         private readonly IDatabaseConnector _databaseConnector;
 
