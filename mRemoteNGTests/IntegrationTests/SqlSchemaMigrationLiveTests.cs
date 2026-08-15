@@ -298,7 +298,10 @@ namespace mRemoteNGTests.IntegrationTests
         public void ReloadingAnUpToDateDatabaseDoesNotRerunTheUpgradeChain()
         {
             // #148: a stale version constant was stamped into tblRoot on every save, so every load
-            // re-ran the whole 2.6 -> 3.5 chain against an already-current schema.
+            // re-ran the whole upgrade chain, from 2.6 up to the current version, against an
+            // already-current schema. Deliberately not naming the top version here — this comment
+            // said "3.5" until the chain moved to 3.6, and a comment that has to be updated with
+            // every schema bump will eventually be wrong instead.
             using IDatabaseConnector connector = OpenConnector(useOdbc: false);
 
             InitialiseSchemaAndMetadata(connector);
