@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-08-13T04:26:21Z",
+  "github_updated_at": "2026-08-15T01:38:07Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
   "our_status": "testing",
   "priority": null,
@@ -119,6 +119,16 @@
     {
       "seq": 11,
       "date": "2026-08-13",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 12,
+      "date": "2026-08-15",
       "type": "testing",
       "description": "Status changed to testing",
       "pr": null,
@@ -244,12 +254,39 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOxA75Q",
+      "author": "journeym",
+      "date": "2026-08-13T20:15:22Z",
+      "snippet": "This need some human attention not this agent shit over and over again",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABOyj0YA",
+      "author": "happpyg",
+      "date": "2026-08-13T23:22:14Z",
+      "snippet": "> This need some human attention not this agent shit over and over again\n\nYeah, i'll give it one more try but after that I'll give up and go back to my other tools :(  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABO-V3qw",
+      "author": "happpyg",
+      "date": "2026-08-15T01:38:06Z",
+      "snippet": "Here is the entire unfiltered log from the last nightly as requested\n\n2026-08-15 09:35:36,120 [2] INFO  - [Startup] SettingsLoad: 187ms\n2026-08-15 09:35:36,134 [2] INFO  - mRemoteNG Connection Manager 1.82.0 (Release 3654) x64 Portable Edition starting.\n2026-08-15 09:35:36,138 [2] INFO  - User settings file: C:\\Users\\aaron\\Downloads\\mRemoteNG-nightly-20260813-v1.82.0-38e73bc-x64\\Settings\\mRemoteNG.settings (size: 14275 bytes, modified: 2026-08-15 09:35:35)\n2026-08-15 09:35:36,138 [2] INFO  - Com...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-08-13T04:26:21Z",
-  "unread_comments": 6,
+  "comments_cursor": "2026-08-15T01:38:07Z",
+  "unread_comments": 9,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-08-13T08:50:32Z",
-  "notes": "diagnostics 3c0e60996 shipped; awaiting managed focus-chain trace"
+  "waiting_for_us": true,
+  "last_synced": "2026-08-15T12:31:34Z",
+  "notes": "ROOT CAUSE from reporter trace: our ConnDockOnActiveContentChanged Protocol.Focus on hook-driven refresh; fix 21587b593 identity gate; awaiting confirm"
 }
