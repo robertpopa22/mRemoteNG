@@ -133,6 +133,46 @@ For `needs-info` / `wontfix` / `confirm-fixed` issues (no commit), draft the rep
 - Before asking the reporter to test, attempt local repro first (FlaUI MCP tools can drive the built app). Only ask for what cannot be reproduced here.
 - When asking for a repeat test, state the escalation path ("if this fails too, a human takes over, not another automated round").
 
+### Step 7b: Verify the shipped result end-to-end (NOT just the local suite)
+
+A local green suite is not "done". After pushing, confirm the change actually survived every gate,
+and repair it if it did not — a broken gate left for later is a broken gate someone else inherits.
+
+```bash
+gh run list --repo robertpopa22/mRemoteNG --limit 6 --json workflowName,status,conclusion,headSha \
+  --jq '.[] | "\(.conclusion // .status) \(.workflowName) \(.headSha[0:9])"'
+curl -s "https://sonarcloud.io/api/qualitygates/project_status?projectKey=robertpopa22_mRemoteNG" | head -c 400
+curl -s "https://sonarcloud.io/api/issues/search?componentKeys=robertpopa22_mRemoteNG&types=VULNERABILITY&statuses=OPEN,CONFIRMED&ps=20"
+```
+
+Check, in order: **PR_Validation** (build), **Nightly Build** (the artifact reporters will download),
+**CodeQL**, **SonarCloud Quality Gate**, and whether the change introduced new vulnerabilities or
+code smells. If any gate regressed *because of this change*, fix it in the same session before
+moving on. If a gate is already red for reasons unrelated to this change, do not silently inherit
+it: report it to the user and record it in README §6.4 as a known problem rather than letting the
+README claim a state that is no longer true.
+
+Never "fix" a red security gate by weakening the check, suppressing the rule, or excluding the
+file. If the finding is inside a protected path, it needs a human — that is the whole point of the
+tripwire.
+
+### Step 7c: Reflect closed issues in the README
+
+When an issue is **confirmed fixed and closed**, the README is part of the deliverable — it is how
+anyone outside the thread learns what this pipeline actually achieves.
+
+- Add the outcome where it belongs: a user-visible fix goes under **Features / Recent additions**;
+  a fix that says something about the *method* (a root cause found by instrumentation after failed
+  guesses, a wrong fix caught by adversarial review, a class of bug the tests could never catch)
+  belongs in the narrative sections, because those are the honest evidence for the approach.
+- If the issue was listed in **§6.4 Remaining Unsolved Problems**, remove it there and say what
+  resolved it. §6.4 losing an entry is the most valuable update this README receives.
+- Keep the figures live: test count, warning count, issue counts, SonarCloud state. **Never leave a
+  number in the README that is no longer true** — a stale "Quality Gate passed" badge is worse than
+  no badge, and this project has already made that mistake once.
+- Write it with the same humility as the issue replies: state what was fixed, credit the reporter
+  whose testing or trace made it findable, and do not inflate a guard into a root-cause fix.
+
 ### Step 8: Record memory
 Write a session memory file under the project memory dir + add a one-line pointer to `MEMORY.md`: issues handled, root causes (file:line), commit hashes, and any Codex/Gemini divergence resolved.
 

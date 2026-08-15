@@ -91,7 +91,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 6,329 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 issues triaged (712 released).
+**Quality:** 6,467 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 89 reports from this fork's own users, 83 closed. SonarCloud reliability and maintainability at A; the security rating is currently B with 6 open findings, tracked openly in §6.4 rather than papered over.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -113,7 +113,45 @@ If your antivirus flags mRemoteNG, please see [Antivirus False Positive Guide](d
 
 ## How We Build This — AI-Assisted Development
 
-This project uses an AI orchestrator (Python, ~6,900 LOC) coordinating multiple AI agents to resolve a backlog of 853 upstream issues. The system evolved through four architectural generations — from manual prompting to a self-healing supervisor with autonomous agents.
+This project uses an AI orchestrator (Python, ~6,900 LOC) coordinating multiple AI agents against a
+backlog of 800+ upstream issues. It did not start that way, and the road here was not smooth —
+the history is worth keeping, because most of what the harness does today exists because an earlier
+version failed at it.
+
+<details>
+<summary><b>How the harness evolved — five generations, and what broke in each</b></summary>
+
+**Gen 1 — one model, hand-driven (Feb 2026).** A single model, prompted manually, one issue at a
+time. It worked, and it did not scale: every fix needed a human to open the issue, paste context,
+read the diff, run the build. Throughput was bounded by the human, not the model. This is the
+baseline the project's measurements still compare against.
+
+**Gen 2 — three models, poorly coordinated.** Adding models did not simply add throughput. Agents
+overwrote each other's work, re-fixed what was already fixed, and disagreed with no mechanism to
+resolve the disagreement. Failures were silent: an agent would report success while its edit never
+reached disk, or reach disk and never build. The lesson that shaped everything after: *parallel
+agents without a protocol are slower than one agent, not faster.*
+
+**Gen 3 — the orchestrator.** A Python controller took ownership of the loop: issue sync, triage,
+agent dispatch, and — critically — **build/test gating between every step**, so no agent could
+declare victory unverified. Roles were separated by strength rather than availability (fast triage
+vs. deep multi-file work vs. bulk transforms). Silent failures became loud.
+
+**Gen 4 — supervision and self-healing.** Long runs died in ways a single loop could not survive:
+hung agents, buffered logs that made a live process look dead, orphaned build processes, sessions
+that mass-committed dirty trees. Gen 4 added a supervisor, an internal auto-flushed log (stdout
+redirection on Windows buffers and lies), timeouts, and hard scope rules about what an agent may
+touch. Most of `.project-roadmap/LESSONS.md` is the scar tissue from this phase.
+
+**Gen 5 — adversarial review and human-facing discipline (current).** Verification moved from
+"tests pass" to "an independent model family tried to break this and failed". Added on top: a hard
+attempt budget (two failed premise-based fixes → the next build must ship instrumentation, not a
+third guess), a blocking security tripwire, and honest reporter communication. This generation came
+directly out of a public failure — four consecutive fixes on one issue missed, and a reporter said
+so bluntly. The rules exist so the cost of a miss lands on the pipeline, not on the person who
+reported the bug.
+
+</details>
 
 **The agent stack is maintained continuously** — every agent runs on its family's current flagship
 model at maximum reasoning effort, and pinned versions are treated as drift to be fixed, not as
@@ -174,7 +212,7 @@ that report is as valuable as any bug report, and it will be treated the same wa
 - **712/853 issues addressed (83.5%)**, 1,400+ commits, 7 regressions (1.2%)
 - **Cost:** ~$320 total, stabilized at $1.49/commit (down from $4.02 on day 1)
 - **Best session:** Codex Spark resolved 89/104 issues (86%) autonomously in a single run
-- **Quality:** 5,247 analyzer warnings → 0, SonarCloud Quality Gate passed (80.7% coverage)
+- **Quality:** 5,247 analyzer warnings → 0 (drifted back to 181 and re-cleared 2026-08-13 — zero is a state to maintain, not a milestone)
 - **Code review:** every fix now goes through **independent Codex *and* Gemini counter-opinions** before commit — each reviewer re-derives the root cause from the source first, so agreement means two models reached the same diagnosis independently, and disagreement surfaces bad fixes (in a recent batch the dual review caught and discarded an incorrect proposed fix before it shipped)
 - **4 upstream PRs backported:** URL injection fix, AD Protected Users, VNC Caps Lock, RDP resize
 
@@ -193,9 +231,13 @@ The complete research documentation is in [`scientific-paper/`](scientific-paper
 
 ## What's Next
 
-### 6.1. Issue Triage — Complete (843/843)
+*Figures below were re-verified against live sources on 2026-08-15. Where a number is historical
+(a snapshot from an earlier phase) it is dated as such.*
 
-All 853 upstream issues have been triaged and classified:
+### 6.1. Issue Triage — Upstream backlog cleared, fork inbox live
+
+**Upstream backlog (snapshot, 2026-03-02).** All 853 upstream issues tracked at the time were
+triaged and classified:
 
 | Status | Count | % |
 |--------|-------|---|
@@ -210,9 +252,27 @@ All 853 upstream issues have been triaged and classified:
 - **wontfix** — classified as out-of-scope (upstream limitation, requires hardware, or not reproducible)
 - **duplicate** — merged with another issue tracking the same root cause
 
-### 6.2. Code Quality — Four Levels Operational, Zero Warnings
+**The fork's own inbox (live, 2026-08-15).** Since the fork started accepting reports directly,
+**89 issues have been opened by external reporters and 83 are closed**; 14 issues are open, all of
+them either fixed and awaiting reporter confirmation or deliberately left open with the reason
+stated in the thread. The upstream tracker now stands at 873 issues followed, against 841 currently
+open upstream.
+
+This inbox is the part that matters day to day: it is where the pipeline meets real users, and
+where its failures are visible. See [#167](https://github.com/robertpopa22/mRemoteNG/issues/167)
+for how reports are handled and what we ask of reporters.
+
+### 6.2. Code Quality — Five Levels Operational, Zero Warnings
 
 **5,247 analyzer warnings → 0** across 100+ files in a single session using parallel AI agents (Claude Opus + Sonnet; later passes added Codex and Gemini in parallel).
+
+**Zero is a state to maintain, not a milestone to announce.** The backlog came back: by August 2026
+it had drifted to 181 warnings — 139 of them from a single missing `<Nullable>` setting in the test
+project — and was cleared again on 2026-08-13. Two lessons worth recording: an incremental build
+re-emits nothing for unchanged projects, so a "clean" build can be an artefact of not rebuilding
+(verify only after forcing a full rebuild); and a warning sweep is not cosmetic — that pass
+surfaced four genuine defects, including a primary key built from a nullable column lookup and an
+unguarded dereference in a log message.
 
 | Phase | What was done | Count fixed |
 |-------|---------------|-------------|
@@ -224,15 +284,42 @@ All 853 upstream issues have been triaged and classified:
 
 **SonarCloud bugs fixed (beta.6):** S2259 (null reference ×6), S2583 (dead branch), S4275 (getter/setter mismatch ×2), S1751 (no-op loop ×2), S3903 (missing namespace ×2), S3456 (redundant ToCharArray ×3), S2674 (unchecked Read), MA0037 (stray semicolon ×4). All ObjectListView issues (25) dismissed as won't fix — vendored dependency outside our control.
 
-**SonarCloud on fork:** Quality Gate PASSED — Coverage 80.7% on new code (threshold 80%), Reliability A, Security A, Maintainability A, Duplication 1.6%, Hotspots 100% reviewed. Achieved via 160 targeted tests + `sonar.coverage.exclusions` for untestable Protocol/UI/COM code. The fork's SonarCloud is useful for internal monitoring but has no effect on upstream PR checks (see Key Insight #10).
+**SonarCloud on fork (live, 2026-08-15): Quality Gate is currently RED.** Reliability and
+maintainability hold at A, but the security rating on new code is B, driven by **6 open
+vulnerability findings** — two `Path.GetTempFileName()` uses in the PuTTY credential-pipe path
+(`PuttyBase.cs`), two RSA key-length findings in third-party vault connectors
+(`PasswordstateInterface`, `SecretServerInterface`), one possible hard-coded credential string in
+the 1Password CLI connector, and one missing command timeout in the database connection tester.
+These sit squarely inside the paths the security tripwire protects, so **they are deliberately not
+being auto-fixed by the pipeline** — each needs human review of the security impact before it is
+touched. Tracked openly here rather than quietly: a red gate that is understood is better than a
+green badge that is stale.
+
+The earlier "PASSED — A/A/A, 80.7% coverage" figure was from the March 2026 upstream-PR push and
+was left in this README long after it stopped being true. That is exactly the failure mode this
+revision is meant to end.
 
 `TreatWarningsAsErrors` enforced for compiler rules (CS0168, CS0219, CS0162, CS0164). Next: extend to analyzer rules once stable.
 
-### 6.3. Manual Testing Protocol
+### 6.3. Human Testing — What We Can and Cannot Cover
 
-Beta.5 proved that 7/585 AI-introduced regressions passed all 6,201 automated tests at the time. The failure rate (~1.2%) sounds low, but one regression (PuTTY root save) would silently destroy all user connections.
+**We use mRemoteNG ourselves, every day, on the latest build.** That is the first line of human
+testing and it catches a real class of problems: startup regressions, broken tab handling, settings
+that do not persist, anything that makes the app unpleasant to live with.
 
-**Protocol:** Manual testing session at every beta release, focused on UX flows that cannot be unit tested:
+What it cannot cover is *someone else's environment* — a specific SQL Server version, a MariaDB in
+strict mode, an RDP gateway, a locale where the regional format differs from the display language,
+a machine where a session drops at exactly the wrong moment. Several of the hardest bugs fixed here
+were invisible to both the test suite and our daily use, and only became findable when the reporter
+sent a log. That gap is the honest limit of testing on our side, and it is why reporter
+confirmation is treated as the real verification.
+
+**Why automated tests alone are not enough:** beta.5 shipped 7 AI-introduced regressions out of 585
+changes that passed all 6,201 automated tests at the time. A ~1.2% miss rate sounds tolerable until
+you look at what got through — one regression (PuTTY root save) would have silently destroyed a
+user's connections.
+
+**Protocol:** a manual session at every release, focused on UX flows that cannot be unit tested:
 
 - Tree navigation: click, double-click, drag-drop, context menu — no phantom tabs
 - Tab management: switch, close, reorder — no focus stealing, no hangs
@@ -242,30 +329,59 @@ Beta.5 proved that 7/585 AI-introduced regressions passed all 6,201 automated te
 
 ### 6.4. Remaining Unsolved Problems — What Still Doesn't Work
 
-These are active problems with no known solution or workaround:
+*Rewritten 2026-08-15. The previous version of this table described the March 2026 upstream-PR
+push and had gone stale — items were listed as unsolved that were fixed months ago, and the
+genuinely open problems below were missing entirely.*
 
 | # | Problem | Status | Why it's hard |
 |---|---------|--------|---------------|
-| 1 | ~~Fork SonarCloud coverage~~ | **Resolved** | Coverage reached 80.7% (threshold 80%) via targeted tests (SqlMigrationHelper, ExternalProcessProtocolBase, RDP serializer, MiscTools, StartupArguments, SqlVersion32To33Upgrader — 160 new tests) plus `sonar.coverage.exclusions` for genuinely untestable code (Protocol implementations, UI, COM interop, App initialization). Quality Gate now fully green: A/A/A, 80.7% coverage, 1.6% duplication, 100% hotspots reviewed |
-| 2 | **1 test failing in CI** | Intermittent | 2,961 passed, 1 failed in SonarCloud CI run (runner environment differs from local). `continue-on-error: true` masks it. The failing test needs investigation under CI-specific conditions (no display, different temp paths, potentially different .NET SDK patch version) |
-| 3 | **481 code smells on upstream PR** | Cosmetic | SonarCloud reports 481 code smells in the PR diff. Most are pre-existing patterns (long methods, high complexity, parameter counts) carried forward from the legacy codebase. Not blocking Quality Gate but visible. Fixing all would risk introducing regressions in stable code for cosmetic improvement |
-| 4 | **MSBuild output path mismatch with `dotnet test`** | Workaround | MSBuild outputs to `bin/x64/Release/` (with platform subfolder), `dotnet test --no-build` with csproj expects `bin/Release/` (no platform). This means coverage cannot be collected via the standard `dotnet test csproj --collect` approach. The `dotnet-coverage` tool workaround functions but adds a tool dependency and doesn't produce OpenCover format natively |
-| 5 | **NUnit parallelization impossible** | Architectural | Shared mutable singletons (`DefaultConnectionInheritance.Instance`, `Runtime.EncryptionKey`, `Runtime.ConnectionsService`) make NUnit fixture-level parallelism cause race conditions. Multi-process isolation (9 groups with sliding-window concurrency) works but is slower. Fixing the singletons requires DI throughout the entire application — a multi-month refactoring effort |
-| 6 | **Large PR review is inherently slow** | Expected | PR #3189 (beta.6) passed Quality Gate but is a massive diff (761 files, 64K insertions). Reviewing this responsibly takes time — the upstream maintainers built and maintained mRemoteNG for years, and careful review of such a large contribution is entirely reasonable. Strategy: smaller, focused PRs in future releases to make review more manageable |
+| 1 | **6 open security findings** (SonarCloud) | Open, deliberately not auto-fixed | Two `Path.GetTempFileName()` uses in the PuTTY credential-pipe path, two RSA key-length findings in third-party vault connectors, one possible hard-coded credential string, one missing command timeout. All sit inside security-sensitive paths where a green test suite proves nothing, so the automated pipeline is blocked from touching them by design. Each needs a human to reason about the security impact and the compatibility cost first |
+| 2 | **Virtual list row-count desync** ([#149](https://github.com/robertpopa22/mRemoteNG/issues/149)) | Guarded, not root-caused | `SetVirtualListSize` swallows an `ArgumentOutOfRangeException` when assigning `VirtualListSize`; the control then reports a stale row count while the model has grown, and an expand computed a redraw range of 427 against a 41-row list. The crash is contained by a guard and the condition is now instrumented, but the failing assignment has never been reproduced. It lives in vendored ObjectListView code shared by every list in the app, so a speculative fix is worse than the guard |
+| 3 | **VNC disconnect race** ([#166](https://github.com/robertpopa22/mRemoteNG/issues/166)) | Narrowed, not closed | VncSharpCore polls the framebuffer on its own thread and marshals connection loss back with `Control.Invoke`; if the handle is gone, that throws on a thread we do not own and kills the process. Our teardown now stops the session while the handle is alive, which closes the common path — but the remaining window belongs to the package (v1.2.1), not to us |
+| 4 | **Legacy SQL upgraders swallow every provider error** | Logged, narrowing deferred | The two oldest schema upgraders catch `DbException` and skip. Correct for the expected duplicate-object error, wrong to do silently for a permission or connectivity failure. They now classify and log what they skipped; tightening the catch waits on real field logs, because guessing the provider error set wrong turns a working legacy import into a hard failure |
+| 5 | **NUnit parallelization impossible** | Architectural | Shared mutable singletons (`DefaultConnectionInheritance.Instance`, `Runtime.EncryptionKey`, `Runtime.ConnectionsService`) make fixture-level parallelism race. Multi-process isolation (9 groups, sliding-window concurrency) works but is slower. Fixing it properly means dependency injection throughout the application — a multi-month refactor |
+| 6 | **MSBuild output path vs. `dotnet test`** | Workaround | MSBuild outputs to `bin/x64/Release/`; `dotnet test --no-build` against the csproj looks in `bin/Release/`. Coverage cannot be collected through the standard `dotnet test --collect` path; the `dotnet-coverage` workaround functions but adds a tool dependency |
+| 7 | **Upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) still open** | Waiting, understandably | 765 files, ~64K insertions. A diff that size is genuinely hard to review responsibly, and the upstream maintainers built this project — their caution is reasonable. The lesson is on our side: future contributions go upstream as smaller, focused PRs |
+| 8 | **Reporter confirmation is the bottleneck** | Structural | Of the fork's closed external issues, a large share were closed on code and test evidence without the reporter ever replying. Those fixes are probably right, but "probably" is the honest word. There is no way around this other than making it easy and worthwhile to reply — which is what the transparency work is for |
 
-### 6.5. Supervised Continuous AI Improvement (Gen 5 Concept)
+### 6.5. Gen 5 — Adversarial Verification and Bounded Autonomy (current)
 
-The Gen 5 concept: **Opus as permanent supervisor, Spark as executor.**
+Gen 5 is running, and it is not the "fully autonomous maintenance" that earlier drafts of this
+section aimed at. The target changed because the failure mode changed: throughput stopped being the
+constraint, and *confidence* became it. An agent that ships four wrong fixes quickly is worse than
+one that ships a right fix slowly.
 
-The orchestrator monitors new issues (from upstream sync or user reports), triages autonomously, implements with Spark/Sonnet, and presents completed work for human approval. The rules from §5.9 are injected into every agent prompt — hard-won knowledge that prevents the same mistakes.
+What Gen 5 actually does:
 
-**Target state:** Autonomous maintenance with human intervention only at PR review. The orchestrator handles the "what" and "how," humans verify the "should we."
+- **Verification is adversarial, not confirmatory.** Before a non-trivial fix ships, an independent
+  model family is tasked with *breaking* it — not reviewing it politely. Findings from that pass
+  have killed fixes that would have shipped, including one that would have broken Quick Connect.
+- **Autonomy is bounded by an attempt budget.** Two failed fixes on an unproven premise, and the
+  next build must ship instrumentation instead of a third guess. Three failed rounds, and a human
+  takes the issue. This is enforced in the pipeline's own instructions, not left to judgement.
+- **Security has a mechanical stop.** A tripwire blocks delivery of any change touching
+  cryptography, credentials, authentication or transport ACLs, regardless of test results, because
+  weakening a security property breaks no test.
+- **Transparency is part of the output.** Every fix announcement states that it is an automated fix
+  awaiting the reporter's verification, and every guard that is not a root-cause fix says so.
+
+**Target state:** not "no humans" — humans on the decisions that need judgement (security impact,
+scope, whether a repeated failure needs a different approach) and the pipeline on everything that
+can be verified mechanically.
 
 ### 6.6. Upstream Convergence
 
-PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) (beta.6) passed SonarCloud Quality Gate on 2026-03-01 after resolving 6 security vulnerabilities (S2068 ×3, S8264 ×2, S8233 ×1), 50 security hotspots reviewed as SAFE, and all reliability/maintainability conditions met. PR [#3188](https://github.com/mRemoteNG/mRemoteNG/pull/3188) (beta.5) remains open as a predecessor.
+PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) (beta.6) passed the SonarCloud Quality
+Gate on 2026-03-01 after resolving 6 security vulnerabilities (S2068 ×3, S8264 ×2, S8233 ×1) and 50
+security hotspots reviewed as SAFE. **As of 2026-08-15 it is still open** — 765 files, ~64K
+insertions. PR [#3188](https://github.com/mRemoteNG/mRemoteNG/pull/3188) (beta.5) has since been
+closed as its predecessor.
 
-Upstream has 830+ open issues (853 total triaged by our orchestrator). This fork has addressed 712 of them (83.5%). The potential impact of merging even a fraction of these fixes is significant. PR #3189 is a large diff and we understand it takes time to review responsibly — the upstream team built this project and their careful stewardship is what makes it worth contributing to.
+Upstream currently has **841 open issues** (873 tracked by our orchestrator). This fork addressed
+712 of the 853 triaged in the March snapshot. We understand a diff that size takes time to review
+responsibly — the upstream team built this project and their careful stewardship is what makes it
+worth contributing to. The correction is ours to make: **future upstream contributions go as
+smaller, focused PRs**, because a 765-file PR asks more of a reviewer than is reasonable.
 
 Additionally, 4 upstream copilot draft PRs (#3177, #3176, #3154, #3171) have been reviewed and their fixes backported to our fork's `main` branch, ahead of upstream merge.
 
@@ -348,7 +464,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**6,329 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**6,467 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
