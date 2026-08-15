@@ -94,11 +94,15 @@ def main():
 
     gate = sonar_gate_status()
     # Only the *current-state* claim matters. Release History legitimately records that a past PR
-    # passed its gate; matching on that produced a false alarm on the first run.
-    claims_pass = ("SonarCloud Quality Gate passed (A reliability" in text
+    # passed its gate; matching on that produced a false alarm on the first run. The phrasing is
+    # matched on both sides so the check keeps working when the prose is rewritten, which is what
+    # broke it the second time.
+    claims_red = "Quality Gate is currently RED" in text or "security rating is currently B" in text
+    claims_pass = ("Quality Gate green" in text
+                   or "SonarCloud Quality Gate passed (A reliability" in text
                    or "Quality Gate PASSED —" in text)
     warnings = []
-    if gate == "OK" and not claims_pass:
+    if gate == "OK" and claims_red:
         warnings.append("SonarCloud gate is now OK but README still describes it as red — "
                         "update the prose in the quality line and §6.4 by hand.")
     if gate == "ERROR" and claims_pass:
