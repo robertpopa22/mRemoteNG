@@ -95,6 +95,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 if (Enum.TryParse((string)dataRow["ConnectionFrameColor"], true, out ConnectionFrameColor frameColor))
                     connectionInfo.ConnectionFrameColor = frameColor;
             connectionInfo.Description = dataRow["Description"] as string ?? "";
+            connectionInfo.Notes = dataRow["Notes"] as string ?? "";
             connectionInfo.DisableCursorBlinking = MiscTools.GetBooleanValue(dataRow["DisableCursorBlinking"]);
             connectionInfo.DisableCursorShadow = MiscTools.GetBooleanValue(dataRow["DisableCursorShadow"]);
             connectionInfo.DisableFullWindowDrag = MiscTools.GetBooleanValue(dataRow["DisableFullWindowDrag"]);
@@ -242,6 +243,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             if (dataRow.Table.Columns.Contains("InheritConnectionFrameColor"))
                 connectionInfo.Inheritance.ConnectionFrameColor = MiscTools.GetBooleanValue(dataRow["InheritConnectionFrameColor"]);
             connectionInfo.Inheritance.Description = MiscTools.GetBooleanValue(dataRow["InheritDescription"]);
+            connectionInfo.Inheritance.Notes = MiscTools.GetBooleanValue(dataRow["InheritNotes"]);
             connectionInfo.Inheritance.DisableCursorBlinking = MiscTools.GetBooleanValue(dataRow["InheritDisableCursorBlinking"]);
             connectionInfo.Inheritance.DisableCursorShadow = MiscTools.GetBooleanValue(dataRow["InheritDisableCursorShadow"]);
             connectionInfo.Inheritance.DisableFullWindowDrag = MiscTools.GetBooleanValue(dataRow["InheritDisableFullWindowDrag"]);

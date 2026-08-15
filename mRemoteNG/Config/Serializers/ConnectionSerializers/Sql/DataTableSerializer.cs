@@ -150,6 +150,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("Connected", typeof(bool));
             dataTable.Columns.Add("ConstantID", typeof(string));
             dataTable.Columns.Add("Description", typeof(string));
+            dataTable.Columns.Add("Notes", typeof(string));
             dataTable.Columns.Add("DisableCursorBlinking", typeof(bool));
             dataTable.Columns.Add("DisableCursorShadow", typeof(bool));
             dataTable.Columns.Add("DisableFullWindowDrag", typeof(bool));
@@ -176,6 +177,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("InheritColors", typeof(bool));
             dataTable.Columns.Add("InheritConnectionFrameColor", typeof(bool));
             dataTable.Columns.Add("InheritDescription", typeof(bool));
+            dataTable.Columns.Add("InheritNotes", typeof(bool));
             dataTable.Columns.Add("InheritDisableCursorBlinking", typeof(bool));
             dataTable.Columns.Add("InheritDisableCursorShadow", typeof(bool));
             dataTable.Columns.Add("InheritDisableFullWindowDrag", typeof(bool));
@@ -414,6 +416,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["PositionID"].Equals(_currentNodeIndex) &&
             dataRow["Expanded"].Equals(false) &&
             dataRow["Description"].Equals(connectionInfo.Description) &&
+            dataRow["Notes"].Equals(connectionInfo.Notes) &&
             dataRow["Icon"].Equals(connectionInfo.Icon) &&
             dataRow["Panel"].Equals(connectionInfo.Panel) &&
             dataRow["Username"].Equals(_saveFilter.SaveUsername ? connectionInfo.Username : "") &&
@@ -519,6 +522,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritColors"].Equals(connectionInfo.Inheritance.Colors) &&
                     dataRow["InheritConnectionFrameColor"].Equals(connectionInfo.Inheritance.ConnectionFrameColor) &&
                     dataRow["InheritDescription"].Equals(connectionInfo.Inheritance.Description) &&
+                    dataRow["InheritNotes"].Equals(connectionInfo.Inheritance.Notes) &&
                     dataRow["InheritDisableCursorBlinking"].Equals(connectionInfo.Inheritance.DisableCursorBlinking) &&
                     dataRow["InheritDisableCursorShadow"].Equals(connectionInfo.Inheritance.DisableCursorShadow) &&
                     dataRow["InheritDisableFullWindowDrag"].Equals(connectionInfo.Inheritance.DisableFullWindowDrag) &&
@@ -599,6 +603,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritColors"].Equals(false) &&
                     dataRow["InheritConnectionFrameColor"].Equals(false) &&
                     dataRow["InheritDescription"].Equals(false) &&
+                    dataRow["InheritNotes"].Equals(false) &&
                     dataRow["InheritDisableCursorBlinking"].Equals(false) &&
                     dataRow["InheritDisableCursorShadow"].Equals(false) &&
                     dataRow["InheritDisableFullWindowDrag"].Equals(false) &&
@@ -706,6 +711,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["ConnectToConsole"] = connectionInfo.UseConsoleSession;
             dataRow["Connected"] = false;
             dataRow["Description"] = connectionInfo.Description; // TODO: this column can eventually be removed. we now save this property locally
+            dataRow["Notes"] = connectionInfo.Notes ?? "";
             dataRow["DisableCursorBlinking"] = connectionInfo.DisableCursorBlinking;
             dataRow["DisableCursorShadow"] = connectionInfo.DisableCursorShadow;
             dataRow["DisableFullWindowDrag"] = connectionInfo.DisableFullWindowDrag;
@@ -817,6 +823,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritColors"] = connectionInfo.Inheritance.Colors;
                 dataRow["InheritConnectionFrameColor"] = connectionInfo.Inheritance.ConnectionFrameColor;
                 dataRow["InheritDescription"] = connectionInfo.Inheritance.Description;
+                dataRow["InheritNotes"] = connectionInfo.Inheritance.Notes;
                 dataRow["InheritDisableCursorBlinking"] = connectionInfo.Inheritance.DisableCursorBlinking;
                 dataRow["InheritDisableCursorShadow"] = connectionInfo.Inheritance.DisableCursorShadow;
                 dataRow["InheritDisableFullWindowDrag"] = connectionInfo.Inheritance.DisableFullWindowDrag;
@@ -915,6 +922,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritColors"] = false;
                 dataRow["InheritConnectionFrameColor"] = false;
                 dataRow["InheritDescription"] = false;
+                dataRow["InheritNotes"] = false;
                 dataRow["InheritDisableCursorBlinking"] = false;
                 dataRow["InheritDisableCursorShadow"] = false;
                 dataRow["InheritDisableFullWindowDrag"] = false;

@@ -20,7 +20,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
         /// recorded version and every subsequent load re-ran three upgrade steps against an
         /// already-current schema. (#148)
         /// </summary>
-        public static readonly Version SupportedSchemaVersion = new(3, 5);
+        public static readonly Version SupportedSchemaVersion = new(3, 6);
 
         private readonly Version _currentSupportedVersion = SupportedSchemaVersion;
 
@@ -58,6 +58,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
                     new SqlVersion32To33Upgrader(_databaseConnector),
                     new SqlVersion33To34Upgrader(_databaseConnector),
                     new SqlVersion34To35Upgrader(_databaseConnector),
+                    new SqlVersion35To36Upgrader(_databaseConnector),
                 };
 
                 foreach (IVersionUpgrader upgrader in dbUpgraders)

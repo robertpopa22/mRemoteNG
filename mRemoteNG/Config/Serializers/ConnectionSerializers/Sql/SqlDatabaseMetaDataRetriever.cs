@@ -312,6 +312,7 @@ CREATE TABLE [dbo].[tblCons] (
     [ConnectToConsole] bit NOT NULL,
     [Connected] bit NOT NULL,
     [Description] nvarchar(1024),
+    [Notes] nvarchar(MAX) NULL,
     [DisableCursorBlinking] bit NOT NULL,
     [DisableCursorShadow] bit NOT NULL,
     [DisableFullWindowDrag] bit NOT NULL,
@@ -383,6 +384,7 @@ CREATE TABLE [dbo].[tblCons] (
     [InheritCacheBitmaps] bit NOT NULL,
     [InheritColors] bit NOT NULL,
     [InheritDescription] bit NOT NULL,
+    [InheritNotes] bit NOT NULL DEFAULT ((0)),
     [InheritDisableCursorBlinking] bit NOT NULL,
     [InheritDisableCursorShadow] bit NOT NULL,
     [InheritDisableFullWindowDrag] bit NOT NULL,
@@ -547,6 +549,7 @@ CREATE TABLE `tblCons` (
     `ConnectToConsole` tinyint NOT NULL,
     `Connected` tinyint NOT NULL,
     `Description` varchar(1024) DEFAULT NULL,
+    `Notes` text,
     `DisableCursorBlinking` tinyint NOT NULL,
     `DisableCursorShadow` tinyint NOT NULL,
     `DisableFullWindowDrag` tinyint NOT NULL,
@@ -618,6 +621,7 @@ CREATE TABLE `tblCons` (
     `InheritCacheBitmaps` tinyint NOT NULL,
     `InheritColors` tinyint NOT NULL,
     `InheritDescription` tinyint NOT NULL,
+    `InheritNotes` tinyint NOT NULL DEFAULT 0,
     `InheritDisableCursorBlinking` tinyint NOT NULL,
     `InheritDisableCursorShadow` tinyint NOT NULL,
     `InheritDisableFullWindowDrag` tinyint NOT NULL,
@@ -857,6 +861,15 @@ CREATE TABLE `tblExternalTools` (
             }
         }
 
+        /// <summary>
+        /// Columns whose content has no natural upper bound, so the default nvarchar(4000) the
+        /// forward-port hands out would truncate them. A truncating save reports success and the
+        /// user only finds out when they reopen the connection, which is the same silent loss the
+        /// missing Notes column caused. (MySQL is unaffected: its forward-port already uses TEXT.)
+        /// </summary>
+        private static readonly HashSet<string> UnboundedTextColumns =
+            new(StringComparer.OrdinalIgnoreCase) { "Notes" };
+
         private static void UpgradeMssqlSchema(IDatabaseConnector databaseConnector, ISet<string>? existingColumns)
         {
             DataTable expectedSchema = DataTableSerializer.GetExpectedSchema();
@@ -875,7 +888,9 @@ CREATE TABLE `tblExternalTools` (
                     Type t when t == typeof(bool) => "bit NOT NULL DEFAULT 0",
                     Type t when t == typeof(int) => "int NOT NULL DEFAULT 0",
                     Type t when t == typeof(SqlDateTime) || t == typeof(DateTime) => "datetime NULL",
-                    Type t when t == typeof(string) => "nvarchar(4000) NULL",
+                    Type t when t == typeof(string) => UnboundedTextColumns.Contains(expectedColumn.ColumnName)
+                        ? "nvarchar(MAX) NULL"
+                        : "nvarchar(4000) NULL",
                     _ => "nvarchar(4000) NULL",
                 };
 
