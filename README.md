@@ -372,6 +372,14 @@ What Gen 5 actually does:
   weakening a security property breaks no test.
 - **Transparency is part of the output.** Every fix announcement states that it is an automated fix
   awaiting the reporter's verification, and every guard that is not a root-cause fix says so.
+- **Some harnesses look for defects nobody reported.** The persistence tests no longer assert a
+  hand-written list of fields; they compare *every* property by reflection, across the XML, SQL and
+  CSV backends, so a field that stops round-tripping fails immediately instead of waiting for a
+  user to notice it missing. That pass found seven defects that were never reported — including
+  connection **Notes**, which a SQL profile had silently discarded since the backend was written:
+  no column, no write, no read, and no error. Silent data loss is the class least likely to arrive
+  as a bug report, because the user has no reason to suspect the application rather than
+  themselves.
 
 **Target state:** not "no humans" — humans on the decisions that need judgement (security impact,
 scope, whether a repeated failure needs a different approach) and the pipeline on everything that
