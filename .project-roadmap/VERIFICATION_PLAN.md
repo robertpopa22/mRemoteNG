@@ -102,7 +102,21 @@ defect class (silent data loss on save).
 
       Proven to fail by removing one attribute from the node serializer:
       `MacAddress: wrote [00:11:22:33:44:55] read back []`.
-- [ ] **3.4** Run the same oracle across all three backends: XML, SQL, CSV export/import.
+- [x] **3.4 DONE.** `SqlPersistenceRoundTripLiveTests` applies the same reflection oracle to the SQL
+      backend, in two layers: the in-memory serializer pair (runs everywhere) and a pass through a
+      real SQL Server on a throwaway database (the only layer that can catch a column narrower than
+      the value the application allows — a truncating save reports success). CSV is already covered
+      by `CsvInheritanceColumnAlignmentTests`, which came out of the misaligned-column defect.
+
+      **This found a real defect.** `Notes` — an ordinary property-grid field that round-trips
+      through XML and CSV, and expands as `%Notes%` in external tool arguments — had no column, no
+      write and no read in the SQL backend. Every note a user typed on a SQL profile was discarded
+      on save, silently. Fixed by `SqlVersion35To36Upgrader` (schema 3.5 → 3.6) plus the serializer,
+      deserializer and both `CREATE TABLE` blocks; the MSSQL forward-port now declares `Notes` as
+      `nvarchar(MAX)` so a legacy database does not get a truncating 4000-char column instead.
+
+      Proven to fail by writing an empty string instead of the value — both layers reported
+      `Notes: wrote [notes; with separators and ünïcode] read back []`.
 
 ### Stage 4 — Shipped-artifact verification (4.1 DONE, 4.2 TODO)
 
@@ -119,7 +133,19 @@ not in the shipped layout).
 
       Proven to fail by removing one dependency from `Assemblies\`:
       `assemblies the build says it needs are absent from the shipped layout: AWSSDK.EC2.dll`.
-- [ ] **4.2** Wire it as a CI check on the release workflow rather than an app-level test.
+- [~] **4.2 SCRIPT DONE, WIRING BLOCKED.** `scripts/verify-shipped-assemblies.ps1` runs the same
+      deps.json comparison against the artifact that actually ships — a ZIP or an unpacked
+      directory — instead of the build output the test project happens to see. The packaging step
+      between the two is where files go missing, so this is the authoritative version of the check;
+      the app-level test stays as the fast local canary.
+
+      Verified against the real x64 output (`Declared: 71`, `Present: 71`) and proven to fail with
+      one dependency removed: `absent from the shipped package: AWSSDK.EC2.dll`.
+
+      The workflow wiring is **not applied**. `.github/workflows/` is a tripwire path, and the
+      override is human-only by design — an agent approving its own workflow change is the bypass
+      that rule exists to prevent. The exact diff and the apply command are in
+      `.project-roadmap/PENDING_WORKFLOW_CHANGE.md`.
 
 ### Stage 5 — Culture matrix, in-process (DONE)
 
