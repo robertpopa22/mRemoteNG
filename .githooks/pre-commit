@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Security tripwire: blocks automated delivery of security-relevant changes.
+# Enable once per clone:  git config core.hooksPath .githooks
+#
+# Deliberate, human-reviewed changes pass with MRNG_SECURITY_REVIEWED=1.
+
+if [ "${MRNG_SECURITY_REVIEWED:-0}" = "1" ]; then
+    echo "[security-tripwire] bypass acknowledged (MRNG_SECURITY_REVIEWED=1)"
+    exit 0
+fi
+
+exec "$(dirname "$0")/../scripts/security-tripwire.sh"

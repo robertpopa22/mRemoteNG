@@ -8,8 +8,9 @@ labels: bug
 Thank you! A few honest words about how this fork works, so you know what to expect:
 
 Fixes here are developed and verified by an AUTOMATED pipeline (6,400+ automated tests,
-cross-review between independent AI models). There is no human QA team — and no test harness
-can reproduce YOUR environment. That means:
+cross-review between independent AI models), and we use mRemoteNG ourselves every day on the
+latest build. What we cannot do is reproduce YOUR setup — your network, your servers, your
+locale, the exact state that triggers your bug. That means:
 
   * your report below is the start of the fix,
   * and when a fix lands in a nightly, YOUR RETEST is the real verification.

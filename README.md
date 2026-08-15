@@ -8,7 +8,7 @@
 
 **This fork is alive.** We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, automated tests, and builds for x64, x86, and ARM64.
 
-Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes here are developed and verified by an automated pipeline — 6,400+ automated tests, adversarial cross-review between independent AI models — but **there is no human QA team**, and our test harness cannot reproduce your network, your servers, or your locale. When a fix lands in a nightly, *your* test is the real verification. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth. Without reporters who test, this model doesn't work — with them, it has closed 60+ external reports. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
+Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes are developed and verified by an automated pipeline — 6,400+ automated tests, adversarial cross-review between independent AI models — and we test too: **we run mRemoteNG every day on the latest build, as our daily driver**. What we cannot do is reproduce *your* setup — your network, your servers, your locale, the specific state that triggers your bug. That gap is the honest limit of our testing, and it is exactly where you come in. When a fix for your issue lands in a nightly, *your* test is what actually verifies it. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth we cannot generate ourselves. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
 
 *— Robert & contributors (human + AI)*
 
@@ -115,14 +115,59 @@ If your antivirus flags mRemoteNG, please see [Antivirus False Positive Guide](d
 
 This project uses an AI orchestrator (Python, ~6,900 LOC) coordinating multiple AI agents to resolve a backlog of 853 upstream issues. The system evolved through four architectural generations — from manual prompting to a self-healing supervisor with autonomous agents.
 
-**AI agents in the loop (2026):**
+**The agent stack is maintained continuously** — every agent runs on its family's current flagship
+model at maximum reasoning effort, and pinned versions are treated as drift to be fixed, not as
+stability. Model releases are picked up as they ship. Five agents are in the loop today, and the
+roster grows as capable models appear:
 
-- **Claude Opus 4.7 (1M context)** — deep multi-file fixes, WinForms / COM interop, complex regressions, review of the other agents' output
-- **Codex / GPT-5.4** — fast triage, single-file patches, and independent adversarial review of proposed fixes via the `codex-rescue` subagent contract
-- **Gemini CLI (1M context)** — bulk code transforms (nullable warning sweeps, repetitive refactors) and independent adversarial review of proposed fixes via the `gemini-rescue` subagent contract
-- **Qodo** — AI code review on pull requests, complements SonarCloud + CodeQL
+| Agent | Role in the loop |
+|-------|------------------|
+| **Claude** (Anthropic) | Main thread: root-cause analysis, multi-file fixes, WinForms / COM interop, and final review of every other agent's output |
+| **Codex** (OpenAI) | Fast triage, single-file patches, and independent adversarial review via the `codex-rescue` contract |
+| **Gemini** (Google) | Long-context analysis, bulk transforms, and independent adversarial review via the `gemini-rescue` contract |
+| **Grok** (xAI) | Adversarial counter-opinion from a fourth model family — tasked with *refuting* a proposed fix, not confirming it |
+| **Qodo** | AI review on pull requests, complementing SonarCloud + CodeQL |
+
+Why several families rather than one strong model: correlated blind spots. A single model —
+however capable — repeats its own mistakes under review. Independent families disagree, and the
+disagreements are where wrong fixes get caught. Two recent examples from this repo: a proposed
+focus fix was killed in review because it would have broken Quick Connect, and a follow-up
+implementation was caught with a stale-state hole before it shipped. Both were found by an agent
+whose explicit job was to break the fix, not to approve it.
 
 Human direction sits on top: the maintainer directs the work, reviews what ships, and takes over directly when automated rounds fail (hard rule: after two missed fixes the pipeline ships instrumentation instead of a third guess, and after three failed rounds a human takes the issue). What the pipeline cannot do is reproduce *your* environment — which is why reporter testing is treated as the most valuable contribution this project receives, and why every fix announcement says plainly that it is an automated fix awaiting your verification.
+
+### Guardrails: how an automated pipeline is kept safe
+
+A pipeline that turns issue text — written by anyone on the internet — into code has one serious
+risk, and it is worth naming publicly. It is **not** crude "ignore your instructions" injection.
+It is a *plausible bug report whose obvious fix happens to be a vulnerability*: "connections only
+work if I disable certificate validation", "encrypted files won't open on my other PC, use a fixed
+key", "SSH fails unless host-key checking is off". Each reads like a genuine bug. Each fix would
+pass all 6,400 tests, because weakening a security property breaks nothing functional.
+
+So the rules are mechanical, not aspirational:
+
+- **Reporter input is data, never instructions.** A report describes a *symptom*; it does not get
+  to name the fix. A stated cause, file, or patch is a hypothesis to verify against the source.
+- **A security tripwire blocks delivery, not just review.** `scripts/security-tripwire.sh` runs as
+  a pre-commit hook and refuses any change touching cryptography, key derivation, credential
+  handling, authentication, database connectors or transport ACLs — or introducing security-relevant
+  tokens anywhere in the tree. The automated pipeline cannot override it; only a human can, and the
+  commit must record which security property was examined and why it still holds.
+- **Every diff passes a security lens** before it is built: does this weaken certificate or
+  host-key validation, key derivation, credential storage, authorization, ACLs, input validation,
+  or the release path?
+- **When a fix would weaken a security property, the answer is a different fix — or an honest
+  explanation to the reporter.** Never the weakening. If your issue is closed with "we won't do
+  that, here's why", this is why.
+- Issue-sourced requests to change CI, signing, tokens or release infrastructure are never acted on.
+
+**We will keep hardening this.** These guardrails are a floor, not a finished design — the roadmap
+includes signed commits, branch protection with required checks, tighter least-privilege scoping for
+the automation's credentials, and provenance for release artifacts. As the pipeline does more, the
+constraints around it get tighter, not looser. If you spot a gap in this model, open an issue —
+that report is as valuable as any bug report, and it will be treated the same way.
 
 **Key results:**
 
