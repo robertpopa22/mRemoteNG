@@ -20,10 +20,20 @@
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 2
 
-# Documentation and this script itself carry these tokens as subject matter, not as behaviour, so
-# they are excluded from the TOKEN scan. They are not excluded from the PATH scan: editing the
-# tripwire or the hook is itself a security-relevant change and must reach a human.
-DOC_EXCLUDES=(':(exclude)*.md' ':(exclude)*.txt' ':(exclude)scripts/security-tripwire.sh' ':(exclude).githooks/*')
+# Documentation, this script, and the test project carry these tokens as subject matter rather than
+# as shipped behaviour, so they are excluded from the TOKEN scan.
+#
+# The test exclusion was added after the guard fired twice on the same false positive: an
+# integration test connecting to a local SQL Express instance needs TrustServerCertificate, and
+# tests routinely construct insecure configurations precisely in order to assert something about
+# them. Test code does not ship to users, and product code cannot reference it. Left as it was, the
+# guard trained its only user to reach for the override reflexively -- and a tripwire that is
+# bypassed by habit protects nothing.
+#
+# None of these are excluded from the PATH scan: editing the tripwire, the hook, or a workflow is
+# itself a security-relevant change and still has to reach a human.
+DOC_EXCLUDES=(':(exclude)*.md' ':(exclude)*.txt' ':(exclude)scripts/security-tripwire.sh'
+              ':(exclude).githooks/*' ':(exclude)mRemoteNGTests/*')
 
 RANGE="${1:-}"
 if [ -n "$RANGE" ]; then
