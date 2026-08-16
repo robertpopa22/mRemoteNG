@@ -435,6 +435,31 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             return string.Equals(column, propertyValue ?? "", StringComparison.Ordinal);
         }
 
+        /// <summary>
+        /// Compares an encrypted column against a plaintext property by decrypting the stored
+        /// value, never by re-encrypting the property. Ciphertext comparison is meaningless with a
+        /// randomised nonce. A stored value that cannot be decrypted (wrong key, corrupt) counts as
+        /// different, so the row gets rewritten rather than silently left stale.
+        /// </summary>
+        private bool StoredSecretEquals(object columnValue, string? propertyValue)
+        {
+            string stored = columnValue is DBNull or null ? "" : columnValue.ToString() ?? "";
+            string expected = propertyValue ?? "";
+
+            if (stored.Length == 0)
+                return expected.Length == 0;
+
+            try
+            {
+                return string.Equals(_cryptographyProvider.Decrypt(stored, _encryptionKey), expected,
+                                     StringComparison.Ordinal);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private bool IsRowUpdated(ConnectionInfo connectionInfo, DataRow dataRow)
         {
             bool isFieldNotChange = dataRow["Name"].Equals(connectionInfo.Name) &&
@@ -466,8 +491,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["EnableDesktopComposition"].Equals(connectionInfo.EnableDesktopComposition);
             isFieldNotChange = isFieldNotChange && dataRow["EnableFontSmoothing"].Equals(connectionInfo.EnableFontSmoothing);
             isFieldNotChange = isFieldNotChange && dataRow["ExtApp"].Equals(connectionInfo.ExtApp);
-            isFieldNotChange = isFieldNotChange && dataRow["ExternalAddressProvider"].Equals(connectionInfo.ExternalAddressProvider);
-            isFieldNotChange = isFieldNotChange && dataRow["ExternalCredentialProvider"].Equals(connectionInfo.ExternalCredentialProvider);
+            isFieldNotChange = isFieldNotChange && dataRow["ExternalAddressProvider"].Equals(connectionInfo.ExternalAddressProvider.ToString());
+            isFieldNotChange = isFieldNotChange && dataRow["ExternalCredentialProvider"].Equals(connectionInfo.ExternalCredentialProvider.ToString());
             isFieldNotChange = isFieldNotChange && dataRow["Hostname"].Equals(connectionInfo.Hostname);
             isFieldNotChange = isFieldNotChange && dataRow["IsTemplate"].Equals(connectionInfo.IsTemplate);
             isFieldNotChange = isFieldNotChange && dataRow["LoadBalanceInfo"].Equals(connectionInfo.LoadBalanceInfo);
@@ -481,7 +506,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["Protocol"].Equals(connectionInfo.Protocol.ToString());
             isFieldNotChange = isFieldNotChange && dataRow["PuttySession"].Equals(connectionInfo.PuttySession);
             isFieldNotChange = isFieldNotChange && dataRow["RDGatewayDomain"].Equals(connectionInfo.RDGatewayDomain);
-            isFieldNotChange = isFieldNotChange && dataRow["RDGatewayExternalCredentialProvider"].Equals(connectionInfo.RDGatewayExternalCredentialProvider);
+            isFieldNotChange = isFieldNotChange && dataRow["RDGatewayExternalCredentialProvider"].Equals(connectionInfo.RDGatewayExternalCredentialProvider.ToString());
             isFieldNotChange = isFieldNotChange && dataRow["RDGatewayHostname"].Equals(connectionInfo.RDGatewayHostname);
             isFieldNotChange = isFieldNotChange && dataRow["RDGatewayUsageMethod"].Equals(connectionInfo.RDGatewayUsageMethod.ToString());
             isFieldNotChange = isFieldNotChange && dataRow["RDGatewayUseConnectionCredentials"].Equals(connectionInfo.RDGatewayUseConnectionCredentials.ToString());
@@ -704,9 +729,13 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             //bool pwd = dataRow["Password"].Equals(_saveFilter.SavePassword ? _cryptographyProvider.Encrypt(connectionInfo.Password?.ConvertToUnsecureString(), _encryptionKey) : "") &&
             //          dataRow["VNCProxyPassword"].Equals(_cryptographyProvider.Encrypt(connectionInfo.VNCProxyPassword, _encryptionKey)) &&
             //          dataRow["RDGatewayPassword"].Equals(_cryptographyProvider.Encrypt(connectionInfo.RDGatewayPassword, _encryptionKey));
-            bool pwd = dataRow["Password"].Equals(_saveFilter.SavePassword ? _cryptographyProvider.Encrypt(connectionInfo.Password, _encryptionKey) : "") &&
-                      dataRow["VNCProxyPassword"].Equals(_cryptographyProvider.Encrypt(connectionInfo.VNCProxyPassword, _encryptionKey)) &&
-                      dataRow["RDGatewayPassword"].Equals(_cryptographyProvider.Encrypt(connectionInfo.RDGatewayPassword, _encryptionKey));
+            // Compare the DECRYPTED stored value against the property. Re-encrypting to compare
+            // ciphertext can never match: the AEAD provider uses a fresh nonce per call, so the
+            // same password encrypts to a different string every time. That made this false for
+            // every connection holding a password, which is most of them.
+            bool pwd = StoredSecretEquals(dataRow["Password"], _saveFilter.SavePassword ? connectionInfo.Password : "") &&
+                      StoredSecretEquals(dataRow["VNCProxyPassword"], connectionInfo.VNCProxyPassword) &&
+                      StoredSecretEquals(dataRow["RDGatewayPassword"], connectionInfo.RDGatewayPassword);
             return !(pwd && isFieldNotChange && isInheritanceFieldNotChange);
         }
 
