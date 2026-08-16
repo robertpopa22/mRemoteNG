@@ -1308,30 +1308,13 @@ namespace mRemoteNG.UI.Window
             // (#143)
             // Skip when the user is interacting with the PropertyGrid so an in-place cell editor
             // keeps keyboard focus during tab activation triggered by navigation.
-            // TEMP diagnostic for #143. A first-party reproduction in the test lab shows this
-            // handler still calling Protocol.Focus() while the user is clicking the search box —
-            // the exact path the gate above was added to stop. Two explanations survive that
-            // observation: either ActiveContent genuinely toggles away and back as focus leaves the
-            // dock (so the gate cannot tell a real tab switch from a bounce), or the tracker is
-            // wrong. Only contentChanged and the two contents separate them, and neither is logged
-            // anywhere. Remove with the rest of the #143 instrumentation.
-            Runtime.MessageCollector?.AddMessage(
-                MessageClass.InformationMsg,
-                $"[#143-diag] activeContentChanged contentChanged={contentChanged} nullBounce={nullBounce} "
-                + $"active={Describe(currentContent)} previous={Describe(previousContent)} "
-                + $"selectedTab={Describe(selectedTab)} cursorOverConfig={FrmMain.IsCursorOverConfigWindow()}",
-                true);
-
             if (contentChanged && selectedTab?.Tag is InterfaceControl activeIc && !FrmMain.IsCursorOverConfigWindow())
                 activeIc.Protocol?.Focus();
         }
 
-        /// <summary>Identity of a dock content for the #143 trace: type plus hash, never null.</summary>
-        private static string Describe(object? content) =>
-            content is null ? "null" : $"{content.GetType().Name}#{content.GetHashCode():X}";
-
-        // Last content seen by ConnDockOnActiveContentChanged, used to tell a real tab switch
-        // from a hook-driven focus refresh of the same tab. (#143)
+        // Last content seen by ConnDockOnActiveContentChanged, used to tell a real tab switch from
+        // a hook-driven focus refresh of the same tab. Not updated while focus merely bounces out
+        // of the panel and back, which is what made the comparison above report a switch. (#143)
         private WeifenLuo.WinFormsUI.Docking.IDockContent? _lastActivatedContent;
 
         private bool HasConnectionTabs()
