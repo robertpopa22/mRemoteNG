@@ -76,6 +76,14 @@ product — UI wiring, packaging, and settings paths are all invisible to it.
   `[Microsoft.VisualBasic.Interaction]::AppActivate($pid)` then
   `[System.Windows.Forms.SendKeys]::SendWait('%n')`. Send the button's real mnemonic — `{ESC}` does
   nothing on a Yes/No box, because it has no Cancel.
+- **The desktop is shared, and that cuts both ways.** FlaUI clicks and `SendKeys` go to whatever is
+  focused *now*, so a human typing on the same machine can land keystrokes in the app under test —
+  and your `SendKeys` can land in whatever they are typing into. During one session a context menu
+  activated an item nobody chose, and after the fact it was impossible to tell a mis-click from the
+  operator's own keyboard. So: prefer `windows_click`/`windows_fill` on explicit refs over
+  `SendKeys`, use `SendKeys` only to clear a modal (above), and treat any surprising UI state during
+  concurrent use as unreliable evidence rather than a finding. When the lab guests are available,
+  run interactive repros inside a guest instead of on the operator's desktop.
 - Starting the app at all is itself a real check: it exercises the shipped assembly layout that
   #150 broke, which no unit test can see.
 - Verified this way so far: schema 3.6 / Notes end-to-end against a live SQL Server, and #141's CSV
@@ -135,16 +143,28 @@ software. Communication must reflect that honestly:
    automated fix with humility: we provide the engineering, infrastructure and model updates; the
    reporter provides the ground truth. Their testing is the most valuable contribution the project
    receives, and any suggestion or log they add is genuine debugging help — say so.
-2. **Match reply length to confidence.** Mechanism proven from a trace or reproduced locally → full
+2. **Say which verifications actually ran, and name them separately.** The suite and the UI pass are
+   different evidence and must not be blurred into one claim:
+   - *automated tests* — the suite ran and passed;
+   - *UI check* — the built app was driven as a user would drive it (FlaUI, or Win32 when a modal
+     blocks UIA): the exact steps taken, and what was observed.
+
+   State the UI check **only when it actually ran**, and keep its limits in the same breath: it was
+   performed here, on our machine, against our setup. It is not a reproduction of the reporter's
+   environment and does not replace their confirmation. Phrase it like "we also clicked through it
+   in the built app — added a connection, typed X, restarted, and the value came back", not "we
+   verified it works". Where a UI check was impossible (needs their server, their locale, their
+   network), say that plainly instead of implying it passed.
+3. **Match reply length to confidence.** Mechanism proven from a trace or reproduced locally → full
    explanation is fine. Unproven premise or guard-not-root-cause → **max ~5 lines**: what changed,
    what to test, one sentence of uncertainty. Long confident essays that turn out wrong are what
    burned reporter goodwill on #143.
-3. **State the escalation path when asking for another test.** After repeated failures the reporter
+4. **State the escalation path when asking for another test.** After repeated failures the reporter
    must know the process changes: "if this round fails too, the issue gets human attention rather
    than another automated attempt."
-4. **Follow up after 7 days** on issues in `testing` with no reporter response — one short,
+5. **Follow up after 7 days** on issues in `testing` with no reporter response — one short,
    polite ping, once. Silence after the ping means we leave the issue open and move on.
-5. Closed only on reporter confirmation or clear evidence; never close over an unanswered "still
+6. Closed only on reporter confirmation or clear evidence; never close over an unanswered "still
    broken".
 
 ## Repository Structure
