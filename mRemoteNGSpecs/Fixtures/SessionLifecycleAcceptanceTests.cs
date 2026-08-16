@@ -191,10 +191,8 @@ namespace mRemoteNGSpecs.Fixtures
             AutomationElement tab = MainWindow
                 .FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
                 .First(t => SafeName(t).Contains("lab-linux-ssh", StringComparison.OrdinalIgnoreCase));
-            System.Drawing.Rectangle bounds = tab.BoundingRectangle;
-            System.Drawing.Point centre = new(bounds.X + bounds.Width / 2, bounds.Y + bounds.Height / 2);
 
-            FlaUI.Core.Input.Mouse.Click(centre, FlaUI.Core.Input.MouseButton.Middle);
+            Support.Win32Mouse.MiddleClick(tab);
             UiWait.Settle(MainWindow);
 
             // The application asks before closing a panel that still holds a live connection --
