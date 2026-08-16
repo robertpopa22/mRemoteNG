@@ -57,7 +57,8 @@ namespace mRemoteNGTests.Config.Serializers.ConnectionSerializers.Csv
         private static IEnumerable<string> InheritanceHeaderNames()
         {
             (string[] headers, _) = ExportSingleConnection(_ => { });
-            return headers.Where(h => h.StartsWith("Inherit", StringComparison.Ordinal)).Distinct();
+            return headers.Where(h => h.StartsWith("Inherit", StringComparison.Ordinal))
+                          .Distinct(StringComparer.Ordinal);
         }
 
         [Test]

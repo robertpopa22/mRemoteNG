@@ -105,7 +105,8 @@ namespace mRemoteNGTests.IntegrationTests
                             || p.PropertyType == typeof(string));
 
         private static Dictionary<string, object?> Snapshot(ConnectionInfo connection) =>
-            PersistedProperties().ToDictionary(p => p.Name, p => p.GetValue(connection));
+            PersistedProperties().ToDictionary(p => p.Name, p => p.GetValue(connection),
+                                              StringComparer.Ordinal);
 
         private static ConnectionTreeModel ModelContaining(ConnectionInfo connection)
         {
@@ -372,8 +373,7 @@ namespace mRemoteNGTests.IntegrationTests
             if (string.IsNullOrEmpty(_database))
                 Assert.Ignore($"No local SQL Server at {ServerInstance}.");
 
-            using IDatabaseConnector connector =
-                new MSSqlDatabaseConnector(ServerInstance, _database, "", "");
+            using MSSqlDatabaseConnector connector = new(ServerInstance, _database, "", "");
             connector.Connect();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
@@ -518,8 +518,7 @@ IF @name IS NOT NULL EXEC('ALTER TABLE tblCons DROP CONSTRAINT [' + @name + ']')
             if (string.IsNullOrEmpty(_database))
                 Assert.Ignore($"No local SQL Server at {ServerInstance}.");
 
-            using IDatabaseConnector connector =
-                new MSSqlDatabaseConnector(ServerInstance, _database, "", "");
+            using MSSqlDatabaseConnector connector = new(ServerInstance, _database, "", "");
             connector.Connect();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);

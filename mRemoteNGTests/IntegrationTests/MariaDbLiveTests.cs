@@ -101,9 +101,9 @@ namespace mRemoteNGTests.IntegrationTests
                 Assert.Ignore($"No MariaDB reachable at {Host}:3306.");
         }
 
-        private IDatabaseConnector OpenConnector()
+        private MySqlDatabaseConnector OpenConnector()
         {
-            IDatabaseConnector connector = new MySqlDatabaseConnector(Host, _database, User, Password);
+            MySqlDatabaseConnector connector = new(Host, _database, User, Password);
             connector.Connect();
             return connector;
         }
@@ -139,7 +139,7 @@ namespace mRemoteNGTests.IntegrationTests
         {
             SkipIfNoServer();
 
-            using IDatabaseConnector connector = OpenConnector();
+            using MySqlDatabaseConnector connector = OpenConnector();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
             retriever.WriteDatabaseMetaData(new RootNodeInfo(RootNodeType.Connection), connector);
@@ -170,7 +170,7 @@ namespace mRemoteNGTests.IntegrationTests
         {
             SkipIfNoServer();
 
-            using IDatabaseConnector connector = OpenConnector();
+            using MySqlDatabaseConnector connector = OpenConnector();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
             retriever.WriteDatabaseMetaData(new RootNodeInfo(RootNodeType.Connection), connector);
@@ -192,7 +192,7 @@ namespace mRemoteNGTests.IntegrationTests
         {
             SkipIfNoServer();
 
-            using IDatabaseConnector connector = OpenConnector();
+            using MySqlDatabaseConnector connector = OpenConnector();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
 
@@ -216,7 +216,7 @@ namespace mRemoteNGTests.IntegrationTests
         {
             SkipIfNoServer();
 
-            using IDatabaseConnector connector = OpenConnector();
+            using MySqlDatabaseConnector connector = OpenConnector();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
 

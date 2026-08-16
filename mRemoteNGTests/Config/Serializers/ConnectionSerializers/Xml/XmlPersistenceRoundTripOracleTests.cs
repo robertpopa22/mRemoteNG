@@ -117,7 +117,8 @@ namespace mRemoteNGTests.Config.Serializers.ConnectionSerializers.Xml
                             || p.PropertyType == typeof(string));
 
         private static Dictionary<string, object?> Snapshot(ConnectionInfo connection) =>
-            PersistedProperties().ToDictionary(p => p.Name, p => p.GetValue(connection));
+            PersistedProperties().ToDictionary(p => p.Name, p => p.GetValue(connection),
+                                              StringComparer.Ordinal);
 
         [Test]
         public void EveryPersistedPropertySurvivesAWriteAndReadCycle()

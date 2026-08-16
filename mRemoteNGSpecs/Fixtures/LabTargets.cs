@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 namespace mRemoteNGSpecs.Fixtures
@@ -14,14 +18,17 @@ namespace mRemoteNGSpecs.Fixtures
     /// how little it protects — and it teaches the wrong pattern to anyone who copies the file. The
     /// fallbacks keep the battery runnable without setup; set MRNG_LAB_* to override.
     ///
+    /// Hosts are overridable too (MRNG_LAB_*_HOST), because the battery also runs inside the lab
+    /// itself, where the addresses differ from the workstation's view of it.
+    ///
     /// Every target is probed before use. A missing target skips its tests rather than failing
     /// them, matching how the live SQL tests behave in the unit suite — the battery must stay
     /// runnable on a machine with no lab.
     /// </summary>
     public static class LabTargets
     {
-        public const string LinuxHost = "192.168.221.10";
-        public const string WindowsHost = "192.168.221.20";
+        public static string LinuxHost => Env("MRNG_LAB_LINUX_HOST", "192.168.221.10");
+        public static string WindowsHost => Env("MRNG_LAB_WINDOWS_HOST", "192.168.221.20");
 
         public static string LinuxUser => Env("MRNG_LAB_LINUX_USER", "mrng");
         public static string LinuxPassword => Env("MRNG_LAB_LINUX_PASSWORD", "");
@@ -39,6 +46,15 @@ namespace mRemoteNGSpecs.Fixtures
 
         public static bool IsReachable(string host, int port, int timeoutMs = 1500)
         {
+            // A remote-desktop session into the machine running the battery would take over the very
+            // desktop the battery is driving — it can replace the session mid-run, and afterwards
+            // there is no way to tell a genuine failure from having pulled the floor out. The rule
+            // predates this file (the project forbids loopback RDP for the same reason); enforcing
+            // it here means it holds wherever the battery runs, including inside the lab guest,
+            // where WindowsHost *is* the local machine.
+            if (port == Rdp && IsLocalMachine(host))
+                return false;
+
             try
             {
                 using TcpClient client = new();
@@ -47,6 +63,29 @@ namespace mRemoteNGSpecs.Fixtures
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        /// <summary>True when <paramref name="host"/> resolves to an address this machine owns.</summary>
+        public static bool IsLocalMachine(string host)
+        {
+            try
+            {
+                if (IPAddress.TryParse(host, out IPAddress? parsed) && IPAddress.IsLoopback(parsed))
+                    return true;
+
+                HashSet<string> local = NetworkInterface.GetAllNetworkInterfaces()
+                    .SelectMany(n => n.GetIPProperties().UnicastAddresses)
+                    .Select(a => a.Address.ToString())
+                    .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+                return Dns.GetHostAddresses(host).Any(a => local.Contains(a.ToString()));
+            }
+            catch (Exception)
+            {
+                // Cannot prove it is remote, so treat it as local: refusing to connect costs a
+                // skipped test, connecting to ourselves costs the whole run.
+                return true;
             }
         }
 

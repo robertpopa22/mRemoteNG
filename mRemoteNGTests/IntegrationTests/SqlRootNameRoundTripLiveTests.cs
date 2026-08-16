@@ -93,15 +93,15 @@ namespace mRemoteNGTests.IntegrationTests
             command.ExecuteNonQuery();
         }
 
-        private IDatabaseConnector OpenConnector()
+        private MSSqlDatabaseConnector OpenConnector()
         {
-            IDatabaseConnector connector = new MSSqlDatabaseConnector(ServerInstance, _database, "", "");
+            MSSqlDatabaseConnector connector = new(ServerInstance, _database, "", "");
             connector.Connect();
             return connector;
         }
 
         /// <summary>Reads the name straight out of the table, bypassing the loader.</summary>
-        private static string ReadRootNameFromDatabase(IDatabaseConnector connector)
+        private static string ReadRootNameFromDatabase(MSSqlDatabaseConnector connector)
         {
             using System.Data.Common.DbCommand command =
                 connector.DbCommand("SELECT TOP 1 Name FROM tblRoot");
@@ -134,7 +134,7 @@ namespace mRemoteNGTests.IntegrationTests
         {
             const string newName = "Production estate";
 
-            using IDatabaseConnector connector = OpenConnector();
+            using MSSqlDatabaseConnector connector = OpenConnector();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
 
@@ -162,7 +162,7 @@ namespace mRemoteNGTests.IntegrationTests
             // round-trips while it is plain ASCII is not round-tripping, it is coincidence.
             const string awkwardName = "Producție \"live\"; O'Brien — 100% ✓";
 
-            using IDatabaseConnector connector = OpenConnector();
+            using MSSqlDatabaseConnector connector = OpenConnector();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
 
@@ -181,7 +181,7 @@ namespace mRemoteNGTests.IntegrationTests
             // tblRoot holds exactly one row. The metadata write deletes before inserting; if that
             // delete ever regresses, the loader silently picks whichever row comes back first and
             // the name appears to flip between saves at random.
-            using IDatabaseConnector connector = OpenConnector();
+            using MSSqlDatabaseConnector connector = OpenConnector();
             SqlDatabaseMetaDataRetriever retriever = new();
             retriever.GetDatabaseMetaData(connector);
 
