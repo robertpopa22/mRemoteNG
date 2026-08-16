@@ -56,6 +56,12 @@ namespace mRemoteNG.App
             BrightIdeasSoftware.VirtualObjectListView.SizeChangeDiagnostic = report =>
                 messageCollector.AddMessage(MessageClass.WarningMsg, $"[#149-diag] {report}", true);
 
+            // Covers the other half of the same guard: a VirtualListSize assignment that succeeded
+            // but against an index that belonged to a different list (model vs filtered view) than
+            // GetItemCount() is reporting. SizeChangeDiagnostic above cannot see that case at all.
+            BrightIdeasSoftware.TreeListView.RedrawGuardDiagnostic = report =>
+                messageCollector.AddMessage(MessageClass.WarningMsg, $"[#149-diag] {report}", true);
+
             ParseCommandLineArgs(messageCollector);
 
             // IE Browser Emulation registry writes are only needed when a WebBrowser control

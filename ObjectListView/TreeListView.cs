@@ -597,6 +597,14 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
+        /// Optional sink for reports that Expand skipped a redraw because the row index it computed
+        /// fell outside the control's current item count. ObjectListView has no dependency on any
+        /// host logging framework, so the host wires this up if it wants the reports. Never invoked
+        /// on a healthy expand. (#149)
+        /// </summary>
+        public static Action<string> RedrawGuardDiagnostic { get; set; }
+
+        /// <summary>
         /// Expand the subtree underneath the given model object
         /// </summary>
         /// <param name="model"></param>
@@ -644,6 +652,25 @@ namespace BrightIdeasSoftware
             // identical RedrawItems call the same way. (#149)
             int lastItemIndex = this.GetItemCount() - 1;
             if (index > lastItemIndex) {
+                // SizeChangeDiagnostic only fires when the VirtualListSize assignment itself throws
+                // or fails to take -- it says nothing about a model/filtered index-space mismatch,
+                // where the assignment succeeds but the index this branch computed belongs to a
+                // different list than GetItemCount() is reporting (e.g. a full-model index against a
+                // filtered view's row count). That second cause has never been ruled out, and this
+                // guard is the only place both numbers are known at once. (#149)
+                Action<string> report = RedrawGuardDiagnostic;
+                if (report != null) {
+                    try {
+                        report(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                                             "Expand skipped redraw on {0} '{1}': modelIndex={2} lastItemIndex={3} "
+                                             + "itemCount={4} virtualListSize={5} filtering={6} thread={7}",
+                                             this.GetType().Name, this.Name, index, lastItemIndex,
+                                             this.GetItemCount(), this.VirtualListSize, this.UseFiltering,
+                                             System.Threading.Thread.CurrentThread.ManagedThreadId));
+                    } catch (Exception ex) {
+                        _ = ex; // Diagnostics must never be the reason Expand throws.
+                    }
+                }
                 this.OnExpanded(new TreeBranchExpandedEventArgs(model, item));
                 return;
             }
