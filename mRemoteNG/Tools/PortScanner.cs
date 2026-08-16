@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.Versioning;
 using System.Threading;
+using System.Threading.Tasks;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
 
@@ -108,13 +109,40 @@ namespace mRemoteNG.Tools
             //_scanThread.Abort();
         }
 
-        public static bool IsPortOpen(string hostname, string port)
+        /// <summary>Default bound for a single-host probe (Connection Tester, reconnect timers).</summary>
+        private const int DefaultProbeTimeoutMilliseconds = 3000;
+
+        public static bool IsPortOpen(string hostname, string port) =>
+            IsPortOpen(hostname, port, DefaultProbeTimeoutMilliseconds);
+
+        public static bool IsPortOpen(string hostname, string port, int timeoutMilliseconds) =>
+            TryConnect(hostname, Convert.ToInt32(port, CultureInfo.InvariantCulture), timeoutMilliseconds);
+
+        /// <summary>
+        /// Connects with a hard upper bound on how long a single host can block the caller.
+        ///
+        /// <c>new TcpClient(host, port)</c> has no timeout of its own: it waits on the OS-level TCP
+        /// connect, which for a host that silently drops the SYN (a filtered port, an unreachable
+        /// VPN peer, a machine that is simply off) is 20+ seconds on Windows. That is fine for a
+        /// background sweep across many hosts in parallel, but three of this method's callers are
+        /// sequential, and one — RdpProtocol's reconnect timer — calls it directly from a WinForms
+        /// Timer.Tick on the UI thread with no threading guard at all. Every tick against an
+        /// unreachable host froze the whole application for the OS timeout, repeatedly, for as long
+        /// as the host stayed down. Bounding the wait here fixes it at the one place all three
+        /// callers share, rather than requiring each caller to remember to guard itself.
+        ///
+        /// The connect attempt itself is not cancelled when the timeout elapses — Socket has no
+        /// clean way to abort an in-flight connect — so the background attempt still resolves on its
+        /// own thread eventually. What changes is that the caller stops waiting for it.
+        /// </summary>
+        private static bool TryConnect(string hostname, int port, int timeoutMilliseconds)
         {
+            using Socket socket = new(SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                TcpClient tcpClient = new(hostname, Convert.ToInt32(port, CultureInfo.InvariantCulture));
-                tcpClient.Close();
-                return true;
+                Task connectTask = socket.ConnectAsync(hostname, port);
+                bool completedInTime = connectTask.Wait(timeoutMilliseconds);
+                return completedInTime && socket.Connected;
             }
             catch (Exception)
             {
@@ -216,19 +244,16 @@ namespace mRemoteNG.Tools
 
                 foreach (int port in _ports)
                 {
-                    bool isPortOpen;
-                    try
-                    {
-                        TcpClient tcpClient = new(ip, port);
-                        isPortOpen = true;
+                    // The Timeout field on the Port Scan dialog is _timeoutInMilliseconds. It was
+                    // only ever applied to the ICMP ping above; every TCP port check ignored it and
+                    // used the OS default (20+ seconds on Windows) instead — invisible for open or
+                    // actively-refused ports, but a scan against any host with a single filtered
+                    // port took far longer than the timeout the user had actually set.
+                    bool isPortOpen = TryConnect(ip, port, _timeoutInMilliseconds);
+                    if (isPortOpen)
                         scanHost.OpenPorts.Add(port);
-                        tcpClient.Close();
-                    }
-                    catch (Exception)
-                    {
-                        isPortOpen = false;
+                    else
                         scanHost.ClosedPorts.Add(port);
-                    }
 
                     if (port == ScanHost.SshPort)
                     {

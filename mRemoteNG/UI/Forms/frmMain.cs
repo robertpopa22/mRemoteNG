@@ -1409,6 +1409,14 @@ namespace mRemoteNG.UI.Forms
                 if (PresentationMode != null)
                 {
                     PresentationMode.Active = !PresentationMode.Active;
+
+                    // This branch returns before base.ProcessCmdKey runs, so the menu item's own
+                    // ShortcutKeys registration for the same combination never fires and its Click
+                    // handler -- the only other place that keeps the checkmark in sync -- never
+                    // runs either. Without this, the View menu still shows "Presentation Mode"
+                    // unchecked (or checked) after the keyboard shortcut flips the real state,
+                    // which is what a user sees if they toggle with Shift+F11 and then open View.
+                    viewMenu._mMenViewPresentationMode.Checked = PresentationMode.Active;
                     return true;
                 }
             }
