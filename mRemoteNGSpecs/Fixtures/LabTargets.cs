@@ -30,6 +30,15 @@ namespace mRemoteNGSpecs.Fixtures
         public static string LinuxHost => Env("MRNG_LAB_LINUX_HOST", "192.168.221.10");
         public static string WindowsHost => Env("MRNG_LAB_WINDOWS_HOST", "192.168.221.20");
 
+        /// <summary>
+        /// A second Windows guest with no mRemoteNG on it, RDP-only, for scenarios that need a
+        /// real remote logoff (#139/#140) rather than a screen driven from the workstation itself
+        /// -- running mRemoteNG on the physical host hits a secure-desktop CredUI prompt that no
+        /// simulated input can answer, and looping back at WindowsHost is the same machine running
+        /// the battery. Cloned from WindowsHost's disk image, so it shares its credentials.
+        /// </summary>
+        public static string WindowsTargetHost => Env("MRNG_LAB_WINDOWS_TARGET_HOST", "192.168.221.21");
+
         public static string LinuxUser => Env("MRNG_LAB_LINUX_USER", "mrng");
         public static string LinuxPassword => Env("MRNG_LAB_LINUX_PASSWORD", "");
 
