@@ -135,7 +135,12 @@ jobs:
         shell: pwsh
         run: |
           if ('${{ matrix.selfcontained }}' -eq 'true') {
-            dotnet restore mRemoteNG.sln --runtime win-${{ matrix.arch }} /p:PublishReadyToRun=true
+            # Restore MUST see the same RID-affecting properties the publish step uses
+            # (SelfContained, Platform), or the restore graph omits the runtime packs and
+            # publish dies with NETSDK1112 "runtime pack was not downloaded". This worked
+            # by accident for six weeks off a warm NuGet cache; the arm64 leg exposed it
+            # the first time the cached runtime-pack version rotated out (v1.83.0 tag).
+            dotnet restore mRemoteNG.sln --runtime win-${{ matrix.arch }} -p:SelfContained=true -p:Platform=${{ matrix.platform }} /p:PublishReadyToRun=true
           } else {
             dotnet restore mRemoteNG.sln
           }
