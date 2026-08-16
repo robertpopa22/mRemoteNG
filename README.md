@@ -486,16 +486,63 @@ Multi-process parallelism is required because the production code uses shared mu
 
 | Group | Namespace | Tests |
 |-------|-----------|-------|
-| 1 | Connection | 1,113 |
-| 2 | Config.Xml | 124 |
-| 3 | Config.Other | 784 |
-| 4 | UI | 374 |
-| 5 | Tools | 394 |
-| 6 | Security | 166 |
-| 7 | Tree + Container + Credential | 178 |
-| 8 | Remaining | 3,110 |
-| 9 | Integration | 21 |
+| 1 | Connection | 1,131 |
+| 2 | Config.Xml | 151 |
+| 3 | Config.Other | 889 |
+| 4 | UI | 394 |
+| 5 | Tools | 400 |
+| 6 | Security | 176 |
+| 7 | Tree + Container + Credential | 181 |
+| 8 | Remaining | 3,298 |
+| 9 | Integration | 44 |
 | Isolated | FrmOptions (GDI handle leak) | 2 |
+
+Counts live in `test-config.json`, which is the single source of truth.
+
+### Three levels of verification
+
+A unit suite this size can be entirely green while the application does not start. It exercises
+classes in-process against the build output, so assembly layout, UI wiring, installer behaviour and
+anything involving a live protocol client are all invisible to it — which is exactly where this
+project's hardest bugs have been. So there are three levels, each catching what the one below
+cannot:
+
+| Level | What runs | What only it can catch |
+|-------|-----------|------------------------|
+| **Unit suite** — `run-tests-core.sh` | 6,666 tests, ~3 min | Logic, serialization, parsing, crypto |
+| **UI battery** — `run-ui-tests.ps1` | The built `.exe`, driven through UI Automation | Startup, focus, dialogs, persistence across restarts, packaging |
+| **Lab guest** — `lab-run.ps1` | The same battery on a clean, isolated VM | Anything a warm machine already has: trusted certificates, cached host keys, answered prompts, installed runtimes |
+
+The UI battery is gated behind the unit suite on purpose. It takes over the desktop while it runs,
+and there is no reason to occupy a machine for several minutes to discover a failure the cheap
+suite finds in three.
+
+```powershell
+# UI battery on this machine (runs the unit suite first, refuses to start unless it is green)
+pwsh -NoProfile -ExecutionPolicy Bypass -File run-ui-tests.ps1
+
+# The same battery inside the isolated lab guest — build, deploy, run and report in one command
+$env:MRNG_LAB_GUEST_PASSWORD = '...'
+pwsh -NoProfile -ExecutionPolicy Bypass -File lab-run.ps1
+```
+
+**Why the lab guest earns its keep.** The first run of the battery there found ten defects in one
+sitting, every one invisible on a developer machine. Three were failures reported against the
+product that turned out to be unanswered dialogs — an untrusted-certificate prompt, PuTTY's
+host-key alert, and its "close this session?" confirmation — each of which made the application
+look like it was refusing to exit. One was a real, long-standing focus bug ([#143](https://github.com/robertpopa22/mRemoteNG/issues/143))
+that five previous fixes had missed, because the test meant to detect it could not fail: it set text
+through an accessibility API that bypasses Windows focus entirely.
+
+**Every scenario is paired with a control.** A test that fails on a live RDP session proves nothing
+unless the same test passes without one — otherwise "the session steals focus" and "clicking a text
+box does not focus it here" are indistinguishable. Scenarios are labelled for what they actually
+demonstrate: `[Issues]` when removing the fix makes them fail, `[Touches]` when they exercise the
+neighbourhood without proving the fix, and `[StressCoverage]` for races, where passing means "did
+not reproduce this time" rather than "fixed".
+
+The lab is two VMs on an isolated internal network with no route to anything real: Ubuntu serving
+RDP, SSH, VNC and MariaDB, and a Windows Server guest that runs the battery itself.
 
 ---
 
