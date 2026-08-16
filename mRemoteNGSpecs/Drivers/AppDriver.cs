@@ -15,6 +15,22 @@ namespace mRemoteNGSpecs.Drivers
         private Application? _application;
         private UIA3Automation? _automation;
         private bool _disposed;
+        private readonly string? _explicitExePath;
+
+        public AppDriver()
+        {
+        }
+
+        /// <summary>
+        /// Launches a specific copy of the application instead of the canonical build output.
+        /// Acceptance tests use this to run each scenario from its own directory, which is the only
+        /// way to give a scenario a clean portable Settings folder: the portable build resolves its
+        /// settings path from the executable's own location and offers no override.
+        /// </summary>
+        public AppDriver(string exePath)
+        {
+            _explicitExePath = exePath;
+        }
 
         /// <summary>
         /// The FlaUI automation instance used for UI interactions.
@@ -33,7 +49,7 @@ namespace mRemoteNGSpecs.Drivers
         /// <returns>The main window element.</returns>
         public Window Start(TimeSpan? timeout = null)
         {
-            var exePath = FindExecutable();
+            var exePath = _explicitExePath ?? FindExecutable();
             _automation = new UIA3Automation();
             _application = Application.Launch(exePath);
 
