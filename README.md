@@ -524,7 +524,17 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-ui-tests.ps1
 # The same battery inside the isolated lab guest — build, deploy, run and report in one command
 $env:MRNG_LAB_GUEST_PASSWORD = '...'
 pwsh -NoProfile -ExecutionPolicy Bypass -File lab-run.ps1
+
+# Installer: install, same-version upgrade, launch the installed app, uninstall
+pwsh -NoProfile -ExecutionPolicy Bypass -File lab-msi.ps1
 ```
+
+The installer check is guest-only for the same reason it went untested for so long: it writes to
+Program Files and replaces whatever mRemoteNG is already installed, which is not something to do on
+a machine you are working on. It covers the upgrade path behind [#129](https://github.com/robertpopa22/mRemoteNG/issues/129)
+— a stale-DLL bug where an upgrade left old assemblies in place — and confirms the *installed*
+application starts, which the unit suite cannot see because it runs against the build output rather
+than against what the installer shipped.
 
 **Why the lab guest earns its keep.** The first run of the battery there found ten defects in one
 sitting, every one invisible on a developer machine. Three were failures reported against the
