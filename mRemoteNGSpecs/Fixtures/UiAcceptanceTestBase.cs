@@ -66,6 +66,53 @@ namespace mRemoteNGSpecs.Fixtures
         }
 
         /// <summary>
+        /// Closes the application the way a user's keyboard does, and reports whether it exited.
+        ///
+        /// Not MainWindow.Close(): FlaUI's WindowPattern close throws ElementNotEnabledException on
+        /// this window, and it does so identically with and without a session open — measured, so
+        /// it is a limitation of asking through UIA rather than the application refusing. Alt+F4
+        /// exits reliably in both states, so that is what the battery uses. Filing the pattern
+        /// failure as a product bug would have been wrong.
+        /// </summary>
+        protected bool CloseApplicationAndWaitForExit(TimeSpan? timeout = null)
+        {
+            try
+            {
+                MainWindow.Focus();
+                FlaUI.Core.Input.Keyboard.TypeSimultaneously(
+                    FlaUI.Core.WindowsAPI.VirtualKeyShort.ALT,
+                    FlaUI.Core.WindowsAPI.VirtualKeyShort.F4);
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine($"close keystroke failed: {ex.GetType().Name}");
+            }
+
+            return Support.UiWait.Happened(() => Driver.Application.HasExited,
+                                           timeout ?? TimeSpan.FromSeconds(25));
+        }
+
+        /// <summary>
+        /// Asserts the application shut down cleanly after a deliberate close.
+        ///
+        /// Use this instead of AssertNoCrash once the app has been asked to exit: a crash check on
+        /// a process that closed on purpose is meaningless, and reports the closed process itself
+        /// as the failure. A non-zero exit code is the real signal that teardown went wrong.
+        /// </summary>
+        protected void AssertExitedCleanly(bool exited, string context)
+        {
+            Assert.That(exited, Is.True, $"{context}: the application never exited");
+
+            int? code = null;
+            try { code = Driver.Application.ExitCode; } catch (Exception) { }
+
+            if (code is not null)
+                Assert.That(code, Is.Zero,
+                            $"{context}: the application exited with code {code} — teardown threw "
+                            + "rather than shutting down cleanly");
+        }
+
+        /// <summary>
         /// Fails the test if the application crashed. Half the issues this battery covers are
         /// crashes, and an unhandled exception leaves the process alive behind a dialog — so
         /// "nothing threw in the test" proves nothing on its own.
