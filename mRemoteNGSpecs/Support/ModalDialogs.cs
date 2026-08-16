@@ -142,22 +142,17 @@ namespace mRemoteNGSpecs.Support
 
             foreach (Dialog dialog in found)
             {
-                string? button = ExpectedAnswer(dialog);
-                if (button is null)
+                string[] buttons = ExpectedAnswer(dialog);
+                string? pressed = buttons.FirstOrDefault(b => ClickButton(dialog, b));
+
+                if (pressed is null)
                 {
                     unhandled.Add(dialog);
                     continue;
                 }
 
-                if (ClickButton(dialog, button))
-                {
-                    report($"answered the {dialog} prompt with '{button}'");
-                    System.Threading.Thread.Sleep(250);
-                }
-                else
-                {
-                    unhandled.Add(dialog);
-                }
+                report($"answered the {dialog} prompt with '{pressed}'");
+                System.Threading.Thread.Sleep(250);
             }
 
             // UIA cannot see a dialog that is freezing its own provider, and reports a clear screen
@@ -190,31 +185,38 @@ namespace mRemoteNGSpecs.Support
             foreach (Win32Dialogs.Dialog dialog in found)
             {
                 // Reuse the same whitelist: the answer must not depend on how the dialog was found.
-                Dialog described = new(null!, dialog.Title, dialog.Text);
-                string? button = ExpectedAnswer(described);
+                Dialog described = new(null, dialog.Title, dialog.Text);
+                string[] buttons = ExpectedAnswer(described);
+                string? pressed = buttons.FirstOrDefault(b => Win32Dialogs.ClickButton(dialog, b));
 
-                if (button is not null && Win32Dialogs.ClickButton(dialog, button))
-                {
-                    report($"answered the {dialog} prompt with '{button}' through Win32");
-                    System.Threading.Thread.Sleep(250);
-                }
-                else
+                if (pressed is null)
                 {
                     unhandled.Add(described);
+                    continue;
                 }
+
+                report($"answered the {dialog} prompt with '{pressed}' through Win32");
+                System.Threading.Thread.Sleep(250);
             }
 
             return [.. unhandled];
         }
 
         /// <summary>
-        /// The button to press for a prompt that is expected behaviour rather than a defect.
+        /// The buttons that would answer a prompt which is expected behaviour rather than a defect.
+        ///
+        /// Several candidates, tried in order, because the caption does not tell you which buttons a
+        /// dialog carries: "PuTTY Exit Confirmation" is a confirmation with OK and Cancel, while the
+        /// application's own close prompt uses Yes and No. Returning a single name let the first
+        /// matching rule decide the button, so the exit rule answered "Yes" to a dialog that had no
+        /// Yes button, the click failed, and a perfectly ordinary prompt was reported as
+        /// unrecognised.
         ///
         /// Deliberately narrow. "Answer anything with a Yes button" would turn this from a harness
         /// convenience into a way of hiding real dialogs — including the crash dialog this battery
-        /// exists to catch.
+        /// exists to catch. An empty result means "not expected", and the caller fails the test.
         /// </summary>
-        private static string? ExpectedAnswer(Dialog dialog)
+        private static string[] ExpectedAnswer(Dialog dialog)
         {
             string haystack = (dialog.Title + " " + dialog.Text).ToUpperInvariant();
 
@@ -223,8 +225,9 @@ namespace mRemoteNGSpecs.Support
             if (haystack.Contains("EXIT", StringComparison.Ordinal)
                 || haystack.Contains("CLOSE ALL", StringComparison.Ordinal)
                 || haystack.Contains("OPEN CONNECTION", StringComparison.Ordinal)
-                || haystack.Contains("STILL CONNECTED", StringComparison.Ordinal))
-                return "Yes";
+                || haystack.Contains("STILL CONNECTED", StringComparison.Ordinal)
+                || haystack.Contains("CLOSE THIS SESSION", StringComparison.Ordinal))
+                return ["Yes", "OK"];
 
             // The RDP client cannot verify the lab's self-signed certificate. The lab is an isolated
             // network with no route to anything real, and the alternative — trusting the certificate
@@ -233,12 +236,7 @@ namespace mRemoteNGSpecs.Support
             if (haystack.Contains("CERTIFICATE", StringComparison.Ordinal)
                 || haystack.Contains("IDENTITY OF THE REMOTE COMPUTER", StringComparison.Ordinal)
                 || haystack.Contains("CANNOT BE VERIFIED", StringComparison.Ordinal))
-                return "Yes";
-
-            // PuTTY asks before closing a live session. Unanswered, it swallows the close keystroke
-            // and the application looks like it is refusing to exit.
-            if (haystack.Contains("CLOSE THIS SESSION", StringComparison.Ordinal))
-                return "OK";
+                return ["Yes", "Connect", "OK"];
 
             // PuTTY has not seen the lab host's key before.
             //
@@ -250,9 +248,9 @@ namespace mRemoteNGSpecs.Support
             // not be acceptable against any other target, and this must never be widened into the
             // product.
             if (haystack.Contains("HOST KEY IS NOT CACHED", StringComparison.Ordinal))
-                return "Accept";
+                return ["Accept"];
 
-            return null;
+            return [];
         }
 
         private static bool ClickButton(Dialog dialog, string name)

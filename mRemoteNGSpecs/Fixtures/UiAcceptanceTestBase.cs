@@ -129,6 +129,44 @@ namespace mRemoteNGSpecs.Fixtures
         /// </summary>
         protected bool CloseApplicationAndWaitForExit(TimeSpan? timeout = null)
         {
+            SendCloseKeystroke();
+
+            TimeSpan budget = timeout ?? TimeSpan.FromSeconds(25);
+
+            // Give the process a moment to go on its own, then deal with a confirmation prompt if
+            // one is holding it open.
+            if (Support.UiWait.Happened(() => Driver.Application.HasExited, TimeSpan.FromSeconds(5)))
+                return true;
+
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+
+            if (Support.UiWait.Happened(() => Driver.Application.HasExited, TimeSpan.FromSeconds(8)))
+                return true;
+
+            // The first keystroke can be consumed by an embedded session rather than the
+            // application: with PuTTY focused inside a tab, Alt+F4 closes the terminal, PuTTY asks
+            // to confirm, and once that is answered the session is gone but the application is
+            // untouched. Measured — the close failed with the main window still up, two tabs
+            // present and focus on the tab. A user in that position presses Alt+F4 again, so that is
+            // what this does, rather than reaching for a synthetic WM_CLOSE that would bypass the
+            // very close path #110 lives in.
+            TestContext.Out.WriteLine("close keystroke was consumed by a session; sending it again");
+            SendCloseKeystroke();
+
+            if (Support.UiWait.Happened(() => Driver.Application.HasExited, TimeSpan.FromSeconds(5)))
+                return true;
+
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+
+            if (Support.UiWait.Happened(() => Driver.Application.HasExited, budget))
+                return true;
+
+            ReportWhyItIsStillRunning();
+            return false;
+        }
+
+        private void SendCloseKeystroke()
+        {
             try
             {
                 MainWindow.Focus();
@@ -140,21 +178,6 @@ namespace mRemoteNGSpecs.Fixtures
             {
                 TestContext.Out.WriteLine($"close keystroke failed: {ex.GetType().Name}");
             }
-
-            TimeSpan budget = timeout ?? TimeSpan.FromSeconds(25);
-
-            // Give the process a moment to go on its own, then deal with a confirmation prompt if
-            // one is holding it open.
-            if (Support.UiWait.Happened(() => Driver.Application.HasExited, TimeSpan.FromSeconds(5)))
-                return true;
-
-            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
-
-            if (Support.UiWait.Happened(() => Driver.Application.HasExited, budget))
-                return true;
-
-            ReportWhyItIsStillRunning();
-            return false;
         }
 
         /// <summary>

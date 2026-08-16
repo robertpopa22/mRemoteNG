@@ -1267,8 +1267,29 @@ namespace mRemoteNG.UI.Window
             // mirror connDock.ActiveContent verbatim, including transitions to null when the dock
             // empties. Updating it only on the happy path froze it on a departed tab, so moving
             // that tab out of the panel and back compared equal and skipped the refocus. (#143)
-            bool contentChanged = !ReferenceEquals(connDock.ActiveContent, _lastActivatedContent);
-            _lastActivatedContent = connDock.ActiveContent;
+            WeifenLuo.WinFormsUI.Docking.IDockContent? currentContent = connDock.ActiveContent;
+            WeifenLuo.WinFormsUI.Docking.IDockContent? previousContent = _lastActivatedContent;
+
+            // Clicking anything outside the dock drives ActiveContent null and then straight back to
+            // the SAME tab, two events later. Traced from a live RDP session: active=ConnectionTab#X
+            // previous=null, then active=null previous=ConnectionTab#X, repeating, always the same
+            // tab. Compared consecutively both steps look like a switch, so the refocus below fired
+            // on every click and pulled keyboard focus back into the session — the #143 symptom.
+            //
+            // The distinction that matters is whether the tab is still docked. A null because focus
+            // left the panel is a bounce and must be ignored; a null because the content was removed
+            // is real, and the tracker has to follow it — otherwise it freezes on a departed tab and
+            // moving that tab out and back compares equal and skips a refocus that should happen,
+            // which is the regression the previous attempt at this gate was written to fix. Both
+            // hold only if the two nulls are told apart rather than treated alike.
+            bool nullBounce = currentContent is null
+                              && previousContent is not null
+                              && connDock.Contents.Contains(previousContent);
+
+            if (!nullBounce)
+                _lastActivatedContent = currentContent;
+
+            bool contentChanged = !nullBounce && !ReferenceEquals(currentContent, previousContent);
 
             ConnectionTab? selectedTab = GetSelectedTab();
             ConnectionInfo? selectedConnectionInfo = GetConnectionInfoForTab(selectedTab);
@@ -1287,9 +1308,27 @@ namespace mRemoteNG.UI.Window
             // (#143)
             // Skip when the user is interacting with the PropertyGrid so an in-place cell editor
             // keeps keyboard focus during tab activation triggered by navigation.
+            // TEMP diagnostic for #143. A first-party reproduction in the test lab shows this
+            // handler still calling Protocol.Focus() while the user is clicking the search box —
+            // the exact path the gate above was added to stop. Two explanations survive that
+            // observation: either ActiveContent genuinely toggles away and back as focus leaves the
+            // dock (so the gate cannot tell a real tab switch from a bounce), or the tracker is
+            // wrong. Only contentChanged and the two contents separate them, and neither is logged
+            // anywhere. Remove with the rest of the #143 instrumentation.
+            Runtime.MessageCollector?.AddMessage(
+                MessageClass.InformationMsg,
+                $"[#143-diag] activeContentChanged contentChanged={contentChanged} nullBounce={nullBounce} "
+                + $"active={Describe(currentContent)} previous={Describe(previousContent)} "
+                + $"selectedTab={Describe(selectedTab)} cursorOverConfig={FrmMain.IsCursorOverConfigWindow()}",
+                true);
+
             if (contentChanged && selectedTab?.Tag is InterfaceControl activeIc && !FrmMain.IsCursorOverConfigWindow())
                 activeIc.Protocol?.Focus();
         }
+
+        /// <summary>Identity of a dock content for the #143 trace: type plus hash, never null.</summary>
+        private static string Describe(object? content) =>
+            content is null ? "null" : $"{content.GetType().Name}#{content.GetHashCode():X}";
 
         // Last content seen by ConnDockOnActiveContentChanged, used to tell a real tab switch
         // from a hook-driven focus refresh of the same tab. (#143)
