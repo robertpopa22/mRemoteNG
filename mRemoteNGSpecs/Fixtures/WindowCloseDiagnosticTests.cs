@@ -162,6 +162,118 @@ namespace mRemoteNGSpecs.Fixtures
             }
         }
 
+        /// <summary>
+        /// Tries every plausible way to open a WinForms menu and reports which works.
+        ///
+        /// A plain Click on the menu bar item does not expand it, and drop-downs are separate
+        /// top-level popups so they never appear under the main window. Rather than guess a fourth
+        /// time, this measures: the Menu helper, the ExpandCollapse pattern, and the keyboard.
+        /// </summary>
+        [Test]
+        public void ReportHowTheViewMenuCanBeOpened()
+        {
+            // A: FlaUI's Menu helper, which knows how to expand ToolStrip menus.
+            try
+            {
+                AutomationElement? bar = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.MenuBar));
+                TestContext.Out.WriteLine($"A menubar found        : {bar is not null}");
+                if (bar is not null)
+                {
+                    var menu = bar.AsMenu();
+                    var top = menu.Items.Select(i => i.Name).ToArray();
+                    TestContext.Out.WriteLine("A top-level items      : " + string.Join(" | ", top));
+
+                    var view = menu.Items.FirstOrDefault(i => i.Name == "View");
+                    if (view is not null)
+                    {
+                        var children = view.Items.Select(i => i.Name).ToArray();
+                        TestContext.Out.WriteLine($"A View children ({children.Length}) : " + string.Join(" | ", children));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine($"A threw                : {ex.GetType().Name}: {ex.Message}");
+            }
+
+            // B: ExpandCollapse on the menu bar item.
+            try
+            {
+                AutomationElement view = UiWait.FindRequired(
+                    MainWindow, cf => cf.ByName("View").And(cf.ByControlType(ControlType.MenuItem)), "View");
+                bool supported = view.Patterns.ExpandCollapse.IsSupported;
+                TestContext.Out.WriteLine($"B ExpandCollapse       : {supported}");
+                if (supported)
+                {
+                    view.Patterns.ExpandCollapse.Pattern.Expand();
+                    UiWait.Settle(MainWindow);
+                    var items = Driver.Automation.GetDesktop()
+                        .FindAllDescendants(cf => cf.ByControlType(ControlType.MenuItem))
+                        .Select(SafeName).Where(n => n.Length > 0).ToArray();
+                    TestContext.Out.WriteLine($"B items after expand   : " + string.Join(" | ", items));
+                }
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine($"B threw                : {ex.GetType().Name}: {ex.Message}");
+            }
+
+            // C: keyboard — Alt+V is how a user opens it.
+            try
+            {
+                MainWindow.Focus();
+                FlaUI.Core.Input.Keyboard.TypeSimultaneously(
+                    FlaUI.Core.WindowsAPI.VirtualKeyShort.ALT, FlaUI.Core.WindowsAPI.VirtualKeyShort.KEY_V);
+                UiWait.Settle(MainWindow);
+                var items = Driver.Automation.GetDesktop()
+                    .FindAllDescendants(cf => cf.ByControlType(ControlType.MenuItem))
+                    .Select(SafeName).Where(n => n.Length > 0).ToArray();
+                TestContext.Out.WriteLine($"C items after Alt+V ({items.Length}) : " + string.Join(" | ", items));
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine($"C threw                : {ex.GetType().Name}: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Dumps every toolbar before and after toggling one from the View menu, so "the toolbar
+        /// did not appear" can be told apart from "the toolbar appeared under a different
+        /// identifier". ToolStrip did not surface Control.Name as an AutomationId for menu items;
+        /// assuming it does for toolbars would repeat that mistake.
+        /// </summary>
+        [Test]
+        public void ReportToolbarsBeforeAndAfterToggling()
+        {
+            DumpToolbars("before");
+
+            AutomationElement view = UiWait.FindRequired(
+                MainWindow, cf => cf.ByName("View").And(cf.ByControlType(ControlType.MenuItem)), "View menu");
+            view.Patterns.ExpandCollapse.Pattern.Expand();
+            UiWait.Settle(MainWindow);
+
+            AutomationElement item = UiWait.FindRequired(
+                Driver.Automation.GetDesktop(),
+                cf => cf.ByName("External Tools Toolbar").And(cf.ByControlType(ControlType.MenuItem)),
+                "External Tools Toolbar entry");
+            TestContext.Out.WriteLine($"menu entry toggle state: {item.Patterns.Toggle.PatternOrDefault?.ToggleState}");
+            item.Click();
+            UiWait.Settle(MainWindow);
+
+            DumpToolbars("after");
+        }
+
+        private void DumpToolbars(string label)
+        {
+            foreach (AutomationElement tb in MainWindow.FindAllDescendants(
+                         cf => cf.ByControlType(ControlType.ToolBar)))
+            {
+                string id = "";
+                try { id = tb.AutomationId; } catch (Exception) { }
+                TestContext.Out.WriteLine($"TOOLBAR[{label}] name='{SafeName(tb)}' id='{id}' offscreen={tb.IsOffscreen}");
+            }
+        }
+
         private static string SafeName(AutomationElement e)
         {
             try { return e.Name; } catch (Exception) { return ""; }

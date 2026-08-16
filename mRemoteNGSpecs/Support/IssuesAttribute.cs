@@ -26,4 +26,20 @@ namespace mRemoteNGSpecs.Support
     {
         public string[] Ids { get; } = ids;
     }
+
+    /// <summary>
+    /// Names issues a test exercises the neighbourhood of, without proving the defect is gone.
+    ///
+    /// Distinct from <see cref="IssuesAttribute"/> on purpose. A test earns "Covers" only by being
+    /// shown to fail when the fix is reverted. The toolbar persistence tests are the worked example:
+    /// they drive the right controls and assert a real round trip, but re-introducing the actual
+    /// #134 defect left them green, because that defect only appears on the hide-then-save exit
+    /// path. Recording them as coverage would have overstated what the suite guards — which is the
+    /// specific failure this whole battery exists to prevent.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    public sealed class TouchesAttribute(params string[] ids) : Attribute
+    {
+        public string[] Ids { get; } = ids;
+    }
 }
