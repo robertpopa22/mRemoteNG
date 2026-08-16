@@ -51,13 +51,15 @@ namespace mRemoteNGSpecs.Fixtures
         }
 
         /// <summary>
-        /// Covers: #131 (TypeInitializationException from the removed BinaryFormatter image stream).
+        /// Touches #131.
         ///
-        /// A type initialiser that throws takes down the first feature that touches it rather than
-        /// the process, so it is invisible unless something actually opens the UI that uses it.
+        /// MEASURED SCOPE: the #131 crash lives in the AD-import tree and the task dialog, whose
+        /// image lists carried the removed BinaryFormatter payload. This test opens neither, so it
+        /// would stay green if that fix were reverted. A type initialiser that throws takes down the
+        /// first feature that touches it, not startup — covering it needs AD Import opened.
         /// </summary>
         [Test]
-        [Issues("#131")]
+        [Touches("#131")]
         public void TheConnectionTreeAndConfigPanelAreBothPresent()
         {
             AutomationElement tree = UiWait.FindRequired(

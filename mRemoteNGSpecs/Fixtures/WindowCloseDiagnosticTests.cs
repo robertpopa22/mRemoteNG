@@ -274,6 +274,37 @@ namespace mRemoteNGSpecs.Fixtures
             }
         }
 
+        /// <summary>
+        /// Baseline: can keystrokes reach the search box at all, with no session open?
+        ///
+        /// The #143 test failed identically with the fix present and reverted, which means the
+        /// failure was not the defect. This separates "typing does not work in this harness" from
+        /// "the RDP session steals focus".
+        /// </summary>
+        [Test]
+        public void ReportWhetherTypingReachesTheSearchBox()
+        {
+            AutomationElement search = UiWait.FindRequired(
+                MainWindow, cf => cf.ByAutomationId("txtSearch"), "search box");
+
+            TestContext.Out.WriteLine($"initial text     : '{search.AsTextBox().Text}'");
+
+            search.AsTextBox().Text = "";
+            TestContext.Out.WriteLine($"after clearing   : '{search.AsTextBox().Text}'");
+
+            MainWindow.Focus();
+            search.Click();
+            UiWait.Settle(MainWindow);
+            TestContext.Out.WriteLine($"focused element  : {SafeName(Driver.Automation.FocusedElement())}");
+
+            FlaUI.Core.Input.Keyboard.Type("lab");
+            UiWait.Settle(MainWindow);
+            TestContext.Out.WriteLine($"after Keyboard   : '{search.AsTextBox().Text}'");
+
+            search.AsTextBox().Text = "lab";
+            TestContext.Out.WriteLine($"after ValueSet   : '{search.AsTextBox().Text}'");
+        }
+
         private static string SafeName(AutomationElement e)
         {
             try { return e.Name; } catch (Exception) { return ""; }

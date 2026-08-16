@@ -91,6 +91,14 @@ namespace mRemoteNGSpecs.Fixtures
         [Test]
         public void TheSeededLabConnectionsLoad()
         {
+            // With no lab reachable the seeder writes an empty file, which is not a product defect.
+            bool anyTarget = LabTargets.IsReachable(LabTargets.LinuxHost, LabTargets.Rdp)
+                             || LabTargets.IsReachable(LabTargets.LinuxHost, LabTargets.Ssh)
+                             || LabTargets.IsReachable(LabTargets.LinuxHost, LabTargets.Vnc)
+                             || LabTargets.IsReachable(LabTargets.WindowsHost, LabTargets.Rdp);
+            if (!anyTarget)
+                Assert.Ignore("no lab target reachable; the seeded file is empty by design");
+
             AutomationElement[] rows = Rows();
             TestContext.Out.WriteLine("tree rows: " + string.Join(", ", rows.Select(SafeName)));
 
@@ -101,15 +109,15 @@ namespace mRemoteNGSpecs.Fixtures
         }
 
         /// <summary>
-        /// Covers: #110 (the window would not close after a tab was closed and a connection
-        /// reopened), #142 (closing a tab crashed).
+        /// Touches #110 and #142.
         ///
-        /// Connect, close the tab, reconnect, then close the application. The assertion is that the
-        /// process actually exits — the #110 symptom was an app that stayed alive with no window a
-        /// user could act on.
+        /// MEASURED SCOPE: this connects, reconnects and closes the application, asserting the
+        /// process exits. It does NOT close a tab, so it cannot prove #110 (close a tab, reopen,
+        /// window then refuses to close) or #142 (closing a tab crashed). Proving those needs a tab
+        /// actually closed — middle-click or the tab context menu — which is not written yet.
         /// </summary>
         [Test]
-        [Issues("#110", "#142")]
+        [Touches("#110", "#142")]
         public void ConnectingClosingAndReconnectingStillLetsTheApplicationClose()
         {
             SkipUnless(LabTargets.LinuxHost, LabTargets.Ssh, "lab SSH target");
@@ -135,14 +143,12 @@ namespace mRemoteNGSpecs.Fixtures
         }
 
         /// <summary>
-        /// Covers: #166 (InvalidOperationException when a VNC session was disposed while its
-        /// polling thread was still calling back onto a destroyed handle).
-        ///
-        /// Needs a real VNC server: the race is between the library's background thread and handle
-        /// destruction, and neither happens without a live session.
+        /// Stress coverage for #166. Opening a real VNC session and exiting cleanly exercises the
+        /// dispose ordering, but #166 is a race between VncSharpCore's polling thread and handle
+        /// destruction: one clean exit means "did not reproduce this time", not "the race is gone".
         /// </summary>
         [Test]
-        [Issues("#166")]
+        [StressCoverage("#166")]
         public void OpeningAndClosingAVncSessionDoesNotCrash()
         {
             SkipUnless(LabTargets.LinuxHost, LabTargets.Vnc, "lab VNC server");
@@ -164,10 +170,23 @@ namespace mRemoteNGSpecs.Fixtures
         /// Covers: #143 (the search box became unusable after connecting to an RDP session, because
         /// the app stole focus back on every activation).
         ///
-        /// Needs a real RDP session — the focus theft came from the RDP control's own activation.
+        /// MEASURED SCOPE — this does NOT yet detect #143, and three attempts are recorded here so
+        /// the next person does not repeat them:
+        ///
+        ///   1. Assigning text via the Value pattern bypasses Win32 focus entirely, so the original
+        ///      version could not fail whatever the focus handler did.
+        ///   2. Asserting on the box's text is ambiguous: it shows a "Search" placeholder when
+        ///      empty, so "focus was stolen" and "nothing typed" look identical.
+        ///   3. Asserting that focus lands on txtSearch is the fix's actual contract, and it still
+        ///      passes with the identity gate removed from ConnectionWindow — most likely because
+        ///      the RDP tab opens without the session connecting and focusing, so the activation
+        ///      path the fix gates never runs.
+        ///
+        /// What it does guard: that clicking the search box with a session tab open leaves focus in
+        /// the search box. Covering #143 needs a session that genuinely connects and takes focus.
         /// </summary>
         [Test]
-        [Issues("#143")]
+        [Touches("#143")]
         public void TheSearchBoxStaysUsableAfterConnectingToRdp()
         {
             SkipUnless(LabTargets.LinuxHost, LabTargets.Rdp, "lab RDP target");
@@ -180,13 +199,52 @@ namespace mRemoteNGSpecs.Fixtures
             AutomationElement search = UiWait.FindRequired(
                 MainWindow, cf => cf.ByAutomationId("txtSearch"), "connection tree search box");
 
-            search.Focus();
-            search.AsTextBox().Text = "lab";
+            // Clear through the Value pattern first: that writes straight into the control without
+            // needing focus, so the box is known-empty before the part that DOES depend on focus.
+            search.AsTextBox().Text = "";
             UiWait.Settle(MainWindow);
 
-            Assert.That(search.AsTextBox().Text, Is.EqualTo("lab"),
-                        "the search box did not keep typed text while an RDP session was open — "
-                        + "focus was stolen back by the session (#143)");
+            MainWindow.Focus();
+            search.Click();
+            UiWait.Settle(MainWindow);
+
+            // The contract of the #143 fix, stated directly: after clicking the search box with a
+            // session open, the search box is what holds keyboard focus. Asserting on typed text
+            // instead is weaker and ambiguous — the box shows a "Search" placeholder when empty, so
+            // "no text" and "keystrokes went elsewhere" look identical.
+            string focusedId = "";
+            string focusedName = "";
+            int focusedProcess = -1;
+            try
+            {
+                AutomationElement focused = Driver.Automation.FocusedElement();
+                focusedId = focused.AutomationId;
+                focusedName = focused.Name;
+                focusedProcess = focused.Properties.ProcessId;
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine($"could not read focused element: {ex.GetType().Name}");
+            }
+
+            TestContext.Out.WriteLine($"focused after click: id='{focusedId}' name='{focusedName}'");
+
+            // If something outside the application holds the keyboard, this test cannot tell focus
+            // theft by the RDP session apart from focus theft by the desktop, and answering anyway
+            // would convict the app of another window's behaviour. Measured on this machine: a
+            // Windows "Use the recommended settings" dialog took focus mid-test.
+            if (focusedProcess != Driver.Application.ProcessId)
+            {
+                Assert.Inconclusive(
+                    $"'{focusedName}' (another process) holds the keyboard, so focus behaviour "
+                    + "inside mRemoteNG cannot be judged. Run the battery on an unshared session — "
+                    + "this is the reason the lab guest exists.");
+            }
+
+            Assert.That(focusedId, Is.EqualTo("txtSearch"),
+                        $"clicking the search box did not leave it focused while an RDP session was "
+                        + $"open — focus went to '{focusedName}' (id '{focusedId}') instead, which is "
+                        + "the #143 symptom: the session steals focus back on every activation");
 
             AssertNoCrash("after typing into the search box with an RDP session open");
         }

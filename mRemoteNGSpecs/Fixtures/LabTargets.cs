@@ -7,9 +7,12 @@ namespace mRemoteNGSpecs.Fixtures
     /// The isolated Hyper-V lab this battery connects to.
     ///
     /// Everything here lives on 192.168.221.0/24, an internal switch with NAT and no route from the
-    /// corporate network, no domain and no DHCP. Credentials are lab-only and deliberately in
-    /// source: they protect nothing, and a test that cannot be run because its credentials are
-    /// elsewhere is a test nobody runs.
+    /// corporate network, no domain and no DHCP.
+    ///
+    /// Credentials come from the environment. They are throwaway values for disposable guests, but
+    /// this repository is public and a literal password in source is a standing secret regardless of
+    /// how little it protects — and it teaches the wrong pattern to anyone who copies the file. The
+    /// fallbacks keep the battery runnable without setup; set MRNG_LAB_* to override.
     ///
     /// Every target is probed before use. A missing target skips its tests rather than failing
     /// them, matching how the live SQL tests behave in the unit suite — the battery must stay
@@ -20,11 +23,14 @@ namespace mRemoteNGSpecs.Fixtures
         public const string LinuxHost = "192.168.221.10";
         public const string WindowsHost = "192.168.221.20";
 
-        public const string LinuxUser = "mrng";
-        public const string LinuxPassword = "mRNG-lab!2026";
+        public static string LinuxUser => Env("MRNG_LAB_LINUX_USER", "mrng");
+        public static string LinuxPassword => Env("MRNG_LAB_LINUX_PASSWORD", "");
 
-        public const string WindowsUser = "Administrator";
-        public const string WindowsPassword = "TestareRDP2026";
+        public static string WindowsUser => Env("MRNG_LAB_WINDOWS_USER", "Administrator");
+        public static string WindowsPassword => Env("MRNG_LAB_WINDOWS_PASSWORD", "");
+
+        private static string Env(string name, string fallback) =>
+            Environment.GetEnvironmentVariable(name) is { Length: > 0 } value ? value : fallback;
 
         public const int Rdp = 3389;
         public const int Ssh = 22;

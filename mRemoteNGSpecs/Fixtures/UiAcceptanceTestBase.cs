@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Versioning;
 using FlaUI.Core.AutomationElements;
@@ -42,6 +43,53 @@ namespace mRemoteNGSpecs.Fixtures
 
             Driver = new AppDriver(Deployment.ExecutablePath);
             MainWindow = Driver.Start(TimeSpan.FromSeconds(60));
+
+            DismissFirstRunPrompt();
+        }
+
+        /// <summary>
+        /// Answers the first-run "check for updates?" task dialog.
+        ///
+        /// Every scenario starts from an empty Settings folder, which is the point of the isolation
+        /// — but it also means CheckForUpdatesAsked is never set, so frmMain.PromptForUpdatesPreference
+        /// shows a modal task dialog on every single start. It holds the keyboard, so clicks and
+        /// keystrokes aimed at the main window land in the dialog instead. That silently invalidated
+        /// interaction in every test here until it was tracked down: a focus assertion reported the
+        /// dialog's caption as the thief and looked exactly like a product focus bug.
+        /// </summary>
+        private void DismissFirstRunPrompt()
+        {
+            // Matched on a trimmed prefix: the button's accessible name carries a trailing space,
+            // so an exact-name condition silently misses it — which is how this dialog survived a
+            // first attempt at dismissing it.
+            AutomationElement? prompt = null;
+            Support.UiWait.Happened(() =>
+            {
+                try
+                {
+                    prompt = Driver.Automation.GetDesktop()
+                        .FindAllDescendants()
+                        .FirstOrDefault(e =>
+                        {
+                            try
+                            {
+                                return e.Properties.ProcessId.ValueOrDefault == Driver.Application.ProcessId
+                                       && (e.Name ?? "").Trim().StartsWith("Use the recommended settings",
+                                                                           StringComparison.Ordinal);
+                            }
+                            catch (Exception) { return false; }
+                        });
+                    return prompt is not null;
+                }
+                catch (Exception) { return false; }
+            }, TimeSpan.FromSeconds(8));
+
+            if (prompt is null)
+                return;
+
+            prompt.Click();
+            Support.UiWait.Settle(MainWindow);
+            TestContext.Out.WriteLine("dismissed the first-run updates prompt");
         }
 
         /// <summary>Override to seed connections or settings before the app starts.</summary>
