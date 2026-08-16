@@ -158,11 +158,23 @@ defect class (silent data loss on save).
       and the property grid went blank — correct behaviour for a multi-selection, and easy to
       misread as a bug in the thing under test.
 
-      **Recorded, not fixed:** change detection never reports a row as unchanged. Serializing an
-      identical tree twice marks every row Modified even with no stored passwords, so every save
-      rewrites every connection. A test asserting otherwise was written and then deleted rather than
-      left passing for the wrong reason — the state it asserted is unreachable. Worth its own
-      investigation: it bears on SQL save cost and on multi-user `RowVersion` conflicts.
+      **Change detection — FIXED (2026-08-16, commit `12b29895e`).** Recorded here first as an open
+      lead, then investigated by instrumenting all 90 comparisons and recording which returned
+      false for an unmodified connection, rather than guessing from inspection. Two independent
+      defects, both fatal on their own:
+
+      1. `ExternalAddressProvider`, `ExternalCredentialProvider` and
+         `RDGatewayExternalCredentialProvider` are written with `.ToString()` but were compared
+         against the enum value. A boxed string never equals an enum, so three links in the AND
+         chain were false forever, for every connection. Fifteen other enum columns already did it
+         correctly.
+      2. Passwords were compared by re-encrypting and matching ciphertext, which cannot hold with a
+         per-call nonce. `StoredSecretEquals` now decrypts the stored value and compares plaintext.
+
+      Five tests, including three guards that matter more than the headline: an edited field, an
+      edited password and a *cleared* password must each still be detected — change detection that
+      never fires costs performance, one that misses an edit loses data. Proven to fail on the
+      broken code.
 
 ### Stage 4 — Shipped-artifact verification (4.1 DONE, 4.2 TODO)
 
