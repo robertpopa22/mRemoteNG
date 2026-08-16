@@ -58,6 +58,15 @@ The `mcp__flaui__*` tools launch the built executable and drive it as a user doe
 suite exercises classes directly, so it can be entirely green while the code never runs in the
 product — UI wiring, packaging, and settings paths are all invisible to it.
 
+Why FlaUI and not Anthropic's own computer use: that capability exists on Windows only inside the
+Claude **Desktop** app (a built-in `computer-use` MCP server, off by default, Pro/Max). In the
+terminal CLI it is macOS-only, so it is not reachable from a session like this one. FlaUI is
+therefore the desktop automation available here. Computer use would beat it only where the UIA tree
+cannot see the pixels — custom-drawn controls, the RDP client surface, screenshot comparison — and
+it runs unsandboxed on the real desktop, so it does not solve the shared-input problem below.
+For anything interactive, a lab guest driven over PowerShell Direct (`Invoke-Command -VMName`, no
+network needed) or SSH beats both, because the input never touches the operator's session.
+
 - **Run against `mRemoteNG/bin/x64/Release/mRemoteNG.exe`**, which has its own `Settings/` folder
   beside it. That is portable mode: it uses that folder, not the maintainer's real profile in
   `%APPDATA%`. Back up `Settings/mRemoteNG.settings` and `Settings/confCons.xml` before changing
