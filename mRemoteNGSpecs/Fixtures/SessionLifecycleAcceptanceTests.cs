@@ -78,7 +78,7 @@ namespace mRemoteNGSpecs.Fixtures
             return tabs.Length;
         }
 
-        private void SkipUnless(string host, int port, string what)
+        private static void SkipUnless(string host, int port, string what)
         {
             if (!LabTargets.IsReachable(host, port))
                 Assert.Ignore($"{what} not reachable at {LabTargets.Describe(host, port)}.");
@@ -125,6 +125,7 @@ namespace mRemoteNGSpecs.Fixtures
             AutomationElement row = RequireRow("lab-linux-ssh");
             row.DoubleClick();
             UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts();
             UiWait.Until(() => TabCount() > 0, "a session tab to open", TimeSpan.FromSeconds(30));
             AssertNoCrash("after connecting over SSH");
 
@@ -133,6 +134,7 @@ namespace mRemoteNGSpecs.Fixtures
 
             row.DoubleClick();   // reconnect
             UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts();
             AssertNoCrash("after reconnecting");
 
             bool exited = CloseApplicationAndWaitForExit();
@@ -156,6 +158,7 @@ namespace mRemoteNGSpecs.Fixtures
             AutomationElement row = RequireRow("lab-linux-vnc");
             row.DoubleClick();
             UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts();
             UiWait.Until(() => TabCount() > 0, "a VNC session tab to open", TimeSpan.FromSeconds(30));
             AssertNoCrash("after opening a VNC session");
 
@@ -194,6 +197,12 @@ namespace mRemoteNGSpecs.Fixtures
             AutomationElement row = RequireRow("lab-linux-rdp");
             row.DoubleClick();
             UiWait.Settle(MainWindow);
+
+            // A first RDP connection to the lab raises the untrusted-certificate prompt, because the
+            // guest has never seen xrdp's self-signed certificate. Answering it beats trusting the
+            // certificate machine-wide to make a test pass.
+            AnswerExpectedPrompts();
+
             UiWait.Until(() => TabCount() > 0, "an RDP session tab to open", TimeSpan.FromSeconds(45));
 
             AutomationElement search = UiWait.FindRequired(
@@ -203,6 +212,11 @@ namespace mRemoteNGSpecs.Fixtures
             // needing focus, so the box is known-empty before the part that DOES depend on focus.
             search.AsTextBox().Text = "";
             UiWait.Settle(MainWindow);
+
+            // Nothing may be covering the window when focus is measured: a standing dialog holds
+            // the keyboard and its buttons get reported as the thief, which is precisely how this
+            // scenario produced a false #143 symptom on its first run in a clean guest.
+            AnswerExpectedPrompts();
 
             MainWindow.Focus();
             search.Click();

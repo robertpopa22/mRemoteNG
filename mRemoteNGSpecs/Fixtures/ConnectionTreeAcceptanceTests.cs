@@ -87,13 +87,13 @@ namespace mRemoteNGSpecs.Fixtures
             SearchBox().AsTextBox().Text = "db-primary";
             UiWait.Settle(MainWindow);
 
-            UiWait.Until(() => VisibleConnectionRows().Count(n => n.StartsWith("web-", StringComparison.Ordinal)) == 0,
+            UiWait.Until(() => !VisibleConnectionRows().Any(n => n.StartsWith("web-", StringComparison.Ordinal)),
                          "the tree to filter down to the matching connection",
                          TimeSpan.FromSeconds(15));
 
             AutomationElement row = Tree()
                 .FindAllDescendants(cf => cf.ByControlType(ControlType.ListItem))
-                .First(e => SafeName(e) == "db-primary");
+                .First(e => string.Equals(SafeName(e), "db-primary", StringComparison.Ordinal));
 
             row.DoubleClick();
 

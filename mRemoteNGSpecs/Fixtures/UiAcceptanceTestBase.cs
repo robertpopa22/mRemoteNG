@@ -121,6 +121,11 @@ namespace mRemoteNGSpecs.Fixtures
         /// it is a limitation of asking through UIA rather than the application refusing. Alt+F4
         /// exits reliably in both states, so that is what the battery uses. Filing the pattern
         /// failure as a product bug would have been wrong.
+        ///
+        /// Closing with sessions open raises the application's own confirmation prompt, which is
+        /// correct behaviour and must be answered rather than waited out. Leaving it unanswered is
+        /// what made two scenarios report "the application never exited" — the #110 symptom — on the
+        /// first run inside a clean guest.
         /// </summary>
         protected bool CloseApplicationAndWaitForExit(TimeSpan? timeout = null)
         {
@@ -136,8 +141,37 @@ namespace mRemoteNGSpecs.Fixtures
                 TestContext.Out.WriteLine($"close keystroke failed: {ex.GetType().Name}");
             }
 
-            return Support.UiWait.Happened(() => Driver.Application.HasExited,
-                                           timeout ?? TimeSpan.FromSeconds(25));
+            TimeSpan budget = timeout ?? TimeSpan.FromSeconds(25);
+
+            // Give the process a moment to go on its own, then deal with a confirmation prompt if
+            // one is holding it open.
+            if (Support.UiWait.Happened(() => Driver.Application.HasExited, TimeSpan.FromSeconds(5)))
+                return true;
+
+            AnswerExpectedPrompts();
+
+            return Support.UiWait.Happened(() => Driver.Application.HasExited, budget);
+        }
+
+        /// <summary>
+        /// Answers prompts that are expected behaviour, and fails on any that are not.
+        ///
+        /// A dialog left standing invalidates whatever the test does next — clicks and keystrokes go
+        /// to the dialog, and focus assertions report its buttons as the thief. Rather than let that
+        /// surface as a misleading product symptom, an unrecognised dialog fails the test here, with
+        /// its own title and message in the failure.
+        /// </summary>
+        protected void AnswerExpectedPrompts()
+        {
+            Support.ModalDialogs.Dialog[] unhandled =
+                Support.ModalDialogs.AnswerExpectedPrompts(Driver, TestContext.Out.WriteLine);
+
+            if (unhandled.Length == 0)
+                return;
+
+            Assert.Fail("the application raised a dialog this battery does not recognise, so the "
+                        + "rest of the scenario would have been driven against it: "
+                        + string.Join("; ", unhandled.Select(d => d.ToString())));
         }
 
         /// <summary>

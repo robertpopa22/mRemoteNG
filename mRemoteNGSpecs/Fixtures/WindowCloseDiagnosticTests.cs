@@ -183,7 +183,7 @@ namespace mRemoteNGSpecs.Fixtures
                     var top = menu.Items.Select(i => i.Name).ToArray();
                     TestContext.Out.WriteLine("A top-level items      : " + string.Join(" | ", top));
 
-                    var view = menu.Items.FirstOrDefault(i => i.Name == "View");
+                    var view = menu.Items.FirstOrDefault(i => string.Equals(i.Name, "View", StringComparison.Ordinal));
                     if (view is not null)
                     {
                         var children = view.Items.Select(i => i.Name).ToArray();
