@@ -144,6 +144,20 @@ defect class (silent data loss on save).
       2. Change detection compared a migration-added column (DBNull) against a property defaulting
          to `""` and called them different. `NullableTextEquals` now treats them as equal.
 
+      **Verified through the UI (2026-08-16), not only by tests.** Every test above drives the
+      serializers directly, so none of them proves a user ever reaches this code. Driven with the
+      FlaUI automation tools against the real build in portable mode, pointed at a throwaway
+      database: the app started clean, created the profile itself and stamped `ConfVersion = 3.6`
+      with `Notes nvarchar(-1)` (MAX) and `InheritNotes bit`; a note typed into the property grid
+      — `note typed through the UI — ünïcode; "quoted"` — was found verbatim in `tblCons.Notes`
+      after closing the app, and came back into the grid intact after a restart. Settings restored
+      and the database dropped afterwards.
+
+      Worth repeating for future UI-level work: `windows_click` on a tree row uses the Invoke
+      pattern, which *adds* to the selection rather than replacing it. Two rows ended up selected
+      and the property grid went blank — correct behaviour for a multi-selection, and easy to
+      misread as a bug in the thing under test.
+
       **Recorded, not fixed:** change detection never reports a row as unchanged. Serializing an
       identical tree twice marks every row Modified even with no stored passwords, so every save
       rewrites every connection. A test asserting otherwise was written and then deleted rather than
