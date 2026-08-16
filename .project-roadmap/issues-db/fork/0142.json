@@ -12,7 +12,7 @@
   "created_at": "2026-07-08T08:39:06Z",
   "github_updated_at": "2026-07-08T14:03:42Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NullReferenceException`\r\n**Message:** Object reference not set to an instance of an object.\r\n\r\n### Stack Trace\r\n```\r\n   at void WeifenLuo.WinFormsUI.Docking.DockPanel.OnLayout(LayoutEventArgs levent)\r\n   at void System.Windows.Forms.Control.PerformLayout(LayoutEventArgs args) x 2\r\n   at void System.Windows.Forms.Control.ResumeLayout(bool performLayout)\r\n   at void WeifenLuo.WinFormsUI.Docking.DockPanel.ResumeLayout(bool performLayout, bool allW...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,16 @@
       "date": "2026-07-08",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-16",
+      "type": "released",
+      "description": "Status changed to released",
       "pr": null,
       "branch": null,
       "release": null,
@@ -44,6 +54,6 @@
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-08T19:08:36Z",
-  "notes": "fix 6c788ae45: suppress redundant synchronous middle-click close in base OnMouseDown (NRE in DockPanel.OnLayout via DocumentStyle flip mid-CloseContent); Codex/Gemini diverged, stack decided; awaiting nightly confirm"
+  "last_synced": "2026-08-16T07:39:54Z",
+  "notes": "verified live in lab; closed"
 }
