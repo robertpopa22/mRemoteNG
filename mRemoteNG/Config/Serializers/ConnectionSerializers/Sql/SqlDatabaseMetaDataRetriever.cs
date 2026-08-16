@@ -128,8 +128,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 SqlSafeUpdateHelper.DeleteAllRows(
                     databaseConnector,
                     transaction,
-                    "DELETE FROM tblRoot",
-                    "DELETE FROM tblRoot LIMIT 1");
+                    "DELETE FROM tblRoot");
 
                 if (rootTreeNode != null)
                 {

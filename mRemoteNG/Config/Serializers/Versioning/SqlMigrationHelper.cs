@@ -1,5 +1,6 @@
 using mRemoteNG.App;
 using mRemoteNG.Config.DatabaseConnectors;
+using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 using mRemoteNG.Messages;
 using System;
 using System.Data;
@@ -234,55 +235,6 @@ namespace mRemoteNG.Config.Serializers.Versioning
         /// connections without resetting session state, the forced value outlived the migration on
         /// that physical connection and made later keyless statements fail with error 1175. (#145)
         /// </summary>
-        private sealed class MySqlSafeUpdatesScope : IDisposable
-        {
-            private readonly IDatabaseConnector _connector;
-            private readonly DbTransaction _transaction;
-            private readonly bool _originalValue;
-            private bool _disposed;
-
-            public MySqlSafeUpdatesScope(IDatabaseConnector connector, DbTransaction transaction)
-            {
-                _connector = connector;
-                _transaction = transaction;
-
-                using DbCommand readCommand = connector.DbCommand("SELECT @@SESSION.sql_safe_updates;");
-                readCommand.Transaction = transaction;
-                _originalValue = Convert.ToBoolean(readCommand.ExecuteScalar(), CultureInfo.InvariantCulture);
-
-                SetValue(false);
-            }
-
-            public void Dispose()
-            {
-                if (_disposed)
-                    return;
-
-                _disposed = true;
-
-                if (!_originalValue)
-                    return;
-
-                try
-                {
-                    SetValue(true);
-                }
-                catch (DbException)
-                {
-                    // Best effort: the migration itself already failed hard enough to take the
-                    // connection with it, and masking that exception would hide the real cause.
-                }
-            }
-
-            private void SetValue(bool enabled)
-            {
-                using DbCommand command = _connector.DbCommand(
-                    enabled ? "SET SESSION sql_safe_updates=1;" : "SET SESSION sql_safe_updates=0;");
-                command.Transaction = _transaction;
-                command.ExecuteNonQuery();
-            }
-        }
-
         /// <summary>
         /// Guards each "ALTER TABLE tblCons ADD &lt;column&gt; ..." in an MS-SQL migration batch
         /// with "IF COL_LENGTH('tblCons','&lt;column&gt;') IS NULL" so the statement is skipped when

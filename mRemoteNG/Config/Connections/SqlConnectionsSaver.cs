@@ -186,8 +186,7 @@ namespace mRemoteNG.Config.Connections
                 SqlSafeUpdateHelper.DeleteAllRows(
                     databaseConnector,
                     transaction,
-                    "DELETE FROM tblUpdate",
-                    "DELETE FROM tblUpdate LIMIT 1");
+                    "DELETE FROM tblUpdate");
 
                 // ODBC binds by position and rejects named markers, so this insert failed there
                 // with "Must declare the scalar variable" on every save.

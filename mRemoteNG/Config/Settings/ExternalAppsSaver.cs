@@ -106,8 +106,7 @@ namespace mRemoteNG.Config.Settings
                     SqlSafeUpdateHelper.DeleteAllRows(
                         dbConnector,
                         transaction,
-                        "DELETE FROM tblExternalTools",
-                        "DELETE FROM tblExternalTools LIMIT 1");
+                        "DELETE FROM tblExternalTools");
 
                     foreach (ExternalTool extA in externalTools)
                     {
