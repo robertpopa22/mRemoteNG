@@ -93,6 +93,24 @@ namespace mRemoteNGSpecs.Fixtures
         }
 
         /// <summary>
+        /// Restarts the application against the same deployment, so state written on shutdown is
+        /// read back on the next start.
+        ///
+        /// This is the only way to test persistence honestly. Asserting that a setting object holds
+        /// a value proves nothing about whether it survives — #134 and #117 were both cases where
+        /// the in-memory state was right and the saved state was not.
+        /// </summary>
+        protected void RestartApplication()
+        {
+            bool exited = CloseApplicationAndWaitForExit();
+            Assert.That(exited, Is.True, "the application did not exit, so it never wrote its settings");
+
+            Driver.Dispose();
+            Driver = new AppDriver(Deployment.ExecutablePath);
+            MainWindow = Driver.Start(TimeSpan.FromSeconds(60));
+        }
+
+        /// <summary>
         /// Asserts the application shut down cleanly after a deliberate close.
         ///
         /// Use this instead of AssertNoCrash once the app has been asked to exit: a crash check on

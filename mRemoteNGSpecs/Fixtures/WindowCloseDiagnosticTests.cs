@@ -136,6 +136,32 @@ namespace mRemoteNGSpecs.Fixtures
             TestContext.Out.WriteLine($"still running           : {!Driver.Application.HasExited}");
         }
 
+        /// <summary>
+        /// Prints the real View-menu entries. WinForms ToolStrip items do not reliably expose
+        /// Control.Name as an AutomationId, so the battery has to match on caption — and guessing
+        /// captions has already cost two runs.
+        /// </summary>
+        [Test]
+        public void ReportViewMenuContents()
+        {
+            AutomationElement view = UiWait.FindRequired(
+                MainWindow,
+                cf => cf.ByName("View").And(cf.ByControlType(ControlType.MenuItem)),
+                "View menu");
+            view.Click();
+            UiWait.Settle(MainWindow);
+
+            // Drop-downs are separate top-level popup windows in WinForms, so they are NOT under
+            // MainWindow — searching there returns only the menu bar itself.
+            foreach (AutomationElement item in Driver.Automation.GetDesktop().FindAllDescendants(
+                         cf => cf.ByControlType(ControlType.MenuItem)))
+            {
+                string id = "";
+                try { id = item.AutomationId; } catch (Exception) { }
+                TestContext.Out.WriteLine($"MENUITEM name='{SafeName(item)}' id='{id}'");
+            }
+        }
+
         private static string SafeName(AutomationElement e)
         {
             try { return e.Name; } catch (Exception) { return ""; }
