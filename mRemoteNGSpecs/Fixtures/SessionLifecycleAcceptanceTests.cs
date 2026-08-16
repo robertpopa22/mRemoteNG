@@ -145,6 +145,70 @@ namespace mRemoteNGSpecs.Fixtures
         }
 
         /// <summary>
+        /// Covers: #142 for real. The scenario above never closes a tab (documented in its own
+        /// comment) so it cannot prove #142 either way; this does, by taking the exact path the bug
+        /// was in -- DockPaneStripNG.MiddleClickCloseTab -> QueueCloseTab -- which only a genuine
+        /// middle mouse click reaches. Neither AutomationElement.Click() nor the Invoke pattern can
+        /// send a middle click, so this goes through FlaUI's raw Mouse input instead of UIA.
+        ///
+        /// MEASURED SCOPE -- two real defects found and fixed while getting this scenario to run at
+        /// all: ModalDialogs did not know the panel-close confirmation's affirmative button is
+        /// captioned "Disconnect" (CTaskDialog + ETaskDialogButtons.DisconnectCancel), not "Yes"/"OK",
+        /// so it recognised the dialog by text and then failed to click it; and it did not recognise
+        /// the confirmation's wording at all until the first live run surfaced it. Both are fixed in
+        /// ModalDialogs.cs.
+        ///
+        /// What is NOT fixed: getting past PuTTY's host-key prompt before the middle-click is
+        /// intermittent in this lab -- roughly one run in several times out waiting for it, the
+        /// others sail through, and a "no application dialogs on screen" report from ModalDialogs
+        /// each time it happens means neither UIA nor the Win32 EnumWindows fallback saw the window,
+        /// not that the budget ran out. Same category as #166's VNC race: a clean pass here means the
+        /// scenario got past that specific window this time, not that the detection gap is closed.
+        /// </summary>
+        [Test]
+        [Touches("#142")]
+        [StressCoverage("#142")]
+        public void MiddleClickingATabClosesItWithoutCrashing()
+        {
+            SkipUnless(LabTargets.LinuxHost, LabTargets.Ssh, "lab SSH target");
+
+            AutomationElement row = RequireRow("lab-linux-ssh");
+            row.DoubleClick();
+            UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(45));
+            UiWait.Until(() => TabCount() > 0, "a session tab to open", TimeSpan.FromSeconds(30));
+            AssertNoCrash("after connecting over SSH");
+
+            // The tab exists as soon as the connection starts, before PuTTY's host-key prompt is
+            // resolved — so TabCount() > 0 above does not mean the screen is clear. First run of this
+            // scenario middle-clicked straight into a still-open "PuTTY Security Alert" (visible in
+            // the failure screenshot) because the guest was busy running the rest of the battery and
+            // the first 15s budget ran out before the prompt appeared. Same reasoning as the #143
+            // scenario's second AnswerExpectedPrompts() before it measures focus.
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(15));
+
+            int before = TabCount();
+            AutomationElement tab = MainWindow
+                .FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
+                .First(t => SafeName(t).Contains("lab-linux-ssh", StringComparison.OrdinalIgnoreCase));
+            System.Drawing.Rectangle bounds = tab.BoundingRectangle;
+            System.Drawing.Point centre = new(bounds.X + bounds.Width / 2, bounds.Y + bounds.Height / 2);
+
+            FlaUI.Core.Input.Mouse.Click(centre, FlaUI.Core.Input.MouseButton.Middle);
+            UiWait.Settle(MainWindow);
+
+            // The application asks before closing a panel that still holds a live connection --
+            // legitimate behaviour, not the #142 defect. First live run of this scenario surfaced the
+            // exact wording ("Are you sure you want to close the panel... Any connections that it
+            // contains will also be closed"), which ModalDialogs did not yet recognise; it does now.
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+
+            AssertNoCrash("after middle-clicking the session tab to close it — the #142 NRE");
+            UiWait.Until(() => TabCount() < before,
+                         "the tab to actually close after the middle click", TimeSpan.FromSeconds(10));
+        }
+
+        /// <summary>
         /// Stress coverage for #166. Opening a real VNC session and exiting cleanly exercises the
         /// dispose ordering, but #166 is a race between VncSharpCore's polling thread and handle
         /// destruction: one clean exit means "did not reproduce this time", not "the race is gone".

@@ -339,3 +339,6 @@ logs/security/
 # Test results dump + Claude local settings
 test-results-dump/
 .claude/settings.local.json
+
+# lab-run.ps1 -Artifacts output (screenshots, UIA trees) — local debugging only
+lab-artifacts/

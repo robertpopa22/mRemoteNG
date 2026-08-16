@@ -229,6 +229,15 @@ namespace mRemoteNGSpecs.Support
                 || haystack.Contains("CLOSE THIS SESSION", StringComparison.Ordinal))
                 return ["Yes", "OK"];
 
+            // ConnectionWindow's own close-panel confirmation is a CTaskDialog with
+            // ETaskDialogButtons.DisconnectCancel: its affirmative button is captioned
+            // "Disconnect" (DialogResult.Yes under the hood), not "Yes" or "OK" — the caption a
+            // user actually sees is what has to match here. First live run of this dialog through
+            // the whitelist matched the text fine and then failed anyway, because ClickButton
+            // could not find either candidate on screen.
+            if (haystack.Contains("CLOSE THE PANEL", StringComparison.Ordinal))
+                return ["Disconnect", "Yes", "OK"];
+
             // The RDP client cannot verify the lab's self-signed certificate. The lab is an isolated
             // network with no route to anything real, and the alternative — trusting the certificate
             // machine-wide — would weaken the host to make a test pass, which is not a trade this
