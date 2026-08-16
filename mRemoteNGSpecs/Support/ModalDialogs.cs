@@ -49,10 +49,11 @@ namespace mRemoteNGSpecs.Support
         {
             try
             {
-                int pid = driver.Application.ProcessId;
+                HashSet<int> pids = RelevantProcessIds(driver);
                 return driver.Automation.GetDesktop()
                     .FindAllDescendants(cf => cf.ByControlType(ControlType.Window))
-                    .Where(w => SafeProcessId(w) == pid && !IsMainWindow(w) && IsModal(w))
+                    .Where(w => pids.Contains(SafeProcessId(w)) && !IsMainWindow(w)
+                                && (IsModal(w) || IsKnownHelperAlert(w)))
                     .Select(w => new Dialog(w, SafeName(w), DialogText(w)))
                     .ToArray();
             }
@@ -63,15 +64,74 @@ namespace mRemoteNGSpecs.Support
         }
 
         /// <summary>
+        /// The application's own process, plus the protocol helpers it launches.
+        ///
+        /// mRemoteNG does not draw an SSH session itself — it starts PuTTY and reparents its window
+        /// into a tab. PuTTY's dialogs therefore belong to PuTTY's process, and a search restricted
+        /// to the application's own process cannot see them. That is not hypothetical: an
+        /// unanswered "the host key is not cached" alert held an SSH connection open indefinitely,
+        /// and a "close this session?" confirmation swallowed the close keystroke, while the dialog
+        /// search reported a clear screen. The scenario failed as "the application did not exit" —
+        /// the #110 symptom — with nothing wrong in the application at all.
+        ///
+        /// Matched by executable name rather than by walking the process tree: reading a parent
+        /// process id needs native interop, and the set of helpers this application starts is small
+        /// and known.
+        /// </summary>
+        private static HashSet<int> RelevantProcessIds(AppDriver driver)
+        {
+            HashSet<int> pids = [];
+
+            try { pids.Add(driver.Application.ProcessId); } catch (Exception) { }
+
+            foreach (string name in HelperProcessNames)
+            {
+                try
+                {
+                    foreach (System.Diagnostics.Process process in
+                             System.Diagnostics.Process.GetProcessesByName(name))
+                    {
+                        pids.Add(process.Id);
+                        process.Dispose();
+                    }
+                }
+                catch (Exception)
+                {
+                    // A helper that is not running is the normal case.
+                }
+            }
+
+            return pids;
+        }
+
+        private static readonly string[] HelperProcessNames = ["PuTTYNG", "putty", "plink"];
+
+        /// <summary>
         /// Answers the prompts this battery expects, and reports what it answered.
         ///
         /// Returns the dialogs it did NOT recognise, so the caller can fail with their text. An
         /// empty result means the screen is clear.
         /// </summary>
-        public static Dialog[] AnswerExpectedPrompts(AppDriver driver, Action<string> report)
+        public static Dialog[] AnswerExpectedPrompts(AppDriver driver, Action<string> report,
+                                                     TimeSpan? waitFor = null)
         {
             List<Dialog> unhandled = [];
+
+            // A prompt raised by an action does not necessarily exist by the time the action
+            // returns: PuTTY's host-key alert arrives once the TCP connection is up, well after the
+            // double-click that started it. Looking exactly once reports a clear screen and then the
+            // test proceeds into a dialog. The wait ends as soon as something appears, so the common
+            // no-dialog case only costs the caller's budget when there is genuinely nothing.
             Dialog[] found = Find(driver);
+            if (found.Length == 0 && waitFor is { } budget)
+            {
+                DateTime deadline = DateTime.UtcNow + budget;
+                while (found.Length == 0 && DateTime.UtcNow < deadline)
+                {
+                    System.Threading.Thread.Sleep(300);
+                    found = Find(driver);
+                }
+            }
 
             // Always say what was on screen. "Nothing was answered" and "nothing was there" are
             // different facts, and telling them apart from the test output is what turned the first
@@ -130,6 +190,23 @@ namespace mRemoteNGSpecs.Support
                 || haystack.Contains("IDENTITY OF THE REMOTE COMPUTER", StringComparison.Ordinal)
                 || haystack.Contains("CANNOT BE VERIFIED", StringComparison.Ordinal))
                 return "Yes";
+
+            // PuTTY asks before closing a live session. Unanswered, it swallows the close keystroke
+            // and the application looks like it is refusing to exit.
+            if (haystack.Contains("CLOSE THIS SESSION", StringComparison.Ordinal))
+                return "OK";
+
+            // PuTTY has not seen the lab host's key before.
+            //
+            // This clicks a button a user would click; it does NOT change how the product validates
+            // host keys, and nothing here is written into the product's trust store beyond the
+            // throwaway deployment. The alternative — pre-seeding the key into the machine's PuTTY
+            // cache — would make the same trust decision less visibly. The host is a lab guest on an
+            // isolated network with no route to anything real. Accepting an unknown host key would
+            // not be acceptable against any other target, and this must never be widened into the
+            // product.
+            if (haystack.Contains("HOST KEY IS NOT CACHED", StringComparison.Ordinal))
+                return "Accept";
 
             return null;
         }
@@ -194,6 +271,20 @@ namespace mRemoteNGSpecs.Support
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// A helper's alert window, matched by title.
+        ///
+        /// PuTTY's alerts do not necessarily report themselves as modal through UIA, and a battery
+        /// that waits for a modality flag would sit behind them forever. Matching exact titles keeps
+        /// this from catching the reparented terminal window, which must not be treated as a dialog.
+        /// </summary>
+        private static bool IsKnownHelperAlert(AutomationElement window)
+        {
+            string title = SafeName(window);
+            return title.Contains("PuTTY Security Alert", StringComparison.Ordinal)
+                   || title.Contains("PuTTY Exit Confirmation", StringComparison.Ordinal);
         }
 
         private static bool IsMainWindow(AutomationElement window)

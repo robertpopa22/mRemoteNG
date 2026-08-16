@@ -148,9 +148,96 @@ namespace mRemoteNGSpecs.Fixtures
             if (Support.UiWait.Happened(() => Driver.Application.HasExited, TimeSpan.FromSeconds(5)))
                 return true;
 
-            AnswerExpectedPrompts();
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
 
-            return Support.UiWait.Happened(() => Driver.Application.HasExited, budget);
+            if (Support.UiWait.Happened(() => Driver.Application.HasExited, budget))
+                return true;
+
+            ReportWhyItIsStillRunning();
+            return false;
+        }
+
+        /// <summary>
+        /// Records what the application looked like when it refused to close.
+        ///
+        /// "The application did not exit" is not a diagnosis, and this project has already spent
+        /// four mis-aimed fixes on a focus bug that was reported that way. The interesting question
+        /// is where the close keystroke went: with an embedded session holding the keyboard, Alt+F4
+        /// can reach the session window and close a tab instead of the application, which looks
+        /// identical from outside. Whether the main window is still up, and how many tabs remain,
+        /// separates those.
+        /// </summary>
+        private void ReportWhyItIsStillRunning()
+        {
+            try
+            {
+                TestContext.Out.WriteLine("--- close failed; state at that moment ---");
+
+                AutomationElement[] windows = Driver.Automation.GetDesktop()
+                    .FindAllChildren()
+                    .Where(w =>
+                    {
+                        try { return w.Properties.ProcessId.ValueOrDefault == Driver.Application.ProcessId; }
+                        catch (Exception) { return false; }
+                    })
+                    .ToArray();
+
+                foreach (AutomationElement w in windows)
+                {
+                    string name = "";
+                    string id = "";
+                    try { name = w.Name; } catch (Exception) { }
+                    try { id = w.Properties.AutomationId.ValueOrDefault; } catch (Exception) { }
+                    TestContext.Out.WriteLine($"  top-level window: id='{id}' name='{name}'");
+                }
+
+                try
+                {
+                    int tabs = MainWindow
+                        .FindAllDescendants(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TabItem))
+                        .Length;
+                    TestContext.Out.WriteLine($"  tab items still present: {tabs}");
+                }
+                catch (Exception ex)
+                {
+                    TestContext.Out.WriteLine($"  could not count tabs: {ex.GetType().Name}");
+                }
+
+                TestContext.Out.WriteLine("  focused: " + DescribeFocusedElement());
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine($"could not describe the running application: {ex.GetType().Name}");
+            }
+        }
+
+        /// <summary>
+        /// The focused element as "id / name / owning process", or why it could not be read.
+        ///
+        /// Retried, because reading focus immediately after a modal closes throws
+        /// PropertyNotSupportedException while the desktop settles. Treating that first throw as
+        /// an answer made a scenario announce that another process held the keyboard when nothing
+        /// of the sort had happened.
+        /// </summary>
+        protected string DescribeFocusedElement()
+        {
+            for (int attempt = 0; attempt < 5; attempt++)
+            {
+                try
+                {
+                    AutomationElement focused = Driver.Automation.FocusedElement();
+                    return $"id='{focused.AutomationId}' name='{focused.Name}' "
+                           + $"pid={focused.Properties.ProcessId.ValueOrDefault}";
+                }
+                catch (Exception ex)
+                {
+                    if (attempt == 4)
+                        return $"unreadable ({ex.GetType().Name})";
+                    System.Threading.Thread.Sleep(400);
+                }
+            }
+
+            return "unreadable";
         }
 
         /// <summary>
@@ -161,10 +248,10 @@ namespace mRemoteNGSpecs.Fixtures
         /// surface as a misleading product symptom, an unrecognised dialog fails the test here, with
         /// its own title and message in the failure.
         /// </summary>
-        protected void AnswerExpectedPrompts()
+        protected void AnswerExpectedPrompts(TimeSpan? waitFor = null)
         {
             Support.ModalDialogs.Dialog[] unhandled =
-                Support.ModalDialogs.AnswerExpectedPrompts(Driver, TestContext.Out.WriteLine);
+                Support.ModalDialogs.AnswerExpectedPrompts(Driver, TestContext.Out.WriteLine, waitFor);
 
             if (unhandled.Length == 0)
                 return;

@@ -125,7 +125,7 @@ namespace mRemoteNGSpecs.Fixtures
             AutomationElement row = RequireRow("lab-linux-ssh");
             row.DoubleClick();
             UiWait.Settle(MainWindow);
-            AnswerExpectedPrompts();
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(15));
             UiWait.Until(() => TabCount() > 0, "a session tab to open", TimeSpan.FromSeconds(30));
             AssertNoCrash("after connecting over SSH");
 
@@ -134,7 +134,7 @@ namespace mRemoteNGSpecs.Fixtures
 
             row.DoubleClick();   // reconnect
             UiWait.Settle(MainWindow);
-            AnswerExpectedPrompts();
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
             AssertNoCrash("after reconnecting");
 
             bool exited = CloseApplicationAndWaitForExit();
@@ -158,7 +158,7 @@ namespace mRemoteNGSpecs.Fixtures
             AutomationElement row = RequireRow("lab-linux-vnc");
             row.DoubleClick();
             UiWait.Settle(MainWindow);
-            AnswerExpectedPrompts();
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(15));
             UiWait.Until(() => TabCount() > 0, "a VNC session tab to open", TimeSpan.FromSeconds(30));
             AssertNoCrash("after opening a VNC session");
 
@@ -167,6 +167,37 @@ namespace mRemoteNGSpecs.Fixtures
             // held. Checking for a crash dialog after the process is gone proves nothing.
             bool exited = CloseApplicationAndWaitForExit();
             AssertExitedCleanly(exited, "after disposing a VNC session");
+        }
+
+        /// <summary>
+        /// The control for the #143 measurement: with no session open at all, clicking the search
+        /// box must leave it holding keyboard focus.
+        ///
+        /// Without this, a failure in the RDP scenario is ambiguous — it could mean the session
+        /// steals focus, or simply that clicking a text box through UI automation does not focus it
+        /// on this machine. Only the pair carries information: control passes and RDP fails means
+        /// the session is the difference. Needs no lab, so it runs everywhere the battery runs.
+        /// </summary>
+        [Test]
+        public void ClickingTheSearchBoxFocusesItWhenNoSessionIsOpen()
+        {
+            AutomationElement search = UiWait.FindRequired(
+                MainWindow, cf => cf.ByAutomationId("txtSearch"), "connection tree search box");
+
+            MainWindow.Focus();
+            search.Click();
+            UiWait.Settle(MainWindow);
+
+            IntPtr focused = Win32Focus.FocusedWindow();
+            IntPtr expected = new(search.Properties.NativeWindowHandle.ValueOrDefault.ToInt64());
+
+            TestContext.Out.WriteLine("focus after click : " + Win32Focus.Describe(focused));
+            TestContext.Out.WriteLine("search box        : " + Win32Focus.Describe(expected));
+
+            Assert.That(focused, Is.EqualTo(expected),
+                        "clicking the search box did not focus it even with no session open, so the "
+                        + "measurement itself is unsound and the RDP result proves nothing. Focus is "
+                        + "on " + Win32Focus.Describe(focused));
         }
 
         /// <summary>
@@ -201,7 +232,7 @@ namespace mRemoteNGSpecs.Fixtures
             // A first RDP connection to the lab raises the untrusted-certificate prompt, because the
             // guest has never seen xrdp's self-signed certificate. Answering it beats trusting the
             // certificate machine-wide to make a test pass.
-            AnswerExpectedPrompts();
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(20));
 
             UiWait.Until(() => TabCount() > 0, "an RDP session tab to open", TimeSpan.FromSeconds(45));
 
@@ -226,39 +257,40 @@ namespace mRemoteNGSpecs.Fixtures
             // session open, the search box is what holds keyboard focus. Asserting on typed text
             // instead is weaker and ambiguous — the box shows a "Search" placeholder when empty, so
             // "no text" and "keystrokes went elsewhere" look identical.
-            string focusedId = "";
-            string focusedName = "";
-            int focusedProcess = -1;
-            try
-            {
-                AutomationElement focused = Driver.Automation.FocusedElement();
-                focusedId = focused.AutomationId;
-                focusedName = focused.Name;
-                focusedProcess = focused.Properties.ProcessId;
-            }
-            catch (Exception ex)
-            {
-                TestContext.Out.WriteLine($"could not read focused element: {ex.GetType().Name}");
-            }
+            // Measured through Win32, not UIA. FocusedElement() throws PropertyNotSupportedException
+            // on every attempt while the RDP control has focus, which left this scenario permanently
+            // inconclusive and unable to say anything about the issue it exists for. GetGUIThreadInfo
+            // answers regardless, and it is the same view of focus the fixes for #118 and #143 had to
+            // adopt inside the product.
+            IntPtr focused = Win32Focus.FocusedWindow();
+            IntPtr expected = new(search.Properties.NativeWindowHandle.ValueOrDefault.ToInt64());
 
-            TestContext.Out.WriteLine($"focused after click: id='{focusedId}' name='{focusedName}'");
+            TestContext.Out.WriteLine("focus after click : " + Win32Focus.Describe(focused));
+            TestContext.Out.WriteLine("search box        : " + Win32Focus.Describe(expected));
 
-            // If something outside the application holds the keyboard, this test cannot tell focus
-            // theft by the RDP session apart from focus theft by the desktop, and answering anyway
-            // would convict the app of another window's behaviour. Measured on this machine: a
-            // Windows "Use the recommended settings" dialog took focus mid-test.
-            if (focusedProcess != Driver.Application.ProcessId)
+            if (focused == IntPtr.Zero)
             {
-                Assert.Inconclusive(
-                    $"'{focusedName}' (another process) holds the keyboard, so focus behaviour "
-                    + "inside mRemoteNG cannot be judged. Run the battery on an unshared session — "
-                    + "this is the reason the lab guest exists.");
+                Assert.Inconclusive("nothing on the desktop holds keyboard focus, so focus behaviour "
+                                    + "cannot be judged either way.");
             }
 
-            Assert.That(focusedId, Is.EqualTo("txtSearch"),
-                        $"clicking the search box did not leave it focused while an RDP session was "
-                        + $"open — focus went to '{focusedName}' (id '{focusedId}') instead, which is "
-                        + "the #143 symptom: the session steals focus back on every activation");
+            int owner = Win32Focus.ProcessOf(focused);
+            if (owner != Driver.Application.ProcessId)
+            {
+                // PuTTY and the RDP client run in the application's own process or its helpers; a
+                // third party holding the keyboard means the desktop is shared and the measurement
+                // is not about mRemoteNG at all.
+                Assert.Inconclusive($"another process (pid {owner}) holds the keyboard: "
+                                    + Win32Focus.Describe(focused)
+                                    + ". Run the battery on an unshared session — this is the reason "
+                                    + "the lab guest exists.");
+            }
+
+            Assert.That(focused, Is.EqualTo(expected),
+                        "clicking the search box did not leave it holding keyboard focus while an RDP "
+                        + "session was open — focus is on " + Win32Focus.Describe(focused)
+                        + ", which is the #143 symptom: the session steals focus back on every "
+                        + "activation");
 
             AssertNoCrash("after typing into the search box with an RDP session open");
         }
