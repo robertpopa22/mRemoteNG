@@ -46,9 +46,40 @@ Unless the user explicitly requests a documentation or orchestrator task, issue-
 ## Mandatory Workflow for Issue Fixes
 
 1. **Verify and plan before editing:** inspect every suggested file that exists, search by symptom/error/class, trace the actual call path, and analyze why previous attempts failed. Write a plan of at most five lines naming the root cause and exact files.
-2. **Implement only the fix:** make the smallest change that resolves the reported issue without unrelated behavior changes.
-3. **Verify:** run the full build command from [Build Instructions](#build-instructions), then the preferred full test command from [Testing](#testing).
-4. **Repair regressions:** fix any build or test failure caused by the change before finishing.
+2. **Reproduce it first, in the UI, if the issue is reachable from the UI** (see [FlaUI](#flaui-driving-the-real-app)). This step comes *before* the edit on purpose: a repro that fails on the current build proves the premise is real and that you are aiming at the right thing. Failing to reproduce is information, not a formality to skip — it is the signal to ship instrumentation instead of a guess.
+3. **Implement only the fix:** make the smallest change that resolves the reported issue without unrelated behavior changes.
+4. **Verify:** run the full build command from [Build Instructions](#build-instructions), then the preferred full test command from [Testing](#testing).
+5. **Re-run the UI repro from step 2.** It must now pass. This proves the symptom is gone; it does *not* prove the mechanism was right, so it never replaces the root-cause reasoning in step 1 — a guard that hides a symptom passes this happily.
+6. **Repair regressions:** fix any build or test failure caused by the change before finishing.
+
+### FlaUI — driving the real app
+
+The `mcp__flaui__*` tools launch the built executable and drive it as a user does. The automated
+suite exercises classes directly, so it can be entirely green while the code never runs in the
+product — UI wiring, packaging, and settings paths are all invisible to it.
+
+- **Run against `mRemoteNG/bin/x64/Release/mRemoteNG.exe`**, which has its own `Settings/` folder
+  beside it. That is portable mode: it uses that folder, not the maintainer's real profile in
+  `%APPDATA%`. Back up `Settings/mRemoteNG.settings` and `Settings/confCons.xml` before changing
+  them, and restore afterwards.
+- **Databases: throwaway only** — `mRemoteNGUi_<guid>`, created and dropped by the run.
+- **Do not** drive FlaUI against a loopback RDP session (it can replace the session you are working
+  in), install the MSI, or change the OS display language. Those limits are in
+  `.project-roadmap/VERIFICATION_PLAN.md` and they hold here too.
+- **`windows_click` on a tree row uses the Invoke pattern, which ADDS to the selection instead of
+  replacing it.** Two selected rows make the property grid go blank — correct behaviour for a
+  multi-selection, and very easy to misreport as a bug in whatever you were testing. Click the
+  row's text child for a clean single selection.
+- **A modal MessageBox freezes the whole UIA provider.** Every `mcp__flaui__*` call then fails with
+  `Operation timed out (0x80131505)` and the app looks hung — it is not; `(Get-Process
+  mRemoteNG).Responding` is still `True`. Fall back to Win32 to clear it:
+  `[Microsoft.VisualBasic.Interaction]::AppActivate($pid)` then
+  `[System.Windows.Forms.SendKeys]::SendWait('%n')`. Send the button's real mnemonic — `{ESC}` does
+  nothing on a Yes/No box, because it has no Cancel.
+- Starting the app at all is itself a real check: it exercises the shipped assembly layout that
+  #150 broke, which no unit test can see.
+- Verified this way so far: schema 3.6 / Notes end-to-end against a live SQL Server, and #141's CSV
+  export column alignment (227 headers, 227 values, no trailing separator).
 
 ### Attempt budget (HARD RULE — learned from #143, 4 failed fixes before the real one)
 
