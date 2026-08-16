@@ -30,7 +30,7 @@ namespace mRemoteNGSpecs.Support
         /// <summary>
         /// Describes a modal that belongs to the application: enough to answer it, or to report it.
         /// </summary>
-        public sealed record Dialog(AutomationElement Element, string Title, string Text)
+        public sealed record Dialog(AutomationElement? Element, string Title, string Text)
         {
             public override string ToString() =>
                 string.IsNullOrWhiteSpace(Text) ? $"'{Title}'" : $"'{Title}' — {Text}";
@@ -160,6 +160,50 @@ namespace mRemoteNGSpecs.Support
                 }
             }
 
+            // UIA cannot see a dialog that is freezing its own provider, and reports a clear screen
+            // instead of failing — so "found nothing" has to be checked a second way before it is
+            // believed. This is not redundancy: it is the difference between "nothing there" and
+            // "could not look", and getting that wrong cost a scenario that failed as #110.
+            if (found.Length == 0)
+                unhandled.AddRange(AnswerThroughWin32(driver, report));
+
+            return [.. unhandled];
+        }
+
+        /// <summary>
+        /// The same pass, done through Win32 window enumeration.
+        ///
+        /// Returns dialogs it could not answer, described the same way, so a caller cannot tell
+        /// which route found a problem — only that one exists.
+        /// </summary>
+        private static Dialog[] AnswerThroughWin32(AppDriver driver, Action<string> report)
+        {
+            List<Dialog> unhandled = [];
+
+            Win32Dialogs.Dialog[] found = Win32Dialogs.Find(RelevantProcessIds(driver));
+            if (found.Length == 0)
+                return [];
+
+            report("dialogs found through Win32 that UIA could not see: "
+                   + string.Join("; ", found.Select(d => d.ToString())));
+
+            foreach (Win32Dialogs.Dialog dialog in found)
+            {
+                // Reuse the same whitelist: the answer must not depend on how the dialog was found.
+                Dialog described = new(null!, dialog.Title, dialog.Text);
+                string? button = ExpectedAnswer(described);
+
+                if (button is not null && Win32Dialogs.ClickButton(dialog, button))
+                {
+                    report($"answered the {dialog} prompt with '{button}' through Win32");
+                    System.Threading.Thread.Sleep(250);
+                }
+                else
+                {
+                    unhandled.Add(described);
+                }
+            }
+
             return [.. unhandled];
         }
 
@@ -215,6 +259,9 @@ namespace mRemoteNGSpecs.Support
         {
             try
             {
+                if (dialog.Element is null)
+                    return false;
+
                 AutomationElement? button = dialog.Element
                     .FindAllDescendants(cf => cf.ByControlType(ControlType.Button))
                     .FirstOrDefault(b => string.Equals(SafeName(b).Trim(), name,
