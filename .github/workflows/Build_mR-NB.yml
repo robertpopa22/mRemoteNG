@@ -127,9 +127,14 @@ jobs:
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-${{ matrix.arch }}-nuget-${{ hashFiles('**/*.csproj') }}
+          # v2: cache key includes the SDK version. The runtime packs the SDK demands are
+          # pinned to its own patch level, so a cache from an older runner image satisfies
+          # restore (packages "present") while publish then fails NETSDK1112 because the
+          # pack version the NEW SDK wants was never downloaded. Seen live on the arm64
+          # leg of the v1.83.0 tag, twice, cache hit both times.
+          key: ${{ runner.os }}-${{ matrix.arch }}-nuget-v2-${{ hashFiles('global.json', '**/*.csproj') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.arch }}-nuget-
+            ${{ runner.os }}-${{ matrix.arch }}-nuget-v2-
 
       - name: (06) Restore NuGet Packages
         shell: pwsh
@@ -143,6 +148,24 @@ jobs:
             dotnet restore mRemoteNG.sln --runtime win-${{ matrix.arch }} -p:SelfContained=true -p:Platform=${{ matrix.platform }} /p:PublishReadyToRun=true
           } else {
             dotnet restore mRemoteNG.sln
+          }
+
+      - name: (06b) Runtime pack diagnostic
+        if: matrix.selfcontained == 'true'
+        shell: pwsh
+        run: |
+          # Evidence for the NETSDK1112 investigation: what the SDK is, and which runtime
+          # pack versions restore actually left in the packages folder. Costs nothing when
+          # everything works; decisive when it does not.
+          dotnet --version
+          foreach ($pack in @('microsoft.netcore.app.runtime.win-${{ matrix.arch }}',
+                              'microsoft.windowsdesktop.app.runtime.win-${{ matrix.arch }}')) {
+            $dir = Join-Path $env:USERPROFILE ".nuget\packages\$pack"
+            if (Test-Path $dir) {
+              Write-Host "$pack : $((Get-ChildItem $dir -Directory).Name -join ', ')"
+            } else {
+              Write-Host "$pack : MISSING from packages folder"
+            }
           }
 
       - name: (07) Build Release
