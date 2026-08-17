@@ -39,9 +39,19 @@ namespace mRemoteNGTests.Connection.Protocol
         [TearDown]
         public void TearDown()
         {
-            _puttyProtocol?.Close(); 
+            // Dispose the control tree BEFORE Close(). ProtocolBase.Close is asynchronous: it
+            // hands teardown to a background STA thread (CloseBG) that relies on Control.Invoke
+            // to marshal back — but this test thread has no message pump and the controls never
+            // created a handle, so InvokeRequired reports false and CloseBG disposes the same
+            // control tree on its own thread. With Close() first, that background dispose raced
+            // these two Dispose calls inside Control.ControlCollection and TearDown died with
+            // ArgumentOutOfRangeException('index') — once, on a loaded CI runner (nightly run
+            // 31970484140), never locally. Disposing first is deterministic: CloseBG sees
+            // IsDisposed and leaves the tree alone. PuttyBase.Close itself is safe on disposed
+            // controls — its synchronous half only unhooks an event and kills the process.
             _interfaceControl?.Dispose();
             _connectionTab?.Dispose();
+            _puttyProtocol?.Close();
             PuttyBase.PuttyPath = _originalPuttyPath;
         }
 
