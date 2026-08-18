@@ -102,6 +102,7 @@ namespace mRemoteNG.UI.Forms
         private readonly NewCustomTab _screenshotsBottomTab = new();
         private readonly FileBackupPruner _backupPruner = new();
         private readonly System.Windows.Forms.Timer _autoLockTimer = new() { Interval = 1000 };
+        private readonly System.Windows.Forms.Timer _runtimeDiagnosticsPulseTimer = new() { Interval = 1000 };
         private const int AutoLockIdleThresholdMs = 5 * 60 * 1000;
         private const int HOTKEY_ID_ACTIVATE = 1;
         private const int HT_CLOSE = 20;
@@ -181,6 +182,7 @@ namespace mRemoteNG.UI.Forms
 
             _advancedWindowMenu = new AdvancedWindowMenu(this);
             _autoLockTimer.Tick += AutoLockTimer_Tick;
+            _runtimeDiagnosticsPulseTimer.Tick += (_, _) => RuntimeDiagnostics.PulseUi();
             Application.AddMessageFilter(this);
         }
 
@@ -268,11 +270,13 @@ namespace mRemoteNG.UI.Forms
 
             // Post early phase timing now that messageCollector is ready
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] SettingsLoad: {settingsMs}ms");
+            RuntimeDiagnostics.StartupPhase("settings_load", settingsMs);
 
             phaseSw.Restart();
             Startup.Instance.InitializeProgram(messageCollector);
             Debug.Print($"[Startup] InitializeProgram: {phaseSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] InitializeProgram: {phaseSw.ElapsedMilliseconds}ms");
+            RuntimeDiagnostics.StartupPhase("initialize_program", phaseSw.ElapsedMilliseconds);
 
             SetMenuDependencies();
 
@@ -283,6 +287,7 @@ namespace mRemoteNG.UI.Forms
             uiLoader.LoadPanelsFromXml();
             Debug.Print($"[Startup] PanelLayout: {phaseSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] PanelLayout: {phaseSw.ElapsedMilliseconds}ms");
+            RuntimeDiagnostics.StartupPhase("panel_layout", phaseSw.ElapsedMilliseconds);
 
             ShowHidePanelTabs();
 
@@ -319,6 +324,7 @@ namespace mRemoteNG.UI.Forms
             CredsAndConsSetup.LoadCredsAndCons();
             Debug.Print($"[Startup] LoadConnections: {phaseSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] LoadConnections: {phaseSw.ElapsedMilliseconds}ms");
+            RuntimeDiagnostics.StartupPhase("load_connections", phaseSw.ElapsedMilliseconds);
             _autoLockTimer.Start();
 
             // Initialize panel binding for Connections and Config panels
@@ -364,6 +370,10 @@ namespace mRemoteNG.UI.Forms
             // FrmOptions is lazy-loaded on first access — no need to create at startup
             Debug.Print($"[Startup] Total FrmMain_Load: {totalSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] Total: {totalSw.ElapsedMilliseconds}ms");
+            RuntimeDiagnostics.StartupPhase("total", totalSw.ElapsedMilliseconds);
+            RuntimeDiagnostics.PulseUi();
+            RuntimeDiagnostics.StartUiWatchdog();
+            _runtimeDiagnosticsPulseTimer.Start();
 
             // Auto-start external tools flagged with RunOnStartup (#318)
             foreach (var tool in Runtime.ExternalToolsService.ExternalTools)
@@ -785,6 +795,7 @@ namespace mRemoteNG.UI.Forms
                 }
             }
             _autoLockTimer.Stop();
+            _runtimeDiagnosticsPulseTimer.Stop();
 
             NativeMethods.UnregisterHotKey(Handle, HOTKEY_ID_ACTIVATE);
 

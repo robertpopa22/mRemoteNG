@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Runtime.Versioning;
 using mRemoteNG.App;
+using mRemoteNG.Connection.Protocol.RDP;
 
 
 namespace mRemoteNG.Connection
@@ -39,6 +40,11 @@ namespace mRemoteNG.Connection
                     if (property.PropertyType.IsEnum)
                     {
                         string enumValue = valueFromSource?.ToString() ?? string.Empty;
+                        if (property.PropertyType == typeof(RDPDiskDrives) && bool.TryParse(enumValue, out bool legacyRedirectDrives))
+                        {
+                            property.SetValue(Instance, legacyRedirectDrives ? RDPDiskDrives.All : RDPDiskDrives.None, null);
+                            continue;
+                        }
                         property.SetValue(Instance, Enum.Parse(property.PropertyType, enumValue), null);
                         continue;
                     }

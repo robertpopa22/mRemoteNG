@@ -1,5 +1,6 @@
 ﻿using AxMSTSCLib;
 using System.Drawing;
+using Microsoft.CSharp.RuntimeBinder;
 using System.Text;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
@@ -49,6 +50,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private bool _alertOnIdleDisconnect;
         private bool _viewOnly;
         private bool _smartSizeBeforeFullscreen;
+        private readonly string _diagnosticRdpSession = RuntimeDiagnostics.NewCorrelationId();
+        private readonly Stopwatch _diagnosticConnectStopwatch = new();
         protected uint DesktopScaleFactor
         {
             get
@@ -245,6 +248,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public override bool Initialize()
         {
+            Stopwatch diagnosticsStopwatch = Stopwatch.StartNew();
             // Keep synchronous Initialize for backward compatibility,
             // but use the same logic (minus the await).
             connectionInfo = InterfaceControl.Info;
@@ -255,18 +259,32 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             try
             {
-                if (!InitializeActiveXControl()) return false;
+                if (!InitializeActiveXControl())
+                {
+                    RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialize_failed",
+                        diagnosticsStopwatch.ElapsedMilliseconds);
+                    return false;
+                }
 
                 RdpVersion = new Version(_rdpClient.Version);
 
-                if (RdpVersion < Versions.RDC61) return false;
+                if (RdpVersion < Versions.RDC61)
+                {
+                    RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "version_unsupported",
+                        diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
+                    return false;
+                }
 
                 SetRdpClientProperties();
+                RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialized",
+                    diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
 
                 return true;
             }
             catch (Exception ex)
             {
+                RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialize_failed",
+                    diagnosticsStopwatch.ElapsedMilliseconds);
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetPropsFailed, ex);
                 return false;
             }
@@ -274,6 +292,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public override async System.Threading.Tasks.Task<bool> InitializeAsync()
         {
+            Stopwatch diagnosticsStopwatch = Stopwatch.StartNew();
             connectionInfo = InterfaceControl.Info;
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Requesting RDP version: {connectionInfo.RdpVersion}. Using: {RdpProtocolVersion}");
             Control = CreateActiveXRdpClientControl();
@@ -282,18 +301,32 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             try
             {
-                if (!await InitializeActiveXControlAsync()) return false;
+                if (!await InitializeActiveXControlAsync())
+                {
+                    RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialize_failed",
+                        diagnosticsStopwatch.ElapsedMilliseconds);
+                    return false;
+                }
 
                 RdpVersion = new Version(_rdpClient.Version);
 
-                if (RdpVersion < Versions.RDC61) return false;
+                if (RdpVersion < Versions.RDC61)
+                {
+                    RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "version_unsupported",
+                        diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
+                    return false;
+                }
 
                 SetRdpClientProperties();
+                RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialized",
+                    diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
 
                 return true;
             }
             catch (Exception ex)
             {
+                RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialize_failed",
+                    diagnosticsStopwatch.ElapsedMilliseconds);
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetPropsFailed, ex);
                 return false;
             }
@@ -401,6 +434,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             loginComplete = false;
             SetEventHandlers();
+            _diagnosticConnectStopwatch.Restart();
+            RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connect_requested", 0,
+                RdpVersion?.ToString());
 
             try
             {
@@ -411,6 +447,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
             catch (Exception ex)
             {
+                RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connect_failed",
+                    _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString());
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionOpenFailed, ex);
             }
 
@@ -651,7 +689,16 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
             catch (Exception ex)
             {
-                Runtime.MessageCollector.AddExceptionMessage("Failed to set UIParentWindowHandle for RDP client.", ex, MessageClass.WarningMsg, false);
+                if (ex is RuntimeBinderException or MissingMemberException or NotSupportedException)
+                {
+                    RuntimeDiagnostics.RdpCapability("ui_parent_window_handle", false);
+                }
+                else
+                {
+                    RuntimeDiagnostics.SafeException("rdp_parent_window_handle", ex);
+                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                        "RDP client parent-window integration failed; continuing without it.", true);
+                }
             }
 
             // https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/rdp-files
@@ -1686,6 +1733,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnFatalError(int errorCode)
         {
+            RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "fatal_error",
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(), errorCode);
             string errorMsg = RdpErrorCodes.GetError(errorCode, connectionInfo.Hostname);
             Event_ErrorOccured(this, errorMsg, errorCode);
         }
@@ -1695,6 +1744,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
             const int UI_ERR_NORMAL_DISCONNECT = 0xB08;
             const int UI_ERR_NLA_NOT_ENABLED = 0xB09;
             const int UI_ERR_CONNECT_FAILED_DOWN = 0x1807;
+
+            uint diagnosticExtendedReason;
+            try { diagnosticExtendedReason = (uint)_rdpClient.ExtendedDisconnectReason; }
+            catch { diagnosticExtendedReason = 0; }
+            RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "disconnected",
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
+                discReason, diagnosticExtendedReason);
 
             if (discReason != UI_ERR_NORMAL_DISCONNECT && _extendedReconnectAttemptsRemaining > 0)
             {
@@ -1769,6 +1825,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnConnected()
         {
+            RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connected",
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString());
             try
             {
                 int reconnectCount = Settings.Default.RdpReconnectionCount;
@@ -1795,6 +1853,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnLoginComplete()
         {
             loginComplete = true;
+            RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "login_complete",
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString());
         }
 
         private void RDPEvent_OnEnterFullScreenMode()
@@ -1958,6 +2018,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
+                RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "logon_state",
+                    _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(), lError);
                 // Transient NLA/credential UI state transitions — not actual errors.
                 // These fire during normal authentication when the user interacts with
                 // the Windows credential dialog. Closing for these causes #1653 (crash

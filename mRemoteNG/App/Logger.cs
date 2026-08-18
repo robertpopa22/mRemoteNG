@@ -6,6 +6,7 @@ using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Repository;
+using log4net.Util;
 
 namespace mRemoteNG.App
 {
@@ -25,6 +26,8 @@ namespace mRemoteNG.App
 
         private void Initialize()
         {
+            GlobalContext.Properties["ProcessId"] = Environment.ProcessId;
+            GlobalContext.Properties["AppSessionId"] = Guid.NewGuid().ToString("N")[..12];
             LogManager.CreateRepository("mRemoteNG");
 
             if (string.IsNullOrEmpty(Properties.OptionsNotificationsPage.Default.LogFilePath))

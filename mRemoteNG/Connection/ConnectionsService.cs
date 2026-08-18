@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -290,6 +291,7 @@ namespace mRemoteNG.Connection
         /// <param name="connectionFileName"></param>
         public void LoadConnections(bool useDatabase, bool import, string connectionFileName)
         {
+            Stopwatch diagnosticsStopwatch = Stopwatch.StartNew();
             ConnectionTreeModel? oldConnectionTreeModel = ConnectionTreeModel;
             bool oldIsUsingDatabaseValue = UsingDatabase;
 
@@ -359,6 +361,8 @@ namespace mRemoteNG.Connection
 
             if (newConnectionTreeModel == null)
             {
+                RuntimeDiagnostics.ConnectionLoad(useDatabase, import, 0,
+                    diagnosticsStopwatch.ElapsedMilliseconds, "failed");
                 DialogFactory.ShowLoadConnectionsFailedDialog(connectionFileName, "Decrypting connection file failed", IsConnectionsFileLoaded);
                 return;
             }
@@ -389,6 +393,9 @@ namespace mRemoteNG.Connection
             UpdateCustomConsPathSetting(connectionFileName);
             RaiseConnectionsLoadedEvent(oldConnectionTreeModel is not null ? new Optional<ConnectionTreeModel>(oldConnectionTreeModel) : new Optional<ConnectionTreeModel>(), newConnectionTreeModel, oldIsUsingDatabaseValue, useDatabase, connectionFileName);
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Connections loaded using {connectionLoader.GetType().Name}");
+            RuntimeDiagnostics.ConnectionLoad(useDatabase, import,
+                newConnectionTreeModel.GetRecursiveChildList().Count,
+                diagnosticsStopwatch.ElapsedMilliseconds, "success");
         }
 
         /// <summary>
@@ -479,6 +486,9 @@ namespace mRemoteNG.Connection
                 return;
             }
 
+            Stopwatch diagnosticsStopwatch = Stopwatch.StartNew();
+            bool diagnosticsSuccess = false;
+            int diagnosticsNodeCount = connectionTreeModel.GetRecursiveChildList().Count;
             try
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Saving connections...");
@@ -531,6 +541,7 @@ namespace mRemoteNG.Connection
                 ConnectionFileName = connectionFileName;
                 RaiseConnectionsSavedEvent(connectionTreeModel, previouslyUsingDatabase, UsingDatabase, connectionFileName);
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Successfully saved connections");
+                diagnosticsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -539,6 +550,9 @@ namespace mRemoteNG.Connection
             finally
             {
                 RemoteConnectionsSyncronizer?.Enable();
+                RuntimeDiagnostics.ConnectionSave(useDatabase,
+                    !string.IsNullOrEmpty(propertyNameTrigger), diagnosticsNodeCount,
+                    diagnosticsStopwatch.ElapsedMilliseconds, diagnosticsSuccess ? "success" : "failed");
             }
         }
 

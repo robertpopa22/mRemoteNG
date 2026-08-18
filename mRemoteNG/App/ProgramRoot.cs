@@ -242,6 +242,7 @@ namespace mRemoteNG.App
         private static void StartApplication(string[]? args = null)
         {
             CatchAllUnhandledExceptions();
+            RuntimeDiagnostics.Initialize();
 
             // Fix #2062: ensure DockPanelSuite computes drag indicators correctly
             // across secondary monitors with different DPI/scaling.
@@ -256,7 +257,14 @@ namespace mRemoteNG.App
 
             ShowSplashOnStaThread();
 
-            Application.Run(FrmMain.Default);
+            try
+            {
+                Application.Run(FrmMain.Default);
+            }
+            finally
+            {
+                RuntimeDiagnostics.Shutdown();
+            }
         }
 
         public static void CloseSingletonInstanceMutex()
@@ -425,6 +433,7 @@ namespace mRemoteNG.App
             Application.ThreadException += ApplicationOnThreadException;
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
         }
 
         private static void ApplicationOnThreadException(object sender, ThreadExceptionEventArgs e)
@@ -434,7 +443,12 @@ namespace mRemoteNG.App
             // control after Marshal.FinalReleaseComObject detached the RCW.
             // This is benign (the control is being torn down) so suppress the crash dialog.
             if (e.Exception is System.Runtime.InteropServices.InvalidComObjectException)
+            {
+                RuntimeDiagnostics.SafeException("ui_thread_ignored_com", e.Exception);
                 return;
+            }
+
+            RuntimeDiagnostics.SafeException("ui_thread", e.Exception);
 
             CloseSplash();
             if (FrmMain.Default.IsDisposed) return;
@@ -444,8 +458,15 @@ namespace mRemoteNG.App
 
         private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            FrmUnhandledException window = new(e.ExceptionObject as Exception ?? new InvalidOperationException(e.ExceptionObject?.ToString()), e.IsTerminating);
+            Exception exception = e.ExceptionObject as Exception ?? new InvalidOperationException("Non-Exception object raised");
+            RuntimeDiagnostics.SafeException("app_domain", exception, e.IsTerminating);
+            FrmUnhandledException window = new(exception, e.IsTerminating);
             window.ShowDialog(FrmMain.Default);
+        }
+
+        private static void TaskSchedulerOnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+        {
+            RuntimeDiagnostics.SafeException("unobserved_task", e.Exception);
         }
 
         private static void ShowSplashOnStaThread()

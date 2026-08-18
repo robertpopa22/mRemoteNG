@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Versioning;
 using mRemoteNG.Connection;
+using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNGTests.TestHelpers;
 using NUnit.Framework;
 
@@ -50,7 +51,7 @@ namespace mRemoteNGTests.Connection
         }
 
 		[TestCaseSource(nameof(GetConnectionInfoProperties))]
-		public void CanSaveDefaultConnectionToModelWithAllStringProperties(PropertyInfo property)
+        public void CanSaveDefaultConnectionToModelWithAllStringProperties(PropertyInfo property)
 		{
             var saveTarget = new SerializableConnectionInfoAllPropertiesOfType<string>();
 
@@ -73,9 +74,26 @@ namespace mRemoteNGTests.Connection
             Assert.That(valueInDestination, Is.EqualTo(valueInSource));
         }
 
+        [TestCase("False", RDPDiskDrives.None)]
+        [TestCase("True", RDPDiskDrives.All)]
+        public void LegacyBooleanRedirectDiskDrivesSettingIsMigrated(string legacyValue, RDPDiskDrives expected)
+        {
+            DefaultConnectionInfo.Instance.LoadFrom(new LegacyRedirectDrivesSettings
+            {
+                RedirectDiskDrives = legacyValue
+            });
+
+            Assert.That(DefaultConnectionInfo.Instance.RedirectDiskDrives, Is.EqualTo(expected));
+        }
+
 		private static IEnumerable<PropertyInfo> GetConnectionInfoProperties()
 	    {
 			return new ConnectionInfo().GetSerializableProperties();
 	    }
+
+        private sealed class LegacyRedirectDrivesSettings
+        {
+            public string RedirectDiskDrives { get; init; } = string.Empty;
+        }
     }
 }
