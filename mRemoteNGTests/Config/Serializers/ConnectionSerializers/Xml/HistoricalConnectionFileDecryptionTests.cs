@@ -121,5 +121,20 @@ namespace mRemoteNGTests.Config.Serializers.ConnectionSerializers.Xml
                 Assert.That(connection.Protocol.ToString(), Is.Not.Empty, "protocol was lost");
             });
         }
+
+        [Test]
+        public void EncryptedCredentialsStoredOnFoldersAreAppliedToTheFolder()
+        {
+            ConnectionTreeModel model = Load(Resources.confCons_v2_6, "mR3m");
+            ContainerInfo? folder2 = model.RootNodes
+                .OfType<ContainerInfo>()
+                .SelectMany(root => root.GetRecursiveChildList())
+                .OfType<ContainerInfo>()
+                .FirstOrDefault(folder => string.Equals(folder.Name, "Folder2", StringComparison.Ordinal));
+
+            Assert.That(folder2, Is.Not.Null);
+            Assert.That(folder2!.Password, Is.EqualTo("folder2"),
+                "deferred decryption must update the real folder node, not a temporary connection copied before decryption");
+        }
     }
 }

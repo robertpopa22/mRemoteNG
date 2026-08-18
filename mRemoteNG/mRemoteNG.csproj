@@ -716,6 +716,20 @@
   <PropertyGroup Condition="'$(SelfContained)' == 'true'">
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
+  <!-- CI rewrites Properties/AssemblyInfo.cs before compiling. Local builds use
+       these opt-in properties so the binary reflects the current csproj version
+       without modifying a tracked source file. -->
+  <PropertyGroup Condition="'$(LocalBuildVersion)' != ''">
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Version>$(LocalBuildVersion)</Version>
+    <AssemblyVersion>$(LocalBuildNumericVersion).$(LocalBuildNumber)</AssemblyVersion>
+    <FileVersion>$(LocalBuildNumericVersion).$(LocalBuildNumber)</FileVersion>
+    <InformationalVersion>$(LocalBuildVersion) (Local build $(LocalBuildNumber)) $(Platform)</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(LocalBuildVersion)' != ''">
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
   <Target Name="PublishAfterBuild" AfterTargets="Build" Condition="'$(Configuration)' == 'Release Self-Contained' and '$(SkipAutoPublish)' != 'true'">
     <Message Text="Publishing self-contained portable application for $(Platform)..." Importance="high" />
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="Publish" Properties="Configuration=$(Configuration);Platform=$(Platform);RuntimeIdentifier=$(RuntimeIdentifier);NoBuild=true" />

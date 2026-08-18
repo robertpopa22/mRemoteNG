@@ -8,6 +8,17 @@ param(
     [string]$Arch = "x64"
 )
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+function Assert-NativeCommandSucceeded {
+    param([Parameter(Mandatory)][string]$Description)
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "$Description failed with exit code $LASTEXITCODE."
+    }
+}
+
 # Map arch to MSBuild Platform and .NET RuntimeIdentifier
 $platform = $Arch
 $rid = switch ($Arch) {
@@ -49,6 +60,31 @@ Write-Host "Using: $devShell"
 & $devShell -Arch amd64
 
 $sln = "$PSScriptRoot\mRemoteNG.sln"
+$isCI = $env:CI -or $env:GITHUB_ACTIONS -or $env:TF_BUILD -or $env:BUILD_BUILDID -or $env:JENKINS_URL -or $env:GITLAB_CI
+
+# CI generates AssemblyInfo.cs before building. Local builds instead ask MSBuild
+# to generate version attributes from the csproj version, without rewriting a
+# tracked source file or shipping the stale AssemblyInfo.cs metadata.
+$localVersionArgs = @()
+if (-not $isCI) {
+    $projectFile = Join-Path $PSScriptRoot 'mRemoteNG\mRemoteNG.csproj'
+    $projectContent = Get-Content -LiteralPath $projectFile -Raw
+    if ($projectContent -notmatch '<Version>(?<version>[^<]+)</Version>') {
+        throw 'Could not read the application version from mRemoteNG.csproj.'
+    }
+    $localVersion = $Matches.version.Trim()
+    if ($localVersion -notmatch '^(?<numeric>\d+\.\d+\.\d+)') {
+        throw "Could not parse the application version: $localVersion"
+    }
+    $localNumericVersion = $Matches.numeric
+    $buildEpoch = [DateTime]'2019-09-02'
+    $localBuildNumber = [int](([DateTime]::UtcNow - $buildEpoch).TotalMinutes / 1000)
+    $localVersionArgs = @(
+        "-p:LocalBuildVersion=$localVersion",
+        "-p:LocalBuildNumericVersion=$localNumericVersion",
+        "-p:LocalBuildNumber=$localBuildNumber"
+    )
+}
 
 # Disable MSBuild worker-node reuse. With -m, reusable nodes survive the build
 # by design and keep open handles on obj\*.cache. When build.ps1 runs inside a
@@ -64,39 +100,52 @@ if ($Portable) {
     Write-Host "Building portable edition ($Arch, self-contained + PORTABLE flag)..."
     if (-not $NoRestore) {
         dotnet restore $sln --runtime $rid
+        Assert-NativeCommandSucceeded -Description 'dotnet restore'
     }
     # PublishReadyToRun=false avoids NETSDK1094 crossgen2 issue; startup impact is negligible.
-    msbuild $sln -m -nodeReuse:false "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:DefineConstants=PORTABLE" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:SignAssembly=false" "-p:PublishDir=bin\$platform\Portable\" -t:Publish
+    msbuild $sln @localVersionArgs -m -nodeReuse:false "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:DefineConstants=PORTABLE" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:SignAssembly=false" "-p:PublishDir=bin\$platform\Portable\" -t:Publish
+    Assert-NativeCommandSucceeded -Description 'portable publish'
     Write-Host "Portable output: mRemoteNG\bin\$platform\Portable\" -ForegroundColor Green
 } elseif ($SelfContained) {
     Write-Host "Building self-contained $Arch (embedded .NET runtime)..."
     if (-not $NoRestore) {
         dotnet restore $sln --runtime $rid /p:PublishReadyToRun=true
+        Assert-NativeCommandSucceeded -Description 'dotnet restore'
     }
     # PublishReadyToRun=false avoids NETSDK1094 crossgen2 issue on local builds.
-    msbuild $sln -m -nodeReuse:false "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:PublishDir=bin\$platform\Release\publish\" -t:Publish
+    msbuild $sln @localVersionArgs -m -nodeReuse:false "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:PublishDir=bin\$platform\Release\publish\" -t:Publish
+    Assert-NativeCommandSucceeded -Description 'self-contained publish'
 } else {
     Write-Host "Building framework-dependent $Arch..."
     if (-not $NoRestore) {
         dotnet restore $sln
+        Assert-NativeCommandSucceeded -Description 'dotnet restore'
     }
     $msbuildArgs = @('-m', '-nodeReuse:false', '-verbosity:minimal', "-p:Configuration=$Configuration", "-p:Platform=$platform", '-p:SignAssembly=false')
+    $msbuildArgs += $localVersionArgs
     if ($Rebuild) { $msbuildArgs += '-t:Rebuild' }
     if ($NoRestore) { $msbuildArgs += '-p:RestorePackages=false' }
     msbuild $sln @msbuildArgs
+    Assert-NativeCommandSucceeded -Description 'framework-dependent build'
 }
 
 $timer.Stop()
 
 # Move satellite assemblies from stale culture folders into Languages/
-$outDir = Join-Path $PSScriptRoot "mRemoteNG\bin\$Arch\$Configuration"
+$outDir = if ($Portable) {
+    Join-Path $PSScriptRoot "mRemoteNG\bin\$Arch\Portable"
+} elseif ($SelfContained) {
+    Join-Path $PSScriptRoot "mRemoteNG\bin\$Arch\Release\publish"
+} else {
+    Join-Path $PSScriptRoot "mRemoteNG\bin\$Arch\$Configuration"
+}
 $langDir = Join-Path $outDir "Languages"
 $knownDirs = @('Assemblies','Icons','Languages','Plugins','publish','ref','runtimes','Schemas','Settings','Themes')
 $moved = 0
 Get-ChildItem $outDir -Directory -ErrorAction SilentlyContinue | Where-Object {
     $_.Name -notin $knownDirs -and $_.Name -notlike 'win-*'
 } | ForEach-Object {
-    $resDlls = Get-ChildItem $_.FullName -Filter '*.resources.dll' -ErrorAction SilentlyContinue
+    $resDlls = @(Get-ChildItem $_.FullName -Filter '*.resources.dll' -ErrorAction SilentlyContinue)
     if ($resDlls) {
         $dest = Join-Path $langDir $_.Name
         if (-not (Test-Path $dest)) { New-Item $dest -ItemType Directory -Force | Out-Null }
@@ -106,25 +155,11 @@ Get-ChildItem $outDir -Directory -ErrorAction SilentlyContinue | Where-Object {
         }
         $moved++
     }
-    if ((Get-ChildItem $_.FullName -Force -ErrorAction SilentlyContinue).Count -eq 0) {
+    if (@(Get-ChildItem $_.FullName -Force -ErrorAction SilentlyContinue).Count -eq 0) {
         Remove-Item $_.FullName -Force
     }
 }
 if ($moved -gt 0) { Write-Host "Moved $moved culture folder(s) into Languages/" -ForegroundColor DarkGray }
-
-# Copy local test connections file if present — DEVELOPMENT MACHINES ONLY.
-# Never do this on CI: the release ZIP would ship the developer's working set.
-# Guard every known CI signal so the step cannot run under a release workflow.
-$isCI = $env:CI -or $env:GITHUB_ACTIONS -or $env:TF_BUILD -or $env:BUILD_BUILDID -or $env:JENKINS_URL -or $env:GITLAB_CI
-if (-not $isCI) {
-    $localConfCons = Join-Path 'E:\OneDrive\_Portable\mRemoteNG 1.77.1' 'confCons.xml'
-    if (Test-Path $localConfCons) {
-        $settingsDir = Join-Path $outDir 'Settings'
-        if (-not (Test-Path $settingsDir)) { New-Item $settingsDir -ItemType Directory -Force | Out-Null }
-        Copy-Item $localConfCons (Join-Path $settingsDir 'confCons.xml') -Force
-        Write-Host "Copied test connections from portable install (local dev only)" -ForegroundColor DarkGray
-    }
-}
 
 $elapsed = $timer.Elapsed.TotalSeconds.ToString('F1')
 Write-Host "Build completed in ${elapsed}s" -ForegroundColor Cyan
@@ -137,3 +172,10 @@ if (-not (Test-Path $logFile)) {
     'timestamp,seconds,mode,arch,hostname' | Out-File $logFile -Encoding utf8
 }
 $logLine | Out-File $logFile -Append -Encoding utf8
+
+# Workstation-specific actions belong in the ignored local hook. The tracked build
+# never knows a user's paths and never copies connection data into build artifacts.
+$localPostBuild = Join-Path $PSScriptRoot 'post-build-local.ps1'
+if (-not $isCI -and (Test-Path -LiteralPath $localPostBuild -PathType Leaf)) {
+    & $localPostBuild -Arch $Arch -Configuration $Configuration -BuildOutput $outDir -Portable:$Portable
+}

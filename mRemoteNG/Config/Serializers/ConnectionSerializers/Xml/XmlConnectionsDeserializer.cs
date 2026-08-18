@@ -240,16 +240,19 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                             break;
                         case TreeNodeType.Container:
                         case TreeNodeType.Entity:
-                            ContainerInfo containerInfo = new();
-                            if (nodeType == TreeNodeType.Entity)
-                                containerInfo.IsEntity = true;
-
+                            ContainerInfo containerInfo;
                             if (_confVersion >= 0.9)
                             {
-                                ConnectionInfo? containerProps = GetConnectionInfoFromXml(xmlNode);
-                                if (containerProps != null)
-                                    containerInfo.CopyFrom(containerProps);
+                                containerInfo = GetConnectionInfoFromXml(xmlNode, createContainer: true) as ContainerInfo
+                                    ?? new ContainerInfo();
                             }
+                            else
+                            {
+                                containerInfo = new ContainerInfo();
+                            }
+
+                            if (nodeType == TreeNodeType.Entity)
+                                containerInfo.IsEntity = true;
                             if (_confVersion >= 0.8)
                             {
                                 containerInfo.IsExpanded = xmlNode.GetAttributeAsBool("Expanded");
@@ -281,7 +284,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             }
         }
 
-        private ConnectionInfo? GetConnectionInfoFromXml(XmlNode xmlnode)
+        private ConnectionInfo? GetConnectionInfoFromXml(XmlNode xmlnode, bool createContainer = false)
         {
             if (xmlnode?.Attributes == null)
                 return null;
@@ -293,10 +296,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             string connectionId = a.GetAttr("Id");
             if (string.IsNullOrWhiteSpace(connectionId))
                 connectionId = Guid.NewGuid().ToString();
-            ConnectionInfo connectionInfo = new(connectionId)
-            {
-                LinkedConnectionId = a.GetAttr("LinkedConnectionId")
-            };
+            ConnectionInfo connectionInfo = createContainer
+                ? new ContainerInfo(connectionId)
+                : new ConnectionInfo(connectionId);
+            connectionInfo.LinkedConnectionId = a.GetAttr("LinkedConnectionId");
 
             try
             {
