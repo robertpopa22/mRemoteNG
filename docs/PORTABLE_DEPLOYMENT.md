@@ -10,8 +10,8 @@ Use the repository-generic deployer after a successful portable build:
 pwsh ./build.ps1 -Portable
 pwsh ./scripts/Deploy-Portable.ps1 `
     -SourceDirectory ./mRemoteNG/bin/x64/Portable `
-    -TargetDirectory C:/Tools/mRemoteNG-latest `
-    -LegacyProfileDirectory C:/Tools/mRemoteNG-old
+    -TargetDirectory <install-dir>/mRemoteNG-latest `
+    -LegacyProfileDirectory <install-dir>/mRemoteNG-old
 ```
 
 `LegacyProfileDirectory` is only used when the target has no
