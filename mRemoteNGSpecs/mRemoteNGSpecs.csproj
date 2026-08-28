@@ -39,7 +39,6 @@
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="SpecFlow" />
     <PackageReference Include="SpecFlow.NUnit" />
-    <PackageReference Include="ZstdSharp.Port" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mRemoteNG\mRemoteNG.csproj" />

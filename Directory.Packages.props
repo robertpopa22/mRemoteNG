@@ -68,6 +68,7 @@
     <PackageVersion Include="System.Windows.Extensions" Version="10.0.5" />
     <PackageVersion Include="VaultSharp" Version="1.17.5.1" />
     <PackageVersion Include="VncSharpCore" Version="1.2.1" />
+    <!-- Transitive via MySql.Data (floor 0.8.6); pinned here to 0.8.7 by central transitive pinning. -->
     <PackageVersion Include="ZstdSharp.Port" Version="0.8.7" />
   </ItemGroup>
 </Project>
