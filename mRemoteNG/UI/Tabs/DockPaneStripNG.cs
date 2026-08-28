@@ -1385,7 +1385,7 @@ namespace mRemoteNG.UI.Tabs
 
                         try
                         {
-                            TryCloseTab(i);
+                            CloseTab(i);
                         }
                         catch (NullReferenceException)
                         {
@@ -1411,6 +1411,34 @@ namespace mRemoteNG.UI.Tabs
             catch (InvalidOperationException)
             {
                 _ = 0; // Intentionally empty — control may be disposed
+            }
+        }
+
+        /// <summary>
+        /// Closes the tab at <paramref name="index"/>, keeping the current selection when
+        /// the tab does not actually close.
+        /// </summary>
+        /// <remarks>
+        /// DockPanelSuite's TryCloseTab selects the neighbouring tab afterwards without
+        /// checking whether the close happened, so dismissing the "are you sure" prompt
+        /// still switched the active connection.
+        /// </remarks>
+        private void CloseTab(int index)
+        {
+            IDockContent tabContent = Tabs[index].Content;
+            IDockContent? activeBeforeClose = DockPane.ActiveContent;
+
+            TryCloseTab(index);
+
+            if (activeBeforeClose == null || ReferenceEquals(DockPane.ActiveContent, activeBeforeClose))
+                return;
+
+            // The tab is still on display, so the close was refused and the selection
+            // moved for nothing.
+            if (DockPane.DisplayingContents.Contains(tabContent) &&
+                DockPane.DisplayingContents.Contains(activeBeforeClose))
+            {
+                activeBeforeClose.DockHandler.Activate();
             }
         }
 
