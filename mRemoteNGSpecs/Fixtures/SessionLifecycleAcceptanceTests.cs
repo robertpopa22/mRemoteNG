@@ -202,8 +202,23 @@ namespace mRemoteNGSpecs.Fixtures
             AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
 
             AssertNoCrash("after middle-clicking the session tab to close it — the #142 NRE");
-            UiWait.Until(() => TabCount() < before,
-                         "the tab to actually close after the middle click", TimeSpan.FromSeconds(10));
+
+            // What "closed" means here is decided by KeepTabsOpenAfterDisconnect, and this battery
+            // runs on defaults, where it is TRUE: answering Disconnect closes the PROTOCOL but the
+            // tab deliberately stays as a reconnect placeholder (ConnectionTab.OnFormClosing sets
+            // e.Cancel under that setting — #61, and #139 documents the default). The original
+            // assertion here waited for TabCount() to drop, which that design makes impossible;
+            // it failed deterministically on every code/binary combination once the guest ran the
+            // scenario to this point (proved 2026-08-31 by A/B against the pre-change snapshot).
+            // What #142 actually needs proven is the path through
+            // DockPaneStripNG.MiddleClickCloseTab -> QueueCloseTab without the NRE - the
+            // AssertNoCrash above - plus the tab landing in its disconnected state instead of a
+            // zombie session: the closed-state panel's "Connect" reconnect button.
+            UiWait.Until(() => TabCount() == before &&
+                               MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.Button))
+                                         .Any(b => SafeName(b).Equals("Connect", StringComparison.Ordinal)),
+                         "the tab to stay open showing its disconnected state (Connect button)",
+                         TimeSpan.FromSeconds(10));
         }
 
         /// <summary>
