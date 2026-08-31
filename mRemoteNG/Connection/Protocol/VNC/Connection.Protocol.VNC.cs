@@ -481,6 +481,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
                 if (vnc.IsHandleCreated && !vnc.IsDisposed)
                     vnc.Disconnect();
+                else
+                    HardStopVncClientWithoutHandle(vnc);
             }
             catch (Exception ex)
             {
@@ -490,6 +492,48 @@ namespace mRemoteNG.Connection.Protocol.VNC
                                                      $"VNC client shutdown during dispose failed: {ex.Message}",
                                                      true);
             }
+        }
+
+        /// <summary>
+        /// Stops the VncSharpCore protocol worker when the RemoteDesktop control has no window
+        /// handle (never created, or already destroyed). RemoteDesktop.Disconnect() cannot be used
+        /// here: VncClient.OnConnectionLost marshals with Control.Invoke, and Invoke on a
+        /// handle-less control CREATES the handle mid-teardown — which throws
+        /// Win32Exception "Error creating window handle" on the RFB worker thread and kills the
+        /// process (#170). Instead reach the library's private VncClient, silence its
+        /// ConnectionLost marshaling, and stop the worker directly: VncClient.Disconnect() only
+        /// signals the thread, flushes the blocking read and closes the socket — no UI calls.
+        /// </summary>
+        private static void HardStopVncClientWithoutHandle(VncSharpCore.RemoteDesktop vnc)
+        {
+            FieldInfo? clientField = typeof(VncSharpCore.RemoteDesktop)
+                .GetField("vnc", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (clientField?.GetValue(vnc) is not VncSharpCore.VncClient client)
+                return; // never connected — no worker thread to stop
+
+            // Clear the field-like event so VncClient.OnConnectionLost sees no Control target
+            // and returns without Invoke. RemoteDesktop.Disconnect() detaches the same handler
+            // on the normal path, so no behavior is lost.
+            typeof(VncSharpCore.VncClient)
+                .GetField(nameof(VncSharpCore.VncClient.ConnectionLost), BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.SetValue(client, null);
+
+            try
+            {
+                client.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector?.AddMessage(Messages.MessageClass.DebugMsg,
+                                                     $"VNC worker hard-stop failed: {ex.Message}", true);
+            }
+
+            // Mark the control disconnected so RemoteDesktop.Dispose() does not call
+            // Disconnect() again on the now-closed RfbProtocol (its rfb.Close() would NRE).
+            FieldInfo? stateField = typeof(VncSharpCore.RemoteDesktop)
+                .GetField("state", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (stateField != null && stateField.FieldType.IsEnum)
+                stateField.SetValue(vnc, Enum.Parse(stateField.FieldType, "Disconnected"));
         }
 
         public void SendSpecialKeys(SpecialKeys Keys)
