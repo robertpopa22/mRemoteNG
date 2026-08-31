@@ -496,8 +496,11 @@ namespace mRemoteNG.UI.Menu
             if (Runtime.WindowList == null || Runtime.WindowList.Count == 0) return;
             foreach (BaseWindow window in Runtime.WindowList)
             {
+                // Skip non-connection windows instead of aborting the whole loop: a single
+                // foreign entry in WindowList used to silently cancel Reconnect All for every
+                // window after it.
                 if (!(window is ConnectionWindow connectionWindow))
-                    return;
+                    continue;
 
                 connectionWindow.ReconnectAll(Runtime.ConnectionInitiator);
             }
