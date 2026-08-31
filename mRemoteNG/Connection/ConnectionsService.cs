@@ -53,6 +53,16 @@ namespace mRemoteNG.Connection
         private SecureString? _cachedSqlEncryptionPassword;
 
         public bool IsConnectionsFileLoaded { get; set; }
+
+        /// <summary>
+        /// True when the loaded tree has changed since the last save (or load). Used by the
+        /// autosave timer to skip saves when nothing changed — an unconditional periodic save
+        /// rewrote the connections file and stamped a new .backup every interval, flooding the
+        /// Settings folder (and any sync service watching it) with identical copies.
+        /// Runtime-only properties (see the #83 filter) do not count as changes.
+        /// </summary>
+        public bool HasUnsavedChanges { get; private set; }
+
         public bool UsingDatabase { get; private set; }
         public string? ConnectionFileName { get; private set; }
         public RemoteConnectionsSyncronizer? RemoteConnectionsSyncronizer { get; set; }
@@ -486,6 +496,11 @@ namespace mRemoteNG.Connection
                 return;
             }
 
+            // Clear the dirty flag up front: edits arriving while the save serializes re-arm it,
+            // so a change racing the save is re-saved on the next autosave tick instead of being
+            // considered already-persisted (clearing after the save would swallow it).
+            HasUnsavedChanges = false;
+
             Stopwatch diagnosticsStopwatch = Stopwatch.StartNew();
             bool diagnosticsSuccess = false;
             int diagnosticsNodeCount = connectionTreeModel.GetRecursiveChildList().Count;
@@ -545,6 +560,7 @@ namespace mRemoteNG.Connection
             }
             catch (Exception ex)
             {
+                HasUnsavedChanges = true; // save failed — keep the model marked dirty for retry
                 Runtime.MessageCollector?.AddExceptionMessage(string.Format(CultureInfo.InvariantCulture, Language.ConnectionsFileCouldNotSaveAs, connectionFileName), ex, logOnly: false);
             }
             finally
@@ -714,6 +730,12 @@ namespace mRemoteNG.Connection
                     cacheModel.AddRootNode(root);
                 XmlConnectionsSaver cacheSaver = new(cachePath, new SaveFilter());
                 cacheSaver.Save(cacheModel);
+
+                // The saver stamps a .backup on every write, but only the ConnectionsSaved event
+                // path prunes — and this cache save never raises it, so its backups accumulated
+                // unbounded (observed live: copies spanning five months). Prune here directly.
+                FileBackupPruner.PruneBackupFiles(cachePath, Properties.OptionsBackupPage.Default.BackupFileKeepCount);
+
                 Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"SQL connections cache saved to '{cachePath}'");
             }
             catch (Exception ex)
@@ -724,12 +746,57 @@ namespace mRemoteNG.Connection
 
         #region Events
 
+        /// <summary>
+        /// What last armed <see cref="HasUnsavedChanges"/> — the collection action or property
+        /// name. Logged by the autosave tick so field logs can attribute residual periodic saves
+        /// to their source instead of guessing.
+        /// </summary>
+        public string? LastChangeReason { get; private set; }
+
+        private void MarkDirtyOnCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            LastChangeReason = $"collection:{e.Action}";
+            HasUnsavedChanges = true;
+        }
+
+        private void MarkDirtyOnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            string property = e.PropertyName ?? "";
+
+            // Same runtime-only filter as SaveConnectionsOnEdit (#83): these are never persisted,
+            // so they must not arm the autosave either.
+            if (property is nameof(ConnectionInfo.HostReachabilityStatus)
+                         or nameof(ConnectionInfo.OpenConnections)
+                         or nameof(ConnectionInfo.IsQuickConnect)
+                         or nameof(ConnectionInfo.PleaseConnect))
+            {
+                return;
+            }
+
+            LastChangeReason = $"property:{property}";
+            HasUnsavedChanges = true;
+        }
+
         public event EventHandler<ConnectionsLoadedEventArgs>? ConnectionsLoaded;
         public event EventHandler<ConnectionsSavedEventArgs>? ConnectionsSaved;
 
         private void RaiseConnectionsLoadedEvent(Optional<ConnectionTreeModel> previousTreeModel, ConnectionTreeModel newTreeModel, bool previousSourceWasDatabase, bool newSourceIsDatabase, string newSourcePath)
         {
+            foreach (ConnectionTreeModel oldTree in previousTreeModel)
+            {
+                oldTree.CollectionChanged -= MarkDirtyOnCollectionChanged;
+                oldTree.PropertyChanged -= MarkDirtyOnPropertyChanged;
+            }
+
+            newTreeModel.CollectionChanged += MarkDirtyOnCollectionChanged;
+            newTreeModel.PropertyChanged += MarkDirtyOnPropertyChanged;
+
             ConnectionsLoaded?.Invoke(this, new ConnectionsLoadedEventArgs(previousTreeModel, newTreeModel, previousSourceWasDatabase, newSourceIsDatabase, newSourcePath));
+
+            // Clear AFTER the load event: subscribers mutate the freshly loaded model during
+            // handling (e.g. PuTTY saved-session injection), and none of that is a user change —
+            // it must not arm the autosave timer's first tick.
+            HasUnsavedChanges = false;
         }
 
         private void RaiseConnectionsSavedEvent(ConnectionTreeModel modelThatWasSaved, bool previouslyUsingDatabase, bool usingDatabase, string connectionFileName)

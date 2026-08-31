@@ -883,7 +883,13 @@ namespace mRemoteNG.UI.Forms
 
         private void TmrAutoSave_Tick(object sender, EventArgs e)
         {
-            Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, "Doing AutoSave");
+            // Only save when something actually changed. The unconditional periodic save rewrote
+            // the connections file (and stamped a fresh .backup) every interval even when idle.
+            if (!Runtime.ConnectionsService.HasUnsavedChanges)
+                return;
+
+            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                $"AutoSave: saving (changed by {Runtime.ConnectionsService.LastChangeReason ?? "unknown"})", true);
             Runtime.ConnectionsService.SaveConnectionsAsync();
         }
 
@@ -1060,33 +1066,20 @@ namespace mRemoteNG.UI.Forms
         // activation — not for clicks inside the already-active main window — so it cannot
         // fix this case. Pull keyboard focus onto the clicked input control here. The
         // message is never consumed: the click still reaches the control normally.
-        // TEMP diagnostic for #118 (RDP text boxes unresponsive). Remove once the trace
-        // shows which branch fails. Logs to %LOCALAPPDATA%\mRemoteNG\mRemoteNG.log.
-        private static void Diag118(string msg) =>
-            Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, $"[#118-diag] {msg}", true);
-
         private void RedirectClickToInputControl()
         {
             try
             {
-                IntPtr focusHwnd = NativeMethods.GetFocus();
-                InterfaceControl? focusedIc = FindInterfaceControl(focusHwnd);
+                InterfaceControl? focusedIc = FindInterfaceControl(NativeMethods.GetFocus());
                 Control? clicked = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
                                    ?? GetChildAtPoint(MousePosition);
-                Diag118($"entry GetFocus=0x{focusHwnd.ToInt64():X} icOwnsFocus={focusedIc != null} clicked={clicked?.GetType().Name ?? "null"}");
 
                 // Only intervene while a connection host actually owns focus.
                 if (focusedIc == null)
-                {
-                    Diag118("abort: FindInterfaceControl(GetFocus()) == null (guard short-circuit)");
                     return;
-                }
 
                 if (clicked is not (TextBoxBase or ComboBox) || !clicked.IsHandleCreated || !clicked.CanFocus)
-                {
-                    Diag118($"abort: clicked is not a focusable input control");
                     return;
-                }
 
                 // Decide by Win32 focus, not Control.Focused: after the RDP ActiveX receives
                 // Win32 focus the WinForms managed focus chain still reports the previously
@@ -1096,24 +1089,11 @@ namespace mRemoteNG.UI.Forms
                 // Control.Focus() can no-op when WinForms believes it is already focused, so
                 // fall back to a direct Win32 SetFocus.
                 if (HasWin32Focus(clicked))
-                {
-                    Diag118("noop: clicked already has Win32 focus");
                     return;
-                }
 
                 clicked.Focus();
-                bool afterFocus = HasWin32Focus(clicked);
-                IntPtr setFocusResult = IntPtr.Zero;
-                int lastError = 0;
-                if (!afterFocus)
-                {
-                    setFocusResult = NativeMethods.SetFocus(clicked.Handle);
-                    lastError = Marshal.GetLastWin32Error();
-                }
-
-                Diag118($"refocus {clicked.GetType().Name}: afterFocus={afterFocus} " +
-                        $"setFocusRet=0x{setFocusResult.ToInt64():X} err={lastError} " +
-                        $"afterSetFocus={HasWin32Focus(clicked)}");
+                if (!HasWin32Focus(clicked))
+                    NativeMethods.SetFocus(clicked.Handle);
             }
             catch (Exception ex)
             {
