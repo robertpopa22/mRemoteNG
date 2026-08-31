@@ -1037,7 +1037,25 @@ namespace mRemoteNG.Connection.Protocol
                     return;
                 }
 
-                NativeMethods.SetForegroundWindow(PuttyHandle);
+                // Do NOT SetForegroundWindow(PuttyHandle): PuTTY is a reparented window of a
+                // separate process, so raising it makes PuTTY's thread the OS foreground
+                // application. The shell then tracks two "applications" inside one visual frame —
+                // a single Alt-Tab appears to do nothing (it lands on the deactivated main window,
+                // which bounces focus straight back here) and the taskbar button needs several
+                // clicks (#168). Keep the host as the foreground application and move only
+                // keyboard focus: cross-process SetParent shares the input queues, so SetFocus
+                // from the UI thread reaches the embedded terminal (WM_SETFOCUS gives PuTTY its
+                // filled caret as usual).
+                if (foregroundWindow == PuttyHandle)
+                {
+                    // Heal the legacy state where PuTTY's thread already owns foreground
+                    // (e.g. a session opened before this fix) by re-anchoring the host window.
+                    IntPtr host = connectionWindowHandle != IntPtr.Zero ? connectionWindowHandle : mainWindowHandle;
+                    if (host != IntPtr.Zero)
+                        NativeMethods.SetForegroundWindow(host);
+                }
+
+                NativeMethods.SetFocus(PuttyHandle);
             }
             catch (Exception ex)
             {
