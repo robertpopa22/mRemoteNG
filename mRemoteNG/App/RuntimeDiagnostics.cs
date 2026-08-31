@@ -122,6 +122,14 @@ namespace mRemoteNG.App
 
         internal static void SafeException(string source, Exception exception, bool fatal = false)
         {
+            // An AggregateException from TaskScheduler.UnobservedTaskException is a wrapper the
+            // TPL never throws: its own StackTrace is null, its type and HResult are constants.
+            // Logging the wrapper produced type=AggregateException hresult=0x80131500 frames=""
+            // for every unobserved fault — one signature for every distinct bug (observed live:
+            // 42 identical events in a two-week log). Classify by the first real inner exception.
+            if (exception is AggregateException aggregate)
+                exception = aggregate.Flatten().InnerException ?? exception;
+
             string frames = BuildSafeFrames(exception);
             string signatureInput = $"{exception.GetType().FullName}|{exception.HResult:X8}|{frames}";
             byte[] hash = SHA256.HashData(Encoding.UTF8.GetBytes(signatureInput));
