@@ -12,7 +12,7 @@
   "created_at": "2026-08-17T11:04:17Z",
   "github_updated_at": "2026-08-17T11:04:17Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Error creating window handle.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at HWND System.Windows.Forms.Control.Windows.Win32.Foundation.IHandle<Windows.Win32.Foundation.HWND>.get_Handle(?)\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -27,6 +27,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-31",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [],
@@ -34,6 +44,6 @@
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-31T15:51:01Z",
-  "notes": "fix: VNC RFB worker left alive when control disposed without handle -> OnConnectionLost Invoke forces CreateHandle -> fatal; hard-stop via reflection implemented"
+  "last_synced": "2026-08-31T16:18:43Z",
+  "notes": "fix 8297ccd90 (VncClient hard-stop via reflection when no handle); auto-crash source, watch for recurrence"
 }

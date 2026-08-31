@@ -10,7 +10,7 @@
   "created_at": "2026-08-17T06:27:46Z",
   "github_updated_at": "2026-08-17T06:27:46Z",
   "body_snippet": "**What happens** (and what you expected instead): PuTTYNG.exe seems based on a PuTTY 0.83 version from Sept 2025, per the commit ID 9cb330cf4d7b2f3aa7c5fdcbb3ca64dad3dded44 found in PuTTYNG.exe -> About.\nMeanwhile 0.85 is available containing various (non-critical) security fixes: https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html.\n\n\n**Steps to reproduce:**\n\n1. Open PuTTYNG.exe -> About\n2. Verify commit ID\n\n**Version** (Help → About, or the nightly filename):\n1.83.0\n\n**Environment**...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -25,6 +25,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-31",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [],
@@ -32,6 +42,6 @@
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-31T15:51:00Z",
-  "notes": "valid: vendored PuTTYNG based on PuTTY 0.83 (Sep 2025), 0.85 has security fixes; needs PuTTYNG fork rebuild + human security review (tripwire path)"
+  "last_synced": "2026-08-31T17:47:55Z",
+  "notes": "PuTTYNG 0.85 shipped aeea728c7 (pipeline fixes in fork c26baf07); lab-verified 5/6 + A/B; awaiting reporter About-box confirm on nightly"
 }

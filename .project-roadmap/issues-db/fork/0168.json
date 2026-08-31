@@ -10,7 +10,7 @@
   "created_at": "2026-08-17T06:16:45Z",
   "github_updated_at": "2026-08-17T06:16:45Z",
   "body_snippet": "**What happens** (and what you expected instead): alt-tab behavior not working as expected when an SSH session is opened (PuTTYNG.exe as part of mRemoteNG)). Expectation is that a single alt-tab changes between mRemoteNG and a different app.\n\n**Steps to reproduce:**\n\n1. Open mRemoteNG, open an SSH session\n2. Alt-tab between mRemoteNG and another app\n3. Observe mRemoteNG keeps on showing and requires at least 2 tabs to change to the other app. Clicking the mRemoteNG button on the taskbar requires...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -25,6 +25,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-08-31",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [],
@@ -32,6 +42,6 @@
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-31T15:51:00Z",
-  "notes": "fix: alt-tab focus bounce with embedded PuTTY; PuttyBase.Focus SetForegroundWindow suspected; Grok+Gemini review in flight"
+  "last_synced": "2026-08-31T16:18:43Z",
+  "notes": "fix bf99b7ad9 (Focus keeps host foreground, SetFocus into putty); awaiting reporter confirm on nightly"
 }
