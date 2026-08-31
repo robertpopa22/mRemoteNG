@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace mRemoteNG.UI.Forms
 {
@@ -131,7 +131,6 @@ namespace mRemoteNG.UI.Forms
             // 
             // toolsMenu
             // 
-            this.toolsMenu.CredentialProviderCatalog = null;
             this.toolsMenu.MainForm = null;
             this.toolsMenu.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.toolsMenu.Name = "mMenTools";

@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection.Protocol;
-using mRemoteNG.Credential;
 using mRemoteNG.Resources.Language;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Window;
@@ -17,12 +16,10 @@ namespace mRemoteNG.UI.Menu
         private ToolStripMenuItem _mMenToolsExternalApps = null!;
         private ToolStripMenuItem _mMenToolsPortScan = null!;
         private ToolStripMenuItem _mMenToolsConnectionTester = null!;
-        private ToolStripMenuItem _mMenToolsUvncsc = null!;
         private ToolStripMenuItem _mMenToolsFindInSession = null!;
         private ToolStripMenuItem _mMenToolsQuickImport = null!;
 
         public Form? MainForm { get; set; }
-        public ICredentialRepositoryList? CredentialProviderCatalog { get; set; }
 
         public ToolsMenu()
         {
@@ -32,7 +29,6 @@ namespace mRemoteNG.UI.Menu
         private void Initialize()
         {
             _mMenToolsSshTransfer = new ToolStripMenuItem();
-            _mMenToolsUvncsc = new ToolStripMenuItem();
             _mMenToolsExternalApps = new ToolStripMenuItem();
             _mMenToolsPortScan = new ToolStripMenuItem();
             _mMenToolsConnectionTester = new ToolStripMenuItem();
@@ -44,7 +40,6 @@ namespace mRemoteNG.UI.Menu
             DropDownItems.AddRange(new ToolStripItem[]
             {
                 _mMenToolsSshTransfer,
-                _mMenToolsUvncsc,
                 _mMenToolsExternalApps,
                 _mMenToolsPortScan,
                 _mMenToolsConnectionTester,
@@ -62,14 +57,6 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsSshTransfer.Size = new System.Drawing.Size(184, 22);
             _mMenToolsSshTransfer.Text = Language.SshFileTransferMenuItem;
             _mMenToolsSshTransfer.Click += mMenToolsSSHTransfer_Click;
-            // 
-            // mMenToolsUVNCSC
-            // 
-            _mMenToolsUvncsc.Name = "mMenToolsUVNCSC";
-            _mMenToolsUvncsc.Size = new System.Drawing.Size(184, 22);
-            _mMenToolsUvncsc.Text = Language.UltraVNCSingleClickMenuItem;
-            _mMenToolsUvncsc.Visible = false;
-            _mMenToolsUvncsc.Click += mMenToolsUVNCSC_Click;
             // 
             // mMenToolsExternalApps
             // 
@@ -128,11 +115,6 @@ namespace mRemoteNG.UI.Menu
             AppWindows.Show(WindowType.SSHTransfer);
         }
 
-        private void mMenToolsUVNCSC_Click(object sender, EventArgs e)
-        {
-            AppWindows.Show(WindowType.UltraVNCSC);
-        }
-
         private void mMenToolsExternalApps_Click(object sender, EventArgs e)
         {
             AppWindows.Show(WindowType.ExternalApps);
@@ -146,11 +128,6 @@ namespace mRemoteNG.UI.Menu
         private void mMenToolsConnectionTester_Click(object sender, EventArgs e)
         {
             AppWindows.Show(WindowType.ConnectionTester);
-        }
-
-        private void mMenToolsOptions_Click(object sender, EventArgs e)
-        {
-            AppWindows.Show(WindowType.Options);
         }
 
         private void mMenToolsFindInSession_Click(object sender, EventArgs e)

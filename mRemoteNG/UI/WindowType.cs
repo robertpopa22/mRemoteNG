@@ -1,4 +1,4 @@
-﻿namespace mRemoteNG.UI
+namespace mRemoteNG.UI
 {
     public enum WindowType
     {
@@ -13,7 +13,7 @@
         ExternalApps = 13,
         PortScan = 14,
         ConnectionTester = 15,
-        UltraVNCSC = 16,
+        // 16 was UltraVNCSC - removed: its window's entire body had been commented-out legacy ActiveX code
         KeyboardShortcuts = 17,
         ActiveConnections = 18,
     }

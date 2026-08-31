@@ -1,4 +1,4 @@
-﻿#region Usings
+#region Usings
 using System;
 using System.Runtime.Versioning;
 using mRemoteNG.Resources.Language;
@@ -16,7 +16,6 @@ namespace mRemoteNG.App
         private static ExternalToolsWindow? _externalappsForm;
         private static PortScanWindow? _portscanForm;
         private static ConnectionTesterWindow? _connectionTesterForm;
-        private static UltraVNCWindow? _ultravncscForm;
         private static ConnectionTreeWindow? _treeForm;
         private static ConfigWindow _configForm = new ConfigWindow();
         private static ErrorAndInfoWindow _errorsForm = new ErrorAndInfoWindow();
@@ -111,11 +110,6 @@ namespace mRemoteNG.App
                         if (_connectionTesterForm == null || _connectionTesterForm.IsDisposed)
                             _connectionTesterForm = new ConnectionTesterWindow();
                         _connectionTesterForm.Show(dockPanel);
-                        break;
-                    case WindowType.UltraVNCSC:
-                        if (_ultravncscForm == null || _ultravncscForm.IsDisposed)
-                            _ultravncscForm = new UltraVNCWindow();
-                        _ultravncscForm.Show(dockPanel);
                         break;
                     case WindowType.KeyboardShortcuts:
                         if (_keyboardShortcutsForm == null || _keyboardShortcutsForm.IsDisposed)

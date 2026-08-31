@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows.Forms;
 using mRemoteNG.App;
@@ -46,7 +46,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnLaunchPutty.Text = Language.ButtonLaunchPutty;
             btnBrowseCustomPuttyPath.Text = Language._Browse;
             chkUseCustomPuttyPath.Text = Language.CheckboxPuttyPath;
-            lblUVNCSCPort.Text = Language.UltraVNCSCListeningPort;
         }
 
         public override void LoadSettings()
@@ -62,7 +61,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             txtCustomPuttyPath.Text = Properties.OptionsAdvancedPage.Default.CustomPuttyPath;
             SetPuttyLaunchButtonEnabled();
 
-            numUVNCSCPort.Value = Properties.OptionsAdvancedPage.Default.UVNCSCPort;
 
             chkConnectionLogging.Checked = Properties.OptionsAdvancedPage.Default.EnableConnectionLogging;
             chkShowPortScan.Checked = Properties.OptionsAdvancedPage.Default.ShowPortScan;
@@ -95,7 +93,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             }
 
             Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime = (int)numPuttyWaitTime.Value;
-            Properties.OptionsAdvancedPage.Default.UVNCSCPort = (int)numUVNCSCPort.Value;
 
             Properties.OptionsAdvancedPage.Default.EnableConnectionLogging = chkConnectionLogging.Checked;
             Properties.OptionsAdvancedPage.Default.ShowPortScan = chkShowPortScan.Checked;

@@ -1,4 +1,4 @@
-﻿
+
 
 using mRemoteNG.UI.Controls;
 
@@ -38,10 +38,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             numPuttyWaitTime = new MrngNumericUpDown();
             chkUseCustomPuttyPath = new MrngCheckBox();
             lblConfigurePuttySessions = new MrngLabel();
-            numUVNCSCPort = new MrngNumericUpDown();
             txtCustomPuttyPath = new MrngTextBox();
             btnLaunchPutty = new MrngButton();
-            lblUVNCSCPort = new MrngLabel();
             lblSeconds = new MrngLabel();
             btnBrowseCustomPuttyPath = new MrngButton();
             chkLoadBalanceInfoUseUtf8 = new MrngCheckBox();
@@ -50,7 +48,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowPortScan = new MrngCheckBox();
             chkShowPuttySavedSessions = new MrngCheckBox();
             ((System.ComponentModel.ISupportInitialize)numPuttyWaitTime).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numUVNCSCPort).BeginInit();
             SuspendLayout();
             // 
             // lblMaximumPuttyWaitTime
@@ -108,18 +105,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblConfigurePuttySessions.Text = "To configure PuTTY sessions click this button:";
             lblConfigurePuttySessions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // numUVNCSCPort
-            // 
-            numUVNCSCPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            numUVNCSCPort.Location = new System.Drawing.Point(379, 202);
-            numUVNCSCPort.Margin = new System.Windows.Forms.Padding(6);
-            numUVNCSCPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
-            numUVNCSCPort.Name = "numUVNCSCPort";
-            numUVNCSCPort.Size = new System.Drawing.Size(64, 22);
-            numUVNCSCPort.TabIndex = 8;
-            numUVNCSCPort.Value = new decimal(new int[] { 5500, 0, 0, 0 });
-            numUVNCSCPort.Visible = false;
-            // 
             // txtCustomPuttyPath
             // 
             txtCustomPuttyPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -144,16 +129,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnLaunchPutty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             btnLaunchPutty.UseVisualStyleBackColor = true;
             btnLaunchPutty.Click += btnLaunchPutty_Click;
-            // 
-            // lblUVNCSCPort
-            // 
-            lblUVNCSCPort.Location = new System.Drawing.Point(9, 202);
-            lblUVNCSCPort.Name = "lblUVNCSCPort";
-            lblUVNCSCPort.Size = new System.Drawing.Size(364, 19);
-            lblUVNCSCPort.TabIndex = 10;
-            lblUVNCSCPort.Text = "UltraVNC SingleClick Listening Port:";
-            lblUVNCSCPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            lblUVNCSCPort.Visible = false;
             // 
             // lblSeconds
             // 
@@ -251,17 +226,14 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Controls.Add(numPuttyWaitTime);
             Controls.Add(chkUseCustomPuttyPath);
             Controls.Add(lblConfigurePuttySessions);
-            Controls.Add(numUVNCSCPort);
             Controls.Add(txtCustomPuttyPath);
             Controls.Add(btnLaunchPutty);
-            Controls.Add(lblUVNCSCPort);
             Controls.Add(lblSeconds);
             Controls.Add(btnBrowseCustomPuttyPath);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "AdvancedPage";
             Size = new System.Drawing.Size(589, 440);
             ((System.ComponentModel.ISupportInitialize)numPuttyWaitTime).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numUVNCSCPort).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -271,10 +243,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal Controls.MrngNumericUpDown numPuttyWaitTime;
         internal MrngCheckBox chkUseCustomPuttyPath;
         internal Controls.MrngLabel lblConfigurePuttySessions;
-        internal Controls.MrngNumericUpDown numUVNCSCPort;
         internal Controls.MrngTextBox txtCustomPuttyPath;
         internal MrngButton btnLaunchPutty;
-        internal Controls.MrngLabel lblUVNCSCPort;
         internal Controls.MrngLabel lblSeconds;
         internal MrngButton btnBrowseCustomPuttyPath;
         private MrngCheckBox chkLoadBalanceInfoUseUtf8;
