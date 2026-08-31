@@ -27,6 +27,10 @@ namespace mRemoteNG.UI.Forms
             ApplyTheme();
         }
 
+        // The live figures below are rewritten mechanically by scripts/sync-readme-metrics.py
+        // (the same pass that keeps README.md honest) - do not hand-edit the numbers.
+        private const string LiveStats = "6,687 automated tests · 0 analyzer warnings · 90 issues fixed for external reporters";
+
         private void ApplyLanguage()
         {
             lblLicense.Text = Language.ReleasedUnderGPL;
@@ -36,25 +40,38 @@ namespace mRemoteNG.UI.Forms
             llCredits.Text = Language.OriginalCredits;
             llLicense.Text = Language.License;
             lblCopyright.Text = GeneralAppInfo.Copyright;
-            lblTitle.Text = "mRemoteNG Community Edition — .NET 10, 16 protocols, 6,211 tests, " +
-                            "0 warnings, 712 issues fixed.\nAI-assisted open source remote connections manager for Windows.";
+            lblTitle.Text = "mRemoteNG Community Edition";
             var puttyVersion = PuttyTypeDetector.GetPuttyVersion(GeneralAppInfo.PuttyPath);
             var puttyVersionStr = (puttyVersion.Major > 0 || puttyVersion.Minor > 0)
                 ? $" | PuTTY {puttyVersion.Major}.{puttyVersion.Minor}"
                 : string.Empty;
-            lblVersion.Text = $@"Version {GeneralAppInfo.ApplicationVersion}{puttyVersionStr}";
+            lblVersion.Text = $@"Version {GeneralAppInfo.ApplicationVersion}{puttyVersionStr} — .NET 10, 16 protocols{PortableSuffix()}";
+            lblStats.Text = LiveStats;
+            lblStory.Text =
+                "This fork is maintained by an AI-assisted pipeline at Geseidl IT Solutions: every " +
+                "report is investigated, fixed, built and tested automatically, with human review on " +
+                "anything security-sensitive. It stands - with respect and gratitude - on almost two " +
+                "decades of work by the mRemoteNG project: Felix Deimel, Riley McArdle, and the " +
+                "mRemoteNG Dev Team. Their links live on the right.";
             lblForkHeader.Text = $@"{Language.ForkHeader} ({GeneralAppInfo.ForkOwner})";
             llForkGitHub.Text = Language.ForkGitHubPage;
             llForkReleases.Text = Language.ForkReleases;
             llForkChangelog.Text = Language.ForkChangelog;
+            llDonate.Text = "Support the Geseidl Association";
+            lblOriginalHeader.Text = "The Original Project — thank you";
             lblMaintainedBy.Text = Language.MaintainedBy;
             lblMaintainer.Text = "Geseidl IT Solutions";
             llMaintainerWebsite.Text = "geseidl.ro/servicii-it";
-            AddPortableString();
         }
 
-        [Conditional("PORTABLE")]
-        private void AddPortableString() => lblTitle.Text += $@" {Language.PortableEdition}";
+        private static string PortableSuffix()
+        {
+#if PORTABLE
+            return $" — {Language.PortableEdition}";
+#else
+            return string.Empty;
+#endif
+        }
 
         private new void ApplyTheme()
         {
@@ -113,6 +130,11 @@ namespace mRemoteNG.UI.Forms
         private void llMaintainerWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenUrl("https://geseidl.ro/servicii-it");
+        }
+
+        private void llDonate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenUrl(GeneralAppInfo.UrlDonate);
         }
 
         private static void OpenUrl(string url)

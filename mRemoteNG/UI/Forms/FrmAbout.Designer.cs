@@ -7,17 +7,24 @@ namespace mRemoteNG.UI.Forms
         {
             pbLogo = new System.Windows.Forms.PictureBox();
             pnlBottom = new System.Windows.Forms.Panel();
-            llCredits = new System.Windows.Forms.LinkLabel();
-            llChangelog = new System.Windows.Forms.LinkLabel();
-            llLicense = new System.Windows.Forms.LinkLabel();
             lblTitle = new Controls.MrngLabel();
             lblVersion = new Controls.MrngLabel();
-            lblLicense = new Controls.MrngLabel();
+            lblStats = new Controls.MrngLabel();
+            lblStory = new Controls.MrngLabel();
             lblCopyright = new Controls.MrngLabel();
+            lblLicense = new Controls.MrngLabel();
             lblForkHeader = new Controls.MrngLabel();
             llForkGitHub = new System.Windows.Forms.LinkLabel();
             llForkReleases = new System.Windows.Forms.LinkLabel();
             llForkChangelog = new System.Windows.Forms.LinkLabel();
+            llDonate = new System.Windows.Forms.LinkLabel();
+            lblMaintainedBy = new Controls.MrngLabel();
+            lblMaintainer = new Controls.MrngLabel();
+            llMaintainerWebsite = new System.Windows.Forms.LinkLabel();
+            lblOriginalHeader = new Controls.MrngLabel();
+            llLicense = new System.Windows.Forms.LinkLabel();
+            llChangelog = new System.Windows.Forms.LinkLabel();
+            llCredits = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
             pnlBottom.SuspendLayout();
             SuspendLayout();
@@ -38,70 +45,40 @@ namespace mRemoteNG.UI.Forms
             // pnlBottom
             //
             pnlBottom.BackColor = System.Drawing.SystemColors.Control;
-            pnlBottom.Controls.Add(llForkChangelog);
-            pnlBottom.Controls.Add(llForkReleases);
-            pnlBottom.Controls.Add(llForkGitHub);
-            pnlBottom.Controls.Add(lblForkHeader);
-            pnlBottom.Controls.Add(llCredits);
-            pnlBottom.Controls.Add(llChangelog);
-            pnlBottom.Controls.Add(llLicense);
             pnlBottom.Controls.Add(lblTitle);
             pnlBottom.Controls.Add(lblVersion);
-            pnlBottom.Controls.Add(lblLicense);
+            pnlBottom.Controls.Add(lblStats);
+            pnlBottom.Controls.Add(lblStory);
             pnlBottom.Controls.Add(lblCopyright);
+            pnlBottom.Controls.Add(lblLicense);
+            pnlBottom.Controls.Add(lblForkHeader);
+            pnlBottom.Controls.Add(llForkGitHub);
+            pnlBottom.Controls.Add(llForkReleases);
+            pnlBottom.Controls.Add(llForkChangelog);
+            pnlBottom.Controls.Add(llDonate);
+            pnlBottom.Controls.Add(lblMaintainedBy);
+            pnlBottom.Controls.Add(lblMaintainer);
+            pnlBottom.Controls.Add(llMaintainerWebsite);
+            pnlBottom.Controls.Add(lblOriginalHeader);
+            pnlBottom.Controls.Add(llLicense);
+            pnlBottom.Controls.Add(llChangelog);
+            pnlBottom.Controls.Add(llCredits);
             pnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             pnlBottom.ForeColor = System.Drawing.SystemColors.ControlText;
             pnlBottom.Location = new System.Drawing.Point(0, 120);
             pnlBottom.Name = "pnlBottom";
-            pnlBottom.Size = new System.Drawing.Size(584, 220);
+            pnlBottom.Size = new System.Drawing.Size(584, 380);
             pnlBottom.TabIndex = 1;
-            //
-            // llCredits
-            //
-            llCredits.AutoSize = true;
-            llCredits.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llCredits.Location = new System.Drawing.Point(5, 134);
-            llCredits.Name = "llCredits";
-            llCredits.Size = new System.Drawing.Size(49, 17);
-            llCredits.TabIndex = 10;
-            llCredits.TabStop = true;
-            llCredits.Text = "Credits";
-            llCredits.LinkClicked += llCredits_LinkClicked;
-            //
-            // llChangelog
-            //
-            llChangelog.AutoSize = true;
-            llChangelog.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llChangelog.Location = new System.Drawing.Point(5, 117);
-            llChangelog.Name = "llChangelog";
-            llChangelog.Size = new System.Drawing.Size(71, 17);
-            llChangelog.TabIndex = 9;
-            llChangelog.TabStop = true;
-            llChangelog.Text = "Changelog";
-            llChangelog.LinkClicked += llChangelog_LinkClicked;
-            //
-            // llLicense
-            //
-            llLicense.AutoSize = true;
-            llLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llLicense.Location = new System.Drawing.Point(5, 100);
-            llLicense.Name = "llLicense";
-            llLicense.Size = new System.Drawing.Size(50, 17);
-            llLicense.TabIndex = 8;
-            llLicense.TabStop = true;
-            llLicense.Text = "License";
-            llLicense.LinkClicked += llLicense_LinkClicked;
             //
             // lblTitle
             //
             lblTitle.AutoSize = true;
             lblTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             lblTitle.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblTitle.Location = new System.Drawing.Point(6, 3);
+            lblTitle.Location = new System.Drawing.Point(6, 6);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new System.Drawing.Size(149, 27);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Fructus temporum";
+            lblTitle.Text = "mRemoteNG Community Edition";
             lblTitle.UseCompatibleTextRendering = true;
             //
             // lblVersion
@@ -109,56 +86,74 @@ namespace mRemoteNG.UI.Forms
             lblVersion.AutoSize = true;
             lblVersion.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             lblVersion.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblVersion.Location = new System.Drawing.Point(6, 30);
+            lblVersion.Location = new System.Drawing.Point(6, 36);
             lblVersion.Name = "lblVersion";
-            lblVersion.Size = new System.Drawing.Size(49, 22);
             lblVersion.TabIndex = 1;
             lblVersion.Text = "Version";
             lblVersion.UseCompatibleTextRendering = true;
             //
-            // lblLicense
+            // lblStats
             //
-            lblLicense.AutoSize = true;
-            lblLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            lblLicense.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblLicense.Location = new System.Drawing.Point(6, 74);
-            lblLicense.Name = "lblLicense";
-            lblLicense.Size = new System.Drawing.Size(48, 22);
-            lblLicense.TabIndex = 5;
-            lblLicense.Text = "License";
-            lblLicense.UseCompatibleTextRendering = true;
+            lblStats.AutoSize = true;
+            lblStats.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            lblStats.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblStats.Location = new System.Drawing.Point(6, 58);
+            lblStats.Name = "lblStats";
+            lblStats.TabIndex = 2;
+            lblStats.Text = "stats";
+            lblStats.UseCompatibleTextRendering = true;
+            //
+            // lblStory
+            //
+            lblStory.AutoSize = false;
+            lblStory.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblStory.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblStory.Location = new System.Drawing.Point(6, 84);
+            lblStory.Name = "lblStory";
+            lblStory.Size = new System.Drawing.Size(570, 92);
+            lblStory.TabIndex = 3;
+            lblStory.Text = "story";
+            lblStory.UseCompatibleTextRendering = true;
             //
             // lblCopyright
             //
             lblCopyright.AutoSize = true;
             lblCopyright.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             lblCopyright.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblCopyright.Location = new System.Drawing.Point(6, 52);
+            lblCopyright.Location = new System.Drawing.Point(6, 180);
             lblCopyright.Name = "lblCopyright";
-            lblCopyright.Size = new System.Drawing.Size(63, 22);
-            lblCopyright.TabIndex = 2;
+            lblCopyright.TabIndex = 4;
             lblCopyright.Text = "Copyright";
             lblCopyright.UseCompatibleTextRendering = true;
+            //
+            // lblLicense
+            //
+            lblLicense.AutoSize = true;
+            lblLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblLicense.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblLicense.Location = new System.Drawing.Point(6, 202);
+            lblLicense.Name = "lblLicense";
+            lblLicense.TabIndex = 5;
+            lblLicense.Text = "License";
+            lblLicense.UseCompatibleTextRendering = true;
             //
             // lblForkHeader
             //
             lblForkHeader.AutoSize = true;
             lblForkHeader.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             lblForkHeader.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblForkHeader.Location = new System.Drawing.Point(5, 160);
+            lblForkHeader.Location = new System.Drawing.Point(5, 240);
             lblForkHeader.Name = "lblForkHeader";
-            lblForkHeader.Size = new System.Drawing.Size(100, 17);
-            lblForkHeader.TabIndex = 11;
+            lblForkHeader.TabIndex = 10;
             lblForkHeader.Text = "This Fork";
             //
             // llForkGitHub
             //
             llForkGitHub.AutoSize = true;
             llForkGitHub.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llForkGitHub.Location = new System.Drawing.Point(5, 179);
+            llForkGitHub.Location = new System.Drawing.Point(5, 261);
             llForkGitHub.Name = "llForkGitHub";
-            llForkGitHub.Size = new System.Drawing.Size(75, 17);
-            llForkGitHub.TabIndex = 12;
+            llForkGitHub.TabIndex = 11;
             llForkGitHub.TabStop = true;
             llForkGitHub.Text = "GitHub Page";
             llForkGitHub.LinkClicked += llForkGitHub_LinkClicked;
@@ -167,10 +162,9 @@ namespace mRemoteNG.UI.Forms
             //
             llForkReleases.AutoSize = true;
             llForkReleases.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llForkReleases.Location = new System.Drawing.Point(85, 179);
+            llForkReleases.Location = new System.Drawing.Point(95, 261);
             llForkReleases.Name = "llForkReleases";
-            llForkReleases.Size = new System.Drawing.Size(56, 17);
-            llForkReleases.TabIndex = 13;
+            llForkReleases.TabIndex = 12;
             llForkReleases.TabStop = true;
             llForkReleases.Text = "Releases";
             llForkReleases.LinkClicked += llForkReleases_LinkClicked;
@@ -179,61 +173,104 @@ namespace mRemoteNG.UI.Forms
             //
             llForkChangelog.AutoSize = true;
             llForkChangelog.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llForkChangelog.Location = new System.Drawing.Point(150, 179);
+            llForkChangelog.Location = new System.Drawing.Point(160, 261);
             llForkChangelog.Name = "llForkChangelog";
-            llForkChangelog.Size = new System.Drawing.Size(71, 17);
-            llForkChangelog.TabIndex = 14;
+            llForkChangelog.TabIndex = 13;
             llForkChangelog.TabStop = true;
             llForkChangelog.Text = "Changelog";
             llForkChangelog.LinkClicked += llForkChangelog_LinkClicked;
             //
+            // llDonate
+            //
+            llDonate.AutoSize = true;
+            llDonate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            llDonate.Location = new System.Drawing.Point(5, 283);
+            llDonate.Name = "llDonate";
+            llDonate.TabIndex = 14;
+            llDonate.TabStop = true;
+            llDonate.Text = "Support the Geseidl Association";
+            llDonate.LinkClicked += llDonate_LinkClicked;
+            //
             // lblMaintainedBy
             //
-            lblMaintainedBy = new Controls.MrngLabel();
             lblMaintainedBy.AutoSize = true;
             lblMaintainedBy.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             lblMaintainedBy.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblMaintainedBy.Location = new System.Drawing.Point(300, 160);
+            lblMaintainedBy.Location = new System.Drawing.Point(5, 340);
             lblMaintainedBy.Name = "lblMaintainedBy";
-            lblMaintainedBy.Size = new System.Drawing.Size(100, 17);
             lblMaintainedBy.TabIndex = 15;
             lblMaintainedBy.Text = "Maintained by";
             //
             // lblMaintainer
             //
-            lblMaintainer = new Controls.MrngLabel();
             lblMaintainer.AutoSize = true;
             lblMaintainer.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             lblMaintainer.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblMaintainer.Location = new System.Drawing.Point(300, 179);
+            lblMaintainer.Location = new System.Drawing.Point(110, 340);
             lblMaintainer.Name = "lblMaintainer";
-            lblMaintainer.Size = new System.Drawing.Size(200, 17);
             lblMaintainer.TabIndex = 16;
             lblMaintainer.Text = "Geseidl IT Solutions";
             //
             // llMaintainerWebsite
             //
-            llMaintainerWebsite = new System.Windows.Forms.LinkLabel();
             llMaintainerWebsite.AutoSize = true;
             llMaintainerWebsite.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llMaintainerWebsite.Location = new System.Drawing.Point(300, 198);
+            llMaintainerWebsite.Location = new System.Drawing.Point(255, 340);
             llMaintainerWebsite.Name = "llMaintainerWebsite";
-            llMaintainerWebsite.Size = new System.Drawing.Size(130, 17);
             llMaintainerWebsite.TabIndex = 17;
             llMaintainerWebsite.TabStop = true;
             llMaintainerWebsite.Text = "geseidl.ro/servicii-it";
             llMaintainerWebsite.LinkClicked += llMaintainerWebsite_LinkClicked;
             //
-            pnlBottom.Controls.Add(lblMaintainedBy);
-            pnlBottom.Controls.Add(lblMaintainer);
-            pnlBottom.Controls.Add(llMaintainerWebsite);
+            // lblOriginalHeader
+            //
+            lblOriginalHeader.AutoSize = true;
+            lblOriginalHeader.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            lblOriginalHeader.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblOriginalHeader.Location = new System.Drawing.Point(330, 240);
+            lblOriginalHeader.Name = "lblOriginalHeader";
+            lblOriginalHeader.TabIndex = 20;
+            lblOriginalHeader.Text = "The Original Project";
+            //
+            // llLicense
+            //
+            llLicense.AutoSize = true;
+            llLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            llLicense.Location = new System.Drawing.Point(330, 261);
+            llLicense.Name = "llLicense";
+            llLicense.TabIndex = 21;
+            llLicense.TabStop = true;
+            llLicense.Text = "License";
+            llLicense.LinkClicked += llLicense_LinkClicked;
+            //
+            // llChangelog
+            //
+            llChangelog.AutoSize = true;
+            llChangelog.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            llChangelog.Location = new System.Drawing.Point(330, 283);
+            llChangelog.Name = "llChangelog";
+            llChangelog.TabIndex = 22;
+            llChangelog.TabStop = true;
+            llChangelog.Text = "Original Changelog";
+            llChangelog.LinkClicked += llChangelog_LinkClicked;
+            //
+            // llCredits
+            //
+            llCredits.AutoSize = true;
+            llCredits.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            llCredits.Location = new System.Drawing.Point(330, 305);
+            llCredits.Name = "llCredits";
+            llCredits.TabIndex = 23;
+            llCredits.TabStop = true;
+            llCredits.Text = "Credits";
+            llCredits.LinkClicked += llCredits_LinkClicked;
             //
             // frmAbout
             //
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Control;
-            ClientSize = new System.Drawing.Size(584, 340);
+            ClientSize = new System.Drawing.Size(584, 500);
             Controls.Add(pnlBottom);
             Controls.Add(pbLogo);
             Font = new System.Drawing.Font("Segoe UI", 8.25F);
@@ -252,6 +289,8 @@ namespace mRemoteNG.UI.Forms
         internal Controls.MrngLabel lblCopyright;
         internal Controls.MrngLabel lblTitle;
         internal Controls.MrngLabel lblVersion;
+        internal Controls.MrngLabel lblStats;
+        internal Controls.MrngLabel lblStory;
         internal Controls.MrngLabel lblLicense;
         internal System.Windows.Forms.Panel pnlBottom;
         internal System.Windows.Forms.PictureBox pbLogo;
@@ -262,8 +301,10 @@ namespace mRemoteNG.UI.Forms
         private System.Windows.Forms.LinkLabel llForkGitHub;
         private System.Windows.Forms.LinkLabel llForkReleases;
         private System.Windows.Forms.LinkLabel llForkChangelog;
+        private System.Windows.Forms.LinkLabel llDonate;
         private Controls.MrngLabel lblMaintainedBy;
         private Controls.MrngLabel lblMaintainer;
         private System.Windows.Forms.LinkLabel llMaintainerWebsite;
+        private Controls.MrngLabel lblOriginalHeader;
     }
 }

@@ -25,6 +25,7 @@ import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 README = os.path.join(ROOT, "README.md")
+FRM_ABOUT = os.path.join(ROOT, "mRemoteNG", "UI", "Forms", "FrmAbout.cs")
 SONAR_GATE = ("https://sonarcloud.io/api/qualitygates/project_status"
               "?projectKey=robertpopa22_mRemoteNG")
 
@@ -108,8 +109,21 @@ def main():
     if gate == "ERROR" and claims_pass:
         warnings.append("SonarCloud gate is RED but README claims it passes — fix the prose.")
 
+    # The About dialog carries the same live figures (FrmAbout.LiveStats). Same discipline as
+    # the README: hand-maintained copies drift, so this script owns the numbers.
+    with open(FRM_ABOUT, encoding="utf-8") as fh:
+        about_original = fh.read()
+    about_text = about_original
+    about_text, n = apply(
+        about_text,
+        r'private const string LiveStats = "[^"]*";',
+        f'private const string LiveStats = "{tests} automated tests · 0 analyzer warnings'
+        + (f' · {closed} issues fixed for external reporters";' if closed else '";'))
+    if n == 0:
+        print("WARN: FrmAbout.cs LiveStats anchor not found — About figures NOT synced.")
+
     if args.check:
-        drift = text != original
+        drift = text != original or about_text != about_original
         for warning in warnings:
             print(f"WARN: {warning}")
         print("README figures are stale" if drift else "README figures are current")
@@ -121,6 +135,12 @@ def main():
         print(f"README updated: tests={tests}, fork issues closed={closed}/open={open_count}")
     else:
         print("README already current")
+    if about_text != about_original:
+        with open(FRM_ABOUT, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(about_text)
+        print("FrmAbout.cs LiveStats updated")
+    else:
+        print("FrmAbout.cs LiveStats already current")
     for warning in warnings:
         print(f"WARN: {warning}")
     return 0

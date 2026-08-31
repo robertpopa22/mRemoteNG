@@ -14,7 +14,9 @@ namespace mRemoteNG.App.Info
     public static class GeneralAppInfo
     {
         public const string UrlHome = "https://mremoteng.org";
-        public const string UrlDonate = "https://mremoteng.org/contribute";
+        // The upstream donate URL (mremoteng.org/contribute) 404s. Donations for this fork go to
+        // the maintainer's non-profit — the Geseidl Association for Sport and Health.
+        public const string UrlDonate = "https://geseidl.ro/donate";
         public const string UrlForum = "https://github.com/orgs/mRemoteNG/discussions";
         public const string UrlChat = "https://app.element.io/#/room/#mremoteng:matrix.org";
         public const string UrlCommunity = "https://www.reddit.com/r/mRemoteNG";

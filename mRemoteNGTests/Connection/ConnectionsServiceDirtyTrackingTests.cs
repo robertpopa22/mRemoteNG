@@ -65,6 +65,20 @@ public class ConnectionsServiceDirtyTrackingTests
     }
 
     [Test]
+    public void LastChangeReasonNamesWhatArmedTheFlag()
+    {
+        ConnectionsService service = NewServiceWithModel(out ConnectionTreeModel model);
+        var root = (RootNodeInfo)model.RootNodes[0];
+        var con = new ConnectionInfo { Name = "target" };
+        root.AddChild(con);
+
+        Assert.That(service.LastChangeReason, Does.StartWith("collection:"));
+
+        con.Hostname = "why.example.com";
+        Assert.That(service.LastChangeReason, Is.EqualTo("property:Hostname"));
+    }
+
+    [Test]
     public void RuntimeOnlyPropertyChangeDoesNotMarkTheModelDirty()
     {
         ConnectionsService service = NewServiceWithModel(out ConnectionTreeModel model);

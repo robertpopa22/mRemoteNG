@@ -158,7 +158,9 @@ namespace mRemoteNG.UI.Menu
             //
             _mMenInfoDonate.Name = "mMenInfoDonate";
             _mMenInfoDonate.Size = new System.Drawing.Size(190, 22);
-            _mMenInfoDonate.Text = Language.MenuItem_OriginalDonate;
+            // The upstream donate URL 404s; this fork's donations go to the maintainer's
+            // non-profit (see GeneralAppInfo.UrlDonate), so the label must say so.
+            _mMenInfoDonate.Text = "Support the Geseidl Association";
             _mMenInfoDonate.Click += mMenInfoDonate_Click;
             //
             // mMenInfoForum
@@ -219,7 +221,9 @@ namespace mRemoteNG.UI.Menu
             _mMenForkReleases.Text = Language.MenuItem_ForkReleases;
             _mMenForkReportIssue.Text = Language.MenuItem_ForkReportIssue;
             _mMenInfoWebsite.Text = Language.MenuItem_OriginalWebsite;
-            _mMenInfoDonate.Text = Language.MenuItem_OriginalDonate;
+            // The upstream donate URL 404s; this fork's donations go to the maintainer's
+            // non-profit (see GeneralAppInfo.UrlDonate), so the label must say so.
+            _mMenInfoDonate.Text = "Support the Geseidl Association";
             _mMenInfoForum.Text = Language.MenuItem_OriginalForum;
             _mMenInfoChat.Text = Language.MenuItem_OriginalChat;
             _mMenInfoCommunity.Text = Language.MenuItem_OriginalCommunity;

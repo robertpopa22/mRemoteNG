@@ -590,7 +590,7 @@ namespace mRemoteNG.UI.Forms
             viewMenu.MainForm = this;
 
             toolsMenu.MainForm = this;
-            toolsMenu.CredentialProviderCatalog = Runtime.CredentialProviderCatalog;
+
 
             // Wire quick-connect text to live-filter the connection tree (#1603)
             _quickConnectToolStrip.QuickConnectComboBox.TextChanged += OnQuickConnectTextChanged;
