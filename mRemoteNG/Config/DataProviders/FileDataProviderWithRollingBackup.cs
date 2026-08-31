@@ -1,4 +1,4 @@
-﻿using System.Runtime.Versioning;
+using System.Runtime.Versioning;
 
 namespace mRemoteNG.Config.DataProviders
 {
@@ -9,8 +9,13 @@ namespace mRemoteNG.Config.DataProviders
 
         public override void Save(string content)
         {
+            TrySave(content);
+        }
+
+        public override bool TrySave(string content)
+        {
             FileBackupCreator.CreateBackupFile(FilePath);
-            base.Save(content);
+            return base.TrySave(content);
         }
     }
 }

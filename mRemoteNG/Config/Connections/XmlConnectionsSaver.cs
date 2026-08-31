@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using mRemoteNG.App;
 using mRemoteNG.Config.DataProviders;
@@ -42,11 +42,16 @@ namespace mRemoteNG.Config.Connections
                     throw new InvalidOperationException("Serialized XML is empty");
 
                 FileDataProviderWithRollingBackup fileDataProvider = new(_connectionFileName);
-                fileDataProvider.Save(xml);
+                if (!fileDataProvider.TrySave(xml))
+                    throw new System.IO.IOException($"Writing '{_connectionFileName}' failed; see the log for the underlying error.");
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector?.AddExceptionStackTrace("SaveToXml failed", ex);
+                // Do not swallow: ConnectionsService.SaveConnections owns the user-facing report
+                // and must re-arm the autosave dirty flag - a failed save that looks successful
+                // is how an edit silently never gets retried.
+                throw;
             }
         }
     }

@@ -71,6 +71,18 @@ namespace mRemoteNG.Config.DataProviders
 
         public virtual void Save(string content)
         {
+            TrySave(content);
+        }
+
+        /// <summary>
+        /// Same as <see cref="Save"/>, but reports whether the content actually reached the
+        /// target file. Save() has always swallowed every exception into the log, which is fine
+        /// for best-effort writers - but the connections saver needs the truth: a failed save
+        /// that looks successful clears the autosave dirty flag and the edit is silently never
+        /// retried.
+        /// </summary>
+        public virtual bool TrySave(string content)
+        {
             string tempPath = FilePath + ".tmp";
             try
             {
@@ -110,7 +122,7 @@ namespace mRemoteNG.Config.DataProviders
                                     new IOException("File is 0 bytes after successful replace"));
                             }
                         }
-                        return;
+                        return true;
                     }
                     catch (IOException) when (attempt < maxAttempts)
                     {
@@ -131,6 +143,8 @@ namespace mRemoteNG.Config.DataProviders
                 // Clean up temp file if it still exists after a failed save.
                 try { if (File.Exists(tempPath)) File.Delete(tempPath); } catch { /* best effort */ }
             }
+
+            return false;
         }
 
         public virtual void MoveTo(string newPath)
