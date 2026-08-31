@@ -233,13 +233,18 @@ anyone outside the thread learns what this pipeline actually achieves.
 After everything is green and pushed, refresh the maintainer's local install so daily use always
 runs the latest build and catches real bugs first (this is the point of dogfooding):
 
-1. Daily driver: `E:\OneDrive\_Portable\mRemoteNG-latest\` (portable; confirm via
+1. Daily driver: `E:\OneDrive\_Portable\mRemoteNG-latest\` (PORTABLE, self-contained; confirm via
    `(Get-Process mRemoteNG).Path`).
 2. If mRemoteNG is running, ask the operator to close it (or confirm it is safe to close) — never
    overwrite a running exe silently.
-3. Copy the fresh `mRemoteNG/bin/x64/Release/` payload over the install **excluding `Settings/`**
-   (the daily driver's live connections/settings stay untouched).
-4. Launch it once and confirm version + clean startup in the log.
+3. Build **self-contained** (`build.ps1 -SelfContained`, output `bin\x64\Release\publish\`) and
+   deploy THAT payload with **clean-folder semantics**: delete the old payload (keep `Settings\`
+   and the `*.log`), then copy the publish output in. NEVER robocopy the framework-dependent
+   `bin\x64\Release\` over a self-contained install and never layer one payload over another —
+   a mixed folder is exactly the #130 poisoned-runtime state ("You must install or update .NET")
+   and it was reproduced live on the operator's machine on 2026-08-31 by doing this wrong.
+4. Launch it once and confirm version + clean startup in the log (read the LAST lines by
+   timestamp, not `tail` blindly — the log is append-only across versions).
 
 ### Step 8: Record memory
 Write a session memory file under the project memory dir + add a one-line pointer to `MEMORY.md`: issues handled, root causes (file:line), commit hashes, and any Codex/Gemini divergence resolved.
