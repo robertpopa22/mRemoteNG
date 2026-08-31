@@ -94,7 +94,7 @@ namespace mRemoteNG.UI.Menu
             // 
             _mMenFileNew.Image = Properties.Resources.NewFile_16x;
             _mMenFileNew.Name = "mMenFileNew";
-            _mMenFileLoad.ShortcutKeys = Keys.Control | Keys.N;
+            _mMenFileNew.ShortcutKeys = Keys.Control | Keys.N;
             _mMenFileNew.Size = new System.Drawing.Size(281, 22);
             _mMenFileNew.Text = Language.NewConnectionFile;
             _mMenFileNew.Click += mMenFileNew_Click;
