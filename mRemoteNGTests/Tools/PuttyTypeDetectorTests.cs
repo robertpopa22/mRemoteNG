@@ -28,12 +28,12 @@ namespace mRemoteNGTests.Tools
             }
 
             var version = PuttyTypeDetector.GetPuttyVersion(puttyPath);
-            Assert.That(version, Is.GreaterThanOrEqualTo(new Version(0, 81)));
-            
-            // Specifically check expected version if known (0.83.0.1 based on manual check)
-            // But strict check might be brittle if file is updated.
+
+            // The bundled binary tracks upstream PuTTY releases (0.85 since #169); pin the
+            // floor rather than the exact minor so a future security rebase does not need
+            // this test edited again, while a stale-binary regression still fails it.
             Assert.That(version.Major, Is.EqualTo(0));
-            Assert.That(version.Minor, Is.EqualTo(83));
+            Assert.That(version.Minor, Is.GreaterThanOrEqualTo(85));
         }
 
         [Test]
