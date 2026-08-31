@@ -1,0 +1,39 @@
+{
+  "number": 174,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ComponentModel.Win32Exception: 创建窗口句柄时出错。",
+  "state": "open",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-08-26T00:15:12Z",
+  "github_updated_at": "2026-08-26T00:15:12Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** 创建窗口句柄时出错。\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.OnFontChange...",
+  "our_status": "needs_info",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-31",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-08-26T00:15:12Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-08-31T15:51:01Z",
+  "notes": "WinForms-internal ComboBox RecreateHandle during WM_DPICHANGED_BEFOREPARENT (zh locale, Win10 19044); non-fatal; no app frame in stack; ask frequency+repro"
+}

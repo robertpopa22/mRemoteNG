@@ -1,0 +1,37 @@
+{
+  "number": 171,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "mRemoteNG always opens on monitor 2",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "n3cr0cr0w",
+  "created_at": "2026-08-17T18:31:11Z",
+  "github_updated_at": "2026-08-17T18:31:11Z",
+  "body_snippet": "Description\nmRemoteNG always opens on monitor 2, even when it is launched from the Start menu on monitor 1.\n\nNightly Build\nVersion: v1.83.0\nDate: 20260817\nCommit: [80f7a96]\n\nInstalled from: [mRemoteNG-nightly-20260817-v1.83.0-80f7a96-x64.msi]\n\n\nI only use mRemoteNG on monitor 1, so this does not appear to be caused by restoring a previously saved window position. The application is not intentionally used on monitor 2.\n\nSteps to reproduce\nConfigure a Windows system with two monitors.\nEnsure the S...",
+  "our_status": "needs_info",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-31",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-08-17T18:31:11Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-08-31T15:51:01Z",
+  "notes": "restore-from-saved-position works; fresh install has no saved pos -> Windows default (primary monitor). Ask: is monitor 2 primary; does move+close+reopen stick"
+}

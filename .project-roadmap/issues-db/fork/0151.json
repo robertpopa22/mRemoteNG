@@ -2,7 +2,7 @@
   "number": 151,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: Erreur lors de la création d'un handle de fenêtre.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",

@@ -1,0 +1,39 @@
+{
+  "number": 175,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=ne...",
+  "state": "open",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-08-31T05:35:03Z",
+  "github_updated_at": "2026-08-31T05:35:03Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
+  "our_status": "needs_info",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-31",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-08-31T05:35:03Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-08-31T15:51:02Z",
+  "notes": "1.82.0 portable missing ExternalConnectors.dll -> stale/partial deployment or AV quarantine; advise full 1.83.0 re-extract"
+}

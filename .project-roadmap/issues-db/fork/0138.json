@@ -2,7 +2,7 @@
   "number": 138,
   "repo": "robertpopa22/mRemoteNG",
   "title": "ci: stable release omits the MSI (nested artifact path missed by non-recursive files glob)",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "robertpopa22",
   "created_at": "2026-07-02T12:06:52Z",
@@ -27,7 +27,7 @@
   ],
   "comments_cursor": "2026-07-02T12:34:47Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-07-05T10:12:31Z",
   "notes": ""

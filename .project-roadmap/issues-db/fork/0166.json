@@ -2,7 +2,7 @@
   "number": 166,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.InvalidOperationException: Invoke or BeginInvoke cannot be called on a control until the window handle has been created",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-08-13T10:23:11Z",

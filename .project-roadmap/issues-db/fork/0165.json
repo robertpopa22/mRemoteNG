@@ -2,7 +2,7 @@
   "number": 165,
   "repo": "robertpopa22/mRemoteNG",
   "title": "SQL Server option gives errors using same setup as original mRemoteNG 1.76",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "vansanper",
   "created_at": "2026-08-10T10:46:48Z",
@@ -86,7 +86,7 @@
   ],
   "comments_cursor": "2026-08-15T17:24:36Z",
   "unread_comments": 1,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-08-15T17:32:20Z",
   "notes": "fix 0e7d4c87f shipped; awaiting reporter confirm on nightly"

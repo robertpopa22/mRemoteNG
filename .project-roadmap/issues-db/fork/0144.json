@@ -2,7 +2,7 @@
   "number": 144,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Filtered connection tree flashes repeatedly for a few seconds after opening a connection",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
@@ -125,7 +125,7 @@
   ],
   "comments_cursor": "2026-07-13T12:47:09Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-07-13T12:47:35Z",
   "notes": "tree redraw fix 561daab57 remains in testing; latest search-focus report belonged to #143 and was answered/redirected; awaiting redraw-specific confirmation"

@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-14T12:35:27Z",
-  "github_updated_at": "2026-08-15T17:24:29Z",
+  "github_updated_at": "2026-08-16T20:34:43Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentOutOfRangeException`\r\n**Message:** startIndex ('427') must be less than '41'. (Parameter 'startIndex')\r\nActual value was 427.\r\n\r\n### Stack Trace\r\n```\r\n   at void ArgumentOutOfRangeException.ThrowGreaterEqual<T>(T value, T other, string paramName)\r\n   at void System.Windows.Forms.ListView.RedrawItems(int startIndex, int endIndex, bool invalidateOnly)\r\n   at void BrightIdeasSoftware.TreeListView.Expand(object model) in D:/a/mRemoteNG/mRem...",
   "our_status": "testing",
   "priority": null,
@@ -66,12 +66,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHkn6w",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:43Z",
+      "snippet": "**[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)** ships with expanded instrumentation for this crash: the redraw guard in `TreeListView.Expand` itself now reports (under `[#149-diag]` in the log) whenever the index it computed falls outside the control's row count — with the model index, item count, virtual list size, filtering state and thread ID at the exact moment they disagree. Together with the earlier `SetVirtualListSize` hook, both known ways of reaching...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T17:24:29Z",
+  "comments_cursor": "2026-08-16T20:34:43Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-08-15T17:32:20Z",
+  "last_synced": "2026-08-31T15:33:45Z",
   "notes": "instrumentation 9dfd8eda7 shipped; RebuildChildren suspicion refuted by ece1c6797"
 }

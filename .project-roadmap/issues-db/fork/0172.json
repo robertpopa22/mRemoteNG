@@ -1,0 +1,37 @@
+{
+  "number": 172,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Last opened sessions are not re-opened on next startup",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "meyergru",
+  "created_at": "2026-08-22T16:06:37Z",
+  "github_updated_at": "2026-08-22T16:06:37Z",
+  "body_snippet": "**What happens** (and what you expected instead):\n\nI switched from a beta to the most current version 1.83.0 Release 3661 and found that the open connections from the last start are not carried over to a re-invocation as I was used to before.\n\nInstead, mRemoteNG always starts with no open tabs.\n\n**Steps to reproduce:**\n\n1. Open a few connections\n2. Close the program\n3. Start the program again - no open tabs.\n\n**Version** (Help → About, or the nightly filename):\n\nversion 1.83.0 Release 3661\n\n**En...",
+  "our_status": "needs_info",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-08-31",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-08-22T16:06:37Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-08-31T15:51:01Z",
+  "notes": "by-design since #120 gate: OpenConsFromLastSession default False; beta pre-gate restored regardless. Reply: enable option; verify in UI first"
+}

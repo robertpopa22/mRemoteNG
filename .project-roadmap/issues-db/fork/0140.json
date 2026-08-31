@@ -2,7 +2,7 @@
   "number": 140,
   "repo": "robertpopa22/mRemoteNG",
   "title": "RDP: auto-reconnect kicks in after deliberate logoff when 'Reconnect on disconnect' is enabled",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
@@ -40,7 +40,7 @@
   ],
   "comments_cursor": "2026-07-05T12:17:59Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-07-05T12:18:17Z",
   "notes": "self-found via #139 review (Gemini): ReconnectOnDisconnect branch missed logoff exclusion; fix 651027630 gates on ExtendedDisconnectReason 2/12; awaiting nightly"

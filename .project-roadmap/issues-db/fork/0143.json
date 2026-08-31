@@ -2,7 +2,7 @@
   "number": 143,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Tree search/filter box unusable after connecting to an RDP session (RDP ActiveX Win32 focus)",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
@@ -294,7 +294,7 @@
   ],
   "comments_cursor": "2026-08-15T17:24:26Z",
   "unread_comments": 9,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-08-15T17:32:20Z",
   "notes": "ROOT CAUSE from reporter trace: our ConnDockOnActiveContentChanged Protocol.Focus on hook-driven refresh; fix 21587b593 identity gate; awaiting confirm"
