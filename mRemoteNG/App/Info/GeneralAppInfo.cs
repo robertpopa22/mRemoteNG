@@ -31,6 +31,8 @@ namespace mRemoteNG.App.Info
         public const string UrlForkHome = "https://github.com/robertpopa22/mRemoteNG";
         public const string UrlForkReleases = "https://github.com/robertpopa22/mRemoteNG/releases";
         public const string UrlForkChangelog = "https://github.com/robertpopa22/mRemoteNG/blob/main/CHANGELOG.md";
+        // The F1 manual is the upstream one and documents none of this fork's additions.
+        public const string UrlForkUserGuide = "https://github.com/robertpopa22/mRemoteNG/blob/main/docs/USER-GUIDE.md";
         public static readonly string ApplicationVersion = Application.ProductVersion;
         public static readonly string ProductName = Application.ProductName ?? string.Empty;
         public static readonly string Copyright = (Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(AssemblyCopyrightAttribute), false) as AssemblyCopyrightAttribute)?.Copyright ?? string.Empty;

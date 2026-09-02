@@ -93,7 +93,12 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Quality:** 6,693 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 90 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 0.6% duplication and 100% of security hotspots reviewed; the Quality Gate is currently RED on one condition — coverage on new code (58.8% against the 80% threshold) after the 2026-08-31 batch, whose new lines are largely Win32/ActiveX interop teardown paths (VNC worker hard-stop, PuTTY focus) that only execute against live sessions. The lab-guest UI battery exercises those paths against real SSH/VNC targets; unit tests cover what is executable headless, and the number here will say whatever the dashboard says.
 
-For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
+For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
+manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
+Entra ID authentication, Vault/OpenBao SSH one-time passwords, Connection Tester, Debug Bundle,
+portable-mode settings, SQL storage, the GitHub-only update model and the crash-report pipeline),
+see the **[Fork Features Guide](docs/USER-GUIDE.md)** — also reachable in the app from
+**Help > Fork Features Guide**.
 
 ### Antivirus — 0/75 on VirusTotal
 

@@ -15,6 +15,7 @@ namespace mRemoteNG.UI.Menu
     public class HelpMenu : ToolStripMenuItem
     {
         private ToolStripMenuItem _mMenInfoHelp = null!;
+        private ToolStripMenuItem _mMenForkGuide = null!;
         private ToolStripMenuItem _mMenKeyboardShortcuts = null!;
         private ToolStripSeparator _mMenInfoSep1 = null!;
         private ToolStripMenuItem _mMenForkGitHub = null!;
@@ -41,6 +42,7 @@ namespace mRemoteNG.UI.Menu
         private void Initialize()
         {
             _mMenInfoHelp = new ToolStripMenuItem();
+            _mMenForkGuide = new ToolStripMenuItem();
             _mMenKeyboardShortcuts = new ToolStripMenuItem();
             _mMenInfoSep1 = new ToolStripSeparator();
             _mMenForkGitHub = new ToolStripMenuItem();
@@ -65,6 +67,7 @@ namespace mRemoteNG.UI.Menu
             DropDownItems.AddRange(new ToolStripItem[]
             {
                 _mMenInfoHelp,
+                _mMenForkGuide,
                 _mMenKeyboardShortcuts,
                 _mMenInfoSep1,
                 _mMenForkGitHub,
@@ -96,6 +99,14 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoHelp.Size = new System.Drawing.Size(190, 22);
             _mMenInfoHelp.Text = Language.MenuItem_HelpContents;
             _mMenInfoHelp.Click += mMenInfoHelp_Click;
+            //
+            // mMenForkGuide
+            //
+            _mMenForkGuide.Name = "mMenForkGuide";
+            _mMenForkGuide.Size = new System.Drawing.Size(190, 22);
+            // F1 opens the upstream manual, which documents none of this fork's additions.
+            _mMenForkGuide.Text = "Fork Features Guide";
+            _mMenForkGuide.Click += mMenForkGuide_Click;
             //
             // mMenKeyboardShortcuts
             //
@@ -217,6 +228,7 @@ namespace mRemoteNG.UI.Menu
         {
             Text = Language._Help;
             _mMenInfoHelp.Text = Language.MenuItem_HelpContents;
+            _mMenForkGuide.Text = "Fork Features Guide";
             _mMenForkGitHub.Text = Language.MenuItem_ForkGitHub;
             _mMenForkReleases.Text = Language.MenuItem_ForkReleases;
             _mMenForkReportIssue.Text = Language.MenuItem_ForkReportIssue;
@@ -255,6 +267,8 @@ namespace mRemoteNG.UI.Menu
         }
 
         private void mMenInfoHelp_Click(object? sender, EventArgs e) => WebHelper.GoToUrl(GeneralAppInfo.UrlDocumentation);
+
+        private void mMenForkGuide_Click(object? sender, EventArgs e) => OpenUrl(GeneralAppInfo.UrlForkUserGuide);
 
         private void mMenForkGitHub_Click(object? sender, EventArgs e) => OpenUrl(GeneralAppInfo.UrlForkHome);
 
