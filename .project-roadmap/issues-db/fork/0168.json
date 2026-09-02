@@ -8,9 +8,9 @@
   ],
   "author": "opbod",
   "created_at": "2026-08-17T06:16:45Z",
-  "github_updated_at": "2026-08-17T06:16:45Z",
+  "github_updated_at": "2026-08-31T19:50:35Z",
   "body_snippet": "**What happens** (and what you expected instead): alt-tab behavior not working as expected when an SSH session is opened (PuTTYNG.exe as part of mRemoteNG)). Expectation is that a single alt-tab changes between mRemoteNG and a different app.\n\n**Steps to reproduce:**\n\n1. Open mRemoteNG, open an SSH session\n2. Alt-tab between mRemoteNG and another app\n3. Observe mRemoteNG keeps on showing and requires at least 2 tabs to change to the other app. Clicking the mRemoteNG button on the taskbar requires...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -35,13 +35,62 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-09-02",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-09-02",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-09-02",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-08-17T06:16:45Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABRrP_wg",
+      "author": "robertpopa22",
+      "date": "2026-08-31T16:18:21Z",
+      "snippet": "Thank you for the precise repro — \"needs at least 2 Alt-Tabs\" plus \"taskbar needs multiple clicks\" pointed straight at foreground-application state rather than keyboard focus.\n\nRoot cause found in our code: PuTTYNG is a separate process whose window we reparent into the mRemoteNG frame. Every time the embedded terminal was (re)focused, we called `SetForegroundWindow` on the PuTTY window — which makes **PuTTY's process** the foreground application in the eyes of the shell. Windows then tracks two...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABRtoXNg",
+      "author": "opbod",
+      "date": "2026-08-31T19:50:35Z",
+      "snippet": "Confirmed OK with the latest nightly.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-08-31T19:50:35Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-31T16:18:43Z",
-  "notes": "fix bf99b7ad9 (Focus keeps host foreground, SetFocus into putty); awaiting reporter confirm on nightly"
+  "last_synced": "2026-09-02T18:50:31Z",
+  "notes": "reporter confirmed on nightly; closed 2026-09-02"
 }

@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-17T11:04:17Z",
-  "github_updated_at": "2026-08-17T11:04:17Z",
+  "github_updated_at": "2026-08-31T16:18:24Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Error creating window handle.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at HWND System.Windows.Forms.Control.Windows.Win32.Foundation.IHandle<Windows.Win32.Foundation.HWND>.get_Handle(?)\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object...",
   "our_status": "testing",
   "priority": null,
@@ -39,11 +39,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-08-17T11:04:17Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABRrQBwg",
+      "author": "robertpopa22",
+      "date": "2026-08-31T16:18:24Z",
+      "snippet": "Root cause identified from the stack trace. When a VNC tab is torn down while its window handle is already gone (app shutdown closing tabs, or a connection that dropped mid-close), the library's screen-update thread stayed alive; when the connection then broke, the library marshaled the \"connection lost\" event with `Control.Invoke` onto a control that no longer had a window — and `Invoke` on a handle-less control *creates* the handle mid-teardown, which is the fatal `Error creating window handle...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-08-31T16:18:24Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-31T16:18:43Z",
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-02T12:58:40Z",
   "notes": "fix 8297ccd90 (VncClient hard-stop via reflection when no handle); auto-crash source, watch for recurrence"
 }

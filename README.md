@@ -8,7 +8,7 @@
 
 **This fork is alive.** We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, automated tests, and builds for x64, x86, and ARM64.
 
-Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes are developed and verified by an automated pipeline — 6,600+ automated tests, adversarial cross-review between independent AI models — and we test too: **we run mRemoteNG every day on the latest build, as our daily driver**. What we cannot do is reproduce *your* setup — your network, your servers, your locale, the specific state that triggers your bug. That gap is the honest limit of our testing, and it is exactly where you come in. When a fix for your issue lands in a nightly, *your* test is what actually verifies it. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth we cannot generate ourselves. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
+Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes are developed and verified by an automated pipeline — 6,700+ automated tests, adversarial cross-review between independent AI models — and we test too: **we run mRemoteNG every day on the latest build, as our daily driver**. What we cannot do is reproduce *your* setup — your network, your servers, your locale, the specific state that triggers your bug. That gap is the honest limit of our testing, and it is exactly where you come in. When a fix for your issue lands in a nightly, *your* test is what actually verifies it. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth we cannot generate ourselves. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
 
 *— Robert & contributors (human + AI)*
 
@@ -91,7 +91,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 6,693 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 90 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 0.6% duplication and 100% of security hotspots reviewed; the Quality Gate is currently RED on one condition — coverage on new code (58.8% against the 80% threshold) after the 2026-08-31 batch, whose new lines are largely Win32/ActiveX interop teardown paths (VNC worker hard-stop, PuTTY focus) that only execute against live sessions. The lab-guest UI battery exercises those paths against real SSH/VNC targets; unit tests cover what is executable headless, and the number here will say whatever the dashboard says.
+**Quality:** 6,701 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 90 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate passes on every condition, new-code coverage included (85.7% against the 80% threshold, as of 2026-09-02). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -253,7 +253,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (live, 2026-08-15).** Since the fork started accepting reports directly,
-**94 issues have been opened by external reporters and 90 are closed**; 4 issues are open, all of
+**94 issues have been opened by external reporters and 92 are closed**; 2 issues are open, all of
 them either fixed and awaiting reporter confirmation or deliberately left open with the reason
 stated in the thread. The upstream tracker now stands at 873 issues followed, against 841 currently
 open upstream.
@@ -284,10 +284,10 @@ unguarded dereference in a log message.
 
 **SonarCloud bugs fixed (beta.6):** S2259 (null reference ×6), S2583 (dead branch), S4275 (getter/setter mismatch ×2), S1751 (no-op loop ×2), S3903 (missing namespace ×2), S3456 (redundant ToCharArray ×3), S2674 (unchecked Read), MA0037 (stray semicolon ×4). All ObjectListView issues (25) dismissed as won't fix — vendored dependency outside our control.
 
-**SonarCloud on fork (live, 2026-08-31): ratings A/A/A; Quality Gate currently RED on
-new-code coverage** (58.8% vs the 80% threshold — the new lines are interop teardown paths that
-only run against live sessions; the lab UI battery covers them end-to-end, headless unit tests
-cover the rest). Duplication 0.6%, 100% of security hotspots reviewed. The gate had been green
+**SonarCloud on fork (live, 2026-09-02): ratings A/A/A; Quality Gate PASSED on every
+condition**, including new-code coverage at 85.7% against the 80% threshold — it had been red at
+58.8% after the 2026-08-31 batch of interop teardown paths, and the tests written since cleared it.
+Duplication 1.0% on new code, 100% of security hotspots reviewed. The gate had been green
 since 2026-08-15:
 
 Getting there was not a matter of adjusting thresholds. The gate went red on the security rating
@@ -321,7 +321,12 @@ strict mode, an RDP gateway, a locale where the regional format differs from the
 a machine where a session drops at exactly the wrong moment. Several of the hardest bugs fixed here
 were invisible to both the test suite and our daily use, and only became findable when the reporter
 sent a log. That gap is the honest limit of testing on our side, and it is why reporter
-confirmation is treated as the real verification.
+confirmation is treated as the real verification. The most recent example is small and typical:
+two separate mechanisms each reopened the previous session's tabs on startup, so every connection
+came back twice ([#172](https://github.com/robertpopa22/mRemoteNG/issues/172)). Both are startup
+paths that only exist when the app actually starts, so the unit suite was green throughout — the
+reporter found it by comparing two versions, and it was only visible here once we drove the built
+app with their exact saved state.
 
 **Why automated tests alone are not enough:** beta.5 shipped 7 AI-introduced regressions out of 585
 changes that passed all 6,201 automated tests at the time. A ~1.2% miss rate sounds tolerable until
@@ -346,7 +351,6 @@ which is the most useful thing that can happen to a row in this table.*
 
 | # | Problem | Status | Why it's hard |
 |---|---------|--------|---------------|
-| 0 | **SonarCloud gate RED on new-code coverage** (58.8% vs 80%, since 2026-08-31) | Open, honest | The batch's new lines are Win32/ActiveX interop teardown (VNC worker hard-stop, PuTTY focus reclaim) that only execute against a live session; headless unit tests cover the reflection contracts around them and the lab UI battery runs the real paths, but SonarCloud only counts the headless run. Fixing the number means either wiring lab-run coverage into Sonar or accepting the red condition — weakening the threshold is not on the table |
 | 1 | **Virtual list row-count desync** ([#149](https://github.com/robertpopa22/mRemoteNG/issues/149)) | Guarded, not root-caused | `SetVirtualListSize` swallows an `ArgumentOutOfRangeException` when assigning `VirtualListSize`; the control then reports a stale row count while the model has grown, and an expand computed a redraw range of 427 against a 41-row list. The crash is contained by a guard and the condition is now instrumented, but the failing assignment has never been reproduced. It lives in vendored ObjectListView code shared by every list in the app, so a speculative fix is worse than the guard |
 | 2 | **VNC disconnect race** ([#166](https://github.com/robertpopa22/mRemoteNG/issues/166)) | Narrowed, not closed | VncSharpCore polls the framebuffer on its own thread and marshals connection loss back with `Control.Invoke`; if the handle is gone, that throws on a thread we do not own and kills the process. Our teardown now stops the session while the handle is alive, which closes the common path — but the remaining window belongs to the package (v1.2.1), not to us |
 | 3 | **Legacy SQL upgraders swallow every provider error** | Logged, narrowing deferred | The two oldest schema upgraders catch `DbException` and skip. Correct for the expected duplicate-object error, wrong to do silently for a permission or connectivity failure. They now classify and log what they skipped; tightening the catch waits on real field logs, because guessing the provider error set wrong turns a working legacy import into a hard failure |
@@ -483,7 +487,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**6,693 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**6,701 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 

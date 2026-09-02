@@ -8,9 +8,9 @@
   ],
   "author": "opbod",
   "created_at": "2026-08-17T06:27:46Z",
-  "github_updated_at": "2026-08-17T06:27:46Z",
+  "github_updated_at": "2026-08-31T19:50:51Z",
   "body_snippet": "**What happens** (and what you expected instead): PuTTYNG.exe seems based on a PuTTY 0.83 version from Sept 2025, per the commit ID 9cb330cf4d7b2f3aa7c5fdcbb3ca64dad3dded44 found in PuTTYNG.exe -> About.\nMeanwhile 0.85 is available containing various (non-critical) security fixes: https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html.\n\n\n**Steps to reproduce:**\n\n1. Open PuTTYNG.exe -> About\n2. Verify commit ID\n\n**Version** (Help → About, or the nightly filename):\n1.83.0\n\n**Environment**...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -35,13 +35,71 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-09-02",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-09-02",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-09-02",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-08-17T06:27:46Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABRrQAwg",
+      "author": "robertpopa22",
+      "date": "2026-08-31T16:18:22Z",
+      "snippet": "Confirmed — the bundled PuTTYNG.exe is built from a PuTTY 0.83 base (Sept 2025), and upstream 0.84/0.85 contain security fixes. Thank you for checking the commit ID in the About box; that is exactly the right way to audit it.\n\nUpdating it is not a one-line change on this repository: the binary is built from our PuTTYNG fork, so the NG embedding patches need to be rebased onto the PuTTY 0.85 source, rebuilt, and the result verified against the embedding path (including the Alt-Tab focus fix from ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABRsQ3dA",
+      "author": "robertpopa22",
+      "date": "2026-08-31T17:47:49Z",
+      "snippet": "The bundled PuTTYNG has been rebuilt on the upstream **PuTTY 0.85** base and the update is heading into the next nightly.\n\nWhat was done, for the record:\n\n- The PuTTYNG build pipeline was pinned to the upstream `0.85` release tag (it previously built whatever upstream master happened to be — that is how the shipped binary ended up on a 0.83-era commit; your About-box check caught exactly that).\n- The rebuilt binary keeps `InternalName \"PuTTY\"` on purpose — mRemoteNG's type detector keys off it f...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABRtoDFg",
+      "author": "opbod",
+      "date": "2026-08-31T19:50:12Z",
+      "snippet": "Confirmed OK in the latest nightly.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-08-31T19:50:51Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-31T17:47:55Z",
-  "notes": "PuTTYNG 0.85 shipped aeea728c7 (pipeline fixes in fork c26baf07); lab-verified 5/6 + A/B; awaiting reporter About-box confirm on nightly"
+  "last_synced": "2026-09-02T18:50:31Z",
+  "notes": "PuTTY 0.85 confirmed by reporter; closed 2026-09-02"
 }

@@ -8,7 +8,7 @@
   ],
   "author": "n3cr0cr0w",
   "created_at": "2026-08-17T18:31:11Z",
-  "github_updated_at": "2026-08-17T18:31:11Z",
+  "github_updated_at": "2026-08-31T16:18:25Z",
   "body_snippet": "Description\nmRemoteNG always opens on monitor 2, even when it is launched from the Start menu on monitor 1.\n\nNightly Build\nVersion: v1.83.0\nDate: 20260817\nCommit: [80f7a96]\n\nInstalled from: [mRemoteNG-nightly-20260817-v1.83.0-80f7a96-x64.msi]\n\n\nI only use mRemoteNG on monitor 1, so this does not appear to be caused by restoring a previously saved window position. The application is not intentionally used on monitor 2.\n\nSteps to reproduce\nConfigure a Windows system with two monitors.\nEnsure the S...",
   "our_status": "needs_info",
   "priority": null,
@@ -27,11 +27,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-08-17T18:31:11Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABRrQCwQ",
+      "author": "robertpopa22",
+      "date": "2026-08-31T16:18:25Z",
+      "snippet": "Thank you for the detailed report. Some context on how the window is placed: mRemoteNG restores its last saved position and size at startup; a fresh install has no saved position yet, so the very first placement is decided by Windows' default (which favors the *primary* display, not the monitor the Start menu was on). After that, wherever the window is when you close the app is where it should come back.\n\nWe exercised the save/restore path in the built app on our machine (moved the window, close...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-08-31T16:18:25Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-31T15:51:01Z",
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-02T12:58:40Z",
   "notes": "restore-from-saved-position works; fresh install has no saved pos -> Windows default (primary monitor). Ask: is monitor 2 primary; does move+close+reopen stick"
 }

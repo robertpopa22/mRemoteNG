@@ -29,7 +29,7 @@ namespace mRemoteNG.UI.Forms
 
         // The live figures below are rewritten mechanically by scripts/sync-readme-metrics.py
         // (the same pass that keeps README.md honest) - do not hand-edit the numbers.
-        private const string LiveStats = "6,693 automated tests · 0 analyzer warnings · 90 issues fixed for external reporters";
+        private const string LiveStats = "6,701 automated tests · 0 analyzer warnings · 92 issues fixed for external reporters";
 
         private void ApplyLanguage()
         {

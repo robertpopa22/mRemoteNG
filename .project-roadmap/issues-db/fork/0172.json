@@ -8,9 +8,9 @@
   ],
   "author": "meyergru",
   "created_at": "2026-08-22T16:06:37Z",
-  "github_updated_at": "2026-08-22T16:06:37Z",
+  "github_updated_at": "2026-09-01T14:19:46Z",
   "body_snippet": "**What happens** (and what you expected instead):\n\nI switched from a beta to the most current version 1.83.0 Release 3661 and found that the open connections from the last start are not carried over to a re-invocation as I was used to before.\n\nInstead, mRemoteNG always starts with no open tabs.\n\n**Steps to reproduce:**\n\n1. Open a few connections\n2. Close the program\n3. Start the program again - no open tabs.\n\n**Version** (Help → About, or the nightly filename):\n\nversion 1.83.0 Release 3661\n\n**En...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -35,13 +35,61 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-09-02",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-09-02",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-08-22T16:06:37Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABRrQDwg",
+      "author": "robertpopa22",
+      "date": "2026-08-31T16:18:27Z",
+      "snippet": "This is by design, though the change of behavior between your beta and 1.83.0 is real and deserves the explanation.\n\nReopening the previous session's tabs is controlled by **File → Options → Startup/Exit → \"Reconnect to previously opened sessions on startup\"**, and that option is **off by default**. Some earlier nightlies had a bug (#120) where the saved panel layout reopened its connection tabs *regardless* of that setting — every previously open session reconnected on startup even when the use...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABRrpIMQ",
+      "author": "meyergru",
+      "date": "2026-08-31T16:53:25Z",
+      "snippet": "I had tried that, but forgot to apply the settings, so it did not get honored - however:\n\nWhen I open two tabs (say A and B), close the program and re-open it, the tabs are duplicated (A,B,A,B).\n\nWhat is interesting, when I close all of those four tabs and restart, I get only A an B.  When I close that again without changing anything, next time I get A,B,A,B again. However - it does not add two windows each time, it stays at 4.\n\nThe same duplication also occurs with three open tabs - those will ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABR4z9Mw",
+      "author": "meyergru",
+      "date": "2026-09-01T14:19:46Z",
+      "snippet": "On a side note: 1.82 Beta had this setting, too. It opened the last open tabs even when it was disabled. Interestingly enough, when I downgraded and left the setting on, the behaviour was exactly like with the current 1.83 release.\n\nThat is:\n\n1.82 Beta opens tabs duplicated when the setting is on - opens the correct tabs when it is off.\n1.83 opens tabs duplicated when the setting is on - opens no tabs when it is off.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-09-01T14:19:46Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-08-31T16:18:44Z",
-  "notes": "by-design (#120 gate) verified in UI both ways; reply explains enabling OpenConsFromLastSession; awaiting confirm"
+  "last_synced": "2026-09-02T18:49:25Z",
+  "notes": "dup-restore fix 41621c1f8; awaiting reporter confirm on nightly"
 }

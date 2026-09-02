@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-26T00:15:12Z",
-  "github_updated_at": "2026-08-26T00:15:12Z",
+  "github_updated_at": "2026-08-31T16:18:28Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** 创建窗口句柄时出错。\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.OnFontChange...",
   "our_status": "needs_info",
   "priority": null,
@@ -29,11 +29,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-08-26T00:15:12Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABRrQE-w",
+      "author": "robertpopa22",
+      "date": "2026-08-31T16:18:28Z",
+      "snippet": "Thanks — this crash report is interesting because the entire stack is inside Windows Forms' own DPI-change handling: a ComboBox rebuilding its window handle while a `WM_DPICHANGED_BEFOREPARENT` message is processed. No mRemoteNG code appears in the trace, and the app kept running (non-fatal).\n\n\"Error creating window handle\" during a DPI transition usually means the window's parent was mid-teardown at that exact moment, or the process was briefly out of window resources. To decide whether there i...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-08-31T16:18:28Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-08-31T15:51:01Z",
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-02T12:58:40Z",
   "notes": "WinForms-internal ComboBox RecreateHandle during WM_DPICHANGED_BEFOREPARENT (zh locale, Win10 19044); non-fatal; no app frame in stack; ask frequency+repro"
 }
