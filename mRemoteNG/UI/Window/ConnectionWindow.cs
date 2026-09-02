@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -2420,6 +2420,19 @@ namespace mRemoteNG.UI.Window
         #region Persistence
 
         private readonly List<string> _pendingConnectionIds = new();
+        private readonly List<string> _layoutClaimedConnectionIds = new();
+
+        /// <summary>
+        /// Connection IDs this panel took over from the saved dock layout. They stay listed after
+        /// <see cref="ProcessPendingConnections"/> has opened them, because
+        /// <see cref="mRemoteNG.Tree.PreviousSessionOpener"/> uses this list to skip connections the
+        /// layout already reopens — and it cannot rely on
+        /// <see cref="Connection.IConnectionInitiator.ActiveConnections"/> instead, since
+        /// OpenConnection is async void and only registers the connection once the connect
+        /// completes. Reopening them from the tree as well gave one extra tab per previously open
+        /// connection on every start (#172).
+        /// </summary>
+        internal IReadOnlyList<string> PendingConnectionIds => _layoutClaimedConnectionIds;
 
         protected override string GetPersistString()
         {
@@ -2452,6 +2465,8 @@ namespace mRemoteNG.UI.Window
         {
             _pendingConnectionIds.Clear();
             _pendingConnectionIds.AddRange(ids);
+            _layoutClaimedConnectionIds.Clear();
+            _layoutClaimedConnectionIds.AddRange(_pendingConnectionIds);
 
             if (Runtime.ConnectionsService.IsConnectionsFileLoaded)
             {
@@ -2490,6 +2505,7 @@ namespace mRemoteNG.UI.Window
                 Properties.OptionsAdvancedPage.Default.NoReconnect)
             {
                 _pendingConnectionIds.Clear();
+                _layoutClaimedConnectionIds.Clear();
                 return;
             }
 

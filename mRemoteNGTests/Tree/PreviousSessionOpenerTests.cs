@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using mRemoteNG.Connection;
 using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
@@ -53,6 +54,22 @@ namespace mRemoteNGTests.Tree
             _previousSessionOpener.Execute(_connectionTree);
 
             _connectionInitiator.ReceivedWithAnyArgs(2).OpenConnection(new ConnectionInfo());
+        }
+
+        [Test]
+        public void ConnectionsAlreadyClaimedByTheSavedLayoutAreNotReopened()
+        {
+            RootNodeInfo root = BuildTree();
+            _connectionTree.GetRootConnectionNode().Returns(root);
+            string claimedId = root.Children.First(child => child.PleaseConnect).ConstantID;
+            _previousSessionOpener = new PreviousSessionOpener(
+                _connectionInitiator,
+                () => Array.Empty<ConnectionInfo>(),
+                () => [claimedId]);
+
+            _previousSessionOpener.Execute(_connectionTree);
+
+            _connectionInitiator.ReceivedWithAnyArgs(1).OpenConnection(new ConnectionInfo());
         }
 
         [Test]
