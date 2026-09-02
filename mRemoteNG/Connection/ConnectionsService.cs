@@ -76,6 +76,7 @@ namespace mRemoteNG.Connection
             try
             {
                 filename.ThrowIfNullOrEmpty(nameof(filename));
+                BackUpBeforeReplacing(filename);
                 ConnectionTreeModel newConnectionsModel = new();
                 newConnectionsModel.AddRootNode(new RootNodeInfo(RootNodeType.Connection));
                 SaveConnections(newConnectionsModel, false, new SaveFilter(), filename, true);
@@ -84,6 +85,39 @@ namespace mRemoteNG.Connection
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage(Language.CouldNotCreateNewConnectionsFile, ex);
+            }
+        }
+
+        /// <summary>
+        /// Copies an existing connections file aside before <see cref="NewConnectionsFile"/> writes an
+        /// empty tree over it. Starting a new file is offered as recovery when loading failed, and the
+        /// reason for that failure is not always the file (a plugin assembly that would not load was
+        /// reported the same way, #175) — so the answer must never be a silently destroyed file. This
+        /// runs regardless of the user's backup settings, because it is the last copy of that data.
+        /// </summary>
+        internal static void BackUpBeforeReplacing(string filename)
+        {
+            if (!File.Exists(filename))
+                return;
+
+            try
+            {
+                string backupPath = $"{filename}.{DateTime.Now.ToString("yyyyMMdd-HHmmssfff", CultureInfo.InvariantCulture)}.replaced.backup";
+                if (File.Exists(backupPath))
+                    backupPath = $"{filename}.{Guid.NewGuid():N}.replaced.backup";
+
+                File.Copy(filename, backupPath);
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                                                    string.Format(CultureInfo.CurrentCulture,
+                                                                  Language.ConnectionsFileReplacedBackupCreated,
+                                                                  filename, backupPath));
+            }
+            catch (Exception ex)
+            {
+                // Losing the backup is not a reason to lose the choice the user made, but it is a
+                // reason to say so loudly.
+                Runtime.MessageCollector.AddExceptionMessage(Language.ConnectionsFileBackupFailed, ex,
+                                                             MessageClass.WarningMsg);
             }
         }
 

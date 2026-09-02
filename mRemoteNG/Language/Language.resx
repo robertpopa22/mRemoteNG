@@ -432,6 +432,9 @@
   <data name="ConnectionSetDefaultPortFailed" xml:space="preserve">
     <value>Couldn't set default port!</value>
   </data>
+  <data name="ConnectionsFileReplacedBackupCreated" xml:space="preserve">
+    <value>The existing connections file "{0}" was copied to "{1}" before being replaced.</value>
+  </data>
   <data name="ConnectionsFileBackupFailed" xml:space="preserve">
     <value>Couldn't create backup of connections file!</value>
   </data>

@@ -1348,6 +1348,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The existing connections file &quot;{0}&quot; was copied to &quot;{1}&quot; before being replaced..
+        /// </summary>
+        internal static string ConnectionsFileReplacedBackupCreated {
+            get {
+                return ResourceManager.GetString("ConnectionsFileReplacedBackupCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t create backup of connections file!.
         /// </summary>
         internal static string ConnectionsFileBackupFailed {

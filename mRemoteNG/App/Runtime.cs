@@ -203,7 +203,15 @@ namespace mRemoteNG.App
                     }
                 }
 
-                if ((ex is FileNotFoundException || ex is IOException || ex is UnauthorizedAccessException || ex is XmlException) && !withDialog)
+                // The CLR reports a missing *assembly* as FileNotFoundException too, so a plugin
+                // DLL that failed to load (#175: ExternalConnectors) used to land here and be
+                // announced as "the connection file could not be found" — while the file was
+                // sitting there intact, and the recovery this offers can overwrite it. Only treat
+                // a FileNotFoundException as the connections file being gone when it really is.
+                bool connectionsFileIsGone = ex is not FileNotFoundException || !File.Exists(connectionFileName);
+
+                if ((ex is FileNotFoundException || ex is IOException || ex is UnauthorizedAccessException || ex is XmlException) &&
+                    connectionsFileIsGone && !withDialog)
                 {
                     MessageCollector.AddExceptionMessage(
                                                          string.Format(CultureInfo.InvariantCulture, Language.ConnectionsFileCouldNotBeLoadedNew,
