@@ -27,6 +27,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-09-03",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -44,6 +54,6 @@
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-02T12:58:40Z",
-  "notes": "WinForms-internal ComboBox RecreateHandle during WM_DPICHANGED_BEFOREPARENT (zh locale, Win10 19044); non-fatal; no app frame in stack; ask frequency+repro"
+  "last_synced": "2026-09-03T05:07:34Z",
+  "notes": "DPI path real (PerMonitorV2) but not reproducible here; asked what changed scaling"
 }

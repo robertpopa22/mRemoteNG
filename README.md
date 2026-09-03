@@ -91,7 +91,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 6,701 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 90 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate passes on every condition, new-code coverage included (85.7% against the 80% threshold, as of 2026-09-02). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
+**Quality:** 6,707 automated tests (0 failures), 0 analyzer warnings, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 90 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate passes on every condition, new-code coverage included (85.7% against the 80% threshold, as of 2026-09-02). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -253,7 +253,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (live, 2026-08-15).** Since the fork started accepting reports directly,
-**94 issues have been opened by external reporters and 92 are closed**; 2 issues are open, all of
+**95 issues have been opened by external reporters and 92 are closed**; 3 issues are open, all of
 them either fixed and awaiting reporter confirmation or deliberately left open with the reason
 stated in the thread. The upstream tracker now stands at 873 issues followed, against 841 currently
 open upstream.
@@ -327,6 +327,15 @@ came back twice ([#172](https://github.com/robertpopa22/mRemoteNG/issues/172)). 
 paths that only exist when the app actually starts, so the unit suite was green throughout — the
 reporter found it by comparing two versions, and it was only visible here once we drove the built
 app with their exact saved state.
+
+The same pass produced a second finding that no test could have reached, from an automatically
+filed crash report nobody could be asked about ([#175](https://github.com/robertpopa22/mRemoteNG/issues/175)):
+renaming one plugin assembly out of the application folder made mRemoteNG announce that the
+connections file could not be found — and offer to create a new one over the intact file. .NET
+reports a missing assembly and a missing file with the same exception type, and the recovery branch
+matched on the type alone. Reproducing the crash report is what exposed the data-loss path behind
+it; the fix separates the two cases and, for good measure, copies an existing connections file
+aside before anything replaces it.
 
 **Why automated tests alone are not enough:** beta.5 shipped 7 AI-introduced regressions out of 585
 changes that passed all 6,201 automated tests at the time. A ~1.2% miss rate sounds tolerable until
@@ -487,7 +496,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**6,701 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**6,707 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
