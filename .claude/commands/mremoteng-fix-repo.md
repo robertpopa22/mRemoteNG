@@ -172,6 +172,9 @@ For `needs-info` / `wontfix` / `confirm-fixed` issues (no commit), draft the rep
 
 **Reply rules (transparency — see CLAUDE.md "Reporter Communication & Transparency"):**
 - This is an automated pipeline with automated tests only; never imply human testing happened. The reporter's environment is the real end-to-end test — say so.
+- **Say what we SAW, not that we "verified".** Every reply describes the observable evidence in the reporter's own terms: which tabs appeared and in what order, what the dialog said, what the value was after a restart — before the change and after it. They can check that against their screen; a test count tells them nothing. State the measurement behind each claim (a trace line, the state the app itself recorded on exit) so the numbers are traceable rather than asserted.
+- **Name what was NOT verified, in the same breath.** A control the automation could not drive, a scenario needing their server or locale — say which, and say their click-through remains the only end-to-end proof. A second machine is described by what actually differed (OS, account, screen) and what was copied from ours; settings inherited from our box make it a second machine, not a second environment.
+- **Thank them for the specific thing they did** — comparing two versions, re-testing the same day, sending a trace, reporting that our fix made it worse. Name it; generic thanks reads as boilerplate.
 - Reply length follows confidence: trace-proven mechanism → full explanation; unproven premise or guard → max ~5 lines (what changed, what to test, one sentence of uncertainty).
 - **Attempt budget:** max 2 premise-based fixes per issue; the third ship must be a diagnostic build. After 3 failed rounds, flag the issue for human review in the issue itself and stop shipping.
 - Before asking the reporter to test, attempt local repro first (FlaUI MCP tools can drive the built app). Only ask for what cannot be reproduced here.

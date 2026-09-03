@@ -164,6 +164,16 @@ software. Communication must reflect that honestly:
    in the built app — added a connection, typed X, restarted, and the value came back", not "we
    verified it works". Where a UI check was impossible (needs their server, their locale, their
    network), say that plainly instead of implying it passed.
+
+   **Describe what was on the screen, in the reporter's own terms — this is not optional garnish.**
+   "Verified" means nothing to someone who cannot see our machines. Name what appeared: which tabs,
+   in what order, what the dialog said, what the value was after a restart — before the change and
+   after it. A reporter can check that description against their own screen; they cannot check a
+   test count. Equally, name what was NOT watched: if a control could not be driven, say which one
+   and say the reporter's click-through is still the only end-to-end evidence. Every claim about a
+   second machine states what actually differed (OS, account, screen) and what was merely copied
+   from ours — a "clean machine" that inherited our settings is a second machine, not a second
+   environment, and must be described that way.
 3. **Match reply length to confidence.** Mechanism proven from a trace or reproduced locally → full
    explanation is fine. Unproven premise or guard-not-root-cause → **max ~5 lines**: what changed,
    what to test, one sentence of uncertainty. Long confident essays that turn out wrong are what
