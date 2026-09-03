@@ -388,6 +388,13 @@ namespace mRemoteNG.Tools
 
                 if (value is Color colorValue)
                 {
+                    // Color.Empty is "no colour", not a colour: writing it out as #00000000 would
+                    // store transparent black and claim a colour the user never chose.
+                    if (colorValue.IsEmpty)
+                    {
+                        return string.Empty;
+                    }
+
                     // Convert Color to string representation
                     // Use named color if it's a known color, otherwise use hex format
                     if (colorValue.IsNamedColor)
