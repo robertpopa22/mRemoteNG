@@ -238,13 +238,27 @@ runs the latest build and catches real bugs first (this is the point of dogfoodi
 2. If mRemoteNG is running, ask the operator to close it (or confirm it is safe to close) — never
    overwrite a running exe silently.
 3. Build **self-contained** (`build.ps1 -SelfContained`, output `bin\x64\Release\publish\`) and
-   deploy THAT payload with **clean-folder semantics**: delete the old payload (keep `Settings\`
-   and the `*.log`), then copy the publish output in. NEVER robocopy the framework-dependent
-   `bin\x64\Release\` over a self-contained install and never layer one payload over another —
-   a mixed folder is exactly the #130 poisoned-runtime state ("You must install or update .NET")
-   and it was reproduced live on the operator's machine on 2026-08-31 by doing this wrong.
-4. Launch it once and confirm version + clean startup in the log (read the LAST lines by
-   timestamp, not `tail` blindly — the log is append-only across versions).
+   deploy it with **`scripts/deploy-daily-driver.ps1`** — never by hand. The script refuses to run
+   while the app is running, snapshots `Settings\`, removes the old payload, copies the new one with
+   `/XD Settings`, and **hashes `confCons.xml` before and after, failing the deploy if it changed at
+   all**.
+4. **Verify the operator's own connections survived — every single deploy, without being asked.**
+   The daily driver is somebody's working environment, not a test folder: launch the app and see the
+   tree populated with their servers (and the correct version in the title). The script's SHA256
+   check plus that look at the tree are the verification; a deploy is not finished until both pass.
+   If either fails, restore from the snapshot the script printed before doing anything else.
+
+   Both guards exist because of real damage:
+   - the publish tree ships a **development `Settings\` folder with an empty `confCons.xml`**, so a
+     plain `Copy-Item publish\* -Destination <install>` replaces the operator's connections with an
+     empty file. That happened on 2026-09-03 — the operator found their servers gone — and only the
+     rotating backups got the data back. Excluding `Settings\` from deletion is NOT enough; it must
+     also be excluded from the copy.
+   - never layer a framework-dependent `bin\x64\Release\` over a self-contained install: a mixed
+     folder is the #130 poisoned-runtime state ("You must install or update .NET"), reproduced live
+     on the operator's machine on 2026-08-31 by doing this wrong.
+5. Confirm a clean startup in the log (read the LAST lines by timestamp, not `tail` blindly — the log
+   is append-only across versions).
 
 ### Step 8: Record memory
 Write a session memory file under the project memory dir + add a one-line pointer to `MEMORY.md`: issues handled, root causes (file:line), commit hashes, and any Codex/Gemini divergence resolved.
