@@ -2420,19 +2420,40 @@ namespace mRemoteNG.UI.Window
         #region Persistence
 
         private readonly List<string> _pendingConnectionIds = new();
-        private readonly List<string> _layoutClaimedConnectionIds = new();
+        private readonly List<string> _layoutOpenedConnectionIds = new();
 
         /// <summary>
-        /// Connection IDs this panel took over from the saved dock layout. They stay listed after
-        /// <see cref="ProcessPendingConnections"/> has opened them, because
-        /// <see cref="mRemoteNG.Tree.PreviousSessionOpener"/> uses this list to skip connections the
-        /// layout already reopens — and it cannot rely on
-        /// <see cref="Connection.IConnectionInitiator.ActiveConnections"/> instead, since
-        /// OpenConnection is async void and only registers the connection once the connect
-        /// completes. Reopening them from the tree as well gave one extra tab per previously open
-        /// connection on every start (#172).
+        /// Connection IDs this panel actually reopened from the saved dock layout — recorded when
+        /// the connection is handed to the initiator, not when the layout merely mentioned it.
+        /// <para>
+        /// <see cref="mRemoteNG.Tree.PreviousSessionOpener"/> skips these so a connection the layout
+        /// restored is not reopened a second time from its tree node (#172). It cannot use
+        /// <see cref="Connection.IConnectionInitiator.ActiveConnections"/> for that instead, because
+        /// OpenConnection is async void and only registers the connection once the connect has
+        /// completed — long after the tree path has run.
+        /// </para>
+        /// <para>
+        /// The distinction between "mentioned by the layout" and "actually opened" is the whole
+        /// point: the first version of this recorded the ids as soon as the layout named them, and
+        /// when this panel then failed to open them — a disposed panel, a connection the current
+        /// file no longer contains, a handler that never ran — the tree path skipped them too and
+        /// the user got no tabs at all.
+        /// </para>
         /// </summary>
-        internal IReadOnlyList<string> PendingConnectionIds => _layoutClaimedConnectionIds;
+        internal IReadOnlyList<string> OpenedFromLayoutConnectionIds => _layoutOpenedConnectionIds;
+
+        /// <summary>
+        /// Opens the tabs the saved layout recorded, now, if that has not happened yet. Called by
+        /// the tree path before it decides what to reopen, so the two no longer depend on which of
+        /// them Windows happens to run first.
+        /// </summary>
+        internal void FlushPendingLayoutConnections()
+        {
+            if (IsDisposed || Disposing)
+                return;
+
+            ProcessPendingConnections();
+        }
 
         protected override string GetPersistString()
         {
@@ -2465,8 +2486,7 @@ namespace mRemoteNG.UI.Window
         {
             _pendingConnectionIds.Clear();
             _pendingConnectionIds.AddRange(ids);
-            _layoutClaimedConnectionIds.Clear();
-            _layoutClaimedConnectionIds.AddRange(_pendingConnectionIds);
+            _layoutOpenedConnectionIds.Clear();
 
             if (Runtime.ConnectionsService.IsConnectionsFileLoaded)
             {
@@ -2505,20 +2525,31 @@ namespace mRemoteNG.UI.Window
                 Properties.OptionsAdvancedPage.Default.NoReconnect)
             {
                 _pendingConnectionIds.Clear();
-                _layoutClaimedConnectionIds.Clear();
+                _layoutOpenedConnectionIds.Clear();
                 return;
             }
 
+            App.DevLog.Write($"[#172-diag] layout path: pending={_pendingConnectionIds.Count} ids=[{string.Join(",", _pendingConnectionIds)}]");
+
             var tree = Runtime.ConnectionsService.ConnectionTreeModel;
+
+            // No tree yet means this panel cannot open anything; leave the ids pending so a later
+            // flush can still do it, and record nothing as opened so the tree path stays free to
+            // reopen these connections itself.
             if (tree == null) return;
 
             foreach (var id in _pendingConnectionIds)
             {
                 var info = tree.FindConnectionById(id);
-                if (info != null)
-                {
-                    Runtime.ConnectionInitiator.OpenConnection(info, ConnectionInfo.Force.DoNotJump, this);
-                }
+
+                // An id the current connections file no longer contains is not opened here, and
+                // must not be recorded as opened — otherwise nothing reopens it at all.
+                if (info == null)
+                    continue;
+
+                App.DevLog.Write($"[#172-diag] layout path opening '{info.Name}' id={id}");
+                Runtime.ConnectionInitiator.OpenConnection(info, ConnectionInfo.Force.DoNotJump, this);
+                _layoutOpenedConnectionIds.Add(id);
             }
             _pendingConnectionIds.Clear();
         }

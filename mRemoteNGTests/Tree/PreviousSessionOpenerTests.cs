@@ -57,19 +57,40 @@ namespace mRemoteNGTests.Tree
         }
 
         [Test]
-        public void ConnectionsAlreadyClaimedByTheSavedLayoutAreNotReopened()
+        public void ConnectionsTheSavedLayoutAlreadyOpenedAreNotReopened()
         {
             RootNodeInfo root = BuildTree();
             _connectionTree.GetRootConnectionNode().Returns(root);
-            string claimedId = root.Children.First(child => child.PleaseConnect).ConstantID;
+            string openedByLayout = root.Children.First(child => child.PleaseConnect).ConstantID;
             _previousSessionOpener = new PreviousSessionOpener(
                 _connectionInitiator,
                 () => Array.Empty<ConnectionInfo>(),
-                () => [claimedId]);
+                () => [openedByLayout]);
 
             _previousSessionOpener.Execute(_connectionTree);
 
             _connectionInitiator.ReceivedWithAnyArgs(1).OpenConnection(new ConnectionInfo());
+        }
+
+        /// <summary>
+        /// The first fix for #172 skipped whatever the layout INTENDED to open. When the layout then
+        /// opened nothing — a disposed panel, ids the connections file no longer holds — both paths
+        /// stood aside and the reporter got no tabs at all. Reporting nothing as opened must mean
+        /// this path reopens everything.
+        /// </summary>
+        [Test]
+        public void EverythingIsReopenedWhenTheLayoutOpenedNothing()
+        {
+            RootNodeInfo root = BuildTree();
+            _connectionTree.GetRootConnectionNode().Returns(root);
+            _previousSessionOpener = new PreviousSessionOpener(
+                _connectionInitiator,
+                () => Array.Empty<ConnectionInfo>(),
+                Array.Empty<string>);
+
+            _previousSessionOpener.Execute(_connectionTree);
+
+            _connectionInitiator.ReceivedWithAnyArgs(2).OpenConnection(new ConnectionInfo());
         }
 
         [Test]

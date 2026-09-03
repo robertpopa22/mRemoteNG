@@ -36,7 +36,12 @@ namespace mRemoteNG.Tree
             // Reopening them here as well gave one extra tab per previously open connection on
             // every start (#172). The layout owns them: it restores each tab in the panel it was
             // last in, which this path cannot do.
-            HashSet<string> idsClaimedByLayout = _layoutRestoredConnectionIdLoader()
+            //
+            // The loader below makes the layout finish its work first and then reports what it
+            // ACTUALLY opened. Skipping on what the layout merely intended to open is what left a
+            // reporter with no tabs at all: whenever that panel then opened nothing, both paths
+            // stood aside.
+            HashSet<string> idsAlreadyOpenedByLayout = _layoutRestoredConnectionIdLoader()
                 .ToHashSet(StringComparer.Ordinal);
 
             IEnumerable<ConnectionInfo> connectionInfoList = connectionTree.GetRootConnectionNode().GetRecursiveChildList()
@@ -46,10 +51,14 @@ namespace mRemoteNG.Tree
                            item.PleaseConnect &&
                            //ignore items that have already connected
                            !_connectionInitiator.ActiveConnections.Contains(item.ConstantID, StringComparer.Ordinal) &&
-                           !idsClaimedByLayout.Contains(item.ConstantID));
+                           !idsAlreadyOpenedByLayout.Contains(item.ConstantID));
 
-            foreach (ConnectionInfo connectionInfo in previouslyOpenedConnections)
+            ConnectionInfo[] toOpen = previouslyOpenedConnections.ToArray();
+            App.DevLog.Write($"[#172-diag] tree path: candidates={connectionInfoList.Count()} pleaseConnect={connectionInfoList.Count(c => c.PleaseConnect)} openedByLayout={idsAlreadyOpenedByLayout.Count} willOpen={toOpen.Length} names=[{string.Join(",", toOpen.Select(c => c.Name))}]");
+
+            foreach (ConnectionInfo connectionInfo in toOpen)
             {
+                App.DevLog.Write($"[#172-diag] tree path opening '{connectionInfo.Name}' id={connectionInfo.ConstantID}");
                 _connectionInitiator.OpenConnection(connectionInfo);
             }
 
@@ -61,10 +70,19 @@ namespace mRemoteNG.Tree
             if (Runtime.WindowList == null)
                 return [];
 
-            return Runtime.WindowList
+            ConnectionWindow[] panels = Runtime.WindowList
                 .OfType<ConnectionWindow>()
-                .SelectMany(window => window.PendingConnectionIds)
+                .Where(window => !window.IsDisposed && !window.Disposing)
                 .ToArray();
+
+            // Give every live panel the chance to restore its tabs now, so what it reports below is
+            // a fact rather than an intention. A panel that already did this is a no-op here.
+            foreach (ConnectionWindow panel in panels)
+            {
+                panel.FlushPendingLayoutConnections();
+            }
+
+            return panels.SelectMany(panel => panel.OpenedFromLayoutConnectionIds).ToArray();
         }
 
         private void OpenPreviouslyConnectedQuickConnectSessions()
