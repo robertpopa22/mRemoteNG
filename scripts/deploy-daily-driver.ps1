@@ -14,7 +14,7 @@
 
       * it refuses to run while mRemoteNG is running (never overwrite a live install);
       * it copies the payload with Settings EXCLUDED, in both directions — the old payload is
-        deleted except for Settings and logs, and the new payload is copied without its own Settings;
+        deleted except for Settings and logs, and the new payload is copied without either of its own;
       * it hashes the target's confCons.xml before and after and fails loudly if it differs at all.
         A deploy that alters the user's data is a failed deploy, and it says so instead of finishing
         green.
@@ -97,10 +97,14 @@ Get-ChildItem -LiteralPath $Target -Force |
     Where-Object { $_.Name -ne 'Settings' -and $_.Extension -ne '.log' } |
     Remove-Item -Recurse -Force
 
-Write-Step 'Copy the new payload (its own Settings excluded)'
+Write-Step 'Copy the new payload (its own Settings and logs excluded)'
 # /XD Settings is the whole point: the publish tree ships a development Settings folder, and copying
 # it over a real install replaces the user's connections with an empty file.
-$null = robocopy $Source $Target /E /NFL /NDL /NJH /NJS /R:2 /W:2 /XD Settings
+# /XF *.log for the same reason, learned the same way: the delete step above deliberately keeps the
+# install's logs, but the publish tree carries a stale development log of its own, and copying that
+# over the top destroyed months of the maintainer's real-usage history on 2026-09-04. Excluding a
+# file from the delete is only half the guard - it has to be excluded from the copy as well.
+$null = robocopy $Source $Target /E /NFL /NDL /NJH /NJS /R:2 /W:2 /XD Settings /XF *.log
 if ($LASTEXITCODE -ge 8) { throw "robocopy failed with exit code $LASTEXITCODE." }
 
 $after = Get-ConnectionFileFacts $targetSettings
