@@ -130,8 +130,25 @@ namespace mRemoteNG.Config.Settings
             }
             else
             {
+                Point restoreLocation = Properties.App.Default.MainFormRestoreLocation;
+
+                // Maximizing puts the window on whichever monitor it currently sits on, so the
+                // location applied here picks the monitor. The restore location is only refreshed
+                // while the window is not Normal, so it can still name a monitor the window was
+                // dragged away from; the maximized bounds, saved on every shutdown, are the record
+                // of where it really was. Move the restore bounds onto that monitor first (#171).
+                if (Properties.App.Default.MainFormState == FormWindowState.Maximized &&
+                    !restoreLocation.IsEmpty && !Properties.App.Default.MainFormRestoreSize.IsEmpty)
+                {
+                    Rectangle[] screens = Array.ConvertAll(Screen.AllScreens, screen => screen.Bounds);
+                    restoreLocation = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
+                        new Rectangle(Properties.App.Default.MainFormLocation, Properties.App.Default.MainFormSize),
+                        new Rectangle(restoreLocation, Properties.App.Default.MainFormRestoreSize),
+                        screens).Location;
+                }
+
                 if (!Properties.App.Default.MainFormRestoreLocation.IsEmpty)
-                    MainForm.Location = Properties.App.Default.MainFormRestoreLocation;
+                    MainForm.Location = restoreLocation;
                 if (!Properties.App.Default.MainFormRestoreSize.IsEmpty)
                     MainForm.Size = Properties.App.Default.MainFormRestoreSize;
             }
