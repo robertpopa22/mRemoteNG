@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
 using mRemoteNG.UI.Forms;
+using System.Data.Common;
+using System.Globalization;
 using System.IO;
 using System.Xml;
+using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Messages;
 using mRemoteNG.Security;
 using mRemoteNG.Tools;
@@ -29,6 +33,153 @@ namespace mRemoteNG.Config.Settings
             _externalToolsToolStrip = externalToolsToolStrip;
         }
 
+
+        /// <summary>
+        /// Reads External Tools from wherever this installation keeps them. ExternalAppsSaver has
+        /// always chosen between SQL and extApps.xml on UseSQLServer; loading only ever read the
+        /// XML, so in SQL mode the database was a write-only mirror of the local file and every
+        /// shutdown wrote that stale file back over it (#179).
+        /// </summary>
+        public void LoadExternalApps()
+        {
+            if (!Properties.OptionsDBsPage.Default.UseSQLServer)
+            {
+                LoadExternalAppsFromXML();
+                return;
+            }
+
+            try
+            {
+                LoadExternalAppsFromSql();
+                ApplyToolsToToolbar();
+            }
+            catch (Exception ex)
+            {
+                // An unreachable server, or a database whose schema predates tblExternalTools.
+                // Drop whatever was half-read so the XML load below is the only source, rather
+                // than merging two of them.
+                Runtime.ExternalToolsService.ExternalTools.Clear();
+                _messageCollector.AddExceptionMessage(
+                    "Loading External Apps from the database failed. Falling back to extApps.xml.", ex);
+                LoadExternalAppsFromXML();
+            }
+        }
+
+        /// <summary>
+        /// The database is authoritative in SQL mode, exactly as it is for connections: a table
+        /// with no rows means no tools, not "fall back to the local file". Otherwise deleting
+        /// every tool would resurrect them from an extApps.xml that SQL mode never updates.
+        /// </summary>
+        private void LoadExternalAppsFromSql()
+        {
+            using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnectorFromSettings();
+            dbConnector.Connect();
+
+            _messageCollector.AddMessage(MessageClass.InformationMsg, "Loading External Apps from the database", true);
+
+            foreach (ExternalTool extA in ReadExternalToolsFromSql(dbConnector))
+            {
+                _messageCollector.AddMessage(MessageClass.InformationMsg,
+                                             $"Adding External App: {extA.DisplayName} {extA.FileName} {extA.Arguments}",
+                                             true);
+                Runtime.ExternalToolsService.ExternalTools.Add(extA);
+            }
+        }
+
+        /// <summary>
+        /// Reads tblExternalTools, the mirror image of <see cref="ExternalAppsSaver"/>'s SQL write.
+        /// Public and connector-driven so a round trip through a real database can be exercised
+        /// without a main window.
+        /// </summary>
+        public static List<ExternalTool> ReadExternalToolsFromSql(IDatabaseConnector dbConnector)
+        {
+            ArgumentNullException.ThrowIfNull(dbConnector);
+
+            List<ExternalTool> tools = [];
+            using DbCommand cmd = dbConnector.DbCommand("SELECT * FROM tblExternalTools");
+            using DbDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                ExternalTool extA = new()
+                {
+                    DisplayName = ReadString(reader, "DisplayName"),
+                    FileName = ReadString(reader, "FileName"),
+                    IconPath = ReadString(reader, "IconPath"),
+                    Arguments = ReadString(reader, "Arguments"),
+                    WorkingDir = ReadString(reader, "WorkingDir"),
+                    WaitForExit = ReadBool(reader, "WaitForExit"),
+                    TryIntegrate = ReadBool(reader, "TryIntegrate"),
+                    RunElevated = ReadBool(reader, "RunElevated"),
+                    ShowOnToolbar = ReadBool(reader, "ShowOnToolbar"),
+                    Category = ReadString(reader, "Category"),
+                    RunOnStartup = ReadBool(reader, "RunOnStartup"),
+                    StopOnShutdown = ReadBool(reader, "StopOnShutdown"),
+                    Hidden = ReadBool(reader, "Hidden"),
+                    AuthenticationType = ReadString(reader, "AuthType"),
+                    AuthenticationUsername = ReadString(reader, "AuthUsername"),
+                    AuthenticationPassword = ExternalAppsSaver.UnprotectValue(ReadString(reader, "AuthPassword")),
+                    PrivateKeyFile = ReadString(reader, "PrivateKeyFile"),
+                    Passphrase = ExternalAppsSaver.UnprotectValue(ReadString(reader, "Passphrase"))
+                };
+
+                int hotkey = ReadInt(reader, "Hotkey");
+                if (hotkey != 0)
+                    extA.Hotkey = (System.Windows.Forms.Keys)hotkey;
+
+                tools.Add(extA);
+            }
+
+            return tools;
+        }
+
+        // A database upgraded from an older schema can be missing columns a newer build writes,
+        // so read by name only when the column is actually there.
+        private static bool HasColumn(DbDataReader reader, string columnName)
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (string.Equals(reader.GetName(i), columnName, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static string ReadString(DbDataReader reader, string columnName)
+        {
+            if (!HasColumn(reader, columnName))
+                return string.Empty;
+
+            object value = reader[columnName];
+            return value is null or DBNull
+                ? string.Empty
+                : Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty;
+        }
+
+        private static bool ReadBool(DbDataReader reader, string columnName)
+        {
+            if (!HasColumn(reader, columnName))
+                return false;
+
+            object value = reader[columnName];
+            return value is not (null or DBNull) && Convert.ToBoolean(value, CultureInfo.InvariantCulture);
+        }
+
+        private static int ReadInt(DbDataReader reader, string columnName)
+        {
+            if (!HasColumn(reader, columnName))
+                return 0;
+
+            object value = reader[columnName];
+            return value is null or DBNull ? 0 : Convert.ToInt32(value, CultureInfo.InvariantCulture);
+        }
+
+        private void ApplyToolsToToolbar()
+        {
+            _externalToolsToolStrip.SwitchToolBarText(Properties.Settings.Default.ExtAppsTBShowText);
+            _externalToolsToolStrip.AddExternalToolsToToolBar();
+        }
 
         public void LoadExternalAppsFromXML()
         {
@@ -130,8 +281,7 @@ namespace mRemoteNG.Config.Settings
                 AddBuiltInShellPresetIfMissing("Traceroute", "tracert.exe", "%HOSTNAME%");
             }
 
-            _externalToolsToolStrip.SwitchToolBarText(Properties.Settings.Default.ExtAppsTBShowText);
-            _externalToolsToolStrip.AddExternalToolsToToolBar();
+            ApplyToolsToToolbar();
         }
 
         private void AddBuiltInShellPresetIfMissing(string displayName, string fileName, string arguments = "", bool tryIntegrate = true)

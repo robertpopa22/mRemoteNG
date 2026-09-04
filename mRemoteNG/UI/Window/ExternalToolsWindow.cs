@@ -20,6 +20,7 @@ namespace mRemoteNG.UI.Window
     {
         private readonly ThemeManager _themeManager;
         private readonly FullyObservableCollection<ExternalTool> _currentlySelectedExternalTools;
+        private bool _populatingEditorControls;
 
         public ExternalToolsWindow()
         {
@@ -46,6 +47,7 @@ namespace mRemoteNG.UI.Window
         {
             ApplyLanguage();
             ApplyTheme();
+            CommitTextBoxEditsAsTheyAreTyped();
             UpdateToolsListObjView();
 
             if (!TryRestoreToolsListLayout())
@@ -147,10 +149,47 @@ namespace mRemoteNG.UI.Window
             }
         }
 
+        /// <summary>
+        /// The designer only commits a text box into the model on Leave/LostFocus, but the
+        /// application saves External Tools from Shutdown.Cleanup while this window is still open
+        /// and still holds focus - so an edit the user had just typed was never in the model that
+        /// got saved (#179). Committing as they type makes the model current no matter what closes
+        /// first. The list view is deliberately not refreshed here; that still waits for the field
+        /// to be left, so the grid does not rebuild on every keystroke.
+        /// </summary>
+        private void CommitTextBoxEditsAsTheyAreTyped()
+        {
+            Control[] editors =
+            [
+                DisplayNameTextBox, FilenameTextBox, IconPathTextBox, ArgumentsCheckBox, WorkingDirTextBox,
+                AuthenticationTypeTextBox, AuthenticationUsernameTextBox, AuthenticationPasswordTextBox,
+                PrivateKeyFileTextBox, PassphraseTextBox
+            ];
+
+            foreach (Control editor in editors)
+                editor.TextChanged += PropertyControl_TextChanged;
+        }
+
         private void UpdateEditorControls()
         {
             ExternalTool? selectedTool = _currentlySelectedExternalTools.FirstOrDefault();
 
+            // Filling the editor raises TextChanged on every field while the controls still hold
+            // the previously selected tool's text, which would write that text onto the tool just
+            // selected. Nothing is committed until the boxes match the model again.
+            _populatingEditorControls = true;
+            try
+            {
+                UpdateEditorControlsCore(selectedTool);
+            }
+            finally
+            {
+                _populatingEditorControls = false;
+            }
+        }
+
+        private void UpdateEditorControlsCore(ExternalTool? selectedTool)
+        {
             DisplayNameTextBox.Text = selectedTool?.DisplayName;
             FilenameTextBox.Text = selectedTool?.FileName;
             IconPathTextBox.Text = selectedTool?.IconPath;
@@ -319,11 +358,25 @@ namespace mRemoteNG.UI.Window
             }
         }
 
+        private void PropertyControl_TextChanged(object sender, EventArgs e)
+        {
+            CommitEditorValues();
+        }
+
         private void PropertyControl_ChangedOrLostFocus(object sender, EventArgs e)
         {
+            if (CommitEditorValues())
+                UpdateToolsListObjView();
+        }
+
+        private bool CommitEditorValues()
+        {
+            if (_populatingEditorControls)
+                return false;
+
             ExternalTool? selectedTool = _currentlySelectedExternalTools.FirstOrDefault();
             if (selectedTool == null)
-                return;
+                return false;
 
             try
             {
@@ -341,14 +394,14 @@ namespace mRemoteNG.UI.Window
                 selectedTool.TryIntegrate = TryToIntegrateCheckBox.Checked;
                 selectedTool.ShowOnToolbar = ShowOnToolbarCheckBox.Checked;
                 selectedTool.RunElevated = RunElevatedCheckBox.Checked;
-
-                UpdateToolsListObjView();
+                return true;
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage(
-                                                             "UI.Window.ExternalTools.PropertyControl_ChangedOrLostFocus() failed.",
+                                                             "UI.Window.ExternalTools.CommitEditorValues() failed.",
                                                              ex);
+                return false;
             }
         }
 

@@ -71,7 +71,7 @@ namespace mRemoteNG.Config.Settings
                 SetPuttyPath();
                 SetShowSystemTrayIcon();
                 SetAutoSave();
-                LoadExternalAppsFromXml();
+                LoadExternalApps();
                 LoadQuickConnectHistory();
                 SetAlwaysShowPanelTabs();
 
@@ -336,9 +336,9 @@ namespace mRemoteNG.Config.Settings
             }
         }
 
-        private void LoadExternalAppsFromXml()
+        private void LoadExternalApps()
         {
-            _externalAppsLoader.LoadExternalAppsFromXML();
+            _externalAppsLoader.LoadExternalApps();
         }
 
         private void LoadQuickConnectHistory()

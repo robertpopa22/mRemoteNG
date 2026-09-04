@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Globalization;
@@ -99,60 +99,73 @@ namespace mRemoteNG.Config.Settings
 
                 using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnectorFromSettings();
                 dbConnector.Connect();
-
-                using DbTransaction transaction = dbConnector.DbConnection().BeginTransaction();
-                try
-                {
-                    SqlSafeUpdateHelper.DeleteAllRows(
-                        dbConnector,
-                        transaction,
-                        "DELETE FROM tblExternalTools");
-
-                    foreach (ExternalTool extA in externalTools)
-                    {
-                        DbCommand cmd = dbConnector.DbCommand(
-                            "INSERT INTO tblExternalTools (DisplayName, FileName, IconPath, Arguments, WorkingDir, " +
-                            "WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown, " +
-                            "Hotkey, Hidden, AuthType, AuthUsername, AuthPassword, PrivateKeyFile, Passphrase) " +
-                            "VALUES (@DisplayName, @FileName, @IconPath, @Arguments, @WorkingDir, " +
-                            "@WaitForExit, @TryIntegrate, @RunElevated, @ShowOnToolbar, @Category, @RunOnStartup, @StopOnShutdown, " +
-                            "@Hotkey, @Hidden, @AuthType, @AuthUsername, @AuthPassword, @PrivateKeyFile, @Passphrase)");
-                        cmd.Transaction = transaction;
-
-                        AddParameter(cmd, "@DisplayName", extA.DisplayName);
-                        AddParameter(cmd, "@FileName", extA.FileName);
-                        AddParameter(cmd, "@IconPath", extA.IconPath);
-                        AddParameter(cmd, "@Arguments", extA.Arguments);
-                        AddParameter(cmd, "@WorkingDir", extA.WorkingDir);
-                        AddParameter(cmd, "@WaitForExit", extA.WaitForExit);
-                        AddParameter(cmd, "@TryIntegrate", extA.TryIntegrate);
-                        AddParameter(cmd, "@RunElevated", extA.RunElevated);
-                        AddParameter(cmd, "@ShowOnToolbar", extA.ShowOnToolbar);
-                        AddParameter(cmd, "@Category", extA.Category);
-                        AddParameter(cmd, "@RunOnStartup", extA.RunOnStartup);
-                        AddParameter(cmd, "@StopOnShutdown", extA.StopOnShutdown);
-                        AddParameter(cmd, "@Hotkey", (int)extA.Hotkey);
-                        AddParameter(cmd, "@Hidden", extA.Hidden);
-                        AddParameter(cmd, "@AuthType", extA.AuthenticationType);
-                        AddParameter(cmd, "@AuthUsername", extA.AuthenticationUsername);
-                        AddParameter(cmd, "@AuthPassword", ProtectValue(extA.AuthenticationPassword));
-                        AddParameter(cmd, "@PrivateKeyFile", extA.PrivateKeyFile);
-                        AddParameter(cmd, "@Passphrase", ProtectValue(extA.Passphrase));
-
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    transaction.Commit();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
+                WriteExternalToolsToSql(dbConnector, externalTools);
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("SaveExternalAppsToSQL failed", ex);
+            }
+        }
+
+        /// <summary>
+        /// Replaces tblExternalTools with the given tools, in one transaction so a failure part way
+        /// through leaves the previous contents intact. Public and connector-driven so the write and
+        /// <see cref="ExternalAppsLoader.ReadExternalToolsFromSql"/> can be round-tripped through a
+        /// real database in tests.
+        /// </summary>
+        public static void WriteExternalToolsToSql(IDatabaseConnector dbConnector, IEnumerable<ExternalTool> externalTools)
+        {
+            ArgumentNullException.ThrowIfNull(dbConnector);
+            ArgumentNullException.ThrowIfNull(externalTools);
+
+            using DbTransaction transaction = dbConnector.DbConnection().BeginTransaction();
+            try
+            {
+                SqlSafeUpdateHelper.DeleteAllRows(
+                    dbConnector,
+                    transaction,
+                    "DELETE FROM tblExternalTools");
+
+                foreach (ExternalTool extA in externalTools)
+                {
+                    DbCommand cmd = dbConnector.DbCommand(
+                        "INSERT INTO tblExternalTools (DisplayName, FileName, IconPath, Arguments, WorkingDir, " +
+                        "WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown, " +
+                        "Hotkey, Hidden, AuthType, AuthUsername, AuthPassword, PrivateKeyFile, Passphrase) " +
+                        "VALUES (@DisplayName, @FileName, @IconPath, @Arguments, @WorkingDir, " +
+                        "@WaitForExit, @TryIntegrate, @RunElevated, @ShowOnToolbar, @Category, @RunOnStartup, @StopOnShutdown, " +
+                        "@Hotkey, @Hidden, @AuthType, @AuthUsername, @AuthPassword, @PrivateKeyFile, @Passphrase)");
+                    cmd.Transaction = transaction;
+
+                    AddParameter(cmd, "@DisplayName", extA.DisplayName);
+                    AddParameter(cmd, "@FileName", extA.FileName);
+                    AddParameter(cmd, "@IconPath", extA.IconPath);
+                    AddParameter(cmd, "@Arguments", extA.Arguments);
+                    AddParameter(cmd, "@WorkingDir", extA.WorkingDir);
+                    AddParameter(cmd, "@WaitForExit", extA.WaitForExit);
+                    AddParameter(cmd, "@TryIntegrate", extA.TryIntegrate);
+                    AddParameter(cmd, "@RunElevated", extA.RunElevated);
+                    AddParameter(cmd, "@ShowOnToolbar", extA.ShowOnToolbar);
+                    AddParameter(cmd, "@Category", extA.Category);
+                    AddParameter(cmd, "@RunOnStartup", extA.RunOnStartup);
+                    AddParameter(cmd, "@StopOnShutdown", extA.StopOnShutdown);
+                    AddParameter(cmd, "@Hotkey", (int)extA.Hotkey);
+                    AddParameter(cmd, "@Hidden", extA.Hidden);
+                    AddParameter(cmd, "@AuthType", extA.AuthenticationType);
+                    AddParameter(cmd, "@AuthUsername", extA.AuthenticationUsername);
+                    AddParameter(cmd, "@AuthPassword", ProtectValue(extA.AuthenticationPassword));
+                    AddParameter(cmd, "@PrivateKeyFile", extA.PrivateKeyFile);
+                    AddParameter(cmd, "@Passphrase", ProtectValue(extA.Passphrase));
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
             }
         }
 
