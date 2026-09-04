@@ -2239,6 +2239,9 @@ mRemoteNG will now quit and begin with the installation.</value>
   <data name="mRemoteNGUnhandledException" xml:space="preserve">
     <value>mRemoteNG Unhandled Exception</value>
   </data>
+  <data name="InstallationIncompleteMissingAssembly" xml:space="preserve">
+    <value>This mRemoteNG installation is incomplete: {0} is missing from {1}. Extract the download again over that folder, or reinstall, and check that antivirus has not quarantined the file. Do not mix files from different mRemoteNG downloads in one folder.</value>
+  </data>
   <data name="UnhandledExceptionOccured" xml:space="preserve">
     <value>An unhandled exception has occurred</value>
   </data>

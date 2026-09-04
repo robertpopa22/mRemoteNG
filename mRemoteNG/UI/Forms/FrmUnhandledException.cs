@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -38,9 +39,58 @@ namespace mRemoteNG.UI.Forms
             if (exception == null)
                 return;
 
-            textBoxExceptionMessage.Text = exception.Message;
+            textBoxExceptionMessage.Text = DescribeException(exception, AppDomain.CurrentDomain.BaseDirectory);
             textBoxStackTrace.Text = exception.Demystify().StackTrace;
             SetEnvironmentText();
+        }
+
+        /// <summary>
+        /// An assembly that ships beside mRemoteNG.exe cannot be missing unless the installation
+        /// itself is incomplete - a half-extracted download, a file quarantined by antivirus, or
+        /// two different downloads mixed in one folder. The raw loader message names the assembly
+        /// but says none of that, so the report reads as an application bug and the user has
+        /// nothing to act on (#178). Say what is actually wrong, above the original message.
+        /// </summary>
+        public static string DescribeException(Exception exception, string applicationFolder)
+        {
+            ArgumentNullException.ThrowIfNull(exception);
+
+            string? missingAssembly = MissingAssemblyFileName(exception);
+            if (missingAssembly == null)
+                return exception.Message;
+
+            return string.Format(CultureInfo.CurrentCulture, Language.InstallationIncompleteMissingAssembly,
+                                 missingAssembly, applicationFolder)
+                   + Environment.NewLine + Environment.NewLine
+                   + exception.Message;
+        }
+
+        /// <summary>
+        /// The file name of the assembly a load failure was about, or null when the failure was
+        /// about something other than an assembly. FileNotFoundException also reports ordinary
+        /// missing files, so an assembly is recognised by its display name carrying a version.
+        /// </summary>
+        private static string? MissingAssemblyFileName(Exception exception)
+        {
+            for (Exception? current = exception; current != null; current = current.InnerException)
+            {
+                string? fileName = current switch
+                {
+                    FileNotFoundException notFound => notFound.FileName,
+                    FileLoadException loadFailed => loadFailed.FileName,
+                    _ => null
+                };
+
+                if (string.IsNullOrWhiteSpace(fileName) ||
+                    !fileName.Contains(", Version=", StringComparison.Ordinal))
+                    continue;
+
+                string simpleName = fileName[..fileName.IndexOf(',', StringComparison.Ordinal)].Trim();
+                if (simpleName.Length > 0)
+                    return simpleName + ".dll";
+            }
+
+            return null;
         }
 
         private void SetEnvironmentText()

@@ -7358,6 +7358,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This mRemoteNG installation is incomplete: {0} is missing from {1}. Extract the download again over that folder, or reinstall, and check that antivirus has not quarantined the file. Do not mix files from different mRemoteNG downloads in one folder..
+        /// </summary>
+        internal static string InstallationIncompleteMissingAssembly {
+            get {
+                return ResourceManager.GetString("InstallationIncompleteMissingAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unhandled exception has occurred.
         /// </summary>
         internal static string UnhandledExceptionOccured {
