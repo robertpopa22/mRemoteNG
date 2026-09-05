@@ -485,7 +485,11 @@ namespace mRemoteNG.Tools
                     Color.Olive
                 ];
 
-                return new StandardValuesCollection(colors);
+                // As names, not Colors: the property is a string, and the grid commits a standard
+                // value straight through the descriptor when the user double-clicks or arrows
+                // through the list - a Color there is the same type mismatch as #176 by another
+                // route (carried over from PR #156).
+                return new StandardValuesCollection(Array.ConvertAll(colors, color => color.Name));
             }
 
             public override bool GetStandardValuesExclusive(ITypeDescriptorContext? context)

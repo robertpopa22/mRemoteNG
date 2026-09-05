@@ -34,10 +34,16 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
 
         public override object? EditValue(ITypeDescriptorContext? context, IServiceProvider provider, object? value)
         {
-            object? picked = InnerEditor.EditValue(context, provider, ToColor(context, value));
+            Color initial = ToColor(context, value);
+            object? picked = InnerEditor.EditValue(context, provider, initial);
 
-            // Anything other than a colour coming back means the user cancelled: keep what was set.
-            return picked is Color color
+            // The stock editor has no "cancelled" signal: dismissing the picker hands back the very
+            // colour it was given. Treating that as a choice rewrote the stored text on every
+            // Escape - "crimson" became "Crimson", "#FF0000" became "Red", and a legacy value the
+            // converter could not parse (fed in as Color.Empty) came back as an empty string and
+            // was lost. Only a colour that differs from what went in is a choice; everything else
+            // leaves the stored value exactly as it was, unparseable text included (#176, PR #156).
+            return picked is Color color && color != initial
                 ? Converter.ConvertFrom(context, null, color)
                 : value;
         }
