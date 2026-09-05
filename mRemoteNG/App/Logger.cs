@@ -19,6 +19,15 @@ namespace mRemoteNG.App
 
         public static string DefaultLogPath => BuildLogFilePath();
 
+        /// <summary>
+        /// log4net.config lives beside the executable. It must be found from there, not from the
+        /// process working directory: a shortcut with an empty "Start in", a scheduled task, or a
+        /// Start-Process without -WorkingDirectory all start the app somewhere else, and log4net
+        /// does not throw when its config is missing - it leaves the repository with no appenders,
+        /// so every line the application writes is discarded and no log file appears at all.
+        /// </summary>
+        public static string ConfigFilePath => Path.Combine(AppContext.BaseDirectory, "log4net.config");
+
         private Logger()
         {
             Initialize();
@@ -42,7 +51,7 @@ namespace mRemoteNG.App
         {
             ILoggerRepository repository = LogManager.GetRepository("mRemoteNG");
 
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            XmlConfigurator.Configure(repository, new FileInfo(ConfigFilePath));
 
             IAppender[] appenders = repository.GetAppenders();
 
