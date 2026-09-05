@@ -84,6 +84,37 @@ python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py update -
 ```
 (status map: fix→triaged, needs-info→needs_info, wontfix→wontfix, confirm-fixed→released, upstream-only→triaged + note.)
 
+### Step 3a: Repeat reports — full counter-opinion panel BEFORE certifying "fixed" (MANDATORY)
+
+A problem that has been reported more than once is, by definition, a problem this pipeline has
+already got wrong at least once — an earlier fix, an earlier "works as designed", or a duplicate
+closed without the mechanism being understood. A reporter saying "works now" is one data point on
+one machine; it is not certification.
+
+Before marking such an issue `confirm-fixed` / `released`, or closing it:
+
+1. **Find every prior report.** Search the fork issues AND open PRs for the same symptom (error
+   text, control, dialog) — `gh issue list --state all --search "<error text>"` and
+   `gh pr list --state all --search ...`. Include duplicates closed with "Dupe #N" and external
+   contributor PRs that fix the same thing (an open PR from a contributor is itself a prior report,
+   and its review comments are prior evidence — read them).
+2. **Run the COMPLETE panel, not the usual pair:** `grok:grok-rescue` + `gemini:gemini-rescue` +
+   `codex:codex-rescue` (read-only, `--wait`), all with the same prompt. The prompt hands them the
+   shipped fix AND every prior fix/PR side by side, and asks them to re-derive from source whether
+   the shipped fix is correct and *complete* — the edge cases the earlier rounds raised (cancel
+   semantics, legacy values, the other reporter's exact gesture), not just the headline symptom.
+3. **Converge before certifying.** Any reviewer finding a remaining defect blocks the close; fix
+   it, re-verify in the UI, and only then certify. Record in the closing comment which prior
+   reports were reconciled and what the panel found.
+4. If a contributor PR exists for the same bug, the closing comment on the issue and a comment on
+   the PR must say what was taken from it or why it was superseded — never let a contributor's
+   fix sit unanswered while ours ships.
+
+Why (2026-09-05): #176 was the third report of the colour-picker throw (#156 → #173 dupe → #176).
+The shipped fix was reporter-confirmed and about to be closed when the prior-report search turned
+up open PR #156, whose review had already caught a cancel-overwrites-stored-value defect that the
+shipped fix also carries. The reporter's "works now" could not have seen it.
+
 ### Step 4: Investigate + dual counter-opinion (only for `fix`)
 1. Root-cause from source first; cite `file:line`. Verify the premise against the actual code (sources are authoritative, not the comment's framing).
 2. Get TWO independent opinions — spawn both `grok:grok-rescue` and `gemini:gemini-rescue` as **READ-ONLY diagnosis** (do not feed them your conclusion). Grok replaced Codex as a mandatory reviewer (2026-08-31): Codex reviews repeatedly hung or returned nothing (2026-08-10, 2026-07-17) while Grok found real defects the others missed (#148 primary cause, #143 denylist kill); `codex:codex-rescue` may still be added as an optional third when it is responsive. Give ALL reviewers the **same** prompt, opening with this framing verbatim and requiring the identical output template (so the answers are directly comparable side-by-side):
