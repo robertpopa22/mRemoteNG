@@ -39,7 +39,7 @@
   "comments_cursor": "2026-02-20T14:03:32Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage: VNC connection attempts to unavailable hosts block the UI thread for ~3 minutes due to synchronous socket connect without a reasonable timeout\nApproach: Add a short connection timeout (e.g. 5-10 seconds) to the VNC protocol handler so that unreachable hosts fail fast instead of blocking the application for the full TCP default timeout. Ensure the connection attempt runs asynchronously or with a cancellation token to keep the UI responsive."
 }

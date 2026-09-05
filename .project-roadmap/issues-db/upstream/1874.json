@@ -32,7 +32,7 @@
   "comments_cursor": "2026-02-26T13:28:39Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "Manual triage: Duplicate of credential embedding in HTTP URLs. Related to #420 (proxy credentials) and #621 (token replacement). HTTP basic auth in URL is a security risk."
 }

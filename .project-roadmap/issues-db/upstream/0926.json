@@ -45,7 +45,7 @@
   "comments_cursor": "2019-09-09T19:37:12Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (codex): The enhancement request is reasonable but lacks key implementation details such as custom field schema, UI behavior, persistence rules, and external-app token syntax.\nApproach: Request concrete requirements for field definitions and placeholder format, then implement model, UI, persistence, and token expansion in the external application launcher.\nAI triage (codex): This is a scoped enhancement request and the codebase already exposes multiple user field properties, so external-app token expansion can be extended safely.\nApproach: Extend token parsing to support %USERFIELD1% through %USERFIELD10%, add NUnit coverage for each token and escape mode, and update external-tools variable docs."
 }

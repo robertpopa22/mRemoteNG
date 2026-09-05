@@ -15,7 +15,7 @@
   ],
   "author": "df-an",
   "created_at": "2026-06-03T06:57:42Z",
-  "github_updated_at": "2026-06-03T10:23:54Z",
+  "github_updated_at": "2026-08-06T01:03:21Z",
   "body_snippet": "Hello @Kvarkas \n\ncan you tell me, why aren't there any MSI versions of the newer builds that have fixed the CVEs (e.g., CVE-2023-30367) available for installation, anymore? Did you miss them?\nAlso with the corresponding software list entries in the Control Panel that include the correct version and build numbers?  Could you please also provide this as a 64-bit MSI installation package? Thank you \n\n**Commit: f34c13e7 (fork robertpopa22/mRemoteNG, branch main)\nWhat changed: CVE-2020-24307 and CVE-...",
   "our_status": "new",
   "priority": null,
@@ -32,12 +32,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABNeWQJQ",
+      "author": "jafin",
+      "date": "2026-08-06T01:03:21Z",
+      "snippet": "The fork robertpopa22 has modest improvements to the build and release pipeline.  Is there any intent to merge the changes back into this tree?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-03T10:23:54Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-08-06T01:03:21Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-05T12:25:32Z",
+  "last_synced": "2026-09-02T12:58:40Z",
   "notes": ""
 }

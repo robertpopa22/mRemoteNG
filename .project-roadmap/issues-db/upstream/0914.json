@@ -2,7 +2,7 @@
   "number": 914,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "External tool telnet",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Third party",
     "Connections",
@@ -104,8 +104,8 @@
   ],
   "comments_cursor": "2021-06-28T13:00:22Z",
   "unread_comments": 7,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (codex): Launching external tools via `%SystemRoot%\\System32` from a 32-bit mRemoteNG process is WoW64-redirected to 32-bit binaries, which breaks expected telnet/PowerShell behavior on 64-bit Windows.\nApproach: Add path normalization for external tools so `System32` can resolve to `Sysnative` when needed on 64-bit OS, with fallback and a small regression test."
 }

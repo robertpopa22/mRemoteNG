@@ -2,7 +2,7 @@
   "number": 3335,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Malicious .xml executes any command when triggering a connection via the file or automatically",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Need 2 check",
     "Improvement required",
@@ -21,7 +21,7 @@
   "comments": [],
   "comments_cursor": "2026-06-26T10:41:40Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-07-05T12:25:32Z",
   "notes": ""

@@ -40,7 +40,7 @@
   "comments_cursor": "2026-02-26T13:36:32Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): Investigate and fix errors occurring during the initialization or establishment of RDP and Telnet connections, potentially related to ActiveX control handling or external tool configuration.\nApproach: Debug the connection initiation flow for both RDP and Telnet protocols. This will involve examining how connection parameters are used, how external tools (like PuTTY for Telnet) are invoked, and how RDP ActiveX controls are initialized and interact with the system. Special attention will be paid to error handling and logging during connection establishment."
 }

@@ -39,7 +39,7 @@
   "comments_cursor": "2019-03-27T12:00:16Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): External tool toolbar buttons lack tooltips showing the command details\nApproach: In AddExternalToolsToToolBar(), set button.ToolTipText to show the tool FileName and Arguments (e.g. 'putty.exe -ssh %host%') so users can see what each toolbar button does on hover"
 }

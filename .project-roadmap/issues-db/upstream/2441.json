@@ -2,7 +2,7 @@
   "number": 2441,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Why stable releases were discontinued?",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "In progress",
     "Question",
@@ -114,8 +114,8 @@
   ],
   "comments_cursor": "2026-02-26T14:00:12Z",
   "unread_comments": 8,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): This is a user question about project history/release strategy, not a bug or actionable code change.\nApproach: Close as informational — stable release cadence is a project governance decision, not a code issue."
 }

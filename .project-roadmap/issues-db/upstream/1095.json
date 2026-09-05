@@ -39,7 +39,7 @@
   "comments_cursor": "2018-09-30T17:35:20Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Fix 'connect without credentials' displaying incorrect logon info by cloning connection info and clearing credentials in ConnectionInitiator.\nApproach: Modify ConnectionInitiator.cs to clone the connection object when Force.NoCredentials is active, restore the parent reference for non-credential inheritance, and explicitly clear credential fields to ensure the tab title reflects the 'no credentials' state."
 }

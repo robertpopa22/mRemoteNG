@@ -42,7 +42,7 @@
   "comments_cursor": "2026-02-26T13:53:53Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Multi-user security with role-based access control requires a fundamental architectural overhaul of mRemoteNG's single-user connection model and is out of scope for the current roadmap.\nApproach: No implementation planned; mRemoteNG is designed as a single-user tool. Users needing multi-user access should use network-based credential managers or shared config files with OS-level ACLs."
 }

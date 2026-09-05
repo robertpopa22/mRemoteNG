@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-26T13:36:22Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): When importing CSV connections, the password for containers is incorrectly assigned to the inherited ConnectionInfo.Password property instead of the ContainerInfo.ContainerPassword property, preventing proper folder protection.\nApproach: Modify CsvConnectionsDeserializerMremotengFormat.cs to distinguish between ConnectionInfo and ContainerInfo when assigning the password during CSV import. If the record is a ContainerInfo, assign the password to ContainerPassword. Also, ensure the Password property in AbstractConnectionRecord is correctly typed as string, as seen in the analysis."
 }

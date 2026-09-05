@@ -39,7 +39,7 @@
   "comments_cursor": "2018-08-19T16:46:55Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The user is experiencing SSO authentication issues because 'ScriptErrorsSuppressed' is hardcoded to true for the IE rendering engine; making this configurable will resolve the issue while maintaining default behavior.\nApproach: Add a new boolean property 'ScriptErrorsSuppressed' (defaulting to true) to ConnectionInfo and its inheritance chain, and update HTTPBase.cs to use this property instead of the hardcoded value."
 }

@@ -47,7 +47,7 @@
   "comments_cursor": "2026-02-26T13:53:23Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The issue indicates a conflict between 'DockAreas' and 'DockState' which suggests a bug in the docking library's state management or its usage within the application.\nApproach: Investigate how 'DockAreas' and 'DockState' are set and modified, particularly during application startup, panel loading, or when programmatic docking changes occur, to resolve the conflict."
 }

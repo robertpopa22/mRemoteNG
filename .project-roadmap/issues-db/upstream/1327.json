@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-21T21:45:51Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): VNC keyboard input issues (stuck modifiers or key mapping failures) are a known usability bug in the VNC protocol layer that affects basic remote control functionality.\nApproach: Investigate VNC keyboard event handling in ProtocolVNC.cs; check for stuck modifier keys (Ctrl/Alt/Shift not released on focus loss) and ensure SendKeyEvent calls are properly flushed; add focus-lost handler to release all modifier keys."
 }

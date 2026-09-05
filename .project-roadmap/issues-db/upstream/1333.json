@@ -39,7 +39,7 @@
   "comments_cursor": "2019-03-04T13:47:03Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Useful maintenance feature to verify availability of all configured connections.\nApproach: Create a new 'Connection Tester' tool. Iterate through all connections in the tree, resolving host/port. Use PortScanner.IsPortOpen to check connectivity. Display results in a list view."
 }

@@ -2,7 +2,7 @@
   "number": 169,
   "repo": "robertpopa22/mRemoteNG",
   "title": "PuTTYNG needs update (security)",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
@@ -98,8 +98,8 @@
   ],
   "comments_cursor": "2026-08-31T19:50:51Z",
   "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-09-02T18:50:31Z",
   "notes": "PuTTY 0.85 confirmed by reporter; closed 2026-09-02"
 }

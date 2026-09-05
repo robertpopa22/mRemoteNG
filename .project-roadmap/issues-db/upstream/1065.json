@@ -48,7 +48,7 @@
   "comments_cursor": "2026-02-26T13:59:01Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): \"New Connection File\", \"Import from Remote Desktop Manager\", \"Tools -> Options\", \"Import from Active Directory\", \"Import from Port Scan\", \"Check for Updates\", \"External Tools\", \"Port Scan\", \"SSH File Transfer\", and \"UltraVNC SingleClick\" menu items open dialogs but are missing the ellipsis \"...\", which is inconsistent with Windows UX guidelines.\nApproach: Update Language.resx to append '...' to NewConnectionFile, ImportAD, ImportPortScan, MenuItem_CheckForUpdates. Create new *MenuItem resources for Options, ExternalTools, PortScan, SshFileTransfer, UltraVNCSingleClick. Update ConnectionContextMenu.cs and ToolsMenu.cs to use these new resources or updated strings.\nAI triage (claude): Two menu items (About, Keyboard Shortcuts) open dialogs but are missing the standard '...' ellipsis suffix convention.\nApproach: Add '...' suffix to 'Keyboard Shortcuts' text in HelpMenu.cs (hardcoded) and update 'About' text in Language.resx MenuItem_About resource from 'About' to 'About...'"
 }

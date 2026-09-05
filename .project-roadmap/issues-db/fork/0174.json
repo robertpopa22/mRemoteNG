@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-26T00:15:12Z",
-  "github_updated_at": "2026-08-31T16:18:28Z",
+  "github_updated_at": "2026-09-03T05:07:27Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** 创建窗口句柄时出错。\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.OnFontChange...",
   "our_status": "needs_info",
   "priority": null,
@@ -48,12 +48,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSRBy2Q",
+      "author": "robertpopa22",
+      "date": "2026-09-03T05:07:27Z",
+      "snippet": "Filed automatically by the crash reporter, so there is nobody to ask — here is what we could and could not establish ourselves.\n\nThe stack is a display-scaling change: Windows sends the DPI-change message, WinForms rescales the font, and a ComboBox recreates its window handle — which failed. The path is real in this application: it opts into per-monitor DPI awareness (`Application.SetHighDpiMode(HighDpiMode.PerMonitorV2)`), so handles genuinely are recreated when the scaling changes underneath a...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-31T16:18:28Z",
+  "comments_cursor": "2026-09-03T05:07:27Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-03T05:07:34Z",
+  "last_synced": "2026-09-03T07:23:22Z",
   "notes": "DPI path real (PerMonitorV2) but not reproducible here; asked what changed scaling"
 }

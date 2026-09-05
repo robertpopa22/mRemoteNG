@@ -37,7 +37,7 @@
   "comments_cursor": "2018-11-27T09:41:08Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The DesktopScaleFactor property in RdpProtocol.cs currently ignores the user-configured DesktopScaleFactor setting, forcing the remote session to use the local monitor's scaling (Auto) during session updates (like window resizing), which overrides any manual scaling preference (e.g., 125%).\nApproach: Modify the DesktopScaleFactor property in RdpProtocol.cs to respect the connectionInfo.DesktopScaleFactor setting. If set to a specific value (100, 125, 150, 200), return that value. Only fall back to the calculated local resolution scaling (ResolutionScalingFactor.Width * 100) when the setting is Auto."
 }

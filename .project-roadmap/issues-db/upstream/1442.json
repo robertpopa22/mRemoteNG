@@ -46,7 +46,7 @@
   "comments_cursor": "2026-02-20T18:59:02Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Java AWT/Swing has its own focus model that conflicts with Win32 SetParent embedding — keyboard events aren't forwarded to the embedded TigerVNC Java window because Java intercepts WM_SETFOCUS differently than native apps.\nApproach: After SetParent embedding, explicitly call SetFocus/SendMessage(WM_SETFOCUS) on the Java child window handle, and/or install a low-level keyboard hook (WH_KEYBOARD_LL) to relay WM_KEYDOWN/WM_KEYUP to the embedded Java HWND when it is the active connection."
 }

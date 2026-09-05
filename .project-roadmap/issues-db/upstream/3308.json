@@ -10,7 +10,7 @@
   ],
   "author": "D3vil787",
   "created_at": "2026-05-13T10:26:58Z",
-  "github_updated_at": "2026-06-26T10:40:16Z",
+  "github_updated_at": "2026-07-11T11:01:42Z",
   "body_snippet": "```\nСообщение исключения\n\"Cannot access a disposed object.\nObject name: 'ConnectionWindow'.\"\n\nТрассировка стека\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n   at System.Windows.Forms.Control.Invoke(Action method)\n   at mRemoteNG.UI.Window.ConnectionWindow.Prot_Event_Closed(Object sender) in E:\\Work\\mRemoteNG\\1.78.2-dev\\mRemoteNG\\UI\\Window\\ConnectionWindow.cs:line 860\n   at mRemoteNG.Connection.Protocol.ProtocolBase.Close...",
   "our_status": "new",
   "priority": null,
@@ -18,11 +18,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-06-26T10:40:16Z",
-  "unread_comments": 0,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-05T12:25:32Z",
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABJsCSeA",
+      "author": "hiSandog",
+      "date": "2026-07-11T11:01:42Z",
+      "snippet": "A focused regression case could close the affected connection or panel while a delayed UI update is still queued, then verify that the callback observes disposal without touching the control. Repeating the sequence during application shutdown would cover the lifecycle boundary where multiple components may be disposed together. Capturing the first disposal-triggering action in the test would also distinguish the root event from follow-on exceptions.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-07-11T11:01:42Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-02T12:58:40Z",
   "notes": ""
 }

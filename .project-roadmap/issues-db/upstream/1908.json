@@ -46,7 +46,7 @@
   "comments_cursor": "2026-02-26T13:57:28Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The icon loader correctly identifies icons within subfolders, but the display logic for the connection pane fails to resolve their paths correctly, resulting in icons from subfolders not being displayed.\nApproach: Modify ConnectionIconLoader.GetConnectionIcons() to store the relative path of the icon (e.g., 'Kvark pack\\myicon') in the ConnectionIcon.Icons array. Then, update ConnectionIcon.FromString() to correctly construct the full icon path using this stored relative path."
 }

@@ -39,7 +39,7 @@
   "comments_cursor": "2019-09-01T12:27:10Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Port scan results show hostname/IP in a single combined column; the ScanHost model already has separate HostIp and HostName properties but the UI merges them via HostIPorName\nApproach: Split the single clmHost column into two columns (clmHostName and clmHostIP) in the PortScanWindow designer, bind them to the existing ScanHost.HostName and ScanHost.HostIp properties, and update the importer to use HostIp for the connection address when hostname is not resolvable"
 }

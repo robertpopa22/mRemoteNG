@@ -2,7 +2,7 @@
   "number": 1395,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "ConfCons.xml empty  if system crashes when mRemoteNG is open",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "Need 2 check"
@@ -88,8 +88,8 @@
   ],
   "comments_cursor": "2026-02-08T18:13:09Z",
   "unread_comments": 5,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude-retry): ConfCons.xml empty after system crash — data loss risk, but reporter confirmed can be closed (moved to Mac/Linux). Underlying atomic-write issue may still exist but no active reporter to verify.",
   "impl_failed": false

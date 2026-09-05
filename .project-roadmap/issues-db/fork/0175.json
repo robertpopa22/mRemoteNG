@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-31T05:35:03Z",
-  "github_updated_at": "2026-08-31T16:18:30Z",
+  "github_updated_at": "2026-09-03T05:07:26Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
   "our_status": "testing",
   "priority": null,
@@ -48,12 +48,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSRBx-A",
+      "author": "robertpopa22",
+      "date": "2026-09-03T05:07:26Z",
+      "snippet": "This report was filed automatically by the crash reporter, so we cannot ask the person who hit it — but it reproduced here, and it turned out to be hiding something worse than the crash itself.\n\nWhat we did: took the built application, renamed `ExternalConnectors.dll` out of its folder, and started it. The app announced **\"The connection file could not be found.\"** and offered *Create a New Connection File / Use a Custom File Path / Import an Existing File* — while `confCons.xml` was sitting rig...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-31T16:18:30Z",
+  "comments_cursor": "2026-09-03T05:07:26Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-03T05:07:34Z",
+  "last_synced": "2026-09-03T07:23:22Z",
   "notes": "misdiagnosis+data-loss path fixed 171c00c7b; missing-DLL cause on reporter machine unknown"
 }

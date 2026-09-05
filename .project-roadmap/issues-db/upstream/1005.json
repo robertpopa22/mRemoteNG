@@ -40,7 +40,7 @@
   "comments_cursor": "2026-02-26T13:38:52Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The Gateway Authentication dialog is obscured because the RDP ActiveX control does not have its UIParentWindowHandle explicitly set to the main window, causing the modal dialog to lose focus or be hidden behind the application.\nApproach: Cast the RDP client to IMsRdpClientNonScriptable3+ and set the UIParentWindowHandle property to the main window's handle during initialization."
 }

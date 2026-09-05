@@ -47,7 +47,7 @@
   "comments_cursor": "2021-06-28T12:48:53Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (codex): The issue has no body, reproduction steps, or expected outcome, so the focus-loss behavior cannot be scoped reliably yet.\nApproach: Request exact steps, protocol(s), and expected focus behavior, then adjust new-connection window activation/focus handling accordingly.\nAI triage (codex): The issue describes a concrete, low-risk UI usability improvement in the connection launch flow that should reduce disruptive focus changes.\nApproach: Preserve the currently focused tab/control when opening a new connection and only shift focus when the user explicitly requests switching to the new session."
 }

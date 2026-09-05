@@ -47,7 +47,7 @@
   "comments_cursor": "2026-02-21T23:33:27Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): CSV import is a commonly requested bulk-import feature that fits naturally alongside existing XML/RDP importers and would reduce manual data entry for large connection sets.\nApproach: Add a CsvConnectionsImporter class (similar to existing importers) that parses a CSV with columns like Name,Hostname,Protocol,Port,Username into ConnectionInfo objects; wire it into the File > Import menu alongside existing importers."
 }

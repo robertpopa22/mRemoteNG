@@ -45,7 +45,7 @@
   "comments_cursor": "2020-09-15T20:21:09Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): To optimize storage and loading times for connection files by reducing their size.\nApproach: Analyze existing XML serialization logic to identify redundancies and inefficient data representations. Implement changes in the relevant serializer classes to omit default values, use more compact XML structures, or optimize property serialization to minimize file size while maintaining full functionality and backward compatibility where necessary.",
   "token_usage": {

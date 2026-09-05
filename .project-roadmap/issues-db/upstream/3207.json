@@ -2,7 +2,7 @@
   "number": 3207,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Possible command injection via Process.Start - mRemoteNG",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "AI",
     "critical"
@@ -20,7 +20,7 @@
   "comments": [],
   "comments_cursor": "2026-03-10T17:50:31Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-13T17:44:31Z",
   "notes": ""

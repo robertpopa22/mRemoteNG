@@ -2,7 +2,7 @@
   "number": 168,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Alt-Tab not working when SSH session (PuTTYNG) is active",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
@@ -89,8 +89,8 @@
   ],
   "comments_cursor": "2026-08-31T19:50:35Z",
   "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-09-02T18:50:31Z",
   "notes": "reporter confirmed on nightly; closed 2026-09-02"
 }

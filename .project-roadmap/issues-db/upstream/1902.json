@@ -48,7 +48,7 @@
   "comments_cursor": "2026-02-26T13:56:49Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): Implement a new feature to list sessions, similar to Remote Desktop Connection Manager, providing a centralized view of active or configured connections.\nApproach: Create a new form (FrmSessionList.cs) containing a custom MrngListView (or SessionListView inheriting from it) to display session details. Develop a SessionListProvider class to retrieve and format session information from the existing connection management system. Integrate the new form into FrmMain.cs via a menu item or toolbar button, enabling users to access the session list function."
 }

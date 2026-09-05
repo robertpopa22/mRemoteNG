@@ -40,7 +40,7 @@
   "comments_cursor": "2018-08-28T19:47:29Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The user is requesting access to application Settings (likely global Options) directly from the connection tree context menu, which is currently missing.\nApproach: Add an 'Options' menu item to the connection tree context menu that opens the application settings dialog via AppWindows.Show(WindowType.Options)."
 }

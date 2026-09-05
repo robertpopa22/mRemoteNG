@@ -1,0 +1,37 @@
+{
+  "number": 176,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Error when setting connection or tab color: Object of type 'System.Drawing.Color' cannot be converted to type 'System.String'.",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "JohnnyPrimus",
+  "created_at": "2026-09-02T21:39:41Z",
+  "github_updated_at": "2026-09-02T21:39:41Z",
+  "body_snippet": "When configuring a VNC (also tested RDP) connection, selecting a color or a tab color fails...no color is shown in the color box, and an error is thrown. Upon clicking details, it seems the selection box is trying to use the color directly as a string (Error when setting connection or tab color: Object of type 'System.Drawing.Color' cannot be converted to type 'System.String'.). See below for example\n\n<img width=\"431\" height=\"196\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/347e3...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-04",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-09-02T21:39:41Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-04T11:39:21Z",
+  "notes": "fix shipped; awaiting reporter confirm on nightly"
+}

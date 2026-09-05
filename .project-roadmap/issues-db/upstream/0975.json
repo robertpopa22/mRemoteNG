@@ -40,7 +40,7 @@
   "comments_cursor": "2018-05-08T00:19:41Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Documentation is required to explain the Default Connection and Default Inheritance features, which are core to how connection properties propagate.\nApproach: Update documentation to describe how the Default Connection node functions as a template and how inheritance works for folders and connections."
 }

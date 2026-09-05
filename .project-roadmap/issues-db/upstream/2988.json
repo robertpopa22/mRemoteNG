@@ -2,7 +2,7 @@
   "number": 2988,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Object deserialize can lead to remote code execution - mRemoteNG",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "AI",
     "critical"

@@ -39,7 +39,7 @@
   "comments_cursor": "2018-07-02T16:41:00Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The RDP ActiveX control is explicitly set to Anchor=None during initialization, overriding Dock=Fill and preventing the session window from resizing with the application. Removing this line will restore proper docking behavior.\nApproach: Remove 'Control.Anchor = AnchorStyles.None;' in RdpProtocol.cs (in both InitializeActiveXControl and InitializeActiveXControlAsync) to allow the control to respect 'Dock = DockStyle.Fill' set by the base class."
 }

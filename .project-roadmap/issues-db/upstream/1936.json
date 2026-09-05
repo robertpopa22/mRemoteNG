@@ -42,7 +42,7 @@
   "comments_cursor": "2026-02-26T13:42:46Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The current logic for MSSQL connections incorrectly falls back to integrated security when a password is provided but the username is empty, or vice versa. This needs to be corrected.\nApproach: Modify the `BuildSqlConnectionString` method in `MSSqlDatabaseConnector.cs` to use custom credentials if either the username or password is provided; otherwise, use integrated security."
 }

@@ -47,7 +47,7 @@
   "comments_cursor": "2026-02-26T13:43:33Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): Authentication failures should prevent continuation to avoid potential security risks.\nApproach: Investigate the authentication flow, especially concerning server connections (e.g., SQL Server, proxy), to ensure that any authentication failure correctly terminates the connection attempt and does not proceed to an insecure state. Review relevant security settings and their default behaviors."
 }

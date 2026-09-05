@@ -2,7 +2,7 @@
   "number": 1644,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Open new tab to the right of the currently selected tab",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Enhancement",
     "In progress",

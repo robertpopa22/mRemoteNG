@@ -40,7 +40,7 @@
   "comments_cursor": "2021-06-27T23:01:41Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Fix bug where the RDP session's taskbar entry appears on the wrong monitor in multi-monitor setups, likely due to improper window style handling or parenting.\nApproach: Investigate window handle (HWND) management for RDP sessions and ensure WS_EX_APPWINDOW style is correctly applied to respect the monitor where the window is located."
 }

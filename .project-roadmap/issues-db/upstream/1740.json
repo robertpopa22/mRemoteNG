@@ -41,7 +41,7 @@
   "comments_cursor": "2026-02-26T13:47:24Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Feature request to add column sorting and multi-protocol import to the Port Scan results table\nApproach: Enable ObjectListView column sorting (set Sorting/SortableColumns properties in Designer), and add a multi-protocol import option that creates connections for all detected open protocols per host instead of just the selected one"
 }

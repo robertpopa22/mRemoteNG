@@ -47,7 +47,7 @@
   "comments_cursor": "2026-02-21T21:42:52Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): TightVNC connections are closing unexpectedly without explicit error messages, indicating an underlying issue that causes the 'graceful' disconnection.\nApproach: Investigate the `VNCEvent_Disconnected` handler and other event subscriptions in `mRemoteNG/Connection/Protocol/VNC/Connection.Protocol.VNC.cs` to understand why `VncSharpCore.RemoteDesktop` might be disconnecting unexpectedly. This may involve adding detailed logging around `VncSharpCore` events to identify the trigger for these 'graceful' closures."
 }

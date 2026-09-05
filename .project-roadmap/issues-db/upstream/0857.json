@@ -54,7 +54,7 @@
   "comments_cursor": "2026-02-26T13:42:53Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (codex): The report lacks reproducible steps and clear expected-versus-actual behavior and appears stale pending retest on current builds.\nApproach: Request a retest on v1.79.x/upstream dev plus exact DB backend, multi-user setup, reproducible steps, and expected vs actual results before scoping any fix.\nAI triage (gemini): Multiple users using SQL storage encounter data loss and security issues due to lack of concurrency control and user permissions.\nApproach: Implement row versioning for optimistic concurrency and add user/role column to tblCons to enforce access control.\nAI triage (gemini): The current SQL provider lacks proper concurrency control (optimistic concurrency), causing data overwrites when multiple users access the same database.\nApproach: Enable optimistic concurrency by adding a RowVersion column to the database schema and handling DBConcurrencyException in SqlDataProvider to merge or prompt on conflict."
 }

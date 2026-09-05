@@ -41,7 +41,7 @@
   "comments_cursor": "2026-02-26T13:38:06Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): DataTableDeserializer crashes with InvalidCastException when SQL columns contain DBNull, because it uses direct (string)dataRow[] casts instead of null-safe patterns\nApproach: Replace direct (string)dataRow[col] casts with as string ?? defaultValue pattern (already used for ConstantID on line 59), and wrap (int)dataRow[col] and Enum.Parse casts with IsNull checks falling back to ConnectionInfo defaults"
 }

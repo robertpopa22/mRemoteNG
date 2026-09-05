@@ -42,7 +42,7 @@
   "comments_cursor": "2026-02-26T13:49:54Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): DataTableDeserializer crashes on older MSSQL schemas missing columns added in later upgrades (e.g. RedirectClipboard from v26→27) because it lacks Columns.Contains guards\nApproach: Add dataRow.Table.Columns.Contains() guards for all columns introduced by SQL schema upgraders (RedirectClipboard, RedirectAudioCapture, etc.), following the existing pattern already used for IsTemplate (line 108) and EnvironmentTags (line 165)"
 }

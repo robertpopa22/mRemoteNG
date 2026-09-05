@@ -39,7 +39,7 @@
   "comments_cursor": "2019-10-02T22:44:33Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Adding regex support allows power users to perform complex searches, which is a standard feature in developer tools, and fits naturally into the existing filter architecture.\nApproach: Modify `ConnectionTreeSearchTextFilter.Filter` to detect a `regex:` prefix. If present, compile the subsequent string as a `Regex` (handling invalid patterns gracefully) and test it against connection properties (Name, Hostname, Description, Tags) instead of the default substring match."
 }

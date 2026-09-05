@@ -42,7 +42,7 @@
   "comments_cursor": "2026-02-26T13:52:22Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The current layout saving mechanism (DockPanelLayoutLoader) does not persist open connection windows or their tabs, only tool windows.\nApproach: Modify DockPanelLayoutLoader to include ConnectionWindow in the content map and implement a mechanism to serialize/deserialize open connections within those windows."
 }

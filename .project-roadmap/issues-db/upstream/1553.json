@@ -40,7 +40,7 @@
   "comments_cursor": "2021-12-15T19:06:30Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Valid enhancement request for silent/enterprise deployments needing control over desktop shortcut creation via MSI property\nApproach: Add an MSI public property (e.g. INSTALLDESKTOPSHORTCUT=1 default) that gates the desktop shortcut component, allowing admins to suppress it via msiexec /i ... INSTALLDESKTOPSHORTCUT=0"
 }

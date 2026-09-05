@@ -39,7 +39,7 @@
   "comments_cursor": "2021-06-27T12:48:37Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): UX enhancement to allow Enter key to reconnect a disconnected session tab instead of requiring context menu\nApproach: Add KeyDown handler on ConnectionWindow that detects Enter key when the active tab has a disconnected protocol, then triggers the existing Reconnect logic already used by the context menu"
 }

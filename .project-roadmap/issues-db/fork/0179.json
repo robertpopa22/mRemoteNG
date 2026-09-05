@@ -1,0 +1,57 @@
+{
+  "number": 179,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "External Tools: inconsistent SQL persistence, stale overwrite risk, and uncommitted editor values",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "Buster-de",
+  "created_at": "2026-09-03T19:57:41Z",
+  "github_updated_at": "2026-09-03T20:03:59Z",
+  "body_snippet": "Tested with:\n* mRemoteNG 1.83.0.3684\n* Commit `016d5b4b11c0b9c3e9744e05ff078ba24ab5e906`\n\nThere are multiple issues in the External Tools persistence path.\n\n## 1. External Tools are saved to SQL but never loaded from SQL\n\nWhen `UseSQLServer` is enabled, `ExternalAppsSaver.Save()` routes External Tools to SQL via `SaveToSql()`.\n\nRelevant code:\n\n* `mRemoteNG/Config/Settings/ExternalAppsSaver.cs`\n\nHowever, startup always loads External Tools from `extApps.xml`.\n\nRelevant code:\n\n* `mRemoteNG/Config/...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-04",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-09-04",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABSbK9iw",
+      "author": "Buster-de",
+      "date": "2026-09-03T20:03:59Z",
+      "snippet": "Your URL filter action in this issue tracker censors its own attachments to issues.\n\nlog file content:\n\n> 2026-09-03T20:50:14.123+02:00 mono_ms=44 pid=16552 app_session=9e49ea316eec [2] INFO  - [Perf] event=process_start version=1.83.0.3684 runtime=10.0.11 arch=x64 logical_processors=20\n2026-09-03T20:50:14.132+02:00 mono_ms=53 pid=16552 app_session=9e49ea316eec [2] INFO  - [Perf] event=rdp_engine_inventory mstsc=true mstsc_version=10.0.26100.8875.160101.0800 activex=true activex_version=10.0.261...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-09-03T20:03:59Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-04T11:39:22Z",
+  "notes": "fix shipped; awaiting reporter confirm on nightly"
+}

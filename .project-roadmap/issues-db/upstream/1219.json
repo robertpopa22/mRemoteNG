@@ -39,7 +39,7 @@
   "comments_cursor": "2018-12-21T18:15:59Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Feature request to prevent accidental undocking of panels by adding a 'Lock Panels' option.\nApproach: Add 'LockPanels' setting to OptionsTabsPanelsPage. Update FrmMain to apply AllowEndUserDocking = !LockPanels to all DockContents in pnlDock when setting changes."
 }

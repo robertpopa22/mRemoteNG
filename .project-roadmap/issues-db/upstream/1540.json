@@ -39,7 +39,7 @@
   "comments_cursor": "2021-06-21T16:49:25Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Feature request to add a tab ordering option that keeps tabs sorted in connection tree order, complementing the existing 'open to right of current tab' option.\nApproach: Add a new tab ordering mode enum (TreeOrder) alongside existing behavior. When opening a connection, find its position in the connection tree, then insert the tab at the corresponding sorted position among already-open tabs. Add a radio/checkbox option in Options > Tabs & Panels page."
 }

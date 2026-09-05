@@ -52,7 +52,7 @@
   "comments_cursor": "2026-02-26T13:36:45Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): GetScreenById() accesses Screen.AllScreens[i] without bounds-checking after a monitor disconnect shrinks the array, causing IndexOutOfRangeException; fix is a one-line guard plus zeroing _sysMenSubItems in ResetScreenList().\nApproach: In GetScreenById(), add 'if (i >= Screen.AllScreens.Length) continue;' before the return; in ResetScreenList(), call Array.Clear(_sysMenSubItems, 0, _sysMenSubItems.Length) to prevent stale slot matches."
 }

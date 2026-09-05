@@ -2,7 +2,7 @@
   "number": 1843,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "can't reconnect / reconnect when ready",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "Need 2 check",
@@ -65,7 +65,7 @@
   ],
   "comments_cursor": "2026-02-07T16:46:33Z",
   "unread_comments": 7,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The 'reconnect when ready' functionality is likely broken due to a logical inversion or misinterpretation of the 'NoReconnect' setting, leading to connections not re-establishing as expected. The naming convention of 'NoReconnect' is confusing and should be addressed.\nApproach: Rename 'NoReconnect' to 'AutoReconnect' and update all references for clarity. Then, investigate how the 'AutoReconnect' setting is used within the connection management logic (e.g., in ConnectionWindow or RdpProtocol) to identify where the logic is inverted or failing to act on the setting. Correct the logical error and add/update unit tests in 'ConnectionWindowReconnectTests.cs' to ensure the 'reconnect when ready' scenario is properly covered and fixed.",

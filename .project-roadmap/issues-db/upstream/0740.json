@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-20T13:59:21Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (codex): The issue has no description or comments, so the exact SQL encoding problem, affected fields, and reproduction steps are unknown.\nApproach: Request database type/version, collation/charset, sample failing item values, and expected vs actual behavior before scoping a fix.\nAI triage (codex): This is a reproducible data-loss bug where MSSQL varchar columns convert non-Latin characters to '?', so Unicode storage needs a schema fix.\nApproach: Add an MSSQL migration that converts text-bearing columns from varchar to nvarchar, bump the SQL schema version, and add a regression test validating non-Latin round-trip persistence."
 }

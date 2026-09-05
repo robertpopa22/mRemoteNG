@@ -10,7 +10,7 @@
   ],
   "author": "sdz2",
   "created_at": "2023-08-11T13:24:37Z",
-  "github_updated_at": "2026-02-26T14:00:09Z",
+  "github_updated_at": "2026-07-24T12:23:33Z",
   "body_snippet": "Please consider releasing new builds: stable, preview, and nightly.\r\n\r\nConsider branching from nightly then thoroughly testing all features.\r\n\r\nThe latest stable and preview versions are over four years old.  The RDP in v1.76.20 (stable) and v1.77.1 (preview) both still use the old RDP Automatic Resizing method, which takes 15 seconds and shows the Reconnecting dialog.\r\n\r\nThe RDP resizing works correctly in v1.77.3.1784-NB (nightly) Portable, but the build is full of other bugs: settings not sav...",
   "our_status": "wontfix",
   "priority": "P4-debt",
@@ -469,12 +469,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABLi6ErQ",
+      "author": "journeym",
+      "date": "2026-07-24T12:18:33Z",
+      "snippet": "For anyone interested, there is a new fork that has ACTUAL, WORKING RELEASES check out the fork by robertpopa22 (yes, admin censored links to other githubs :sad: )",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:00:09Z",
-  "unread_comments": 48,
+  "comments_cursor": "2026-07-24T12:23:33Z",
+  "unread_comments": 49,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-09-02T12:58:40Z",
   "notes": "AI triage (claude): This is a release process request for an old 1.77.3 milestone that is obsolete in the fork context; the fork is already well past this version and release promotion is handled by the project maintainers, not code changes.\nApproach: close as wontfix — version is obsolete, release process is handled outside the codebase"
 }

@@ -41,7 +41,7 @@
   "comments_cursor": "2026-02-26T13:55:48Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Valid UX enhancement — users accidentally drag connections/folders; a toggle in Settings to disable tree drag&drop prevents this\nApproach: Add a bool setting 'DisableConnectionTreeDragDrop' (default false). In ConnectionTreeDragAndDropHandler, check the setting at the start of HandleEvent_ModelDropped and cancel if disabled. Add a checkbox to the Connections options page to toggle it."
 }

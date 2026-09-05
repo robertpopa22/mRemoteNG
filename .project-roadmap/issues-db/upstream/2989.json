@@ -2,7 +2,7 @@
   "number": 2989,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Possible command injection via Process.Start - mRemoteNG",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "AI",
     "critical"

@@ -8,7 +8,7 @@
   ],
   "author": "meyergru",
   "created_at": "2026-08-22T16:06:37Z",
-  "github_updated_at": "2026-09-01T14:19:46Z",
+  "github_updated_at": "2026-09-03T06:38:19Z",
   "body_snippet": "**What happens** (and what you expected instead):\n\nI switched from a beta to the most current version 1.83.0 Release 3661 and found that the open connections from the last start are not carried over to a re-invocation as I was used to before.\n\nInstead, mRemoteNG always starts with no open tabs.\n\n**Steps to reproduce:**\n\n1. Open a few connections\n2. Close the program\n3. Start the program again - no open tabs.\n\n**Version** (Help → About, or the nightly filename):\n\nversion 1.83.0 Release 3661\n\n**En...",
   "our_status": "testing",
   "priority": null,
@@ -55,6 +55,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-09-04",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -84,12 +94,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSLM6Cg",
+      "author": "robertpopa22",
+      "date": "2026-09-02T18:50:18Z",
+      "snippet": "Thank you for going back and testing 1.82 as well — that comparison is what made the duplication legible, and it turned a \"works as designed\" answer into a real bug report.\n\nYou were right that there had been something like this before. There are two independent mechanisms that reopen the previous session, and both are gated on the same \"reconnect to previously opened sessions on startup\" option:\n\n- the saved **dock layout** reopens the tabs it recorded, each in the panel it was last in;\n- the *...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSR1iMA",
+      "author": "meyergru",
+      "date": "2026-09-03T06:38:19Z",
+      "snippet": "I tested Nightly Build — 20260903 (v1.83.0). It does not reopen the last tabs at all now.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-09-01T14:19:46Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-09-03T06:38:19Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-02T18:49:25Z",
-  "notes": "dup-restore fix 41621c1f8; awaiting reporter confirm on nightly"
+  "last_synced": "2026-09-04T11:39:21Z",
+  "notes": "fix shipped; awaiting reporter confirm on nightly"
 }

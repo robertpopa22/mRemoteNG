@@ -39,7 +39,7 @@
   "comments_cursor": "2018-06-21T13:39:55Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The connection filter UI lacks standard usability features such as a 'Clear' button to quickly reset the filter, and potentially visual enhancements for better clarity.\nApproach: Add a 'Clear' button to the search panel layout (next to the search text box), implement its click handler to clear the search text, and ensure proper theming support for the new button."
 }

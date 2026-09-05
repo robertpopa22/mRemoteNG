@@ -52,7 +52,7 @@
   "comments_cursor": "2026-02-26T13:48:54Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Feature request to add an option that forces credential prompt on every connection attempt instead of using cached/stored credentials, useful for security-conscious users.\nApproach: Add a boolean property AlwaysPromptForCredentials to ConnectionInfo, then in the credential resolution path check this flag and bypass cached credentials, showing the credential dialog before each connection."
 }

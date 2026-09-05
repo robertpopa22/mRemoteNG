@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-20T20:44:32Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Valid security enhancement to support TOTP/OTP authentication (e.g. TOTP codes for SSH/RDP jump hosts) that would improve 2FA workflows in connection management.\nApproach: Add optional OTP/TOTP field to ConnectionInfo, integrate a TOTP library (e.g. Otp.NET) to generate codes on demand, and expose a UI button or token macro (e.g. %OTP%) for use in external tools and connection pre-scripts"
 }

@@ -39,7 +39,7 @@
   "comments_cursor": "2018-11-01T18:46:14Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The bookmarks importer logic already existed but was not exposed in the UI. I have enabled it by adding the necessary file filters and resource strings.\nApproach: Enable BookmarksHtmlImporter in Import.cs, add 'Netscape Bookmarks (*.html)' to file dialog filters, and add missing resource strings."
 }

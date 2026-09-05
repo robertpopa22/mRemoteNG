@@ -41,7 +41,7 @@
   "comments_cursor": "2026-02-26T13:56:52Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): This is a significant new feature (per-folder password protection) that requires deep architectural changes to the connection tree, encryption layer, and UI — scope is too large and complex for the current roadmap, and the issue has been open since 2019 with no upstream traction.\nApproach: Would require adding per-folder encryption keys, password prompt on expand, and serialization support — out of scope for fork maintenance focus"
 }

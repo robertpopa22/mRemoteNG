@@ -39,7 +39,7 @@
   "comments_cursor": "2025-10-03T21:40:51Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Users with non-standard monitor setups (vertical, multi-monitor spans) need arbitrary RDP resolutions beyond the hardcoded enum list; mstsc.rdp already supports custom values so it's technically feasible.\nApproach: Add a 'Custom' entry to the RDPResolutions enum; when selected, expose ResolutionWidth/ResolutionHeight integer properties on ConnectionInfo that feed directly into the RDP ActiveX DesktopWidth/DesktopHeight. Update serializers to persist the custom values."
 }

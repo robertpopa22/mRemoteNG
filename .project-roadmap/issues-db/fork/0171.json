@@ -8,9 +8,9 @@
   ],
   "author": "n3cr0cr0w",
   "created_at": "2026-08-17T18:31:11Z",
-  "github_updated_at": "2026-08-31T16:18:25Z",
+  "github_updated_at": "2026-09-03T15:00:57Z",
   "body_snippet": "Description\nmRemoteNG always opens on monitor 2, even when it is launched from the Start menu on monitor 1.\n\nNightly Build\nVersion: v1.83.0\nDate: 20260817\nCommit: [80f7a96]\n\nInstalled from: [mRemoteNG-nightly-20260817-v1.83.0-80f7a96-x64.msi]\n\n\nI only use mRemoteNG on monitor 1, so this does not appear to be caused by restoring a previously saved window position. The application is not intentionally used on monitor 2.\n\nSteps to reproduce\nConfigure a Windows system with two monitors.\nEnsure the S...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,26 @@
       "date": "2026-08-31",
       "type": "needs_info",
       "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-09-04",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-09-04",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -36,12 +56,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSXmMrg",
+      "author": "n3cr0cr0w",
+      "date": "2026-09-03T14:58:58Z",
+      "snippet": "Monitor 1 is my primary and where I like mRemoteNG. The splash opening window opens on monitor 1, but main window opens on monitor 2 and I move it to monitor 1.\n\n**[CENSORED!] Links to external GitHub repositories are not allowed**\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSXnrfg",
+      "author": "n3cr0cr0w",
+      "date": "2026-09-03T15:00:56Z",
+      "snippet": "Not sure why uploading my settings file was censored...\n`<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<settings>\n  <localSettings>\n    <setting name=\"InhDefaultRDGatewayAccessToken\">False</setting>\n    <setting name=\"InhDefaultMacAddress\">False</setting>\n    <setting name=\"ConDefaultDisplayWallpaper\">False</setting>\n    <setting name=\"ConDefaultLoadBalanceInfo\">\n    </setting>\n    <setting name=\"InhDefaultUseCredSsp\">False</setting>\n    <setting name=\"QuickyTBParentDock\">Top</setting>\n    <setting nam...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-08-31T16:18:25Z",
-  "unread_comments": 0,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-09-02T12:58:40Z",
-  "notes": "restore-from-saved-position works; fresh install has no saved pos -> Windows default (primary monitor). Ask: is monitor 2 primary; does move+close+reopen stick"
+  "comments_cursor": "2026-09-03T15:00:57Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-04T11:39:21Z",
+  "notes": "fix shipped; awaiting reporter confirm on nightly"
 }

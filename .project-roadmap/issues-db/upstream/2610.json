@@ -9,7 +9,7 @@
   ],
   "author": "FrankyBoy",
   "created_at": "2024-07-03T06:34:42Z",
-  "github_updated_at": "2026-02-26T13:49:58Z",
+  "github_updated_at": "2026-09-03T07:55:42Z",
   "body_snippet": "Hi, the last release was in 2019. Since then there have been quite literally hundreds of commits, including features which are mentioned in the documentation but not to be found in the release version.\r\n\r\nSo are there any plans to provide a) a new stable release or b) unstable/testing releases in the future?",
   "our_status": "wontfix",
   "priority": null,
@@ -37,7 +37,7 @@
   "comments": [
     {
       "id": "IC_kwDOAAcIMM6E5Rlp",
-      "author": "ltctech",
+      "author": "dmlsrc",
       "date": "2024-07-15T23:19:59Z",
       "snippet": "I see constant updates to the project so it's definitely not dead. Kind of odd that no new preview builds are being released. From what I understand the last v1.77.3-nb is broken and people are recommending v1.77.2.\r\n\r\nI am still using v1.76.20 but it is getting somewhat long in the tooth.",
       "is_ours": false,
@@ -133,12 +133,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABSSplZA",
+      "author": "DaanSelen",
+      "date": "2026-09-03T07:55:42Z",
+      "snippet": "Will there be a new release?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T13:49:58Z",
-  "unread_comments": 11,
+  "comments_cursor": "2026-09-03T07:55:42Z",
+  "unread_comments": 12,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-09-04T08:56:47Z",
   "notes": "Manual triage: Meta issue asking for a new release. v1.79.0 and v1.80.0 Community Editions have been published. Not an actionable bug/feature request."
 }

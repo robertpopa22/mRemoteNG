@@ -40,7 +40,7 @@
   "comments_cursor": "2020-06-11T16:25:53Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Legitimate tech debt — adding new connection properties requires changes in 6+ locations (ConnectionInfo, Inheritance, all serializers, config window), making feature development unnecessarily hard.\nApproach: Introduce attribute-based metadata on ConnectionInfo properties (e.g. [ConnectionProperty(Protocols, Inheritable, SharedOrPersonal)]) and refactor serializers/config UI to discover properties via reflection, eliminating manual update in 6+ locations when adding new properties. Phase 1: attributes + config UI auto-discovery. Phase 2: serializer auto-discovery. Large refactor — defer to future milestone."
 }

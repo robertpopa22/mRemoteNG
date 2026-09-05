@@ -2,7 +2,7 @@
   "number": 2637,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Gnome Remote Desktop (Fedora 40 Workstation)",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "RDP",
     "Security",
@@ -79,8 +79,8 @@
   ],
   "comments_cursor": "2026-02-26T13:52:52Z",
   "unread_comments": 4,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "Feature request: Gnome Remote Desktop (RDP alternative). Requires new protocol plugin."
 }

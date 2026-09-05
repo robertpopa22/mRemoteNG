@@ -48,7 +48,7 @@
   "comments_cursor": "2026-02-21T21:48:47Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): VNC protocol has no dedicated fullscreen mode; the generic F11 FullscreenHandler exists but VncSharpCore.RemoteDesktop supports a native fullscreen/scale mode that is not wired up for VNC connections.\nApproach: Wire VncSharpCore RemoteDesktop's scaling/fullscreen capability into the existing FullscreenHandler toggle (F11), ensuring the VNC control stretches to fill the panel when fullscreen is activated, mirroring the RDP SmartSize pattern."
 }

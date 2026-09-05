@@ -40,7 +40,7 @@
   "comments_cursor": "2026-02-21T21:41:44Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): RDP copy-paste functionality incorrectly filters out numbers when a non-EN-US keyboard layout is used, hindering international user experience.\nApproach: Investigate keyboard input handling within RdpProtocol.cs to ensure proper processing of key events, particularly for numbers, across various keyboard layouts, possibly by adjusting input filtering or character mapping logic."
 }

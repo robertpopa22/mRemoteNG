@@ -39,7 +39,7 @@
   "comments_cursor": "2026-02-26T13:37:26Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): DirectorySearcher.PageSize is not set (default 0), so LDAP server caps results at 1000; setting PageSize enables paged queries to retrieve all entries.\nApproach: Add ldapSearcher.PageSize = 1000 before FindAll() to enable LDAP paged result retrieval, which bypasses the 1000-entry server limit."
 }

@@ -40,7 +40,7 @@
   "comments_cursor": "2026-02-26T13:42:43Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): To improve user experience by automatically focusing the remote session when the mouse hovers over the RDP area, eliminating the need for an explicit click.\nApproach: Modify `ConnectionWindow.WndProc` to identify the currently active `InterfaceControl` when a `WM_MOUSEACTIVATE` message is received. If the mouse is over an RDP `InterfaceControl`, programmatically set focus to that `InterfaceControl`. This will ensure the RDP session gains input focus when the mouse enters its area."
 }

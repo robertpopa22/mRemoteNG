@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-21T23:33:13Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Upgrade to 1.77.1 clears stored default credentials, causing data loss regression for users who rely on inherited/default connection credentials.\nApproach: Identify the settings migration step introduced in 1.77.1 that resets or fails to carry over default credential fields; restore preservation of DefaultConnectionInheritance credential properties during config load/upgrade."
 }

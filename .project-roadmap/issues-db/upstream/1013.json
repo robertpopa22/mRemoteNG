@@ -39,7 +39,7 @@
   "comments_cursor": "2018-06-28T17:00:46Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Screenshot functionality was removed in v1.77.2 (#2011). This request is accepted as an enhancement to restore a simplified 'Take Screenshot' feature with automatic, configurable naming (e.g., ConnectionName_Timestamp) to replace the deprecated manager.\nApproach: Restore the 'Take Screenshot' context menu option in ConnectionTab. Implement logic to capture the screen and automatically save the file to a configured 'Screenshots' directory using a timestamp-based naming pattern."
 }

@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-26T13:35:57Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The 'Reset layout' menu item in the View menu does not delete the persisted layout configuration file (pnlLayout.xml), causing the layout to revert to the old state on application restart. The current implementation only programmatically sets the default layout for the current session, but the old configuration is reloaded on the next launch.\nApproach: Modify the `mMenViewResetLayout_Click` method in `mRemoteNG\\UI\\Menu\\msMain\\ViewMenu.cs` to delete the `pnlLayout.xml` file (located at `SettingsFileInfo.SettingsPath\\SettingsFileInfo.LayoutFileName`) after user confirmation and before calling `MainForm?.SetDefaultLayout()`. This will ensure a clean slate for the default layout to be applied and correctly persisted."
 }

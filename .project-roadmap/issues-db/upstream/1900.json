@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-26T13:35:55Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The application crashes when editing or copying connection data, indicating a critical bug affecting core functionality.\nApproach: Identify the specific trigger and call stack for the crash during connection data editing or copying, then apply a fix and add a regression test."
 }

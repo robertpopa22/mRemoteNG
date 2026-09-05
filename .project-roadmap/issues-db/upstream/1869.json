@@ -47,7 +47,7 @@
   "comments_cursor": "2021-06-27T18:38:15Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The Connections pane does not automatically switch focus to the active RDP session after it's established, requiring manual user intervention to select the newly connected server.\nApproach: Modify the 'Prot_Event_Connected' method in 'ConnectionInitiator.cs' to ensure the 'ConnectionTree' in 'FrmMain.cs' updates its selected node to the newly established RDP connection.",
   "token_usage": {

@@ -2,7 +2,7 @@
   "number": 1620,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Value Dispose() cannot be called while doing CreateHandle()",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Need 2 check"
   ],

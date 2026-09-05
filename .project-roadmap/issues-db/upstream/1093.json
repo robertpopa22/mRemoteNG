@@ -47,7 +47,7 @@
   "comments_cursor": "2026-02-26T13:52:32Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Theme selection in Options dialog has a display/application bug affecting UI consistency for all users.\nApproach: Inspect ThemePage options panel for incorrect theme preview or apply logic; ensure selected theme is correctly previewed and persisted on OK, reverted on Cancel."
 }

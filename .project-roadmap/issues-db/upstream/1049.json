@@ -39,7 +39,7 @@
   "comments_cursor": "2018-07-27T19:32:00Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Adding a debug dump tool will significantly improve the ability to diagnose issues reported by users by aggregating logs, configuration (sanitized), and environment details.\nApproach: Implement a `DebugDumper` class to collect `mRemoteNG.log`, sanitized `confCons.xml`, and system environment details, compressing them into a zip file. Add a 'Generate Debug Bundle' menu item under the Help menu to trigger this action."
 }

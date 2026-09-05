@@ -47,7 +47,7 @@
   "comments_cursor": "2026-02-21T23:32:29Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): User setting to disable saving connections on exit is ignored — the save logic runs unconditionally on app close instead of checking the option flag.\nApproach: In the FormClosing/exit handler, wrap the connections-save call with a check against the 'Save connections on exit' setting (e.g. `if (Settings.Default.SaveConnectionsOnExit)`) before invoking the serializer/save routine."
 }

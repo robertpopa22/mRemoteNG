@@ -46,7 +46,7 @@
   "comments_cursor": "2026-02-26T13:58:25Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): Implement support for storing connection files on FTP, similar to KeePass, to enhance flexibility and user convenience.\nApproach: Introduce an abstract data provider interface or extend existing data providers to support various storage backends, including local file system and FTP. The existing XmlConnectionsDeserializer and XmlConnectionsSaver will then utilize this extended data provider for reading/writing connection data, allowing them to handle FTP paths. This will involve modifying how file paths/URIs are interpreted and how authentication for network protocols like FTP is handled."
 }

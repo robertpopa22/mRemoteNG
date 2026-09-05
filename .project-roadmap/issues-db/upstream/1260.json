@@ -39,7 +39,7 @@
   "comments_cursor": "2019-01-09T20:04:53Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): The project currently lacks end-to-end UI automation; integrating a library like FlaUI into the existing SpecFlow project (mRemoteNGSpecs) will enable robust regression testing of user scenarios.\nApproach: Integrate FlaUI.UIA3 and FlaUI.Core packages into mRemoteNGSpecs. Create an AppDriver helper to manage the application process lifecycle. Implement SpecFlow hooks for setup/teardown. Add a basic 'SmokeTest.feature' to verify application launch and main window title presence."
 }

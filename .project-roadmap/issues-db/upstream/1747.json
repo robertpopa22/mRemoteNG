@@ -2,7 +2,7 @@
   "number": 1747,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Duplicate all connections after modifying connection list",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Need 2 check",
     "DBs"
@@ -88,7 +88,7 @@
   ],
   "comments_cursor": "2026-02-21T10:24:27Z",
   "unread_comments": 2,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Connections are duplicated in the tree after editing the connection list, likely due to a double event subscription or double-load in the save/refresh cycle of ConnectionsService or the XML serializer.\nApproach: Audit event handler registration in ConnectionsService and the XML load path to ensure connections are not added twice (e.g., CollectionChanged fired during load + explicit AddRange after load); add guard or clear-before-load pattern."

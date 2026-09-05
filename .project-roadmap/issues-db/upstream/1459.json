@@ -39,7 +39,7 @@
   "comments_cursor": "2019-05-24T12:49:12Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Quality-of-life enhancement to prompt users to save updated passwords when authentication fails, reducing manual steps for credential rotation\nApproach: Detect authentication failure events from SSH (PuTTY exit code) and RDP (OnLoginComplete/OnFatalError), then show a dialog offering to update the stored password in ConnectionInfo and persist to the connections file"
 }

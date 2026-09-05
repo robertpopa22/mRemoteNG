@@ -40,7 +40,7 @@
   "comments_cursor": "2026-02-26T13:58:21Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Removing a gh-pages branch is a repository maintenance task outside the scope of code changes in this fork and not relevant to mRemoteNG application functionality.\nApproach: Close as wontfix — branch management is handled directly via GitHub repository settings, not via code commits"
 }

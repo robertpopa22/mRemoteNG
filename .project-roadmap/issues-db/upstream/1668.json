@@ -40,7 +40,7 @@
   "comments_cursor": "2020-06-19T21:17:05Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Feature request for colored borders around connection panels to visually distinguish sessions (e.g., prod vs dev) — common request in remote management tools\nApproach: Add a BorderColor property to ConnectionInfo, persist it in XML/SQL serializers, and render a colored border on the active tab or panel when a connection is selected"
 }

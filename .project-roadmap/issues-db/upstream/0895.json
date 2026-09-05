@@ -51,7 +51,7 @@
   "comments_cursor": "2018-07-30T01:04:33Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (codex): The issue only contains a high-level enhancement title without requirements, expected behavior, or integration details needed to scope implementation.\nApproach: Request concrete use cases, UX expectations, supported winbox.exe versions, and how ROS sessions should be stored and launched before defining code changes.\nAI triage (codex): The issue has only a title and no detailed problem statement or feature requirements for Winbox/ROS integration.\nApproach: Request concrete requirements for expected Winbox integration behavior, UX flow, and technical constraints before implementation.\nAI triage (gemini): Integrate Mikrotik Winbox as a supported connection protocol, allowing users to embed Winbox sessions within mRemoteNG tabs.\nApproach: Define a new ProtocolType for Winbox. Implement a protocol handler that launches the winbox.exe process with connection arguments and uses the application embedding logic (likely leveraging standard Windows API reparenting) to display it in a tab."
 }

@@ -45,7 +45,7 @@
   "comments_cursor": "2026-02-20T19:23:35Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Keyboard input not reaching remote connection is a focus management bug — connection panel likely loses focus after embed/tab switch without explicit SetFocus call.\nApproach: After connection panel is embedded via SetParent, call SetFocus/WM_ACTIVATE on the control handle to restore keyboard input routing; similar to fix applied in #1442."
 }

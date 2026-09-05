@@ -41,7 +41,7 @@
   "comments_cursor": "2026-02-26T13:55:58Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Feature request to show a blank/placeholder panel when selecting a disconnected connection in the tree, improving UX by giving visual feedback instead of showing nothing or stale content.\nApproach: When a disconnected connection node is selected in the tree, display a blank panel or placeholder with connection info and a Connect button, instead of showing no content or the last active tab."
 }

@@ -40,7 +40,7 @@
   "comments_cursor": "2026-02-20T16:15:34Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Valid feature request to log connection/disconnection timestamps for billing — useful audit trail that many remote management tools provide\nApproach: Hook into connection open/close events to write timestamped entries (connection name, protocol, host, connect/disconnect time) to a simple log file in the config directory; add an option in Settings to enable/disable connection logging"
 }

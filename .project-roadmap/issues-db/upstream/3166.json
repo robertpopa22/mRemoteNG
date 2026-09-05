@@ -2,7 +2,7 @@
   "number": 3166,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Jump-host mRemoteNG tabs wrong resolution after RDP reconnect",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Enhancement",
     "UI/UX",
@@ -81,7 +81,7 @@
   ],
   "comments_cursor": "2026-02-26T09:38:43Z",
   "unread_comments": 2,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-26T11:26:01Z",
   "notes": "AI triage (claude): RDP window resolution fails to resize correctly after reconnect when using 'Fit to panel' + 'Automatic resize', a reproducible UI bug affecting jump-host workflows.\nApproach: Investigate resize event handling on RDP reconnect; ensure panel dimensions are correctly passed to the RDP ActiveX control after reconnect, particularly when initial connection was established at a smaller resolution."

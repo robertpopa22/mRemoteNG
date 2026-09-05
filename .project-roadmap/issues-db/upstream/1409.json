@@ -46,7 +46,7 @@
   "comments_cursor": "2026-02-21T21:47:32Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Legitimate UX enhancement request for panel undocking, connection panel customization, and quick-search filtering — common quality-of-life features for remote connection managers.\nApproach: Add undock support via WeifenLuo DockPanel float mode for connection panel; add quick-search TextBox to ConnectionTreeWindow toolbar that filters the tree view nodes by name."
 }

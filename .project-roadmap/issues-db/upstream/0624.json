@@ -9,7 +9,7 @@
   ],
   "author": "wfeddern",
   "created_at": "2017-06-30T14:18:20Z",
-  "github_updated_at": "2026-02-26T14:08:54Z",
+  "github_updated_at": "2026-09-04T07:04:41Z",
   "body_snippet": "\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nI have a large number of ssh sessions defined in mtputty (including subfolders) that I would like to migrate to mRemoteNG. ( http://ttyplus.com/multi-tabbed-putty/ )\r\n\r\n\r\n",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -81,12 +81,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABSf49DA",
+      "author": "corwin42",
+      "date": "2026-09-04T05:57:38Z",
+      "snippet": "I tried to import my MTPuTTY config with mRemoteNG 1.83.0.\n\nI selected \"Import from mtty\" (I think this is the MTPuTTY import?). I can select a MTPuTTY xml export file. But nothing happens on import. No connections are created. \n\nAny hints on how to use the MTPuTTY import?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABSgd-UA",
+      "author": "Kvarkas",
+      "date": "2026-09-04T07:04:41Z",
+      "snippet": "Hello, could you send example (no real data, but similar) of your file to support@mremoteng.org I will have a look, potentialy schema not match so its dont know how to create.\n\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:08:54Z",
-  "unread_comments": 4,
+  "comments_cursor": "2026-09-04T07:04:41Z",
+  "unread_comments": 6,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-09-04T08:56:47Z",
   "notes": "AI triage: Feature request to import connections from MTPuTTY (multi-tabbed PuTTY) which stores sessions in XML format, and a user has already provided a working Python conversion script showing the mapping is straightforward\nApproach: Create a new MTPuTTYImporter class that parses the MTPuTTY XML session file (which contains host, port, username, folder structure) and maps entries to mRemoteNG ConnectionInfo objects with SSH protocol, similar to existing importers like PuttyConnectionManagerImporter"
 }

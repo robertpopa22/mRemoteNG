@@ -9,7 +9,7 @@
   ],
   "author": "Shinybro",
   "created_at": "2022-04-20T07:32:16Z",
-  "github_updated_at": "2026-02-26T14:05:18Z",
+  "github_updated_at": "2026-07-27T13:30:48Z",
   "body_snippet": "When trying to open the Intel management web interface of a PC on port 16992 the 2 possible options, Internet Explorer and Edge Chromium don't work.\r\nI'm using the nightly build 1.77.2 on Windows 11.\r\n\r\nNormally when you open the page at http://ip-addres:16992 you get a screen with a login button.\r\nClicking the login button opens a pop-up where you can enter a login and password.\r\n\r\nWhen doing this in mRemoteNG v1.77.2 the following happens:\r\n\r\nUsing Internet Explorer:\r\n- The page opens with the...",
   "our_status": "released",
   "priority": "P2-bug",
@@ -96,12 +96,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABL4EoAg",
+      "author": "Shinybro",
+      "date": "2026-07-27T13:30:47Z",
+      "snippet": "Hi Robert,\nI've tried it in your v1.82.0 and when using Edge Chromium it works. Using IE does not work.\n\nP.S; I know it should be done on his repo, but there is no way of doing it in his repo, sorry.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:05:18Z",
-  "unread_comments": 5,
+  "comments_cursor": "2026-07-27T13:30:48Z",
+  "unread_comments": 6,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-09-02T12:58:40Z",
   "notes": "AI triage (gemini): mRemoteNG fails to correctly open the Intel management web interface (MEB) pop-up, likely due to an issue with URL validation, construction, or the underlying web browser launch mechanism.\nApproach: Investigate the call site responsible for launching the Intel MEB web interface. Ensure the URL is correctly formed and passed to a robust URL opening mechanism like `OpenUrl`. Debug the `OpenUrl` method's execution to identify if the issue is with URL validation, process execution, or browser interaction."
 }

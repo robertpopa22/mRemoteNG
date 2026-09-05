@@ -25,7 +25,7 @@
   "comments_cursor": "2026-03-06T12:10:26Z",
   "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "RDP fullscreen crash: COM events fire on non-UI thread; _frmMain accessed without IsDisposed check and without InvokeRequired marshaling. Fixed by: (1) wrapping Fullscreen/SmartSize restore in try/catch, (2) marshaling RestoreAfterFullscreen to UI thread via BeginInvoke, (3) adding IsDisposed+IsHandleCreated guards, (4) catching ObjectDisposedException in enter-fullscreen async task."
 }

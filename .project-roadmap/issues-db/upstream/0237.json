@@ -40,7 +40,7 @@
   "comments_cursor": "2026-02-20T13:44:52Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage: UX improvement for encryption password setting is a valid enhancement request aligned with existing security features like master password autolock (#1649) and password protection (#2673)\nApproach: Improve the encryption password UI flow in Options/Security page: add password strength indicator, confirmation field, clearer labeling, and inline validation feedback when setting or changing the encryption password"
 }

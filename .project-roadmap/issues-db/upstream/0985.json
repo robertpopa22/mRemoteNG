@@ -39,7 +39,7 @@
   "comments_cursor": "2018-07-25T16:07:22Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): This is a feature request to restructure the data model from connection-centric to entity/host-centric, allowing a single 'Entity' to have multiple defined connections (protocols). This is a significant architectural enhancement.\nApproach: Investigate adding a 'Host' or 'Entity' node type that aggregates multiple connection profiles, or extending the 'Link to connection' (#984) feature to fully support multi-protocol entities."
 }

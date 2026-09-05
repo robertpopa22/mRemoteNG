@@ -46,7 +46,7 @@
   "comments_cursor": "2026-02-21T21:44:56Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): RDP ActiveX credential dialog 'More choices' interaction likely triggers unhandled COM events or causes null/disposed object access in RDP event handlers during NLA authentication.\nApproach: Add null/dispose guards in RDP COM event handlers (OnLogonError, OnFatalError, OnDisconnected) to handle credential UI state transitions gracefully during 'More choices' interaction."
 }

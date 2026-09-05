@@ -22,7 +22,7 @@
   "comments_cursor": "2026-06-26T10:40:41Z",
   "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-07-05T12:25:32Z",
   "notes": ""
 }

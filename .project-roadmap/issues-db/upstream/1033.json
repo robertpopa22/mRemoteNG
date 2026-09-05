@@ -41,7 +41,7 @@
   "comments_cursor": "2026-02-26T13:50:46Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): Enhancement request to integrate PasswordSafe as an external credential provider, similar to existing integrations.\nApproach: Implement a new external connector class for PasswordSafe in the ExternalConnectors project, likely wrapping the PasswordSafe CLI or library, and register it as a credential provider."
 }

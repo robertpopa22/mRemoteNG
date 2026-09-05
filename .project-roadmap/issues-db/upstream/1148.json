@@ -45,7 +45,7 @@
   "comments_cursor": "2018-10-23T13:05:11Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Useful feature for users to see folder content size at a glance.\nApproach: Add 'ShowConnectionCount' setting to OptionsAppearancePage. Update ConnectionNameFormatter.FormatName to append child count to folder names if enabled.\nAI triage (gemini): The feature is partially implemented in NameColumn.cs but fails to update ancestor counts when nested items change; requires recursive refresh logic.\nApproach: Update HandleCollectionChanged in ConnectionTree.cs to recursively refresh all ancestors of the modified container to update their connection counts."
 }

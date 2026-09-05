@@ -2,7 +2,7 @@
   "number": 3062,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Cannot access a disposed object. Object name: 'ConnectionWindow'.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Need 2 check",
     "1.78.*",

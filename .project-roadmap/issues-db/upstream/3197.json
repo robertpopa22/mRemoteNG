@@ -2,7 +2,7 @@
   "number": 3197,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Content Security Policy (CSP) header not set - https://mremoteng.org",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "AI",
     "critical"

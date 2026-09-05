@@ -2,7 +2,7 @@
   "number": 2537,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "log4net.dll old version",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Duplicate",
     "RTFM",
@@ -69,7 +69,7 @@
   ],
   "comments_cursor": "2026-02-07T16:39:52Z",
   "unread_comments": 3,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
   "notes": "Manual triage: Duplicate/outdated - log4net has been replaced with NLog in the .NET 10 migration. The old log4net.dll version concern is no longer relevant."

@@ -41,7 +41,7 @@
   "comments_cursor": "2026-02-26T13:44:53Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The Active Directory import window's domain textbox is not initialized with the user's current domain, leading to confusion and requiring manual intervention to set the domain.\nApproach: Initialize txtDomain.Text with Environment.UserDomainName in the constructor of ActiveDirectoryImportWindow.cs."
 }

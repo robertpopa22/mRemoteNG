@@ -39,7 +39,7 @@
   "comments_cursor": "2018-10-15T13:15:22Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): RemoteConnectionsSyncronizer polls SQL every 3s and does a full tree reload on any change, causing visible flicker and hourglass cursor in multi-user scenarios\nApproach: Wrap tree reload during sync with BeginUpdate/EndUpdate to prevent flicker, suppress WaitCursor during background sync polls, and consider merging changes into existing tree model instead of full rebuild"
 }

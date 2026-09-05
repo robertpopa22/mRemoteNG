@@ -40,7 +40,7 @@
   "comments_cursor": "2021-06-27T22:56:43Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): When RedirectKeys is enabled, KeyboardHookMode=1 sends Alt+Tab to the remote server, preventing local task switching to the fullscreen RDP session; the fullscreen toolbar or a keyboard hook escape mechanism is needed\nApproach: Add handling so that when RDP is in fullscreen mode, either the fullscreen toolbar provides a clickable way to release focus, or implement a configurable keyboard shortcut (e.g. Ctrl+Alt+Break which is standard RDP escape) that toggles fullscreen off, allowing Alt+Tab to work locally. May also need to adjust KeyboardHookMode to mode 2 (hook only in fullscreen) as a user-configurable option."
 }

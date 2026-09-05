@@ -39,7 +39,7 @@
   "comments_cursor": "2023-06-29T13:27:26Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): SmartSize uses wrong DPI scaling on multi-monitor setups with mixed DPI — ResolutionScalingFactor reads main form DPI instead of the actual monitor's DPI where the RDP control is hosted.\nApproach: Change ResolutionScalingFactor to use the DPI of the monitor where the InterfaceControl (or its parent ConnectionWindow) is actually displayed, rather than _frmMain.DeviceDpi. Use Screen.FromControl(InterfaceControl) or the control's own DeviceDpi property to get per-monitor DPI."
 }

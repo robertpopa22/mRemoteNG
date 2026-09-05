@@ -39,7 +39,7 @@
   "comments_cursor": "2019-05-17T20:17:20Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (claude): Ben.Demystifier would improve stack trace readability in error logging across ~48 files, useful for support diagnostics but low priority nice-to-have.\nApproach: Add Ben.Demystifier NuGet package and call .Demystify() on exceptions in the central error handling paths (ProgramRoot unhandled exception handler, FrmUnhandledException, MessageCollector) rather than modifying all 48 files — the package works by extension method on Exception objects at the point of display/logging."
 }
