@@ -151,6 +151,26 @@ public class FrmUnhandledExceptionTests
         });
     }
 
+    [TestCase(true, TestName = "added to an existing issue")]
+    [TestCase(false, TestName = "filed as a new issue")]
+    public void ThePromptAfterSubmittingOffersToOpenTheIssueWhereOneCanSubscribe(bool duplicate)
+    {
+        // The #181 reporter asked for it: the person who hit the crash wants to know when it is
+        // fixed, and the issue page is where GitHub lets them subscribe to that.
+        CrashReportIssue issue = new(175, "[Crash] X", "https://github.com/example/repo/issues/175");
+        string url = duplicate ? issue.HtmlUrl + "#issuecomment-9" : issue.HtmlUrl;
+
+        string message = FrmUnhandledException.BuildSubmittedMessage(new CrashReportOutcome(issue, duplicate, url));
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(message, Does.Contain(url));
+            Assert.That(message, Does.Contain("Open it in your browser?"));
+            Assert.That(message, Does.Contain("subscribe"));
+            Assert.That(message, duplicate ? Does.Contain("already tracked as #175") : Does.Contain("submitted successfully"));
+        });
+    }
+
     private sealed class FailingGateway : ICrashReportGateway
     {
         public Task<System.Collections.Generic.IReadOnlyList<CrashReportIssue>> ListOpenCrashReportsAsync(CancellationToken cancellationToken)

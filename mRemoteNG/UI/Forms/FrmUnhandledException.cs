@@ -193,10 +193,25 @@ namespace mRemoteNG.UI.Forms
                 return;
             }
 
-            string message = outcome.AddedToExistingIssue
-                ? FormattableString.Invariant($"This crash is already tracked as #{outcome.Issue.Number}. Your report was added there.\n\n{outcome.Url}")
-                : $"Error report submitted successfully.\n\n{outcome.Url}";
-            MessageBox.Show(this, message, GeneralAppInfo.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Yes/No rather than a bare OK: the person who hit the crash is the one who wants to
+            // know when it is fixed, and the issue page is where they can subscribe to that. Asked
+            // for by the reporter of #181, who had just been sent to the issue by hand.
+            DialogResult open = MessageBox.Show(this, BuildSubmittedMessage(outcome), GeneralAppInfo.ProductName,
+                                                MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (open == DialogResult.Yes)
+                Process.Start(new ProcessStartInfo { FileName = outcome.Url, UseShellExecute = true });
+        }
+
+        /// <summary>The text of the prompt shown after a submission, for the tests.</summary>
+        public static string BuildSubmittedMessage(CrashReportOutcome outcome)
+        {
+            ArgumentNullException.ThrowIfNull(outcome);
+
+            string filed = outcome.AddedToExistingIssue
+                ? FormattableString.Invariant($"This crash is already tracked as #{outcome.Issue.Number}. Your report was added there.")
+                : "Error report submitted successfully.";
+            return filed + "\n\n" + outcome.Url + "\n\n"
+                   + "Open it in your browser? On the issue page you can subscribe to be notified when it is resolved.";
         }
 
         /// <summary>
