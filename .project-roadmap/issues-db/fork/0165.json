@@ -63,6 +63,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-09-07",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -125,6 +135,6 @@
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": true,
-  "last_synced": "2026-09-07T09:39:52Z",
-  "notes": "reopened 2026-09-07; fix cad7e5725 (named-instance DataSource, ODBC ? markers, DomainName->Domain rename); awaiting reporter on nightly"
+  "last_synced": "2026-09-07T10:47:05Z",
+  "notes": "reopened 2026-09-07; fixes cad7e5725 (named-instance DataSource, ODBC ? markers, DomainName->Domain) + 6d128e5d4 (SQL page AutoScroll, cut label); awaiting reporter on nightly"
 }
