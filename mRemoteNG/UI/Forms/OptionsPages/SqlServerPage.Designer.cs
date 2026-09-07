@@ -1265,6 +1265,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Controls.Add(lblSectionName);
             Controls.Add(lblRegistrySettingsUsedInfo);
             Margin = new System.Windows.Forms.Padding(4);
+            AutoScroll = true;
             Name = "SqlServerPage";
             Size = new System.Drawing.Size(656, 490);
             Load += SqlServerPage_Load;
