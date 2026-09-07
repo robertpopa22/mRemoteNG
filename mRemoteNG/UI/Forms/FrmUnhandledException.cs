@@ -3,15 +3,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.Versioning;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.App.CrashReporting;
 using mRemoteNG.App.Info;
 using mRemoteNG.Resources.Language;
 
@@ -148,19 +146,88 @@ namespace mRemoteNG.UI.Forms
             Close();
         }
 
+        /// <summary>
+        /// Where the report goes. Null means GitHub with the token compiled into this build;
+        /// tests set a stand-in so the form can be driven without a network or a real tracker.
+        /// </summary>
+        public ICrashReportGateway? Gateway { get; set; }
+
+        /// <summary>The result of the last successful submission, for the caller and the tests.</summary>
+        public CrashReportOutcome? LastOutcome { get; private set; }
+
+        /// <summary>The submit button's state, for the tests that drive the real form.</summary>
+        public string SubmitButtonText => buttonCreateBug.Text;
+
+        public bool SubmitButtonEnabled => buttonCreateBug.Enabled;
+
         private async void buttonCreateBug_Click(object sender, EventArgs e)
         {
             if (_submitted)
                 return;
 
-            string? token = GetCrashReportToken();
-            if (!string.IsNullOrEmpty(token))
+            if (Gateway != null)
             {
-                await SubmitViaApiAsync(token);
+                await SubmitAndReportAsync(Gateway);
+                return;
             }
-            else
+
+            string? token = GetCrashReportToken();
+            if (string.IsNullOrEmpty(token))
             {
                 OpenPreFilledIssueUrl();
+                return;
+            }
+
+            using GitHubCrashReportGateway github = new(GeneralAppInfo.CrashReportOwner, GeneralAppInfo.CrashReportRepo, token,
+                                                       $"{GeneralAppInfo.ProductName}/{GeneralAppInfo.ApplicationVersion}");
+            await SubmitAndReportAsync(github);
+        }
+
+        private async Task SubmitAndReportAsync(ICrashReportGateway gateway)
+        {
+            CrashReportOutcome? outcome = await SubmitAsync(gateway);
+            if (outcome == null)
+            {
+                // API call or network failed — fall back to the browser so the report is not lost.
+                OpenPreFilledIssueUrl();
+                return;
+            }
+
+            string message = outcome.AddedToExistingIssue
+                ? FormattableString.Invariant($"This crash is already tracked as #{outcome.Issue.Number}. Your report was added there.\n\n{outcome.Url}")
+                : $"Error report submitted successfully.\n\n{outcome.Url}";
+            MessageBox.Show(this, message, GeneralAppInfo.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// Files the report through <paramref name="gateway"/> and reflects the result on the
+        /// button: a new issue, or "Added to #N" when an open issue already tracks this crash.
+        /// Returns null when the submission failed; the button is re-armed for another attempt.
+        /// No dialog is shown here, so a test can drive the real form.
+        /// </summary>
+        public async Task<CrashReportOutcome?> SubmitAsync(ICrashReportGateway gateway)
+        {
+            ArgumentNullException.ThrowIfNull(gateway);
+
+            buttonCreateBug.Enabled = false;
+            buttonCreateBug.Text = "Submitting...";
+
+            try
+            {
+                CrashReportOutcome outcome = await CrashReportSubmitter.SubmitAsync(gateway, BuildIssueTitle(), BuildIssueBody());
+                _submitted = true;
+                LastOutcome = outcome;
+                buttonCreateBug.Text = outcome.AddedToExistingIssue
+                    ? FormattableString.Invariant($"Added to #{outcome.Issue.Number}")
+                    : "Submitted!";
+                return outcome;
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException)
+            {
+                Runtime.MessageCollector?.AddExceptionMessage("Crash report submission failed", ex);
+                buttonCreateBug.Text = Language.SubmitErrorReport;
+                buttonCreateBug.Enabled = true;
+                return null;
             }
         }
 
@@ -169,64 +236,6 @@ namespace mRemoteNG.UI.Forms
             return Assembly.GetExecutingAssembly()
                 .GetCustomAttributes<AssemblyMetadataAttribute>()
                 .FirstOrDefault(a => string.Equals(a.Key, "CrashReportToken", StringComparison.Ordinal))?.Value;
-        }
-
-        private async Task SubmitViaApiAsync(string token)
-        {
-            buttonCreateBug.Enabled = false;
-            buttonCreateBug.Text = "Submitting...";
-
-            try
-            {
-                string title = BuildIssueTitle();
-                string body = BuildIssueBody();
-
-                var payload = new
-                {
-                    title,
-                    body,
-                    labels = new[] { "bug", "crash-report", "auto-submitted" }
-                };
-
-                string json = JsonSerializer.Serialize(payload);
-                string apiUrl = $"https://api.github.com/repos/{GeneralAppInfo.CrashReportOwner}/{GeneralAppInfo.CrashReportRepo}/issues";
-
-                using var client = new HttpClient();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                client.DefaultRequestHeaders.UserAgent.ParseAdd($"{GeneralAppInfo.ProductName}/{GeneralAppInfo.ApplicationVersion}");
-
-                using var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(apiUrl, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    _submitted = true;
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    using var doc = JsonDocument.Parse(responseBody);
-                    string issueUrl = doc.RootElement.GetProperty("html_url").GetString() ?? string.Empty;
-                    buttonCreateBug.Text = "Submitted!";
-                    MessageBox.Show(this,
-                        $"Error report submitted successfully.\n\n{issueUrl}",
-                        GeneralAppInfo.ProductName,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-                else
-                {
-                    // API call failed — fallback to browser
-                    buttonCreateBug.Text = Language.SubmitErrorReport;
-                    buttonCreateBug.Enabled = true;
-                    OpenPreFilledIssueUrl();
-                }
-            }
-            catch
-            {
-                // Network error — fallback to browser
-                buttonCreateBug.Text = Language.SubmitErrorReport;
-                buttonCreateBug.Enabled = true;
-                OpenPreFilledIssueUrl();
-            }
         }
 
         private void OpenPreFilledIssueUrl()
