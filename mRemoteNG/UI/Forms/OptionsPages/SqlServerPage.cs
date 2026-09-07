@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using mRemoteNG.App;
 using mRemoteNG.Config.Connections.Multiuser;
 using mRemoteNG.Config.DatabaseConnectors;
+using mRemoteNG.Messages;
 using mRemoteNG.Properties;
 using mRemoteNG.Security.SymmetricEncryption;
 using mRemoteNG.Resources.Language;
@@ -416,6 +417,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             ConnectionTestResult connectionTestResult = testOutcome.Result;
 
             btnTestConnection.Enabled = true;
+
+            if (connectionTestResult != ConnectionTestResult.ConnectionSucceded)
+            {
+                // The label wraps at a fixed width and a provider message runs to several lines.
+                // The full text goes to the log too — the #165 reporter had to save the profile
+                // and restart just to force the same failure somewhere it was written down.
+                // Server/database/auth type only: never the credentials.
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                    $"SQL connection test failed: type={type} server='{server}' database='{database}' auth={authType} result={connectionTestResult}. "
+                    + (testOutcome.ErrorDetail ?? "no provider detail"),
+                    true);
+            }
 
             switch (connectionTestResult)
             {

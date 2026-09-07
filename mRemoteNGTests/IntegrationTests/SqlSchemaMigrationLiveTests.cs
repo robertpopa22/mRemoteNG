@@ -119,8 +119,10 @@ namespace mRemoteNGTests.IntegrationTests
 
         /// <summary>
         /// Puts the database back to what a legacy install looks like: the columns that arrived
-        /// after schema 2.6 are gone, tblCons has a row (so an ALTER adding a NOT NULL column with
-        /// no DEFAULT will be rejected, exactly as on the reporter's database), and tblRoot claims
+        /// after schema 2.6 are gone, the domain column carries its 1.76 name (DomainName — the
+        /// rename to Domain came in 2020 with no upgrader, and the #165 reporter's database still
+        /// has the old one), tblCons has a row (so an ALTER adding a NOT NULL column with no
+        /// DEFAULT will be rejected, exactly as on the reporter's database), and tblRoot claims
         /// version 2.6.
         /// </summary>
         private static void RegressSchemaToLegacyVersion(IDatabaseConnector connector)
@@ -138,11 +140,24 @@ namespace mRemoteNGTests.IntegrationTests
                 drop.ExecuteNonQuery();
             }
 
+            using (DbCommand rename = connector.DbCommand("EXEC sp_rename 'tblCons.Domain', 'DomainName', 'COLUMN'"))
+            {
+                rename.ExecuteNonQuery();
+            }
+
             SeedOneConnectionRow(connector);
+
+            using (DbCommand domain = connector.DbCommand($"UPDATE tblCons SET DomainName = '{LegacyDomain}'"))
+            {
+                domain.ExecuteNonQuery();
+            }
 
             using DbCommand version = connector.DbCommand("UPDATE tblRoot SET ConfVersion='2.6'");
             version.ExecuteNonQuery();
         }
+
+        /// <summary>The domain value the legacy row carries; it must come out the other end.</summary>
+        private const string LegacyDomain = "LEGACY-DOMAIN";
 
 
         /// <summary>
@@ -243,6 +258,38 @@ namespace mRemoteNGTests.IntegrationTests
                 Assert.That(check.ExecuteScalar(), Is.Not.EqualTo(DBNull.Value),
                             $"column {column} was never added — the schema upgrade did not complete");
             }
+        }
+
+        /// <summary>
+        /// A 1.76 table calls the column DomainName. Two things went wrong with it (#165): over
+        /// native SqlClient the forward-port added an empty Domain next to it and every stored
+        /// domain was silently orphaned; over ODBC the forward-port never got that far, because
+        /// its column lookups used "@name" parameters that System.Data.Odbc does not understand,
+        /// so SqlVersion31To32Upgrader's ALTER COLUMN [Domain] failed against a table that only
+        /// had DomainName. Both connectors must end with one Domain column holding the old value.
+        /// </summary>
+        [TestCase(false, TestName = "Microsoft.Data.SqlClient")]
+        [TestCase(true, TestName = "ODBC Driver 17 (the #165 reporter's driver)")]
+        public void TheDomainOfALegacyRowSurvivesTheUpgrade(bool useOdbc)
+        {
+            using IDatabaseConnector connector = OpenConnector(useOdbc);
+
+            InitialiseSchemaAndMetadata(connector);
+            RegressSchemaToLegacyVersion(connector);
+
+            new SqlDatabaseMetaDataRetriever().GetDatabaseMetaData(connector);
+            bool upgraded = new SqlDatabaseVersionVerifier(connector).VerifyDatabaseVersion(new Version(2, 6));
+
+            using DbCommand domain = connector.DbCommand("SELECT Domain FROM tblCons");
+            using DbCommand legacy = connector.DbCommand("SELECT COL_LENGTH('tblCons','DomainName')");
+            Assert.Multiple(() =>
+            {
+                Assert.That(upgraded, Is.True, "the upgrade chain reported failure");
+                Assert.That(domain.ExecuteScalar(), Is.EqualTo(LegacyDomain),
+                            "the domain stored under the 1.76 column name was lost");
+                Assert.That(legacy.ExecuteScalar(), Is.EqualTo(DBNull.Value),
+                            "the legacy DomainName column is still there — it was copied, not renamed");
+            });
         }
 
         /// <summary>

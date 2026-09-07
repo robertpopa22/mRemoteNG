@@ -211,8 +211,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             {
                 // ANSI SQL way.  Works in PostgreSQL, MSSQL, MySQL.
                 string database_name = Properties.OptionsDBsPage.Default.SQLDatabaseName;
-                DbCommand cmd = databaseConnector.DbCommand("select case when exists((select * from information_schema.tables where table_name = @TableName and table_schema = @DatabaseName)) then 1 else 0 end");
-                
+                DbCommand cmd = databaseConnector.DbCommand(
+                    "select case when exists((select * from information_schema.tables where table_name = "
+                    + ParameterMarker(databaseConnector, "@TableName")
+                    + " and table_schema = " + ParameterMarker(databaseConnector, "@DatabaseName")
+                    + ")) then 1 else 0 end");
+
                 DbParameter tableNameParam = cmd.CreateParameter();
                 tableNameParam.ParameterName = "@TableName";
                 tableNameParam.Value = tableName;
@@ -804,6 +808,9 @@ CREATE TABLE `tblExternalTools` (
                 // Null means the bulk fetch failed; callers fall back to per-column checks.
                 ISet<string>? existingColumns = GetExistingColumns(databaseConnector, "tblCons");
 
+                // Before the forward-port adds an empty Domain column beside the 1.76 one.
+                RenameLegacyDomainColumn(databaseConnector, existingColumns);
+
                 // ODBC talks to the same SQL Server as MSSqlDatabaseConnector, and every other
                 // schema path here already treats the two alike (InitializeDatabaseSchema,
                 // SqlMigrationHelper). Excluding it meant an ODBC profile never got the
@@ -933,6 +940,41 @@ CREATE TABLE `tblExternalTools` (
         }
 
         /// <summary>
+        /// 1.76 stored the domain in a column called DomainName. The property was renamed to
+        /// Domain in 2020 (46e5d8e66) and no upgrader ever renamed the column, so the forward-port
+        /// added an empty Domain beside the old one and every domain a 1.76 database held was
+        /// silently orphaned; SqlVersion31To32Upgrader then ALTERs [Domain] and fails outright on
+        /// a table where the forward-port itself failed (#165). Renaming in place keeps the values.
+        /// </summary>
+        private static void RenameLegacyDomainColumn(IDatabaseConnector databaseConnector, ISet<string>? existingColumns)
+        {
+            if (!ColumnExists(databaseConnector, existingColumns, "tblCons", "DomainName")
+                || ColumnExists(databaseConnector, existingColumns, "tblCons", "Domain"))
+            {
+                return;
+            }
+
+            string sql = databaseConnector.GetType() == typeof(MySqlDatabaseConnector)
+                ? "ALTER TABLE tblCons CHANGE COLUMN `DomainName` `Domain` varchar(512) DEFAULT NULL"
+                : "EXEC sp_rename 'tblCons.DomainName', 'Domain', 'COLUMN'";
+            databaseConnector.DbCommand(sql).ExecuteNonQuery();
+            existingColumns?.Remove("DomainName");
+            existingColumns?.Add("Domain");
+        }
+
+        /// <summary>
+        /// System.Data.Odbc knows only positional "?" markers. A named "@TableName" travels to SQL
+        /// Server as literal text and dies with "Must declare the scalar variable", so over ODBC
+        /// every column lookup here reported "missing", the forward-port tried to ADD columns that
+        /// already existed and the reporter's legacy upgrade failed on the first one (#165).
+        /// Parameters are added in the order the markers appear, which is what "?" requires.
+        /// </summary>
+        private static string ParameterMarker(IDatabaseConnector databaseConnector, string name)
+        {
+            return databaseConnector is OdbcDatabaseConnector ? "?" : name;
+        }
+
+        /// <summary>
         /// Fetches all column names of <paramref name="tableName"/> in one round-trip.
         /// Returns null when the bulk fetch fails or yields no columns (a table always
         /// has at least one, so an empty result means the query hit the wrong scope) —
@@ -943,7 +985,8 @@ CREATE TABLE `tblExternalTools` (
             try
             {
                 string databaseName = Properties.OptionsDBsPage.Default.SQLDatabaseName;
-                string sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName";
+                string sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "
+                             + ParameterMarker(databaseConnector, "@TableName");
 
                 if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
                 {
@@ -1004,8 +1047,10 @@ CREATE TABLE `tblExternalTools` (
              {
                  string databaseName = Properties.OptionsDBsPage.Default.SQLDatabaseName;
                  // INFORMATION_SCHEMA is standard
-                 string sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName AND COLUMN_NAME = @ColumnName";
-                 
+                 string sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "
+                              + ParameterMarker(databaseConnector, "@TableName")
+                              + " AND COLUMN_NAME = " + ParameterMarker(databaseConnector, "@ColumnName");
+
                  // However, some DBs might need database name filter if table names are not unique across schemas
                  if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
                  {

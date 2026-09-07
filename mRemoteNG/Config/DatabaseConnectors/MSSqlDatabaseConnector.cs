@@ -53,15 +53,26 @@ namespace mRemoteNG.Config.DatabaseConnectors
                 BuildDbConnectionStringWithDefaultCredentials();
         }
 
+        /// <summary>
+        /// "host:port" is how mRemoteNG spells a port (#1884); SqlClient wants "host,port".
+        /// Without an explicit port the host goes through untouched. Appending ",1433" as a
+        /// default made SqlClient skip the SQL Browser lookup for "host\instance" and dial 1433
+        /// directly, which a named instance on a dynamic port never answers — "server was not
+        /// found" for a database that 1.76 (no default port) opened fine (#165). A host that
+        /// already carries ",port" is left alone for the same reason.
+        /// </summary>
+        internal static string BuildDataSource(string host)
+        {
+            string[] hostParts = host.Split(':', 2);
+            return hostParts.Length == 2 ? $"{hostParts[0]},{hostParts[1]}" : host;
+        }
+
         private void BuildDbConnectionStringWithCustomCredentials()
         {
-            string[] hostParts = _dbHost.Split(new char[] { ':' }, 2);
-            string _dbPort = (hostParts.Length == 2) ? hostParts[1] : "1433";
-
             _dbConnectionString = new SqlConnectionStringBuilder
             {
                 ApplicationName = "mRemoteNG",
-                DataSource = $"{hostParts[0]},{_dbPort}",
+                DataSource = BuildDataSource(_dbHost),
                 InitialCatalog = _dbCatalog,
                 UserID = _dbUsername,
                 Password = _dbPassword,
@@ -78,7 +89,7 @@ namespace mRemoteNG.Config.DatabaseConnectors
             _dbConnectionString = new SqlConnectionStringBuilder
             {
                 ApplicationName = "mRemoteNG",
-                DataSource = _dbHost,
+                DataSource = BuildDataSource(_dbHost),
                 InitialCatalog = _dbCatalog,
                 IntegratedSecurity = true,
                 Encrypt = true,
