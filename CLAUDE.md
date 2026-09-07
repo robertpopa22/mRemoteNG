@@ -66,6 +66,11 @@ cannot see the pixels — custom-drawn controls, the RDP client surface, screens
 it runs unsandboxed on the real desktop, so it does not solve the shared-input problem below.
 For anything interactive, a lab guest driven over PowerShell Direct (`Invoke-Command -VMName`, no
 network needed) or SSH beats both, because the input never touches the operator's session.
+**The lab procedure is written out step by step in [docs/LAB-GUEST.md](docs/LAB-GUEST.md)** —
+starting the VM, the password environment variable, `lab-run.ps1` flags, reading artifacts,
+and the scenario-writing rules (menus, real double-clicks, crash detection). Read it before the
+first lab run; the automation host of an agent session has no input access to the operator's
+desktop (mouse clicks return "Access is denied"), so a double-click path can only be proven there.
 
 - **Run against `mRemoteNG/bin/x64/Release/mRemoteNG.exe`**, which has its own `Settings/` folder
   beside it. That is portable mode: it uses that folder, not the maintainer's real profile in

@@ -34,10 +34,15 @@ namespace mRemoteNGSpecs.Drivers
                 return new CrashResult(true, "the application object is no longer usable");
             }
 
+            // The dialog is an owned window: UI Automation lists it under the application's main
+            // window, not as a child of the desktop. Looking at the desktop's direct children
+            // only — which is what this did until the lab reproduced #175 — found nothing while
+            // the dialog was standing on screen, and every AssertNoCrash in the battery would
+            // have passed straight over a crash. Search the whole subtree of each of the
+            // application's top-level windows, plus the desktop's own children for the case where
+            // the dialog comes up before, or without, a main window.
             AutomationElement? crashWindow = Retry.WhileNull(
-                () => driver.Automation.GetDesktop().FindFirstChild(
-                    cf => cf.ByAutomationId(CrashWindowAutomationId)
-                            .Or(cf.ByName("mRemoteNG - Unhandled Exception"))),
+                () => FindCrashWindow(driver),
                 wait, TimeSpan.FromMilliseconds(150), throwOnTimeout: false).Result;
 
             if (crashWindow is null)
@@ -45,6 +50,48 @@ namespace mRemoteNGSpecs.Drivers
 
             string detail = SafeName(crashWindow);
             return new CrashResult(true, $"an unhandled-exception dialog appeared: '{detail}'");
+        }
+
+        private static AutomationElement? FindCrashWindow(AppDriver driver)
+        {
+            AutomationElement desktop = driver.Automation.GetDesktop();
+            int pid = driver.Application.ProcessId;
+
+            foreach (AutomationElement top in desktop.FindAllChildren())
+            {
+                int owner;
+                try { owner = top.Properties.ProcessId.ValueOrDefault; }
+                catch (Exception) { continue; }
+                if (owner != pid)
+                    continue;
+
+                if (IsCrashWindow(top))
+                    return top;
+
+                AutomationElement? nested = top.FindFirstDescendant(
+                    cf => cf.ByAutomationId(CrashWindowAutomationId)
+                            .Or(cf.ByName("mRemoteNG Unhandled Exception"))
+                            .Or(cf.ByName("mRemoteNG - Unhandled Exception")));
+                if (nested is not null)
+                    return nested;
+            }
+
+            return null;
+        }
+
+        private static bool IsCrashWindow(AutomationElement element)
+        {
+            try
+            {
+                if (string.Equals(element.AutomationId, CrashWindowAutomationId, StringComparison.Ordinal))
+                    return true;
+                string name = element.Name ?? "";
+                return name.Contains("Unhandled Exception", StringComparison.Ordinal);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private static string SafeName(AutomationElement element)

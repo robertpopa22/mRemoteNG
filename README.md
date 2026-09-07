@@ -527,7 +527,7 @@ cannot:
 |-------|-----------|------------------------|
 | **Unit suite** — `run-tests-core.sh` | 6,666 tests, ~3 min | Logic, serialization, parsing, crypto |
 | **UI battery** — `run-ui-tests.ps1` | The built `.exe`, driven through UI Automation | Startup, focus, dialogs, persistence across restarts, packaging |
-| **Lab guest** — `lab-run.ps1` | The same battery on a clean, isolated VM | Anything a warm machine already has: trusted certificates, cached host keys, answered prompts, installed runtimes |
+| **Lab guest** — `lab-run.ps1` ([procedure](docs/LAB-GUEST.md)) | The same battery on a clean, isolated VM | Anything a warm machine already has: trusted certificates, cached host keys, answered prompts, installed runtimes — and anything that needs a real mouse, which an agent session's automation host does not have |
 
 The UI battery is gated behind the unit suite on purpose. It takes over the desktop while it runs,
 and there is no reason to occupy a machine for several minutes to discover a failure the cheap
