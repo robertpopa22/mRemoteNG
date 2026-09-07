@@ -6,7 +6,7 @@
   "labels": [],
   "author": "klob77",
   "created_at": "2026-05-29T15:09:17Z",
-  "github_updated_at": "2026-05-31T17:00:03Z",
+  "github_updated_at": "2026-07-05T12:17:44Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ObjectListView, Version=2.9.3.24576, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.UI.Window.ConnectionTreeWindow.InitializeComponent() x 2\r\n   at new mRemoteNG.UI.Window.ConnectionTreeWindow(DockContent panel) x 2\r\n   at ConnectionTreeWindow mRemoteNG.App.AppWindows.get_TreeForm()\r\n   at voi...",
   "our_status": "released",
   "priority": null,
@@ -44,12 +44,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIzqFQQ",
+      "author": "robertpopa22",
+      "date": "2026-07-05T12:17:43Z",
+      "snippet": "Closing this out: the fix (pinning ObjectListView to a fixed `AssemblyVersion 2.9.3.0`, commit `052f1f4c5`) has been in every nightly and in the v1.82.0 stable release for over a month with no recurrence of this crash from any build.\n\nIf you still hit `FileNotFoundException: Could not load file or assembly 'ObjectListView'` on a current build, the almost-certain cause is an old `ObjectListView.dll` left behind by an in-place upgrade — please delete the old folder and extract the new ZIP cleanly ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-05-31T17:00:03Z",
+  "comments_cursor": "2026-07-05T12:17:44Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-05T12:18:05Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "closed: OLV pin 052f1f4c5 5wk no recurrence; stale-DLL habit documented in reply"
 }

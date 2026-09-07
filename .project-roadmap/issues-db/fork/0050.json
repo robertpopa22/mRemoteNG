@@ -8,7 +8,7 @@
   ],
   "author": "goudeseunejJYZ",
   "created_at": "2026-03-12T10:13:00Z",
-  "github_updated_at": "2026-03-13T17:53:40Z",
+  "github_updated_at": "2026-03-16T07:55:52Z",
   "body_snippet": "There are some default paths pointing to d:\\github\\...",
   "our_status": "new",
   "priority": null,
@@ -25,12 +25,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yPRxa",
+      "author": "naasking",
+      "date": "2026-03-15T22:50:31Z",
+      "snippet": "I just tried running it the Windows x64 build from the Releases page, and this error dialog comes up basically no matter what I do on first run, eg. if I click \"Import Existing File\", or \"Use Custom File Path\", or \"Create New Connection File\".\n\n<img width=\"768\" height=\"598\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/36243238-8410-4131-9b65-a5944d4cb0e0\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yVpNr",
+      "author": "robertpopa22",
+      "date": "2026-03-16T07:55:42Z",
+      "snippet": "Thanks for reporting this @goudeseunejJYZ — we've identified the root cause.\n\n## What happened\n\nThe `D:\\github\\...` paths you're seeing are **not hardcoded** in the source code. We verified the entire codebase — no `.cs`, `.json`, `.xml`, `.config`, or `.resx` file contains these paths.\n\nThe issue is that the early nightly build you downloaded (Build 3411) was compiled on our development machine, where the project lives at `D:\\github\\mRemoteNG\\`. At runtime, the portable edition uses `Assembly.L...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-13T17:53:40Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-03-16T07:55:52Z",
+  "unread_comments": 1,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-03-14T08:07:39Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

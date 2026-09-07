@@ -6,7 +6,7 @@
   "labels": [],
   "author": "robertpopa22",
   "created_at": "2026-06-09T14:31:44Z",
-  "github_updated_at": "2026-06-09T14:31:44Z",
+  "github_updated_at": "2026-07-05T12:17:46Z",
   "body_snippet": "Tracks the security hardening of the on-demand credential-exposure actions (Copy Password / Type Password / reveal), originally requested upstream in [mRemoteNG/mRemoteNG#2598](https://github.com/mRemoteNG/mRemoteNG/issues/2598).\n\n**Background.** In #2598 @nmg196 argued a copy/export feature isn't a security risk — password managers export to CSV / copy to clipboard, and \"it's only a problem if extractable without the master password,\" suggesting a re-prompt on copy. @Kvarkas (maintainer) is ali...",
   "our_status": "released",
   "priority": null,
@@ -35,11 +35,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-06-09T14:31:44Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABIzqFmw",
+      "author": "robertpopa22",
+      "date": "2026-07-05T12:17:45Z",
+      "snippet": "Closing as completed. Everything this tracking issue covered shipped in `0e7b9c75e` (2026-06-09) and has been in nightlies and the v1.82.0 stable release since, with no regressions reported:\n\n- **Re-auth gate** (`MasterPasswordGate`): Copy Password, Type Password, and password reveal now require the master password when a custom one is set — including the multi-root case where the secret lives in a secondary loaded file. When no custom master password is set the gate passes through (prompting fo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-07-05T12:17:46Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-05T12:18:06Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "closed: cred-reveal hardening 0e7b9c75e complete; MasterPasswordGateTests added e24ad9cb5"
 }

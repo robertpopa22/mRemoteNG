@@ -1,0 +1,34 @@
+{
+  "number": 76,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.InvalidCastException: Unable to cast object of type 'ListViewSubItem' to type 'BrightIdeasSoftware.OLV...",
+  "state": "closed",
+  "labels": [],
+  "author": "bruste77",
+  "created_at": "2026-03-17T09:07:57Z",
+  "github_updated_at": "2026-03-17T09:08:28Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidCastException`\r\n**Message:** Unable to cast object of type 'ListViewSubItem' to type 'BrightIdeasSoftware.OLVListSubItem'.\r\n\r\n### Stack Trace\r\n```\r\n   at OlvListViewHitTestInfo BrightIdeasSoftware.ObjectListView.LowLevelHitTest(int x, int y) in D:/a/mRemoteNG/mRemoteNG/ObjectListView/ObjectListView.cs:line 5222\r\n   at OlvListViewHitTestInfo BrightIdeasSoftware.ObjectListView.OlvHitTest(int x, int y) in D:/a/mRemoteNG/mRemoteNG/ObjectList...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yyztb",
+      "author": "bruste77",
+      "date": "2026-03-17T09:08:28Z",
+      "snippet": "Sorry Duplicated",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-17T09:08:28Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

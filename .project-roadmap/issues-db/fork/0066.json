@@ -1,0 +1,43 @@
+{
+  "number": 66,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Multiple confirmation dialogs on clise",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T10:52:16Z",
+  "github_updated_at": "2026-03-16T13:31:49Z",
+  "body_snippet": "I have 2 open connections.\nI clise mRemoteNG, it shows a \"Do you want to close all connections\" confirmation window:\n\n<img width=\"436\" height=\"114\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/fea07696-d9f1-425d-9048-985ed728b9a0\" />\n\nI click yes, then shows another confirmation: Do you want to close panel \"general\"?\n\n<img width=\"436\" height=\"156\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/bd99570e-501b-47d6-b2d1-fe6394a84c96\" />\n\nWhen I accept the close all, no o...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7ybxcY",
+      "author": "robertpopa22",
+      "date": "2026-03-16T12:38:30Z",
+      "snippet": "@zgabi Good catch — this is a UX issue. When you close the app with multiple connections:\n\n1. First dialog: \"Do you want to close all connections?\" (from `FrmMain.FormClosing`)\n2. Second dialog: \"Do you want to close panel General?\" (from `ConnectionWindow.FormClosing`)\n\nIf you already confirmed #1, dialog #2 is redundant. We'll fix this by skipping the per-panel confirmation when the user already confirmed the app-level \"close all\" dialog. Will be addressed in a future update.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ydA-k",
+      "author": "robertpopa22",
+      "date": "2026-03-16T13:31:48Z",
+      "snippet": "Fixed in `f67ee54bd`. The root cause: `IsClosing` flag was set **after** the `window.Close()` loop in `FrmMain_FormClosing()`. When each `ConnectionWindow.Connection_FormClosing()` checked `!FrmMain.Default.IsClosing`, it was still `false`, so it showed the second \"close panel\" dialog.\n\nFix: moved `IsClosing = true` before the window close loop (resets to `false` if close is cancelled).\n\nNow only one confirmation dialog appears on exit. Will be in the next nightly.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T13:31:49Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

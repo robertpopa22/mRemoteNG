@@ -1,0 +1,37 @@
+{
+  "number": 89,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "perf: 93% build speedup + fix #83 PBKDF2 CPU spike from runtime PropertyChanged saves",
+  "state": "closed",
+  "labels": [
+    "bug",
+    "performance"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-03-24T17:02:07Z",
+  "github_updated_at": "2026-03-24T17:02:18Z",
+  "body_snippet": "## Summary\n\nThis issue documents two major performance fixes discovered and implemented in a single session (2026-03-24):\n\n1. **Issue #83 root cause**: 100% CPU on one thread caused by PBKDF2 key derivation during unnecessary connection file saves\n2. **Build time regression**: no-op builds took 34s instead of 2.2s due to two independent MSBuild invalidation bugs\n\n---\n\n## Fix 1: PBKDF2 CPU spike from runtime PropertyChanged saves (#83)\n\n### Root Cause (from Process Explorer thread stack)\n\n@meyerg...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc71kHBk",
+      "author": "robertpopa22",
+      "date": "2026-03-24T17:02:17Z",
+      "snippet": "All three commits merged to main, 6173/6173 tests passed. Closing as completed.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-24T17:02:18Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

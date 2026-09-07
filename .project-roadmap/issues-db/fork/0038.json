@@ -1,0 +1,43 @@
+{
+  "number": 38,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ArgumentException: The directory name 'D:\\github\\mRemoteNG\\mRemoteNG\\bin\\x64\\Release\\Settings' does...",
+  "state": "closed",
+  "labels": [],
+  "author": "bruste77",
+  "created_at": "2026-03-04T07:42:45Z",
+  "github_updated_at": "2026-03-07T07:20:43Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentException`\r\n**Message:** The directory name 'D:\\github\\mRemoteNG\\mRemoteNG\\bin\\x64\\Release\\Settings' does not exist. (Parameter 'path')\r\n\r\n### Stack Trace\r\n```\r\n   at void System.IO.FileSystemWatcher.CheckPathValidity(string path)\r\n   at new System.IO.FileSystemWatcher(string path, string filter)\r\n   at new mRemoteNG.Config.Connections.Multiuser.FileConnectionsUpdateChecker(string connectionFilePath)\r\n   at void mRemoteNG.App.Startup.Cr...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7vQgQ6",
+      "author": "robertpopa22",
+      "date": "2026-03-06T20:52:12Z",
+      "snippet": "**Fixed.** The `FileConnectionsUpdateChecker` was creating a `FileSystemWatcher` for the `Settings` directory without ensuring it exists first. Added `Directory.CreateDirectory()` before the watcher initialization.\n\nThis crash occurs when running from a build directory where the Settings subfolder hasn't been created yet (portable edition first launch from a new location).\n\nWill be in the next nightly build.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7vXJW0",
+      "author": "robertpopa22",
+      "date": "2026-03-07T07:20:29Z",
+      "snippet": "Fixed in commit **[CENSORED!] Links to external GitHub repositories are not allowed** — the `ArgumentException` crash on startup when the Settings directory didn't exist has been resolved. The directory is now created automatically before use.\n\nAvailable in the latest **[CENSORED!] Links to external GitHub repositories are not allowed**. Please test and confirm.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-07T07:20:43Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

@@ -6,7 +6,7 @@
   "labels": [],
   "author": "meyergru",
   "created_at": "2026-04-27T06:24:53Z",
-  "github_updated_at": "2026-06-04T07:42:00Z",
+  "github_updated_at": "2026-06-04T13:30:47Z",
   "body_snippet": "The issue has reappeared. From your answer here:\n\nhttps://github.com/robertpopa22/mRemoteNG/issues/90#issuecomment-4294746530\n\n> **2. Close button doesn't actually close (it minimises)** This is working as designed when `CloseToTray` is on. Tools → Options → Appearance → uncheck `Close to Tray` and the X button quits the app. If you can still reproduce the \"X minimises\" behaviour with `Close to Tray` off, reopen and I'll dig in.\n> \n\nClosing the window works initially, but try ending an SSH sessi...",
   "our_status": "released",
   "priority": null,
@@ -276,12 +276,39 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE23dfg",
+      "author": "robertpopa22",
+      "date": "2026-06-04T09:42:25Z",
+      "snippet": "That trace nailed it, @meyergru — exactly what I was hoping for. The `[#110-diag]` lines show the precise sequence:\n\n1. You click the X → the main window (which was inactive, PuTTY had focus) gets activated.\n2. That activation makes the docking framework re-raise its active tab, which refocuses the embedded PuTTY — and PuTTY's focus call runs `SetForegroundWindow(PuTTY)` while the foreground had *just* become the main window (`fgWasMain=True`).\n3. That yanks foreground back to PuTTY a few millis...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE2__3w",
+      "author": "meyergru",
+      "date": "2026-06-04T10:01:33Z",
+      "snippet": "Now this works, thank you.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE4dYtg",
+      "author": "robertpopa22",
+      "date": "2026-06-04T13:30:47Z",
+      "snippet": "Fantastic — thank you for confirming, and for the genuinely outstanding bug-report work, @meyergru. This one took several rounds, and it only got solved because you kept reproducing it precisely and, crucially, ran the instrumented build and handed back that exact trace. That log was the whole ballgame — it turned a guessing game into a one-line root cause. Really appreciate the patience and rigor. 🙏\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-04T07:42:00Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-06-04T13:30:47Z",
+  "unread_comments": 11,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-06-04T13:30:47Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "meyergru confirmed fixed by ecfb8507f (PuttyBase.Focus NC-area guard); closed"
 }

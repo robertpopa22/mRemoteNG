@@ -1,0 +1,36 @@
+{
+  "number": 173,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Colored Tab color can't be selected",
+  "state": "closed",
+  "labels": [
+    "bug"
+  ],
+  "author": "ValleBL",
+  "created_at": "2026-08-25T06:12:24Z",
+  "github_updated_at": "2026-08-25T06:14:21Z",
+  "body_snippet": "**What happens** (and what you expected instead):\nWhen choosing tab color, an exception is thrown\n\n**Steps to reproduce:**\n\n1. Select connection\n2. Select Tab Color picker\n\n**Version** (Help → About, or the nightly filename):\nLatest Version v1.83.0 (Release 3659) Selfcontained\n\n**Environment** (OS version; RDP/SSH/VNC target if relevant; anything unusual — locale, multi-monitor, VM):\nAVD Jumphost\n\n**Log excerpt** (`%LOCALAPPDATA%\\mRemoteNG\\mRemoteNG.log` or `Settings\\mRemoteNG.log` for portable ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABQj3qrA",
+      "author": "ValleBL",
+      "date": "2026-08-25T06:14:07Z",
+      "snippet": "Dupe #156 ",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-08-25T06:14:21Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

@@ -6,7 +6,7 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-08-05T15:35:32Z",
+  "github_updated_at": "2026-08-08T10:26:19Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
   "our_status": "released",
   "priority": null,
@@ -244,12 +244,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABN3nUHw",
+      "author": "robertpopa22",
+      "date": "2026-08-08T10:26:18Z",
+      "snippet": "Great to hear — thanks for putting hours on it, that's the confirmation that actually matters.\n\nClosing this one. For the record, it turned out to be three separate defects behind the same report:\n\n1. **Writes into the install directory** — `databaseProfiles.json` and the `Plugins` folder were resolved relative to the exe, which is read-only under an MSI install in `C:\\Program Files`. Profiles now live in the user-writable settings location (with a one-time migration of any existing file), and t...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-05T15:35:32Z",
+  "comments_cursor": "2026-08-08T10:26:19Z",
   "unread_comments": 5,
-  "needs_action": false,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-08-08T10:24:56Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "reporter confirms stable after hours of testing; all 3 parts fixed (ProgFiles writes, GUID PK FormatException bf52a6457, safe-updates leak 1f00e9ebe)"
 }

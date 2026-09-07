@@ -2,13 +2,13 @@
   "number": 172,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Last opened sessions are not re-opened on next startup",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "meyergru",
   "created_at": "2026-08-22T16:06:37Z",
-  "github_updated_at": "2026-09-03T06:38:19Z",
+  "github_updated_at": "2026-09-07T07:00:46Z",
   "body_snippet": "**What happens** (and what you expected instead):\n\nI switched from a beta to the most current version 1.83.0 Release 3661 and found that the open connections from the last start are not carried over to a re-invocation as I was used to before.\n\nInstead, mRemoteNG always starts with no open tabs.\n\n**Steps to reproduce:**\n\n1. Open a few connections\n2. Close the program\n3. Start the program again - no open tabs.\n\n**Version** (Help → About, or the nightly filename):\n\nversion 1.83.0 Release 3661\n\n**En...",
   "our_status": "testing",
   "priority": null,
@@ -112,12 +112,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSjRVLQ",
+      "author": "robertpopa22",
+      "date": "2026-09-04T11:39:08Z",
+      "snippet": "You were right, and the fix we shipped made it worse — thank you for testing it the same day and saying so plainly.\n\nThe previous change made the saved dock layout the owner of reopening, and had the tree path skip every connection the layout *named*. The hole you found immediately: if the layout named a connection and then did not actually open it, both paths stood aside and the tab was simply lost. That is why you got nothing at all instead of duplicates.\n\nThe skip is now derived from what the...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABS8f_6w",
+      "author": "meyergru",
+      "date": "2026-09-07T07:00:46Z",
+      "snippet": "[Nightly Build — 20260905 (v1.83.0)](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) works.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-09-03T06:38:19Z",
-  "unread_comments": 3,
+  "comments_cursor": "2026-09-07T07:00:46Z",
+  "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-04T11:39:21Z",
+  "last_synced": "2026-09-07T09:30:33Z",
   "notes": "fix shipped; awaiting reporter confirm on nightly"
 }

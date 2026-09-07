@@ -1,0 +1,52 @@
+{
+  "number": 71,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "auto update window is shown every time when I run the program",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T14:56:14Z",
+  "github_updated_at": "2026-03-16T20:11:14Z",
+  "body_snippet": "When I start the program it always shows the following window:\n\n<img width=\"436\" height=\"269\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/315c769b-3e02-4de4-8fdb-aba81aa2df87\" />\n\nI tried to click all buttons. (use the suggested options, customize setting now - then clicked appyl in the shown settings dialog)\nIt seems that mRemoteNg is not saving that I already configured the auto update.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yheag",
+      "author": "robertpopa22",
+      "date": "2026-03-16T16:12:11Z",
+      "snippet": "Hey @zgabi, thank you so much for reporting this — great catch! 🎯\n\n## Root Cause\n\nWe traced this to a **settings provider wiring issue specific to .NET 10**. Here's what was happening:\n\nAll 17 settings classes (including the one storing `CheckForUpdatesAsked`) were missing the `[SettingsProvider]` attribute in the correct namespace. They relied entirely on a runtime workaround (`PortableSettingsInitializer.WireProvider()`) that programmatically rewires each property's provider at startup.\n\nThe p...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yiG5v",
+      "author": "zgabi",
+      "date": "2026-03-16T16:36:57Z",
+      "snippet": "Still shown every time when I start the program",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7ynAZf",
+      "author": "robertpopa22",
+      "date": "2026-03-16T20:11:14Z",
+      "snippet": "@zgabi thanks for confirming it's still happening — that led us to the real root cause! 🔍\n\nIn #75 you discovered that you run mRemoteNG from `C:\\Program Files\\` which is **read-only**. That's exactly the problem — the settings provider was trying to write the XML settings file next to the exe, failing silently, and losing all your preferences on every restart.\n\n**Fix (commit 1a9c578):** The provider now falls back to `%APPDATA%\\mRemoteNG\\` when the exe directory is not writable. Combined with th...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T20:11:14Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

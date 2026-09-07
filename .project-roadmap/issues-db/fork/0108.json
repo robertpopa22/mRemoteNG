@@ -1,0 +1,43 @@
+{
+  "number": 108,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Warning about unusable key file and I cannot find where that path even comes from...",
+  "state": "closed",
+  "labels": [],
+  "author": "meyergru",
+  "created_at": "2026-04-23T18:41:32Z",
+  "github_updated_at": "2026-05-23T12:13:32Z",
+  "body_snippet": "Some of my saved connections try to use an old key file and I cannot for the life of me find why/where this setting comes from. I see lines like this at the start of the PuTTY session:\n\n```\nUnable to use key file \"C:\\Users\\xxx\\.ssh\\id_ed25519\" (OpenSSH SSH-2 private key (new format))\nUsing username \"www\".\nAuthenticating with public key \"pageant@machine\" from agent\n...\n\n```\n\nYou said:\n\n> **3. Phantom key file prompt after install** That prompt comes from pageant (PuTTY's agent), not from mRemoteN...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbhhdA",
+      "author": "robertpopa22",
+      "date": "2026-05-23T11:19:39Z",
+      "snippet": "Found it — and my earlier answer on #90 was wrong, apologies. The path is **not** coming from pageant or the registry: **mRemoteNG itself was injecting it.**\n\nWhen a connection has no private key and no stored password, mRemoteNG auto-discovers a key from `~/.ssh/` and passes `-i <key>` to PuTTY (added in #1602). It was offering bare OpenSSH keys (`id_ed25519`, `id_rsa`, …). PuTTY/plink can only load a *new-format* OpenSSH key via `-i` on newer versions; older ones print exactly your message — `...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbqsow",
+      "author": "meyergru",
+      "date": "2026-05-23T12:13:32Z",
+      "snippet": "Yup, confirmed fixed.",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-05-23T12:13:32Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

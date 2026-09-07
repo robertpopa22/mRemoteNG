@@ -1,0 +1,34 @@
+{
+  "number": 78,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ObjectDisposedException: Cannot access a disposed object.\r\nObject name: 'System.Timers.Timer'.",
+  "state": "closed",
+  "labels": [],
+  "author": "vndnua",
+  "created_at": "2026-03-18T07:01:02Z",
+  "github_updated_at": "2026-03-19T06:42:25Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ObjectDisposedException`\r\n**Message:** Cannot access a disposed object.\r\nObject name: 'System.Timers.Timer'.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Timers.Timer.Start()\r\n   at void mRemoteNG.Config.Connections.Multiuser.RemoteConnectionsSyncronizer.OnUpdateCheckFinished(object sender, ConnectionsUpdateCheckFinishedEventArgs eventArgs) in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/Config/Connections/Multiuser/RemoteConnectionsSyncronizer.cs:line 99\r...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7zRUSj",
+      "author": "robertpopa22",
+      "date": "2026-03-18T10:32:31Z",
+      "snippet": "Fixed in `5e65420` — the `RemoteConnectionsSyncronizer.OnUpdateCheckFinished()` was calling `_updateTimer.Start()` after the timer had already been disposed during shutdown.\n\nAdded a `_disposed` flag that is set in `Dispose()` and checked before `Start()`.\n\nFix is in the upcoming nightly. Thank you for the crash report! 🙏",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-19T06:42:25Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

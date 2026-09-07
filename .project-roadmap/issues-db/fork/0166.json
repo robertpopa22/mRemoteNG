@@ -6,7 +6,7 @@
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-08-13T10:23:11Z",
-  "github_updated_at": "2026-08-15T17:24:37Z",
+  "github_updated_at": "2026-08-16T07:39:27Z",
   "body_snippet": "## Crash Report\n\n### Exception\n**Type:** `System.InvalidOperationException`\n**Message:** Invoke or BeginInvoke cannot be called on a control until the window handle has been created.\n\n### Stack Trace\n```\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object[] args, bool synchronous)\n   at object System.Windows.Forms.Control.Invoke(Delegate method, params object[] args)\n   at void VncSharpCore.VncClient.OnConnectionLost()\n   at void VncSharpCore.VncClie...",
   "our_status": "released",
   "priority": null,
@@ -44,12 +44,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPEigqA",
+      "author": "robertpopa22",
+      "date": "2026-08-16T07:39:26Z",
+      "snippet": "This is now verified against a real VNC server, which we previously had no way to do.\n\nThe crash was a race between VncSharpCore's background polling thread and the control's window handle being destroyed on dispose — the polling thread called back onto a handle that had already gone. Neither half of that happens without a live session, so no unit test could reach it, and installing a VNC server on the maintainer's workstation was not something we were willing to do.\n\nThere is now an isolated la...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T17:24:37Z",
+  "comments_cursor": "2026-08-16T07:39:27Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-08-16T07:39:54Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "verified live in lab; closed"
 }

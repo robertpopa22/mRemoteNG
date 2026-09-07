@@ -6,7 +6,7 @@
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-02-18T09:03:33Z",
-  "github_updated_at": "2026-02-18T15:53:45Z",
+  "github_updated_at": "2026-02-24T17:56:53Z",
   "body_snippet": "Something happened. The launch takes a long time. Saving confCons.xml also takes a long time.\nThe log file contains the line ‘INFO  - Connection deserialisation completed in 82947 ms.’\n\n```\n2026-02-18 10:22:42,646 [2] DEBUG - Registry settings loaded and applied asynchronously in RegistryLoader\n2026-02-18 10:22:42,656 [2] INFO  - mRemoteNG Connection Manager 1.81.0-beta.2 (Pre-release 3396) x64 starting.\n2026-02-18 10:22:42,663 [2] INFO  - User settings file: C:\\Users\\user\\AppData\\Local\\Profi-KO...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,30 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-02-18T15:53:45Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7rpPnn",
+      "author": "robertpopa22",
+      "date": "2026-02-24T16:58:10Z",
+      "snippet": "Thanks for the detailed report. Root cause analysis completed:\n\n### Why deserialization takes 81 seconds for 570 connections\n\nThe slowdown is caused by **cascading O(N) reflection operations** during XML deserialization:\n\n| Operation | Per Connection | Total (570) | Est. Time |\n|-----------|---|---|---|\n| Constructor reflection (95 inherited properties via `SetValue`) | 95 | 54,150 | ~15-20s |\n| Inheritance property assignments (106 × `GetProperties()`) | 106 | 60,420 | ~25-30s |\n| `Enum.TryPars...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7rqe-j",
+      "author": "robertpopa22",
+      "date": "2026-02-24T17:56:53Z",
+      "snippet": "**Fixed** in commits `f6dc535` and `0afa0cc`:\n\n### Root cause\nPBKDF2 with 600,000 iterations runs **per encrypted field** sequentially during XML deserialization.\n570 connections × 4 password fields × ~150ms/PBKDF2 = **~85 seconds**.\n\n### Fix (4 optimizations)\n1. **Parallel pre-decryption** — `Parallel.ForEach` with per-thread `XmlConnectionsDecryptor` instances (BouncyCastle GCM cipher is not thread-safe). Speedup: 81s / N_cores.\n2. **Cached `SecureString`** in `XmlConnectionsDecryptor` — avoid...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-24T17:56:53Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-18T18:21:48Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

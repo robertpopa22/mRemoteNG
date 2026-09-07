@@ -1,0 +1,34 @@
+{
+  "number": 112,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Is it possible to import sessions from MobaXterm?",
+  "state": "closed",
+  "labels": [],
+  "author": "learsw",
+  "created_at": "2026-04-29T10:55:40Z",
+  "github_updated_at": "2026-05-23T11:19:58Z",
+  "body_snippet": "Is it possible to import sessions from MobaXterm? If yes, how? Thanks",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbhiaQ",
+      "author": "robertpopa22",
+      "date": "2026-05-23T11:19:45Z",
+      "snippet": "Yes. **File → Import → Import from File**, then pick your MobaXterm sessions file. The file filter lists `*.moba`; if your MobaXterm export is `.mxtsessions`, either choose \"All files\" in the dialog or rename it to `.moba` — the content format is the same. mRemoteNG reads the `[Bookmarks]` sections and rebuilds the folder/session tree.\n\nTo get the file out of MobaXterm: right-click your sessions root → **Export sessions** (or copy the `[Bookmarks]` blocks from `MobaXterm.ini`).\n\nIf a particular ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-05-23T11:19:58Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

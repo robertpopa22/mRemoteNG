@@ -1,0 +1,97 @@
+{
+  "number": 74,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.InvalidCastException: Unable to cast object of type 'ListViewSubItem' to type 'BrightIdeasSoftware.OLV...",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T18:14:13Z",
+  "github_updated_at": "2026-03-18T10:58:39Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidCastException`\r\n**Message:** Unable to cast object of type 'ListViewSubItem' to type 'BrightIdeasSoftware.OLVListSubItem'.\r\n\r\n### Stack Trace\r\n```\r\n   at void BrightIdeasSoftware.ObjectListView.DrawAllDecorations(Graphics g, IList<OLVListItem> itemsThatWereRedrawn) in D:/a/mRemoteNG/mRemoteNG/ObjectListView/ObjectListView.cs:line 11413\r\n   at bool BrightIdeasSoftware.ObjectListView.HandleCustomDraw(ref Message m) in D:/a/mRemoteNG/mRemot...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7ykjOK",
+      "author": "zgabi",
+      "date": "2026-03-16T18:15:07Z",
+      "snippet": "Reproduce:\nImport a connections xml.\nOpen the Smart Groups node ans sub nodes.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yknde",
+      "author": "zgabi",
+      "date": "2026-03-16T18:18:26Z",
+      "snippet": "Crash report shows that this is non-fatal... Which means that the application si not termianted, but I had to kill it since the report windows was shown in an endless loop. (As soon as I closed it, a new was opened)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7ynAUL",
+      "author": "robertpopa22",
+      "date": "2026-03-16T20:11:10Z",
+      "snippet": "Hey @zgabi, thanks for the crash report and the reproduction steps — super helpful! 🙏\n\n## Root Cause\n\nThe crash happens in ObjectListView's `DrawAllDecorations` method which iterates sub-items assuming they're all `OLVListSubItem` objects:\n\n```csharp\nforeach (OLVListSubItem subItem in olvi.SubItems)  // InvalidCastException!\n```\n\nWhen Smart Groups are populated after importing connections, some list items end up with plain `ListViewSubItem` objects instead of the expected `OLVListSubItem` type. ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7y0WEo",
+      "author": "zgabi",
+      "date": "2026-03-17T10:13:07Z",
+      "snippet": "Now there is no exception, but the connections are not saved :D\n\nreproduce:\n- delete all setttings from filesystem (AppData\\Roaming\\mRemoteNG Connection Manager folder and/or Settings folder when the app folder is writeable) \n- delete old app, unzip the latest nightly\n- start the latest nighly\n- (accept auto update...)\n- right click on the connections, import from file\n- open the items in the tree, no exception => ok\n- file, save connections (ctrl-s)\n- clise the program and restart => connection...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7y0cbw",
+      "author": "zgabi",
+      "date": "2026-03-17T10:17:25Z",
+      "snippet": "When I import the connections, they will be visible in the Smart Groups, but not in the Connections\nWhen I try to move them to the Connections, it shows that they aready exists, see screenshot.. you can see that the Connections/mremote is empty, but shows: \"This node is already in this folder\"\n\n<img width=\"303\" height=\"418\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/bba718c7-1f0f-4396-ae18-d1c32a425b33\" />\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7y86Rf",
+      "author": "robertpopa22",
+      "date": "2026-03-17T15:55:19Z",
+      "snippet": "@zgabi, update on the two remaining issues you reported here:\n\n### 1. Connections not saved after import → **Fixed in `47416d4`** ✅\n\nThis was the same root cause as #75 — the settings provider conflict caused settings (including the connection file path) to not persist. After the fix, imported connections should now survive a restart.\n\n### 2. Connections visible in Smart Groups but not in Connections tree\n\nThis one we need your help to verify — it might have been a side effect of the settings is...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7y9WAo",
+      "author": "zgabi",
+      "date": "2026-03-17T16:10:24Z",
+      "snippet": "It is not the same issue as #75.\n\nThe settings are saved to mRemoteNG.settings file, which is using the .NET's ApplicationSettingsBase class.\nThe connections are saved to an xml file. (However the .settings file is also xml, but that different)\n\nSo this issue is NOT fixed.\n\n(Since I found the soluition to #75, I wouldn't have reported this bug if that fixed this issue it too)\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7zRUno",
+      "author": "robertpopa22",
+      "date": "2026-03-18T10:32:45Z",
+      "snippet": "@zgabi — new fix in `91963a4` specifically for the import issue! 🎯\n\n**Root cause found:** When `HandleCollectionChanged` received an `Add` event for imported connections, it called `AddObjects()` which adds items at the **root level** of the TreeListView — not as children of the destination container. The `sender` was always `ConnectionTreeModel` (event chain replaces sender at each level), so the else-branch with proper parent refresh was never reached.\n\n**Fix:** For `Add` events, check `item.P...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-18T10:58:39Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

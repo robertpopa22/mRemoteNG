@@ -1,0 +1,79 @@
+{
+  "number": 81,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "SQL Server Connection Problem",
+  "state": "closed",
+  "labels": [],
+  "author": "kaansengul",
+  "created_at": "2026-03-19T11:18:48Z",
+  "github_updated_at": "2026-04-26T13:10:15Z",
+  "body_snippet": "I did clean install and wrote SQL Server connection properties (IP, dbo account username and password). If I hit \"Test Connection\" it does not indicate success or not. If I hit \"Apply\", application freezes.\n\nI'm using SQL Server 2022 on Linux. I can successfully connect via SSMS. ",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc70Zd2x",
+      "author": "robertpopa22",
+      "date": "2026-03-20T18:51:12Z",
+      "snippet": "Hi @kaansengul, thanks for reporting! \n\n**About \"Test Connection\" not showing results:** The test button should show a spinner and then success/failure message. If nothing happens, it could be a UI rendering issue. Can you wait 10-15 seconds after clicking? The SQL connection attempt has a timeout.\n\n**About \"Apply\" freezing:** This is a known limitation. When you click Apply with \"Use SQL Server\" enabled, the application tries to connect to the SQL database **synchronously on the UI thread** to ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70Zumc",
+      "author": "robertpopa22",
+      "date": "2026-03-20T19:04:27Z",
+      "snippet": "Fixed in `f8914dc`! 🔧\n\nThe SQL connection now runs on a **background thread** with:\n- 30-second timeout\n- Spinner + \"Connecting...\" feedback while connecting\n- All SQL controls disabled during the operation\n- Success/failure message shown when done\n\nThe UI will no longer freeze when Apply is clicked. The fix is in the upcoming nightly build.\n\nPlease test and let us know! 🙏",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc73VYjk",
+      "author": "kaansengul",
+      "date": "2026-03-29T06:50:12Z",
+      "snippet": "When I hit \"Apply\" button I got below error:\n\n```\n---------------------------\nError (3/29/2026 9:49:40 AM)\n---------------------------\nRetrieving database version failed. System.TypeInitializationException: The type initializer for 'Microsoft.Data.SqlClient.TdsParser' threw an exception.\n\n ---> System.TypeInitializationException: The type initializer for 'Microsoft.Data.SqlClient.SNILoadHandle' threw an exception.\n\n ---> System.BadImageFormatException: An attempt was made to load a program with ...",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__LIf",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:36:25Z",
+      "snippet": "Several SQL-side improvements landed on `main` (see commit `bbdadfc11`): connection retry, schema repair on first open, improved error surfacing, dark-theme fixes on the SQL Options page.\n\nCould you grab the nightly and confirm whether your specific symptom still reproduces? If yes, please paste the exact error + the `[SqlDataProvider]` log lines from `mRemoteNG Connection Manager.log`.",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__TgP",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:42:17Z",
+      "snippet": "Addressed on `main` (see earlier comment for commit refs). Closing as resolved; please reopen with a fresh stack trace / log snippet if it reproduces on the latest [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABAZ38ow",
+      "author": "kaansengul",
+      "date": "2026-04-26T13:10:15Z",
+      "snippet": "I've tested with the latest nightly build. It is not blocking the main thread ok but it giving me this error when I hit \"Apply\" button:\n\n```\n---------------------------\nError (4/26/2026 4:07:57 PM)\n---------------------------\nVerifyDatabaseVersion (Config.Connections.Save) failed. Incorrect syntax near the keyword 'DEFAULT'.\n\nIncorrect syntax near the keyword 'DEFAULT'.\n\nIncorrect syntax near '`'.\n---------------------------\nOK   \n---------------------------\n```\n\n\nBTW I th'nk I need to enter \"Da...",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-26T13:10:15Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

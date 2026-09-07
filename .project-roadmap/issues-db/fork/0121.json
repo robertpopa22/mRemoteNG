@@ -6,7 +6,7 @@
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-05-28T10:30:57Z",
-  "github_updated_at": "2026-06-01T05:38:00Z",
+  "github_updated_at": "2026-06-01T08:52:52Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ObjectDisposedException`\r\n**Message:** Cannot access a disposed object.\r\nObject name: 'mRemoteNG.UI.Window.ConnectionTreeWindow'.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.Form.CreateHandle()\r\n   at IntPtr System.Windows.Forms.Control.get_Handle()\r\n   at void WeifenLuo.WinFormsUI.Docking.DockContentHandler.set_DockPanel(DockPanel value)\r\n   at void WeifenLuo.WinFormsUI.Docki...",
   "our_status": "released",
   "priority": null,
@@ -53,12 +53,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEaVRCA",
+      "author": "robertpopa22",
+      "date": "2026-06-01T08:52:51Z",
+      "snippet": "Wonderful — thank you for taking the time to grab the nightly and confirm, @vndnua! Glad it's working cleanly now. Your auto-generated crash report is what pinned this one down, so genuinely appreciate it. Closing as resolved; don't hesitate to reopen or file a new one if anything else turns up.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-01T05:38:00Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-06-01T08:52:52Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-06-01T08:52:58Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "reporter vndnua confirmed fixed on nightly (7beb8e952); closed"
 }

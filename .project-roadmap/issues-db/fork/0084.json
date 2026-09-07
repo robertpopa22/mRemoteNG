@@ -1,0 +1,52 @@
+{
+  "number": 84,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.TypeInitializationException: The type initializer for 'System.Resources.Extensions.BinaryFormat.BinaryFormatt...",
+  "state": "closed",
+  "labels": [],
+  "author": "BrankoH",
+  "created_at": "2026-03-21T08:26:24Z",
+  "github_updated_at": "2026-04-22T08:42:16Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.TypeInitializationException`\r\n**Message:** The type initializer for 'System.Resources.Extensions.BinaryFormat.BinaryFormattedObject' threw an exception.\r\n\r\n### Stack Trace\r\n```\r\n   at new System.Resources.Extensions.BinaryFormat.BinaryFormattedObject(Stream stream, Options options)\r\n   at object System.Resources.Extensions.DeserializingResourceReader.ReadBinaryFormattedObject()\r\n   at object System.Resources.Extensions.DeserializingResourceRead...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc70_-V4",
+      "author": "robertpopa22",
+      "date": "2026-03-23T12:55:48Z",
+      "snippet": "Hi @BrankoH,\n\nThis crash is caused by a known .NET 10 issue with binary resource deserialization (`BinaryFormattedObject`). Your build version `1.80.2.3424` is an older nightly — this has been addressed in newer builds.\n\nPlease download the latest nightly from [Releases](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) — it should show version **1.82.0-beta.3** in Help → About. \n\nIf the crash persists on the new build, please let us know!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__LNG",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:36:28Z",
+      "snippet": "This is the classic .NET 8+ removal of `BinaryFormatter`. If you upgrade to the nightly build it ships the replacement serializer path (see commit `ffdd4b4b3` area and the `BinaryFormat` compatibility shim). Please retry on the latest nightly and let us know whether the initializer still throws.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__Tc0",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:42:15Z",
+      "snippet": "Addressed on `main` (see earlier comment for commit refs). Closing as resolved; please reopen with a fresh stack trace / log snippet if it reproduces on the latest [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-22T08:42:16Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

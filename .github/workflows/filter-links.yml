@@ -19,10 +19,13 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            // Allow: own repo, upstream repo, and image/asset uploads
-            const allowed = '(?!user-attachments\\/assets\\/)(?!robertpopa22\\/mRemoteNG)(?!mRemoteNG\\/mRemoteNG)';
+            // Allow: own repo, upstream repo, and every user-attachments upload. Images are
+            // served under /user-attachments/assets/, but a log or settings file dropped on an
+            // issue lands under /user-attachments/files/ — allowing only the former censored two
+            // reporters' own diagnostic files in one week (#171, #179).
+            const allowed = '(?!user-attachments\\/)(?!robertpopa22\\/mRemoteNG)(?!mRemoteNG\\/mRemoteNG)';
             const githubRepoRegex = new RegExp(
-              `\\[[^\\]]*\\]\\((?!https?:\\/\\/github\\.com\\/user-attachments\\/assets\\/)[^\\)]*https?:\\/\\/github\\.com\\/${allowed}[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+[^\\s)]*\\)|https?:\\/\\/github\\.com\\/${allowed}[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+[^\\s)]*`,
+              `\\[[^\\]]*\\]\\((?!https?:\\/\\/github\\.com\\/user-attachments\\/)[^\\)]*https?:\\/\\/github\\.com\\/${allowed}[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+[^\\s)]*\\)|https?:\\/\\/github\\.com\\/${allowed}[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+[^\\s)]*`,
               'gi'
             );
             

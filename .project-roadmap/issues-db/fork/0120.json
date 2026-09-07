@@ -6,7 +6,7 @@
   "labels": [],
   "author": "kaansengul",
   "created_at": "2026-05-26T16:01:41Z",
-  "github_updated_at": "2026-06-23T13:25:37Z",
+  "github_updated_at": "2026-07-01T17:52:52Z",
   "body_snippet": "First I wrote server name, login and password (for SQL Server Auth), then it gave me this error:\n\n```\n---------------------------\nError (5/25/2026 11:48:06 PM)\n---------------------------\nVerifyDatabaseVersion (Config.Connections.Save) failed. Cannot find the object \"tblExternalTools\" because it does not exist or you do not have permissions.\n---------------------------\nOK   \n---------------------------\n```\n\nThen I wrote Database name in field \"Database\" as \"mRemoteNG\", then it gave me this error...",
   "our_status": "testing",
   "priority": null,
@@ -142,7 +142,7 @@
       "date": "2026-05-27T11:32:21Z",
       "snippet": "Thanks for the detailed report — both errors are already understood and being fixed under #113.\n\n- **First error** (`Cannot find the object \"tblExternalTools\"`): this happens when the **Database** field is left empty, so mRemoteNG connects to the server's default database instead of the one holding your tables. Filling in the database name (as you did) is the right move.\n- **Second error** (`Incorrect syntax near 'DEFAULT'` … near a backtick): a genuine bug in the schema-upgrade steps that run w...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -151,8 +151,8 @@
       "date": "2026-05-31T16:22:31Z",
       "snippet": "I've tested the latest nightly build, it works except I have write database name. Maybe it can be \"mRemoteNG\" as default value.\n\nAnd I think that setting page requires a new design.",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABEW6HvQ",
@@ -160,7 +160,7 @@
       "date": "2026-05-31T17:00:04Z",
       "snippet": "Thanks for testing the nightly and confirming it works, @kaansengul! On your two follow-ups:\n\n- **Default database name:** done — the **Database** field now defaults to `mRemoteNG` (`b1b8da832`), so a fresh configuration no longer falls back to the server's default database (which is what triggered the `tblExternalTools` \"cannot find the object\" error). It'll be in an upcoming nightly; existing saved values are left as-is.\n- **Settings page redesign:** noted. If you can point at what specificall...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -169,8 +169,8 @@
       "date": "2026-05-31T17:36:05Z",
       "snippet": "Some notes:\n- There is no need \"simple\" and \"advanced\" tab panels, just use \"advanced\" \n- Rename \"Autentifcation\" to \"Authentication\"\n- Rename \"login\" to \"Username\". (Also here there is a bug. After you enter username hit \"OK\" then exit and run app again, username field is empty)\n- There are so many spaces around fields.\n- Even it is a personal computer there is a warning on top of the screen: \"Some settings are determined by your company.\"",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABEaVQZQ",
@@ -178,7 +178,7 @@
       "date": "2026-06-01T08:52:50Z",
       "snippet": "Thank you so much for the detailed, hands-on feedback, @kaansengul — testers who actually click through every field and report each rough edge are exactly what makes this fork better. I went through all five notes:\n\n**Fixed now (`aeeea68d8`, next nightly):**\n- **Username empties after restart** — great catch, this was a real bug. Loading the saved settings re-selected the auth type, and that handler was wiping the username field right after it had been loaded; the empty value then got saved. The...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -187,8 +187,8 @@
       "date": "2026-06-05T06:39:25Z",
       "snippet": "Now I realize two things:\n - First startup is so slow. In the log file it indicates: \"[Startup] LoadConnections: 54490ms\"\n - When it is done, it gives this error: \"RDP ActiveX control creation timed out after 10 seconds.\"",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABE_tO6w",
@@ -196,7 +196,7 @@
       "date": "2026-06-05T09:47:35Z",
       "snippet": "Thanks for the follow-up, @kaansengul — glad the original SQL/username issue is sorted. These two new symptoms look separate from that, so let me get the right detail to chase them:\n\n**1. `LoadConnections: 54490ms` (54 seconds)** — that's far beyond normal (startup is usually ~1s even with a couple hundred connections), so something specific is going on. Could you tell me:\n- Roughly how many connections are in your tree?\n- Is your connection file (`confCons.xml`) on a **local disk** or a **netwo...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -205,8 +205,8 @@
       "date": "2026-06-05T10:04:08Z",
       "snippet": "Answers:\n1) I've only set SQL server connection and in it, 132 connections are there. confCons.xml is in local.\n2) No, it's not checked but I realize that even it is not checked in, it tries to connect last session(s)",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABFRoh8Q",
@@ -214,7 +214,7 @@
       "date": "2026-06-08T12:31:19Z",
       "snippet": "Thanks, that detail cracked it — \"unchecked but it still reconnects last sessions\" pointed straight at a real bug. 🎯\n\nThere were **two** separate \"reopen last session\" mechanisms, and only one of them honored your **Reconnect on startup** checkbox. The other — the one that restores your saved window layout — was reopening every connection tab that was open when you last closed mRemoteNG, *regardless* of that setting. With your 132-connection SQL setup that's a lot of sessions firing at once, whi...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -223,7 +223,7 @@
       "date": "2026-06-11T16:38:42Z",
       "snippet": "Found it, @kaansengul — and your 54s number ended up matching the math exactly.\n\n**Root cause:** after loading your connections from SQL Server (which itself is fast), mRemoteNG writes a local offline-fallback cache of the connection tree. That cache write re-encrypts every stored password with PBKDF2 at 600,000 iterations — and it was deriving a **fresh key for every single field**. 132 connections × ~0.4s per derivation on a typical laptop ≈ 54 seconds, all spent on the startup path. (The same...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -232,7 +232,7 @@
       "date": "2026-06-12T04:29:18Z",
       "snippet": "One more startup win landed on top of yesterday's fix: the schema check that runs before loading your connections was issuing ~200 sequential queries against the database on every startup — it's now a single query (`0ff3a8862`). If your SQL Server is remote, this shaves a few extra seconds on top of the PBKDF2 fix.\n\nGrab tomorrow's nightly (or any build after this commit) for the retest — it includes both fixes, and the `[Startup] LoadConnections:` line should now be well under a second.\n",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -241,8 +241,8 @@
       "date": "2026-06-12T04:35:51Z",
       "snippet": "It is fast right now but, RDP connection broken!",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABF4DZ_Q",
@@ -250,7 +250,7 @@
       "date": "2026-06-12T08:51:26Z",
       "snippet": "Great news on the startup time, @kaansengul — thanks for confirming the fixes landed.\n\nFor the RDP problem I need more detail, because neither perf fix touches the RDP connection path:\n\n1. **What exactly happens?** An error message (e.g. \"RDP ActiveX control creation timed out\"), an authentication failure, or a tab that opens but stays blank/black?\n2. **When does it happen** — when you open a connection manually (double-click in the tree), or are you referring to the tabs that used to reconnect ...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -259,8 +259,8 @@
       "date": "2026-06-12T19:57:46Z",
       "snippet": "Answers:\n\n1. When I double click connection, it act like the connection drops. Shows me the name of connection + Connect button\n2. double click\n3. I have tried both checked & unchecked, it is same\n4. Log file is empty",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABHDfqdQ",
@@ -268,7 +268,7 @@
       "date": "2026-06-22T12:42:06Z",
       "snippet": "Thanks — that \"shows the connection name + a Connect button\" screen is the disconnected state, so the RDP session is either closing immediately or never establishing. An empty log usually means the failure happens before anything gets logged (e.g. the RDP ActiveX control failing to initialize), so I need to narrow where it breaks:\n\n1. **Is it only RDP, or every protocol?** Please try a non-RDP connection (SSH/VNC/HTTP) to the same or any host. If those open fine, the problem is specifically the ...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -277,8 +277,8 @@
       "date": "2026-06-22T19:55:13Z",
       "snippet": "I've downloaded both msi and zip for latest nighly, 20260622 and did the connection test. Self contained works for both RDP and SSH but MSI doesn't. In the log files the error is:\n`'System.__ComObject' does not contain a definition for 'UIParentWindowHandle'\n2026-06-22 22:48:18,273 [2] ERROR - RDP SetProps failed!\nCould not load type 'ExternalConnectors.OP.OnePasswordCliException' from assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.\n   at void mRemoteNG.Conn...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABHOQvaw",
@@ -286,14 +286,23 @@
       "date": "2026-06-23T13:25:37Z",
       "snippet": "Thanks, that log is the smoking gun. Here's what's happening:\n\n`ExternalConnectors.dll` (and a few other helper assemblies) are built with the default file version **1.0.0.0**, which never changes from one nightly to the next, while `mRemoteNG.exe` carries the real version. When you install a new MSI **over a previous one**, two Windows Installer rules combine against us:\n\n1. Every nightly MSI ends up with the same product version (the prerelease suffix is stripped), so the installer didn't even...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIZkTLg",
+      "author": "kaansengul",
+      "date": "2026-07-01T17:52:52Z",
+      "snippet": "With the latest nightly it is working..",
+      "is_ours": false,
+      "analyzed": true,
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-23T13:25:37Z",
+  "comments_cursor": "2026-07-01T17:52:52Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-06-29T17:08:05Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "fix shipped aa4323804 (MSI afterInstallInitialize + AllowSameVersionUpgrades); awaiting reporter confirm on next nightly MSI"
 }

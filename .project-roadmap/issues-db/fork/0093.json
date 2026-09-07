@@ -1,0 +1,43 @@
+{
+  "number": 93,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ArgumentException: The directory name 'D:\\github\\mRemoteNG\\mRemoteNG\\bin\\x64\\Release\\Settings' does...",
+  "state": "closed",
+  "labels": [],
+  "author": "geraldgg",
+  "created_at": "2026-04-02T08:02:07Z",
+  "github_updated_at": "2026-04-22T08:42:45Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentException`\r\n**Message:** The directory name 'D:\\github\\mRemoteNG\\mRemoteNG\\bin\\x64\\Release\\Settings' does not exist. (Parameter 'path')\r\n\r\n### Stack Trace\r\n```\r\n   at void System.IO.FileSystemWatcher.CheckPathValidity(string path)\r\n   at new System.IO.FileSystemWatcher(string path, string filter)\r\n   at new mRemoteNG.Config.Connections.Multiuser.FileConnectionsUpdateChecker(string connectionFilePath)\r\n   at void mRemoteNG.App.Startup.Cr...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7__KoJ",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:36:03Z",
+      "snippet": "The path in your crash points to a build output folder on the maintainer's dev machine (`D:\\github\\mRemoteNG\\mRemoteNG\\bin\\x64\\Release\\Settings`). This means the `.exe` being run was launched from inside the cloned source tree, not from a packaged build.\n\nGrab a proper release or nightly ZIP / MSI from the [releases page](https://github.com/robertpopa22/mRemoteNG/releases) and the Settings folder will be created under `%APPDATA%\\mRemoteNG` (or next to the exe in portable mode).\n\nIf you want to c...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__UJ5",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:42:44Z",
+      "snippet": "Closing as not-a-bug — the crash was triggered by running `mRemoteNG.exe` from a source-tree build output on a machine where that path does not exist. Using a packaged release or nightly ZIP/MSI avoids the issue. Reopen if it reproduces from a packaged build.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-22T08:42:45Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

@@ -1,0 +1,43 @@
+{
+  "number": 70,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "mRemoteNG.exe process is not terminated after I close the window",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T14:53:35Z",
+  "github_updated_at": "2026-03-16T18:02:55Z",
+  "body_snippet": "It still shown in the taskmanager minutes after I close the program.\nNormally it is not a problem for me, since i close it very rarely, but now when I always upgrade to the latest nightly I have to kill it every time.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yhd8t",
+      "author": "robertpopa22",
+      "date": "2026-03-16T16:11:57Z",
+      "snippet": "Hey @zgabi! 👋\n\nGreat catch — especially annoying when you're upgrading to every nightly! 😄\n\n**Root cause:** Two threads (`SaveConnectionsAsync` and `LoadConnectionsAsync`) were created as **foreground threads** (the default in .NET). The CLR won't terminate the process until ALL foreground threads finish. So if a save operation was still running when you closed the window, the process would linger in Task Manager until it completed — potentially for minutes on slower disks or with many connectio...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ykSHB",
+      "author": "zgabi",
+      "date": "2026-03-16T18:02:55Z",
+      "snippet": "It seems that this issue is solved",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T18:02:55Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

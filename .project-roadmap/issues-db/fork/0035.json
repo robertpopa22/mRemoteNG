@@ -1,0 +1,52 @@
+{
+  "number": 35,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[v1.82.0-beta.1] Selfcontained version still asks for .NET 10",
+  "state": "closed",
+  "labels": [],
+  "author": "judaspriest",
+  "created_at": "2026-03-03T13:07:52Z",
+  "github_updated_at": "2026-03-07T07:20:40Z",
+  "body_snippet": "Although @robertpopa22 mentioned in #8 that this is fixed in the next nighlty build, I still have the issue with version v1.82.0-beta.1\n\nTested with: \nv1.81.0 Latest Stable - Selfcontained x64 Windows\nv1.82.0-beta.1 NB 3148 - Selfcontained x64 Windows\n\n\nAfter the launch of mRemoteNG.exe I get the error message:\n\nMissing Runtime: .NET 10.0\n.NET 10.0.0 runtime library is required\n\n\nPlease download and install latest runtime:\n\nhttps://..../runtime-desktop-10.0.3-windows-x64-installer\n\n\nTo properly ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7vEZqO",
+      "author": "judaspriest",
+      "date": "2026-03-06T10:29:54Z",
+      "snippet": "UPDATE:\n\nI can confirm, that this affects BOTH selfcontained versions: x86 + x64\n\n20260303-v1.82.0-beta.1-NB-(3419)/mRemoteNG-20260303-v1.82.0-beta.1-NB-3418-x86-selfcontained.zip\n20260303-v1.82.0-beta.1-NB-(3419)/mRemoteNG-20260303-v1.82.0-beta.1-NB-3418-x64-selfcontained.zip\n\n\nTested on:\nWindows 11 Version 23H2 (Build 22631.6649), where .NET Desktop Runtime (8, 9, 10) was NEVER installed before and so the necessary registry key for mRemoteNG to launch (=hardcoded check for this registry path) ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7vQfKF",
+      "author": "robertpopa22",
+      "date": "2026-03-06T20:51:30Z",
+      "snippet": "Thanks for the detailed report and the registry key analysis @judaspriest!\n\n**Root cause identified:** The self-contained build used a compile-time check (`#if !SELF_CONTAINED`) to skip the .NET registry check, but our CI builds with `Configuration=Release` which doesn't define `SELF_CONTAINED`. So the registry check ran even in self-contained builds.\n\n**Fix applied:** Replaced the compile-time check with a **runtime detection** — the app now checks for `coreclr.dll` in the application directory...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7vXJMc",
+      "author": "robertpopa22",
+      "date": "2026-03-07T07:20:08Z",
+      "snippet": "Fixed in commit **[CENSORED!] Links to external GitHub repositories are not allowed** — the self-contained build now correctly bundles the .NET runtime without prompting for installation.\n\nAvailable in the latest **[CENSORED!] Links to external GitHub repositories are not allowed**. Please test and confirm.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-07T07:20:40Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

@@ -21,8 +21,8 @@
       "date": "2026-02-20T21:43:42Z",
       "snippet": "Also, I'd like to install this version while keeping my install of mRemoteNG version 1.77.1.27654 intact in case I need to go back. I originally installed from the installer, not portable. Is there a way to install v1.80.2 other than extracting over an existing mRemoteNG installation or building from source?",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc7rpPVl",
@@ -30,7 +30,7 @@
       "date": "2026-02-24T16:57:56Z",
       "snippet": "Good question! **Yes, CVE-2023-30367 is fully mitigated in this fork (v1.81.0).**\n\n### What was CVE-2023-30367?\nThe vulnerability allowed extraction of plaintext credentials from memory dumps because configuration files were fully decrypted into memory at startup and passwords remained in cleartext throughout the application lifetime.\n\n### How it's mitigated in this fork:\n\n1. **On-demand password decryption** — Passwords are only decrypted when a connection is initiated, not kept in plaintext me...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -39,13 +39,13 @@
       "date": "2026-02-24T17:54:56Z",
       "snippet": "Thank you!",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     }
   ],
   "comments_cursor": "2026-02-24T17:54:56Z",
-  "unread_comments": 2,
-  "needs_action": true,
+  "unread_comments": 0,
+  "needs_action": false,
   "waiting_for_us": true,
   "last_synced": "2026-05-25T15:49:53Z",
   "notes": ""

@@ -1,0 +1,88 @@
+{
+  "number": 82,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Why build v1.82.0-beta.3 is seen as 1.80.2.3442?",
+  "state": "closed",
+  "labels": [],
+  "author": "Alessio71",
+  "created_at": "2026-03-19T16:31:33Z",
+  "github_updated_at": "2026-03-23T13:58:58Z",
+  "body_snippet": "Is not a real issue, is more a simple question, why build v1.82.0-beta.3 is seen as 1.80.2.3442?\nWhen checking for updates it states that there is a newer version (1.81.0) available\n\nThanks,\nAlex",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc70ZcBd",
+      "author": "robertpopa22",
+      "date": "2026-03-20T18:49:49Z",
+      "snippet": "Hi @Alessio71! \n\nThe version `1.80.2.3442` you're seeing is likely from an older build or a cached/stale installation. The current nightly builds show `1.82.0-beta.3` correctly.\n\nTo verify:\n1. Download the latest nightly from https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly\n2. Check **Help → About** — should show `1.82.0-beta.3`\n3. The Windows file properties (right-click → Properties → Details) shows `AssemblyFileVersion` which is `1.82.0.3435`\n\nRegarding the update checker showin...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70abXt",
+      "author": "zgabi",
+      "date": "2026-03-20T19:39:51Z",
+      "snippet": "latest nightly (nightly-20260320-v1.82.0-beta.3-f8914dc) is still hows 1.80.2\n\n@Alessio71 I'm not really sure that there is any real human behind this project :) Most of the fixes are AI; and usually does not fix the problem..",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc70lA3F",
+      "author": "Alessio71",
+      "date": "2026-03-21T13:29:15Z",
+      "snippet": "@zgabi you're right is still 1.80.2.3444, even from file properties shows that\nSo Rebert is a kind of AI agent, right? 😮",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7084gD",
+      "author": "robertpopa22",
+      "date": "2026-03-23T10:34:38Z",
+      "snippet": "<img width=\"871\" height=\"437\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/99d572e5-737b-4584-b52b-968c929034f6\" />",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7088tQ",
+      "author": "robertpopa22",
+      "date": "2026-03-23T10:37:20Z",
+      "snippet": "😊😊😊😊😊❤️🙏🤗\nStill human, I hope... Asked my wife to check... She said, for the moment, still human :)))))\n\nSorry, some checks, I miss... I configured now the setup to manually check what can be done from my side. \n\nThanks for your support guys!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc71ANu7",
+      "author": "Alessio71",
+      "date": "2026-03-23T13:07:02Z",
+      "snippet": "I'm sorry if I offended you in any way.\nI've check the latest ZIP (I'm not using MSI but I don't think it makes any difference), simply extracting the mRemoteNG-nightly-20260320-v1.82.0-beta.3-f8914dc-x64.zip file and getting the file's Property, Details, File version, of the mRemote.exe file, I get 1.80.2 (Release 3444) x64\n\n<img width=\"960\" height=\"613\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/94322795-02b1-4ab3-a333-c74ff0b67f2a\" />\n\nI'm going to attach the screenshot here ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc71BkCZ",
+      "author": "robertpopa22",
+      "date": "2026-03-23T13:58:58Z",
+      "snippet": "@Alessio71 No offense taken at all! You were absolutely right — the version was wrong, and your report helped us find and fix a real bug.\n\n**Root cause:** The build system had a T4 template with hardcoded version `1.80.2` that was overwriting the correct version during compilation. This has been fixed in commit `7842324`.\n\n**The nightly you downloaded (2026-03-20, f8914dc) was built BEFORE the fix.** A new nightly was just published today — please download it from [Releases](https://github.com/r...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-23T13:58:58Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

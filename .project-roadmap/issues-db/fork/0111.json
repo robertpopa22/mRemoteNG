@@ -1,0 +1,34 @@
+{
+  "number": 111,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Index was out of range on nested Directory",
+  "state": "closed",
+  "labels": [],
+  "author": "Fanatic-zer0",
+  "created_at": "2026-04-28T09:50:14Z",
+  "github_updated_at": "2026-05-23T11:19:56Z",
+  "body_snippet": "```\nException Message\n\"Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')\"\n\nStack trace\n   at OLVListItem BrightIdeasSoftware.TreeListView.MakeListViewItem(int itemIndex)\n   at void System.Windows.Forms.ListView.OnRetrieveVirtualItem(RetrieveVirtualItemEventArgs e)\n   at ListViewItem System.Windows.Forms.ListView+ListViewNativeItemCollection.GetItemByIndexInternal(int index, bool throwInVirtualMode)\n   at void System.Windows.Forms.ListView....",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbhiDg",
+      "author": "robertpopa22",
+      "date": "2026-05-23T11:19:43Z",
+      "snippet": "This `TreeListView.MakeListViewItem` index crash (a race in the virtual list when the tree model changes during a redraw) was fixed after your build. You're on **1.81.0-beta.4 (build 3411)**; the guard for this exact `ArgumentOutOfRangeException` landed in builds after that (issues #52 / #56) and is in every current nightly.\n\nPlease update to the latest nightly and it should be gone: https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly\n\nIf you can still reproduce it on a current build,...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-05-23T11:19:56Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

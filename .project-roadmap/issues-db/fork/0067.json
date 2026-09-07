@@ -1,0 +1,70 @@
+{
+  "number": 67,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Close confirmation icons",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T13:47:27Z",
+  "github_updated_at": "2026-03-17T16:21:45Z",
+  "body_snippet": "Issue #62  is not fixed, I attached the screenshot to that issue. I was not able to reopen it, so I created a new issue.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yfC-8",
+      "author": "robertpopa22",
+      "date": "2026-03-16T14:48:34Z",
+      "snippet": "Thanks for re-reporting — a new nightly build is being generated now.\n\n@zgabi please re-test the close confirmation icons with the upcoming nightly and let us know if the issue persists. We'll investigate further based on your feedback.",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yf9-A",
+      "author": "zgabi",
+      "date": "2026-03-16T15:22:27Z",
+      "snippet": "Tried nightly-20260316-v1.82.0-beta.3-43f4df4-x64\nStill not OK\n\n<img width=\"436\" height=\"114\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/94cd9168-6696-4f47-a4a8-58e6db697ed7\" />\n\nThank you for all the fixes you made for me. I really appreciate it. Do not be angry for all my bugreports, I just want to report all issues I found :) ",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ygYPT",
+      "author": "robertpopa22",
+      "date": "2026-03-16T15:36:12Z",
+      "snippet": "Do not worry! 😊😊😊😊😊 \nI put so much in this project and it is a pleasure to have such a good feedback! \n\nHowever, as much as I try, I cannot replicate corectly some of the situations, so you cooperation is very usefull!",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yhdwz",
+      "author": "robertpopa22",
+      "date": "2026-03-16T16:11:51Z",
+      "snippet": "Hey @zgabi! 👋\n\nThanks again for catching this — and for the screenshots, they made it very easy to pinpoint the problem!\n\n**Root cause:** The `PictureBox` controls in the confirmation dialog had no `SizeMode` set (defaults to `Normal`, which clips the image instead of scaling it). On Windows 11 with DPI scaling, the system icon bitmap can be larger than the 32×32 PictureBox, so it gets clipped at the edges.\n\n**Fix (commit d08f79fd2):** Set `PictureBoxSizeMode.Zoom` on both `imgMain` (32×32) and ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7y9qjf",
+      "author": "zgabi",
+      "date": "2026-03-17T16:21:45Z",
+      "snippet": "Ok, thanks",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-17T16:21:45Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

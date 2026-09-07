@@ -1,0 +1,47 @@
+{
+  "number": 106,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.NullReferenceException: Object reference not set to an instance of an object.",
+  "state": "closed",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-04-19T20:06:15Z",
+  "github_updated_at": "2026-04-22T08:42:07Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NullReferenceException`\r\n**Message:** Object reference not set to an instance of an object.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.Integration.ApplicationInterop.EnableModelessKeyboardInterop(Window window)\r\n   at void mRemoteNG.App.ProgramRoot.ShowSplashOnStaThread()+() => { } in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/App/ProgramRoot.cs:line 423\r\n   at void System.Threading.Thread.StartCallback()\r\n```\r\n\r\n### Environment\r\n```\r\nOS:...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7__KRC",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:35:48Z",
+      "snippet": "Thanks for letting the auto-report through. The crash signatures land on old builds:\n\n- `System.Runtime.InteropServices.InvalidComObjectException: COM object ... separated from its underlying RCW` — the lifetime management on the RDP ActiveX client was reworked on `main` after the build you're on.\n- `System.NullReferenceException` in `frmMain` / tree selection — the code paths that produced those NREs were replaced as part of the focus-handling work.\n\nIf you can upgrade to the [latest nightly](h...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__TQI",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:42:07Z",
+      "snippet": "Auto-submitted crash on an older build. Addressed on `main` — the code paths that produced this stack trace have been rewritten. Will reopen if it reproduces on the latest [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-22T08:42:07Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

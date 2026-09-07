@@ -1,0 +1,106 @@
+{
+  "number": 69,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "RDP fullscreen issue",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T14:04:43Z",
+  "github_updated_at": "2026-03-20T19:47:38Z",
+  "body_snippet": "This is a new problem in the recent nightly builds\nWhen I start mRemoteNG, the RDP connection opens in fullscreen (but the resolution is as small as it was in the main window earlier)\n\n<img width=\"1919\" height=\"1079\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/10a3385d-0d63-4404-a9a4-434e027d9245\" />\n\n\n\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yfC46",
+      "author": "robertpopa22",
+      "date": "2026-03-16T14:48:31Z",
+      "snippet": "Fixed in [`43f4df4`](https://github.com/robertpopa22/mRemoteNG/commit/43f4df47a) — regression from `e69f6113` which removed the `DesktopWidth`/`DesktopHeight` assignment for fullscreen mode. The RDP COM control does **not** auto-negotiate monitor resolution when `FullScreen = true` — it must be set explicitly.\n\nRestored monitor resolution assignment (via `Screen.FromControl`) in both the `Force.Fullscreen` and `RDPResolutions.Fullscreen` code paths.\n\nAvailable in the next nightly build. @zgabi p...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7y9xq_",
+      "author": "zgabi",
+      "date": "2026-03-17T16:25:54Z",
+      "snippet": "I can't reproduce the fullscreen issue, but the RDP session is not fits the panel again when I maximize the window :( (remains small despide that all related settings suggests that it will auto scale. ",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7zRVD8",
+      "author": "robertpopa22",
+      "date": "2026-03-18T10:33:04Z",
+      "snippet": "@zgabi, glad the fullscreen issue is fixed! For the new \"RDP session doesn't fit the panel when maximizing\" issue:\n\nThe RDP auto-resize on maximize depends on these settings:\n- **AutomaticResize** must be `true` (in connection properties)\n- **Resolution** should be `FitToWindow`\n- **RDP Sizing Mode** should be `Reconnect` (sends new resolution to server) or `SmartSize` (client-side scaling)\n\nCould you check:\n1. What are your values for these 3 settings on the affected connection?\n2. What Windows...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7zSMCY",
+      "author": "zgabi",
+      "date": "2026-03-18T11:11:19Z",
+      "snippet": "For me:\nResolution: FirToPanel (can't find FitToWindow)\nAutomaticResize: true (exatly it is \"Yes\", not true)\nCan't find the RDP Sizing mode\nSizing mode is set to Spart Size (RDP/VNC), there is not Reconnect option in this setting.\n\nRemote Windows version is Windows Server 2019... the resize was working in the original mRemoteNG, to the server supports it.",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7zYGtK",
+      "author": "robertpopa22",
+      "date": "2026-03-18T14:54:27Z",
+      "snippet": "New fix in `bf07db2` for the maximize/resize issue! 🔧\n\n**Root cause:** On window maximize, `DoResizeClient()` runs immediately (window state change). But a stale debounce timer from a prior `Resize` event could fire 100ms later, causing a **second** `Reconnect()` call that leaves the RDP session at the wrong resolution.\n\n**Fix:** Cancel the debounce timer after an immediate state-change resize, preventing the duplicate reconnection.\n\nAlso clarification on your settings:\n- **Resolution \"FitToPane...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7zZNfN",
+      "author": "zgabi",
+      "date": "2026-03-18T15:31:14Z",
+      "snippet": "Still wrong in latest nightly.\n\nYou can see my settings an that the RDP is not resized in the following screenshot\n\n<img width=\"1709\" height=\"886\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/bde3dd39-ddd2-4e1e-a211-70baf0ca39e4\" />",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7zuVZl",
+      "author": "robertpopa22",
+      "date": "2026-03-19T09:58:43Z",
+      "snippet": "@zgabi — corrected fix in `4b52f0e`! 🔧\n\nI realized the previous fix actually made things worse. Here's what was happening:\n\n**Problem:** When you maximize the window, `Resize()` fires but `InterfaceControl.Size` may still reflect the OLD (pre-maximize) dimensions because WinForms layout hasn't completed yet. The immediate `DoResizeClient()` call was using stale dimensions for `Reconnect()`.\n\n**Fix:** Always use the debounced resize path (100ms delay). This gives WinForms time to complete layout,...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70ZbrN",
+      "author": "robertpopa22",
+      "date": "2026-03-20T18:49:33Z",
+      "snippet": "@zgabi — RDP resize fix in `ffdd4b4`! 🔧\n\n**Root cause found via verbose logging:** Your connection has `Resolution=SmartSize`, but `DoResizeClient()` only allowed resize for `FitToWindow` and `Fullscreen` — SmartSize was explicitly skipped! So maximize/fullscreen never triggered `Reconnect()`.\n\n**Fix:** Added `SmartSize` and `SmartSizeAspect` to the list of resolutions that allow dynamic resize via `Reconnect()`.\n\nAlso fixed the missing `ResizeEnd` and `DisplaySettingsChanged` event subscription...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70aXlW",
+      "author": "zgabi",
+      "date": "2026-03-20T19:37:22Z",
+      "snippet": "Tried nightly-20260320-v1.82.0-beta.3-f8914dc which is newer than ffdd4b4... => not working",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-20T19:47:38Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

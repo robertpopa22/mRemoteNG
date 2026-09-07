@@ -6,7 +6,7 @@
   "labels": [],
   "author": "7h3Cub3",
   "created_at": "2026-06-12T22:47:42Z",
-  "github_updated_at": "2026-07-01T16:13:00Z",
+  "github_updated_at": "2026-07-06T06:38:48Z",
   "body_snippet": "Hello, \n\nIm trying to use the nightly version but either the zip or the msi keep asking for .net 10 to be installed, but i already have it (all 3 flavors + sdk's) and i have several .net 10 app that have no problem running, i think there is an issue with the version check, it seems to require v10.0.0 but can never find it, i tried to rollback to 10.0.0 but with no success, current version is 10.0.9\n\n<img width=\"533\" height=\"341\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/cf0da71...",
   "our_status": "needs_info",
   "priority": null,
@@ -100,13 +100,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABI0_hVQ",
+      "author": "7h3Cub3",
+      "date": "2026-07-05T19:58:21Z",
+      "snippet": "Hello,\n\nI tried the --version with the latest nightly and get directly the popup, i also executed the trace log.\n\nTracing enabled @ Sun Jul  5 19:43:44 2026 GMT\n--- Invoked apphost [version: 10.0.9 @Commit: 901ca941248413c79832d2fdbd709da0c4386353] main = {\nmRemoteNG.exe\n}\nRedirecting errors to custom writer.\nThe managed DLL bound to this executable is: 'mRemoteNG.dll'\n.NET root search location options: 0\nUsing app-local location [D:\\tools\\mRemoteNG\\] as runtime location.\nResolved fxr [D:\\tools\\...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABI3SsRw",
+      "author": "robertpopa22",
+      "date": "2026-07-06T06:38:48Z",
+      "snippet": "No apology needed — this was genuinely hard to see, and your trace is what finally made it obvious. For anyone landing here later, the smoking gun is this line:\n\n```\nUsing app-local location [D:\\tools\\mRemoteNG\\] as runtime location.\n...\nDetecting mode... CoreCLR present in dotnet root [D:\\tools\\mRemoteNG\\]\n```\n\nA previous **self-contained** build had left its .NET runtime files (`hostfxr.dll`, `coreclr.dll`, …) in the folder. When a framework-dependent ZIP/MSI was unpacked **over the same folde...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-01T16:13:00Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-07-06T06:38:48Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-07-02T06:12:58Z",
-  "notes": "reporter-solved: mixed self-contained leftovers (hostfxr/coreclr) in reused folder hijacked apphost to app-local mode; trace confirmed 4-model native-apphost diagnosis; fresh folder fixes",
-  "status": "released"
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": "reporter-solved: mixed self-contained leftovers (hostfxr/coreclr) in reused folder hijacked apphost to app-local mode; trace confirmed 4-model native-apphost diagnosis; fresh folder fixes"
 }

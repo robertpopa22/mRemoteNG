@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-08-15T17:24:26Z",
+  "github_updated_at": "2026-08-17T09:31:59Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
   "our_status": "testing",
   "priority": null,
@@ -290,12 +290,66 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPEibVw",
+      "author": "robertpopa22",
+      "date": "2026-08-16T07:39:01Z",
+      "snippet": "An update on this one, and a genuine thank you — this issue took five rounds and your traces are the only reason it was ever solved.\n\nWe have now been able to test it against a live RDP session for the first time. Until now we had no RDP target we could safely automate against: connecting to this machine's own desktop would have replaced the very session driving the test. There is now an isolated lab with real RDP endpoints, and the check runs there.\n\n**What the test does:** starts the applicati...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPE1ZpQ",
+      "author": "robertpopa22",
+      "date": "2026-08-16T09:06:39Z",
+      "snippet": "Correction to my previous comment — I overstated the verification, and you should know exactly what we do and do not have.\n\nI said a live check confirmed the search box stays usable with an RDP session open. That test did run and did pass, but an adversarial review of our own test suite showed it could not have failed even if the fix were removed. Three separate problems with it, all now measured:\n\n1. It set the search box text through an accessibility API that writes straight into the control w...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPE78QA",
+      "author": "journeym",
+      "date": "2026-08-16T09:35:55Z",
+      "snippet": "Include this in release if you're sure.\r\n\r\nOn Sun, Aug 16, 2026, 12:07 Robert Popa ***@***.***> wrote:\r\n\r\n> *robertpopa22* left a comment (robertpopa22/mRemoteNG#143)\r\n> <https://github.com/robertpopa22/mRemoteNG/issues/143#issuecomment-5306669477>\r\n>\r\n> Correction to my previous comment — I overstated the verification, and you\r\n> should know exactly what we do and do not have.\r\n>\r\n> I said a live check confirmed the search box stays usable with an RDP\r\n> session open. That test did run and did ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPFWMQQ",
+      "author": "robertpopa22",
+      "date": "2026-08-16T11:28:34Z",
+      "snippet": "Yes — it is in `main` and will be in the next nightly. But something changed since my correction above, and it is worth being precise about, because my answer to \"if you're sure\" is different now than it would have been two days ago.\n\n**We reproduced it here for the first time.** We built an isolated test lab — a Windows guest with no history, connecting to a Linux guest over real RDP — and ran the search box scenario there. It failed, the way you described it. Every previous attempt at this iss...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHkm6Q",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:40Z",
+      "snippet": "Yes — it is in **[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)**, released today.\n\nTo your \"if you're sure\": as sure as our own testing can make it. The fix is the one derived from your trace (the activation-refresh in our own dock-panel hook was the focus thief), it is covered by a focus assertion that runs in a clean lab guest with a real RDP session open, and the whole suite is green. Your machine is still the ground truth — if the search box misbehaves agai...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPMGzgQ",
+      "author": "robertpopa22",
+      "date": "2026-08-17T09:31:58Z",
+      "snippet": "Closing as fixed in **v1.83.0**, on our own verification — and this one has the strongest evidence trail of the batch.\n\n**Why we're closing it ourselves:** unlike the four earlier attempts, this fix came from your trace, and we *reproduced the symptom ourselves* in an isolated lab guest (clean Windows, real RDP session) before the fix — the search box failed exactly as you described — and the same scenario behaves correctly after it. The focus thief was our own dock-panel activation hook; the id...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T17:24:26Z",
-  "unread_comments": 9,
-  "needs_action": false,
+  "comments_cursor": "2026-08-17T09:31:59Z",
+  "unread_comments": 10,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-08-15T17:32:20Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "ROOT CAUSE from reporter trace: our ConnDockOnActiveContentChanged Protocol.Focus on hook-driven refresh; fix 21587b593 identity gate; awaiting confirm"
 }

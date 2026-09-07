@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-05-05T12:25:48Z",
-  "github_updated_at": "2026-05-23T11:19:46Z",
+  "github_updated_at": "2026-06-11T16:15:50Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Erreur lors de la création d'un handle de fenêtre.\r\n\r\n### Stack Trace\r\n```\r\n   at System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at System.Windows.Forms.Control.CreateHandle()\r\n   at System.Windows.Forms.ComboBox.CreateHandle()\r\n   at System.Windows.Forms.Control.RecreateHandleCore()\r\n   at System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at System.Windows.Forms.ComboBox.On...",
   "our_status": "wontfix",
   "priority": null,
@@ -38,12 +38,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABFxsPRw",
+      "author": "robertpopa22",
+      "date": "2026-06-11T16:15:49Z",
+      "snippet": "Closing as stale: this was a **non-fatal** WinForms handle-recreation hiccup in a ComboBox during a monitor DPI change, reported on **1.80.0 (release 3389)** — a build that's now far behind. A lot of UI/threading work has landed since, and there's been no response to the May request to retest.\n\nIf this reappears on a current [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly), comment here and I'll reopen and investigate against the new code.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-05-23T11:19:46Z",
+  "comments_cursor": "2026-06-11T16:15:50Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-06-11T16:16:02Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "stale-closed: non-fatal DPI ComboBox handle recreation on old 1.80.0; no response after retest request; reopen if repro on nightly"
 }

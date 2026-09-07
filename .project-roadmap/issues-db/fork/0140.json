@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-05T10:31:24Z",
-  "github_updated_at": "2026-07-05T12:17:59Z",
+  "github_updated_at": "2026-08-17T09:31:54Z",
   "body_snippet": "## Summary\n\nWith **Options → Advanced → \"Automatically try to reconnect when disconnected\"** (`ReconnectOnDisconnect`) enabled, deliberately logging off inside an RDP session does not close the session — mRemoteNG shows the reconnect panel and the reconnect timer logs the user straight back in (or parks at the logon screen and retries).\n\nFound while analyzing #139 (independent model review of the RDP disconnect path).\n\n## Root cause\n\n`RdpProtocol.RDPEvent_OnDisconnected` (mRemoteNG/Connection/Pr...",
   "our_status": "testing",
   "priority": null,
@@ -36,12 +36,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHkmZw",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:37Z",
+      "snippet": "The fix (`651027630`) is now in **[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)**.\n\nHonest status: the automated suite is green, and the reconnect logic demonstrably distinguishes deliberate logoffs (ExtendedDisconnectReason 2/12) from network drops — but we have not managed to drive a genuine far-end logoff through our test lab yet, so this specific scenario has no UI reproduction on our side. Your retest is the only real end-to-end verification this fix can g...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPMGv3w",
+      "author": "robertpopa22",
+      "date": "2026-08-17T09:31:53Z",
+      "snippet": "Closing as fixed in **v1.83.0**, on our own verification — with the honest limits stated.\n\n**Why we're closing it ourselves:** the fix has been in every build since `651027630`, the reconnect branch demonstrably distinguishes deliberate logoffs (ExtendedDisconnectReason 2/12) from network drops, and the full suite (6,666 tests) is green. What we do *not* have is a live reproduction of a far-end logoff — our lab cannot yet drive one safely, and that limitation is documented in the repo.\n\nAs part ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-05T12:17:59Z",
+  "comments_cursor": "2026-08-17T09:31:54Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-05T12:18:17Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "self-found via #139 review (Gemini): ReconnectOnDisconnect branch missed logoff exclusion; fix 651027630 gates on ExtendedDisconnectReason 2/12; awaiting nightly"
 }

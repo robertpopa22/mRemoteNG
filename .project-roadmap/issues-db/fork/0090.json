@@ -1,0 +1,43 @@
+{
+  "number": 90,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Three more minor issues",
+  "state": "closed",
+  "labels": [],
+  "author": "meyergru",
+  "created_at": "2026-03-30T17:08:38Z",
+  "github_updated_at": "2026-04-22T08:46:45Z",
+  "body_snippet": "1. Sometimes, the tab titles change to \"z\". It most often happens, when I start vi in a window. Also, when I close a window by pressing Ctrl-D and reconnect, the title remains \"PuTTY (inactive)\".\n\n2. The close button for the mRemoteNG application does not work. I can close the app only by other means (File-Close from the menu).\n\n3. Some of my saved connections try to use an old key file and I cannot for the life of me find why/where this setting comes from. I see lines like this at the start of ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7__KGi",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:35:41Z",
+      "snippet": "Going one at a time.\n\n**1. Tab title changing to unrelated characters (e.g. `z`) during a PuTTY session**\nFixed on `main` in commit `d7ae8b136` (`fix(#90): filter noisy terminal titles from PuTTY tab`). The tab name now tracks the connection name and ignores transient terminal title updates that curses-style apps (vi, less, htop) send over the wire.\n\nCould you help validate on the nightly? Specifically:\n- Open a PuTTY session\n- Run `vi` (or `less`/`htop`) and hit `z` to trigger the spurious titl...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__aKT",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:46:45Z",
+      "snippet": "Closing as resolved on `main`; please reopen if it reproduces on the latest [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-22T08:46:45Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

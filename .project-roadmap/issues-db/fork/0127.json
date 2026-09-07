@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-06-08T11:48:43Z",
-  "github_updated_at": "2026-06-08T11:48:43Z",
+  "github_updated_at": "2026-06-08T13:22:47Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentOutOfRangeException`\r\n**Message:** Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')\r\n\r\n### Stack Trace\r\n```\r\n   at OLVListItem BrightIdeasSoftware.TreeListView.MakeListViewItem(int itemIndex) in D:/a/mRemoteNG/mRemoteNG/ObjectListView/TreeListView.cs:line 991\r\n   at void System.Windows.Forms.ListView.OnRetrieveVirtualItem(RetrieveVirtualItemEventArgs e)\r\n   at void System.Windows...",
   "our_status": "released",
   "priority": null,
@@ -29,11 +29,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-06-08T11:48:43Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABFSB77g",
+      "author": "robertpopa22",
+      "date": "2026-06-08T13:22:46Z",
+      "snippet": "Thanks for the automatic crash report.\n\nSame root cause as #126 — a virtual-mode race in the connection tree (`TreeListView`) where the native list requests a row index that no longer exists during a tree rebuild. Different entry point (native notify vs. mouse hit-test), same underlying issue.\n\nFixed in **1.82.0-beta** (commit `91f293753`, issues #52/#56); this report is from **1.80.2 (Release 3424)**, which predates the fix. Upgrading to the current nightly/beta resolves it.\n\nClosing as fixed (...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-06-08T13:22:47Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-06-08T12:48:17Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "dup of #126; same virtual-mode race fixed by 91f293753; stale 1.80.2"
 }

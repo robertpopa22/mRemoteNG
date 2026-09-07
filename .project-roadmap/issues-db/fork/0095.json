@@ -1,0 +1,61 @@
+{
+  "number": 95,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "mremoteNG config pointing to wrong directory, from other version",
+  "state": "closed",
+  "labels": [],
+  "author": "goudeseunejJYZ",
+  "created_at": "2026-04-03T13:37:57Z",
+  "github_updated_at": "2026-04-23T08:08:02Z",
+  "body_snippet": "I run portable versions, download them extract in folder by version.\n\n<img width=\"932\" height=\"146\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/ae2e12cc-19e0-42f3-acd5-f4b1de3b61f0\" />\n\nWhen I import confCons.xml, it always points to older folder, even creating the folders again.\nWhen I start from mRemoteNG-nightly-20260324-v1.82.0-beta.3-48c2963-x64, it points to other folder.\n\n<img width=\"994\" height=\"278\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/5911ba2e-ea4...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7__KvB",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:36:08Z",
+      "snippet": "Tracked. Needs an investigation pass — the portable→installed switchover has a known edge case where the resolver picks the first-win directory rather than the most-recent one.\n\nWill update here once I have a reproduction. If you have a minimal set of steps (from which version, to which version, portable or installed, OS), please add them and it will speed the fix.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__ft8",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:49:48Z",
+      "snippet": "Investigation done — found the root cause and a clear fix shape. Summary so others reading can follow along.\n\n**Resolver locations**\n- Primary settings folder: `SettingsFileInfo.SettingsPath` — `mRemoteNG/App/Info/SettingsFileInfo.cs:56-59` (installed path at `:109-124`, portable at `:22-35`).\n- Startup `confCons.xml`: `ConnectionsService.GetStartupConnectionFileName()` — `mRemoteNG/Connection/ConnectionsService.cs:565-581`.\n- `PortableSettingsInitializer.EnsureInitialized()` (`mRemoteNG/Config/...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABAAfgqg",
+      "author": "robertpopa22",
+      "date": "2026-04-22T10:35:46Z",
+      "snippet": "Follow-up commit `5ff870f17` on `main` — addresses the remaining stale-load path that a post-merge Codex review flagged on the first fix.\n\n**What was still wrong:** in commit `d43382e84` the resolver returned the saved `ConnectionFilePath` silently as long as the file still existed, which meant anyone who had once picked a path and now had a newer `confCons.xml` appear in another well-known location would keep loading the old one. Exactly the behaviour you reported.\n\n**What changed:** `GetStartu...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABAHZfEA",
+      "author": "robertpopa22",
+      "date": "2026-04-23T08:08:01Z",
+      "snippet": "Shipped on `main` (commits `d43382e84`, `5ff870f17`, `70edf940b`). Closing as resolved.\n\n**What's in the fix:**\n- Multi-candidate connection-file picker at startup (scans portable, `AppData\\Local\\mRemoteNG`, and `AppData\\Local\\mRemoteNG Connection Manager`)\n- \"Remember this choice\" persists via a path-set fingerprint (autosave mtime churn no longer invalidates it)\n- Cancel in the picker uses the default startup path instead of silently falling back to the old saved path\n- Reset button in Options...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-23T08:08:02Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

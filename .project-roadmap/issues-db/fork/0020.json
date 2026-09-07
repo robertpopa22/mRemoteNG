@@ -9,7 +9,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-02-25T10:50:15Z",
-  "github_updated_at": "2026-02-25T10:50:15Z",
+  "github_updated_at": "2026-03-07T07:40:48Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidCastException`\r\n**Message:** Unable to cast object of type 'mRemoteNG.Connection.ConnectionInfo' to type 'mRemoteNG.Connection.InterfaceControl'.\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.UI.Tabs.ConnectionTab.OnFormClosing(FormClosingEventArgs e) in D:/github/mRemoteNG/mRemoteNG/UI/Tabs/ConnectionTab.cs:line 189\r\n   at void System.Windows.Forms.Form.WmClose(ref Message m)\r\n   at void System.Windows.Forms.Form.WndProc(ref Message m)\r...",
   "our_status": "new",
   "priority": null,
@@ -17,11 +17,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-02-25T10:50:15Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7vXTcz",
+      "author": "robertpopa22",
+      "date": "2026-03-07T07:40:41Z",
+      "snippet": "Fixed in commit **[CENSORED!] Links to external GitHub repositories are not allowed** — `CloseProtocolSafe()` now uses safe cast (`as InterfaceControl`) instead of explicit cast, preventing `InvalidCastException` when the tab's Tag contains a `ConnectionInfo` (disconnected state).\n\nDuplicate of #20/#25/#33 — same root cause.\n\nAvailable in the latest **[CENSORED!] Links to external GitHub repositories are not allowed**.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-07T07:40:48Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-25T13:33:13Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

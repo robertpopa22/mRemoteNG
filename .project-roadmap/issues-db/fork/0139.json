@@ -6,7 +6,7 @@
   "labels": [],
   "author": "happpyg",
   "created_at": "2026-07-03T10:17:38Z",
-  "github_updated_at": "2026-07-06T23:26:02Z",
+  "github_updated_at": "2026-07-08T13:43:59Z",
   "body_snippet": "Hi Team,\nNot sure this is the most appropriate place for this question.\n\nI have been using the original version of mRemoteNG (1.77.3 NB) and then I found this version which is much better.  However there is one small thing I can't find an answer for.\n\nIn my original 1.77.3 version, after I log off an RDP session, that pane/window closes automatically in mRemote however in this version (1.82.0) it does not.  Is that something configurable i'm missing?\n\nPlease advise if I should direct this questi...",
   "our_status": "released",
   "priority": null,
@@ -53,13 +53,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJPttOg",
+      "author": "robertpopa22",
+      "date": "2026-07-08T13:43:57Z",
+      "snippet": "Glad that sorted it — that was exactly the setting.\n\nGood instinct to ask; yes, both of those are worth their own tickets so they don't get lost, and I've opened them for you:\n\n- **#143** — search/filter box unusable after connecting to an RDP session. This looks like the same Win32-focus behaviour as #118 (the RDP ActiveX control grabs OS-level keyboard focus), just on the tree's search box rather than the connection's own fields.\n- **#144** — the filtered tree flashing for a few seconds after ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-06T23:26:02Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-07-08T13:43:59Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-07-08T13:44:06Z",
-  "notes": "answered (KeepTabsOpenAfterDisconnect confirmed by reporter); 2 new symptoms split to #143 (search-box RDP focus, #118 class) + #144 (filtered-tree flash); closed",
-  "status": "released"
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": "answered (KeepTabsOpenAfterDisconnect confirmed by reporter); 2 new symptoms split to #143 (search-box RDP focus, #118 class) + #144 (filtered-tree flash); closed"
 }

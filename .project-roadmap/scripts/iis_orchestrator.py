@@ -5105,6 +5105,20 @@ def gh_post_comment(repo, num, body):
 
 
 # ── IIS: SYNC ─────────────────────────────────────────────────────────────
+def _closed_revisit_since(last_sync, margin_days=3, default_days=30):
+    """Date (YYYY-MM-DD) from which closed issues are re-fetched on an open-state sync.
+
+    Three days behind the previous sync so a comment that landed while that sync ran, or a
+    sync that failed half-way, is still picked up; a month back when there is no record."""
+    now = datetime.datetime.now(datetime.timezone.utc)
+    try:
+        base = datetime.datetime.strptime(last_sync, "%Y-%m-%dT%H:%M:%SZ").replace(
+            tzinfo=datetime.timezone.utc)
+    except (TypeError, ValueError):
+        base = now - datetime.timedelta(days=default_days)
+    return (base - datetime.timedelta(days=margin_days)).strftime("%Y-%m-%d")
+
+
 def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=1000):
     """Sync issues from GitHub into local JSON DB.
     Replaces Sync-Issues.ps1."""
@@ -5155,6 +5169,25 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
                 continue
             issues_list = data
             print(f"  Found {len(issues_list)} issues")
+
+            # An open-state listing never revisits a closed issue, so a reporter who comes
+            # back to one we closed ("still broken in 1.83.0", #165) was invisible: the
+            # comment never reached the record and the queue never saw it. Revisit the
+            # fork's closed issues touched since the previous sync (with a margin) — the
+            # only ones where a late comment is inbound work for us.
+            if repo_key == "fork" and not include_closed:
+                since = _closed_revisit_since(meta.get("last_sync"))
+                recently_closed = gh_run_json([
+                    "issue", "list", "--repo", repo_name,
+                    "--state", "closed", "--limit", "100",
+                    "--search", f"updated:>={since}",
+                    "--json", "number,title,updatedAt",
+                ], timeout=120)
+                if recently_closed:
+                    listed = {i["number"] for i in issues_list}
+                    revisit = [i for i in recently_closed if i["number"] not in listed]
+                    issues_list = issues_list + revisit
+                    print(f"  Revisiting {len(revisit)} closed issue(s) updated since {since}")
 
         repo_dir = ISSUES_DB_ROOT / repo_key
         repo_dir.mkdir(parents=True, exist_ok=True)
@@ -5584,6 +5617,29 @@ VALID_TRANSITIONS = {
     "wontfix":     ["new", "triaged"],
     "duplicate":   ["new", "triaged"],
 }
+
+
+def iis_ack(issue_numbers, repo="fork"):
+    """Mark every comment on the given issues as read.
+
+    Clears unread_comments/needs_action so the work queue stops listing them. Used after a
+    reporter's last word has been read and answered (or needs no answer — "thanks, confirmed"
+    on an issue they closed themselves). Sync preserves the analyzed flag on re-fetch, so the
+    acknowledgement survives; waiting_for_us is recomputed by sync and left alone here."""
+    repo_dir = ISSUES_DB_ROOT / repo
+    for num in issue_numbers:
+        file_path = repo_dir / f"{num:04d}.json"
+        if not file_path.exists():
+            print(f"  #{num}: no local record")
+            continue
+        data = iis_read_json(file_path)
+        for c in data.get("comments") or []:
+            c["analyzed"] = True
+            c["action_needed"] = False
+        data["unread_comments"] = 0
+        data["needs_action"] = False
+        iis_write_json(file_path, data)
+        print(f"  #{num}: acknowledged ({len(data.get('comments') or [])} comment(s))")
 
 
 def iis_update(issue_num, new_status, repo="upstream", description=None,
@@ -6151,8 +6207,8 @@ def main():
     parser.add_argument(
         "mode", nargs="?", default="all",
         choices=["all", "issues", "warnings", "analyzer-warnings", "status", "test-hygiene",
-                 "sync", "analyze", "update", "report", "fix-status", "promote-released"],
-        help="sync/analyze/update/report/fix-status/promote-released (IIS), or all/issues/warnings/analyzer-warnings/status/test-hygiene (orchestrator)",
+                 "sync", "analyze", "update", "ack", "report", "fix-status", "promote-released"],
+        help="sync/analyze/update/ack/report/fix-status/promote-released (IIS), or all/issues/warnings/analyzer-warnings/status/test-hygiene (orchestrator)",
     )
     # ── Orchestrator args ──
     parser.add_argument("--dry-run", action="store_true",
@@ -6263,6 +6319,13 @@ def main():
             priority=args.priority, notes=args.notes,
             add_to_roadmap=args.add_to_roadmap,
         )
+        return
+
+    if args.mode == "ack":
+        if not args.issues:
+            print("ERROR: --issues is required for ack mode (comma-separated numbers)")
+            sys.exit(1)
+        iis_ack([int(x) for x in args.issues.split(",") if x.strip()], repo=args.repo)
         return
 
     if args.mode == "report":

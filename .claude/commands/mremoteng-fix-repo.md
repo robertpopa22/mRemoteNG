@@ -22,7 +22,7 @@ replies remain fork-scoped** — never modify upstream tracking or merge upstrea
 
 ### Step 2: Build the work queue
 ```bash
-python -c "import json,glob; rows=[(j['number'], ('NEW' if not j.get('comments') else 'comment'), j.get('title','')[:70]) for j in (json.load(open(f,encoding='utf-8')) for f in glob.glob(r'D:/github/mRemoteNG/.project-roadmap/issues-db/fork/*.json')) if j.get('state')=='open' and j.get('waiting_for_us') and (j.get('unread_comments',0)>0 or not j.get('comments'))]; [print(f'#{n}\t{k}\t{t}') for n,k,t in sorted(rows)]"
+python -c "import json,glob; rows=[(j['number'], ('NEW' if not j.get('comments') else ('CLOSED+comment' if j.get('state')!='open' else 'comment')), j.get('title','')[:70]) for j in (json.load(open(f,encoding='utf-8')) for f in glob.glob(r'D:/github/mRemoteNG/.project-roadmap/issues-db/fork/*.json')) if j.get('waiting_for_us') and (j.get('unread_comments',0)>0 or (j.get('state')=='open' and not j.get('comments')))]; [print(f'#{n}\t{k}\t{t}') for n,k,t in sorted(rows)]"
 ```
 If a single issue number was given, restrict to it. For each queued issue, fetch the full new comment(s):
 ```bash
@@ -306,4 +306,10 @@ Write a session memory file under the project memory dir + add a one-line pointe
 - Build: `build.ps1` (NOT `dotnet build` — COM refs fail MSB4803). Tests: `run-tests.ps1 -Headless`, `--verbosity normal` only.
 - Issue DB: `.project-roadmap/issues-db/fork/*.json`; flags used — `unread_comments`, `waiting_for_us`, `comments[].is_ours`.
 - **The queue includes brand-new zero-comment issues.** A fresh report by an external author has no comments at all, so it has `unread_comments == 0`; gating the queue on that flag alone silently hid new bug reports (they only showed as `[needs action]` in the sync summary, which is easy to skim past). `waiting_for_us` is now also true for an unanswered issue opened by someone other than us.
+- **The queue includes CLOSED issues with an unread reporter comment.** A reporter who comes back
+  to an issue we closed ("still broken in 1.83.0", #165) is the one case the closing policy
+  forbids ignoring — yet an open-state sync never re-fetched closed issues, so the comment never
+  reached the record, and the old queue filter dropped closed records anyway. #165 sat unanswered
+  for a week. The sync now revisits fork issues closed and updated since the previous sync, and
+  the queue shows them as `CLOSED+comment`. Treat one as: reopen, answer, then fix.
 - This is the codified version of the manual #113/#110 maintenance loop.

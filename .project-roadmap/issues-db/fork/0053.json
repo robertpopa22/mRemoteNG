@@ -6,7 +6,7 @@
   "labels": [],
   "author": "zgabi",
   "created_at": "2026-03-12T12:38:58Z",
-  "github_updated_at": "2026-03-14T07:50:59Z",
+  "github_updated_at": "2026-03-16T09:35:58Z",
   "body_snippet": "<img width=\"539\" height=\"380\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/697de2f6-3621-4c19-94e8-db4ac5c17722\" />\n\nI exported the connection from the \"original\" mRemoteNG 1.76.20.24615 to an xml configutazion file. (contains RDP. VNC and SSH connections)\nAn then imported it in yout latest version.\nAfter some restart I got the error message.",
   "our_status": "new",
   "priority": null,
@@ -50,12 +50,102 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7x_8rQ",
+      "author": "zgabi",
+      "date": "2026-03-14T08:45:23Z",
+      "snippet": "1: I don't know. I exported to xml, and Right click on the 1st tree item (Connections)... Import, Import from file.\n2: \n\n<img width=\"1010\" height=\"168\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/05d8365a-c303-4312-83fd-c4dc42de60d8\" />\n\n3: local SSD",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yAbd8",
+      "author": "robertpopa22",
+      "date": "2026-03-14T10:01:26Z",
+      "snippet": "## Startup Performance Fix — Detailed Results\n\nThanks for reporting the slow startup @zgabi! We've done a deep investigation and implemented a series of optimizations that dramatically reduce startup time.\n\n### The Problem\nThe entire startup sequence ran synchronously on the UI thread, blocking the interface. With 200+ connections, multiple bottlenecks stacked up:\n- **WMI queries** (Win32_OperatingSystem + Win32_Processor) — 500-1000ms\n- **FrmOptions creation** (13 option pages) — ~940ms  \n- **I...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yAjfF",
+      "author": "zgabi",
+      "date": "2026-03-14T10:23:27Z",
+      "snippet": "Tried nightly-20260314-v1.82.0-beta.2-663509a-x64.\nThe startup time is the same as before.. it hangs for about 30 seconds after the main window is shown.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yAo-d",
+      "author": "robertpopa22",
+      "date": "2026-03-14T10:37:42Z",
+      "snippet": "Thanks for testing @zgabi! \n\nThe build you tested (`663509a`) was generated **before** our main performance optimization commit (`194db58` — the O(1) XML dictionary lookups). The nightly was rebuilt from an intermediate commit.\n\nA **new nightly** is building right now from the latest code that includes ALL optimizations. Please try it once it's available (should be within ~15 minutes):\n**[CENSORED!] Links to external GitHub repositories are not allowed**\n\nAlso, for better diagnostics — could you...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yA3YG",
+      "author": "zgabi",
+      "date": "2026-03-14T11:20:13Z",
+      "snippet": "Tried nightly-20260314-v1.82.0-beta.2-7cfe484-x64\nNothing changed :(\n\nThe notifications panel is empty\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yMOvx",
+      "author": "robertpopa22",
+      "date": "2026-03-15T16:05:27Z",
+      "snippet": "@zgabi Good catch on the empty Notifications panel — the startup timing was going to `Debug.Print()` (VS debug output only), not to the Notifications panel.\n\n**Fixed now** — startup timing is routed to both Debug output AND the Notifications panel. After the next nightly, you should see entries like:\n```\n[Startup] SettingsLoad: XXms\n[Startup] InitializeProgram: XXms\n[Startup] PanelLayout: XXms\n[Startup] LoadConnections: XXms\n[Startup] Total: XXms\n```\n\nThis will help us diagnose where the 30s han...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yM9lq",
+      "author": "zgabi",
+      "date": "2026-03-15T17:41:34Z",
+      "snippet": "The notifications panel is still empty :(\nSorry, but I switch back to the original version, it seems that this one is more buggy and the AI is unable to fix anything :(",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yOfUg",
+      "author": "robertpopa22",
+      "date": "2026-03-15T21:04:08Z",
+      "snippet": "@zgabi Thank you for the detailed testing and feedback — and sorry about the frustration. You were right that the previous fixes didn't work.\n\n**All three issues (#53, #54, #55) are now fixed in commit 6e0ef3c.**\n\nRegarding the empty Notifications panel: after investigation, this is actually **by design** — the Notifications panel filters message types, and \"Information\" messages are disabled by default (Options → Notifications → \"Show Info Messages\" checkbox). If you haven't had any errors or w...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yPOt1",
+      "author": "zgabi",
+      "date": "2026-03-15T22:44:50Z",
+      "snippet": "Still slow.\nFrom the AppData\\Local\\mRemoteNG Connection Manager\\mRemoteNG Connection Manager.log file:\n2026-03-15 23:42:37,060 [2] INFO  - [Startup] SettingsLoad: 181ms\n2026-03-15 23:42:37,070 [2] INFO  - [Startup]   StartupDataLogger: 4ms\n2026-03-15 23:42:37,080 [2] INFO  - [Startup]   IconLoader: 0ms\n2026-03-15 23:42:37,110 [2] INFO  - [Startup] InitializeProgram: 44ms\n2026-03-15 23:42:37,443 [2] INFO  - [Startup] PanelLayout: 212ms\n2026-03-15 23:43:20,668 [2] INFO  - Connection deserializatio...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yXy6h",
+      "author": "robertpopa22",
+      "date": "2026-03-16T09:35:58Z",
+      "snippet": "## Fix: Startup 43s → instant (commit aab6511)\n\n### Root Cause Analysis\n\nThe 43-second hang was caused by **PBKDF2 key derivation running per-field** for every encrypted password during connection deserialization:\n\n1. When importing from v1.76.20, the fork auto-saves with `KdfIterations=600,000` (new security default, up from 1,000)\n2. Each subsequent startup calls `AeadCryptographyProvider.Decrypt()` per encrypted field\n3. BouncyCastle's **managed** `Pkcs5S2ParametersGenerator` performs 600K PB...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-14T07:50:59Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-03-16T09:35:58Z",
+  "unread_comments": 7,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-03-14T08:07:39Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

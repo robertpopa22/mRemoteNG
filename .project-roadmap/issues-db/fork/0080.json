@@ -1,0 +1,88 @@
+{
+  "number": 80,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "mRemoteNG does not start PuTTY variants correctly",
+  "state": "closed",
+  "labels": [],
+  "author": "meyergru",
+  "created_at": "2026-03-19T09:27:56Z",
+  "github_updated_at": "2026-03-20T21:47:45Z",
+  "body_snippet": "Version: Nightly Build — 20260318 (v1.82.0-beta.3)\n\nIt does not start PuTTY / KiTTY windows after being installed from the MSI package on my Windows 11 25H2 install.\n\nA popup with an error message turns up:\n\n`unknown option: \"-hwndparent\"`\n\nI can start Putty from the settings menu to change settings.\n\nWhen I choose the official Putty.exe path, it works.\n\n\nIt does not work for PuTTYNG.exe from the mRemoteNG directory with the above error.\n\nFor KiTTY (, the window is not opened within the mRemoteN...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7zuVg8",
+      "author": "robertpopa22",
+      "date": "2026-03-19T09:58:49Z",
+      "snippet": "Thanks for reporting @meyergru! 🙏\n\n**Root cause:** The bundled `PuTTYNG.exe` (v0.83) has `InternalName=\"PuTTY\"` with `\"mRemoteNG\"` in ProductVersion. The type detector matched this as \"PuTTYNG\" and passed `-hwndparent`, which this build doesn't support.\n\n**Fix (commit `1137f7f`):** Tightened the PuTTYNG detection — now only matches when `InternalName` explicitly contains `\"PuTTYNG\"`. The bundled PuTTYNG 0.83 will be treated as regular PuTTY and use the `SetParent` window embedding method instead...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7zuXIp",
+      "author": "meyergru",
+      "date": "2026-03-19T10:00:14Z",
+      "snippet": "How about the busy wait?",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7z3iKX",
+      "author": "robertpopa22",
+      "date": "2026-03-19T16:21:35Z",
+      "snippet": "@meyergru — additional fix for the busy-wait in `9ceaed4`! 🔧\n\n**Root cause of CPU spike:** The `Resize` handler for embedded PuTTY (non-PuTTYNG) calls `MoveWindow()` which can trigger another `Resize` event recursively, creating an infinite loop that consumes 100% CPU on one core.\n\n**Fix:** Added a reentrancy guard (`_isResizing` flag) that prevents recursive `MoveWindow` → `Resize` → `MoveWindow` loops.\n\nBoth fixes are now in the upcoming nightly:\n1. ✅ `-hwndparent` no longer passed to bundled ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70Sbx9",
+      "author": "meyergru",
+      "date": "2026-03-20T14:37:54Z",
+      "snippet": "Tried it today:\n\n```\n## Crash Report\n\n### Exception\n**Type:** `System.IO.FileNotFoundException`\n**Message:** Could not load file or assembly 'ObjectListView, Version=2.9.3.29502, Culture=neutral, PublicKeyToken=null'. Das System kann die angegebene Datei nicht finden.\n\n### Stack Trace\n\n   at void mRemoteNG.UI.Window.ConnectionTreeWindow.InitializeComponent() x 2\n   at new mRemoteNG.UI.Window.ConnectionTreeWindow(DockContent panel) x 2\n   at ConnectionTreeWindow mRemoteNG.App.AppWindows.get_TreeF...",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70TVx7",
+      "author": "meyergru",
+      "date": "2026-03-20T14:58:46Z",
+      "snippet": "Ah, well. It seems there is a conflict between this version of mRemoteNG and the old one. Once I rename the other program folder to mRemoteNG.bak, the crash disappears. Which is strange, considering the old one was in \"C:\\Programs (x86)\\\" and the other in \"C:\\Program Files\\\" and I started the correct instance from Explorer.\n\nAfter reinitializing the settings, I still get the busy thread. This is independent of using extrnal PuTTY or disabling the specific path or using the app-delivered version ...",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70ZZlO",
+      "author": "robertpopa22",
+      "date": "2026-03-20T18:48:10Z",
+      "snippet": "@meyergru glad it's resolved! The assembly conflict with the old mRemoteNG folder makes sense — .NET probes for assemblies in adjacent directories. Renaming the old folder was the right fix.\n\nClosing this one — both the `-hwndparent` fix and the busy-wait fix are in the latest nightly. Let us know if anything else comes up! 😊",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc70cjZr",
+      "author": "meyergru",
+      "date": "2026-03-20T21:47:45Z",
+      "snippet": "You got me wrong: the busy thread still exists.",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-20T21:47:45Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

@@ -6,7 +6,7 @@
   "labels": [],
   "author": "knavet",
   "created_at": "2026-05-26T00:57:56Z",
-  "github_updated_at": "2026-05-26T09:26:04Z",
+  "github_updated_at": "2026-06-11T16:15:52Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ObjectDisposedException`\r\n**Message:** Cannot access a disposed object.\r\nObject name: 'System.Timers.Timer'.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Timers.Timer.set_Enabled(bool value)\r\n   at void mRemoteNG.Config.Connections.Multiuser.RemoteConnectionsSyncronizer.OnUpdateCheckFinished(object sender, ConnectionsUpdateCheckFinishedEventArgs eventArgs)\r\n   at void mRemoteNG.Config.Connections.Multiuser.FileConnectionsUpdateChecker.RaiseUpdate...",
   "our_status": "released",
   "priority": null,
@@ -54,12 +54,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABFxsQUQ",
+      "author": "robertpopa22",
+      "date": "2026-06-11T16:15:51Z",
+      "snippet": "Closing as fixed: the disposed-Timer race in `RemoteConnectionsSyncronizer` was resolved in commit `fc3a85723` (all five timer touch-points now synchronize on a lock, so the reconnect timer can no longer be disposed mid-use). The fix has been in every nightly since 2026-05-26 and there have been no recurrence reports in the two weeks since.\n\n@knavet if you ever see this `ObjectDisposedException` again on a current build, comment here and I'll reopen.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-05-26T09:26:04Z",
+  "comments_cursor": "2026-06-11T16:15:52Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-06-11T16:16:02Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "closed: timer race fixed fc3a85723, in nightly since 2026-05-26, no recurrence in 2wk"
 }

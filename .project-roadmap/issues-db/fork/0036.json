@@ -1,0 +1,52 @@
+{
+  "number": 36,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[v1.80.1 Release 3394] External programs do not work anymore",
+  "state": "closed",
+  "labels": [],
+  "author": "judaspriest",
+  "created_at": "2026-03-03T13:39:43Z",
+  "github_updated_at": "2026-03-07T07:20:41Z",
+  "body_snippet": "In production, I currently use the oldstable release \"v1.80.1 Release 3394\"\n\nThe oldstable version \"v1.80.1 Release 3394\" has a problem with external programs.\n\nI want to open \"Shared Folders\", which are part of my connections. For that reason I created an external program:\n\nName = Shared Folders\nFile Name = ‪C:\\Windows\\System32\\fsmgmt.msc\nParameter = /Computer=%HOSTNAME%\nWorkding directory = [empty]\n\nOptions: None of the 4 options is enabled\n\n‪With older mRemoteNG versions (v1.77, v1.78 all fla...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7uO4FQ",
+      "author": "judaspriest",
+      "date": "2026-03-04T11:17:57Z",
+      "snippet": "Update: It seems that this affects only \"some\" internal Windows applications / executables , like \"Ms Edge\" oder \"*.msc\" programs.\n\ncmd.exe, explorer.exe, powershell.exe and external executables like KeePass.exe, Firefox.exe are not affected.\n\n\nAs a workaround for Windows internal applications, the following can be helpful:\n\n1. Create a folder \"SCRIPTS\" inside the mRemoteNG directory\n2. Create a batch file inside the SCRIPTS folder, for example: for \"C:\\Windows\\System32\\fsmgmt.msc\" (Shared Folde...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7vQf27",
+      "author": "robertpopa22",
+      "date": "2026-03-06T20:51:59Z",
+      "snippet": "Thanks for the detailed analysis and the workaround @judaspriest!\n\n**Two issues identified and fixed:**\n\n1. **Edge / paths with parentheses:** Our security validation was rejecting `(` and `)` as dangerous shell metacharacters, which blocked `C:\\Program Files (x86)\\...` — one of the most common Windows paths. Parentheses are now allowed since they're harmless in `Process.Start`.\n\n2. **`.msc` files (fsmgmt.msc etc.):** When we hardened the external tools launch (UseShellExecute=false for security...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7vXJQq",
+      "author": "robertpopa22",
+      "date": "2026-03-07T07:20:15Z",
+      "snippet": "Fixed in commit **[CENSORED!] Links to external GitHub repositories are not allowed** — external programs functionality has been restored.\n\nAvailable in the latest **[CENSORED!] Links to external GitHub repositories are not allowed**. Please test and confirm.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-07T07:20:41Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

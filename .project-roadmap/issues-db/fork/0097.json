@@ -1,0 +1,43 @@
+{
+  "number": 97,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.Runtime.InteropServices.InvalidComObjectException: COM object that has been separated from its underlying RCW cannot be used.",
+  "state": "closed",
+  "labels": [],
+  "author": "7h3Cub3",
+  "created_at": "2026-04-09T19:28:32Z",
+  "github_updated_at": "2026-04-22T08:42:22Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.Runtime.InteropServices.InvalidComObjectException`\r\n**Message:** COM object that has been separated from its underlying RCW cannot be used.\r\n\r\n### Stack Trace\r\n```\r\n   at T* Windows.Win32.ComHelpers.TryGetComPointer<T>(object object, out HRESULT result)\r\n   at Size System.Windows.Forms.AxHost.SetExtent(int width, int height)\r\n   at void System.Windows.Forms.AxHost.SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)\r\n  ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7__KWM",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:35:51Z",
+      "snippet": "Thanks for letting the auto-report through. The crash signatures land on old builds:\n\n- `System.Runtime.InteropServices.InvalidComObjectException: COM object ... separated from its underlying RCW` — the lifetime management on the RDP ActiveX client was reworked on `main` after the build you're on.\n- `System.NullReferenceException` in `frmMain` / tree selection — the code paths that produced those NREs were replaced as part of the focus-handling work.\n\nIf you can upgrade to the [latest nightly](h...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__TmX",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:42:22Z",
+      "snippet": "Addressed on `main` (see earlier comment for commit refs). Closing as resolved; please reopen with a fresh stack trace / log snippet if it reproduces on the latest [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-22T08:42:22Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

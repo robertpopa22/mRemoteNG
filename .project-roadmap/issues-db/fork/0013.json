@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-02-20T10:48:33Z",
-  "github_updated_at": "2026-02-20T10:48:33Z",
+  "github_updated_at": "2026-02-24T16:57:42Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.TypeInitializationException`\r\n**Message:** The type initializer for 'Microsoft.Data.SqlClient.TdsParser' threw an exception.\r\n\r\n### Stack Trace\r\n```\r\n   at Microsoft.Data.SqlClient.TdsParser..ctor(Boolean MARS, Boolean fAsynchronous)\r\n   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOpti...",
   "our_status": "new",
   "priority": null,
@@ -18,11 +18,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-02-20T10:48:33Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7rpPBB",
+      "author": "robertpopa22",
+      "date": "2026-02-24T16:57:41Z",
+      "snippet": "Fixed since v1.79.0 — explicit `Microsoft.Data.SqlClient.SNI` and `Microsoft.Data.SqlClient.SNI.runtime` (v6.0.2) package references were added to ensure platform-specific native DLLs are always resolved and copied to output.\n\nPrevious versions relied on transitive dependency resolution for SNI, which wasn't reliable across all build configurations. The TdsParser TypeInitializationException occurred because the native SNI library (required for TLS/SSL handshake) was missing at runtime.\n\nFix comm...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-24T16:57:42Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-20T15:19:29Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

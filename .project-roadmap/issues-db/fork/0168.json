@@ -8,7 +8,7 @@
   ],
   "author": "opbod",
   "created_at": "2026-08-17T06:16:45Z",
-  "github_updated_at": "2026-08-31T19:50:35Z",
+  "github_updated_at": "2026-09-02T18:50:21Z",
   "body_snippet": "**What happens** (and what you expected instead): alt-tab behavior not working as expected when an SSH session is opened (PuTTYNG.exe as part of mRemoteNG)). Expectation is that a single alt-tab changes between mRemoteNG and a different app.\n\n**Steps to reproduce:**\n\n1. Open mRemoteNG, open an SSH session\n2. Alt-tab between mRemoteNG and another app\n3. Observe mRemoteNG keeps on showing and requires at least 2 tabs to change to the other app. Clicking the mRemoteNG button on the taskbar requires...",
   "our_status": "released",
   "priority": null,
@@ -85,12 +85,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSLM7Tg",
+      "author": "robertpopa22",
+      "date": "2026-09-02T18:50:19Z",
+      "snippet": "Thank you for confirming on the nightly — that confirmation is the part we cannot produce ourselves, and it is what actually closes this.\n\nClosing as fixed: mRemoteNG no longer hands foreground to the embedded PuTTY process, so the shell sees one application again and a single Alt-Tab (and a single taskbar click) behaves normally. The fix ships in the next stable release along with the PuTTY 0.85 update from #169.\n\nIf the two-Alt-Tab behaviour ever comes back, please reopen — a reopened issue wi...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-31T19:50:35Z",
+  "comments_cursor": "2026-09-02T18:50:21Z",
   "unread_comments": 1,
-  "needs_action": false,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-09-02T18:50:31Z",
+  "last_synced": "2026-09-07T09:30:33Z",
   "notes": "reporter confirmed on nightly; closed 2026-09-02"
 }

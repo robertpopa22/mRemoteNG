@@ -9,7 +9,7 @@
   ],
   "author": "zgabi",
   "created_at": "2026-03-13T21:07:53Z",
-  "github_updated_at": "2026-03-14T07:51:25Z",
+  "github_updated_at": "2026-03-15T16:05:52Z",
   "body_snippet": "## Crash Report\nI got this error when built the program from latest source, so probably it is version 1.81+, not 1.80.2 as it was auto generated:\ncommit 91f2937532a0f6c417ea7a478d44d48c8abc87ad\nDate:   Fri Mar 13 20:09:43 2026 +0200\n\n### Exception\n**Type:** `System.InvalidOperationException`\n**Message:** When in VirtualMode the ListView RetrieveVirtualListItem event needs a list view SubItem for each ListView column.\n\n### Stack Trace\n```\n   at void System.Windows.Forms.ListView.WmReflectNotify(r...",
   "our_status": "new",
   "priority": null,
@@ -26,12 +26,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yMO1W",
+      "author": "robertpopa22",
+      "date": "2026-03-15T16:05:40Z",
+      "snippet": "@zgabi This was already fixed in the same commit that went into the nightly you tested (`7cfe484`). The placeholder item now includes empty SubItems for each column, which satisfies the VirtualMode contract.\n\nSince the crash is non-fatal and happened only once, you should be good. If you see it again on a newer nightly, please let us know!\n\nClosing as the fix is verified in codebase.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-14T07:51:25Z",
+  "comments_cursor": "2026-03-15T16:05:52Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-03-14T08:07:39Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

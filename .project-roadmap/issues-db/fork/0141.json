@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-05T13:24:32Z",
-  "github_updated_at": "2026-07-05T13:26:17Z",
+  "github_updated_at": "2026-08-17T09:31:57Z",
   "body_snippet": "## Summary\n\nEvery CSV export (mRemoteNG format) writes seven inheritance columns under the wrong headers: the `InheritUserViaAPI` header is declared 5 positions earlier than where its value is actually emitted, shifting the whole window between them by one column.\n\nFound during an independent model review (Codex + Gemini, both flagged it) of the CSV serializer while porting upstream features; pre-existing, not introduced by the port.\n\n## Root cause\n\n`CsvConnectionsSerializerMremotengFormat.cs`: ...",
   "our_status": "testing",
   "priority": null,
@@ -36,12 +36,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHkmnA",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:38Z",
+      "snippet": "The fix (`83ecaf879`) is now in **[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)**, together with a regression test that checks the exported CSV's headers against the actual column order — a reappearance now fails the build instead of needing to be caught by eye.\n\nReminder from the original fix note: files exported *before* the fix carry the shifted values in those seven inheritance columns; re-exporting on 1.83.0 produces a correct file. If you can spare one ex...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPMGxsg",
+      "author": "robertpopa22",
+      "date": "2026-08-17T09:31:56Z",
+      "snippet": "Closing as fixed in **v1.83.0**, on our own verification.\n\n**Why we're closing it ourselves:** the header/column alignment is now pinned by a dedicated regression test that compares the exported CSV's headers against the actual append order — the exact defect class you reported cannot reappear without failing the build. That test runs green in the 6,666-test suite behind the release.\n\nReminder: files exported before the fix carry shifted values in the seven inheritance columns; re-export on 1.83...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-05T13:26:17Z",
+  "comments_cursor": "2026-08-17T09:31:57Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-05T13:26:18Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "self-found (Codex+Gemini review during upstream port): CSV inheritance header/append misalignment; fix 83ecaf879; awaiting nightly"
 }

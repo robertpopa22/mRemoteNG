@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-08-07T16:13:10Z",
-  "github_updated_at": "2026-08-07T16:13:10Z",
+  "github_updated_at": "2026-08-12T07:26:12Z",
   "body_snippet": "**Version**: Nightly Build — 20260804 (v1.82.0)\n\n**Environment**:\nWindows 10/11\n\nReproducible especially on HiDPI/fractional scaling (125%, 150%, mixed DPI monitors)\n\n**Observed**:\nText in the Config panel (connection properties grid) appears softer/blurry (low-defined) than text in the rest of the UI.\n\n**Expected**:\nText rendering quality in Config panel should match the rest of the application and appear crisp.\n\n**Technical analysis**:\nConfig panel property grid explicitly enables compatible t...",
   "our_status": "testing",
   "priority": null,
@@ -45,11 +45,30 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-08-07T16:13:10Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABOPL5tg",
+      "author": "robertpopa22",
+      "date": "2026-08-11T07:44:18Z",
+      "snippet": "Your suspected root cause was right, and the fix is exactly the one you pointed at.\n\n`ConfigWindow.cs` set `UseCompatibleTextRendering = true` on the property grid. That routes text through GDI+ `Graphics.DrawString`, which renders without ClearType. Everything else in the app paints through GDI/`TextRenderer`, because startup calls `Application.SetCompatibleTextRenderingDefault(false)` — so this grid was the single control opting back out of the crisp path. Fractional DPI scaling makes the diff...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABObzqLQ",
+      "author": "bruste77",
+      "date": "2026-08-12T07:26:12Z",
+      "snippet": "Test on mRemoteNG-nightly-20260811-v1.82.0 and the issue is fixed",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-08-12T07:26:12Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-08-11T07:44:24Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "fix shipped 44d560efc; awaiting reporter visual confirm at 125/150/175% DPI"
 }

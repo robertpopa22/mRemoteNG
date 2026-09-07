@@ -1,0 +1,43 @@
+{
+  "number": 79,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Connection import is not working again",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-18T11:14:31Z",
+  "github_updated_at": "2026-03-20T18:48:06Z",
+  "body_snippet": "When you import, the servers appears in the Conections tree but when you close and reopen the program, they are lost.. even if you press Ctrl-S or file/save conections manually.\nPlease human test this fix before you mark the issue solved.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7zZLbM",
+      "author": "zgabi",
+      "date": "2026-03-18T15:30:11Z",
+      "snippet": "In the latest nightly it was saved.. did you change anything related to this issue?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7zuVlt",
+      "author": "robertpopa22",
+      "date": "2026-03-19T09:58:53Z",
+      "snippet": "@zgabi — glad to hear it's working in the latest nightly! 🎉\n\nYes, the import fix was in commit `91963a4` (from the #74 fix). The root cause was that `HandleCollectionChanged` was adding imported nodes at the tree root level instead of as children of the destination container. The fix ensures imported connections appear correctly under their parent folder AND are saved properly.\n\nIf import is now working correctly for you, feel free to close this one! 🙏",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-20T18:48:06Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

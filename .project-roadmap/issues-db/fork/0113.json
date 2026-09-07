@@ -6,7 +6,7 @@
   "labels": [],
   "author": "xPortu",
   "created_at": "2026-05-04T09:10:16Z",
-  "github_updated_at": "2026-06-22T09:32:12Z",
+  "github_updated_at": "2026-06-22T12:42:02Z",
   "body_snippet": "I am trying to configure mRemoteNG to use a SQL Server database as the backend instead of the default file-based configuration, but I am having issues when saving new connections.\n\nSteps already performed:\n\nI created a new SQL Server database specifically for mRemoteNG.\nI created a dedicated SQL user (mRemote) and granted it sysadmin / sa-level permissions (for testing purposes).\nUsing this user, mRemoteNG is able to connect to the database and automatically creates all required tables without a...",
   "our_status": "released",
   "priority": null,
@@ -297,13 +297,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABHDfnZg",
+      "author": "robertpopa22",
+      "date": "2026-06-22T12:42:01Z",
+      "snippet": "Fantastic — thanks for confirming, @xPortu. Reaching ConfVersion 3.4 with the connections loading, usable, and saveable means the whole 2.6 → 3.4 SQL upgrade path is clean now. I'll close this as resolved.\n\nTo your two follow-ups:\n\n**1. Old mRemoteNG (1.76) against a DB already migrated to 3.4 — correct, that won't work, and it isn't something we can fix.** Once a database is upgraded its schema is *newer* than what 1.76 understands (extra/changed columns, the higher ConfVersion). Old code can't...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-22T09:32:12Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-06-22T12:42:02Z",
+  "unread_comments": 9,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-06-22T09:43:02Z",
-  "notes": "xPortu confirms migration to 3.4 works, connections load/save; core SQL bug done (ff038592e). Side notes: backwards-compat by design; SQL-config preview-pane cosmetic",
-  "status": "released"
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": "xPortu confirms migration to 3.4 works, connections load/save; core SQL bug done (ff038592e). Side notes: backwards-compat by design; SQL-config preview-pane cosmetic"
 }

@@ -1,0 +1,43 @@
+{
+  "number": 94,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Include fix for mRemoteNG issue #3242",
+  "state": "closed",
+  "labels": [],
+  "author": "marc-fom",
+  "created_at": "2026-04-03T10:03:11Z",
+  "github_updated_at": "2026-04-22T08:46:43Z",
+  "body_snippet": "Hello,\n\nCan you please include in your fork and NB the fix for both issues reported here:\nhttps://github.com/mRemoteNG/mRemoteNG/issues/3242\n\nThanks!\nMarc\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7__K47",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:36:15Z",
+      "snippet": "Already addressed on `main`. The token is persisted and reloaded via the connection serializer path; see `XmlConnectionNodeSerializer28.cs:194` (write) and `XmlConnectionsDeserializer.cs:620` (read). Inherited values are resolved in `ConnectionInfo.TryGetInheritedPropertyValue` on demand, so parent→child inheritance of the gateway token works out of the box on the current nightly.\n\nIf you can reproduce a case where inheritance doesn't resolve correctly, please paste the connection XML (with secr...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__aHB",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:46:43Z",
+      "snippet": "Closing as resolved on `main`; please reopen if it reproduces on the latest [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-04-22T08:46:43Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

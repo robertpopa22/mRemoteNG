@@ -1,0 +1,43 @@
+{
+  "number": 73,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.Runtime.InteropServices.InvalidComObjectException: COM object that has been separated from its underlying RCW cannot be used.",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T15:28:19Z",
+  "github_updated_at": "2026-03-16T16:38:09Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.Runtime.InteropServices.InvalidComObjectException`\r\n**Message:** COM object that has been separated from its underlying RCW cannot be used.\r\n\r\n### Stack Trace\r\n```\r\n   at T* Windows.Win32.ComHelpers.TryGetComPointer<T>(object object, out HRESULT result)\r\n   at ComScope<T> Windows.Win32.ComHelpers.TryGetComScope<T>(object object, out HRESULT hr)\r\n   at ComScope<T> System.Windows.Forms.AxHost.TryGetComScope<T>(out HRESULT hr)\r\n   at bool System.W...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yhdnd",
+      "author": "robertpopa22",
+      "date": "2026-03-16T16:11:47Z",
+      "snippet": "## Fix applied in `59ff3f2b9`\n\n**Root cause:** Race condition between COM RCW disposal and the WinForms message pump. When an RDP connection closes, `Marshal.FinalReleaseComObject` detaches the RCW, but the AxHost control is still in the visual tree. A queued message arrives → `AxHost.PreProcessMessage` tries to access the detached COM object → `InvalidComObjectException`.\n\n**Fix (two layers):**\n\n1. **Preventive** (`RdpProtocol.CleanupResources`): Remove the AxHost control from its parent contai...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yiJXi",
+      "author": "zgabi",
+      "date": "2026-03-16T16:38:08Z",
+      "snippet": "Since it happened only once, I don't know how to reproduce.. I'll report again if the crash report window is shown.",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T16:38:09Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

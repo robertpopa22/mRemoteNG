@@ -1,14 +1,14 @@
 {
   "number": 55,
   "repo": "robertpopa22/mRemoteNG",
-  "title": "Disconnect button label too ling in Hungarian",
+  "title": "Disconnect button label too long in Hungarian",
   "state": "closed",
   "labels": [
     "P2-medium"
   ],
   "author": "zgabi",
   "created_at": "2026-03-13T20:58:27Z",
-  "github_updated_at": "2026-03-14T07:51:24Z",
+  "github_updated_at": "2026-03-16T08:54:22Z",
   "body_snippet": "The label of the Disconnect button is not fully visible.\n\n<img width=\"436\" height=\"135\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c9723296-d091-4c99-82d7-be02ff622e39\" />\n\nSo please\n- increase the button\n- replace the \"Kapcsolat bontása\" (disconnect the connection) to for example \"Szétkapcsolás\" (disconnect)\n- or replace simply to \"Yes\" (\"Igen\" in hungarian), since the questions is: \"Are you sure...?\"",
   "our_status": "new",
   "priority": null,
@@ -25,12 +25,66 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yA4nC",
+      "author": "zgabi",
+      "date": "2026-03-14T11:23:14Z",
+      "snippet": "Not fixed.\nI haven't found any other truncated texts, yet.. but most of the labels are not translated.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yMOxM",
+      "author": "robertpopa22",
+      "date": "2026-03-15T16:05:31Z",
+      "snippet": "@zgabi We found why the button fix didn't work in your build — the buttons had `Anchor = Top | Right` set in the designer, which overrides the repositioning during WinForms layout. The `RepositionButtons()` code was correct but the anchor snapped the buttons back.\n\n**Fixed now** — buttons are switched to `Anchor = Top | Left` before repositioning, so the calculated width and position stick.\n\nThe fix will be in the next nightly. Thanks for confirming it wasn't working!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yM5Zd",
+      "author": "zgabi",
+      "date": "2026-03-15T17:32:04Z",
+      "snippet": "nightly-20260315-v1.82.0-beta.2-dd1c3d7\nSame as before.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yOfRR",
+      "author": "robertpopa22",
+      "date": "2026-03-15T21:04:00Z",
+      "snippet": "@zgabi **Fixed in commit 6e0ef3c** — the Disconnect button now shows the full Hungarian text \"Kapcsolat bontása\" without truncation.\n\n**Root cause:** The buttons in `frmTaskDialog.designer.cs` had `Anchor = Top | Right` set by the WinForms designer. The `RepositionButtons()` code that dynamically resized buttons based on text width was correct, but WinForms layout engine re-applied the designer anchors **after** the repositioning, snapping buttons back to 75px width.\n\n**Fix:** Changed button anc...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yPQOr",
+      "author": "zgabi",
+      "date": "2026-03-15T22:47:30Z",
+      "snippet": "Still not fixed, now it is even worse, the 2nd button does not fit to the window. In the mentioned confirmation dialog, and in the another one, too:\n\n<img width=\"436\" height=\"114\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/745a8f97-43bc-4d48-a8d7-331085f5cf9e\" />\n\n<img width=\"436\" height=\"135\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/48245e3c-42e3-44be-9ea9-1e0dc0a0c9c1\" />\n\nAnd the user can't see which button is active by default. The Yes and the Disconnect i...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yW3D6",
+      "author": "robertpopa22",
+      "date": "2026-03-16T08:54:22Z",
+      "snippet": "@zgabi **Fully fixed and verified in commit fab433d** — tested on a local build with Hungarian UI before pushing.\n\n### What was fixed (5 issues in the TaskDialog):\n\n**1. Button overflow (your original report)**\n`RepositionButtons()` now calculates the total button width needed and **widens the form automatically** when buttons don't fit. It also runs in `OnShown()` (after all WinForms layout passes), not just during `BuildForm()` — this was why previous fixes didn't work (the layout engine was o...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-14T07:51:24Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-03-16T08:54:22Z",
+  "unread_comments": 3,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-03-14T08:07:39Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

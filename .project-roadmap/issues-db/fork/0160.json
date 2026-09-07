@@ -6,7 +6,7 @@
   "labels": [],
   "author": "jafin",
   "created_at": "2026-08-06T23:17:27Z",
-  "github_updated_at": "2026-08-15T17:24:32Z",
+  "github_updated_at": "2026-08-17T09:32:10Z",
   "body_snippet": "## Summary\n\n`ConnectionContextMenu` contains two `ToolStripMenuItem`s that are constructed and added to `Items` but never given `Text`, `Image`, `Name`, a `Click` handler, or an entry in `ApplyLanguage()`. WinForms renders an empty `ToolStripMenuItem` as a full-height, enabled, clickable row — so users see two blank gaps in the connection tree context menu.\n\nBoth were introduced as partial implementations of upstream feature requests:\n\n- `_cMenTreeExcludeFromSearch` — commit `e647fcebb`, *\"fix(#...",
   "our_status": "testing",
   "priority": null,
@@ -44,12 +44,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHkoxw",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:46Z",
+      "snippet": "The fix is now in **[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)**.\n\nAlso hardened since: the suite now walks the *entire* connection context menu recursively and fails on any non-separator entry with blank text — so a future half-implemented menu item can't slip in silently the way these two did. Verified in the built app as well: the two blank rows are gone from the menu.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPMG7CA",
+      "author": "robertpopa22",
+      "date": "2026-08-17T09:32:09Z",
+      "snippet": "Closing as fixed in **v1.83.0**, on our own verification.\n\n**Why we're closing it ourselves:** both orphan entries are removed (verified by clicking through the built app — the blank rows are gone), and a regression test now walks the entire connection context menu recursively and fails on any non-separator item with blank text, so this class of half-implemented menu entry cannot slip in silently again. Your file:line analysis made it a five-minute fix — thank you.\n\nFinishing #1659 properly (a r...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T17:24:32Z",
+  "comments_cursor": "2026-08-17T09:32:10Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-08-15T17:32:20Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "fix shipped 843b72e3f; awaiting reporter confirm on nightly"
 }

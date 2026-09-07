@@ -6,7 +6,7 @@
   "labels": [],
   "author": "CrAzEpAnDa-28",
   "created_at": "2026-06-15T12:55:37Z",
-  "github_updated_at": "2026-06-22T12:42:04Z",
+  "github_updated_at": "2026-07-05T12:17:48Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.TypeInitializationException`\r\n**Message:** The type initializer for 'System.Resources.Extensions.BinaryFormat.BinaryFormattedObject' threw an exception.\r\n\r\n### Stack Trace\r\n```\r\n   at new System.Resources.Extensions.BinaryFormat.BinaryFormattedObject(Stream stream, Options options)\r\n   at object System.Resources.Extensions.DeserializingResourceReader.ReadBinaryFormattedObject()\r\n   at object System.Resources.Extensions.DeserializingResourceRead...",
   "our_status": "released",
   "priority": null,
@@ -44,12 +44,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIzqF7Q",
+      "author": "robertpopa22",
+      "date": "2026-07-05T12:17:48Z",
+      "snippet": "Closing: this crash was already fixed on `main` before the report (commit `9e81169af` removed the BinaryFormatter-serialized ImageList from the exit dialog, and `1680cf817` removed the last remaining one in the AD tree control). The build you reported from predates those fixes.\n\nThere has been no recurrence of this `TypeInitializationException` from any nightly or from v1.82.0 stable in the two weeks since the retest request. Please upgrade to the latest release — and reopen if you ever see it a...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-22T12:42:04Z",
+  "comments_cursor": "2026-07-05T12:17:48Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-05T12:18:06Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "closed: stale version, fixed pre-report (9e81169af+1680cf817), 2wk silent after retest ask"
 }

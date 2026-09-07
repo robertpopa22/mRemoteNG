@@ -1,0 +1,43 @@
+{
+  "number": 72,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Boolean settings are editable in the connection properties",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T15:11:52Z",
+  "github_updated_at": "2026-03-16T16:36:17Z",
+  "body_snippet": "The enums are OK, but I noticed that the user can edit the boolean values.. \n\n<img width=\"479\" height=\"99\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/7900af25-ac7e-4aca-99db-e8aac1b74893\" />\n\nI think the boolean editors should be similar \"combobox\"-es with fixed true/false... or yes/no values.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yhgmA",
+      "author": "robertpopa22",
+      "date": "2026-03-16T16:13:10Z",
+      "snippet": "Hi @zgabi, great eye — you're absolutely right! 👍\n\n## Fix (commit 5c12264)\n\nWe overrode `GetStandardValuesExclusive()` in `YesNoTypeConverter` to return `true`, which tells the PropertyGrid that only the dropdown values (`Yes`/`No`) are valid — no more free-text editing for boolean fields.\n\nThis is already in `main`, so the next nightly build will include it.\n\n## How to verify\n\n1. Open any connection's properties\n2. Click on a boolean field (e.g., \"Use Console Session\", \"Redirect Disk Drives\", e...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yiFug",
+      "author": "zgabi",
+      "date": "2026-03-16T16:36:17Z",
+      "snippet": "Looks good, thanks",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T16:36:17Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

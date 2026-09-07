@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-06-05T07:35:32Z",
-  "github_updated_at": "2026-06-05T07:35:32Z",
+  "github_updated_at": "2026-06-12T07:31:41Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.MissingMethodException`\r\n**Message:** Method not found: 'Void BrightIdeasSoftware.ObjectListView.SetSmallImageList(System.Windows.Forms.ImageList)'.\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.UI.Controls.ConnectionTree.ConnectionTree.SetupConnectionTreeView() x 2\r\n   at new mRemoteNG.UI.Controls.ConnectionTree.ConnectionTree()\r\n   at void mRemoteNG.UI.Window.ConnectionTreeWindow.InitializeComponent()\r\n   at new mRemoteNG.UI.Window.Connection...",
   "our_status": "needs_info",
   "priority": null,
@@ -25,11 +25,30 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-06-05T07:35:32Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABFxsNhw",
+      "author": "robertpopa22",
+      "date": "2026-06-11T16:15:46Z",
+      "snippet": "Thanks for the report, @bruste77 — this one tells a very clear story.\n\n**What happened:** your crash is\n\n> `MissingMethodException: Method not found: 'Void BrightIdeasSoftware.ObjectListView.SetSmallImageList(System.Windows.Forms.ImageList)'`\n\n`SetSmallImageList` is a method that exists in **this fork's** bundled `ObjectListView.dll`. The exception means the `ObjectListView.dll` sitting next to your `mRemoteNG.exe` is an **older copy** that doesn't have it — i.e. the Portable package was unpacke...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABF3bmmA",
+      "author": "bruste77",
+      "date": "2026-06-12T07:31:41Z",
+      "snippet": "Actually I didn't use the portable version but the msi, however I uninstalled the msi, deleted the folder from program files, installed latest NB and the issue is not reproduced anymore. So this bug can be closed",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-06-12T07:31:41Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-06-11T16:16:02Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "MissingMethodException SetSmallImageList = stale ObjectListView.dll after portable upgrade-in-place (same habit as #122; pin 052f1f4c5 lets old DLL bind but fork-added method missing). Replied: clean extract + confirm"
 }

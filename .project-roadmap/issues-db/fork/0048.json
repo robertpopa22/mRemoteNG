@@ -8,7 +8,7 @@
   ],
   "author": "JensHKnudsen",
   "created_at": "2026-03-09T10:29:19Z",
-  "github_updated_at": "2026-03-13T17:53:45Z",
+  "github_updated_at": "2026-03-16T07:52:18Z",
   "body_snippet": "Trying to import an existing config trows error due to a hardcoded nonexisting path\n\n\n## Crash Report\n\n### Exception\n**Type:** `System.ArgumentException`\n**Message:** The directory name 'D:\\github\\mRemoteNG\\mRemoteNG\\bin\\x64\\Release\\Settings' does not exist. (Parameter 'path')\n\n### Stack Trace\n```\n   at void System.IO.FileSystemWatcher.CheckPathValidity(string path)\n   at new System.IO.FileSystemWatcher(string path, string filter)\n   at new mRemoteNG.Config.Connections.Multiuser.FileConnectionsU...",
   "our_status": "new",
   "priority": null,
@@ -27,10 +27,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-13T17:53:45Z",
+  "comments_cursor": "2026-03-16T07:52:18Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-03-14T08:07:39Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

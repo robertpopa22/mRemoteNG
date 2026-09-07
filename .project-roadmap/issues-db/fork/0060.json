@@ -1,0 +1,61 @@
+{
+  "number": 60,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Import 300 connections takes more than 6 minutes",
+  "state": "closed",
+  "labels": [],
+  "author": "bruste77",
+  "created_at": "2026-03-16T08:51:18Z",
+  "github_updated_at": "2026-03-16T12:28:32Z",
+  "body_snippet": "Just tested with latest NB (mRemoteNG-nightly-20260315-v1.82.0-beta.2). I imported an xml file with 300 connections and it took more than 6 minutes.\n\n2026-03-16 10:27:16,506 [2] INFO  - [Startup] InitializeProgram: 79ms\n2026-03-16 10:27:16,726 [6] INFO  - Microsoft Windows 10 Pro  64-bit\n2026-03-16 10:27:17,323 [2] INFO  - [Startup] PanelLayout: 153ms\n2026-03-16 10:27:17,399 [2] INFO  - Saving connections...\n2026-03-16 10:27:18,575 [2] INFO  - Successfully saved connections\n2026-03-16 10:27:19,6...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7yXscy",
+      "author": "zgabi",
+      "date": "2026-03-16T09:31:44Z",
+      "snippet": "I have the same problem, the deserialization takes a lot of time.\nSee: **[CENSORED!] Links to external GitHub repositories are not allowed**\nIssue still exists in nightly-20260316-v1.82.0-beta.2-fab433d",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yZU5q",
+      "author": "zgabi",
+      "date": "2026-03-16T10:39:59Z",
+      "snippet": "It seels that it is fixed in nightly-20260316-v1.82.0-beta.2-aab6511\n@bruste77 You shoud also try this version.\nhtt ps:/ /git hu b.com /robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260316-v1.82.0-beta.2-aab6511-x64.zip",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7ybjJ-",
+      "author": "robertpopa22",
+      "date": "2026-03-16T12:28:23Z",
+      "snippet": "## Fixed in commit aab6511 (pushed today)\n\nThis is the exact same root cause as #53 — **PBKDF2 key derivation at 600K iterations per encrypted field**, using BouncyCastle's slow managed implementation.\n\nYour log confirms it:\n- `Connection deserialization completed in 349,705 ms` = **5.8 minutes** for 300 connections\n- That's ~1,165ms per connection — consistent with ~2 encrypted fields × ~500ms PBKDF2 each\n\n### What was fixed (commit aab6511):\n1. **Replaced BouncyCastle PBKDF2 with .NET native `...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ybjU7",
+      "author": "robertpopa22",
+      "date": "2026-03-16T12:28:31Z",
+      "snippet": "Closing — same root cause as #53, fixed in aab6511.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T12:28:32Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

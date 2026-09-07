@@ -8,7 +8,7 @@
   ],
   "author": "domy86",
   "created_at": "2026-04-15T18:58:44Z",
-  "github_updated_at": "2026-05-23T11:19:47Z",
+  "github_updated_at": "2026-06-11T16:15:48Z",
   "body_snippet": "Related to the issue https://github.com/mRemoteNG/mRemoteNG/issues/2329, how to connect using Azure AD web account?\n\n<img width=\"567\" height=\"621\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/14a1b81d-1d05-4986-95ba-dd4b8ecd7143\" />\n\nRemote clients have the most secured setup like NLA, NTLM v2 and so on. If I try to connect, I get this error:\n\n<img width=\"669\" height=\"298\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/16e4a2c2-b33b-405f-9aeb-fd24e9224b1c\" />\n\nmRemote...",
   "our_status": "released",
   "priority": null,
@@ -63,12 +63,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABFxsORQ",
+      "author": "robertpopa22",
+      "date": "2026-06-11T16:15:47Z",
+      "snippet": "Closing this one out: Entra ID / Azure AD authentication shipped back in commit `2e40adc6b` and has been in every nightly since (Connection category → **Entra ID Authentication**, target host must be Entra-joined Windows 11 22H2+ / Server 2022+).\n\nNo response since the May nudge, so I'll assume it's working. @domy86 if you tried it and hit any problem, just drop a comment and I'll reopen — happy to follow up.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-05-23T11:19:47Z",
+  "comments_cursor": "2026-06-11T16:15:48Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-06-11T16:16:02Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "Entra ID shipped 2e40adc6b; no reporter response 3wk after nudge; closed, reopen on request"
 }

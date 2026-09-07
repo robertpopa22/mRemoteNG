@@ -8,7 +8,7 @@
   ],
   "author": "Alessio71",
   "created_at": "2026-03-11T09:28:15Z",
-  "github_updated_at": "2026-03-13T17:53:39Z",
+  "github_updated_at": "2026-03-15T20:34:12Z",
   "body_snippet": "mRemoteNG 1.82.0-beta.1 NB Build 3424\n\nwhen launching a SSH V2 connection I get this error\n\n<img width=\"301\" height=\"152\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/7f1dd676-df71-42d0-bcde-db94da9dadc7\" />\n\nwhat could it be and how do I fix it?\nThanks",
   "our_status": "new",
   "priority": null,
@@ -25,12 +25,48 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yAGDX",
+      "author": "Alessio71",
+      "date": "2026-03-14T09:02:16Z",
+      "snippet": "Hi @robertpopa22, I've selected the official Putty executable 0.83\n\n<img width=\"504\" height=\"61\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/ff141526-5661-4c8a-bee7-1fd0937443eb\" />\n\nI'm sorry but I don't know how to remove `-batch` from the arguments.\nI thought that using the latest version of Putty was the best option, now I tried to unselect the custom PuTTY option  but the error still appears (I've checked, now it uses your PuTTYNG.exe but with the same results)\n\n<img width=\"...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yAeHY",
+      "author": "robertpopa22",
+      "date": "2026-03-14T10:09:52Z",
+      "snippet": "Thanks for the additional details @Alessio71!\n\nThis is puzzling — PuTTY 0.83 (official) **definitely** supports `-batch` (it's been available since version 0.62). And our bundled PuTTYNG.exe is also built from PuTTY 0.83 source, so it supports it too. I've just verified locally — both accept `-batch` without errors.\n\nThis means the error might not actually be about `-batch`. Could you help us confirm:\n\n1. **Exact error text**: Could you copy-paste the **complete** error message text? (The screen...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yDiYG",
+      "author": "Alessio71",
+      "date": "2026-03-14T18:11:43Z",
+      "snippet": "1. The error comes from PuTTy itself and states \"option \"-batch\" not available in this tool\"\n2. Yes, the connection has a password saved\n3. Without password works, with password set same error\n4. `\"c:\\Program Files\\PuTTY\\putty.exe\" -batch -ssh alessio@192.168.51.11` usual error that -batch is not available ion this tool\n\nLooks like that is `plink` that has `-batch` parameter, not `PuTTY`",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yMOpZ",
+      "author": "robertpopa22",
+      "date": "2026-03-15T16:05:14Z",
+      "snippet": "@Alessio71 You were absolutely right — `-batch` is a **plink.exe** (command-line) option, NOT a **putty.exe** (GUI) option. Our previous \"fix\" only skipped unknown tools but still passed `-batch` to recognized PuTTY variants, which don't support it either.\n\n**Fixed now** — we've completely removed the `-batch` flag from PuTTY GUI arguments. The `-pw`/`-pwfile` flags handle password passing correctly without `-batch`.\n\nThe fix will be in the next nightly build. Thanks for the excellent debugging ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-13T17:53:39Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-03-15T20:34:12Z",
+  "unread_comments": 2,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-03-14T08:07:39Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

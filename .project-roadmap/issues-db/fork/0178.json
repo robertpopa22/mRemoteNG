@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-03T16:46:46Z",
-  "github_updated_at": "2026-09-03T16:46:46Z",
+  "github_updated_at": "2026-09-04T11:39:11Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ObjectListView, Version=2.9.3.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.UI.Window.ConnectionTreeWindow.InitializeComponent() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/UI/Window/ConnectionTreeWindow.Designer.cs:line 20\r\n   at new mRemoteNG.UI.Window.ConnectionTreeWindow(DockContent panel) i...",
   "our_status": "testing",
   "priority": null,
@@ -39,11 +39,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-09-03T16:46:46Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABSjRWfw",
+      "author": "robertpopa22",
+      "date": "2026-09-04T11:39:11Z",
+      "snippet": "This came in as an automatic crash report, so there may be nobody reading — but the diagnosis is worth recording, and something has been changed because of it.\n\n`ObjectListView` is built and shipped next to `mRemoteNG.exe` on every build, so it cannot be absent unless the installation itself is incomplete: a half-extracted download, a file antivirus has quarantined, or two different mRemoteNG downloads mixed into one folder. **If you hit this, re-extract the download over the folder or reinstall...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-04T11:39:11Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-04T11:39:22Z",
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-05T11:23:40Z",
   "notes": "fix shipped; awaiting reporter confirm on nightly"
 }

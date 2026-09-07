@@ -4,10 +4,10 @@
   "title": "[No application window] mRemoteNG 1.81.0-beta.3 NB 3410",
   "state": "closed",
   "labels": [],
-  "author": "krwudtke",
-  "created_at": "2026-02-25T00:00:00Z",
-  "github_updated_at": "2026-02-25T00:00:00Z",
-  "body_snippet": "mRemoteNG.exe starts (visible in task manager, CPU=0) but application window does not appear. Tested on 3 computers, both x86 and x64-selfcontained ZIPs. Roaming AppData created (themes) but Local AppData not created. Works on beta.2 (NB 3396), fails on beta.3 (NB 3409/3410).",
+  "author": "vndnua",
+  "created_at": "2026-02-25T08:15:45Z",
+  "github_updated_at": "2026-02-25T10:30:42Z",
+  "body_snippet": "Perhaps I am doing something wrong:\nI checked on three different computers: mRemoteNG.exe starts (I can see it in the task manager processes, CPU usage = 0), but the application window does not appear.\n\nThe folder “C:\\Users\\user\\AppData\\Local\\mRemoteNG Connection Manager” is not created.\n\nThe folder “C:\\Users\\user\\AppData\\Roaming\\mRemoteNG Connection Manager” is created, with the following files in a subfolder:\nC:\\Users\\user\\AppData\\Roaming\\mRemoteNG Connection Manager\\Themes\\darcula.vstheme\nC:\\...",
   "our_status": "released",
   "priority": "P0",
   "target_release": "v1.81.0-beta.4",
@@ -21,12 +21,48 @@
       "result": "fixed"
     }
   ],
-  "comments": [],
-  "comments_cursor": null,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7r6PW7",
+      "author": "robertpopa22",
+      "date": "2026-02-25T09:24:41Z",
+      "snippet": "## Root Cause Found\n\nThe issue is a regression in v1.81.0-beta.3 caused by premature `FrmMain` creation.\n\n### What happened\n\nIn `Startup.cs`, there was an unused field:\n```csharp\nprivate readonly FrmMain _frmMain = FrmMain.Default;\n```\n\nThis field initializer runs when `Startup.Instance` is first accessed. In beta.3, a new line was added to `ProgramRoot.MainAsync()`:\n```csharp\nStartup.Instance.CommandLineArgs = args;  // Accesses Startup singleton early\n```\n\nThis triggers `FrmMain.Default` creat...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7r6VdV",
+      "author": "robertpopa22",
+      "date": "2026-02-25T09:28:56Z",
+      "snippet": "## v1.81.0-beta.4 build started\n\nA new release build has been triggered with the fix included:\n- **Workflow run:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n- **Version:** 1.81.0-beta.4\n\nThe release will include signed builds for x86, x64, and ARM64 (both framework-dependent and self-contained). Build artifacts should be available within ~15-20 minutes.",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7r6jfD",
+      "author": "robertpopa22",
+      "date": "2026-02-25T09:38:46Z",
+      "snippet": "## Update: Complete fix pushed & beta.4 rebuild triggered\n\nThe initial fix (commit `3bdef08` — removing unused `_frmMain` field) was **insufficient**. The real problem was deeper:\n\n**Root cause confirmed by testing**: `Startup.Instance.CommandLineArgs = args;` in `MainAsync()` triggers the Startup singleton constructor, which creates `RegistryLoader`, `AppUpdater`, and `ConnectionIconLoader` — all of which create WinForms Controls/handles **before** `Application.SetUnhandledExceptionMode()` / `A...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7r7r7J",
+      "author": "vndnua",
+      "date": "2026-02-25T10:30:42Z",
+      "snippet": "Fixed",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-25T10:30:42Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-25T12:00:00Z",
-  "notes": "Regression from beta.2. The _frmMain field was never used — it was dead code that forced premature form creation.\n[2026-03-02] Promoted to released. Verified: Root cause fixed — removed unused _frmMain field that forced premature FrmMain creation before SetHighDpiMode/EnableVisualStyles.",
-  "impl_failed": false
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": "Regression from beta.2. The _frmMain field was never used — it was dead code that forced premature form creation.\n[2026-03-02] Promoted to released. Verified: Root cause fixed — removed unused _frmMain field that forced premature FrmMain creation before SetHighDpiMode/EnableVisualStyles."
 }

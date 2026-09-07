@@ -6,7 +6,7 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-10T21:16:04Z",
-  "github_updated_at": "2026-08-15T17:24:28Z",
+  "github_updated_at": "2026-08-17T09:32:05Z",
   "body_snippet": "## Description\n\nWhen using the MariaDB backend, saving the connection list intermittently fails if MariaDB/MySQL safe-update mode is enabled.\n\nThe failure is not consistent. While moving connections around in the connection tree, approximately 50% of save attempts produced the safe-update error. Other save attempts completed successfully. When a save succeeds, the entire connection tree is saved.\n\nBecause the application does not clearly indicate whether the most recent save succeeded, small cha...",
   "our_status": "testing",
   "priority": null,
@@ -109,12 +109,39 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPEiWVA",
+      "author": "robertpopa22",
+      "date": "2026-08-16T07:38:40Z",
+      "snippet": "We were wrong about this one, and you were right to leave it open.\n\nThe earlier fix did not work, and we could not have known that at the time because we had no MariaDB to test against — it was verified only by a green test suite. We have since built a lab with a real MariaDB 10.11 and `sql_safe_updates=1`, and the first run reproduced your error immediately:\n\n```\nmRemoteNG.Sql.Operation: DeleteAllRows\nmRemoteNG.Sql.CommandText: DELETE FROM tblRoot LIMIT 1\nMySqlException 1175: You are using safe...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHknig",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:42Z",
+      "snippet": "The corrected fix is now in **[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)**.\n\nSince the last update we also made this class of bug much harder to reintroduce: the test suite now includes five integration tests that run against a **live MariaDB 10.11 with `sql_safe_updates=1`** — including one that asserts the server precondition itself, so the tests cannot silently pass against a server where the issue can't reproduce. They ran green against the real server b...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPMG3dw",
+      "author": "robertpopa22",
+      "date": "2026-08-17T09:32:04Z",
+      "snippet": "Closing as fixed in **v1.83.0**, on our own verification — the strongest kind we can produce for a server-side bug.\n\n**Why we're closing it ourselves:** after discovering our first fix could never have worked (and telling you so), we built a lab with a real MariaDB 10.11 running `sql_safe_updates=1`, reproduced your exact error 1175 on the first run, fixed the actual mechanism, and now ship five live integration tests against that server — including one that asserts the server precondition itsel...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T17:24:28Z",
+  "comments_cursor": "2026-08-17T09:32:05Z",
   "unread_comments": 3,
-  "needs_action": false,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-08-15T17:32:20Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "ConfVersion 3.2 stale constant 3f13a6e56 + root name round-trip 4c294ced9; awaiting confirm (one manual rename needed)"
 }

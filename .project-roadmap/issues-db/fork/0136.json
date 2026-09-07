@@ -6,7 +6,7 @@
   "labels": [],
   "author": "kaansengul",
   "created_at": "2026-07-01T17:56:12Z",
-  "github_updated_at": "2026-07-16T19:37:17Z",
+  "github_updated_at": "2026-07-17T04:54:34Z",
   "body_snippet": "Options -> Updates -> Release Channel:\n\n1. Stable: \"Latest version: 1.76.11.40592\"\n2. Preview: \"Check failed!\"\n3. Nightly: \"Check failed!\"\n4. Github: \"Latest version: 1.81.0\"\n\nCurrently in \"1.82.0-beta3 (Pre-release 3592) x64\"",
   "our_status": "released",
   "priority": null,
@@ -82,12 +82,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABKfhL0g",
+      "author": "robertpopa22",
+      "date": "2026-07-17T04:54:32Z",
+      "snippet": "Thanks for confirming — that's exactly the intended behaviour now: the in-app check compares your version against the fork's **latest stable release** (currently 1.82.0), so with 1.82.0 installed there is nothing to update.\n\nOne note: fixes merged since the stable release land first in the rolling [`nightly` prerelease](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly); the update checker deliberately doesn't offer nightlies. If you want to try them, grab the ZIP from that page (an...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-16T19:37:17Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-07-17T04:54:34Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-07-17T04:54:46Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "reporter confirmed correct update check; replied + closed 2026-07-17"
 }

@@ -2,15 +2,15 @@
   "number": 176,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Error when setting connection or tab color: Object of type 'System.Drawing.Color' cannot be converted to type 'System.String'.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "JohnnyPrimus",
   "created_at": "2026-09-02T21:39:41Z",
-  "github_updated_at": "2026-09-02T21:39:41Z",
+  "github_updated_at": "2026-09-05T11:53:06Z",
   "body_snippet": "When configuring a VNC (also tested RDP) connection, selecting a color or a tab color fails...no color is shown in the color box, and an error is thrown. Upon clicking details, it seems the selection box is trying to use the color directly as a string (Error when setting connection or tab color: Object of type 'System.Drawing.Color' cannot be converted to type 'System.String'.). See below for example\n\n<img width=\"431\" height=\"196\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/347e3...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -25,13 +25,61 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-09-05",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-09-05",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-09-02T21:39:41Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABSjRVxg",
+      "author": "robertpopa22",
+      "date": "2026-09-04T11:39:10Z",
+      "snippet": "Thank you for the screenshot — the exact wording of that error is what identified the mechanism straight away.\n\n`Color` and `TabColor` are stored as text (a colour name or a hex string), but they carried the stock colour editor, which is built for `Color`-typed properties: it always hands back a `System.Drawing.Color`, and the property grid assigns an editor's result straight through without consulting the type converter. Assigning a `Color` to a text property is exactly the message you saw. It ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSsC9Qw",
+      "author": "JohnnyPrimus",
+      "date": "2026-09-05T03:41:41Z",
+      "snippet": "Can confirm the colors can now be selected and are displayed correctly",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABSuaYLA",
+      "author": "robertpopa22",
+      "date": "2026-09-05T11:53:05Z",
+      "snippet": "Thank you for confirming — and for confirming quickly. Before closing, one more thing was checked, because this was the third report of the same bug (#156, #173, #176), and a bug that has been reported three times is one this project has already got wrong at least once.\n\nThat check found two remaining defects in the fix you tested, both invisible to the \"pick a colour\" gesture you confirmed:\n\n1. **Dismissing the picker rewrote the stored value.** The stock colour editor returns the colour it was...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-05T11:53:06Z",
+  "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-04T11:39:21Z",
-  "notes": "fix shipped; awaiting reporter confirm on nightly"
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:33Z",
+  "notes": "closed 2026-09-05 after 3-model panel; cancel-rewrite + standard-values fixed 8f12912c3 (credit PR #156)"
 }

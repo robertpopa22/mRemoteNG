@@ -6,7 +6,7 @@
   "labels": [],
   "author": "Buster-de",
   "created_at": "2026-07-15T17:08:01Z",
-  "github_updated_at": "2026-08-15T17:33:02Z",
+  "github_updated_at": "2026-08-17T09:32:07Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'System.Windows.Extensions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. Das System kann die angegebene Datei nicht finden.\r\n\r\n### Stack Trace\r\n```\r\n   at mRemoteNG.UI.TaskDialog.frmTaskDialog.frmTaskDialog_Shown(Object sender, EventArgs e)\r\n   at mRemoteNG.UI.TaskDialog.frmTaskDialog.frmTaskDialog_Shown(Object sender, EventArgs e)\r\n   at mRemoteNG.U...",
   "our_status": "testing",
   "priority": null,
@@ -72,12 +72,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHkoKw",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:44Z",
+      "snippet": "The fix is now also in **[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)** — no need to run a nightly to pick it up anymore.\n\nSame standing offer as before: a quick yes/no after trying it closes the loop, silence just leaves the issue open with no expectation on you.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPMG5IA",
+      "author": "robertpopa22",
+      "date": "2026-08-17T09:32:06Z",
+      "snippet": "Closing as fixed in **v1.83.0**, on our own verification.\n\n**Why we're closing it ourselves:** the broken managed preflight that produced this crash was deleted outright, and the release pipeline now verifies the shipped assembly layout (71/71 assemblies) plus an app-start smoke test on every build — the exact failure mode here (a missing assembly only visible at startup on a clean machine) is now exercised by CI itself, which is precisely what the unit tests could not see when this was reported...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T17:33:02Z",
+  "comments_cursor": "2026-08-17T09:32:07Z",
   "unread_comments": 1,
-  "needs_action": false,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-08-15T19:53:39Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "fix b8c056e6b shipped 2026-07-17; followup pinged 2026-08-15 (single ping, no further nags)"
 }

@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-08-07T13:55:25Z",
-  "github_updated_at": "2026-08-15T17:24:34Z",
+  "github_updated_at": "2026-08-17T09:26:02Z",
   "body_snippet": "**Summary**\nWhen mRemoteNG is set to Automatically Detect language, the main UI appears in English, but the connection file configuration dialogs (Open/Save) appear in Italian on systems configured with Windows display language en-US and locale/format it-IT.\n\nThis creates an inconsistent user experience and suggests different culture sources are used by different UI components.\n\n**Version**\nNightly Build — 20260804 (v1.82.0)\n\n**Environment**\nOS: Windows 10/11\nWindows display/UI language: en-US\nW...",
   "our_status": "testing",
   "priority": null,
@@ -92,12 +92,39 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPHkpLQ",
+      "author": "robertpopa22",
+      "date": "2026-08-16T20:34:47Z",
+      "snippet": "The fix (`734ee29c0`) is now in **[v1.83.0 stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.83.0)**.\n\nThe regression test pins your exact configuration — regional format it-IT with display language en-US — and asserts the Config grid resolves against the display language; the inverse (explicitly choosing Italian still shows Italian) is pinned too. If the grid still shows mixed languages for you on 1.83.0, that would mean a resolution path the test doesn't cover, and we'd want to...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPKgHBw",
+      "author": "bruste77",
+      "date": "2026-08-17T06:27:12Z",
+      "snippet": "tested on mRemoteNG 1.83.0 and issue is fixed",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABPMC0WA",
+      "author": "robertpopa22",
+      "date": "2026-08-17T09:26:02Z",
+      "snippet": "Confirmed on 1.83.0 — thank you for retesting, and for the original report: the precise list of which strings were Italian versus English is what made the wrong-culture lookup findable in one pass. Closing as verified.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-15T17:24:34Z",
-  "unread_comments": 1,
-  "needs_action": false,
+  "comments_cursor": "2026-08-17T09:26:02Z",
+  "unread_comments": 2,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-08-15T17:32:20Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": "fix 734ee29c0 shipped; awaiting reporter confirm on nightly"
 }

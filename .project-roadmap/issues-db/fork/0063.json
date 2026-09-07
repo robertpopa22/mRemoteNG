@@ -1,0 +1,43 @@
+{
+  "number": 63,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Question: Is it possible to resize the RDP connection screen?",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T10:31:49Z",
+  "github_updated_at": "2026-03-16T13:11:40Z",
+  "body_snippet": "When I open mRemoteNG, it opens in a smaller window => OK\nConnect to an RDP, it fits to the current panel size => OK\nThen I minimize the windows, but the remote desptop is not automatically resized.\n\nMy settings for this connection:\nResolution: Fit to Panel\nSizing mode: Smart Size (RDP/VNC), but I tried other settings, too\nAutomatic resize: true\n\nIs it possible to somehow enlarge the RDP screen without disconnect and reconnect when the main window is already maximized?\nAm I missing any related s...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7ybxWt",
+      "author": "robertpopa22",
+      "date": "2026-03-16T12:38:26Z",
+      "snippet": "@zgabi The RDP control should automatically resize when you maximize the mRemoteNG window, **if these settings are correct**:\n\n- **Resolution:** `Fit to Panel`\n- **Automatic Resize:** `True`\n- **Sizing Mode:** `Smart Size` or `Smart Sizing`\n\nIf the remote desktop doesn't resize after maximizing, it might be an issue with the RDP ActiveX control not receiving the resize event. We have a resize debounce handler (commit df10d205b) that marshals resize events to the UI thread — this should handle mo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ychjM",
+      "author": "robertpopa22",
+      "date": "2026-03-16T13:11:40Z",
+      "snippet": "Fixed! The root cause was in `RdpProtocol8.DoResizeClient()` — when **SmartSize** was enabled (which it is for your settings), the method skipped the RDP `Reconnect()` call entirely. The session stayed at the initial small resolution and SmartSize just upscaled it (blurry).\n\n**Fix:** Removed the SmartSize early-return for FitToWindow/Fullscreen resolution modes. Now the RDP session reconnects at the new panel size on maximize/restore, and SmartSizing is re-applied after reconnect to preserve smo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T13:11:40Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

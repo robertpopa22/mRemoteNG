@@ -1,0 +1,52 @@
+{
+  "number": 37,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[v1.82.0-beta.1] Configuration options are not saved",
+  "state": "closed",
+  "labels": [],
+  "author": "judaspriest",
+  "created_at": "2026-03-03T14:01:04Z",
+  "github_updated_at": "2026-03-07T07:20:42Z",
+  "body_snippet": "The last version - I know - where configuration settings were saved was the oldstable version v1.80.1 (Release 3394).\n\nThis version used - as the old 1.78.xxxx nightly builds the following directories to store user data:\n\n\n%APPDATA%\\Roaming\\mRemoteNG Connection Manager\\\n\n--> Themes\nextApps.xml\npnILayout.xml\nquickConnectHistory.xml\n\n\n%APPDATA%\\Local\\Profi-KOM_Ltd\\mRemoteNG_Url_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\1.80.1.3394\\user.config\n\n\nChanges to the configuration settings, for example \"al...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7t6T_m",
+      "author": "Alessio71",
+      "date": "2026-03-03T14:34:35Z",
+      "snippet": "I can confirm the issue, very few settings get saved, I managed to set most of them editing manually the mRemoteNG.settings (when mRemote NG is closed).\nNot all settings are simple to find in the mRemoteNG.settings anyway.\nI haven't found a way to save \"always show notification area icon\" or disable \"Keep tabs open after disconnecting\", for example.\nIf you make a mistake the whole mRemoteNG.settings get rewritten with default and incomplete settings.\nThanks,\nAlex",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7vQgH-",
+      "author": "robertpopa22",
+      "date": "2026-03-06T20:52:06Z",
+      "snippet": "Thanks for confirming the issue @judaspriest and @bruste77!\n\n**Root cause:** The portable settings provider (`PortableSettingsProvider`) was instantiated **17 separate times** — one per settings class (App, AppUI, OptionsAdvancedPage, etc.). Each instance had its own cached XML document but all wrote to the same `mRemoteNG.settings` file. When saving:\n\n1. Instance 1 (App settings) saves its changes to disk ✓\n2. Instance 2 (AppUI settings) has its *own* stale XML copy (loaded before instance 1 sa...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7vXJT8",
+      "author": "robertpopa22",
+      "date": "2026-03-07T07:20:22Z",
+      "snippet": "Fixed in commit **[CENSORED!] Links to external GitHub repositories are not allowed** — configuration options now persist correctly across sessions. The Settings directory handling was corrected for both portable and installed modes.\n\nAvailable in the latest **[CENSORED!] Links to external GitHub repositories are not allowed**. Please test and confirm.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-07T07:20:42Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

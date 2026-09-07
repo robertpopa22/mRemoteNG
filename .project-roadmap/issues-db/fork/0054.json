@@ -8,7 +8,7 @@
   ],
   "author": "zgabi",
   "created_at": "2026-03-12T12:49:47Z",
-  "github_updated_at": "2026-03-14T07:51:07Z",
+  "github_updated_at": "2026-03-15T22:41:29Z",
   "body_snippet": "I tried to connet to a VNC server and I got the following error:\n\n<img width=\"473\" height=\"414\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/175bd8c7-d9cb-4aaa-8f22-1d49dd65664d\" />\n\nI imported the VNC connection from \"original\" mRemote version 1.76.20.24615. ",
   "our_status": "new",
   "priority": null,
@@ -23,7 +23,7 @@
       "date": "2026-03-13T17:53:32Z",
       "snippet": "Hi @zgabi, thanks for reporting this!\n\nWe've done significant work on the VNC protocol recently (color depth, keep-alive, Caps Lock, connection timeouts). The error you're seeing might be related to the import from v1.76.20 — some VNC connection properties may not map correctly to the new version.\n\nCould you help us debug this?\n1. **What VNC server** are you connecting to? (TightVNC, RealVNC, UltraVNC, other? And version?)\n2. **Could you copy the text of the error message** from the dialog? (scr...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -32,8 +32,8 @@
       "date": "2026-03-13T19:43:28Z",
       "snippet": "1: TightVNC Server 2.8.11\n2: \n```\n---------------------------\nError (2026. 03. 13. 20:38:32)\n---------------------------\nOpening connection failed!\n\nValue cannot be null. (Parameter 'stream')\n---------------------------\nOK   \n---------------------------\n\n```\n3: No\n4: Password\n\nVNC was wokring with the \"original\" mRemoteNG, but I had multiple annoying issues. This is why I upgraded to this version.\n- It was disconnected sometimes without any reason.\n- When I connected with mRemoteNG, I kicked all...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc7x_g0L",
@@ -41,14 +41,68 @@
       "date": "2026-03-14T07:51:07Z",
       "snippet": "Thanks for the detailed info @zgabi!\n\nThe error `Value cannot be null. (Parameter 'stream')` is coming from inside the VncSharpCore library, which handles the VNC protocol. This suggests the TCP connection to TightVNC 2.8.11 either fails to establish or the server rejects the connection before a stream is created.\n\nA few things to check:\n1. **Port**: Is your VNC server on the default port **5900**? (Check the connection properties in mRemoteNG)\n2. **Firewall**: Can you telnet/ping the VNC port f...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7x__e5",
+      "author": "zgabi",
+      "date": "2026-03-14T08:48:37Z",
+      "snippet": "1: yes, the port is default 5900\n2: I can ping the remote machine, and I can connect with other vnc client (even with older mRemoreNG)\n3 VNC server accepts remote connections",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yA4H4",
+      "author": "zgabi",
+      "date": "2026-03-14T11:22:03Z",
+      "snippet": "Not fixed",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yMOsE",
+      "author": "robertpopa22",
+      "date": "2026-03-15T16:05:20Z",
+      "snippet": "@zgabi We found the real root cause. The previous fix (STA thread) was insufficient — the issue is that `VncSharpCore.RemoteDesktop` is a WinForms UserControl and its `Connect()` method **must** run on the thread that owns the control handle (the UI thread). Running it on any background thread (MTA or STA) causes the null stream error.\n\n**Fixed now** — `Connect()` runs directly on the UI thread. The TCP reachability check (`TestConnect`) runs beforehand, so unreachable servers still fail fast wi...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yM5rm",
+      "author": "zgabi",
+      "date": "2026-03-15T17:32:39Z",
+      "snippet": "nightly-20260315-v1.82.0-beta.2-dd1c3d7\nStill wrong, same error message.",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yOfO-",
+      "author": "robertpopa22",
+      "date": "2026-03-15T21:03:54Z",
+      "snippet": "@zgabi **Fixed in commit 6e0ef3c** — VNC now works with TightVNC 2.8.11 (tested on a real server).\n\nThree separate root causes were found:\n\n### 1. DES weak key rejection (.NET 10)\nVNC RFB authentication uses DES encryption with bit-reversed password bytes as the key. Some passwords produce DES \"weak keys\" that .NET 10 rejects unconditionally (`Specified key is a known weak key for 'DES' and cannot be used`). This is a **breaking change in .NET 10** — the original mRemoteNG on .NET Framework didn...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yPM1v",
+      "author": "zgabi",
+      "date": "2026-03-15T22:41:29Z",
+      "snippet": "Ok, VNC works, thank you.",
+      "is_ours": false,
+      "analyzed": true,
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-14T07:51:07Z",
+  "comments_cursor": "2026-03-15T22:41:29Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-14T08:07:39Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

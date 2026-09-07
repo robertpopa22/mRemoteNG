@@ -1,0 +1,34 @@
+{
+  "number": 64,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "No dropdown button in the connection properties control",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T10:35:23Z",
+  "github_updated_at": "2026-03-16T13:13:18Z",
+  "body_snippet": "It is hard to select a value in the connection properties control, since there is no dropdown button which shows the available values.\n\n<img width=\"317\" height=\"523\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c3d0d71c-df5b-4d0e-b2dd-e0565d9d96c8\" />\n\nFor example at Resolution and Sizing mode setting.\nYou can change it with double click, but that is not so user friendly. ",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7ycjzT",
+      "author": "robertpopa22",
+      "date": "2026-03-16T13:13:17Z",
+      "snippet": "@zgabi **Fixed in commit 316f5e6.**\n\n**Root cause:** The custom `EnumTypeConverter` (used for all enum properties like Resolution, Protocol, SizingMode) overrode `CanConvertTo()` and `CanConvertFrom()` to return `true` only for `string` type. This blocked the WinForms PropertyGrid from discovering that the converter supports standard values — so no dropdown arrow button was rendered.\n\n**Fix:** Changed both methods to fall through to `base.CanConvertTo()` / `base.CanConvertFrom()` (from `EnumConv...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T13:13:18Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

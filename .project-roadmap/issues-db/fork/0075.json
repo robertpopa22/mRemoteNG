@@ -1,0 +1,70 @@
+{
+  "number": 75,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Settings not saved",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T18:26:46Z",
+  "github_updated_at": "2026-03-17T16:05:02Z",
+  "body_snippet": "Maybe related to #71\n\n- Navigate to File/Options/Tabs&Panels\n- Unckeck Keep tabs open after disconnecting\n- Press OK\n\nIt works until you close the program.\n\n- Close the program\n- Open it again\n\nThe \"Keep tabs open after disconnecting\" is checked again.. so it seems that the setting was not saved.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7ylU4k",
+      "author": "zgabi",
+      "date": "2026-03-16T18:51:44Z",
+      "snippet": "I investigated this issue a little bit.\nI install (unzip) the program to C:\\Program Files\\mRemoteNG folder, and it has no write access to this folder.\nEarlier the settings was stored in the user's appdata\\Roaming folder.",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ynAIZ",
+      "author": "robertpopa22",
+      "date": "2026-03-16T20:11:00Z",
+      "snippet": "@zgabi you nailed it with your investigation — this was exactly the problem! 🎯\n\n## Root Cause\n\nYou were right that the settings weren't being saved because of write permissions. Here's what was happening:\n\nThe `PortableSettingsProvider` (which handles all settings persistence) had its **own** path computation that always wrote to a `Settings/` subfolder next to the exe — completely ignoring the fallback logic that already existed in `SettingsFileInfo`. That fallback correctly detects read-only d...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7yzEuR",
+      "author": "zgabi",
+      "date": "2026-03-17T09:19:21Z",
+      "snippet": "Settings still not saved.\n\nIt is caused by that the \"ChooseProvider\" setting provider is created for all settings automatically, then \"later\" (very soon) you set a common ChooseProvider object here:\nhttps://github.com/robertpopa22/mRemoteNG/blob/1a9c5786d4433d8990a0aa43658ab87d14077092/mRemoteNG/Config/Settings/Providers/PortableSettingsInitializer.cs#L45-L56\n\nIt is causing that the Setting object will contain it own provider object, but the properties will contain the common provider => on Save...",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7y855I",
+      "author": "robertpopa22",
+      "date": "2026-03-17T15:55:08Z",
+      "snippet": "@zgabi you were absolutely right — brilliant diagnosis! 🎯\n\n**Your fix applied in commit `47416d4`:** Deleted `SettingsProviderWiring.cs` entirely. As you correctly identified, the attribute-based wiring was creating individual `ChooseProvider` instances per settings class, conflicting with the shared provider set programmatically by `PortableSettingsInitializer`. On `Save()`, the provider mismatch caused all properties to be silently skipped.\n\nThe programmatic wiring in `PortableSettingsInitiali...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7y9LP1",
+      "author": "zgabi",
+      "date": "2026-03-17T16:05:02Z",
+      "snippet": "Yes, it works.. the update settting dialig is not shown again.. and the change in the options is saved.\nBut it does not resolve the issue #74",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-17T16:05:02Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}

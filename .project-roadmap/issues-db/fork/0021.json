@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-02-27T09:01:52Z",
-  "github_updated_at": "2026-02-27T09:01:52Z",
+  "github_updated_at": "2026-03-07T07:41:06Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NullReferenceException`\r\n**Message:** Object reference not set to an instance of an object.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.Integration.ApplicationInterop.EnableModelessKeyboardInterop(Window window)\r\n   at void mRemoteNG.App.ProgramRoot.ShowSplashOnStaThread()+() => { } in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/App/ProgramRoot.cs:line 379\r\n   at void System.Threading.Thread.StartCallback()\r\n```\r\n\r\n### Environment\r\n```\r\nOS:...",
   "our_status": "new",
   "priority": null,
@@ -18,11 +18,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-02-27T09:01:52Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7vXTl0",
+      "author": "robertpopa22",
+      "date": "2026-03-07T07:40:58Z",
+      "snippet": "Fixed in commit **[CENSORED!] Links to external GitHub repositories are not allowed** — `EnableModelessKeyboardInterop` is now wrapped in try-catch. The WPF `PresentationSource` may not be initialized when the splash screen thread starts, causing a `NullReferenceException` deep inside the WPF interop layer.\n\nAvailable in the latest **[CENSORED!] Links to external GitHub repositories are not allowed**.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-07T07:41:06Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-09-07T09:30:59Z",
   "notes": ""
 }

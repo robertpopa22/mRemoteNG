@@ -1,0 +1,61 @@
+{
+  "number": 62,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Close confirmation icons",
+  "state": "closed",
+  "labels": [],
+  "author": "zgabi",
+  "created_at": "2026-03-16T09:49:36Z",
+  "github_updated_at": "2026-03-16T13:58:16Z",
+  "body_snippet": "This is a very low prio issue.\n\nThe confirmation dialog windows are a little bit small. (I'm using Windows 11, default \"theme\", default settings - haven't installed any special sfotware which modifies the windows, borders, etc)\n\nSee the following image:\n\n<img width=\"553\" height=\"197\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/adfd313b-0d34-4d76-916e-7bc2e32abc31\" />\n\nThe icons are clipped.\n\nAnother confirmation dialog is similar:\n\n<img width=\"497\" height=\"210\" alt=\"Image\" src=\"h...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7ybxOJ",
+      "author": "robertpopa22",
+      "date": "2026-03-16T12:38:19Z",
+      "snippet": "@zgabi Thanks for reporting. The clipped icons in the confirmation dialog are related to the `frmTaskDialog` layout — we've already fixed several layout issues in commit fab433d (form auto-resize for long translations, icon visibility fix, wider dialog).\n\nCould you test with the next nightly build and let us know if the icons are still clipped? The dialog is now 480px wide (was 464px) and the label anchor was fixed to not overlap the icon area.\n\nIf the clipping persists, please post a new screen...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ydVsq",
+      "author": "zgabi",
+      "date": "2026-03-16T13:45:19Z",
+      "snippet": "This issue is not fixed\n\nScreenshot from nightly-20260316-v1.82.0-beta.2-f67ee54\n<img width=\"436\" height=\"114\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/87f56930-ee69-475d-9c77-e00e04f86e63\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7ydowY",
+      "author": "robertpopa22",
+      "date": "2026-03-16T13:57:34Z",
+      "snippet": "<img width=\"445\" height=\"150\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/68a6c385-6588-405a-a418-054eb45941e5\" />",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7ydpzc",
+      "author": "robertpopa22",
+      "date": "2026-03-16T13:58:16Z",
+      "snippet": "I think I did not upload yet! Just closed because it is solved localy!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-03-16T13:58:16Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T09:30:59Z",
+  "notes": ""
+}
