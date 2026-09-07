@@ -74,7 +74,7 @@
       "date": "2026-08-31T16:18:27Z",
       "snippet": "This is by design, though the change of behavior between your beta and 1.83.0 is real and deserves the explanation.\n\nReopening the previous session's tabs is controlled by **File → Options → Startup/Exit → \"Reconnect to previously opened sessions on startup\"**, and that option is **off by default**. Some earlier nightlies had a bug (#120) where the saved panel layout reopened its connection tabs *regardless* of that setting — every previously open session reconnected on startup even when the use...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -83,8 +83,8 @@
       "date": "2026-08-31T16:53:25Z",
       "snippet": "I had tried that, but forgot to apply the settings, so it did not get honored - however:\n\nWhen I open two tabs (say A and B), close the program and re-open it, the tabs are duplicated (A,B,A,B).\n\nWhat is interesting, when I close all of those four tabs and restart, I get only A an B.  When I close that again without changing anything, next time I get A,B,A,B again. However - it does not add two windows each time, it stays at 4.\n\nThe same duplication also occurs with three open tabs - those will ...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABR4z9Mw",
@@ -92,8 +92,8 @@
       "date": "2026-09-01T14:19:46Z",
       "snippet": "On a side note: 1.82 Beta had this setting, too. It opened the last open tabs even when it was disabled. Interestingly enough, when I downgraded and left the setting on, the behaviour was exactly like with the current 1.83 release.\n\nThat is:\n\n1.82 Beta opens tabs duplicated when the setting is on - opens the correct tabs when it is off.\n1.83 opens tabs duplicated when the setting is on - opens no tabs when it is off.\n",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABSLM6Cg",
@@ -101,7 +101,7 @@
       "date": "2026-09-02T18:50:18Z",
       "snippet": "Thank you for going back and testing 1.82 as well — that comparison is what made the duplication legible, and it turned a \"works as designed\" answer into a real bug report.\n\nYou were right that there had been something like this before. There are two independent mechanisms that reopen the previous session, and both are gated on the same \"reconnect to previously opened sessions on startup\" option:\n\n- the saved **dock layout** reopens the tabs it recorded, each in the panel it was last in;\n- the *...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -110,8 +110,8 @@
       "date": "2026-09-03T06:38:19Z",
       "snippet": "I tested Nightly Build — 20260903 (v1.83.0). It does not reopen the last tabs at all now.",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABSjRVLQ",
@@ -119,7 +119,7 @@
       "date": "2026-09-04T11:39:08Z",
       "snippet": "You were right, and the fix we shipped made it worse — thank you for testing it the same day and saying so plainly.\n\nThe previous change made the saved dock layout the owner of reopening, and had the tree path skip every connection the layout *named*. The hole you found immediately: if the layout named a connection and then did not actually open it, both paths stood aside and the tab was simply lost. That is why you got nothing at all instead of duplicates.\n\nThe skip is now derived from what the...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -128,13 +128,13 @@
       "date": "2026-09-07T07:00:46Z",
       "snippet": "[Nightly Build — 20260905 (v1.83.0)](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) works.",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     }
   ],
   "comments_cursor": "2026-09-07T07:00:46Z",
-  "unread_comments": 4,
-  "needs_action": true,
+  "unread_comments": 0,
+  "needs_action": false,
   "waiting_for_us": true,
   "last_synced": "2026-09-07T09:30:33Z",
   "notes": "fix shipped; awaiting reporter confirm on nightly"

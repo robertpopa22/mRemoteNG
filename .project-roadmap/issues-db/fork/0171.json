@@ -64,7 +64,7 @@
       "date": "2026-08-31T16:18:25Z",
       "snippet": "Thank you for the detailed report. Some context on how the window is placed: mRemoteNG restores its last saved position and size at startup; a fresh install has no saved position yet, so the very first placement is decided by Windows' default (which favors the *primary* display, not the monitor the Start menu was on). After that, wherever the window is when you close the app is where it should come back.\n\nWe exercised the save/restore path in the built app on our machine (moved the window, close...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -73,8 +73,8 @@
       "date": "2026-09-03T14:58:58Z",
       "snippet": "Monitor 1 is my primary and where I like mRemoteNG. The splash opening window opens on monitor 1, but main window opens on monitor 2 and I move it to monitor 1.\n\n**[CENSORED!] Links to external GitHub repositories are not allowed**\n",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABSXnrfg",
@@ -82,8 +82,8 @@
       "date": "2026-09-03T15:00:56Z",
       "snippet": "Not sure why uploading my settings file was censored...\n`<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<settings>\n  <localSettings>\n    <setting name=\"InhDefaultRDGatewayAccessToken\">False</setting>\n    <setting name=\"InhDefaultMacAddress\">False</setting>\n    <setting name=\"ConDefaultDisplayWallpaper\">False</setting>\n    <setting name=\"ConDefaultLoadBalanceInfo\">\n    </setting>\n    <setting name=\"InhDefaultUseCredSsp\">False</setting>\n    <setting name=\"QuickyTBParentDock\">Top</setting>\n    <setting nam...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABSjRUgg",
@@ -91,7 +91,7 @@
       "date": "2026-09-04T11:39:07Z",
       "snippet": "Thank you for coming back with the settings file — that is what settled it. Your answer that monitor 1 *is* your primary ruled out the \"Windows default\" explanation I offered, and the file showed why.\n\nTwo rectangles are saved for the main window, and only one of them records the monitor you actually had it on:\n\n- `MainFormLocation` / `MainFormSize` (`-8, -8` / `2576x1456`) — the maximized window, written on every shutdown. That is your primary monitor.\n- `MainFormRestoreLocation` / `MainFormRes...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -100,13 +100,13 @@
       "date": "2026-09-04T20:19:55Z",
       "snippet": "New build fixed my monitor issue, thanks for the fix!",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     }
   ],
   "comments_cursor": "2026-09-04T20:19:55Z",
-  "unread_comments": 3,
-  "needs_action": true,
+  "unread_comments": 0,
+  "needs_action": false,
   "waiting_for_us": true,
   "last_synced": "2026-09-07T09:30:33Z",
   "notes": "reporter confirmed on nightly 2026-09-04 and closed the issue"
