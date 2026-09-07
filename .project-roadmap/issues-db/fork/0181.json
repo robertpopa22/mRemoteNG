@@ -2,7 +2,7 @@
   "number": 181,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=ne...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-07T12:22:17Z",
-  "github_updated_at": "2026-09-07T12:30:32Z",
+  "github_updated_at": "2026-09-07T17:25:11Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
   "our_status": "duplicate",
   "priority": null,
@@ -38,12 +38,39 @@
       "is_ours": false,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABTBhsYw",
+      "author": "robertpopa22",
+      "date": "2026-09-07T13:51:43Z",
+      "snippet": "@JonathanBasys — thank you for coming back to a report the app filed on its own and saying which install it came from; nobody else could have told us that. Closing as a duplicate of #175, which is the same missing `ExternalConnectors.dll` in a 1.82.0 portable folder and stays open until the message the app shows for it is confirmed on a nightly.\n\nTwo identical reports three hours apart was our reporter's fault, not yours: it opened a new issue for every occurrence without looking at what was alr...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABTCFXgw",
+      "author": "JonathanBasys",
+      "date": "2026-09-07T14:38:21Z",
+      "snippet": "nice work on the next nightly adding next crashes as comments! Though the link to the auto-submitted bug report helps to track it down. Maybe add a subscription possibility to subscribe to the notifications on the auto-submit? Anyone who encounters the bug would probably like it to be resolved - and linking them to a page which could offer a solution to it would certainly be appreciated right?",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABTDtS1A",
+      "author": "robertpopa22",
+      "date": "2026-09-07T17:25:11Z",
+      "snippet": "Good idea, and done. After a report goes out, the dialog now asks \"Open it in your browser?\" and takes you to the page it filed — the new issue, or the comment it added to the issue already tracking that crash — where GitHub's **Subscribe** button does the rest. That link is the same one you used by hand here, so the person who hit the crash ends up where the fix and the \"please retest on the nightly\" will be posted.\n\nThe dialog itself was also exercised the way you reached it: a portable folder...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-07T12:30:32Z",
+  "comments_cursor": "2026-09-07T17:25:11Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-07T13:51:48Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-09-07T17:25:12Z",
   "notes": "duplicate of #175 (missing ExternalConnectors.dll, 1.82.0 portable); reporter JonathanBasys confirmed 1.83 works; crash-report dedupe bc42d1ce1"
 }
