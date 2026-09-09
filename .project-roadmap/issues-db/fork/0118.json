@@ -6,7 +6,7 @@
   "labels": [],
   "author": "RyanNHS",
   "created_at": "2026-05-14T12:36:18Z",
-  "github_updated_at": "2026-06-23T11:15:16Z",
+  "github_updated_at": "2026-09-07T09:38:44Z",
   "body_snippet": "Using the latest nightly build. \n\nWhen opening an RDP session and the server is the active tab, you cannot edit any text boxes in the toolbars or connections pane as it redirects all input into the active RDP window. If you open a new connection tab not connected to a server or right-click the active connection and disconnect, you can once again use the text fields. ",
   "our_status": "needs_info",
   "priority": null,
@@ -117,12 +117,21 @@
       "is_ours": false,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABS-rqdg",
+      "author": "robertpopa22",
+      "date": "2026-09-07T09:38:44Z",
+      "snippet": "@RyanNHS — this thread was closed before your diagnostic log arrived, and the log then sat unanswered. Apologies; that was a queue gap on our side (closed issues were never re-read), fixed today.\n\nThe mechanism your `[#118-diag]` entries point at was found later, in #143: our own tab-activation handler re-focused the RDP control on every activation event, which is what kept pulling focus away from the search box. Fixed in 21587b593 and shipped in v1.83.0.\n\nIf the search box behaves on 1.83.0 whi...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-23T11:15:16Z",
+  "comments_cursor": "2026-09-07T09:38:44Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-07T09:30:59Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-09-09T15:35:14Z",
   "notes": "diag build 11d9c4fbc shipped ([#118-diag] refocus-path trace); prior fix e592f8d8f didnt reach refocus per RyanNHS; awaiting trace"
 }

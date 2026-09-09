@@ -2,7 +2,7 @@
   "number": 180,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=ne...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-07T09:35:54Z",
-  "github_updated_at": "2026-09-07T12:32:17Z",
+  "github_updated_at": "2026-09-07T13:51:47Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
   "our_status": "duplicate",
   "priority": null,
@@ -38,12 +38,21 @@
       "is_ours": false,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABTBhuZg",
+      "author": "robertpopa22",
+      "date": "2026-09-07T13:51:46Z",
+      "snippet": "Thank you for flagging this one too. Closing as a duplicate of #175 — the same missing `ExternalConnectors.dll` in a 1.82.0 portable folder, filed by the app from the same install as #181. Your note that 1.83 works is the confirmation for all three; what changed in the reporter so this stops happening is in #181.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-07T12:32:17Z",
+  "comments_cursor": "2026-09-07T13:51:47Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-07T13:51:48Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-09-09T15:35:14Z",
   "notes": "duplicate of #175 (missing ExternalConnectors.dll, 1.82.0 portable); reporter JonathanBasys confirmed 1.83 works; crash-report dedupe bc42d1ce1"
 }

@@ -8,7 +8,7 @@
   ],
   "author": "meyergru",
   "created_at": "2026-08-22T16:06:37Z",
-  "github_updated_at": "2026-09-07T07:00:46Z",
+  "github_updated_at": "2026-09-07T09:38:47Z",
   "body_snippet": "**What happens** (and what you expected instead):\n\nI switched from a beta to the most current version 1.83.0 Release 3661 and found that the open connections from the last start are not carried over to a re-invocation as I was used to before.\n\nInstead, mRemoteNG always starts with no open tabs.\n\n**Steps to reproduce:**\n\n1. Open a few connections\n2. Close the program\n3. Start the program again - no open tabs.\n\n**Version** (Help → About, or the nightly filename):\n\nversion 1.83.0 Release 3661\n\n**En...",
   "our_status": "testing",
   "priority": null,
@@ -130,12 +130,21 @@
       "is_ours": false,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABS-rs9w",
+      "author": "robertpopa22",
+      "date": "2026-09-07T09:38:47Z",
+      "snippet": "Thank you for testing all three rounds — including the one that made it worse, and saying so plainly the same day. That is what turned a \"works as designed\" answer into a real fix. Closed as you left it.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-07T07:00:46Z",
+  "comments_cursor": "2026-09-07T09:38:47Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-07T09:30:33Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-09-09T15:35:14Z",
   "notes": "fix shipped; awaiting reporter confirm on nightly"
 }
