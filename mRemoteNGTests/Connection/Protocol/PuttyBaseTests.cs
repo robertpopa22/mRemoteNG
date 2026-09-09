@@ -126,6 +126,22 @@ namespace mRemoteNGTests.Connection.Protocol
             Assert.That(_puttyProtocol.DeferredResizeCallCount, Is.GreaterThan(initialCount));
         }
 
+        [TestCase("PuTTY Exit Confirmation")]
+        [TestCase("PuTTYNG Exit Confirmation")]
+        public void IsPuttyExitConfirmation_MatchesTheWarnOnCloseMessageBox(string windowTitle)
+        {
+            Assert.That(PuttyBase.IsPuttyExitConfirmation("#32770", windowTitle), Is.True);
+        }
+
+        [TestCase("#32770", "PuTTY Security Alert", TestName = "IsPuttyExitConfirmation_IgnoresTheHostKeyAlert")]
+        [TestCase("#32770", "PuTTY Reconfiguration", TestName = "IsPuttyExitConfirmation_IgnoresTheSettingsDialog")]
+        [TestCase("PuTTY", "example-host - PuTTY", TestName = "IsPuttyExitConfirmation_IgnoresTheTerminalWindow")]
+        [TestCase("#32770", "", TestName = "IsPuttyExitConfirmation_IgnoresUntitledDialogs")]
+        public void IsPuttyExitConfirmation_LeavesOtherWindowsAlone(string windowClassName, string windowTitle)
+        {
+            Assert.That(PuttyBase.IsPuttyExitConfirmation(windowClassName, windowTitle), Is.False);
+        }
+
         private sealed class TestablePuttyBase : PuttyBase
         {
             private readonly Queue<string> _queuedTitles = new();
