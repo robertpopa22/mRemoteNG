@@ -16,7 +16,7 @@ Full transparency: this project is built by humans and AI working together, and 
 
 <p align="center">
   <a href="https://github.com/robertpopa22/mRemoteNG/releases/latest">
-    <img alt="Latest Stable" src="https://img.shields.io/badge/latest%20stable-v1.82.0-brightgreen?style=for-the-badge">
+    <img alt="Latest Stable" src="https://img.shields.io/badge/latest%20stable-v1.83.0-brightgreen?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly">
     <img alt="Nightly" src="https://img.shields.io/badge/nightly-rolling-blue?style=for-the-badge">
@@ -58,16 +58,17 @@ Two live releases, always:
 
 | Release | Version | Description |
 |---------|---------|-------------|
-| **[Stable](https://github.com/robertpopa22/mRemoteNG/releases/latest)** | v1.82.0 | Latest tagged release — all platforms. **Recommended.** |
+| **[Stable](https://github.com/robertpopa22/mRemoteNG/releases/latest)** | v1.83.0 | Latest tagged release — all platforms. **Recommended.** |
 | **[Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)** | rolling | Rebuilt and overwritten on every push to `main`. Latest changes, fully tested. |
 | **[Legacy](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.76.20)** | v1.76.20 | Last .NET Framework 4.x release. |
 
-### Download matrix — Stable v1.82.0
+### Download matrix — Stable v1.83.0
 
 | Variant | x64 | x86 | ARM64 |
 |---------|-----|-----|-------|
-| Framework-dependent (~21 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-arm64.zip) |
-| Self-contained (~108-150 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-arm64-selfcontained.zip) |
+| Framework-dependent (~21 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.83.0/mRemoteNG-v1.83.0-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.83.0/mRemoteNG-v1.83.0-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.83.0/mRemoteNG-v1.83.0-arm64.zip) |
+| Self-contained (~108-150 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.83.0/mRemoteNG-v1.83.0-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.83.0/mRemoteNG-v1.83.0-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.83.0/mRemoteNG-v1.83.0-arm64-selfcontained.zip) |
+| MSI installer (x64) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.83.0/mRemoteNG-v1.83.0-x64.msi) | — | — |
 
 Nightly builds (ZIP + MSI, x64) live on the [nightly release](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly), refreshed every push.
 
@@ -440,6 +441,7 @@ The model is not specific to mRemoteNG. Any project with hundreds of open issues
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| **v1.83.0** | 2026-08-16 | Upstream re-synchronisation: every substantive upstream change since March triaged, ported and adapted (including SQL-schema support upstream does not have). *Use Redirection Server Name* RDP property (schema v3.4 → v3.5), *Clear Cached RDP Credentials* action, Explorer-style slow-click rename, RD Gateway token inheritance. Fixed CSV export column misalignment ([#141](https://github.com/robertpopa22/mRemoteNG/issues/141)) and RDP auto-reconnect after a deliberate logoff ([#140](https://github.com/robertpopa22/mRemoteNG/issues/140)); MSI now attached to stable releases and listed in the checksums ([#138](https://github.com/robertpopa22/mRemoteNG/issues/138)) |
 | **v1.82.0** | 2026-07-02 | First stable of the 1.82 line (.NET 10). GitHub-Releases-only update check, WebAuthn/FIDO2 + Entra ID auth, MSI installer (WiX 6), MS Remote Desktop + MobaXTerm importers, host-status LED icons, startup ~10s→1.2s, plus the 2-release model and a repo-wide simplification cleanup |
 | **v1.81.0** | 2026-03-02 | First stable of the 1.81 line — SonarCloud Quality Gate A/A/A, 0 analyzer warnings, upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) |
 | **v1.81.0-beta.6** | 2026-03-01 | SonarCloud Quality Gate pass on upstream PR #3189 — 6 security vulnerabilities fixed, 50 hotspots reviewed, 5,247→0 analyzer warnings, 4-level code quality (Roslynator + Meziantou + SonarCloud + CodeQL), coverage collection via `dotnet-coverage`, workflow permissions hardened (S8264/S8233), upstream sync with v1.78.2-dev |

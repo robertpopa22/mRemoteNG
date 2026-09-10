@@ -201,8 +201,8 @@ software. Communication must reflect that honestly:
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` — active development; latest stable tag **v1.82.0**
-- **Stable:** cut by pushing a `vX.Y.Z` tag from `main` (latest = v1.82.0). `release/1.81` is a historical frozen branch (upstream PR #3189)
+- **Main branch:** `main` — active development; latest stable tag **v1.83.0**
+- **Stable:** cut by pushing a `vX.Y.Z` tag from `main` (latest = v1.83.0, 2026-08-16). `release/1.81` is a historical frozen branch (upstream PR #3189)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
