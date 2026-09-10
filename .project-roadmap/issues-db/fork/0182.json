@@ -8,19 +8,40 @@
   ],
   "author": "Buster-de",
   "created_at": "2026-09-09T21:37:57Z",
-  "github_updated_at": "2026-09-09T21:37:57Z",
+  "github_updated_at": "2026-09-10T12:54:12Z",
   "body_snippet": "During testing with `mRemoteNG-nightly-20260909-v1.83.0-00cd029-x64.msi` to validate issue #179, I noticed that opening an RDP connection increases the process's memory usage (active private working set) by roughly 300 MB in my environment.\n\nAfter opening and closing several RDP connections, including closing their tabs and panels, the allocated memory does not appear to be released.\n\nHow to reproduce\n* Open and close several RDP sessions.\n  * I had 8 different concurrent sessions in 3 different...",
-  "our_status": "new",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-09-09T21:37:57Z",
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-10",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABTusbSw",
+      "author": "robertpopa22",
+      "date": "2026-09-10T12:54:12Z",
+      "snippet": "Thank you for this one — and particularly for testing it on a second nightly to rule out the #179 fix before reporting. That saved a wrong-turn investigation, because the cause does predate it by a long way.\r\n\r\n**What was wrong.** Disposing the protocol is the only thing that releases what an RDP session holds: `RdpProtocol.Dispose` calls the cleanup that releases the MSTSC ActiveX object through `FinalReleaseComObject`, drops the message filter and unhooks the control. Nothing else does any par...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-10T12:54:12Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-10T10:49:25Z",
-  "notes": ""
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-10T12:54:40Z",
+  "notes": "fix shipped e1a2af6a3; awaiting reporter on nightly"
 }
