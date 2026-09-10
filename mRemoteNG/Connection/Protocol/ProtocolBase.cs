@@ -277,13 +277,20 @@ namespace mRemoteNG.Connection.Protocol
 
                 try
                 {
-                    if (_interfaceControl.Parent == null) return;
-
-                    if (_interfaceControl.Parent.Tag != null)
+                    // The tab keeps the interface control in its Tag and the interface control
+                    // holds this protocol, so a tab that outlives the connection keeps the whole
+                    // graph reachable through that one reference.
+                    if (_interfaceControl.Parent?.Tag != null)
                     {
                         SetTagToNothing();
                     }
 
+                    // Dispose even when there is no parent left. Closing a tab takes the interface
+                    // control out of it first and closes the protocol afterwards, so on the ordinary
+                    // close path the parent is already gone -- and returning here skipped the only
+                    // call that disposes the protocol. For RDP that is what releases the MSTSC
+                    // ActiveX object, several hundred MB of it, so every closed session stayed in
+                    // the process until it exited (#182).
                     DisposeInterface();
                 }
                 catch (Exception ex)
@@ -334,9 +341,13 @@ namespace mRemoteNG.Connection.Protocol
 
         private void SetTagToNothing()
         {
-            if (!_interfaceControl.IsAccessible || _interfaceControl.IsDisposed ||
+            // Not Control.IsAccessible: that is the accessibility-visibility flag, and WinForms
+            // leaves it false on every control unless something sets it deliberately. Testing it
+            // here made this method return before doing anything, on every close, so the tab kept
+            // pointing at the closed connection and nothing it held could be collected (#182).
+            if (_interfaceControl.IsDisposed ||
                 _interfaceControl.Parent == null ||
-                !_interfaceControl.Parent.IsAccessible || _interfaceControl.Parent.IsDisposed)
+                _interfaceControl.Parent.IsDisposed)
             { return; }
 
             if (_interfaceControl.Parent.InvokeRequired)
@@ -365,8 +376,11 @@ namespace mRemoteNG.Connection.Protocol
 
         private void DisposeControl()
         {
-            // do not attempt to dispose the control if the control is already closed, closing or disposed
-            if (Control == null || !Control.IsAccessible || Control.IsDisposed) { return; }
+            // do not attempt to dispose the control if it is already disposed. IsAccessible is
+            // deliberately not tested here — see SetTagToNothing: it is false on every control, so
+            // it turned this into a no-op and left the protocol's control, an ActiveX host for RDP,
+            // to be disposed only if something else happened to dispose its parent (#182).
+            if (Control == null || Control.IsDisposed) { return; }
 
             if (Control.InvokeRequired)
             {
