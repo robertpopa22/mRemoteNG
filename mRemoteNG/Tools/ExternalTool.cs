@@ -174,20 +174,65 @@ namespace mRemoteNG.Tools
 
         public ConnectionInfo ConnectionInfo { get; set; } = new ConnectionInfo(); // Initialize to avoid CS8618
 
+        private Icon? _cachedIcon;
+        private Image? _cachedImage;
+        private string? _iconCacheKey;
+
+        /// <summary>
+        /// The tool's icon, resolved once per icon source rather than once per read.
+        ///
+        /// Both of these used to hit the disk on every single read: two File.Exists calls and an
+        /// icon extraction, and Image built a fresh Bitmap on top. That is fine for a menu built
+        /// now and then, and ruinous for the External Tools toolbar, which rebuilds itself from
+        /// scratch whenever any property of any tool changes. Since the editor started committing
+        /// on every keystroke (#179), typing one character in any field re-read every toolbar
+        /// tool's icon from disk and allocated a new bitmap for each — the editor going
+        /// "noticeably sluggish while editing", and a GDI bitmap leaked per rebuild on top,
+        /// because a disposed ToolStripItem leaves its Image alone.
+        ///
+        /// Nothing is disposed when the cache turns over: images handed out earlier live on in
+        /// context menus and connection windows that outlive this object, so releasing one here
+        /// would hand them a disposed bitmap. Turnover only happens when the icon source actually
+        /// changes, which is rare.
+        /// </summary>
         public Icon Icon
         {
             get
             {
-                if (!string.IsNullOrEmpty(IconPath) && File.Exists(IconPath))
-                {
-                    return MiscTools.GetIconFromFile(IconPath) ?? Properties.Resources.mRemoteNG_Icon;
-                }
-
-                return File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) ?? Properties.Resources.mRemoteNG_Icon : Properties.Resources.mRemoteNG_Icon;
+                EnsureIconCache();
+                return _cachedIcon!;
             }
         }
 
-        public Image Image => Icon?.ToBitmap() ?? Properties.Resources.mRemoteNG_Icon.ToBitmap();
+        public Image Image
+        {
+            get
+            {
+                EnsureIconCache();
+                return _cachedImage!;
+            }
+        }
+
+        private void EnsureIconCache()
+        {
+            // A separator no Windows path can contain, so two sources cannot collide.
+            string key = (IconPath ?? string.Empty) + "|" + (FileName ?? string.Empty);
+            if (_iconCacheKey == key && _cachedIcon != null && _cachedImage != null)
+                return;
+
+            _cachedIcon = ResolveIcon();
+            _cachedImage = _cachedIcon.ToBitmap();
+            _iconCacheKey = key;
+        }
+
+        private Icon ResolveIcon()
+        {
+            if (!string.IsNullOrEmpty(IconPath) && File.Exists(IconPath))
+                return MiscTools.GetIconFromFile(IconPath) ?? Properties.Resources.mRemoteNG_Icon;
+
+            return (File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) : null)
+                   ?? Properties.Resources.mRemoteNG_Icon;
+        }
 
         #endregion
 
