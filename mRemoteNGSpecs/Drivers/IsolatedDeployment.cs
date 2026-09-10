@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace mRemoteNGSpecs.Drivers
 {
@@ -60,6 +62,27 @@ namespace mRemoteNGSpecs.Drivers
         public void WriteConnectionsFile(string xml)
         {
             File.WriteAllText(Path.Combine(SettingsPath, "confCons.xml"), xml);
+        }
+
+        /// <summary>
+        /// Seeds application settings before the app starts, for scenarios that need a specific
+        /// option rather than the defaults. Only the named settings are written; everything else
+        /// stays at its default, which is the point of the empty Settings folder.
+        /// </summary>
+        public void WriteSettings(IDictionary<string, string> settings)
+        {
+            ArgumentNullException.ThrowIfNull(settings);
+
+            StringBuilder xml = new();
+            xml.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            xml.AppendLine("<settings>");
+            xml.AppendLine("  <localSettings>");
+            foreach (KeyValuePair<string, string> setting in settings)
+                xml.AppendLine($"    <setting name=\"{setting.Key}\">{setting.Value}</setting>");
+            xml.AppendLine("  </localSettings>");
+            xml.AppendLine("</settings>");
+
+            File.WriteAllText(Path.Combine(SettingsPath, "mRemoteNG.settings"), xml.ToString());
         }
 
         public string? ReadAppLog()
