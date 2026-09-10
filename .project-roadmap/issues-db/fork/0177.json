@@ -18,7 +18,7 @@
   "comments_cursor": "2026-09-03T13:27:40Z",
   "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": false,
+  "waiting_for_us": true,
   "last_synced": "2026-09-04T08:56:47Z",
   "notes": ""
 }

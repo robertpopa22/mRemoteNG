@@ -5105,6 +5105,39 @@ def gh_post_comment(repo, num, body):
 
 
 # ── IIS: SYNC ─────────────────────────────────────────────────────────────
+#: Lifecycle states that mean somebody already decided what happens to an issue. Anything
+#: else means nobody has picked it up yet.
+IIS_DISPOSITIONED_STATES = frozenset(
+    {"roadmap", "in-progress", "testing", "released", "wontfix", "duplicate"}
+)
+
+
+def iis_is_waiting_for_us(comments, author, labels, our_user, our_status):
+    """Whether an issue is inbound work: the ball is in our court.
+
+    Deliberately one function used by both the fresh-fetch and the skip-unchanged paths.
+    This rule has had four holes, each found only because an issue rotted in silence, and
+    three of them survived a fix because the logic existed in two places and only one copy
+    was corrected.
+
+    With comments, the last word decides: if it is not ours, someone is waiting on a reply.
+    With no comments at all, nothing has happened on the issue yet, so it is waiting on us
+    whoever opened it -- an outside report, a crash the app filed under our own account, or
+    a bug we filed on ourselves (#177 sat invisible for a week because "we opened it"
+    excluded it from the queue entirely). The one exception is an issue we have already
+    dispositioned locally, which is how the pinned explainer (#167, wontfix) stays out.
+    """
+    if comments:
+        return not comments[-1].get("is_ours")
+
+    auto_submitted = any(
+        (lbl or "").lower() in ("auto-submitted", "crash-report") for lbl in (labels or [])
+    )
+    someone_else_opened_it = bool(author) and author != our_user
+    undispositioned = (our_status or "new") not in IIS_DISPOSITIONED_STATES
+    return someone_else_opened_it or auto_submitted or undispositioned
+
+
 def _closed_revisit_since(last_sync, margin_days=3, default_days=30):
     """Date (YYYY-MM-DD) from which closed issues are re-fetched on an open-state sync.
 
@@ -5209,18 +5242,13 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
                         # stale if their logic changed since the record was written. Recompute
                         # them from the cached payload (no network) so a fix to the queue
                         # rules heals existing records instead of only new ones.
-                        local_comments = local.get("comments") or []
-                        if local_comments:
-                            local_waiting = not local_comments[-1].get("is_ours")
-                        else:
-                            local_author = local.get("author", "")
-                            local_auto = any(
-                                lbl.lower() in ("auto-submitted", "crash-report")
-                                for lbl in (local.get("labels") or [])
-                            )
-                            local_waiting = (
-                                bool(local_author) and local_author != our_user
-                            ) or local_auto
+                        local_waiting = iis_is_waiting_for_us(
+                            local.get("comments") or [],
+                            local.get("author", ""),
+                            local.get("labels") or [],
+                            our_user,
+                            local.get("our_status"),
+                        )
                         if local.get("waiting_for_us") != local_waiting:
                             local["waiting_for_us"] = local_waiting
                             iis_write_json(file_path, local)
@@ -5302,24 +5330,15 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
             )
             needs_action = unread_count > 0 or is_new
 
-            # Determine waiting_for_us (last comment is from someone else).
-            # An issue somebody else opened that we have not answered yet is equally
-            # waiting on us -- keying this off the last *comment* alone silently hid
-            # brand-new zero-comment bug reports from the work queue.
-            last_comment = gh_comments[-1] if gh_comments else None
-            issue_author = gh_full.get("author", {}).get("login", "")
-            # An auto-submitted crash report is filed by the app under the maintainer's own
-            # account, so the author test above can never mark it as waiting. With no comments
-            # either, such a report stayed invisible to the work queue indefinitely -- #149 sat
-            # unanswered for a month. Treat an unanswered auto-submitted report as inbound work,
-            # which is what it is, regardless of who the API says opened it.
-            auto_submitted = any(
-                lbl.lower() in ("auto-submitted", "crash-report") for lbl in labels
+            # Whether this issue is inbound work. Single rule, shared with the
+            # skip-unchanged path above -- see iis_is_waiting_for_us for why.
+            waiting_for_us = iis_is_waiting_for_us(
+                gh_comments,
+                gh_full.get("author", {}).get("login", ""),
+                labels,
+                our_user,
+                (existing or {}).get("our_status"),
             )
-            if last_comment:
-                waiting_for_us = not last_comment["is_ours"]
-            else:
-                waiting_for_us = (bool(issue_author) and issue_author != our_user) or auto_submitted
 
             # Body snippet
             body_raw = gh_full.get("body") or ""
