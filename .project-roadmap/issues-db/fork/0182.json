@@ -8,7 +8,7 @@
   ],
   "author": "Buster-de",
   "created_at": "2026-09-09T21:37:57Z",
-  "github_updated_at": "2026-09-10T12:54:12Z",
+  "github_updated_at": "2026-09-11T14:22:32Z",
   "body_snippet": "During testing with `mRemoteNG-nightly-20260909-v1.83.0-00cd029-x64.msi` to validate issue #179, I noticed that opening an RDP connection increases the process's memory usage (active private working set) by roughly 300 MB in my environment.\n\nAfter opening and closing several RDP connections, including closing their tabs and panels, the allocated memory does not appear to be released.\n\nHow to reproduce\n* Open and close several RDP sessions.\n  * I had 8 different concurrent sessions in 3 different...",
   "our_status": "testing",
   "priority": null,
@@ -36,12 +36,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABT-y-AA",
+      "author": "robertpopa22",
+      "date": "2026-09-11T14:22:32Z",
+      "snippet": "A follow-up on the part I said was unverified: it now has real evidence, with one caveat about scale.\n\nIn the isolated lab VM, against a real RDP server (xrdp on Linux, so a small session), three sessions were opened and closed in turn. Each one raised the certificate prompt, which was answered, and the application logged the connection as established before anything was measured, so these are live MSTSC sessions with a painted desktop, not tabs that never connected:\n\n| cycle | while open | afte...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-10T12:54:12Z",
+  "comments_cursor": "2026-09-11T14:22:32Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-10T12:54:40Z",
+  "last_synced": "2026-09-11T14:22:32Z",
   "notes": "fix shipped e1a2af6a3; awaiting reporter on nightly"
 }
