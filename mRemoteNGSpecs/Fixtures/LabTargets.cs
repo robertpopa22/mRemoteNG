@@ -39,6 +39,14 @@ namespace mRemoteNGSpecs.Fixtures
         /// </summary>
         public static string WindowsTargetHost => Env("MRNG_LAB_WINDOWS_TARGET_HOST", "192.168.221.21");
 
+        /// <summary>
+        /// The target's own computer name, which is the "domain" a local account there lives in.
+        /// Both lab guests are workgroup machines, so a connection that leaves the domain empty
+        /// has its user qualified with the CLIENT's machine name and is refused with "Your
+        /// credentials did not work" — with a password that is provably correct.
+        /// </summary>
+        public static string WindowsTargetName => Env("MRNG_LAB_WINDOWS_TARGET_NAME", "MRNG-LAB-TGT");
+
         public static string LinuxUser => Env("MRNG_LAB_LINUX_USER", "mrng");
         public static string LinuxPassword => Env("MRNG_LAB_LINUX_PASSWORD", "");
 

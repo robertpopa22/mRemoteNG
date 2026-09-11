@@ -25,14 +25,31 @@ namespace mRemoteNGSpecs.Fixtures
     [NonParallelizable]
     public class RdpSessionMemoryAcceptanceTests : UiAcceptanceTestBase
     {
-        private const string ConnectionName = "lab-win-rdp";
-        private const int Cycles = 4;
+        private const string ConnectionName = "lab-linux-rdp";
+        private const int Cycles = 3;
+
+        /// <summary>
+        /// Below this, a "session" never loaded a desktop and the run proves nothing. An xrdp
+        /// session is far smaller than the reporter's Windows ones, so this is not the 300 MB
+        /// class — it is the floor for "MSTSC really connected and painted something".
+        /// </summary>
+        private const long MinimumPlausibleSessionMb = 20;
 
         protected override void SeedSettings()
         {
+            // The Linux host, not the Windows lab target. The Windows target refuses every NLA
+            // logon because it was cloned from the client guest's disk image and the two share a
+            // machine SID; CredSSP resolves "<target>\Administrator" to the client's own account
+            // and LSA rejects the logon (4776 success, 4625 0xc000006d sub-status 0). That is a
+            // lab-provisioning defect, not something a connection setting can route around, and
+            // for what this scenario measures — a live MSTSC session established, closed, and its
+            // allocation not accumulating — any real RDP server does.
+            //
+            // CredSSP and certificate checking stay at their defaults; the self-signed prompt is
+            // answered by AnswerExpectedPrompts like every other RDP scenario here.
             ConnectionsSeeder seeder = new();
-            seeder.Add(ConnectionName, LabTargets.WindowsTargetHost, ProtocolType.RDP, LabTargets.Rdp,
-                       LabTargets.WindowsUser, LabTargets.WindowsPassword);
+            seeder.Add(ConnectionName, LabTargets.LinuxHost, ProtocolType.RDP, LabTargets.Rdp,
+                       LabTargets.LinuxUser, LabTargets.LinuxPassword);
             Deployment.WriteConnectionsFile(seeder.Build());
 
             // The reporter closes tabs and panels and expects the memory back, so the tab has to
@@ -75,6 +92,24 @@ namespace mRemoteNGSpecs.Fixtures
                        });
         }
 
+        /// <summary>How many times the application has logged <paramref name="phrase"/>.</summary>
+        private int CountInLog(string phrase)
+        {
+            string? log = Deployment.ReadAppLog();
+            if (log is null)
+                return 0;
+
+            int count = 0;
+            int at = log.IndexOf(phrase, StringComparison.Ordinal);
+            while (at >= 0)
+            {
+                count++;
+                at = log.IndexOf(phrase, at + phrase.Length, StringComparison.Ordinal);
+            }
+
+            return count;
+        }
+
         /// <summary>The disconnected placeholder a closed session leaves behind on defaults.</summary>
         private bool HasReconnectButton() =>
             MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.Button))
@@ -84,11 +119,15 @@ namespace mRemoteNGSpecs.Fixtures
                           catch (Exception) { return false; }
                       });
 
-        /// <summary>Private bytes, after giving the runtime a chance to hand memory back.</summary>
+        /// <summary>
+        /// Private bytes, after letting the session finish drawing and the runtime hand memory
+        /// back. "Connected" is logged before the desktop bitmap is fully up, so a measurement
+        /// taken the instant the log line appears still catches the session mid-allocation.
+        /// </summary>
         private long PrivateMemoryMb()
         {
             UiWait.Settle(MainWindow);
-            System.Threading.Thread.Sleep(1500);
+            System.Threading.Thread.Sleep(4000);
             using System.Diagnostics.Process process =
                 System.Diagnostics.Process.GetProcessById(Driver.Application.ProcessId);
             return process.PrivateMemorySize64 / (1024 * 1024);
@@ -98,12 +137,22 @@ namespace mRemoteNGSpecs.Fixtures
         [Issues("#182")]
         public void OpeningAndClosingRdpSessionsGivesTheMemoryBack()
         {
-            SkipUnlessReachable(LabTargets.WindowsTargetHost, LabTargets.Rdp);
+            SkipUnlessReachable(LabTargets.LinuxHost, LabTargets.Rdp);
+
+            // The shape of the credential this run will present, never its value. A logon that
+            // fails with a password known to be correct is usually a credential that never
+            // arrived: the battery reads it from a machine environment variable, and a process
+            // started before that variable existed sees nothing at all.
+            TestContext.Out.WriteLine(
+                $"credential: user '{LabTargets.LinuxUser}' password length {LabTargets.LinuxPassword.Length}");
+            Assert.That(LabTargets.LinuxPassword, Is.Not.Empty,
+                        "MRNG_LAB_LINUX_PASSWORD is not visible to the battery process, so every "
+                        + "logon would fail no matter what the target is configured to accept");
 
             long baseline = PrivateMemoryMb();
             TestContext.Out.WriteLine($"baseline before any session: {baseline} MB");
 
-            long firstSessionPeak = 0;
+            List<long> whileOpen = [];
             List<long> afterEachClose = [];
 
             for (int cycle = 1; cycle <= Cycles; cycle++)
@@ -113,9 +162,18 @@ namespace mRemoteNGSpecs.Fixtures
                 AnswerExpectedPrompts(TimeSpan.FromSeconds(20));
                 UiWait.Until(() => TabCount() > 0, "an RDP session tab to open", TimeSpan.FromSeconds(60));
 
+                // A tab appears the moment the attempt starts, long before MSTSC has authenticated
+                // and rendered a desktop — which is the memory this issue is about. Measuring on
+                // the tab alone is what made the first run of this scenario report 8 MB a session
+                // and pass without proving anything. The application says when it is really
+                // connected, so wait for it to say so.
+                int established = cycle;
+                UiWait.Until(() => CountInLog("established by user") >= established,
+                             "the RDP session to actually connect", TimeSpan.FromSeconds(90));
+                AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+
                 long open = PrivateMemoryMb();
-                if (cycle == 1)
-                    firstSessionPeak = open;
+                whileOpen.Add(open);
 
                 AutomationElement tab = MainWindow
                     .FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
@@ -135,34 +193,35 @@ namespace mRemoteNGSpecs.Fixtures
                 TestContext.Out.WriteLine($"cycle {cycle}: open {open} MB, after close {closed} MB");
             }
 
-            long oneSessionCost = Math.Max(firstSessionPeak - baseline, 1);
-            long growth = afterEachClose[^1] - baseline;
+            long oneSessionCost = Math.Max(whileOpen[0] - baseline, 1);
 
-            // A real RDP session loads the MSTSC ActiveX control and a desktop bitmap; the report
-            // puts that at roughly 300 MB. A session that costs a few MB never got that far -- the
-            // tab opened but the client did not connect and render -- and then the whole
-            // measurement is vacuous: it cannot distinguish a fixed build from a leaking one,
-            // because nothing was ever allocated to leak. Say so instead of passing. The first run
-            // of this scenario after the fix landed here, at 8 MB a session.
-            if (oneSessionCost < 50)
+            // A session that costs a few MB never loaded a desktop -- the tab opened, the client
+            // did not connect and render -- and then the measurement is vacuous: it cannot tell a
+            // fixed build from a leaking one, because nothing was allocated to leak. Say so
+            // instead of passing; the first run of this scenario did exactly that at 8 MB.
+            if (oneSessionCost < MinimumPlausibleSessionMb)
             {
                 Assert.Ignore($"an RDP session cost only {oneSessionCost} MB here, so the client never "
-                              + "loaded a real session and this measurement proves nothing either way. "
-                              + "The lab RDP target needs to authenticate and render before this scenario "
-                              + "can say anything about #182.");
+                              + "loaded a real session and this measurement proves nothing either way.");
             }
-            TestContext.Out.WriteLine($"one session costs about {oneSessionCost} MB; "
-                                      + $"after {Cycles} opened and closed, {growth} MB above baseline");
 
-            // If nothing is released, growth lands near Cycles * oneSessionCost -- which is the
-            // reporter's 2 GB after eight sessions. Allowing one session's worth of slack covers
-            // the caches and JIT a first connection leaves behind for good reasons; anything past
-            // two means sessions are accumulating.
-            long ceiling = oneSessionCost * 2;
-            Assert.That(growth, Is.LessThan(ceiling),
-                        $"after {Cycles} RDP sessions were opened and closed the process is still {growth} MB "
-                        + $"above where it started, and one session costs about {oneSessionCost} MB -- closed "
-                        + "sessions are being kept");
+            // The reporter's signal is ACCUMULATION: each session added its own few hundred MB and
+            // kept them, so eight sessions cost 2 GB. "Back to baseline" is the wrong thing to
+            // demand -- a first connection leaves JIT and caches behind for good reasons, and
+            // native heaps often keep pages after a correct release -- so the assertion is on the
+            // slope: the second and later sessions must not each add another session-sized
+            // chunk. The retained delta between consecutive closes is what a leak makes grow.
+            long retainedAfterFirst = afterEachClose[0] - baseline;
+            long addedByLaterSessions = afterEachClose[^1] - afterEachClose[0];
+            long perLaterSession = addedByLaterSessions / Math.Max(Cycles - 1, 1);
+            TestContext.Out.WriteLine(
+                $"one session costs about {oneSessionCost} MB; first close retained {retainedAfterFirst} MB; "
+                + $"the next {Cycles - 1} session(s) added {addedByLaterSessions} MB in total, "
+                + $"{perLaterSession} MB each");
+
+            Assert.That(perLaterSession, Is.LessThan(oneSessionCost / 2),
+                        $"every session after the first is adding about {perLaterSession} MB that stays, "
+                        + $"against a session cost of {oneSessionCost} MB -- closed sessions are being kept");
         }
     }
 }

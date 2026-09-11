@@ -26,10 +26,18 @@ namespace mRemoteNGSpecs.Support
     {
         private readonly List<ConnectionInfo> _connections = [];
 
+        /// <summary>
+        /// <paramref name="domain"/> matters more than it looks for a workgroup target. Left
+        /// empty, the RDP client qualifies the user with the CLIENT machine's name and sends
+        /// "WIN-XXXX\Administrator" to the far end, where no such account exists; the server
+        /// answers "Your credentials did not work" even though the password is correct. Set it to
+        /// the target's own computer name so the local account there is the one being asked for.
+        /// </summary>
         public ConnectionsSeeder Add(string name, string hostname, ProtocolType protocol, int port,
-                                     string? username = null, string? password = null)
+                                     string? username = null, string? password = null,
+                                     string? domain = null, Action<ConnectionInfo>? configure = null)
         {
-            _connections.Add(new ConnectionInfo
+            ConnectionInfo connection = new()
             {
                 Name = name,
                 Hostname = hostname,
@@ -37,8 +45,12 @@ namespace mRemoteNGSpecs.Support
                 Port = port,
                 Username = username ?? "",
                 Password = password ?? "",
+                Domain = domain ?? "",
                 Panel = "General",
-            });
+            };
+
+            configure?.Invoke(connection);
+            _connections.Add(connection);
             return this;
         }
 
