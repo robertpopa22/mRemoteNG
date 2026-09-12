@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Builds, deploys and runs the UI acceptance battery inside the isolated lab guest.
 
@@ -194,6 +194,22 @@ try {
                 catch { }
             }
             Write-Host "    $target"
+        }
+    }
+
+    # Evidence a scenario chose to keep regardless of its verdict (screenshots, traces): the
+    # scenario directory itself is deleted on success, so this lives beside it.
+    if ($Artifacts) {
+        $local = Join-Path $repo 'lab-artifacts'
+        $evidence = 'C:\mRNG-Lab\mRemoteNGSpecsind\Release\_uiscenarios\_evidence'
+        $has = Invoke-Command -Session $session -ScriptBlock { param($p) Test-Path $p } -ArgumentList $evidence
+        if ($has) {
+            Write-Step 'Evidence'
+            $target = Join-Path $local '_evidence'
+            New-Item -ItemType Directory -Force -Path $target | Out-Null
+            Copy-Item -FromSession $session -Path "$evidence\*" -Destination $target -Recurse -Force
+            Invoke-Command -Session $session -ScriptBlock { param($p) Remove-Item $p -Recurse -Force } -ArgumentList $evidence
+            Get-ChildItem $target -Recurse -File | ForEach-Object { Write-Host "    $($_.FullName)" }
         }
     }
 
