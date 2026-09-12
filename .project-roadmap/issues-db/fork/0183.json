@@ -1,0 +1,39 @@
+{
+  "number": 183,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ComponentModel.Win32Exception: Erreur lors de la création d'un handle de fenêtre.",
+  "state": "open",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-09-11T07:13:24Z",
+  "github_updated_at": "2026-09-11T07:13:24Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Erreur lors de la création d'un handle de fenêtre.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void Sy...",
+  "our_status": "duplicate",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-12",
+      "type": "duplicate",
+      "description": "Status changed to duplicate",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-09-11T07:13:24Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-12T18:14:16Z",
+  "notes": "Identical stack to #174 (ComboBox RecreateHandle during WM_DPICHANGED_BEFOREPARENT). Second occurrence; hypothesis: window-handle growth from undisposed RDP sessions (#182) — tracked on #174."
+}

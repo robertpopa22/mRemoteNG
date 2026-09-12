@@ -9,20 +9,22 @@
     reporter's class of session -- a real Windows desktop -- is measured here, on the
     machine and the servers you already use, with you at the keyboard.
 
-    Every second it samples the process's private bytes and, once a second on change,
-    prints a line. Open an RDP session, wait for the desktop to paint, close its tab,
-    repeat; press Enter when done. It then reports the cost of the first session, what
-    was retained after each close, and the slope across later sessions -- the leak's
-    signature is each session adding its own chunk and keeping it, not "back to
-    baseline", which a first connection never quite returns to.
+    You mark each close yourself. The first version of this script tried to find the
+    open/close points in the sampled series on its own and got it wrong: an RDP desktop
+    painting swings private bytes by hundreds of MB from one second to the next, its
+    peak-and-trough guess produced fifteen "sessions" out of five, and it printed
+    "No accumulation" over a run that had kept almost a gigabyte. The reporter caught that.
+    So: open a session, let the desktop paint, close its tab, wait a few seconds, press
+    Enter. Repeat three or four times. Type q and Enter when done.
+
+    The verdict is on the slope -- what each session after the first leaves behind -- not
+    on a return to baseline, which a first connection never quite manages (JIT, caches).
 
 .PARAMETER ProcessName
-    Defaults to mRemoteNG. Point it at the daily-driver process; the script refuses to
-    guess if more than one is running.
+    Defaults to mRemoteNG. The script refuses to guess if more than one is running.
 
 .EXAMPLE
     pwsh -NoProfile -File scripts\measure-rdp-memory.ps1
-    # then: open RDP tab -> desktop paints -> close tab -> repeat 3-4 times -> Enter
 #>
 [CmdletBinding()]
 param(
@@ -41,58 +43,57 @@ function PrivateMb([System.Diagnostics.Process]$p) {
     [math]::Round($p.PrivateMemorySize64 / 1MB)
 }
 
-$baseline = PrivateMb $proc
+# Settle, then take the lowest of a few readings: private bytes wobble by a few MB at rest.
+function SettledMb([System.Diagnostics.Process]$p) {
+    Start-Sleep -Seconds 3
+    $readings = 1..4 | ForEach-Object { Start-Sleep -Milliseconds 500; PrivateMb $p }
+    ($readings | Measure-Object -Minimum).Minimum
+}
+
+$baseline = SettledMb $proc
 Write-Host ("Watching {0} (PID {1}). Baseline private bytes: {2} MB." -f $ProcessName, $proc.Id, $baseline)
-Write-Host "Open an RDP session, let the desktop paint, close its tab. Repeat 3-4 times."
-Write-Host "Press Enter here when the last tab is closed and everything has settled."
+Write-Host "Open an RDP session, let the desktop paint, close its tab, wait a few seconds,"
+Write-Host "then press Enter here. Repeat three or four times. Type q and press Enter when done."
 Write-Host ""
 
-$samples = [System.Collections.Generic.List[pscustomobject]]::new()
-$last = $baseline
-$start = Get-Date
+$afterClose = [System.Collections.Generic.List[int]]::new()
+$peakWhileOpen = [System.Collections.Generic.List[int]]::new()
+$peak = $baseline
 
-$reader = [Console]::In
-while (-not [Console]::KeyAvailable) {
-    Start-Sleep -Milliseconds 1000
-    if ($proc.HasExited) { throw "$ProcessName exited during the measurement." }
-    $now = PrivateMb $proc
-    if ([math]::Abs($now - $last) -ge 5) {
-        $t = [int]((Get-Date) - $start).TotalSeconds
-        $samples.Add([pscustomobject]@{ Seconds = $t; Mb = $now; Delta = $now - $last })
-        Write-Host ("  t+{0,4}s  {1,6} MB  ({2:+#;-#;0} MB)" -f $t, $now, ($now - $last))
-        $last = $now
+while ($true) {
+    # Track the peak between marks so the cost of a session is known.
+    while (-not [Console]::KeyAvailable) {
+        Start-Sleep -Milliseconds 500
+        if ($proc.HasExited) { throw "$ProcessName exited during the measurement." }
+        $now = PrivateMb $proc
+        if ($now -gt $peak) { $peak = $now }
     }
+    $line = [Console]::ReadLine()
+    if ($line -match '^\s*q') { break }
+
+    $closed = SettledMb $proc
+    $afterClose.Add($closed)
+    $peakWhileOpen.Add($peak)
+    $n = $afterClose.Count
+    Write-Host ("  session {0}: peak while open {1} MB, after close {2} MB ({3:+#;-#;0} MB above baseline)" -f $n, $peak, $closed, ($closed - $baseline))
+    $peak = $closed
 }
-[void][Console]::ReadLine()
 
-$final = PrivateMb $proc
-Write-Host ""
-Write-Host ("Final private bytes: {0} MB ({1:+#;-#;0} MB against baseline)." -f $final, ($final - $baseline))
-
-# Peaks are the local maxima (a session open), troughs the minima after each (a session closed).
-$peaks = @(); $troughs = @()
-for ($i = 1; $i -lt $samples.Count - 1; $i++) {
-    if ($samples[$i].Mb -gt $samples[$i-1].Mb -and $samples[$i].Mb -ge $samples[$i+1].Mb) { $peaks += $samples[$i].Mb }
-    if ($samples[$i].Mb -lt $samples[$i-1].Mb -and $samples[$i].Mb -le $samples[$i+1].Mb) { $troughs += $samples[$i].Mb }
-}
-if ($samples.Count -gt 0) { $troughs += $final }
-
-if ($peaks.Count -lt 2 -or $troughs.Count -lt 2) {
-    Write-Host "Fewer than two open/close cycles were seen; run it again with at least three."
+if ($afterClose.Count -lt 2) {
+    Write-Host "Fewer than two sessions were marked; at least three are needed to see a slope."
     exit 2
 }
 
-$firstCost = $peaks[0] - $baseline
-$retained = @()
-for ($i = 0; $i -lt $troughs.Count; $i++) { $retained += ($troughs[$i] - $baseline) }
-$laterAdded = $troughs[-1] - $troughs[0]
-$laterCount = [math]::Max($troughs.Count - 1, 1)
+$firstCost = [math]::Max($peakWhileOpen[0] - $baseline, 1)
+$retainedFirst = $afterClose[0] - $baseline
+$laterAdded = $afterClose[$afterClose.Count - 1] - $afterClose[0]
+$laterCount = $afterClose.Count - 1
 $perLater = [math]::Round($laterAdded / $laterCount)
 
 Write-Host ""
-Write-Host ("First session cost about {0} MB." -f $firstCost)
-Write-Host ("Retained after each close (above baseline): {0} MB." -f ($retained -join ', '))
-Write-Host ("Sessions after the first added {0} MB in total, about {1} MB each." -f $laterAdded, $perLater)
+Write-Host ("First session cost about {0} MB and left {1} MB behind after closing." -f $firstCost, $retainedFirst)
+Write-Host ("The next {0} session(s) added {1} MB in total, about {2} MB each." -f $laterCount, $laterAdded, $perLater)
+Write-Host ("Retained after each close, above baseline: {0} MB." -f (($afterClose | ForEach-Object { $_ - $baseline }) -join ', '))
 Write-Host ""
 
 if ($perLater -ge [math]::Round($firstCost / 2)) {

@@ -8,9 +8,9 @@
   ],
   "author": "Buster-de",
   "created_at": "2026-09-09T21:37:57Z",
-  "github_updated_at": "2026-09-11T14:22:32Z",
+  "github_updated_at": "2026-09-11T19:32:13Z",
   "body_snippet": "During testing with `mRemoteNG-nightly-20260909-v1.83.0-00cd029-x64.msi` to validate issue #179, I noticed that opening an RDP connection increases the process's memory usage (active private working set) by roughly 300 MB in my environment.\n\nAfter opening and closing several RDP connections, including closing their tabs and panels, the allocated memory does not appear to be released.\n\nHow to reproduce\n* Open and close several RDP sessions.\n  * I had 8 different concurrent sessions in 3 different...",
-  "our_status": "testing",
+  "our_status": "in_progress",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,16 @@
       "date": "2026-09-10",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-09-12",
+      "type": "in_progress",
+      "description": "Status changed to in_progress",
       "pr": null,
       "branch": null,
       "release": null,
@@ -45,12 +55,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABUCZC-Q",
+      "author": "Buster-de",
+      "date": "2026-09-11T19:32:13Z",
+      "snippet": "tested using mRemoteNG-nightly-20260911-v1.83.0-ece4c32-x64.msi\n\nmeasure-rdp-memory.ps1 output:\n> Watching mRemoteNG (PID 9452). Baseline private bytes: 49 MB.\n> Open an RDP session, let the desktop paint, close its tab. Repeat 3-4 times.\n> Press Enter here when the last tab is closed and everything has settled.\n> \n>   t+  13s      55 MB  (+6 MB)\n>   t+  15s      61 MB  (+6 MB)\n>   t+  16s      66 MB  (+5 MB)\n>   t+  36s     200 MB  (+134 MB)\n>   t+  38s     205 MB  (+5 MB)\n>   t+  41s     119 M...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-09-11T14:22:32Z",
-  "unread_comments": 0,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-09-11T14:22:32Z",
-  "notes": "fix shipped e1a2af6a3; awaiting reporter on nightly"
+  "comments_cursor": "2026-09-11T19:32:13Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-09-12T18:14:16Z",
+  "notes": "Round 2: reporter's own run of measure-rdp-memory.ps1 showed +987 MB retained; script verdict logic was wrong (peak/trough heuristic). Fix: RemoveEventHandlers (9 COM sinks never unadvised) + CloseBG disposes interface control (protocol) before the AxHost; [#182] RDP cleanup log line. Attempt 2 of 2 — next step is instrumentation/human review."
 }
