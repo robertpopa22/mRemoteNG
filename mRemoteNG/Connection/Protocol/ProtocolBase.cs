@@ -260,18 +260,13 @@ namespace mRemoteNG.Connection.Protocol
             {
                 tmrReconnect.Enabled = false;
 
-                if (Control != null)
-                {
-                    try
-                    {
-                        DisposeControl();
-                    }
-                    catch (Exception ex)
-                    {
-                        Runtime.MessageCollector?.AddExceptionStackTrace(
-                            "Couldn't dispose control, probably form is already closed (Connection.Protocol.Base)", ex);
-                    }
-                }
+                // Control first. For RDP the control is an AxHost and AxHost.Dispose is the
+                // ActiveX teardown, ending with the release of the wrapper the protocol talks to;
+                // the protocol's own Dispose, reached through the control's Disposed event, then
+                // finds nothing left to release. When the tab's disposal gets there first instead
+                // (InterfaceControl disposes its protocol before its children), RdpProtocol
+                // disposes the host from its cleanup for the same reason (#182).
+                DisposeControlSafely();
 
                 if (_interfaceControl == null) return;
 
@@ -369,6 +364,22 @@ namespace mRemoteNG.Connection.Protocol
             else
             {
                 _interfaceControl.Parent.Tag = null;
+            }
+        }
+
+        private void DisposeControlSafely()
+        {
+            if (Control == null)
+                return;
+
+            try
+            {
+                DisposeControl();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector?.AddExceptionStackTrace(
+                    "Couldn't dispose control, probably form is already closed (Connection.Protocol.Base)", ex);
             }
         }
 

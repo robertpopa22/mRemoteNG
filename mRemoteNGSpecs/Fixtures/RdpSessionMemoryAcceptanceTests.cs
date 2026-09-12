@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Runtime.Versioning;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
@@ -35,6 +36,14 @@ namespace mRemoteNGSpecs.Fixtures
         /// </summary>
         private const long MinimumPlausibleSessionMb = 20;
 
+        /// <summary>
+        /// Whether a closed session leaves a reconnect placeholder tab behind, which is the
+        /// application's default and therefore the reporter's path. The derived fixture below
+        /// runs the same measurement with it on; this one turns it off so a cycle ends with no
+        /// tab at all.
+        /// </summary>
+        protected virtual bool KeepTabsOpenAfterDisconnect => false;
+
         protected override void SeedSettings()
         {
             // The Linux host, not the Windows lab target. The Windows target refuses every NLA
@@ -54,11 +63,10 @@ namespace mRemoteNGSpecs.Fixtures
 
             // The reporter closes tabs and panels and expects the memory back, so the tab has to
             // actually go. On defaults it does not: KeepTabsOpenAfterDisconnect leaves a reconnect
-            // placeholder behind (#61, #139), which makes each cycle ambiguous and the count never
-            // return to zero.
+            // placeholder behind (#61, #139); with it on, the cycle closes that placeholder too.
             Deployment.WriteSettings(new Dictionary<string, string>
             {
-                ["KeepTabsOpenAfterDisconnect"] = "False",
+                ["KeepTabsOpenAfterDisconnect"] = KeepTabsOpenAfterDisconnect ? "True" : "False",
                 ["ConfirmCloseConnection"] = "1", // ConfirmCloseEnum.Never — nothing to answer per cycle
             });
         }
@@ -77,8 +85,22 @@ namespace mRemoteNGSpecs.Fixtures
             }
         }
 
+        /// <summary>
+        /// Session tabs only. An ERROR in the application log pops the Notifications panel, and
+        /// that panel is a TabItem too — counting it once made "the tab closed" wait forever on
+        /// a run whose only problem was a logged error.
+        /// </summary>
         private int TabCount() =>
-            MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem)).Length;
+            SessionTabs().Length;
+
+        private AutomationElement[] SessionTabs() =>
+            MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
+                      .Where(t =>
+                      {
+                          try { return (t.Name ?? "").Contains(ConnectionName, StringComparison.OrdinalIgnoreCase); }
+                          catch (Exception) { return false; }
+                      })
+                      .ToArray();
 
         private AutomationElement Row(string name)
         {
@@ -172,21 +194,35 @@ namespace mRemoteNGSpecs.Fixtures
                              "the RDP session to actually connect", TimeSpan.FromSeconds(90));
                 AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
 
+                // "Established" is the protocol handshake; the desktop, and the memory a session
+                // is really made of, arrives over the next seconds. Measured on the handshake
+                // alone a session once cost 13 MB and the run declared itself inconclusive.
+                Thread.Sleep(TimeSpan.FromSeconds(4));
+
                 long open = PrivateMemoryMb();
                 whileOpen.Add(open);
 
-                AutomationElement tab = MainWindow
-                    .FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
-                    .First();
-                Win32Mouse.MiddleClick(tab);
+                Win32Mouse.MiddleClick(SessionTabs().First());
                 AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
 
-                // The tab really goes, because SeedSettings turned KeepTabsOpenAfterDisconnect off.
-                // Left on, it leaves a reconnect placeholder behind (#61, #139) and the count never
-                // returns to zero — which is what the first run of this scenario timed out on.
+                // With KeepTabsOpenAfterDisconnect off the tab goes; on, a reconnect placeholder is
+                // left behind (#61, #139) and is closed the way the reporter closes it, so every
+                // cycle ends with no tab either way. The first run of this scenario timed out
+                // waiting for zero tabs on the default setting.
                 UiWait.Until(() => TabCount() == 0 || HasReconnectButton(),
                              "the session to close, leaving either no tab or a disconnected placeholder",
                              TimeSpan.FromSeconds(45));
+                // A tab that is still on its way out can vanish between the count and the click,
+                // so the placeholder is looked up once and only clicked if it is really there.
+                AutomationElement? placeholder = SessionTabs().FirstOrDefault();
+                if (placeholder != null)
+                {
+                    TestContext.Out.WriteLine($"cycle {cycle}: closing the reconnect placeholder tab");
+                    try { Win32Mouse.MiddleClick(placeholder); }
+                    catch (Exception ex) { TestContext.Out.WriteLine($"placeholder click skipped: {ex.GetType().Name}"); }
+                    AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
+                    UiWait.Until(() => TabCount() == 0, "the placeholder tab to close", TimeSpan.FromSeconds(30));
+                }
 
                 long closed = PrivateMemoryMb();
                 afterEachClose.Add(closed);
@@ -223,5 +259,18 @@ namespace mRemoteNGSpecs.Fixtures
                         $"every session after the first is adding about {perLaterSession} MB that stays, "
                         + $"against a session cost of {oneSessionCost} MB -- closed sessions are being kept");
         }
+    }
+
+    /// <summary>
+    /// The same measurement on the application's default: a closed session leaves a reconnect
+    /// placeholder tab, and the placeholder is then closed. That is how the reporter's sessions
+    /// end, and the first #182 rounds only ever measured the other setting.
+    /// </summary>
+    [TestFixture]
+    [SupportedOSPlatform("windows")]
+    [NonParallelizable]
+    public class RdpSessionMemoryWithPlaceholderTabAcceptanceTests : RdpSessionMemoryAcceptanceTests
+    {
+        protected override bool KeepTabsOpenAfterDisconnect => true;
     }
 }

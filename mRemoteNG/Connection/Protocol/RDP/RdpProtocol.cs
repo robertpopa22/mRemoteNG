@@ -1717,7 +1717,35 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetEventHandlersFailed, ex);
             }
         }
-        
+
+        /// <summary>
+        /// The mirror image of <see cref="SetEventHandlers"/>, which had none. Each "+=" on a COM
+        /// event advises a connection point on the MSTSC object with a managed sink; the sink
+        /// holds the delegate, the delegate holds this protocol. Releasing our wrapper does not
+        /// unadvise those, so the control kept a live path to the protocol — and the protocol to
+        /// everything a session had allocated — after every close (#182, second round: the
+        /// reporter measured about 200 MB per session still held after the first fix).
+        /// </summary>
+        protected virtual void RemoveEventHandlers()
+        {
+            try
+            {
+                _rdpClient.OnConnecting -= RDPEvent_OnConnecting;
+                _rdpClient.OnConnected -= RDPEvent_OnConnected;
+                _rdpClient.OnLoginComplete -= RDPEvent_OnLoginComplete;
+                _rdpClient.OnFatalError -= RDPEvent_OnFatalError;
+                _rdpClient.OnDisconnected -= RDPEvent_OnDisconnected;
+                _rdpClient.OnIdleTimeoutNotification -= RDPEvent_OnIdleTimeoutNotification;
+                _rdpClient.OnEnterFullScreenMode -= RDPEvent_OnEnterFullScreenMode;
+                _rdpClient.OnLeaveFullScreenMode -= RDPEvent_OnLeaveFullscreenMode;
+                _rdpClient.OnLogonError -= RDPEvent_OnLogonError;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("[#182] RDP event unsubscription failed", ex);
+            }
+        }
+
         #endregion
 
         #region Private Events & Handlers
@@ -2195,30 +2223,54 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 if (_rdpClient != null)
                 {
-                    // If connected, try to disconnect first
-                    try
+                    // The AxHost owns the ActiveX object, and AxHost.Dispose is its teardown: it
+                    // hides the control, closes the OLE object, drops the client site and, at the
+                    // very end, releases the wrapper that _rdpClient also points at. This method
+                    // used to call FinalReleaseComObject on that wrapper itself -- and on the busiest
+                    // path there is, closing a tab, it ran BEFORE the host was disposed, because
+                    // InterfaceControl disposes its protocol before its children. The host's teardown
+                    // then met a separated RCW, threw (the InvalidComObjectException catches in
+                    // InterfaceControl.Dispose are that throw, swallowed), and never closed the
+                    // OLE object: the native control, and the session's memory with it, stayed
+                    // alive for the life of the process (#182). So: unadvise our sinks while the
+                    // wrapper is still usable, then let the host do the release, whichever side
+                    // got here first.
+                    bool hostAlreadyDisposed = Control?.IsDisposed ?? true;
+                    string disconnect = "not connected";
+                    string release;
+                    if (hostAlreadyDisposed)
                     {
-                        if (_rdpClient.Connected == 1)
-                        {
-                            _rdpClient.Disconnect();
-                        }
+                        // CloseBG disposed the control first; its Disposed event brought us here
+                        // with the wrapper already released. Nothing left to touch.
+                        release = "wrapper released by the host";
                     }
-                    catch { }
+                    else
+                    {
+                        try
+                        {
+                            if (_rdpClient.Connected == 1)
+                            {
+                                _rdpClient.Disconnect();
+                                disconnect = "disconnected";
+                            }
+                        }
+                        catch (Exception ex) { disconnect = "disconnect threw " + ex.GetType().Name; }
 
-                    // Force release the COM object
-                    try
-                    {
-                        int refCount = Marshal.FinalReleaseComObject(_rdpClient);
-                        while (refCount > 0)
+                        RemoveEventHandlers();
+
+                        try
                         {
-                            refCount = Marshal.FinalReleaseComObject(_rdpClient);
+                            Control!.Dispose();
+                            release = "host disposed here, wrapper released";
                         }
+                        catch (Exception ex) { release = "host dispose threw " + ex.GetType().Name; }
                     }
-                    catch { }
-                    finally
-                    {
-                        _rdpClient = null!;
-                    }
+
+                    _rdpClient = null!;
+
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        $"[#182] RDP cleanup: {disconnect}; {release}; host disposed first={hostAlreadyDisposed}",
+                        true);
                 }
             }
             catch (Exception ex)
