@@ -201,7 +201,7 @@ try {
     # scenario directory itself is deleted on success, so this lives beside it.
     if ($Artifacts) {
         $local = Join-Path $repo 'lab-artifacts'
-        $evidence = 'C:\mRNG-Lab\mRemoteNGSpecsind\Release\_uiscenarios\_evidence'
+        $evidence = 'C:\mRNG-Lab\mRemoteNGSpecs\bin\x64\Release\_uiscenarios\_evidence'
         $has = Invoke-Command -Session $session -ScriptBlock { param($p) Test-Path $p } -ArgumentList $evidence
         if ($has) {
             Write-Step 'Evidence'

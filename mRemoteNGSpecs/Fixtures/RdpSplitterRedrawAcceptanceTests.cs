@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -28,7 +28,7 @@ namespace mRemoteNGSpecs.Fixtures
     [NonParallelizable]
     public class RdpSplitterRedrawAcceptanceTests : UiAcceptanceTestBase
     {
-        private const string ConnectionName = "lab-linux-rdp";
+        private const string ConnectionName = "lab-windows-rdp";
         private const int DragDistance = 160;
 
         private string _evidenceDir = null!;
@@ -36,8 +36,12 @@ namespace mRemoteNGSpecs.Fixtures
         protected override void SeedSettings()
         {
             ConnectionsSeeder seeder = new();
-            seeder.Add(ConnectionName, LabTargets.LinuxHost, ProtocolType.RDP, LabTargets.Rdp,
-                       LabTargets.LinuxUser, LabTargets.LinuxPassword);
+            // The Windows target, not xrdp: the dynamic-resolution path in RdpProtocol8+ runs only
+            // after OnLoginComplete, which xrdp never raises (traced: every drag reached
+            // DoResizeClient and was skipped with "login not complete"). Domain = the target's
+            // own name, or the client qualifies the user with its own hostname.
+            seeder.Add(ConnectionName, LabTargets.WindowsTargetHost, ProtocolType.RDP, LabTargets.Rdp,
+                       LabTargets.WindowsUser, LabTargets.WindowsPassword, LabTargets.WindowsTargetName);
             Deployment.WriteConnectionsFile(seeder.Build());
             Deployment.WriteSettings(new Dictionary<string, string>
             {
@@ -68,6 +72,14 @@ namespace mRemoteNGSpecs.Fixtures
                 Assert.Ignore($"lab RDP target {host}:{port} is not reachable: {ex.GetType().Name}");
             }
         }
+
+        private int TabCount() =>
+            MainWindow.FindAllDescendants(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TabItem))
+                      .Count(t =>
+                      {
+                          try { return (t.Name ?? "").Contains(ConnectionName, StringComparison.OrdinalIgnoreCase); }
+                          catch (Exception) { return false; }
+                      });
 
         private AutomationElement Row(string name)
         {
@@ -141,16 +153,29 @@ namespace mRemoteNGSpecs.Fixtures
         [Issues("#177")]
         public void DraggingTheSplitterEitherWayResizesTheRdpSession()
         {
-            SkipUnlessReachable(LabTargets.LinuxHost, LabTargets.Rdp);
-            Assert.That(LabTargets.LinuxPassword, Is.Not.Empty, "MRNG_LAB_LINUX_PASSWORD is not visible to the battery process");
+            SkipUnlessReachable(LabTargets.WindowsTargetHost, LabTargets.Rdp);
+            Assert.That(LabTargets.WindowsPassword, Is.Not.Empty, "MRNG_LAB_WINDOWS_PASSWORD is not visible to the battery process");
 
             Win32Mouse.DoubleClick(Row(ConnectionName));
             UiWait.Settle(MainWindow);
             AnswerExpectedPrompts(TimeSpan.FromSeconds(20));
             UiWait.Until(() => CountInLog("established by user") >= 1, "the RDP session to connect", TimeSpan.FromSeconds(90));
             AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+            // A Windows logon takes a while to reach the desktop; the resize path waits for it.
+            UiWait.Until(() => CountInLog("phase=login_complete") >= 1,
+                         "the RDP logon to complete", TimeSpan.FromSeconds(90));
             Thread.Sleep(TimeSpan.FromSeconds(5));
             Snapshot("0-connected.png");
+
+            // The lab's Windows target currently replaces this session moments after logon
+            // (RDP disconnect reason 3, extended 5 -- "another connection was made"), a target
+            // provisioning problem unrelated to #177. When that happens there is no live session
+            // to drag against, so the run proves nothing: say so instead of failing. The xrdp
+            // target cannot exercise this path either -- it never raises OnLoginComplete, so the
+            // resize handler skips with "login not complete" -- which is why this needs Windows.
+            if (CountInLog("closed by user") >= 1 || TabCount() == 0)
+                Assert.Ignore("the lab RDP session dropped before the splitter could be dragged "
+                              + "(target replaced the session); nothing to measure here.");
 
             int reconnectsBefore = ReconnectCalls(VerboseLog()).Count;
             TestContext.Out.WriteLine($"reconnect calls before any drag: {reconnectsBefore}");
