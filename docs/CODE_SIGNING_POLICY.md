@@ -8,7 +8,7 @@ All mRemoteNG release binaries are digitally signed using [SignPath Foundation](
 
 | Channel | Signing Status |
 |---------|---------------|
-| **Stable releases** (v1.82.x) | :white_check_mark: Signed via SignPath (when the SignPath secret is configured) |
+| **Stable releases** (`vX.Y.Z` tags, currently 1.83.x) | :white_check_mark: Signed via SignPath (when the SignPath secret is configured) |
 | **Nightly builds** (main) | :construction: Unsigned — signing will activate once SignPath secrets are configured |
 | **Self-built** | :x: Unsigned (expected — user builds from source) |
 

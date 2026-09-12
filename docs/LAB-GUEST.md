@@ -1,4 +1,4 @@
-# Lab guest — running UI scenarios on the isolated VM, step by step
+﻿# Lab guest — running UI scenarios on the isolated VM, step by step
 
 The lab guest is a throwaway Windows VM on the maintainer's Hyper-V host. It exists for the
 checks a developer desktop cannot give an honest answer to: anything that needs a real mouse,
@@ -126,6 +126,31 @@ learn, so they are written down here once:
   the only kind of screenshot a scrolled WinForms container renders correctly.
 - Every scenario carries `[Issues("#n")]` for what it covers, `[Touches("#n")]` for what it
   merely exercises, `[StressCoverage("#n")]` for races it can only make more likely.
+- **Evidence that must survive a pass** goes in `_uiscenarios/_evidence/<test>/`: the scenario
+  directory itself is deleted when the test passes, so anything you want to look at afterwards
+  has to live beside it. `lab-run.ps1 -Artifacts` copies that folder out of the guest either way.
+- **The verbose log** is the application's own decision trace (`DevLog`). It is written only when
+  a file named `verbose.log.enable` sits next to the executable, so a scenario that wants it
+  writes one into `Deployment.Directory` in `SeedSettings()` and then reads
+  `mRemoteNG-verbose.log` from the same folder.
+
+### Which RDP target answers which question
+
+- **`ConnectionsSeeder` seeds `RdpVersion = RdpVersion.Highest`**, because a bare `ConnectionInfo`
+  leaves the enum at its zero value, `Rdc6` — the base `RdpProtocol`, an RDC 6 ActiveX class with
+  none of the dynamic-resize code added in `RdpProtocol8` and later. The application never does
+  that; it copies `DefaultConnectionInfo`, whose value is `Highest`. Change this and the battery
+  silently tests a class no user has run since Windows 7.
+- **The Linux target (xrdp) never raises `OnLoginComplete`.** `RdpProtocol8.DoResizeClient` and
+  everything else gated on `loginComplete` therefore skips with "login not complete" in the
+  verbose log. xrdp is fine for connect/disconnect lifecycle and memory measurements; it cannot
+  exercise the resize/reconnect path at all. That needs the Windows target.
+- **The Windows target currently replaces the session moments after logon** — RDP disconnect
+  reason 3, extended reason 5, "another connection was made to the remote computer" — so a
+  scenario that needs a session to stay up for several seconds cannot run against it yet.
+  Disabling its console autologon does not fix it. A scenario that hits this should
+  `Assert.Ignore` rather than fail, the way `RdpSplitterRedrawAcceptanceTests` does: an
+  unreproducible run proves nothing and must not read as a verdict.
 
 ## 6. When done
 
