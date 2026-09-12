@@ -8,17 +8,28 @@
   "created_at": "2026-09-03T13:27:40Z",
   "github_updated_at": "2026-09-03T13:27:40Z",
   "body_snippet": "## Summary\n\nDragging the vertical splitter between the connections tree / property grid and the RDP connection panel does not resize the RDP surface live — the panel shows a stale frame (visually, whatever was behind or underneath the previous frame) instead of the redrawn desktop, until some other event forces a repaint.\n\n## Steps to reproduce\n\n1. Open an RDP connection so its tab is active and docked normally (splitter between the side panels and the connection panel).\n2. Drag the vertical spl...",
-  "our_status": "new",
+  "our_status": "needs_info",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-12",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [],
   "comments_cursor": "2026-09-03T13:27:40Z",
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-04T08:56:47Z",
-  "notes": ""
+  "last_synced": "2026-09-12T20:47:08Z",
+  "notes": "Instrumented: reporter's premise disproven — ConnectionTab.Resize reaches RdpProtocol8.Resize on every splitter drag with correct sizes (600/760/840/760). Stale frame is downstream (shrink repaint), not a missing trigger. Not reproduced: xrdp never raises OnLoginComplete, Windows target drops session (ext=5). Asked reporter for capture + Resolution/sizing setting. Harness: RdpSplitterRedrawAcceptanceTests."
 }
