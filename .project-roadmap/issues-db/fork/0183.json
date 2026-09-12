@@ -2,7 +2,7 @@
   "number": 183,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: Erreur lors de la création d'un handle de fenêtre.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-11T07:13:24Z",
-  "github_updated_at": "2026-09-11T07:13:24Z",
+  "github_updated_at": "2026-09-12T19:39:44Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Erreur lors de la création d'un handle de fenêtre.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void Sy...",
   "our_status": "duplicate",
   "priority": null,
@@ -29,11 +29,30 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-09-11T07:13:24Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABUKkcvg",
+      "author": "robertpopa22",
+      "date": "2026-09-12T19:39:42Z",
+      "snippet": "Same stack as #174, to the frame: a `ComboBox` recreating its window handle during `WM_DPICHANGED_BEFOREPARENT`, and `CreateHandle` failing — this one in French, that one in Chinese, both non-fatal, both from 1.83.0. Closing this as a duplicate so the pattern is tracked in one place; #174 stays open.\n\nTwo occurrences change one thing. When #174 came in, handle exhaustion was checked and dismissed because a running instance sat at ~118 USER handles. Since then #182 established that closed RDP ses...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABUKkdIA",
+      "author": "robertpopa22",
+      "date": "2026-09-12T19:39:43Z",
+      "snippet": "Duplicate of #174.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-12T19:39:44Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-12T18:14:16Z",
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-12T19:39:52Z",
   "notes": "Identical stack to #174 (ComboBox RecreateHandle during WM_DPICHANGED_BEFOREPARENT). Second occurrence; hypothesis: window-handle growth from undisposed RDP sessions (#182) — tracked on #174."
 }

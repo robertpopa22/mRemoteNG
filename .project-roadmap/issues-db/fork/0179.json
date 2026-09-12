@@ -8,9 +8,9 @@
   ],
   "author": "Buster-de",
   "created_at": "2026-09-03T19:57:41Z",
-  "github_updated_at": "2026-09-11T20:05:07Z",
+  "github_updated_at": "2026-09-12T19:39:41Z",
   "body_snippet": "Tested with:\n* mRemoteNG 1.83.0.3684\n* Commit `016d5b4b11c0b9c3e9744e05ff078ba24ab5e906`\n\nThere are multiple issues in the External Tools persistence path.\n\n## 1. External Tools are saved to SQL but never loaded from SQL\n\nWhen `UseSQLServer` is enabled, `ExternalAppsSaver.Save()` routes External Tools to SQL via `SaveToSql()`.\n\nRelevant code:\n\n* `mRemoteNG/Config/Settings/ExternalAppsSaver.cs`\n\nHowever, startup always loads External Tools from `extApps.xml`.\n\nRelevant code:\n\n* `mRemoteNG/Config/...",
-  "our_status": "in_progress",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -51,6 +51,16 @@
       "date": "2026-09-12",
       "type": "in_progress",
       "description": "Status changed to in_progress",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-09-12",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -102,12 +112,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABUKkcSg",
+      "author": "robertpopa22",
+      "date": "2026-09-12T19:39:41Z",
+      "snippet": "Thank you for the retest and for the exact configuration — the icon path not appearing is a regression from the responsiveness change, and it was already latent before it.\n\n**Why the path vanished.** Every other tool property raises a change notification when set; `IconPath` did not (it has been a plain field since #1388). Setting it from the Browse dialog therefore never refreshed the text box, which was harmless while the form was committed only on focus loss. Once the form was committed on ev...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-11T20:05:07Z",
+  "comments_cursor": "2026-09-12T19:39:41Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-12T18:14:16Z",
-  "notes": "Round 2: IconPath had no PropertyChanged (since #1388); commit-on-keystroke clobbered browsed path. Fix: SetField on IconPath + hide unfinished Hotkey row (#1003). OK/Cancel/Apply request declined as design change."
+  "waiting_for_us": false,
+  "last_synced": "2026-09-12T19:39:55Z",
+  "notes": "Round 2 shipped f5b1acde3, reply posted."
 }
