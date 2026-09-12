@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 using mRemoteNG.Config;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Xml;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Container;
 using mRemoteNG.Security;
 using mRemoteNG.Security.SymmetricEncryption;
@@ -47,6 +48,12 @@ namespace mRemoteNGSpecs.Support
                 Password = password ?? "",
                 Domain = domain ?? "",
                 Panel = "General",
+                // What the application gives every connection it creates (it copies the defaults,
+                // whose RdpVersion is Highest). A bare ConnectionInfo leaves the enum at zero, which
+                // is Rdc6: the base RdpProtocol, an RDC 6 ActiveX class, and none of the dynamic
+                // resize code from RdpProtocol8 onward -- a lab that measured a code path no user
+                // has run since Windows 7 (found chasing #177).
+                RdpVersion = RdpVersion.Highest,
             };
 
             configure?.Invoke(connection);
