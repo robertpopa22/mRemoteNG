@@ -6,7 +6,7 @@
   "labels": [],
   "author": "robertpopa22",
   "created_at": "2026-09-03T13:27:40Z",
-  "github_updated_at": "2026-09-03T13:27:40Z",
+  "github_updated_at": "2026-09-12T20:47:08Z",
   "body_snippet": "## Summary\n\nDragging the vertical splitter between the connections tree / property grid and the RDP connection panel does not resize the RDP surface live — the panel shows a stale frame (visually, whatever was behind or underneath the previous frame) instead of the redrawn desktop, until some other event forces a repaint.\n\n## Steps to reproduce\n\n1. Open an RDP connection so its tab is active and docked normally (splitter between the side panels and the connection panel).\n2. Drag the vertical spl...",
   "our_status": "needs_info",
   "priority": null,
@@ -25,11 +25,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-09-03T13:27:40Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABUK6vkQ",
+      "author": "robertpopa22",
+      "date": "2026-09-12T20:47:08Z",
+      "snippet": "Thank you for the careful write-up — the source-level theory is exactly the kind of report that makes this fast to act on, and testing it is what turned up something worth reporting back.\n\n**We built a UI test around your theory and it does not hold.** The test opens an RDP session against a real server, drags the vertical DockPanel splitter both ways, and reads the application's own verbose log for the resize calls each drag produces. The result:\n\n- `ConnectionTab.Resize` **is** wired to the RD...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-12T20:47:08Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-12T20:47:08Z",
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-12T21:07:04Z",
   "notes": "Instrumented: reporter's premise disproven — ConnectionTab.Resize reaches RdpProtocol8.Resize on every splitter drag with correct sizes (600/760/840/760). Stale frame is downstream (shrink repaint), not a missing trigger. Not reproduced: xrdp never raises OnLoginComplete, Windows target drops session (ext=5). Asked reporter for capture + Resolution/sizing setting. Harness: RdpSplitterRedrawAcceptanceTests."
 }
