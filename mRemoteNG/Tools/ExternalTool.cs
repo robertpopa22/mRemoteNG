@@ -163,7 +163,22 @@ namespace mRemoteNG.Tools
             set => SetField(ref _passphrase, value, nameof(Passphrase));
         }
 
-        public string IconPath { get; set; } = string.Empty;
+        private string _iconPath = string.Empty;
+
+        /// <summary>
+        /// Raises PropertyChanged like every other editable property — it never did (#1388 added
+        /// it as a plain auto-property). The External Tools editor refreshes its fields from the
+        /// selected tool's change notifications, so Browse... wrote the chosen path to the model
+        /// and the Icon Path field never heard about it and stayed empty. That was survivable
+        /// while the editor only committed on focus change; once it committed on every keystroke
+        /// (#179) the next keystroke anywhere wrote the empty field back over the path (#179,
+        /// third round: "I can no longer save an icon path").
+        /// </summary>
+        public string IconPath
+        {
+            get => _iconPath;
+            set => SetField(ref _iconPath, value, nameof(IconPath));
+        }
 
         /// <summary>
         /// Tracks the process started by <see cref="StartForAutoRun"/> so it can be

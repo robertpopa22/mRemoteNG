@@ -48,6 +48,7 @@ namespace mRemoteNG.UI.Window
             ApplyLanguage();
             ApplyTheme();
             CommitTextBoxEditsAsTheyAreTyped();
+            HideTheUnfinishedHotkeyRow();
             UpdateToolsListObjView();
 
             if (!TryRestoreToolsListLayout())
@@ -157,6 +158,19 @@ namespace mRemoteNG.UI.Window
         /// first. The list view is deliberately not refreshed here; that still waits for the field
         /// to be left, so the grid does not rebuild on every keystroke.
         /// </summary>
+        /// <summary>
+        /// The row under Icon Path is a hotkey editor that #1003 added to the layout and never
+        /// finished: the label has no text, the box is neither filled from the tool's Hotkey nor
+        /// committed back, and nothing captures a key. To a user it is an unlabelled field that
+        /// does nothing (#179, third round). Hidden until it is actually wired; the Hotkey
+        /// property itself is still persisted, so nothing is lost.
+        /// </summary>
+        private void HideTheUnfinishedHotkeyRow()
+        {
+            HotkeyLabel.Visible = false;
+            HotkeyTextBox.Visible = false;
+        }
+
         private void CommitTextBoxEditsAsTheyAreTyped()
         {
             Control[] editors =
