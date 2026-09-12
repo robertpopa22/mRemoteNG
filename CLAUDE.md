@@ -346,7 +346,7 @@ For the complete evidence trail of the AI-assisted modernization process
 |--------|-------|
 | Version | **1.83.0** (stable, released 2026-08-16) |
 | Analyzer warnings | 0 (5,247 eliminated) |
-| Tests | 6,666 passed, 0 failures (incl. live SQL Server, ODBC, MariaDB integration) |
+| Tests | 6,842 passed, 0 failures (incl. live SQL Server, ODBC, MariaDB integration) |
 | UI battery | FlaUI acceptance scenarios run inside an isolated Hyper-V lab guest (`lab-run.ps1`) |
 | Startup time | ≤1s with 200 connections (optimized from ~10-30s) |
 | CI status | All workflows GREEN |
