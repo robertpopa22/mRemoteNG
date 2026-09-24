@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.App.CrashReporting;
+using mRemoteNG.App.Diagnostics;
 using mRemoteNG.App.Info;
 using mRemoteNG.Resources.Language;
 
@@ -98,9 +99,13 @@ namespace mRemoteNG.UI.Forms
                 .AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}")
                 .AppendLine(CultureInfo.InvariantCulture, $"{GeneralAppInfo.ProductName} Version: {GeneralAppInfo.ApplicationVersion}")
                 .AppendLine("Edition: " + (Runtime.IsPortableEdition ? "Portable" : "MSI"))
+                .AppendLine(WindowHandleDiagnostics.RuntimeLine())
                 .AppendLine("Cmd line args: " + string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
 
             AppendAssemblyLoadEvidence(environment);
+            string handleEvidence = WindowHandleDiagnostics.Describe(_exception);
+            if (handleEvidence.Length > 0)
+                environment.AppendLine().Append(handleEvidence);
             textBoxEnvironment.Text = environment.ToString();
         }
 

@@ -662,9 +662,42 @@ namespace mRemoteNG.UI.Forms
             Activate();
             BringToFront();
             NativeMethods.SetForegroundWindow(Handle);
+            LogDpiState("startup", DeviceDpi, DeviceDpi);
 
             PromptForUpdatesPreference();
             await CheckForUpdates();
+        }
+
+        /// <summary>
+        /// #198 reports the menu, tree, Config panel and tabs drawn with a much bigger font than a
+        /// connection's own panel, inside an RDP session with several monitors; #197 crashes while a
+        /// DPI change is being applied. Nothing in the app logged a DPI change, so neither report
+        /// could say what DPI the window moved between or whether the chrome's fonts followed.
+        /// Log-only: one line per change, and one at startup to compare against.
+        /// </summary>
+        protected override void OnDpiChanged(DpiChangedEventArgs e)
+        {
+            base.OnDpiChanged(e);
+            LogDpiState("dpi change", e.DeviceDpiOld, e.DeviceDpiNew);
+        }
+
+        private void LogDpiState(string when, int oldDpi, int newDpi)
+        {
+            try
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    string.Create(CultureInfo.InvariantCulture,
+                        $"[#198-diag] {when}: window DPI {oldDpi} -> {newDpi}, form DeviceDpi {DeviceDpi}, " +
+                        $"menu font {msMain.Font.SizeInPoints:0.##}pt/{msMain.Font.Height}px, " +
+                        $"dock panel DeviceDpi {pnlDock.DeviceDpi} font {pnlDock.Font.SizeInPoints:0.##}pt/{pnlDock.Font.Height}px, " +
+                        $"monitor {Screen.FromControl(this).DeviceName} {Screen.FromControl(this).Bounds.Width}x{Screen.FromControl(this).Bounds.Height}, " +
+                        $"remote session {SystemInformation.TerminalServerSession}"),
+                    true);
+            }
+            catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException)
+            {
+                // Diagnostics must never take the window down with them.
+            }
         }
 
         private void PromptForUpdatesPreference()
