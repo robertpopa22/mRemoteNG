@@ -1,4 +1,5 @@
-﻿using AxMSTSCLib;
+﻿using mRemoteNG.App.Diagnostics;
+using AxMSTSCLib;
 using System.Drawing;
 using Microsoft.CSharp.RuntimeBinder;
 using System.Text;
@@ -2238,6 +2239,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     bool hostAlreadyDisposed = Control?.IsDisposed ?? true;
                     string disconnect = "not connected";
                     string release;
+                    long disconnectMs = 0, disposeMs = 0;
                     if (hostAlreadyDisposed)
                     {
                         // CloseBG disposed the control first; its Disposed event brought us here
@@ -2246,6 +2248,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     }
                     else
                     {
+                        long disconnectStart = ClosePathDiagnostics.Now();
                         try
                         {
                             if (_rdpClient.Connected == 1)
@@ -2255,21 +2258,24 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             }
                         }
                         catch (Exception ex) { disconnect = "disconnect threw " + ex.GetType().Name; }
+                        disconnectMs = ClosePathDiagnostics.Since(disconnectStart);
 
                         RemoveEventHandlers();
 
+                        long disposeStart = ClosePathDiagnostics.Now();
                         try
                         {
                             Control!.Dispose();
                             release = "host disposed here, wrapper released";
                         }
                         catch (Exception ex) { release = "host dispose threw " + ex.GetType().Name; }
+                        disposeMs = ClosePathDiagnostics.Since(disposeStart);
                     }
 
                     _rdpClient = null!;
 
                     Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                        $"[#182] RDP cleanup: {disconnect}; {release}; host disposed first={hostAlreadyDisposed}",
+                        $"[#182] RDP cleanup on t{Environment.CurrentManagedThreadId}: {disconnect} ({disconnectMs} ms); {release} ({disposeMs} ms); host disposed first={hostAlreadyDisposed}",
                         true);
                 }
             }

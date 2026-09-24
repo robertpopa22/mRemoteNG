@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mRemoteNG.App.Diagnostics;
+using System;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -197,6 +198,7 @@ namespace mRemoteNG.UI.Tabs
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            ClosePathDiagnostics.Log($"tab '{TabText}' FormClosing: reason {e.CloseReason}, protocolClose {protocolClose}, silentClose {silentClose}, disconnectOnly {disconnectOnly}, confirm setting {Settings.Default.ConfirmCloseConnection}");
             if (!protocolClose)
             {
                 // If the tab is showing the closed/disconnected state (no active protocol),
@@ -252,6 +254,7 @@ namespace mRemoteNG.UI.Tabs
                 }
             }
 
+            ClosePathDiagnostics.Log($"tab '{TabText}' FormClosing: cancel {e.Cancel}");
             base.OnFormClosing(e);
         }
 

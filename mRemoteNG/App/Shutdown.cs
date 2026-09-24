@@ -1,4 +1,5 @@
-﻿using mRemoteNG.Tools;
+﻿using mRemoteNG.App.Diagnostics;
+using mRemoteNG.Tools;
 using System;
 using System.Windows.Forms;
 using mRemoteNG.Config.Connections;
@@ -30,14 +31,14 @@ namespace mRemoteNG.App
         {
             try
             {
-                StopRestApi();
-                StopAutoStartedExternalTools();
-                StopPuttySessionWatcher();
-                DisposeNotificationAreaIcon();
-                SaveConnections();
-                SaveSettings(quickConnectToolStrip, externalToolsToolStrip, multiSshToolStrip, mainMenu, frmMain);
-                UnregisterBrowsers();
-                PluginManager.Instance.ShutdownPlugins();
+                ClosePathDiagnostics.Time("shutdown: StopRestApi", StopRestApi);
+                ClosePathDiagnostics.Time("shutdown: StopAutoStartedExternalTools", StopAutoStartedExternalTools);
+                ClosePathDiagnostics.Time("shutdown: StopPuttySessionWatcher", StopPuttySessionWatcher);
+                ClosePathDiagnostics.Time("shutdown: DisposeNotificationAreaIcon", DisposeNotificationAreaIcon);
+                ClosePathDiagnostics.Time("shutdown: SaveConnections", SaveConnections);
+                ClosePathDiagnostics.Time("shutdown: SaveSettings", () => SaveSettings(quickConnectToolStrip, externalToolsToolStrip, multiSshToolStrip, mainMenu, frmMain));
+                ClosePathDiagnostics.Time("shutdown: UnregisterBrowsers", UnregisterBrowsers);
+                ClosePathDiagnostics.Time("shutdown: ShutdownPlugins", PluginManager.Instance.ShutdownPlugins);
             }
             catch (Exception ex)
             {

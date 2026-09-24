@@ -1,4 +1,5 @@
 ﻿#region Usings
+using mRemoteNG.App.Diagnostics;
 using Microsoft.Win32;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
@@ -799,6 +800,7 @@ namespace mRemoteNG.UI.Forms
                 }
             }
 
+            ClosePathDiagnostics.Log($"main window FormClosing: reason {e.CloseReason}, windows {Runtime.WindowList?.Count}, open connections {GetOpenConnectionsCount()}");
             QuickConnectHistorySaver.CaptureOpenQuickConnectSessionsForShutdown(_quickConnectToolStrip.QuickConnectComboBox);
 
             // Save dock panel layout while ConnectionWindows are still docked.
@@ -815,8 +817,12 @@ namespace mRemoteNG.UI.Forms
                     if (window == null || window.IsDisposed)
                         continue;
 
+                    long windowStart = ClosePathDiagnostics.Now();
                     window.Close();
+                    ClosePathDiagnostics.Log($"main window FormClosing: {window.GetType().Name} '{window.Text}' Close() returned after {ClosePathDiagnostics.Since(windowStart)} ms, disposed {window.IsDisposed}");
                 }
+
+                ClosePathDiagnostics.Log($"main window FormClosing: windows closed, open connections {GetOpenConnectionsCount()}");
 
                 // If a child window/panel close is cancelled (for example user clicks "No"),
                 // keep main app visible and abort this close request.
@@ -835,8 +841,10 @@ namespace mRemoteNG.UI.Forms
             Hide();
 
             NativeMethods.RemoveClipboardFormatListener(Handle);
-            Shutdown.Cleanup(_quickConnectToolStrip, _externalToolsToolStrip, _multiSshToolStrip, msMain, this);
+            ClosePathDiagnostics.Time("main window FormClosing: Shutdown.Cleanup", () =>
+                Shutdown.Cleanup(_quickConnectToolStrip, _externalToolsToolStrip, _multiSshToolStrip, msMain, this));
 
+            ClosePathDiagnostics.Log("main window FormClosing: done; the message loop should now end");
             Debug.Print("[END] - " + Convert.ToString(DateTime.Now, CultureInfo.InvariantCulture));
         }
 

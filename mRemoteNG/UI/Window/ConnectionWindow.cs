@@ -1,3 +1,4 @@
+using mRemoteNG.App.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1092,6 +1093,8 @@ namespace mRemoteNG.UI.Window
 
         private void Connection_FormClosing(object sender, FormClosingEventArgs e)
         {
+            long diagStart = ClosePathDiagnostics.Now();
+            ClosePathDiagnostics.Log($"panel '{Text}' FormClosing: reason {e.CloseReason}, tabs {connDock.Documents.Count()}, app closing {FrmMain.Default.IsClosing}, confirm setting {Settings.Default.ConfirmCloseConnection}");
             if (!FrmMain.Default.IsClosing &&
                 (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All & connDock.Documents.Any() ||
                  Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
@@ -1121,6 +1124,7 @@ namespace mRemoteNG.UI.Window
                 if (result == DialogResult.No)
                 {
                     e.Cancel = true;
+                    ClosePathDiagnostics.Log($"panel '{Text}' FormClosing: cancelled at the confirmation");
                     return;
                 }
             }
@@ -1139,7 +1143,9 @@ namespace mRemoteNG.UI.Window
                     ConnectionTab tabP = (ConnectionTab)dockContent;
                     if (tabP.Tag == null) continue;
                     tabP.silentClose = true;
+                    long tabStart = ClosePathDiagnostics.Now();
                     tabP.Close();
+                    ClosePathDiagnostics.Log($"panel '{Text}': tab '{tabP.TabText}' Close() returned after {ClosePathDiagnostics.Since(tabStart)} ms, tab disposed {tabP.IsDisposed}");
                 }
             }
             catch (Exception ex)
@@ -1149,6 +1155,7 @@ namespace mRemoteNG.UI.Window
             finally
             {
                 _panelFormClosingInProgress = false;
+                ClosePathDiagnostics.Log($"panel '{Text}' FormClosing done after {ClosePathDiagnostics.Since(diagStart)} ms: cancel {e.Cancel}, tabs left {connDock.Documents.Count()}");
             }
         }
 
@@ -1331,6 +1338,7 @@ namespace mRemoteNG.UI.Window
 
         private void ClosePanelIfEmpty()
         {
+            ClosePathDiagnostics.Log($"panel '{Text}' ClosePanelIfEmpty: auto-close {Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose}, queued {_emptyPanelCloseQueued}, disposed {IsDisposed}, disposing {Disposing}, panel closing {_panelFormClosingInProgress}, app closing {FrmMain.Default?.IsClosing}, has tabs {(!IsDisposed && HasConnectionTabs())}");
             if (!Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose)
             {
                 return;
@@ -1369,6 +1377,7 @@ namespace mRemoteNG.UI.Window
         private void ClosePanelIfEmptyOnUiTick()
         {
             _emptyPanelCloseQueued = false;
+            ClosePathDiagnostics.Log($"panel '{Text}' ClosePanelIfEmptyOnUiTick: disposed {IsDisposed}, disposing {Disposing}, handle {IsHandleCreated}, panel closing {_panelFormClosingInProgress}, app closing {FrmMain.Default?.IsClosing}, has tabs {(!IsDisposed && HasConnectionTabs())}");
 
             if (!Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose)
             {
@@ -1393,6 +1402,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 Close();
+                ClosePathDiagnostics.Log($"panel '{Text}' ClosePanelIfEmptyOnUiTick: Close() returned, disposed {IsDisposed}");
             }
             catch (Exception ex)
             {

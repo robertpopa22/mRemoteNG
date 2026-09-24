@@ -1,4 +1,5 @@
-﻿using mRemoteNG.App;
+﻿using mRemoteNG.App.Diagnostics;
+using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Tools;
 using mRemoteNG.UI.Forms;
@@ -226,8 +227,12 @@ namespace mRemoteNG.Connection.Protocol
             Close();
         }
 
+        private long _closeRequested;
+
         public virtual void Close()
         {
+            _closeRequested = ClosePathDiagnostics.Now();
+            ClosePathDiagnostics.Log($"{GetType().Name} Close() requested");
             Thread t = new(CloseBG);
             t.SetApartmentState(ApartmentState.STA);
             t.IsBackground = true;
@@ -236,6 +241,7 @@ namespace mRemoteNG.Connection.Protocol
 
         private void CloseBG()
         {
+            ClosePathDiagnostics.Log($"{GetType().Name} CloseBG +{ClosePathDiagnostics.Since(_closeRequested)} ms: {(_interfaceControl != null && !_interfaceControl.IsDisposed && _interfaceControl.InvokeRequired ? "background thread, marshalling to the UI thread" : "running here")}");
             if (_interfaceControl != null && !_interfaceControl.IsDisposed && _interfaceControl.InvokeRequired)
             {
                 try
@@ -256,6 +262,7 @@ namespace mRemoteNG.Connection.Protocol
             }
 
             ClosedEvent?.Invoke(this);
+            ClosePathDiagnostics.Log($"{GetType().Name} CloseBG +{ClosePathDiagnostics.Since(_closeRequested)} ms: ClosedEvent handlers returned");
             try
             {
                 tmrReconnect.Enabled = false;
@@ -287,6 +294,7 @@ namespace mRemoteNG.Connection.Protocol
                     // ActiveX object, several hundred MB of it, so every closed session stayed in
                     // the process until it exited (#182).
                     DisposeInterface();
+                    ClosePathDiagnostics.Log($"{GetType().Name} CloseBG +{ClosePathDiagnostics.Since(_closeRequested)} ms: done");
                 }
                 catch (Exception ex)
                 {
