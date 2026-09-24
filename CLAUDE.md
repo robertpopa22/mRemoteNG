@@ -295,7 +295,7 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 - Runners: `windows-2025-vs2026` with MSBuild 18.x (VS2026)
 - Workflows: `pr_validation.yml` (build), `nightly.yml` (rolling `nightly` prerelease on push→main), `Build_mR-NB.yml` (stable release — cut by pushing a `vX.Y.Z` tag; `make_latest`), `sonarcloud.yml` (quality gate), `codeql.yml` (security)
 - Platforms: x86, x64, ARM64
-- Code signing: SignPath Foundation (mandatory — see `docs/CODE_SIGNING_POLICY.md`)
+- Code signing: **not active** — SignPath Foundation declined the fork on 2026-03-05, so every release and nightly ships unsigned. The workflows are wired for SignPath and stay inert without its secrets. Never describe builds as signed; status in `docs/CODE_SIGNING_POLICY.md`
 - Version: read from `mRemoteNG/mRemoteNG.csproj` `<Version>` element
 
 ## Code Quality — 5 Levels

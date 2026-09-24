@@ -2,14 +2,14 @@
 
 ## Overview
 
-mRemoteNG release binaries are to be signed with [SignPath Foundation](https://signpath.org/) code signing certificates, so users can verify the authenticity and integrity of a release. The workflows are wired for it; whether a given build is actually signed depends on the status table below.
+mRemoteNG release binaries should carry an Authenticode signature, so users can verify the authenticity and integrity of a release. **Today they do not.** The workflows are wired for [SignPath](https://signpath.org/), but SignPath Foundation declined this fork on 2026-03-05: after a second internal review they found that `robertpopa22/mRemoteNG` does not yet provide sufficient external reputation signals, so no signing route is active yet. The status table below is the source of truth.
 
 ## Current Status
 
 | Channel | Signing Status |
 |---------|---------------|
-| **Stable releases** (`vX.Y.Z` tags, currently 1.83.x) | :x: **Unsigned today.** Wired for the SignPath `release-signing` policy; activates when the secrets exist |
-| **Nightly builds** (main) | :x: **Unsigned today.** Wired for the SignPath `test-signing` policy, which uses a test certificate Windows does not trust: no SmartScreen or Defender benefit, it only proves the pipeline works before a tag depends on it |
+| **Stable releases** (`vX.Y.Z` tags, currently 1.83.x) | :x: **Unsigned.** The workflow is wired for a SignPath `release-signing` policy and stays inert without the secrets |
+| **Nightly builds** (main) | :x: **Unsigned.** Wired for a SignPath `test-signing` policy (a test certificate Windows does not trust, so it would only prove the pipeline, not earn reputation); inert without the secrets |
 | **Self-built** | :x: Unsigned (expected — user builds from source) |
 
 > **Honest status (2026-09-22):** no binary this fork has ever published carries an Authenticode
@@ -18,16 +18,27 @@ mRemoteNG release binaries are to be signed with [SignPath Foundation](https://s
 > an unsigned library whose job is to read credential vaults and launch other programs' CLIs is
 > exactly what a heuristic engine distrusts.
 >
-> Both workflows are ready. They key off `SIGNPATH_CONFIGURED`, a job-level flag that is `true`
-> only when **both** `SIGNPATH_API_TOKEN` and `SIGNPATH_ORGANIZATION_ID` exist as repository
-> secrets. Until then every signing step is skipped and builds ship unsigned, as before. Once
-> they exist, signing is mandatory: a signing request that fails fails the build, and the
-> release job refuses to publish an unsigned ZIP or MSI.
+> The workflows key off `SIGNPATH_CONFIGURED`, a job-level flag that is `true` only when
+> **both** `SIGNPATH_API_TOKEN` and `SIGNPATH_ORGANIZATION_ID` exist as repository secrets. They
+> do not exist, because the SignPath Foundation application was declined, so every signing step
+> is skipped and builds ship unsigned. If a SignPath route opens later, signing becomes mandatory
+> the moment the secrets are added: a failed signing request fails the build, and the release
+> job refuses to publish an unsigned ZIP or MSI. A different provider would need its own steps.
 
-### What has to happen outside this repository
+### Why it is still unsigned, and what would change that
 
-1. Apply for [SignPath Foundation](https://signpath.org/foundation) open-source signing for
-   `robertpopa22/mRemoteNG` (human review, typically days).
+The fork applied to the SignPath Foundation OSS program on 2026-03-03. SignPath asked for
+references, the maintainer answered with the fork-to-upstream relationship and project history
+([`SIGNPATH_REPLY_2026-03-05.md`](SIGNPATH_REPLY_2026-03-05.md)), and on 2026-03-05 SignPath
+replied that its assessment was unchanged: not enough external reputation signals for the fork
+itself. The signing route is being re-evaluated; the candidates are a later re-application to
+SignPath once the fork has more independent references, a paid cloud-HSM signing service that
+runs unattended in CI, or an open-source certificate that has to be driven through the vendor's
+cloud signing tool. None of these is in place.
+
+If the SignPath route does open, the steps are:
+
+1. Get the SignPath Foundation approval for `robertpopa22/mRemoteNG`.
 2. In the SignPath portal, create project `mRemoteNG` with:
    - artifact configuration **`zip`** — what SignPath receives is the GitHub Actions artifact,
      i.e. a ZIP wrapper around our release ZIP. Describe it as a `zip-file` containing one
@@ -47,10 +58,12 @@ GitHub accounts.
 
 ## Publisher
 
-- **Certificate Holder:** SignPath Foundation
+- **Certificate Holder:** none yet. Under the SignPath route it would be SignPath Foundation; under
+  another provider it would be the maintainer or the maintainer's organisation
 - **Purpose:** Authenticode signing of Windows executables and DLLs
-- **SmartScreen:** Yes, for binaries signed under the `release-signing` policy. Nightlies use SignPath's
-  test certificate, which Windows does not trust, so they gain no SmartScreen or Defender reputation
+- **SmartScreen:** only for binaries signed with a publicly trusted certificate. A test-signing
+  certificate (as the nightly steps are wired for) is not trusted by Windows and earns no
+  SmartScreen or Defender reputation
 
 ## Signing Process
 
@@ -88,9 +101,10 @@ GitHub accounts.
 
 ## Verification
 
-Users can verify signed binaries by:
+Once a release is signed, users can verify it by:
 1. Right-click the `.exe` > Properties > Digital Signatures tab
-2. The signer should show **"SignPath Foundation"**
+2. The signer named in the release notes should appear there (today there is no tab at all,
+   because nothing is signed)
 3. The certificate chain should be valid and trusted
 
 ## CI Integration

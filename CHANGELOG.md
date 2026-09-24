@@ -431,7 +431,7 @@ The IIS Orchestrator (`orchestrate.py`) runs as a continuous loop: parse build w
 - GetRecursiveChildList/GetRecursiveFavoriteChildList converted to yield return (zero allocations)
 - MessageCollector capped at 10,000 messages to prevent unbounded memory growth
 - CI/CD: dual-build matrix — 6 builds per release (3 framework-dependent + 3 self-contained)
-- CI/CD: mandatory Authenticode code signing via SignPath Foundation — no unsigned releases
+- CI/CD: mandatory Authenticode code signing via SignPath Foundation — no unsigned releases *(erratum 2026-09-24: this never took effect. The signing step was optional and the SignPath application was declined, so every release since has shipped unsigned; see `docs/CODE_SIGNING_POLICY.md`)*
 - Self-contained build: fixed missing .NET runtime (now uses `-t:Publish` for correct packaging)
 - WPF splash screen: properly shutdown Dispatcher to prevent mouse input interference
 - DPI: added `Application.SetHighDpiMode(HighDpiMode.PerMonitorV2)` for .NET 10 compatibility

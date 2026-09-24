@@ -20,21 +20,25 @@ all **false positives** — the APIs are required for mRemoteNG's core functiona
 ### Why you can trust this build
 
 1. **Open source** — Full source code at [github.com/mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG)
-2. **Code-signed** — Release builds are signed via [SignPath Foundation](https://signpath.org/) (free for open source). See [`CODE_SIGNING_POLICY.md`](CODE_SIGNING_POLICY.md) for details
+2. **Checksummed** — every release publishes `checksums-SHA256.txt`; compare the file you downloaded against it. Builds are **not** code-signed yet (see [`CODE_SIGNING_POLICY.md`](CODE_SIGNING_POLICY.md)), and the absence of a signature is one reason heuristic engines distrust them
 3. **CI-verified** — Every build runs through automated security scanning (CodeQL + SonarCloud)
 4. **VirusTotal scanned** — Nightly builds are automatically scanned via VirusTotal in CI
 5. **Reproducible builds** — Build from source using `build.ps1` and compare
 
-> **Note:** Nightly builds may not yet be signed. See [`CODE_SIGNING_POLICY.md`](CODE_SIGNING_POLICY.md)
-> for current signing status. Signed builds dramatically reduce false positive detections.
+> **Note:** neither nightlies nor stable releases are signed today. See [`CODE_SIGNING_POLICY.md`](CODE_SIGNING_POLICY.md)
+> for the status. If Windows Defender removed a file from the mRemoteNG folder (for example
+> `ExternalConnectors.dll`, #192), check Windows Security → Protection history for the detection name.
 
 ## How to verify authenticity
 
-### Check the digital signature (signed releases)
+### Check the checksum
 
-1. Right-click `mRemoteNG.exe` → Properties → Digital Signatures tab
-2. Verify the signer is "SignPath Foundation" or "mRemoteNG"
-3. Click Details → View Certificate to inspect the certificate chain
+1. Download `checksums-SHA256.txt` from the same release page
+2. In PowerShell: `Get-FileHash .\mRemoteNG-<version>-x64.zip -Algorithm SHA256`
+3. The hash must match the line for that file exactly
+
+Once releases are signed, the Digital Signatures tab of `mRemoteNG.exe` will show the signer named
+in the release notes; today that tab is absent.
 
 ### Check on VirusTotal
 

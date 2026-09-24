@@ -155,10 +155,9 @@ dotnet test "mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll" --results-direct
 - CI uses `windows-2025-vs2026` runners with MSBuild 18.x (VS2026)
 - CI workflow: `.github/workflows/pr_validation.yml` (build) and `Build_mR-NB.yml` (release)
 - Platforms: x86, x64, ARM64
-- **Code signing: MANDATORY** — SignPath Foundation (free for OSS)
-  - Release workflow fails if signing step fails — no unsigned binaries published
-  - See `../docs/CODE_SIGNING_POLICY.md` for team roles and verification steps
-  - Requires GitHub secrets: `SIGNPATH_API_TOKEN`, `SIGNPATH_ORGANIZATION_ID`
+- **Code signing: not active.** SignPath Foundation declined the fork (2026-03-05), so releases and nightlies ship unsigned
+  - The workflows are wired for SignPath and inert without `SIGNPATH_API_TOKEN` + `SIGNPATH_ORGANIZATION_ID`; with both secrets, signing becomes mandatory and an unsigned asset is never published
+  - Status, history and options: `../docs/CODE_SIGNING_POLICY.md`
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
 - **CI reads version from `mRemoteNG.csproj`** (`<Version>` element) — no more hardcoded versions in workflow. Supports prerelease suffixes (e.g. `-beta.2`).
 
@@ -506,7 +505,7 @@ iis_orchestrator.py (Python — controller)
 | `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
 | `.project-roadmap/CVE-2023-30367_ASSESSMENT.md` | CVE-2023-30367 assessment — SecureString migration deferred to v1.81.0 (132 refs, 54 files) |
-| `../docs/CODE_SIGNING_POLICY.md` | **Mandatory** code signing policy — SignPath Foundation, team roles, verification |
+| `../docs/CODE_SIGNING_POLICY.md` | Code signing status (unsigned; SignPath declined 2026-03-05), wiring, options, verification |
 
 ### Scripts
 | File | Purpose |

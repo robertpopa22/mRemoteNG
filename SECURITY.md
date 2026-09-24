@@ -41,8 +41,10 @@ Instead, use one of these channels:
 
 ## Code Signing
 
-All release builds are signed via [SignPath Foundation](https://signpath.org/) (Authenticode).
-See [`CODE_SIGNING_POLICY.md`](docs/CODE_SIGNING_POLICY.md) for details.
+Release builds are **not** Authenticode-signed yet. SignPath Foundation declined this fork on 2026-03-05: after a second internal review they found that `robertpopa22/mRemoteNG` does not yet provide sufficient external reputation signals.
+The CI is prepared for signing and the route is being re-evaluated; until then, verify downloads
+against the `checksums-SHA256.txt` published with every release. Current status and history:
+[`CODE_SIGNING_POLICY.md`](docs/CODE_SIGNING_POLICY.md).
 
 ## Security Measures
 

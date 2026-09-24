@@ -83,7 +83,7 @@ mRemoteNG is one of the most widely-used open-source sysadmin tools for Windows 
 - **CI workflow:** Builds are reproducible via GitHub Actions
 - **Industry recognition:** Reviewed by Redmond Magazine, 4sysops, Petri IT, PDQ, Comparitech
 - **Enterprise integration:** Delinea (Thycotic) PAM, Rapid7 Metasploit module
-- **Code signing:** SignPath Foundation application in progress
+- **Code signing:** not signed yet; the SignPath Foundation application was declined on 2026-03-05
 
 **Sample download:** https://github.com/robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260304-v1.82.0-beta.1-a94feb2-x64.zip
 **SHA256:** `02817ffbbd2f8995095a44ba2ef2a16f7c03a9b9e84205e50510f83e46d5b62d`
@@ -178,7 +178,7 @@ Assembly.LoadFrom for localization) are all required for the application's core
 remote desktop management functionality. These are standard Windows APIs used
 as documented by Microsoft.
 
-Code signing via SignPath Foundation is in progress.
+The binaries are not code-signed yet; a signing route is being arranged.
 ```
 
 ---
@@ -221,11 +221,12 @@ For detailed technical documentation of each API and why it's required, see:
 2. **Re-scan on VirusTotal** after vendor confirms fix — detection count should drop
 3. **BitDefender fix cascades** — once BD whitelists, ALYac/Arcabit/Emsisoft/GData/VIPRE follow within 24-48h (engine update cycle)
 4. **Note:** Each new build produces a new hash. Signed builds accumulate SmartScreen reputation automatically, making future FP reports less necessary
-5. **Long-term fix:** Authenticode signing via SignPath Foundation (in progress) dramatically reduces heuristic scores
+5. **Long-term fix:** Authenticode signing reduces heuristic scores. SignPath Foundation declined the fork on 2026-03-05, so the alternatives below apply
 
 ## Backup: Certum OSS Code Signing Certificate
 
-If SignPath Foundation declines the application:
+SignPath Foundation declined the application on 2026-03-05. The figures below were gathered in
+March 2026 and must be re-checked against the vendors before any purchase:
 
 | Item | Details |
 |------|---------|
@@ -238,7 +239,7 @@ If SignPath Foundation declines the application:
 | **SmartScreen** | Yes — builds reputation over time (slower than EV, but functional) |
 | **CI integration** | Requires USB smartcard → not CI-automatable without HSM proxy. Alternative: Azure Trusted Signing (~$10/month, cloud HSM) |
 
-**Decision tree:**
-1. SignPath Foundation approval → free, CI-integrated, HSM-backed (**preferred**)
-2. SignPath declines → Certum OSS (69 EUR, 3-5 days, manual signing)
-3. Need CI automation without SignPath → Azure Trusted Signing ($10/month)
+**Decision tree (SignPath step closed on 2026-03-05):**
+1. ~~SignPath Foundation approval~~ → declined for insufficient external reputation; re-apply later
+2. Certum OSS → cheap, but signing goes through the vendor's card or cloud tool, not unattended CI
+3. A cloud-HSM signing service (e.g. Azure Trusted/Artifact Signing) → unattended CI signing, paid, identity-validated

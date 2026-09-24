@@ -149,7 +149,7 @@ The following software instruments were used to execute and measure the resoluti
 
 ### Supporting infrastructure
 
-- **GitHub Actions CI**: 6 workflows (PR validation, release build, SonarCloud, CodeQL, nightly, code signing)
+- **GitHub Actions CI**: 5 workflows (PR validation, release build, SonarCloud, CodeQL, nightly); code-signing steps are wired into the release and nightly workflows but inactive, because the SignPath Foundation application was declined
 - **Local machine**: Threadripper 3960X (24 cores / 48 threads), 32 GB RAM — used for all orchestrator runs
 - **Git**: Version control and audit trail for all code changes
 
