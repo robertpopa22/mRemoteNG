@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
   actions: read
 
 concurrency:
@@ -17,6 +17,18 @@ jobs:
   nightly:
     name: Build & Test (x64)
     runs-on: windows-2025-vs2026
+    # Publishing lives in the job below with its own contents: write token. This job
+    # holds only read permissions, so the token the SignPath action receives (it uses
+    # github.token to fetch the artifact) cannot write to the repository.
+    outputs:
+      zipname: ${{ steps.meta.outputs.zipname }}
+      msiname: ${{ steps.meta.outputs.msiname }}
+      version: ${{ steps.meta.outputs.version }}
+      date: ${{ steps.meta.outputs.date }}
+      sha: ${{ steps.meta.outputs.sha }}
+    env:
+      # 'true' once both SignPath secrets exist; the signing steps key off this.
+      SIGNPATH_CONFIGURED: ${{ secrets.SIGNPATH_API_TOKEN != '' && secrets.SIGNPATH_ORGANIZATION_ID != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -243,10 +255,120 @@ jobs:
           echo "date=$date" >> $env:GITHUB_OUTPUT
           echo "sha=$sha" >> $env:GITHUB_OUTPUT
 
+      # --------------------------------------------------------
+      # CODE SIGNING — SignPath Foundation, nightly channel
+      #
+      # Same gate and the same two artifact configurations ("zip", "msi") as the
+      # release workflow, but under the "test-signing" policy: SignPath issues those
+      # automatically, without the human approval release signing needs, with a test
+      # certificate that Windows does NOT trust. A nightly signed this way earns no
+      # SmartScreen or Defender reputation; what it proves is that the pipeline and
+      # the portal configuration work, so the first tagged release is not the first
+      # time signing runs. The trusted certificate stays reserved for tagged builds.
+      # Mandatory once the secrets exist: a nightly that cannot be signed is not
+      # published.
+      # --------------------------------------------------------
+      - name: Upload unsigned nightly ZIP
+        if: env.SIGNPATH_CONFIGURED == 'true'
+        id: upload-nightly-zip
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: nightly-unsigned-zip
+          path: ${{ steps.meta.outputs.zipname }}
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Sign nightly ZIP
+        if: env.SIGNPATH_CONFIGURED == 'true'
+        uses: signpath/github-action-submit-signing-request@b9d91eadd323de506c0c81cf0c7fe7438f3360fd # v2
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '${{ secrets.SIGNPATH_ORGANIZATION_ID }}'
+          project-slug: 'mRemoteNG'
+          signing-policy-slug: 'test-signing'
+          artifact-configuration-slug: 'zip'
+          github-artifact-id: '${{ steps.upload-nightly-zip.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: '${{ github.workspace }}/signed'
+          wait-for-completion-timeout-in-seconds: 900
+
+      - name: Upload unsigned nightly MSI
+        if: env.SIGNPATH_CONFIGURED == 'true' && steps.meta.outputs.msiname != ''
+        id: upload-nightly-msi
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: nightly-unsigned-msi
+          path: ${{ steps.meta.outputs.msiname }}
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Sign nightly MSI
+        if: env.SIGNPATH_CONFIGURED == 'true' && steps.meta.outputs.msiname != ''
+        uses: signpath/github-action-submit-signing-request@b9d91eadd323de506c0c81cf0c7fe7438f3360fd # v2
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '${{ secrets.SIGNPATH_ORGANIZATION_ID }}'
+          project-slug: 'mRemoteNG'
+          signing-policy-slug: 'test-signing'
+          artifact-configuration-slug: 'msi'
+          github-artifact-id: '${{ steps.upload-nightly-msi.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: '${{ github.workspace }}/signed'
+          wait-for-completion-timeout-in-seconds: 900
+
+      # The names travel through env, never spliced into the script text: they are built from
+      # the csproj <Version>, and a quote in that value must stay data, not become PowerShell.
+      - name: Replace nightly assets with their signed copies
+        if: env.SIGNPATH_CONFIGURED == 'true'
+        shell: pwsh
+        env:
+          ZIP_NAME: ${{ steps.meta.outputs.zipname }}
+          MSI_NAME: ${{ steps.meta.outputs.msiname }}
+        run: |
+          foreach ($name in @($env:ZIP_NAME, $env:MSI_NAME)) {
+            if (-not $name) { continue }
+            $signed = Get-ChildItem -Path signed -Recurse -File -Filter $name -ErrorAction SilentlyContinue | Select-Object -First 1
+            if (-not $signed) { throw "No signed copy of $name came back from SignPath" }
+            Copy-Item -Path $signed.FullName -Destination $name -Force
+            Write-Host "Signed: $name"
+          }
+
+      - name: Upload nightly release assets
+        id: upload-release-assets
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: nightly-release-assets
+          path: |
+            ${{ steps.meta.outputs.zipname }}
+            ${{ steps.meta.outputs.msiname }}
+          retention-days: 1
+          if-no-files-found: error
+
+  # ============================================================
+  # Job 2: Publish. The only job with a write token.
+  # ============================================================
+  publish:
+    name: Publish nightly
+    needs: nightly
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Download nightly release assets
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: nightly-release-assets
+          path: release-assets
+
+      # This job has no checkout, so gh cannot infer the repository from a working tree;
+      # GH_REPO names it. Without it the delete fails, the error is swallowed below, and the
+      # old release survives with its tag still on the previous commit.
       - name: Delete previous nightly release
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           gh release delete nightly --yes --cleanup-tag 2>/dev/null || true
 
@@ -256,16 +378,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: nightly
-          name: "Nightly Build — ${{ steps.meta.outputs.date }} (v${{ steps.meta.outputs.version }})"
-          files: |
-            ${{ steps.meta.outputs.zipname }}
-            ${{ steps.meta.outputs.msiname }}
+          # Pin the recreated tag to the commit that was built, not to whatever main points at
+          # by the time this job runs.
+          target_commitish: ${{ github.sha }}
+          name: "Nightly Build — ${{ needs.nightly.outputs.date }} (v${{ needs.nightly.outputs.version }})"
+          files: release-assets/*
           body: |
             ## Nightly Build
 
-            **Version:** v${{ steps.meta.outputs.version }}
-            **Date:** ${{ steps.meta.outputs.date }}
-            **Commit:** [${{ steps.meta.outputs.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            **Version:** v${{ needs.nightly.outputs.version }}
+            **Date:** ${{ needs.nightly.outputs.date }}
+            **Commit:** [${{ needs.nightly.outputs.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
             **Architecture:** x64 (framework-dependent)
             **Tests:** All passed
 

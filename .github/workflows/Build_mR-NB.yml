@@ -18,6 +18,9 @@ jobs:
       contents: read
       actions: read
       id-token: write
+    env:
+      # 'true' once both SignPath secrets exist; the signing steps key off this.
+      SIGNPATH_CONFIGURED: ${{ secrets.SIGNPATH_API_TOKEN != '' && secrets.SIGNPATH_ORGANIZATION_ID != '' }}
     strategy:
       fail-fast: false
       matrix:
@@ -299,6 +302,7 @@ jobs:
           pwsh -NoProfile -ExecutionPolicy Bypass -File "$Env:GITHUB_WORKSPACE\build-msi.ps1" -NoBuild -HarvestPath $harvestPath
 
       - name: (09b) Upload MSI artifact
+        id: upload-msi
         if: matrix.platform == 'x64' && matrix.selfcontained == false
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -370,30 +374,66 @@ jobs:
           retention-days: 5
 
       # --------------------------------------------------------
-      # CODE SIGNING — SignPath Foundation (OPTIONAL)
-      # Skipped when SIGNPATH_API_TOKEN secret is not configured.
+      # CODE SIGNING — SignPath Foundation
+      #
+      # Runs only when the SIGNPATH_API_TOKEN / SIGNPATH_ORGANIZATION_ID secrets exist
+      # (SIGNPATH_CONFIGURED, job env). When they do, signing is mandatory: no
+      # continue-on-error, and the release job below refuses to publish an unsigned
+      # ZIP next to a signed one. Until they exist, both steps are skipped and the
+      # release ships unsigned, as it always has (docs/CODE_SIGNING_POLICY.md).
+      #
+      # The SignPath project must define two artifact configurations, "zip" (signs
+      # mRemoteNG.exe and every *.dll inside the archive, Assemblies/ included) and
+      # "msi" (signs the installer), and a "release-signing" policy. Release signing
+      # needs a human approval in the SignPath portal, hence the long wait.
       # --------------------------------------------------------
-      - name: (10b) Submit signing request to SignPath
+      - name: (10b) Submit ZIP signing request to SignPath
+        if: env.SIGNPATH_CONFIGURED == 'true'
         id: sign
-        continue-on-error: true
         uses: signpath/github-action-submit-signing-request@b9d91eadd323de506c0c81cf0c7fe7438f3360fd # v2
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: '${{ secrets.SIGNPATH_ORGANIZATION_ID }}'
           project-slug: 'mRemoteNG'
           signing-policy-slug: 'release-signing'
+          artifact-configuration-slug: 'zip'
           github-artifact-id: '${{ steps.upload-build.outputs.artifact-id }}'
           wait-for-completion: true
           output-artifact-directory: '${{ github.workspace }}/signed'
-          wait-for-completion-timeout-in-seconds: 600
+          wait-for-completion-timeout-in-seconds: 3600
 
-      - name: (10c) Upload signed artifact (if signing succeeded)
-        if: steps.sign.outcome == 'success'
+      - name: (10c) Upload signed ZIP artifact
+        if: env.SIGNPATH_CONFIGURED == 'true'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: signed-${{ matrix.arch }}${{ matrix.suffix }}
           path: ${{ github.workspace }}/signed/*
           retention-days: 5
+          if-no-files-found: error
+
+      - name: (10d) Submit MSI signing request to SignPath
+        if: env.SIGNPATH_CONFIGURED == 'true' && matrix.platform == 'x64' && matrix.selfcontained == false
+        id: sign-msi
+        uses: signpath/github-action-submit-signing-request@b9d91eadd323de506c0c81cf0c7fe7438f3360fd # v2
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '${{ secrets.SIGNPATH_ORGANIZATION_ID }}'
+          project-slug: 'mRemoteNG'
+          signing-policy-slug: 'release-signing'
+          artifact-configuration-slug: 'msi'
+          github-artifact-id: '${{ steps.upload-msi.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: '${{ github.workspace }}/signed-msi'
+          wait-for-completion-timeout-in-seconds: 3600
+
+      - name: (10e) Upload signed MSI artifact
+        if: env.SIGNPATH_CONFIGURED == 'true' && matrix.platform == 'x64' && matrix.selfcontained == false
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: signed-msi-x64
+          path: ${{ github.workspace }}/signed-msi/**/*.msi
+          retention-days: 5
+          if-no-files-found: error
 
   # ============================================================
   # Job 2: Aggregate signed artifacts into a single release
@@ -404,6 +444,8 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    env:
+      SIGNPATH_CONFIGURED: ${{ secrets.SIGNPATH_API_TOKEN != '' && secrets.SIGNPATH_ORGANIZATION_ID != '' }}
     steps:
       - name: (01) Checkout Repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -487,6 +529,51 @@ jobs:
           pattern: msi-*
           path: release-assets
           merge-multiple: true
+
+      # Signed artifacts, when the build job produced them, replace the unsigned copies
+      # one for one. Before this step existed the signed-* artifacts were uploaded and
+      # never read: the release always shipped the build-* ZIPs, signed or not.
+      - name: (04c) Download signed artifacts
+        if: env.SIGNPATH_CONFIGURED == 'true'
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          pattern: signed-*
+          path: signed-assets
+          merge-multiple: true
+
+      - name: (04d) Replace unsigned assets with their signed copies
+        if: env.SIGNPATH_CONFIGURED == 'true'
+        shell: pwsh
+        run: |
+          $signedZips = @(Get-ChildItem -Path signed-assets -File -Filter *.zip -ErrorAction SilentlyContinue)
+          $unsignedZips = @(Get-ChildItem -Path release-assets -File -Filter *.zip)
+          $missing = @()
+          foreach ($zip in $unsignedZips) {
+            $signed = $signedZips | Where-Object { $_.Name -eq $zip.Name } | Select-Object -First 1
+            if ($signed) {
+              Copy-Item -Path $signed.FullName -Destination $zip.FullName -Force
+              Write-Host "Signed: $($zip.Name)"
+            } else {
+              $missing += $zip.Name
+            }
+          }
+          if ($missing) {
+            # Signing is configured, so an unsigned ZIP here means a signing request failed
+            # or was never made. Publishing it would put an unsigned binary under a release
+            # users expect to be signed. Stop instead.
+            throw "No signed copy for: $($missing -join ', ')"
+          }
+
+          $signedMsi = Get-ChildItem -Path signed-assets -Recurse -File -Filter *.msi -ErrorAction SilentlyContinue | Select-Object -First 1
+          $unsignedMsi = Get-ChildItem -Path release-assets -Recurse -File -Filter *.msi -ErrorAction SilentlyContinue | Select-Object -First 1
+          if ($unsignedMsi -and -not $signedMsi) {
+            throw "MSI was built but no signed copy arrived"
+          }
+          if ($signedMsi) {
+            if ($unsignedMsi) { Remove-Item -Path $unsignedMsi.FullName -Force }
+            Copy-Item -Path $signedMsi.FullName -Destination (Join-Path release-assets $signedMsi.Name) -Force
+            Write-Host "Signed: $($signedMsi.Name)"
+          }
 
       - name: (05) Stage MSI for release
         shell: pwsh

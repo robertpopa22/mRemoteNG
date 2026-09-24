@@ -2,33 +2,67 @@
 
 ## Overview
 
-All mRemoteNG release binaries are digitally signed using [SignPath Foundation](https://signpath.org/) code signing certificates. This ensures users can verify the authenticity and integrity of every release.
+mRemoteNG release binaries are to be signed with [SignPath Foundation](https://signpath.org/) code signing certificates, so users can verify the authenticity and integrity of a release. The workflows are wired for it; whether a given build is actually signed depends on the status table below.
 
 ## Current Status
 
 | Channel | Signing Status |
 |---------|---------------|
-| **Stable releases** (`vX.Y.Z` tags, currently 1.83.x) | :white_check_mark: Signed via SignPath (when the SignPath secret is configured) |
-| **Nightly builds** (main) | :construction: Unsigned — signing will activate once SignPath secrets are configured |
+| **Stable releases** (`vX.Y.Z` tags, currently 1.83.x) | :x: **Unsigned today.** Wired for the SignPath `release-signing` policy; activates when the secrets exist |
+| **Nightly builds** (main) | :x: **Unsigned today.** Wired for the SignPath `test-signing` policy, which uses a test certificate Windows does not trust: no SmartScreen or Defender benefit, it only proves the pipeline works before a tag depends on it |
 | **Self-built** | :x: Unsigned (expected — user builds from source) |
 
-> **Note (fork):** This fork (`robertpopa22/mRemoteNG`) has the CI workflow ready for signing
-> (steps 10a-10c in `Build_mR-NB.yml`) but the `SIGNPATH_API_TOKEN` and
-> `SIGNPATH_ORGANIZATION_ID` secrets are not yet configured. Once the SignPath Foundation
-> application is approved, signing will activate automatically on the next release build.
+> **Honest status (2026-09-22):** no binary this fork has ever published carries an Authenticode
+> signature — not the ZIPs, not the MSI, not v1.82.0, not v1.83.0, not the nightlies. That is
+> the missing piece behind #192, where Windows Defender quarantined `ExternalConnectors.dll`:
+> an unsigned library whose job is to read credential vaults and launch other programs' CLIs is
+> exactly what a heuristic engine distrusts.
+>
+> Both workflows are ready. They key off `SIGNPATH_CONFIGURED`, a job-level flag that is `true`
+> only when **both** `SIGNPATH_API_TOKEN` and `SIGNPATH_ORGANIZATION_ID` exist as repository
+> secrets. Until then every signing step is skipped and builds ship unsigned, as before. Once
+> they exist, signing is mandatory: a signing request that fails fails the build, and the
+> release job refuses to publish an unsigned ZIP or MSI.
+
+### What has to happen outside this repository
+
+1. Apply for [SignPath Foundation](https://signpath.org/foundation) open-source signing for
+   `robertpopa22/mRemoteNG` (human review, typically days).
+2. In the SignPath portal, create project `mRemoteNG` with:
+   - artifact configuration **`zip`** — what SignPath receives is the GitHub Actions artifact,
+     i.e. a ZIP wrapper around our release ZIP. Describe it as a `zip-file` containing one
+     `zip-file`, and inside that sign `mRemoteNG.exe` and every `*.dll`, `Assemblies/` included;
+   - artifact configuration **`msi`** — the same wrapper around one `msi-file`. The MSI is built
+     from unsigned binaries before the ZIP is signed, so this configuration **must deep-sign**:
+     the `msi-file` element needs the embedded `pe-file`s listed so the installed `mRemoteNG.exe`
+     and DLLs are signed too, not just the installer container;
+   - signing policies **`test-signing`** (auto-approved, test certificate; used by nightlies)
+     and **`release-signing`** (manual approval by the Approver; used by `vX.Y.Z` tags).
+3. Add `SIGNPATH_API_TOKEN` and `SIGNPATH_ORGANIZATION_ID` under Settings → Secrets → Actions.
+4. Push to `main` and check that the nightly's "Sign nightly ZIP" step ran and that
+   `Get-AuthenticodeSignature` on the downloaded `mRemoteNG.exe` reports `Valid`.
+
+Nothing in this list can be done from the repository; it needs the maintainer's SignPath and
+GitHub accounts.
 
 ## Publisher
 
 - **Certificate Holder:** SignPath Foundation
 - **Purpose:** Authenticode signing of Windows executables and DLLs
-- **SmartScreen:** Yes — signed binaries have Microsoft SmartScreen reputation
+- **SmartScreen:** Yes, for binaries signed under the `release-signing` policy. Nightlies use SignPath's
+  test certificate, which Windows does not trust, so they gain no SmartScreen or Defender reputation
 
 ## Signing Process
 
 1. **Automated:** All signing happens in CI (GitHub Actions) — no manual signing
-2. **Mandatory:** The release workflow **cannot produce artifacts without signing**
+2. **Mandatory once configured:** with the secrets in place a failed signing request fails the
+   build and the release job refuses to publish an unsigned asset. Without them, builds ship
+   unsigned; there is no half-way state where some assets are signed and some are not
 3. **Verified:** SignPath verifies that binaries were built from this GitHub repository
 4. **Secure:** Private signing keys are stored on SignPath's HSM (Hardware Security Module)
+5. **Least privilege:** the SignPath action fetches the artifact with the job's `GITHUB_TOKEN`; the
+   jobs that call it hold `contents: read` only, and publishing runs in a separate job with the
+   write token
 
 ## Team Roles
 
@@ -41,8 +75,10 @@ All mRemoteNG release binaries are digitally signed using [SignPath Foundation](
 ## What Gets Signed
 
 - `mRemoteNG.exe` — main application executable
-- `ExternalConnectors.dll` — credential provider plugins
-- `ObjectListView.dll` — UI component library
+- every `*.dll` in the archive, `Assemblies/` included — `mRemoteNG.dll`, `ExternalConnectors.dll`
+  (credential provider plugins, the file Defender quarantined in #192), `ObjectListView.dll`
+  and the third-party libraries the app loads from `Assemblies/`
+- the MSI installer
 
 ## Requirements for Contributors
 
@@ -59,13 +95,23 @@ Users can verify signed binaries by:
 
 ## CI Integration
 
-The signing step is integrated into `.github/workflows/Build_mR-NB.yml`:
-- Step `(10a)` uploads unsigned artifacts
-- Step `(10b)` submits to SignPath for signing
-- Step `(10c)` downloads signed artifacts
-- Step `(11)` creates the release with **signed** ZIP files only
+Stable releases, `.github/workflows/Build_mR-NB.yml` (the signing and replacement steps are gated on
+`SIGNPATH_CONFIGURED`; the unsigned-artifact uploads `(10a)` and `(09b)` always run, because the release
+job consumes them either way):
+- `(10a)` uploads the unsigned ZIP as a build artifact; `(09b)` does the same for the MSI
+- `(10b)` / `(10d)` submit the ZIP and the MSI to SignPath under `release-signing` and wait
+  (up to an hour, because release signing needs a human approval in the portal)
+- `(10c)` / `(10e)` upload the signed copies as `signed-*` artifacts
+- release job `(04c)` / `(04d)` replace each unsigned asset with its signed copy and **fail the
+  release** if any ZIP or the MSI has no signed counterpart
 
-If signing fails, the release step is **skipped** — no unsigned binaries are published.
+Nightlies, `.github/workflows/nightly.yml`: the same two submissions under `test-signing`, then
+the signed files replace the unsigned ones before the `nightly` release is recreated. A nightly
+whose signing fails is not published.
+
+Before 2026-09-22 the release job downloaded the `build-*` (unsigned) artifacts and never read
+`signed-*`, so even with secrets in place it would have shipped unsigned ZIPs; the MSI was never
+submitted at all. Both are fixed.
 
 ## References
 
