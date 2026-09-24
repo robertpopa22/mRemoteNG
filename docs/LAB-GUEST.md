@@ -151,6 +151,15 @@ learn, so they are written down here once:
   Disabling its console autologon does not fix it. A scenario that hits this should
   `Assert.Ignore` rather than fail, the way `RdpSplitterRedrawAcceptanceTests` does: an
   unreproducible run proves nothing and must not read as a verdict.
+- **An unattended upgrade on the Linux target can break every session until it is rebooted.**
+  Ubuntu's `unattended-upgrade` restarts `xrdp`/`xrdp-sesman` after installing packages, and the
+  desktop session that was already running is orphaned from the new `xrdp-sesman`. Every new
+  logon then starts a second XFCE session for the same user on the next display, which exits at
+  once, and mRemoteNG logs "Protocol Event Disconnected ... An internal error has occurred" about
+  half a second after "established by user". Seen on 2026-09-24: a kernel upgrade at 06:20 UTC
+  restarted xrdp while a 13-day-old session was still alive on `:10`. `Restart-VM mRNG-Lab-Ubuntu`
+  clears it. `RdpSessionMemoryAcceptanceTests` now reports such a run as inconclusive instead of
+  passing it: a scenario about closing a live session must not go green when there was no session.
 
 ## 6. When done
 

@@ -259,6 +259,99 @@ namespace mRemoteNGSpecs.Fixtures
                         $"every session after the first is adding about {perLaterSession} MB that stays, "
                         + $"against a session cost of {oneSessionCost} MB -- closed sessions are being kept");
         }
+
+        /// <summary>Opens the seeded RDP connection and waits until MSTSC is really connected.</summary>
+        private void OpenSessionAndWaitUntilEstablished()
+        {
+            Win32Mouse.DoubleClick(Row(ConnectionName));
+            UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(20));
+            UiWait.Until(() => TabCount() > 0, "an RDP session tab to open", TimeSpan.FromSeconds(60));
+            UiWait.Until(() => CountInLog("established by user") >= 1,
+                         "the RDP session to actually connect", TimeSpan.FromSeconds(90));
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+
+            // The first run of these scenarios passed against a target that dropped every session
+            // half a second after logon ("An internal error has occurred"): by the time the main
+            // window was closed there was no session left to close, so "the process exited" proved
+            // nothing about the path under test. A session that is gone before the step being
+            // tested makes the run inconclusive, not green.
+            if (CountInLog("Protocol Event Disconnected") > 0 || TabCount() == 0)
+            {
+                Assert.Ignore("the RDP target ended the session on its own before the close under test, "
+                              + "so this run cannot say anything about closing a live session");
+            }
+        }
+
+        /// <summary>
+        /// Writes the close-path trace (the existing [#182] cleanup line and the [#182-diag]
+        /// instrumentation) to the test output, so a run that hangs shows which step never returned.
+        /// </summary>
+        private void WriteCloseTrace(string context)
+        {
+            string? log = Deployment.ReadAppLog();
+            string[] lines = (log ?? "").Split('\n')
+                                        .Where(l => l.Contains("[#182", StringComparison.Ordinal))
+                                        .Select(l => l.TrimEnd('\r'))
+                                        .ToArray();
+            TestContext.Out.WriteLine($"{context}: {lines.Length} close-path line(s)");
+            foreach (string line in lines)
+                TestContext.Out.WriteLine("  " + line);
+        }
+
+        /// <summary>
+        /// The second #182 regression: after the memory fix the reporter closed the main window and
+        /// mRemoteNG.exe stayed in Task Manager. Their log shows the tab was closed first, so this
+        /// scenario closes the main window with the session still open — the path the memory fix
+        /// changed most, and the one their log did not cover.
+        /// </summary>
+        [Test]
+        [Issues("#182")]
+        public void ClosingTheMainWindowWithAnRdpSessionOpenEndsTheProcess()
+        {
+            SkipUnlessReachable(LabTargets.LinuxHost, LabTargets.Rdp);
+            Assert.That(LabTargets.LinuxPassword, Is.Not.Empty, "MRNG_LAB_LINUX_PASSWORD is not visible to the battery process");
+
+            OpenSessionAndWaitUntilEstablished();
+
+            bool exited = CloseApplicationAndWaitForExit(TimeSpan.FromSeconds(45), clickCloseButton: true);
+            WriteCloseTrace("main window closed with the session open");
+            AssertExitedCleanly(exited, "closing the main window with an RDP session open");
+        }
+
+        /// <summary>
+        /// The reporter's own sequence from their log: close the session's tab, wait, then close the
+        /// main window. Their run never logged the end of the process.
+        /// </summary>
+        [Test]
+        [Issues("#182")]
+        public void ClosingTheTabThenTheMainWindowEndsTheProcess()
+        {
+            SkipUnlessReachable(LabTargets.LinuxHost, LabTargets.Rdp);
+            Assert.That(LabTargets.LinuxPassword, Is.Not.Empty, "MRNG_LAB_LINUX_PASSWORD is not visible to the battery process");
+
+            OpenSessionAndWaitUntilEstablished();
+
+            Win32Mouse.MiddleClick(SessionTabs().First());
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
+            UiWait.Until(() => TabCount() == 0 || HasReconnectButton(),
+                         "the session to close", TimeSpan.FromSeconds(45));
+            AutomationElement? placeholder = SessionTabs().FirstOrDefault();
+            if (placeholder != null)
+            {
+                try { Win32Mouse.MiddleClick(placeholder); }
+                catch (Exception ex) { TestContext.Out.WriteLine($"placeholder click skipped: {ex.GetType().Name}"); }
+                AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
+            }
+
+            // The reporter's log shows about ten seconds between the tab closing and the shutdown.
+            Thread.Sleep(TimeSpan.FromSeconds(10));
+
+            bool exited = CloseApplicationAndWaitForExit(TimeSpan.FromSeconds(45), clickCloseButton: true);
+            WriteCloseTrace("tab closed, then main window closed");
+            AssertExitedCleanly(exited, "closing the main window after closing the RDP tab");
+        }
     }
 
     /// <summary>

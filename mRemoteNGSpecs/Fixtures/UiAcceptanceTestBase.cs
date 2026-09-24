@@ -127,9 +127,9 @@ namespace mRemoteNGSpecs.Fixtures
         /// what made two scenarios report "the application never exited" — the #110 symptom — on the
         /// first run inside a clean guest.
         /// </summary>
-        protected bool CloseApplicationAndWaitForExit(TimeSpan? timeout = null)
+        protected bool CloseApplicationAndWaitForExit(TimeSpan? timeout = null, bool clickCloseButton = false)
         {
-            SendCloseKeystroke();
+            SendClose(clickCloseButton);
 
             TimeSpan budget = timeout ?? TimeSpan.FromSeconds(25);
 
@@ -151,7 +151,7 @@ namespace mRemoteNGSpecs.Fixtures
             // what this does, rather than reaching for a synthetic WM_CLOSE that would bypass the
             // very close path #110 lives in.
             TestContext.Out.WriteLine("close keystroke was consumed by a session; sending it again");
-            SendCloseKeystroke();
+            SendClose(clickCloseButton);
 
             if (Support.UiWait.Happened(() => Driver.Application.HasExited, TimeSpan.FromSeconds(5)))
                 return true;
@@ -163,6 +163,38 @@ namespace mRemoteNGSpecs.Fixtures
 
             ReportWhyItIsStillRunning();
             return false;
+        }
+
+        /// <summary>
+        /// Alt+F4 by default. With an RDP session holding the keyboard, Alt+F4 is forwarded into the
+        /// remote desktop instead (measured: it opened the remote XFCE "Log out" dialog and the
+        /// application never saw it), so a scenario about closing the application with a live RDP
+        /// session clicks the title bar's close button, which is what the #182 reporter did.
+        /// </summary>
+        private void SendClose(bool clickCloseButton)
+        {
+            if (!clickCloseButton)
+            {
+                SendCloseKeystroke();
+                return;
+            }
+
+            try
+            {
+                AutomationElement? button = MainWindow.TitleBar?.CloseButton;
+                if (button is null)
+                {
+                    TestContext.Out.WriteLine("no title-bar close button found; falling back to Alt+F4");
+                    SendCloseKeystroke();
+                    return;
+                }
+
+                Support.Win32Mouse.LeftClick(button);
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine($"close button click failed: {ex.GetType().Name}");
+            }
         }
 
         private void SendCloseKeystroke()
