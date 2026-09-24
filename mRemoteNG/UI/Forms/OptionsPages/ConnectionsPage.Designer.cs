@@ -384,7 +384,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkRequireIcmpEchoForHostStatus._mice = MrngCheckBox.MouseState.OUT;
             chkRequireIcmpEchoForHostStatus.AutoSize = true;
             chkRequireIcmpEchoForHostStatus.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            chkRequireIcmpEchoForHostStatus.Location = new System.Drawing.Point(24, 303);
+            chkRequireIcmpEchoForHostStatus.Location = new System.Drawing.Point(6, 303);
             chkRequireIcmpEchoForHostStatus.Name = "chkRequireIcmpEchoForHostStatus";
             chkRequireIcmpEchoForHostStatus.Size = new System.Drawing.Size(450, 17);
             chkRequireIcmpEchoForHostStatus.TabIndex = 17;
