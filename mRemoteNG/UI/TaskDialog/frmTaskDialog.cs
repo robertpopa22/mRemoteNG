@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using mRemoteNG.UI.Controls;
 using mRemoteNG.Resources.Language;
@@ -27,6 +28,13 @@ namespace mRemoteNG.UI.TaskDialog
         private Control? _focusControl;
 
         private int _mainInstructionLeftMargin;
+
+        // The width the dialog was laid out for, in 96-DPI units (the designer's, or the one
+        // CTaskDialog sets before BuildForm). Nothing may leave the dialog narrower than this at
+        // the DPI it is actually on (#198).
+        private int _designClientWidth;
+        private bool _shown;
+        private bool _inContentLayout;
 
         #endregion
 
@@ -118,8 +126,13 @@ namespace mRemoteNG.UI.TaskDialog
             InitializeComponent();
             InitializeDetailsImageList();
 
-            if (CTaskDialog.UseToolWindowOnXp)
-                FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            // Resizable, so a message that still does not fit can be widened by hand (#198). The
+            // height follows the content and is locked to it in LayoutToContent.
+            FormBorderStyle = CTaskDialog.UseToolWindowOnXp
+                ? FormBorderStyle.SizableToolWindow
+                : FormBorderStyle.Sizable;
+            MinimizeBox = false;
+            SizeGripStyle = SizeGripStyle.Hide;
 
             MainInstruction = "Main Instruction";
             Content = "";
@@ -141,7 +154,11 @@ namespace mRemoteNG.UI.TaskDialog
         public void BuildForm()
         {
             int formHeight = 0;
-            // PerMonitorV2 handles DPI scaling automatically — no manual scaling needed
+            // Before any handle exists the width is still in 96-DPI units; remember it, because a
+            // DPI change later can shrink the window below it (#198).
+            _designClientWidth = IsHandleCreated
+                ? ClientSize.Width * 96 / Math.Max(1, DeviceDpi)
+                : ClientSize.Width;
 
             // Setup Main Instruction
             switch (MainIcon)
@@ -443,10 +460,10 @@ namespace mRemoteNG.UI.TaskDialog
         /// </summary>
         private void RepositionButtons()
         {
-            const int padding = 6;
-            const int rightMargin = 9;
-            const int leftMargin = 9;
-            const int minWidth = 75;
+            int padding = LogicalToDeviceUnits(6);
+            int rightMargin = LogicalToDeviceUnits(9);
+            int leftMargin = LogicalToDeviceUnits(9);
+            int minWidth = LogicalToDeviceUnits(75);
 
             // Measure required width for each visible button
             var buttons = new[] { bt3, bt2, bt1 };
@@ -455,7 +472,7 @@ namespace mRemoteNG.UI.TaskDialog
             foreach (var btn in buttons)
             {
                 if (!btn.Visible) continue;
-                int textWidth = TextRenderer.MeasureText(btn.Text, btn.Font).Width + 16;
+                int textWidth = TextRenderer.MeasureText(btn.Text, btn.Font).Width + LogicalToDeviceUnits(16);
                 btn.Width = Math.Max(minWidth, textWidth);
                 totalNeeded += btn.Width;
                 visibleCount++;
@@ -512,14 +529,195 @@ namespace mRemoteNG.UI.TaskDialog
         // utility function for setting a Label's height
         private static void AdjustLabelHeight(Control lb)
         {
-            string text = lb.Text;
-            Font textFont = lb.Font;
-            SizeF layoutSize = new(lb.ClientSize.Width, 5000.0F);
+            lb.Height = MeasureLabelHeight(lb);
+        }
 
-            using (Graphics g = Graphics.FromHwnd(lb.Handle))
+        /// <summary>
+        /// The height a label needs to show all of its text at its current width. Measured the way
+        /// the label paints it -- GDI (<see cref="TextRenderer"/>), word-wrapped, on the label's own
+        /// device context -- because the dialog's labels draw with GDI. This used to measure with
+        /// GDI+ (<c>Graphics.MeasureString</c>), which lays text out differently from how GDI draws
+        /// it, so a label could come out a line short and cut its text off (#198).
+        /// </summary>
+        internal static int MeasureLabelHeight(Control lb)
+        {
+            const TextFormatFlags flags = TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl;
+            Size proposed = new(Math.Max(1, lb.ClientSize.Width), int.MaxValue);
+
+            using Graphics g = lb.CreateGraphics();
+            Size measured = TextRenderer.MeasureText(g, lb.Text, lb.Font, proposed, flags);
+            return measured.Height + lb.LogicalToDeviceUnits(4);
+        }
+
+        /// <summary>
+        /// Lays the dialog out again from its content, at the DPI it is on now: at least as wide as
+        /// the designer made it, every label as tall as its text, the buttons right-aligned, the
+        /// verification check box on a row of its own when it would otherwise run under them, and
+        /// the height exactly what that needs.
+        ///
+        /// BuildForm computes all of this once, before the window is shown. #198 showed the dialog
+        /// much narrower than designed on a multi-monitor remote session -- text wrapped into a
+        /// sliver and cut off, the check box under the Yes/No buttons -- which is what a later DPI
+        /// change does to a layout that is never recomputed. So this runs again when the dialog is
+        /// shown, when its DPI changes and when the user resizes it.
+        /// </summary>
+        internal void LayoutToContent()
+        {
+            // Panels report Visible only while the form itself is visible, and the layout reads
+            // them; before the dialog is shown BuildForm has done this work already.
+            if (!_formBuilt || _inContentLayout || !Visible)
+                return;
+
+            _inContentLayout = true;
+            try
             {
-                SizeF stringSize = g.MeasureString(text, textFont, layoutSize);
-                lb.Height = (int)stringSize.Height + 4;
+                int minClientWidth = LogicalToDeviceUnits(_designClientWidth);
+                if (ClientSize.Width < minClientWidth)
+                    ClientSize = new Size(minClientWidth, ClientSize.Height);
+                PerformLayout();
+
+                int height = 0;
+
+                lbMainInstruction.Width = pnlMainInstruction.ClientSize.Width - lbMainInstruction.Left - LogicalToDeviceUnits(14);
+                AdjustLabelHeight(lbMainInstruction);
+                pnlMainInstruction.Height = Math.Max(LogicalToDeviceUnits(41), lbMainInstruction.Height + LogicalToDeviceUnits(16));
+                height += pnlMainInstruction.Height;
+
+                if (pnlContent.Visible)
+                {
+                    AdjustLabelHeight(lbContent);
+                    pnlContent.Height = lbContent.Height + LogicalToDeviceUnits(4);
+                    height += pnlContent.Height;
+                }
+
+                if (lbShowHideDetails.Visible)
+                {
+                    AdjustLabelHeight(lbExpandedInfo);
+                    pnlExpandedInfo.Height = lbExpandedInfo.Height + LogicalToDeviceUnits(4);
+                    if (pnlExpandedInfo.Visible)
+                        height += pnlExpandedInfo.Height;
+                }
+
+                if (pnlRadioButtons.Visible)
+                {
+                    foreach (MrngRadioButton rb in _radioButtonCtrls)
+                        rb.Width = pnlRadioButtons.ClientSize.Width - rb.Left - LogicalToDeviceUnits(15);
+                    height += pnlRadioButtons.Height;
+                }
+
+                if (pnlCommandButtons.Visible)
+                {
+                    foreach (Control btn in pnlCommandButtons.Controls)
+                        btn.Width = pnlCommandButtons.ClientSize.Width - btn.Left - LogicalToDeviceUnits(15);
+                    height += pnlCommandButtons.Height;
+                }
+
+                if (pnlButtons.Visible)
+                {
+                    RepositionButtons();
+                    LayoutButtonRow();
+                    height += pnlButtons.Height;
+                }
+
+                if (pnlFooter.Visible)
+                {
+                    lbFooter.Width = pnlFooter.ClientSize.Width - lbFooter.Left - LogicalToDeviceUnits(8);
+                    AdjustLabelHeight(lbFooter);
+                    pnlFooter.Height = Math.Max(LogicalToDeviceUnits(28), lbFooter.Height + LogicalToDeviceUnits(16));
+                    height += pnlFooter.Height;
+                }
+
+                // Only the width is the user's to change; the height is whatever the content needs.
+                Size chrome = Size - ClientSize;
+                MinimumSize = Size.Empty;
+                MaximumSize = Size.Empty;
+                ClientSize = new Size(ClientSize.Width, height);
+                MinimumSize = new Size(minClientWidth + chrome.Width, Height);
+                MaximumSize = new Size(Math.Max(Width, Screen.FromControl(this).WorkingArea.Width), Height);
+            }
+            finally
+            {
+                _inContentLayout = false;
+            }
+        }
+
+        /// <summary>
+        /// Places the verification check box and sizes the button row: next to the buttons when it
+        /// fits there, otherwise on a row below them -- never underneath them (#198).
+        /// </summary>
+        private void LayoutButtonRow()
+        {
+            int gap = LogicalToDeviceUnits(6);
+            int leftmostButton = pnlButtons.ClientSize.Width;
+            int buttonsTop = int.MaxValue;
+            int buttonsBottom = 0;
+            foreach (Control btn in new Control[] { bt1, bt2, bt3 })
+            {
+                if (!btn.Visible) continue;
+                leftmostButton = Math.Min(leftmostButton, btn.Left);
+                buttonsTop = Math.Min(buttonsTop, btn.Top);
+                buttonsBottom = Math.Max(buttonsBottom, btn.Bottom);
+            }
+
+            int bottom = buttonsBottom;
+            if (lbShowHideDetails.Visible)
+                bottom = Math.Max(bottom, lbShowHideDetails.Bottom);
+
+            if (cbVerify.Visible)
+            {
+                bool besideButtons = !lbShowHideDetails.Visible
+                                     && cbVerify.Left + cbVerify.Width + gap <= leftmostButton;
+                if (besideButtons)
+                {
+                    int rowTop = buttonsTop == int.MaxValue ? LogicalToDeviceUnits(8) : buttonsTop;
+                    int rowHeight = buttonsBottom > 0 ? buttonsBottom - rowTop : cbVerify.Height;
+                    cbVerify.Top = rowTop + Math.Max(0, (rowHeight - cbVerify.Height) / 2);
+                }
+                else
+                {
+                    cbVerify.Top = bottom + gap;
+                }
+                bottom = Math.Max(bottom, cbVerify.Bottom);
+            }
+
+            pnlButtons.Height = bottom + LogicalToDeviceUnits(9);
+        }
+
+        protected override void OnDpiChanged(DpiChangedEventArgs e)
+        {
+            base.OnDpiChanged(e);
+            LayoutToContent();
+            LogDialogState("DPI changed " + e.DeviceDpiOld.ToString(CultureInfo.InvariantCulture)
+                           + " -> " + e.DeviceDpiNew.ToString(CultureInfo.InvariantCulture));
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            // A width the user dragged to re-wraps the text, so the height follows it.
+            if (_shown && !_inContentLayout)
+                LayoutToContent();
+        }
+
+        private void LogDialogState(string when)
+        {
+            try
+            {
+                string ownerDpi = Owner is null ? "-" : Owner.DeviceDpi.ToString(CultureInfo.InvariantCulture);
+                Screen screen = Screen.FromControl(this);
+                App.Runtime.MessageCollector?.AddMessage(Messages.MessageClass.InformationMsg,
+                    string.Create(CultureInfo.InvariantCulture,
+                        $"[#198-diag] task dialog {when}: DeviceDpi {DeviceDpi}, owner DeviceDpi {ownerDpi}, " +
+                        $"client {ClientSize.Width}x{ClientSize.Height} (design width {_designClientWidth}), " +
+                        $"instruction font {lbMainInstruction.Font.SizeInPoints:0.##}pt/{lbMainInstruction.Font.Height}px " +
+                        $"in {lbMainInstruction.Width}x{lbMainInstruction.Height}, " +
+                        $"monitor {screen.DeviceName} {screen.Bounds.Width}x{screen.Bounds.Height}, " +
+                        $"remote session {SystemInformation.TerminalServerSession}"),
+                    true);
+            }
+            catch (Exception ex) when (ex is InvalidOperationException or ObjectDisposedException or ArgumentException)
+            {
+                // Diagnostics only; never let them break the dialog.
             }
         }
 
@@ -542,11 +740,13 @@ namespace mRemoteNG.UI.TaskDialog
         {
             if (!_formBuilt)
                 throw new InvalidOperationException("frmTaskDialog : Please call .BuildForm() before showing the TaskDialog");
-            // Reposition buttons AFTER the form is fully laid out.
-            // BuildForm() calls RepositionButtons() too, but the WinForms layout engine
-            // may override button positions between BuildForm() and Show(). This second
-            // call ensures buttons are correctly positioned after all layout passes (#55).
-            RepositionButtons();
+            // Lay out again now that the window exists at its real DPI. BuildForm() ran before
+            // that: the WinForms layout engine may override button positions in between (#55),
+            // and a DPI change can leave the whole dialog narrower than designed (#198).
+            LogDialogState("shown (before layout)");
+            _shown = true;
+            LayoutToContent();
+            LogDialogState("shown (after layout)");
             // Focus the default button so the user can see which one is active.
             if (AcceptButton is Control acceptControl)
                 acceptControl.Focus();
@@ -583,10 +783,8 @@ namespace mRemoteNG.UI.TaskDialog
             Expanded = !Expanded;
             pnlExpandedInfo.Visible = Expanded;
             lbShowHideDetails.Text = Expanded ? "        Hide details" : "        Show details";
-            if (Expanded)
-                Height += pnlExpandedInfo.Height;
-            else
-                Height -= pnlExpandedInfo.Height;
+            // The height is locked to the content, so let the layout add or remove the panel.
+            LayoutToContent();
         }
 
         //--------------------------------------------------------------------------------
