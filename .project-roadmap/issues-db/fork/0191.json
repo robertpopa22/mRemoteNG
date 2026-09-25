@@ -2,7 +2,7 @@
   "number": 191,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=ne...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-16T09:30:29Z",
-  "github_updated_at": "2026-09-17T21:17:36Z",
+  "github_updated_at": "2026-09-25T04:03:20Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
   "our_status": "testing",
   "priority": null,
@@ -38,12 +38,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0ke7w",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:19Z",
+      "snippet": "Closing this as a duplicate of #192 — same crash (byte-identical stack, same `1.82.0 (Release 3593) x64` build, filed a minute apart), and everything actionable since then happened on #192's thread: a reporter there confirmed Windows Defender quarantined `ExternalConnectors.dll` and gave us the detection name, which is what let us pin the mechanism down.\n\nWhat changed, on `main` / the next nightly (not yet in the v1.83.0 stable you're running): a missing or quarantined `ExternalConnectors.dll` n...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-17T21:17:36Z",
+  "comments_cursor": "2026-09-25T04:03:20Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-20T20:37:19Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": "Instrumented (826735bb9). All of #175/#191/#192/#180/#181 are v1.82.0 build 3593 Portable; no defect found in resolve/build/packaging chain. Crash report now carries resolve history + on-disk DLL listing. One earlier case reporter-confirmed as Defender quarantine."
 }

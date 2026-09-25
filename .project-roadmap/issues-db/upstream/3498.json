@@ -2,7 +2,7 @@
   "number": 3498,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "SQL Connection - Object reference not set to an instance of an object.",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "NeviZz",
   "created_at": "2026-09-21T08:24:10Z",
@@ -38,8 +38,8 @@
   ],
   "comments_cursor": "2026-09-21T11:48:45Z",
   "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-09-22T13:05:51Z",
   "notes": "eran132 diagnosed upstream root cause (TABLE_SCHEMA vs TABLE_CATALOG). Fork mitigated, not fixed. Triaged 2026-09-22."
 }

@@ -1,0 +1,34 @@
+{
+  "number": 197,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ComponentModel.Win32Exception: Error creating window handle.",
+  "state": "open",
+  "labels": [],
+  "author": "vansanper",
+  "created_at": "2026-09-24T14:28:35Z",
+  "github_updated_at": "2026-09-25T04:03:21Z",
+  "body_snippet": "On mRemoteNG close and open again after Nvidia Drivers update:\n## Crash Report\n\n### Exception\n**Type:** `System.ComponentModel.Win32Exception`\n**Message:** Error creating window handle.\n\n### Stack Trace\n```\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\n   at void System.Windows.Forms.Control.CreateHandle()\n   at void System.Windows.Forms.ComboBox.CreateHandle()\n   at void System.Windows.Forms.Control.RecreateHandleCore()\n   at void System.Windows.Forms.ComboBox.Recre...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0kgpA",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:21Z",
+      "snippet": "Thank you, and in particular for the line you added above the crash report: \"after Nvidia drivers update\" is the first trigger anyone has given for this crash. It is the third report of the same stack (#174, #183), so we are keeping this issue as the one to work on, because you can answer questions and the others were anonymous; #174 is closed in favour of this one.\n\nWhat the stack says: while Windows was telling the app that the display scaling changed (`WM_DPICHANGED_BEFOREPARENT`), a combo bo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-25T04:03:21Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-25T04:56:38Z",
+  "notes": ""
+}

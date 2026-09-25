@@ -2,11 +2,11 @@
   "number": 193,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Host reachability status icon shows \"Reachable\" for offline/unreachable hosts",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-09-16T12:30:11Z",
-  "github_updated_at": "2026-09-21T05:19:04Z",
+  "github_updated_at": "2026-09-25T04:03:33Z",
   "body_snippet": "# Host reachability status icon shows \"Reachable\" for offline/unreachable hosts (false positives behind Zscaler/ZTNA), plus related bugs found and fixed along the way\n\n## Summary\n\nThe connection tree (and a separate button in the Config panel) show a reachability icon\n(online/offline) per connection, computed by `mRemoteNG/Tools/HostStatusMonitor.cs` (see issue\n#1109). The original implementation determined reachability with a single, weak check: open a raw\nTCP connection to the host's port and ...",
   "our_status": "needs_info",
   "priority": null,
@@ -61,12 +61,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABWRj0mg",
+      "author": "bruste77",
+      "date": "2026-09-23T05:49:28Z",
+      "snippet": "Tested on mRemoteNG-nightly-20260922-v1.83.0-c4da62c-x64 and it works fine.\njust one note, I don't understand why the new icmp options is indented, because it looks like a sub options of \"Show host reachability status in connection tree\" but it doesn't\n\n<img width=\"719\" height=\"269\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/052690b2-cb45-40ac-8609-2a26d5b64067\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0kmkQ",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:32Z",
+      "snippet": "Thank you for testing the nightly and for the screenshot. You are right about the indent: that option is not a sub-option of \"Show host reachability status in connection tree\" (the Config panel's Status button uses it whether or not the tree badge is shown), so indenting it under that checkbox was misleading. It now starts at the same left margin as every other option on the page (commit 3d17391d9, in the next nightly).\n\nWhat was verified: the fix itself by you, on your machine and your Zscaler ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-21T05:19:04Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-09-25T04:03:33Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-09-22T06:02:02Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": "Both premises verified in source: HostStatusMonitor.IsReachableAsync is a bare TCP connect, and ConfigWindow has a second independent one. No patch attached; asked for PR + whether host is powered off vs port closed."
 }

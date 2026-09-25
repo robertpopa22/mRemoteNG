@@ -2,7 +2,7 @@
   "number": 174,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: 创建窗口句柄时出错。",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-26T00:15:12Z",
-  "github_updated_at": "2026-09-03T05:07:27Z",
+  "github_updated_at": "2026-09-25T04:03:24Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** 创建窗口句柄时出错。\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.OnFontChange...",
   "our_status": "needs_info",
   "priority": null,
@@ -57,12 +57,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0khdQ",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:23Z",
+      "snippet": "Closing this in favour of #197, which is the same crash frame for frame (`WM_DPICHANGED_BEFOREPARENT` recreating a ComboBox's window handle, `CreateHandle` failing) and, unlike this one, has a person behind it who can answer questions. The investigation continues there.\n\n#197 also adds the first real trigger any of these reports has given: it happened on closing and reopening the app right after an Nvidia driver update. That fits a DPI change, since a driver update commonly re-enumerates the dis...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-03T05:07:27Z",
+  "comments_cursor": "2026-09-25T04:03:24Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-03T07:23:22Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": "DPI path real (PerMonitorV2) but not reproducible here; asked what changed scaling"
 }

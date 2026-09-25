@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-03T16:46:46Z",
-  "github_updated_at": "2026-09-04T11:39:11Z",
+  "github_updated_at": "2026-09-25T04:03:38Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ObjectListView, Version=2.9.3.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.UI.Window.ConnectionTreeWindow.InitializeComponent() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/UI/Window/ConnectionTreeWindow.Designer.cs:line 20\r\n   at new mRemoteNG.UI.Window.ConnectionTreeWindow(DockContent panel) i...",
   "our_status": "testing",
   "priority": null,
@@ -48,12 +48,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0kq3w",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:38Z",
+      "snippet": "Update on this one, not a close yet.\n\nRoot cause and fix are covered in the comment above (Sept 4): `ObjectListView.dll` is a project-built assembly shipped beside `mRemoteNG.exe` on every build, so a missing copy means the install itself is incomplete — a half-extracted download, an antivirus quarantine, or files from two different downloads mixed in one folder — not a bug in the app. It's the same family as #150/#192, different assembly.\n\nWhat we verified: removed `ObjectListView.dll` from a b...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-04T11:39:11Z",
+  "comments_cursor": "2026-09-25T04:03:38Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-05T11:23:40Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": "fix shipped; awaiting reporter confirm on nightly"
 }

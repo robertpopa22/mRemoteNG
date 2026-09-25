@@ -1,0 +1,45 @@
+{
+  "number": 196,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Entra ID authentication does not show Entra ID login dialog",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "GurliGebis",
+  "created_at": "2026-09-23T08:52:32Z",
+  "github_updated_at": "2026-09-25T04:03:27Z",
+  "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nFixes here are developed and verified by an AUTOMATED pipeline (6,400+ automated tests,\ncross-review between independent AI models), and we use mRemoteNG ourselves every day on the\nlatest build. What we cannot do is reproduce YOUR setup — your network, your servers, your\nlocale, the exact state that triggers your bug. That means:\n\n  * your report below is the start of the fix,\n  * and when a fix lands in a...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABWTl45w",
+      "author": "GurliGebis",
+      "date": "2026-09-23T08:53:29Z",
+      "snippet": "Here is an anonymized copy of the RDP file that I use:\n\n```\nscreen mode id:i:1\nuse multimon:i:0\ndesktopwidth:i:1920\ndesktopheight:i:1080\nsession bpp:i:32\nwinposstr:s:0,1,1760,856,3696,1975\ncompression:i:1\nkeyboardhook:i:2\naudiocapturemode:i:1\nvideoplaybackmode:i:1\nconnection type:i:7\nnetworkautodetect:i:1\nbandwidthautodetect:i:1\ndisplayconnectionbar:i:1\nenableworkspacereconnect:i:0\ndisable wallpaper:i:0\nallow font smoothing:i:0\nallow desktop composition:i:0\ndisable full window drag:i:1\ndisable m...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0kj8g",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:27Z",
+      "snippet": "Thank you for the report and especially for the .rdp file, which made the cause visible straight away.\n\n**What was wrong.** Importing an .rdp file ignored every authentication setting in it. Your file sets `enablerdsaadauth:i:1` (Entra ID sign-in), but the imported connection came in with Entra ID authentication turned off, so from a machine that is not Entra-joined it failed immediately. The importer now reads `enablerdsaadauth`, `redirectwebauthn`, `enablecredsspsupport` and `authentication le...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-25T04:03:27Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-25T04:56:38Z",
+  "notes": ""
+}

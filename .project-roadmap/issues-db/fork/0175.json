@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-31T05:35:03Z",
-  "github_updated_at": "2026-09-17T21:17:38Z",
+  "github_updated_at": "2026-09-25T04:03:37Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
   "our_status": "testing",
   "priority": null,
@@ -66,12 +66,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0kqQQ",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:37Z",
+      "snippet": "Update on this one — a real fix has landed since the last note, not just diagnostics.\n\nThe instrumentation traced the actual mechanism: `OpenConnection` referenced `ExternalConnectors.AWS.EC2FetchDataService` directly, so the JIT has to load `ExternalConnectors.dll` just to compile that method — before any try/catch exists. When the file is missing or quarantined, that load fails inside the JIT and the process goes down. A JIT probe against the built v1.83.0 binary with the DLL removed reproduce...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-17T21:17:38Z",
+  "comments_cursor": "2026-09-25T04:03:37Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-20T20:37:19Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": "misdiagnosis+data-loss path fixed 171c00c7b; missing-DLL cause on reporter machine unknown"
 }

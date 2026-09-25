@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-16T09:31:00Z",
-  "github_updated_at": "2026-09-17T21:17:37Z",
+  "github_updated_at": "2026-09-25T04:03:17Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
   "our_status": "testing",
   "priority": null,
@@ -38,12 +38,57 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABWDxYTg",
+      "author": "DrSchnagels",
+      "date": "2026-09-22T11:03:11Z",
+      "snippet": "Today this happend:\nExternalConnectors.dll is now reported as virus by Windows Defender. It is removed entirely. No connection works afterwards anymore.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABWFaVCQ",
+      "author": "robertpopa22",
+      "date": "2026-09-22T13:05:08Z",
+      "snippet": "Thank you — that one sentence explains more than the four crash reports did. Every report in this series (#175, #191, #192, and the closed #180/#181) shows the same picture: `confCons.xml` intact, `ExternalConnectors.dll` gone, and the first connection attempt crashing on the missing assembly. \"Defender removed it\" is the first account of *how* the file disappears, and it fits all of them.\n\nWhat we could check from here, and what we could not:\n\n- We rescanned the `ExternalConnectors.dll` shipped...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABWHjRkw",
+      "author": "robertpopa22",
+      "date": "2026-09-22T15:30:28Z",
+      "snippet": "Progress on our side, independent of the detection name we still need from you.\n\n**The crash is now a message.** The connect path referenced `ExternalConnectors.dll` in a way that made the runtime load it before the connect method could even be compiled, so a missing file surfaced as an unhandled exception at the first click — the stack in every report in this series. On `main` (next nightly) the app checks that load once, at startup and again before each connect, and when it fails tells you the...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABWUEIcg",
+      "author": "DrSchnagels",
+      "date": "2026-09-23T09:30:49Z",
+      "snippet": "This is being detected:\nTrojan:Win32/Bearfoos.A!ml",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0keAw",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:17Z",
+      "snippet": "Thank you, that is exactly the piece we needed. `Trojan:Win32/Bearfoos.A!ml` is a verdict from Defender's cloud machine-learning model (the `!ml` suffix), not a signature written for this file, which fits a false positive on an unsigned library that reads credential vaults and starts other programs' command-line tools.\n\nWhere things stand:\n\n- **Without the DLL, ordinary connections now work.** Only connections that use a credential vault (LAPS, Secret Server, Passwordstate, 1Password, Password S...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-17T21:17:37Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-09-25T04:03:17Z",
+  "unread_comments": 2,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-09-20T20:37:19Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": "Duplicate of #191, same instrumentation."
 }

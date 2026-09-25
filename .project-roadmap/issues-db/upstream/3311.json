@@ -11,7 +11,7 @@
   ],
   "author": "raohj1987",
   "created_at": "2026-05-14T09:50:02Z",
-  "github_updated_at": "2026-06-26T10:43:17Z",
+  "github_updated_at": "2026-09-23T19:57:36Z",
   "body_snippet": "The current SSH file transfer function is not very user-friendly. Among the remote file transfer tools I have used, Xshell provides a relatively good experience. Therefore, referring to the features of Xshell, similar functionality has been added to mRemoteNG.\nRefer to the figure below for the functional interface。\n<img width=\"2215\" height=\"1520\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/faf8512a-44e4-44f6-9603-7e2a041073b7\" />\n1、When a terminal is currently open, clicking Tool...",
   "our_status": "new",
   "priority": null,
@@ -37,12 +37,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABWTjhxg",
+      "author": "eran132",
+      "date": "2026-09-23T08:50:25Z",
+      "snippet": "Picking up @joubertdj's June question about direction, here's a neutral side-by-side of the three open file-transfer PRs as they stand today, so a decision can be made on facts rather than re-triage. I'm the author of one of them (#3258), so treat my summary of the others as a starting point — corrections are welcomed\n\n| | [#3001](https://github.com/mRemoteNG/mRemoteNG/pull/3001) | [#3258](https://github.com/mRemoteNG/mRemoteNG/pull/3258) | [#3310](https://github.com/mRemoteNG/mRemoteNG/pull/331...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABWdJQ3w",
+      "author": "Kvarkas",
+      "date": "2026-09-23T19:55:12Z",
+      "snippet": "Thanks, I am trying to make as much as posible less new features as it will postnote release candidate date, but technicaly I like you idea. Also all external functionality I try to move away from core into plugins, so this allow us less problem with release as plugins could be updated separately. Just as per now plugins quite new stuff so they come all together but in another solution.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-26T10:43:17Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-09-23T19:57:36Z",
+  "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-05T12:25:32Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": ""
 }

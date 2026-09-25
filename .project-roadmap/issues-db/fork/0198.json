@@ -1,0 +1,36 @@
+{
+  "number": 198,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Items and text display is clipped / wrongly show in diferent monitors resolutions",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "vansanper",
+  "created_at": "2026-09-24T14:59:06Z",
+  "github_updated_at": "2026-09-25T04:03:26Z",
+  "body_snippet": "**What happens** (and what you expected instead):\n-mRemote displays messages clipped with controls overlaped=> messages showing all the content correctly\n-mRemote displays messages windows are fixed with no option to resize to view all the text correctly=> messages resizable by mouse drag on the edges\n-mRemote displays some controls with the font size much bigger than others (In file Menu, Connections Panel, Config Panel, Connections tabs), vs the detailed Display panel with its connect with a m...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0kjXg",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:26Z",
+      "snippet": "Thank you for the report and the screenshot. It showed exactly what was wrong with the dialog, and we could reproduce that part.\n\n**The confirmation dialog.** Your screenshot shows it at a fraction of its normal width: the question wraps into a narrow strip and is cut off, and the \"Do not show this message again\" check box is under the Yes/No buttons. The dialog worked out its layout once, before it was shown, and never again. So when the window ends up narrower than planned, which on a multi-mo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-25T04:03:26Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-25T04:56:38Z",
+  "notes": ""
+}

@@ -6,7 +6,7 @@
   "labels": [],
   "author": "vansanper",
   "created_at": "2026-08-10T10:46:48Z",
-  "github_updated_at": "2026-09-07T10:47:04Z",
+  "github_updated_at": "2026-09-25T04:03:39Z",
   "body_snippet": "After upgrading to mRemoteNG 1.82 from original 1.76 (first install) when setting up the SQL Server option setting the same data:\nServer name: 192.168.10.202\\SQL19SAP10\nAuthentication: SQL Server AUthentication\nUser: sa\nPassword: (correctPassword)\n\n\nConnection Properties:\nDatabase: mRemoteNGUsernamex (existing database used in the old program)\n\nTested too setting:\nDatabase:mRemoteNG (clean one not existing database in sql)\n\n\nIt returns an error:\nAn unkown error has ocurred on {0} (Error {1}).\n\n(...",
   "our_status": "testing",
   "priority": null,
@@ -147,12 +147,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW0krkg",
+      "author": "robertpopa22",
+      "date": "2026-09-25T04:03:39Z",
+      "snippet": "@vansanper — checking back in, it's been a couple of weeks since the last update.\n\nThe two fixes from that update — `cad7e5725` (named-instance connection string, ODBC `?` markers, `DomainName`→`Domain` rename) and `6d128e5d4` (scrollable SQL Server options page) — are in the current [nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly), not the v1.83.0 build you tested before. If you get a chance, could you grab that nightly and try the MSSQL profile first (your original `19...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-07T10:47:04Z",
+  "comments_cursor": "2026-09-25T04:03:39Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-09T15:35:14Z",
+  "last_synced": "2026-09-25T04:56:38Z",
   "notes": "reopened 2026-09-07; fixes cad7e5725 (named-instance DataSource, ODBC ? markers, DomainName->Domain) + 6d128e5d4 (SQL page AutoScroll, cut label); awaiting reporter on nightly"
 }
