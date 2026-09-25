@@ -3,7 +3,260 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.84.0] - 2026-09-25
+
+Focus: a bug-fix and security-hardening cycle. Two command-injection vulnerabilities in the
+console protocols (Terminal, OpenSSH, WSL) are closed, alongside a cluster of crash and
+data-loss reports — a missing `ExternalConnectors.dll`, RDP memory growth after closing a
+session, duplicate/missing session restores on startup, and External Tools not round-tripping
+through a SQL-backed profile. The Port Scan tool is rebuilt on an async, cancellable engine with
+IPv6 support and a redesigned panel, and the bundled PuTTYNG is rebased onto PuTTY 0.85.
+
+### Added
+
+- **Port Scan tool rebuilt: async, cancellable, IPv6-capable** — the scanner used to block on one
+  synchronous TCP connect per port (ignoring your configured timeout) and could not really be
+  stopped once started; it is now an async, bounded-parallel scan that stays responsive and
+  actually cancels, with parallelism configurable from the UI (1–128, default 64). It also
+  gained: a single target field that accepts one address, a range, or a CIDR block, in IPv4 or
+  IPv6; one "Port Range" control instead of two independently-checkable fields; a "common ports"
+  button; a wider Hostname column; a tidied single-line layout for the address range and the port
+  range; and full localization (validation and error messages were previously always in English).
+  <!-- 7b166a6eb 83015a272 2e71e0798 7f3afcc18 48629f369 2f200077e f55b7b276 35055177e f116697c4 f99290cd2 3e0e580a1 -->
+- **Crash reports can be added to an existing GitHub issue instead of filing a duplicate, and now
+  offer to open the issue that was just filed** — a repeat crash of the same kind is recorded as
+  an additional occurrence on the already-open issue rather than a new report, and the crash
+  dialog offers a link to follow or comment on it. <!-- bc42d1ce1 595d81473 -->
+- **Help menu links to a guide for this fork's own features** — Help > Fork Features Guide
+  documents what differs from upstream mRemoteNG (WebAuthn/Entra ID RDP authentication, the
+  Vault/OpenBao SSH OTP path and its PuTTY-build requirement, the Connection Tester, SQL-backed
+  profiles, and a few disclosure notes about the debug bundle and crash reports), none of which
+  the upstream manual that F1 still opens covers. <!-- b1d736ac7 -->
+- **About dialog tells the fork's own story** — it now explains what this fork is and who
+  maintains it, thanks the original mRemoteNG project and its authors under their own heading,
+  shows the Version row again (it was hidden under the title, so the bundled PuTTY version could
+  not be seen), and replaces the upstream donation link, which no longer works.
+  <!-- 7768b82b2 e4a043d1c -->
+
+### Fixed
+
+- **A missing `ExternalConnectors.dll` (e.g. quarantined by antivirus) no longer crashes
+  mRemoteNG on first connect** ([#191](https://github.com/robertpopa22/mRemoteNG/issues/191),
+  [#192](https://github.com/robertpopa22/mRemoteNG/issues/192)) — mRemoteNG now says which file
+  is missing and where it was expected instead of crashing, and opens any connection that does
+  not actually need that file (a plain SSH or RDP connection with no credential vault) instead of
+  refusing every connection outright. <!-- 39deede5f 40f78094c -->
+- **Importing a `.rdp` file no longer discards its stronger authentication settings**
+  ([#196](https://github.com/robertpopa22/mRemoteNG/issues/196)) — the importer ignored the
+  authentication keys written by `mstsc.exe` or mRemoteNG's own exporter (Entra ID sign-in,
+  WebAuthn redirection, CredSSP, server authentication level), so an Entra ID connection imported
+  with Entra ID turned off. They are read now, with one rule: an imported file can only make
+  CredSSP and the authentication level stricter than your defaults, never weaker, and anything it
+  would have weakened is named in a warning. Also
+  fixed: "disable wallpaper" / "disable themes" were imported backwards, and a few exporter-only
+  keys (audio-capture mode, working directory, drag/animation/cursor flags) are now read too.
+  <!-- b5d317edf -->
+- **Close-confirmation dialog no longer mis-lays-out on multi-monitor / high-DPI setups**
+  ([#198](https://github.com/robertpopa22/mRemoteNG/issues/198)) — the dialog computed its layout
+  once, before it existed at its real size and DPI, so on some multi-monitor RDP setups the
+  question text was cut to a sliver and the "don't show again" checkbox sat under the buttons. It
+  now re-lays-out from its own content when shown, when its DPI changes, and when resized (the
+  border is resizable, as requested). <!-- 35507078f -->
+- **Host reachability now agrees with itself, with an optional ping check**
+  ([#193](https://github.com/robertpopa22/mRemoteNG/issues/193)) — the tree's reachability badge
+  and the Config panel's Status button used two separately-written checks that could disagree
+  about the same host; they now share one. A new opt-in setting (Options > Connections, off by
+  default) additionally corroborates a successful TCP connect with an ICMP ping, for networks
+  (e.g. some Zero Trust clients) where a completed connection alone can read as "host is up" when
+  it is not. The badge is also now painted correctly on icons that are already connected, and the
+  new checkbox is no longer indented as if it were a sub-option.
+  <!-- de865a344 0c72b4863 3d17391d9 -->
+- **"Show saved PuTTY sessions" option now actually does something**
+  (upstream [#389](https://github.com/mRemoteNG/mRemoteNG/issues/389)) — the Options > Advanced
+  checkbox has existed since February but nothing read it, so PuTTY's saved sessions always
+  appeared under their own tree root regardless of the setting. Toggling it now adds or removes
+  that root immediately, no restart needed. <!-- b0d72a40f -->
+- **SQL Server / PostgreSQL table check gives the right answer the first time** (upstream
+  [#3498](https://github.com/mRemoteNG/mRemoteNG/issues/3498)) — the table-existence check only
+  looked in the column MySQL/MariaDB use for the database name, so on SQL Server and PostgreSQL
+  every table first read as missing. Upstream this makes the first save after loading fail; this
+  fork already had two fallbacks that prevented that, so here it only cost an extra round-trip per
+  table. The check now looks at both columns. <!-- c4da62c39 -->
+- **Port Scan reports why it can't start instead of silently doing nothing** — scanning a range
+  over 65,536 addresses, mixing IPv4/IPv6 endpoints, or an invalid port value used to leave the
+  Scan button stuck on "Stop" with no scan running and no explanation; it now reports the actual
+  problem. The results columns no longer end in a stray trailing comma, and a gap that had opened
+  up between the settings panel and the progress bar is gone.
+  <!-- b9bc6490a 6bb49727d 713ada425 c34af82ae 2c3f49c22 -->
+- **SQL Server storage fixed for 1.76-era setups, and the options page no longer cuts off**
+  ([#165](https://github.com/robertpopa22/mRemoteNG/issues/165)) — connecting the way the
+  original mRemoteNG 1.76 did failed with "server was not found" (a default port was forced onto
+  named-instance connections), broke outright over an ODBC DSN, and could silently drop every
+  saved domain during the schema upgrade; all three are fixed. The SQL Server options page also no
+  longer cuts off the "Test connection" result — the page now scrolls instead of clipping.
+  <!-- cad7e5725 6d128e5d4 -->
+- **Connection/tab colour picker no longer misbehaves**
+  ([#176](https://github.com/robertpopa22/mRemoteNG/issues/176)) — picking a colour from the
+  connection or tab colour swatch could throw "Object of type 'System.Drawing.Color' cannot be
+  converted to type 'System.String'"; separately, dismissing the colour picker without choosing a
+  colour silently overwrote the value that was already saved. Both are fixed.
+  <!-- aa7c8bac4 8f12912c3 -->
+- **Startup no longer double-opens or drops previously open sessions**
+  ([#172](https://github.com/robertpopa22/mRemoteNG/issues/172)) — with "reconnect to previously
+  opened sessions" on, mRemoteNG could open the same tab twice (two independent mechanisms both
+  tried to restore it), and after that was fixed, could silently skip a session the saved window
+  layout named but never actually reopened. Both are now guaranteed to open exactly once.
+  <!-- 41621c1f8 5db892965 -->
+- **External Tools now round-trip correctly**
+  ([#179](https://github.com/robertpopa22/mRemoteNG/issues/179)) — with tools stored in a
+  SQL-backed profile, edits made on one machine were silently overwritten by another machine's
+  local file because saved tools were never actually read back from the database; that's fixed.
+  A tool's icon path also used to get overwritten by your next keystroke after picking it from the
+  Browse dialog, and the editor no longer re-resolves each tool's icon on every keystroke, which
+  had made the External Tools tab noticeably sluggish while typing.
+  <!-- 96ae486ff f5b1acde3 70fde6d18 -->
+- **A plugin that fails to load is no longer reported as "connection file not found"**
+  ([#175](https://github.com/robertpopa22/mRemoteNG/issues/175)) — a missing or blocked plugin DLL
+  raises the same exception type as a missing connections file, so mRemoteNG offered to create a
+  brand-new, empty connections file over your real one. It now tells the two apart and reports the
+  actual problem. <!-- 171c00c7b -->
+- **A damaged installation says so instead of quoting a loader error**
+  ([#178](https://github.com/robertpopa22/mRemoteNG/issues/178)) — if a bundled assembly (e.g.
+  ObjectListView) can't load because of an incomplete extract or antivirus quarantine, mRemoteNG
+  now says the installation looks incomplete instead of surfacing the raw "Could not load file or
+  assembly" message. <!-- ace312c2e -->
+- **A maximized window now restores onto the monitor it was actually maximized on**
+  ([#171](https://github.com/robertpopa22/mRemoteNG/issues/171)) — a saved layout could remember
+  the un-maximized position on a different monitor than the live maximized one, putting the
+  restored window on the wrong screen. <!-- 6e2d9af67 -->
+- **VNC no longer leaves a background thread running after a session is closed with no window
+  handle** ([#170](https://github.com/robertpopa22/mRemoteNG/issues/170)) — a disposed VNC control
+  could keep its update-polling thread alive and crash later when the connection dropped ("Error
+  creating window handle"); the thread is now stopped in that case too. <!-- 8297ccd90 -->
+- **RDP no longer keeps growing in memory after you close a connection**
+  ([#182](https://github.com/robertpopa22/mRemoteNG/issues/182)) — closing an RDP tab left the
+  underlying protocol and its ActiveX wrapper alive, so memory kept climbing every time you
+  reconnected. Fixing it took two passes: closing a connection now disposes the protocol, and the
+  ActiveX wrapper is released in the order the RDP control expects instead of being pulled out
+  from under it. See Known issues below for two new symptoms reported since.
+  <!-- e1a2af6a3 791ede63a -->
+- **Alt+Tab now reaches mRemoteNG in one press with a PuTTY (SSH) session focused**
+  ([#168](https://github.com/robertpopa22/mRemoteNG/issues/168)) — it previously took two presses
+  and several taskbar clicks, because focusing the embedded PuTTY window brought PuTTY's own
+  process to the foreground instead of the host window. <!-- bf99b7ad9 -->
+- **Reconnect All no longer aborts partway through** — one unexpected entry in the internal
+  window list silently cancelled reconnection for every window after it; it is now skipped
+  instead. <!-- b3b2c9aad -->
+- **The Ctrl+N shortcut for "New Connection File..." works again** — a menu wiring mistake had
+  assigned it to Open instead, leaving New Connection File with no accelerator.
+  <!-- 5869edb99 -->
+- **A connections file that fails to save no longer reports success** — an I/O failure (a locked
+  file, exhausted retries) was swallowed and logged as if the save succeeded, so nothing told you
+  your changes weren't actually written. <!-- b7126a004 -->
+- **Autosave no longer rewrites your connections file and stamps a fresh backup on every tick
+  whether or not anything changed** — with a short autosave interval this could write an
+  unchanged file, plus a new backup copy, every single minute for hours; it now saves only when
+  something actually changed. Backup files for the separate SQL connections cache are also pruned
+  after each save instead of accumulating indefinitely. <!-- 78fa64c2c -->
+- **The application log is no longer silently empty when mRemoteNG is launched from a shortcut,
+  Task Scheduler, or any tool whose working directory isn't the install folder** — the logging
+  configuration was looked up relative to the current working directory instead of next to the
+  executable. <!-- f98b70264 -->
+- **Clearing the tree search filter no longer leaves folders collapsed or occasionally throws** —
+  clearing the search box used to lose track of which folders had been expanded before filtering,
+  and in some cases threw an exception; both are fixed, and clearing a filter is also noticeably
+  faster (the tree no longer repaints and re-measures itself three times in a row).
+  <!-- 70d545ed9 a93729afa -->
+- **Closing a PuTTY tab asks once, not twice, and always removes the tab** — mRemoteNG's own close
+  confirmation was followed by PuTTY's own "are you sure?" prompt on top of it, sometimes leaving
+  the tab behind; closing now acknowledges PuTTY's own prompt on your behalf so one confirmation
+  is enough. Separately, cancelling a tab-close confirmation no longer switches you to the tab on
+  the left — the tab you were on stays active. <!-- 938611f02 5f4521c40 -->
+- **Uploading a file whose local path uses forward slashes keeps its name** — the SSH file
+  transfer window took the remote file name from the last backslash only, so a local path written
+  as `C:/work/notes.txt` (valid on Windows, and what a path pasted from a URL or a shell looks
+  like) was uploaded as `/upload/C:/work/notes.txt` instead of `/upload/notes.txt`.
+  <!-- 0a4324808 -->
+- **Upgrading a portable installation no longer loses passwords inherited from a folder** —
+  legacy connections that inherited a folder's saved credential could lose that password across an
+  upgrade; decryption of folder-level credentials is now deferred to the actual node that holds
+  them. <!-- 08409beb2 -->
+
+### Security
+
+- **Command injection fixed in the Terminal protocol** (upstream
+  [#3335](https://github.com/mRemoteNG/mRemoteNG/issues/3335)) — a Terminal connection built its
+  `ssh` command line by concatenating the Hostname and Username fields into a string handed to
+  `cmd.exe`, so shell metacharacters in either field (from a connections file, which is routinely
+  shared, imported or synced) could run arbitrary commands — automatically on startup if
+  "reconnect to previously opened sessions" was on. Fixed by launching `ssh.exe` directly with
+  validated arguments instead of through a shell; invalid values are rejected, not sanitized.
+  <!-- 6f4e5dceb -->
+- **The same class of injection closed in the OpenSSH and WSL protocols too** — those two never
+  had the shell-concatenation problem, but built their command-line arguments from the raw
+  Hostname/Username fields with no validation at all, which is argument injection (e.g. a hostname
+  of `-oProxyCommand=...` is read by `ssh` as an option). Both protocols now validate through the
+  same rules as the Terminal fix above. <!-- b31c8190b -->
+- **Bundled PuTTYNG (the SSH/Telnet/serial client) updated to the PuTTY 0.85 base**
+  ([#169](https://github.com/robertpopa22/mRemoteNG/issues/169)) — previously an unpinned build
+  from the 0.83 era. This pulls in upstream PuTTY's own 0.84/0.85 fixes: a remotely triggerable
+  use-after-free in Pageant, a buffer overflow in the OpenSSH encrypt-then-MAC cipher modes, a
+  double-free in RSA key exchange, a private-key-decryption overflow, and two remotely triggerable
+  denial-of-service issues. <!-- aeea728c7 -->
+
+### Changed
+
+- **Removed the non-functional UltraVNC "SingleClick" tool and its orphaned Options > Advanced
+  port settings** — the menu item was already hidden because the code behind it had been
+  commented out and never actually opened a working viewer; it, its settings, and a couple of
+  other unwired menu leftovers are now gone rather than silently broken. <!-- 1a48c117c -->
+- Test suite grown to **7,321 tests** (0 failures). <!-- 40f78094c 35507078f -->
+
+### Diagnostics
+
+If support asks for a debug bundle or a log on this build, here is what it can capture. None of
+this is sent automatically — it only rides along with a crash report or debug bundle a user
+chooses to submit.
+
+- **[#182-diag]** — every step of closing a connection panel, a tab, and the application, with
+  per-thread timing. Added after the RDP memory fix above because two new symptoms turned up on
+  that build; still present because those symptoms are not yet reproduced here (see Known issues).
+  <!-- debb62f4e -->
+- **[#198-diag]** — one line at startup and one per DPI change (old/new DPI, font sizes, monitor,
+  whether it's a remote session), plus extra detail in any "Error creating window handle" crash
+  report (GDI/USER object counts and which controls lost their window). Covers both
+  [#197](https://github.com/robertpopa22/mRemoteNG/issues/197) and
+  [#198](https://github.com/robertpopa22/mRemoteNG/issues/198). <!-- 872b7db47 -->
+- **Missing-assembly crash reports** ([#191](https://github.com/robertpopa22/mRemoteNG/issues/191),
+  [#192](https://github.com/robertpopa22/mRemoteNG/issues/192)) now automatically attach a short
+  load-failure history and a listing of the DLLs beside the executable, but only when a load
+  actually failed — an ordinary crash report does not carry this. <!-- 826735bb9 -->
+- **Background-task crash reports name the real failure** — an unobserved task fault used to be
+  reported as `System.AggregateException` with no stack trace, so unrelated bugs looked identical;
+  the report now carries the inner exception's type, code and stack. <!-- 966925cef -->
+- **[#198-diag] task dialog** — each confirmation dialog logs its DPI, its owner's DPI and its
+  size before and after layout, so a dialog that still arrives mis-sized on someone's screen can
+  be told apart from one laid out wrongly. <!-- 35507078f -->
+
+### Known issues
+
+- **[#182](https://github.com/robertpopa22/mRemoteNG/issues/182)** — two reports on the nightly
+  build remain unreproduced here: a connection panel sometimes stays open after you close its
+  last tab, and `mRemoteNG.exe` sometimes keeps running after you close the main window. If you
+  hit either, the `[#182-diag]` trace in your log is exactly the evidence needed to track it down.
+- **[#197](https://github.com/robertpopa22/mRemoteNG/issues/197)** — a rare "Error creating window
+  handle" crash on a display-scaling (DPI) change. This release only ships diagnostics for it
+  (the `[#198-diag]` / window-creation telemetry above); there is no fix yet.
+- **Closing the last tab of a panel asks twice** when "ask before closing" is set to every
+  connection: once for the tab, then again for the panel, which still counts the tab being closed.
+  Older than this release; answering both closes the tab as expected.
+- **Unsigned builds** — nothing this fork ships is code-signed (SignPath Foundation declined to
+  sign the fork on 2026-03-05), so Windows Defender or SmartScreen may flag the download or, in
+  rare cases, quarantine a file after install — see
+  [#192](https://github.com/robertpopa22/mRemoteNG/issues/192) above for what that looks like and
+  how mRemoteNG now handles it.
+
+## [1.83.0] - 2026-08-16
 
 Focus: upstream re-synchronization — every substantive upstream change since the
 March sync point was triaged against this fork; the pieces we lacked were ported
