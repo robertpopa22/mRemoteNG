@@ -230,8 +230,8 @@ software. Communication must reflect that honestly:
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` — active development; latest stable tag **v1.83.0**
-- **Stable:** cut by pushing a `vX.Y.Z` tag from `main` (latest = v1.83.0, 2026-08-16). `release/1.81` is a historical frozen branch (upstream PR #3189)
+- **Main branch:** `main` — active development; latest stable tag **v1.84.0**
+- **Stable:** cut by pushing a `vX.Y.Z` tag from `main` (latest = v1.84.0, 2026-09-25). `release/1.81` is a historical frozen branch (upstream PR #3189)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -369,13 +369,13 @@ PR history, and release status, see: **`.project-roadmap/DEVELOPER_GUIDE.md`**
 For the complete evidence trail of the AI-assisted modernization process
 (metrics, agent performance, CI data, methodology notes), see: **`scientific-paper/EVIDENCE.md`**
 
-## Current Release Status (2026-08-16)
+## Current Release Status (2026-09-25)
 
 | Metric | Value |
 |--------|-------|
-| Version | **1.83.0** (stable, released 2026-08-16) |
+| Version | **1.84.0** (stable, released 2026-09-25) |
 | Analyzer warnings | 0 (5,247 eliminated) |
-| Tests | 6,842 passed, 0 failures (incl. live SQL Server, ODBC, MariaDB integration) |
+| Tests | 7,321 passed, 0 failures (incl. live SQL Server, ODBC, MariaDB integration) |
 | UI battery | FlaUI acceptance scenarios run inside an isolated Hyper-V lab guest (`lab-run.ps1`) |
 | Startup time | ≤1s with 200 connections (optimized from ~10-30s) |
 | CI status | All workflows GREEN |
