@@ -2633,7 +2633,7 @@ mRemoteNG will now quit and begin with the installation.</value>
     <value>LAPS query failed</value>
   </data>
   <data name="ExternalConnectorsMissing" xml:space="preserve">
-    <value>{0} could not be loaded, so no connection can be opened.
+    <value>{0} could not be loaded. Connections that use a credential vault (LAPS, Secret Server, Passwordstate, 1Password, Password Safe, Vault/OpenBao) or the AWS EC2 lookup cannot be opened until it is restored; all other connections work as usual.
 Expected at: {1}
 {2}
 

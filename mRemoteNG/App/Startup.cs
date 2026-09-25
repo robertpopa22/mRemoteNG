@@ -49,9 +49,10 @@ namespace mRemoteNG.App
 
             CompatibilityChecker.CheckCompatibility(messageCollector);
 
-            // Say it at startup, not at the first click on a connection: a quarantined
-            // ExternalConnectors.dll used to surface as a crash on connect (#175/#191/#192).
-            ExternalConnectorsAssembly.EnsureAvailable(messageCollector);
+            // A quarantined ExternalConnectors.dll used to surface as a crash on connect
+            // (#175/#191/#192). Only vault and EC2 connections need it now; note it in the log
+            // here, and let those connections say so when they are opened.
+            ExternalConnectorsAssembly.LogIfUnavailable(messageCollector);
 
             // ObjectListView swallows a failure to update a virtual list's row count, which leaves
             // the control reporting a stale count and is the suspected source of the #149 expand

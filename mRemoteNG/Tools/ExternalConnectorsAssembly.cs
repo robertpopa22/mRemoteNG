@@ -19,9 +19,11 @@ namespace mRemoteNG.Tools
     /// Defender had quarantined the DLL, a plausible false positive for a library whose whole
     /// job is to read credentials and launch other programs' CLIs.
     ///
-    /// The probe here is made before that method is ever compiled, so a missing file becomes a
-    /// message that says what is missing, where it was expected, and what most likely took it,
-    /// instead of a crash report with no hint in it. A DLL that loaded once stays loaded for the
+    /// The calls into the assembly now sit in methods of their own, so only a connection that
+    /// uses a vault or the EC2 lookup ever needs it (<see cref="IsNeededBy"/>). For those, the
+    /// probe here is made first, so a missing file becomes a message that says what is missing,
+    /// where it was expected, and what most likely took it, instead of a crash report with no
+    /// hint in it. A DLL that loaded once stays loaded for the
     /// life of the process (the image is mapped and cannot be removed under it), so the answer
     /// is cached.
     /// </summary>
@@ -51,6 +53,39 @@ namespace mRemoteNG.Tools
         }
 
         /// <summary>
+        /// Whether opening <paramref name="connection"/> calls into ExternalConnectors: an external
+        /// credential provider on the connection or on its RD Gateway, the AWS EC2 hostname lookup,
+        /// or a connection with no username that falls back to a default external provider. The
+        /// connect paths only call into the assembly in exactly those cases (the calls sit in
+        /// methods of their own), so any other connection opens normally without the file.
+        /// <paramref name="force"/> is read the way the connect path reads it: an alternative
+        /// address skips the EC2 lookup, and "connect without credentials" empties the username,
+        /// which is what sends a connection to the default provider.
+        /// </summary>
+        public static bool IsNeededBy(mRemoteNG.Connection.ConnectionInfo connection,
+                                      mRemoteNG.Connection.ConnectionInfo.Force force = mRemoteNG.Connection.ConnectionInfo.Force.None)
+        {
+            ArgumentNullException.ThrowIfNull(connection);
+
+            if (connection.ExternalCredentialProvider != mRemoteNG.Connection.ExternalCredentialProvider.None)
+                return true;
+            if (connection.RDGatewayExternalCredentialProvider != mRemoteNG.Connection.ExternalCredentialProvider.None)
+                return true;
+
+            bool useAlternativeAddress = force.HasFlag(mRemoteNG.Connection.ConnectionInfo.Force.UseAlternativeAddress)
+                                         && !string.IsNullOrWhiteSpace(connection.AlternativeAddress);
+            if (!useAlternativeAddress && !string.IsNullOrEmpty(connection.EC2InstanceId))
+                return true;
+
+            bool noUsername = force.HasFlag(mRemoteNG.Connection.ConnectionInfo.Force.NoCredentials)
+                              || string.IsNullOrEmpty(connection.Username);
+            return noUsername
+                && string.Equals(Properties.OptionsCredentialsPage.Default.EmptyCredentials, "custom", StringComparison.Ordinal)
+                && string.IsNullOrEmpty(Properties.OptionsCredentialsPage.Default.DefaultUsername)
+                && Properties.OptionsCredentialsPage.Default.ExternalCredentialProviderDefault != mRemoteNG.Connection.ExternalCredentialProvider.None;
+        }
+
+        /// <summary>
         /// Probes the assembly and, when it cannot be loaded, reports why through
         /// <paramref name="messageCollector"/>. Returns the availability so callers can bail out.
         /// </summary>
@@ -61,15 +96,32 @@ namespace mRemoteNG.Tools
             if (IsAvailable)
                 return true;
 
+            messageCollector.AddMessage(MessageClass.ErrorMsg, DescribeCurrentFailure());
+            return false;
+        }
+
+        /// <summary>
+        /// Records a missing assembly in the log at startup, without a popup: most connections do
+        /// not need it, so a user who uses no credential vault should not be interrupted at every
+        /// start. The popup comes when a connection that does need it is opened.
+        /// </summary>
+        public static void LogIfUnavailable(MessageCollector messageCollector)
+        {
+            ArgumentNullException.ThrowIfNull(messageCollector);
+
+            if (!IsAvailable)
+                messageCollector.AddMessage(MessageClass.WarningMsg, DescribeCurrentFailure(), true);
+        }
+
+        private static string DescribeCurrentFailure()
+        {
             string failure;
             lock (Sync)
             {
                 failure = _failure ?? string.Empty;
             }
 
-            messageCollector.AddMessage(MessageClass.ErrorMsg,
-                                        DescribeMissing(ExpectedPath, File.Exists(ExpectedPath), failure));
-            return false;
+            return DescribeMissing(ExpectedPath, File.Exists(ExpectedPath), failure);
         }
 
         /// <summary>

@@ -66,7 +66,7 @@ unit suite), pass `-NoBuild`; the staging step copies `mRemoteNG\bin\x64\Release
 
 ```powershell
 pwsh -NoProfile -ExecutionPolicy Bypass -File lab-run.ps1                  # everything, builds first
-pwsh -NoProfile -ExecutionPolicy Bypass -File lab-run.ps1 -NoBuild -Artifacts -Filter "FullyQualifiedName~CrashReportAcceptanceTests|FullyQualifiedName~SqlServerOptionsPageAcceptanceTests"
+pwsh -NoProfile -ExecutionPolicy Bypass -File lab-run.ps1 -NoBuild -Artifacts -Filter "FullyQualifiedName~ExternalConnectorsMissingAcceptanceTests|FullyQualifiedName~SqlServerOptionsPageAcceptanceTests"
 pwsh -NoProfile -ExecutionPolicy Bypass -File lab-run.ps1 -NoDeploy -Filter "FullyQualifiedName~Startup"   # re-run what is already on the guest
 ```
 
@@ -102,8 +102,8 @@ learn, so they are written down here once:
 - **Seed before start.** Override `SeedSettings()`; `Deployment.WriteConnectionsFile(new
   ConnectionsSeeder().Add(...).Build())` puts connections in place before the app starts.
 - **Simulate an incomplete install** by deleting a file in `Deployment.Directory` — it is a hard
-  link, so the canonical build is untouched. `CrashReportAcceptanceTests` removes
-  `ExternalConnectors.dll` this way to reach the #175 crash.
+  link, so the canonical build is untouched. `ExternalConnectorsMissingAcceptanceTests` removes
+  `ExternalConnectors.dll` this way, the folder #175/#191/#192 reported.
 - **Menus:** a plain `Click()` on a menu-bar item does not open it; use
   `element.Patterns.ExpandCollapse.Pattern.Expand()`. The drop-down is a separate popup, so find
   its entries from `Driver.Automation.GetDesktop()`, not under `MainWindow`.

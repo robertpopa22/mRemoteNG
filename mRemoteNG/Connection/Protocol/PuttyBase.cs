@@ -691,85 +691,12 @@ namespace mRemoteNG.Connection.Protocol
                         string privatekey = "";
 
                         // access secret server api if necessary
-                        if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer)
+                        if (InterfaceControl.Info?.ExternalCredentialProvider is ExternalCredentialProvider.DelineaSecretServer
+                            or ExternalCredentialProvider.ClickstudiosPasswordState or ExternalCredentialProvider.OnePassword
+                            or ExternalCredentialProvider.PasswordSafe or ExternalCredentialProvider.VaultOpenbao
+                            or ExternalCredentialProvider.LAPS)
                         {
-                            try
-                            {
-                                ExternalConnectors.DSS.SecretServerInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out _, out privatekey);
-
-                                if (!string.IsNullOrEmpty(privatekey))
-                                {
-                                    optionalTemporaryPrivateKeyPath =
-                                        WritePrivateKeyToOwnerOnlyTempFile(privatekey);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
-                            }
-                        }
-                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.ClickstudiosPasswordState)
-                        {
-                            try
-                            {
-                                ExternalConnectors.CPS.PasswordstateInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out _, out privatekey);
-
-                                if (!string.IsNullOrEmpty(privatekey))
-                                {
-                                    optionalTemporaryPrivateKeyPath =
-                                        WritePrivateKeyToOwnerOnlyTempFile(privatekey);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
-                            }
-                        }
-                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
-                            try
-                            {
-                                ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{UserViaAPI}", out username, out password, out _, out privatekey);
-                            }
-                            catch (ExternalConnectors.OP.OnePasswordCliException ex)
-                            {
-                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
-                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
-                            }
-                        }
-                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.PasswordSafe) {
-                            try
-                            {
-                                ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword($"{UserViaAPI}", out username, out password, out _, out privatekey);
-                            }
-                            catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
-                            {
-                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
-                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
-                            }
-                        }
-                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
-                            try {
-                                if (InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP)
-                                    ExternalConnectors.VO.VaultOpenbao.ReadOtpSSH($"{InterfaceControl.Info?.VaultOpenbaoMount}", $"{InterfaceControl.Info?.VaultOpenbaoRole}", $"{InterfaceControl.Info?.Username}", $"{InterfaceControl.Info?.Hostname}", out password);
-                                else
-                                    // Info is reached through ?. on the same line already; the cast
-                                    // needs it non-null, and it is, because the branch above read
-                                    // VaultOpenbaoSecretEngine off it to get here.
-                                    ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH((int)InterfaceControl.Info!.VaultOpenbaoSecretEngine, InterfaceControl.Info?.VaultOpenbaoMount ?? "", InterfaceControl.Info?.VaultOpenbaoRole ?? "", InterfaceControl.Info?.Username ?? "root", out password);
-                            } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
-                                Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
-                            }
-                        }
-                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.LAPS)
-                        {
-                            try
-                            {
-                                ExternalConnectors.LAPS.LAPSHelper.QueryLAPSPassword(InterfaceControl.Info?.Hostname ?? "", out username, out password, out _);
-                            }
-                            catch (ExternalConnectors.LAPS.LAPSException ex)
-                            {
-                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPLAPSQueryFailed + Environment.NewLine + ex.Message);
-                            }
+                            ReadExternalCredential(UserViaAPI, ref username, ref password, ref privatekey, ref optionalTemporaryPrivateKeyPath);
                         }
 
                         if (string.IsNullOrEmpty(username))
@@ -783,58 +710,11 @@ namespace mRemoteNG.Connection.Protocol
                                     username = Properties.OptionsCredentialsPage.Default.DefaultUsername;
                                     break;
                                 case "custom":
-                                    switch (Properties.OptionsCredentialsPage.Default.ExternalCredentialProviderDefault)
+                                    if (Properties.OptionsCredentialsPage.Default.ExternalCredentialProviderDefault is ExternalCredentialProvider.DelineaSecretServer
+                                        or ExternalCredentialProvider.ClickstudiosPasswordState or ExternalCredentialProvider.OnePassword
+                                        or ExternalCredentialProvider.PasswordSafe)
                                     {
-                                        case ExternalCredentialProvider.DelineaSecretServer:
-                                            try
-                                            {
-                                                ExternalConnectors.DSS.SecretServerInterface.FetchSecretFromServer(
-                                                    $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
-                                            }
-
-                                            break;
-                                        case ExternalCredentialProvider.ClickstudiosPasswordState:
-                                            try
-                                            {
-                                                ExternalConnectors.CPS.PasswordstateInterface.FetchSecretFromServer(
-                                                    $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
-                                            }
-
-                                            break;
-                                        case ExternalCredentialProvider.OnePassword:
-                                            try
-                                            {
-                                                ExternalConnectors.OP.OnePasswordCli.ReadPassword(
-                                                    $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
-                                            }
-                                            catch (ExternalConnectors.OP.OnePasswordCliException ex)
-                                            {
-                                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
-                                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
-                                            }
-
-                                            break;
-                                        case ExternalCredentialProvider.PasswordSafe:
-                                            try
-                                            {
-                                                ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword(
-                                                    $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
-                                            }
-                                            catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
-                                            {
-                                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
-                                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
-                                            }
-
-                                            break;
+                                        ReadDefaultExternalCredential(ref username, ref password, ref privatekey);
                                     }
 
                                     break;
@@ -1411,6 +1291,159 @@ namespace mRemoteNG.Connection.Protocol
         /// FileMode.CreateNew means a pre-existing file is an error, not something to overwrite.
         /// The caller still wipes and deletes the file when the session ends.
         /// </summary>
+        /// <summary>
+        /// Moved verbatim out of the connect path so that compiling the connect method does not
+        /// load ExternalConnectors.dll: a connection that uses no external credential provider
+        /// never calls this, and works even when the DLL has been quarantined (#192).
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        private void ReadExternalCredential(string UserViaAPI, ref string username, ref string password, ref string privatekey, ref string optionalTemporaryPrivateKeyPath)
+        {
+            if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer)
+            {
+                try
+                {
+                    ExternalConnectors.DSS.SecretServerInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out _, out privatekey);
+
+                    if (!string.IsNullOrEmpty(privatekey))
+                    {
+                        optionalTemporaryPrivateKeyPath =
+                            WritePrivateKeyToOwnerOnlyTempFile(privatekey);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
+                }
+            }
+            else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.ClickstudiosPasswordState)
+            {
+                try
+                {
+                    ExternalConnectors.CPS.PasswordstateInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out _, out privatekey);
+
+                    if (!string.IsNullOrEmpty(privatekey))
+                    {
+                        optionalTemporaryPrivateKeyPath =
+                            WritePrivateKeyToOwnerOnlyTempFile(privatekey);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
+                }
+            }
+            else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
+                try
+                {
+                    ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{UserViaAPI}", out username, out password, out _, out privatekey);
+                }
+                catch (ExternalConnectors.OP.OnePasswordCliException ex)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
+                }
+            }
+            else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.PasswordSafe) {
+                try
+                {
+                    ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword($"{UserViaAPI}", out username, out password, out _, out privatekey);
+                }
+                catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
+                }
+            }
+            else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+                try {
+                    if (InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP)
+                        ExternalConnectors.VO.VaultOpenbao.ReadOtpSSH($"{InterfaceControl.Info?.VaultOpenbaoMount}", $"{InterfaceControl.Info?.VaultOpenbaoRole}", $"{InterfaceControl.Info?.Username}", $"{InterfaceControl.Info?.Hostname}", out password);
+                    else
+                        // Info is reached through ?. on the same line already; the cast
+                        // needs it non-null, and it is, because the branch above read
+                        // VaultOpenbaoSecretEngine off it to get here.
+                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH((int)InterfaceControl.Info!.VaultOpenbaoSecretEngine, InterfaceControl.Info?.VaultOpenbaoMount ?? "", InterfaceControl.Info?.VaultOpenbaoRole ?? "", InterfaceControl.Info?.Username ?? "root", out password);
+                } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
+                    Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
+                }
+            }
+            else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.LAPS)
+            {
+                try
+                {
+                    ExternalConnectors.LAPS.LAPSHelper.QueryLAPSPassword(InterfaceControl.Info?.Hostname ?? "", out username, out password, out _);
+                }
+                catch (ExternalConnectors.LAPS.LAPSException ex)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPLAPSQueryFailed + Environment.NewLine + ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Moved verbatim out of the connect path so that compiling the connect method does not
+        /// load ExternalConnectors.dll: a connection that uses no external credential provider
+        /// never calls this, and works even when the DLL has been quarantined (#192).
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        private void ReadDefaultExternalCredential(ref string username, ref string password, ref string privatekey)
+        {
+            switch (Properties.OptionsCredentialsPage.Default.ExternalCredentialProviderDefault)
+            {
+                case ExternalCredentialProvider.DelineaSecretServer:
+                    try
+                    {
+                        ExternalConnectors.DSS.SecretServerInterface.FetchSecretFromServer(
+                            $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
+                    }
+                    catch (Exception ex)
+                    {
+                        Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
+                    }
+
+                    break;
+                case ExternalCredentialProvider.ClickstudiosPasswordState:
+                    try
+                    {
+                        ExternalConnectors.CPS.PasswordstateInterface.FetchSecretFromServer(
+                            $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
+                    }
+                    catch (Exception ex)
+                    {
+                        Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
+                    }
+
+                    break;
+                case ExternalCredentialProvider.OnePassword:
+                    try
+                    {
+                        ExternalConnectors.OP.OnePasswordCli.ReadPassword(
+                            $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
+                    }
+                    catch (ExternalConnectors.OP.OnePasswordCliException ex)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
+                    }
+
+                    break;
+                case ExternalCredentialProvider.PasswordSafe:
+                    try
+                    {
+                        ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword(
+                            $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
+                    }
+                    catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
+                    }
+
+                    break;
+            }
+        }
+
         private static string WritePrivateKeyToOwnerOnlyTempFile(string privateKey)
         {
             string path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());

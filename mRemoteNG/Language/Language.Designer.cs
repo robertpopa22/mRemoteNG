@@ -1988,7 +1988,7 @@ namespace mRemoteNG.Resources.Language {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to {0} could not be loaded, so no connection can be opened..
+        ///   Looks up a localized string similar to {0} could not be loaded. Connections that use a credential vault ... cannot be opened until it is restored.
         /// </summary>
         internal static string ExternalConnectorsMissing {
             get {

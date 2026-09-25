@@ -115,12 +115,13 @@ namespace mRemoteNG.Connection
                 return;
             }
 
-            // The connect path references types from ExternalConnectors.dll, so the runtime must
-            // load that assembly before it can even compile the method below. When the file has
-            // been quarantined (#175/#191/#192) that load fails inside the JIT, before any
-            // try/catch exists to see it, and the process dies. Ask first, from a method that has
-            // no such reference, and turn the answer into a message rather than a crash.
-            if (!ExternalConnectorsAssembly.EnsureAvailable(Runtime.MessageCollector))
+            // Only a connection that actually uses a credential vault or the EC2 lookup needs
+            // ExternalConnectors.dll: those calls live in methods of their own, so the connect
+            // path no longer needs the assembly to compile. When the file has been quarantined
+            // (#175/#191/#192) such a connection is refused with a message naming the file; every
+            // other connection opens as usual.
+            if (ExternalConnectorsAssembly.IsNeededBy(connectionInfo, force)
+                && !ExternalConnectorsAssembly.EnsureAvailable(Runtime.MessageCollector))
                 return;
 
             await OpenConnectionCoreAsync(connectionInfo, force, conForm);
