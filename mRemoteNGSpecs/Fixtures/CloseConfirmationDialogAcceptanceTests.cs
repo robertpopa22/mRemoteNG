@@ -23,7 +23,8 @@ namespace mRemoteNGSpecs.Fixtures
     /// This lab runs at one DPI on one monitor, so it cannot recreate their multi-monitor remote
     /// session; the unit suite narrows the real dialog to their width instead. What this adds is
     /// the dialog inside the running application: that it is laid out cleanly there, that it can
-    /// be resized, and that both answers still do what they say.
+    /// be resized, that both answers still do what they say, that the question is about the
+    /// connection rather than a panel, and that closing the only tab asks exactly once.
     /// </summary>
     [TestFixture]
     [SupportedOSPlatform("windows")]
@@ -138,6 +139,7 @@ namespace mRemoteNGSpecs.Fixtures
             Win32Mouse.MiddleClick(SessionTabs().First());
             AutomationElement dialog = WaitForConfirmation();
             AssertCleanLayout(dialog, "close-confirmation.png");
+            AssertAsksAboutTheConnection(dialog);
             UiWait.FindRequired(dialog, cf => cf.ByAutomationId("bt3"), "Cancel button").AsButton().Invoke();
             Thread.Sleep(TimeSpan.FromSeconds(2));
             Assert.That(SessionTabs().Length, Is.EqualTo(1), "Cancel must leave the session open");
@@ -147,18 +149,39 @@ namespace mRemoteNGSpecs.Fixtures
             dialog = WaitForConfirmation();
             UiWait.FindRequired(dialog, cf => cf.ByAutomationId("bt2"), "Disconnect button").AsButton().Invoke();
 
-            // Closing the last tab closes its panel, and with "ask for every connection" the panel
-            // asks again while it still counts the tab being closed -- an older, separate defect.
-            // Answer it the same way, and check that it is laid out cleanly too.
-            AutomationElement? followUp = TryWaitForConfirmation(TimeSpan.FromSeconds(5));
+            // Closing the last tab closes its panel. The panel used to ask again at that point,
+            // because it still counted the tab being disposed: the user confirmed once and was asked
+            // a second time about a connection that was already going. One confirmation is the
+            // whole contract, so a second one fails the scenario instead of being answered.
+            AutomationElement? followUp = TryWaitForConfirmation(TimeSpan.FromSeconds(8));
+            string? followUpText = followUp?.FindFirstDescendant(cf => cf.ByAutomationId("lbMainInstruction"))?.Name;
             if (followUp is not null)
             {
-                TestContext.Out.WriteLine("a second confirmation followed: " + followUp.FindFirstDescendant(cf => cf.ByAutomationId("lbMainInstruction"))?.Name);
-                AssertCleanLayout(followUp, "close-confirmation-panel.png");
-                UiWait.FindRequired(followUp, cf => cf.ByAutomationId("bt2"), "Disconnect button").AsButton().Invoke();
+                Capture.Element(followUp).ToFile(Path.Combine(Deployment.Directory, "close-confirmation-second.png"));
+                TestContext.AddTestAttachment(Path.Combine(Deployment.Directory, "close-confirmation-second.png"),
+                                              "the second confirmation that should not have appeared");
+                UiWait.FindRequired(followUp, cf => cf.ByAutomationId("bt3"), "Cancel button").AsButton().Invoke();
             }
+            Assert.That(followUp is null, Is.True, $"closing the only tab asked a second time: \"{followUpText}\"");
 
             UiWait.Until(() => SessionTabs().Length == 0, "the session tab to close", TimeSpan.FromSeconds(45));
+        }
+
+        /// <summary>
+        /// The confirmation shown for a tab asks about that connection. It used to reuse the
+        /// panel's question -- "close the panel, "&lt;tab&gt;"? Any connections that it contains will
+        /// also be closed" -- naming a tab as if it were a panel.
+        /// </summary>
+        private static void AssertAsksAboutTheConnection(AutomationElement dialog)
+        {
+            string question = UiWait.FindRequired(dialog, cf => cf.ByAutomationId("lbMainInstruction"), "question").Name ?? "";
+            TestContext.Out.WriteLine($"the question: \"{question}\"");
+            Assert.Multiple(() =>
+            {
+                Assert.That(question, Does.Contain("SERVER-PROD-SQL-01"), "the question does not name the connection");
+                Assert.That(question, Does.Contain("disconnect").IgnoreCase, "the question does not ask to disconnect");
+                Assert.That(question, Does.Not.Contain("panel").IgnoreCase, "the question talks about a panel for a single tab");
+            });
         }
 
         private void AssertCleanLayout(AutomationElement dialog, string screenshotName)
