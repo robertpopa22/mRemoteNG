@@ -102,9 +102,24 @@ try {
     # A populated Assemblies\ is the arrangement the resolver is written for. Without this check the
     # comparison above would still pass if the copy step stopped running and everything happened to
     # land beside the executable instead.
+    #
+    # Framework-dependent packages only. A self-contained publish has always shipped flat, every DLL
+    # beside the executable where the bundled runtime probes by default (v1.83.0's self-contained
+    # ZIPs have no Assemblies\ at all and run fine), so demanding the folder there failed the first
+    # release this check ran on. The runtime's own marker tells the two apart: a self-contained
+    # runtimeconfig.json lists "includedFrameworks", a framework-dependent one "framework(s)".
+    $selfContained = $false
+    $runtimeConfig = Join-Path $appDir 'mRemoteNG.runtimeconfig.json'
+    if (Test-Path -LiteralPath $runtimeConfig) {
+        $options = (Get-Content -LiteralPath $runtimeConfig -Raw | ConvertFrom-Json).runtimeOptions
+        $selfContained = $null -ne $options -and $null -ne $options.PSObject.Properties['includedFrameworks']
+    }
+    Write-Host "Layout:   $(if ($selfContained) { 'self-contained (flat)' } else { 'framework-dependent (Assemblies\)' })"
+
     $assembliesDir = Join-Path $appDir 'Assemblies'
-    if (-not (Test-Path -LiteralPath $assembliesDir) -or
-        -not (Get-ChildItem -LiteralPath $assembliesDir -Filter '*.dll' -File)) {
+    if (-not $selfContained -and
+        (-not (Test-Path -LiteralPath $assembliesDir) -or
+         -not (Get-ChildItem -LiteralPath $assembliesDir -Filter '*.dll' -File))) {
         Write-Error "The Assemblies\ subdirectory is missing or empty -- the custom AssemblyResolve handler has nowhere to look."
         exit 1
     }
