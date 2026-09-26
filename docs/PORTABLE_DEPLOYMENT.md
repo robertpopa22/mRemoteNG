@@ -31,7 +31,26 @@ not rewrite that tracked file, so a current local build no longer displays stale
 release metadata.
 
 The deployer stages and validates program files, requires the target application
-to be stopped, retains program rollback copies, rejects overlapping/root/reparse-
-point paths, and excludes `Settings`, logs, deploy state, and rollback data from
-program replacement. It never logs serialized profile contents or credential
-values.
+to be stopped, retains program rollback copies, rejects overlapping/root paths,
+and excludes `Settings`, logs, deploy state, and rollback data from program
+replacement. It never logs serialized profile contents or credential values.
+
+Junctions, mount points, symbolic links and unknown reparse points are refused
+anywhere in the source, target, profile and rollback trees. Cloud-file
+placeholders (`IO_REPARSE_TAG_CLOUD_*`, as OneDrive creates) are ordinary content
+and are accepted, so a target inside a synced folder deploys and prunes normally.
+
+Rollback copies go to `<target>/_rollback` unless `-RollbackDirectory` names
+another folder. For a target inside a synced folder, point it outside the synced
+tree so backups are not uploaded; it must be on the same volume as the target.
+Every move into and out of it is a rename, never a copy, so a locked file makes a
+move fail whole instead of leaving half a folder on each side.
+
+If the deployment fails after anything in the target has moved, the previous
+program is put back and verified by hash against the state taken before the
+deployment. If that verification fails the deployer stops with an error naming
+the target, the backup folder that still holds the previous files, and the
+discard folder holding anything taken out of the target; nothing is deleted.
+Pruning old rollback copies happens only after a verified deployment and never
+undoes it: a copy that cannot be removed is reported as a warning and retried on
+the next run.
