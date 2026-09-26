@@ -218,7 +218,7 @@ namespace mRemoteNG.UI.Tabs
                     {
                         DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName,
                                                             string
-                                                                .Format(CultureInfo.CurrentCulture, Language.ConfirmCloseConnectionPanelMainInstruction,
+                                                                .Format(CultureInfo.CurrentCulture, Language.ConfirmDisconnectConnection,
                                                                         TabText), "", "", "",
                                                             Language.CheckboxDoNotShowThisMessageAgain,
                                                             ETaskDialogButtons.DisconnectCancel, ESysIcons.Question,

@@ -50,6 +50,17 @@ namespace mRemoteNGSpecs.Fixtures
         public static string LinuxUser => Env("MRNG_LAB_LINUX_USER", "mrng");
         public static string LinuxPassword => Env("MRNG_LAB_LINUX_PASSWORD", "");
 
+        /// <summary>
+        /// Whether a tab caption belongs to an SSH session to the Linux target. A PuTTY tab starts
+        /// with the connection's name and then follows the terminal's title (#774), which the
+        /// target's shell sets to "user@host: dir" right after logon -- measured on 2026-09-25,
+        /// "mrng@mrng-lab-ubuntu: ~". Looking for the connection name alone finds nothing once the
+        /// shell is up.
+        /// </summary>
+        public static bool IsLinuxSshTab(string caption, string connectionName) =>
+            caption.Contains(connectionName, StringComparison.OrdinalIgnoreCase)
+            || caption.StartsWith(LinuxUser + "@", StringComparison.OrdinalIgnoreCase);
+
         public static string WindowsUser => Env("MRNG_LAB_WINDOWS_USER", "Administrator");
         public static string WindowsPassword => Env("MRNG_LAB_WINDOWS_PASSWORD", "");
 

@@ -235,7 +235,11 @@ namespace mRemoteNGSpecs.Support
             // user actually sees is what has to match here. First live run of this dialog through
             // the whitelist matched the text fine and then failed anyway, because ClickButton
             // could not find either candidate on screen.
-            if (haystack.Contains("CLOSE THE PANEL", StringComparison.Ordinal))
+            // A single tab asks "Are you sure you want to disconnect ...?" with the same
+            // Disconnect/Cancel buttons. Until the tab stopped borrowing the panel's question, the
+            // match above answered it too.
+            if (haystack.Contains("CLOSE THE PANEL", StringComparison.Ordinal)
+                || haystack.Contains("WANT TO DISCONNECT", StringComparison.Ordinal))
                 return ["Disconnect", "Yes", "OK"];
 
             // The RDP client cannot verify the lab's self-signed certificate. The lab is an isolated
