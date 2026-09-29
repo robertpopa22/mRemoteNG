@@ -1,20 +1,18 @@
 # September 29 publication package
 
-Prepared locally; **not sent**. These files contain exact proposed public text. Re-read each live
-thread before publication and revise if its evidence changed. Do not treat authorization to send
-one reply as authorization to send the others or to release a build.
+Published after the maintainer explicitly approved all five actions. Each live thread was checked
+before sending. Exact text was read back from GitHub; all four problem reports remain open.
 
-| Destination | Action | Exact text |
+| Destination | Published action | Retained exact text |
 |---|---|---|
-| Fork #200 | Comment on the reproduced and locally verified correction | `fork-200.md` |
-| Fork #196 | Comment acknowledging failed end-to-end retest | `fork-196.md` |
-| Fork #198 | Comment retaining clipping/font symptoms | `fork-198.md` |
-| Fork #192 | Correct release status and retain vendor obligation | `fork-192.md` |
-| Pinned fork #167 | Replace body; preserve title and pin | `fork-167-body.md` |
+| [#200](https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448) | Comment published | [fork-200.md](fork-200.md) |
+| [#196](https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259) | Comment published | [fork-196.md](fork-196.md) |
+| [#198](https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5887657061) | Comment published | [fork-198.md](fork-198.md) |
+| [#192](https://github.com/robertpopa22/mRemoteNG/issues/192#issuecomment-5887659794) | Comment published | [fork-192.md](fork-192.md) |
+| [#167](https://github.com/robertpopa22/mRemoteNG/issues/167) | Body replaced; title and pin preserved | [fork-167-body.md](fork-167-body.md) |
 
-The original #167 body was read at `updatedAt=2026-08-15T17:24:52Z`. The four comment destinations
-retain their latest known timestamps in `../fork/NNNN.json`; `update --comment-file --post-comment`
-rejects live timestamp drift. A body edit of #167 needs its own live preflight and read-back.
+[Publication receipts](publication-receipts-2026-09-29.json) retain GitHub IDs, timestamps,
+text hashes and read-back results. These files now preserve the sent text.
 
-After an authorized send, read the resulting comment/body back and record its URL or ID. Keep
-unresolved symptoms and maintainer actions open; publication is not completion evidence.
+No code was pushed, PR merged, build released or vendor submission made by this publication.
+Unresolved symptoms and maintainer obligations remain in the [action register](../maintainer-actions.json).

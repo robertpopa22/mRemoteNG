@@ -7,12 +7,20 @@
       "id": "fork-167-disclosure",
       "repo": "fork",
       "priority": "P3-enhancement",
-      "status": "reviewed",
+      "status": "done",
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/167",
       "source_updated_at": "2026-08-15T17:24:52Z",
-      "next_action": "Publish the prepared replacement pinned body after authorization and a freshness check; remove blanket review/test-safety claims and align closure policy."
+      "next_action": "None; approved body published and read back, with title and pin preserved.",
+      "completion_evidence": {
+        "issue": 167,
+        "action": "replace body",
+        "url": "https://github.com/robertpopa22/mRemoteNG/issues/167",
+        "updated_at": "2026-09-29T09:41:47Z",
+        "body_sha256": "edb70314c8c81765d48e4e2dbefac042d5f9933d7cb4205604e888c95eb252c6",
+        "readback": "exact text matched; title unchanged; pinned"
+      }
     },
     {
       "id": "sshnet-scp-advisories",
@@ -32,7 +40,8 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/200",
-      "next_action": "Local disposal cleanup passed the 7,323-test suite and both File/Open UI scenarios. Publish a reviewed build and the completed response when authorized; no public fix or reporter confirmation yet."
+      "next_action": "Local disposal cleanup passed the 7,323-test suite and both File/Open UI scenarios. Reviewed response published. Integrate and publish a verified build, then obtain reporter confirmation; no public fix yet.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448"
     },
     {
       "id": "fork-198",
@@ -42,7 +51,8 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/198",
-      "next_action": "Checkbox pixels and close/cancel/disconnect verified at 96 DPI; reporter build/scaling and mixed-font confirmation remain missing. Publish the bounded evidence request when authorized."
+      "next_action": "Bounded evidence request published. Await exact reporter build and monitor scaling; mixed-font symptom remains unconfirmed. Lab checkbox and close/cancel/disconnect verified only at 96 DPI.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5887657061"
     },
     {
       "id": "fork-196",
@@ -52,7 +62,8 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/196",
-      "next_action": "Make requested Entra-property rejection observable, then compare embedded RDP with mstsc against an Entra target. E_UNEXPECTED suppression is a lead, not a proven cause."
+      "next_action": "Make requested Entra-property rejection observable, then compare embedded RDP with mstsc against an Entra target. E_UNEXPECTED suppression is a lead, not a proven cause.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259"
     },
     {
       "id": "fork-192",
@@ -62,7 +73,8 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/192",
-      "next_action": "Submit the exact detected release binary to Microsoft when authorized and retain its receipt; no submission is proven. Keep unsigned-release status accurate."
+      "next_action": "Submit the exact detected release binary to Microsoft when authorized and retain its receipt; no submission is proven. Keep unsigned-release status accurate.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/192#issuecomment-5887659794"
     },
     {
       "id": "fork-177",

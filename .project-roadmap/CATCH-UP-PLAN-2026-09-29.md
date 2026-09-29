@@ -74,7 +74,7 @@ No release was published. The isolated lab baseline is running. No product code 
 
 | Work | Result |
 |---|---|
-| Monthly intake | 25 fork issues and 27 PRs reviewed; eight active problem reports have current local dispositions. Three inbound replies remain pending publication. |
+| Monthly intake | 25 fork issues and 27 PRs reviewed; eight active problem reports have current local dispositions. The three inbound replies and the #192 maintainer update are now published. |
 | Response workflow | Canon, charter, public README, bug template, evidence-based replies, freshness checks and independent maintainer actions updated; 20 IIS tests passed. |
 | #200 | Reproduced before editing, fixed by detaching disposed-window subscriptions, then verified with a replaced tree in both File/Open scenarios. |
 | Product verification | Full build succeeded. Post-fix suite: 7,323/7,323 passed, 469 seconds, no crashed groups. Tests/specs compiled with the final harness corrections. |
@@ -82,7 +82,7 @@ No release was published. The isolated lab baseline is running. No product code 
 | #177 | Fresh Windows-target retry reached logon, then target replaced the session; the resize scenario was NotExecuted. Lab stability remains outstanding. |
 | #196 / #182 / #197 / #165 | Entra target/diagnostics and requested reporter evidence remain outstanding; no premature repeat ping or guessed fix. |
 | #199 / #192 / #179 / SSH.NET | Source-backed decisions and next actions prepared in the decision note and persistent action register. Merge, vendor receipt, human UX review and SCP remediation remain outstanding. |
-| Publication | Four exact comments and a replacement #167 body prepared in the publication package. Nothing sent, merged or released. |
+| Publication | Four comments published and #167 body replaced after explicit approval; exact text verified on GitHub. No code pushed, PR merged or build released. |
 
 The local #200 build is 1.84.0 build 3722; its tested `mRemoteNG.dll` SHA-256 is
 `9291DF8E3324E48BDE0122884699DCA0720642A5B9E61C762A12464573AAF9C6`.
@@ -101,3 +101,15 @@ Local implementation commits: `e7d080b9b` (reviewed-reply workflow), `91bd1cc39`
 run passed **2/2** after the native-dialog harness adjustment. The other four relevant UI
 scenarios passed on the fixed product in the preceding run; the repaired case is not counted
 as passed from its earlier UIA timeout. No unresolved failure is hidden as a successful check.
+
+## Approved publication completed — September 29
+
+All five approved actions were published and read back from GitHub. The #167 title and pin were
+preserved. Targeted sync fetched the four new comments with zero errors; reviewed comments were
+acknowledged locally without closing the reports or clearing outstanding maintainer obligations.
+[Publication receipts](issues-db/reply-drafts/README.md) identify each public result.
+
+Remaining priorities: publish the verified #200 correction; remediate SSH.NET path handling;
+investigate #196 Entra and #198 DPI/font behavior; restore #177 lab coverage; complete #192
+vendor/signing work; decide PR #199 and #179 UX. For #182/#197/#165, await the requested evidence
+and do not repeat the September 25 request before October 2.

@@ -8,7 +8,7 @@
   ],
   "author": "GurliGebis",
   "created_at": "2026-09-23T08:52:32Z",
-  "github_updated_at": "2026-09-29T06:54:12Z",
+  "github_updated_at": "2026-09-29T09:41:05Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nFixes here are developed and verified by an AUTOMATED pipeline (6,400+ automated tests,\ncross-review between independent AI models), and we use mRemoteNG ourselves every day on the\nlatest build. What we cannot do is reproduce YOUR setup — your network, your servers, your\nlocale, the exact state that triggers your bug. That means:\n\n  * your report below is the start of the fix,\n  * and when a fix lands in a...",
   "our_status": "in-progress",
   "priority": "P2-bug",
@@ -25,6 +25,18 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-09-29",
+      "type": "in-progress",
+      "description": "Authorized publication of the September 29 evidence-reviewed response; unresolved work remains open.",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": true,
+      "comment_url": "https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259",
+      "comment_id": "IC_kwDORKxwDc8AAAABXu55cw"
     }
   ],
   "comments": [
@@ -34,8 +46,8 @@
       "date": "2026-09-23T08:53:29Z",
       "snippet": "Here is an anonymized copy of the RDP file that I use:\n\n```\nscreen mode id:i:1\nuse multimon:i:0\ndesktopwidth:i:1920\ndesktopheight:i:1080\nsession bpp:i:32\nwinposstr:s:0,1,1760,856,3696,1975\ncompression:i:1\nkeyboardhook:i:2\naudiocapturemode:i:1\nvideoplaybackmode:i:1\nconnection type:i:7\nnetworkautodetect:i:1\nbandwidthautodetect:i:1\ndisplayconnectionbar:i:1\nenableworkspacereconnect:i:0\ndisable wallpaper:i:0\nallow font smoothing:i:0\nallow desktop composition:i:0\ndisable full window drag:i:1\ndisable m...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABW0kj8g",
@@ -43,7 +55,7 @@
       "date": "2026-09-25T04:03:27Z",
       "snippet": "Thank you for the report and especially for the .rdp file, which made the cause visible straight away.\n\n**What was wrong.** Importing an .rdp file ignored every authentication setting in it. Your file sets `enablerdsaadauth:i:1` (Entra ID sign-in), but the imported connection came in with Entra ID authentication turned off, so from a machine that is not Entra-joined it failed immediately. The importer now reads `enablerdsaadauth`, `redirectwebauthn`, `enablecredsspsupport` and `authentication le...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -52,14 +64,23 @@
       "date": "2026-09-29T06:54:12Z",
       "snippet": "Does not work at all - if \"Use CredSSP\" is set to \"No\", it gets rejected immediately (due to NLA failing).\nIf it is set to \"Yes\", it shows the Windows credentials dialog box, which is wrong, since it should show a web window, allowing me to log in using the Azure portal login page.\n\nI think this needs some more integration than just making sure the correct parameters are sent, since it needs to spawn the web page, capture the token etc.",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABXu55cw",
+      "author": "robertpopa22",
+      "date": "2026-09-29T09:41:05Z",
+      "snippet": "Thank you for retesting. Your result shows that fixing the import did not resolve the web sign-in you reported: CredSSP off is rejected, and on brings up the wrong dialog.\r\nWe are keeping this open and will investigate the embedded RDP control's sign-in path against the working mstsc case you already supplied.\r\nThe current code requests Entra authentication but can silently ignore one unsupported-property error; that is a lead to check, not a confirmed explanation.\r\nThere is no verified new fix ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-29T06:54:12Z",
-  "unread_comments": 2,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-29T08:59:43Z",
-  "notes": "September 29 retest contradicts importer-only resolution. CredSSP toggling already tested. Entra extended-property E_UNEXPECTED suppression is a diagnostic lead, not proven cause. No matching Entra target verified. Reply unsent."
+  "comments_cursor": "2026-09-29T09:41:05Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-29T09:42:16Z",
+  "notes": "September 29 retest contradicts importer-only resolution. CredSSP toggling already tested. Entra extended-property E_UNEXPECTED suppression is a diagnostic lead, not proven cause. No matching Entra target verified. Approved response published and read back: https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259"
 }

@@ -3,8 +3,9 @@
 Snapshot: 11:35 Europe/Bucharest (08:35 UTC); review window August 29–September 29.
 Requested by the maintainer: investigate incoming requests and update our response process
 from the last month. This is an investigation and workflow change, not a product-fix release.
-All replies below are **unsent drafts**. No issue was closed, no PR merged and no public message
-sent during this review.
+At the initial review checkpoint the replies were unsent. After explicit maintainer approval,
+all four comments and the #167 body were published and read back on September 29. See the
+[publication receipts](issues-db/reply-drafts/README.md). No issue was closed and no PR merged.
 
 ## Coverage and counts
 
@@ -68,7 +69,7 @@ not that a proposed remedy works in those environments.
 | [#192](https://github.com/robertpopa22/mRemoteNG/issues/192): repeated statements about signing/submission, later corrected status | Verify external status and actual receipt; keep promises assigned to us even when the reporter has nothing left to supply. |
 | Templates asserted passing tests and future builds automatically; seven-day template contradicted closure policy | Incomplete evidence fields cannot be posted; commit-only notification becomes a local draft; freshness is checked before sending a completed file. |
 
-## Proposed replies — not sent
+## Approved replies — published September 29
 
 ### #200
 
@@ -101,10 +102,10 @@ We have the detection name already. The September 22 quarantine report does not 
 
 ### Pinned #167
 
-The live pinned explanation still promises cross-model review for every change, equates passing
-tests with safety, and says silence always leaves an issue open. Those statements conflict with
-the current evidence standard and charter. A complete
-[replacement body](issues-db/reply-drafts/fork-167-body.md) is prepared; not published.
+The previous pinned explanation promised cross-model review for every change, equated passing
+tests with safety, and said silence always leaves an issue open. Those statements conflicted with
+the evidence standard and charter. The approved
+[replacement body](issues-db/reply-drafts/fork-167-body.md) is now published, with title and pin preserved.
 
 ## Changes and verification
 
@@ -113,7 +114,8 @@ the current evidence standard and charter. A complete
   completed file and unchanged live thread. The CLI fails when preflight rejects the action.
 - Fork/upstream analysis separated; already-read closed records remain visible separately.
   Lowercase fork `bug` labels now classify as bugs, and explicit priority is respected.
-- Local intake records retain unanswered status; preparing a reply does not acknowledge it.
+- Intake records retained unanswered status while replies were drafts. After publication and
+  exact read-back, targeted sync and acknowledgement refreshed them; maintainer actions stay open.
 - 18 IIS regression tests passed; `git diff --check` passed. Full x64 build passed in 97.7s,
   with pre-existing analyzer warnings and newly surfaced SSH.NET advisories; those are tracked
   in the [catch-up plan](CATCH-UP-PLAN-2026-09-29.md), not represented as a clean warning baseline.
