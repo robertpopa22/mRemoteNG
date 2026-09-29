@@ -114,6 +114,29 @@ We are a fork of a living project, and we intend to keep being able to take its 
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
 
+### D7 — 2026-09-29 · Replies follow evidence and outstanding actions, not lifecycle templates
+
+The maintainer requested a review of incoming requests and an update to our response process
+from the last month's experience. The [review](.project-roadmap/RESPONSE-REVIEW-2026-09-29.md)
+records the source threads. Apply the [response workflow](docs/ISSUE-RESPONSE-WORKFLOW.md):
+read the full current thread and relevant PRs, track each symptom separately, and retain our
+own unfinished commitments even when our comment is last. UX choices disputed by a reporter
+remain proposals for maintainer/user discussion; an agent panel is not human consultation.
+
+Automated fix runs now prepare local reply drafts. Public replies require an issue-specific
+completed file, current-thread preflight and explicit authorization. Templates cannot certify
+tests, an available build, human review, or the reporter's result. This changes communication,
+not the security gates, attempt budget or closure protections in section 4.
+
+*Why:* #196 disproved end-to-end sign-in after an importer fix; #198 confirms only part of the
+DPI report; #179/#182 waited 12/11 days after feedback; #192 still carries an unfulfilled vendor
+submission; PR #156 was missed while we reimplemented its fix. The old templates also promised
+that silent issues stay open, contradicting the manual's existing closure policy.
+
+*Reverses if:* a tested publisher can bind every claim to current issue, build and verification
+evidence and retain outstanding actions without a completed reply file. Test totals or model
+agreement alone do not meet that condition.
+
 ### D6 — 2026-09-16 · The review panel is three model families, with rotation and a measured audit
 
 `fork-intel`'s pre-approval gate votes with Anthropic, OpenAI and xAI CLIs on flat subscriptions.

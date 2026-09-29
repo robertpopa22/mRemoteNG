@@ -8,10 +8,11 @@
 ## >>> FIRST: Read the Current Plan <<<
 
 **INAINTE de orice altceva, citeste planul curent:**
-`.project-roadmap/CURRENT_PLAN.md`
+`.project-roadmap/CATCH-UP-PLAN-2026-09-29.md`
 
-Contine: obiectivul activ, ce s-a facut, unde am ramas, lectii critice, reguli de executie.
-Daca nu exista acest fisier, intreaba user-ul ce plan urmam.
+Contine obiectivul activ si starea lucrului. Pentru intake si comunicare, aplica
+[`docs/ISSUE-RESPONSE-WORKFLOW.md`](../docs/ISSUE-RESPONSE-WORKFLOW.md);
+revizia lunara este [`RESPONSE-REVIEW-2026-09-29.md`](RESPONSE-REVIEW-2026-09-29.md).
 
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
@@ -258,9 +259,10 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 4. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
 5. Run tests (2553+ tests + 6 specs, verify zero regressions)
 6. Commit, tag (`v1.XX.Y`), push — CI auto-builds 6 variants and creates GitHub release
-7. **MANDATORY: Update issue statuses to `released` with `--post-comment`:**
+7. **Update issue statuses and prepare a reviewed, issue-specific release reply.** Confirm the
+   shipped artifact includes the fix. Public posting requires explicit authorization:
    ```bash
-   python .project-roadmap/scripts/iis_orchestrator.py update --issue <N> --status released --release "vX.Y.Z" --release-url "<url>" --post-comment
+   python .project-roadmap/scripts/iis_orchestrator.py update --issue <N> --repo fork --status released --release "vX.Y.Z" --release-url "<url>" --comment-file reply.md --post-comment
    ```
 8. Generate final report: `python .project-roadmap/scripts/iis_orchestrator.py report --include-all`
 9. Commit all JSON changes in `.project-roadmap/issues-db/`
@@ -329,7 +331,7 @@ Do NOT manage issues manually — always use the scripts for consistency and tra
 - Stores per-issue JSON files in `.project-roadmap/issues-db/` (git-tracked, diff-friendly)
 - Tracks full lifecycle: `new → triaged → roadmap → in-progress → testing → released`
 - Detects **iteration loops** (user feedback after fix → re-fix cycle, e.g. issue #3044)
-- Posts templated comments to GitHub on status transitions
+- Prepares template drafts; posts only completed, reviewed reply files on authorized transitions
 - Generates markdown reports for triage sessions and releases
 
 ### MANDATORY workflow — every session
@@ -444,7 +446,8 @@ iis_orchestrator.py (Python — controller)
 3. **Implement** (Codex → Gemini fallback → Claude fallback) — fix the issue
 4. **Verify** (orchestrator) — build + test independently of the agent
 5. **Commit** — atomic commit per issue (`fix(#NNNN): description`)
-6. **Notify** — post comment on upstream issue with beta download link
+6. **Prepare reply** — save an upstream reply draft; verify build availability and evidence,
+   then publish the reviewed file only when authorized (`--comment-file ... --post-comment`)
 
 ### Key rules
 - Orchestrator NEVER trusts agent output — always verifies with build + test
@@ -498,7 +501,7 @@ iis_orchestrator.py (Python — controller)
 ### Active Files
 | File | Contents |
 |------|----------|
-| **`.project-roadmap/CURRENT_PLAN.md`** | **>>> PLANUL CURENT <<<** — citeste PRIMUL la fiecare sesiune! |
+| **`.project-roadmap/EXECUTION-PLAN-2026-09.md`** | Current execution plan |
 | `.project-roadmap/issues-db/README.md` | **Issue Intelligence System** — MANDATORY for all issue tracking (schema, workflow, rules) |
 | `.project-roadmap/fork-intel/README.md` | **Fork Intelligence** — triage of the upstream fork network into a human-gated import queue (pipeline, screening rules, scoring, licence/attribution) |
 | `.project-roadmap/LESSONS.md` | **Master lessons file** — fast fix map, CI/CD pitfalls, test flakiness, release workflow, version bumping, upstream communication |

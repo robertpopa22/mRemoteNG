@@ -8,7 +8,7 @@
   ],
   "author": "vansanper",
   "created_at": "2026-09-24T14:59:06Z",
-  "github_updated_at": "2026-09-25T04:03:26Z",
+  "github_updated_at": "2026-09-29T08:10:22Z",
   "body_snippet": "**What happens** (and what you expected instead):\n-mRemote displays messages clipped with controls overlaped=> messages showing all the content correctly\n-mRemote displays messages windows are fixed with no option to resize to view all the text correctly=> messages resizable by mouse drag on the edges\n-mRemote displays some controls with the font size much bigger than others (In file Menu, Connections Panel, Config Panel, Connections tabs), vs the detailed Display panel with its connect with a m...",
   "our_status": "new",
   "priority": null,
@@ -25,12 +25,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABXtlzxA",
+      "author": "vansanper",
+      "date": "2026-09-29T08:10:22Z",
+      "snippet": "Tested in the latest version, it seems to work (screenshot included).\nThe only problem there is the checkbox (left to the text \"Do not show this message again\") is a little clipped on the bottom.\n\n<img width=\"426\" height=\"134\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a91333cd-570a-407f-acc3-61753a21cb20\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-09-25T04:03:26Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-09-29T08:10:22Z",
+  "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-09-25T04:56:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-09-29T08:35:07Z",
   "notes": ""
 }

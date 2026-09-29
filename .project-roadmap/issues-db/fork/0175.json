@@ -2,7 +2,7 @@
   "number": 175,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=ne...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-31T05:35:03Z",
-  "github_updated_at": "2026-09-25T04:03:37Z",
+  "github_updated_at": "2026-09-25T05:40:16Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
   "our_status": "testing",
   "priority": null,
@@ -75,12 +75,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW1dwjw",
+      "author": "robertpopa22",
+      "date": "2026-09-25T05:40:15Z",
+      "snippet": "Closing this: the fix is now in a stable release, [v1.84.0](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.84.0).\n\nWhat changed since v1.83.0: a missing or quarantined `ExternalConnectors.dll` no longer crashes the app. Connections that do not use a credential vault or the AWS EC2 lookup open as usual without it; the ones that do are refused with a message naming the file, where it was expected, and that an antivirus quarantine is the likely cause (#192 confirmed Windows Defender as o...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-25T04:03:37Z",
+  "comments_cursor": "2026-09-25T05:40:16Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-25T04:56:38Z",
+  "last_synced": "2026-09-29T08:35:07Z",
   "notes": "misdiagnosis+data-loss path fixed 171c00c7b; missing-DLL cause on reporter machine unknown"
 }

@@ -46,6 +46,7 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 import threading
 import time
 from pathlib import Path
@@ -3250,28 +3251,25 @@ Do ONLY the fix. Nothing else."""
 
 # ── CORE: GITHUB COMMENTS ──────────────────────────────────────────────────
 def post_github_comment(issue_num, commit_hash, description):
-    """Post a fix-available comment on upstream issue."""
-    beta_tag = get_beta_tag()
+    """Prepare a reply; a commit alone cannot prove a downloadable fix exists."""
     comment = (
-        f"**Fix available for testing**\n\n"
+        f"{{{{SUMMARY}}}}\n\n"
         f"**Commit:** `{commit_hash[:8]}` "
         f"(fork `{FORK_REPO}`, branch `main`)\n"
         f"**What changed:** {description}\n\n"
-        f"A beta build ({beta_tag}) including this fix is available "
-        f"from the fork's Releases page."
+        "**Checked:** {{VERIFICATION}}\n"
+        "**Not checked / still open:** {{LIMITS}}\n"
+        "**Build and next step:** {{BUILD_AND_NEXT_STEP}}\n"
         f"{COMMUNITY_DISCLAIMER}"
     )
-    try:
-        _run(
-            ["gh", "issue", "comment", str(issue_num),
-             "--repo", UPSTREAM_REPO, "--body", comment],
-            timeout=30,
-        )
-        log.info("    [GITHUB] Comment posted on #%d", issue_num)
-        return True
-    except Exception as e:
-        log.warning("    [GITHUB] Comment failed on #%d: %s", issue_num, e)
-        return False
+    draft_dir = ISSUES_DB_ROOT / "reply-drafts"
+    draft_dir.mkdir(parents=True, exist_ok=True)
+    draft_path = draft_dir / f"upstream-{issue_num}-{commit_hash[:8]}.md"
+    if not draft_path.exists():
+        draft_path.write_text(comment, encoding="utf-8")
+    log.info("    [GITHUB] Reply draft: %s; review evidence and use update --comment-file",
+             draft_path)
+    return False  # Callers count public posts, not locally prepared drafts.
 
 
 def update_issue_json(issue_num, new_status, description="", *,
@@ -5085,9 +5083,15 @@ def gh_post_comment(repo, num, body):
         print(f"Rate-limiting: waiting {wait:.0f}s before posting comment on #{num}...")
         time.sleep(wait)
 
+    body_path = None
     try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", suffix=".md",
+                                         delete=False) as body_file:
+            body_file.write(body)
+            body_path = Path(body_file.name)
         r = _run(
-            ["gh", "issue", "comment", str(num), "--repo", repo, "--body", body],
+            ["gh", "issue", "comment", str(num), "--repo", repo,
+             "--body-file", str(body_path)],
             timeout=30,
         )
         if r.returncode == 0:
@@ -5102,6 +5106,9 @@ def gh_post_comment(repo, num, body):
         return False
     except Exception:
         return False
+    finally:
+        if body_path is not None:
+            body_path.unlink(missing_ok=True)
 
 
 # ── IIS: SYNC ─────────────────────────────────────────────────────────────
@@ -5456,20 +5463,22 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
 # ── IIS: ANALYZE ──────────────────────────────────────────────────────────
 def _auto_classify(issue):
     """Auto-classify an issue based on labels and iteration status."""
-    labels = issue.get("labels") or []
+    labels = {str(label).lower() for label in (issue.get("labels") or []) if label}
     priority = None
     action = None
 
-    if "critical" in labels or "Security" in labels:
+    if "critical" in labels:
         priority = "P0-critical"
-    elif "Bug" in labels:
-        priority = "P2-bug" if "1.78.*" in labels else "P3-enhancement"
-    elif "Enhancement" in labels:
+    elif "security" in labels:
+        priority = "P1-security"
+    elif "bug" in labels or "crash-report" in labels:
+        priority = "P2-bug"
+    elif "enhancement" in labels:
         priority = "P3-enhancement"
-    elif "Duplicate" in labels:
+    elif "duplicate" in labels:
         priority = "P4-debt"
         action = "verify-duplicate"
-    elif "Need 2 check" in labels:
+    elif "need 2 check" in labels:
         priority = "P2-bug"
         action = "needs-verification"
     else:
@@ -5485,11 +5494,11 @@ def _auto_classify(issue):
     if issue.get("waiting_for_us") and not action:
         action = "respond"
 
-    return {"priority": priority, "action": action}
+    return {"priority": issue.get("priority") or priority, "action": action}
 
 
 def iis_analyze(show_all=False, waiting_only=False, priority_filter=None,
-                status_filter=None):
+                status_filter=None, repos="both"):
     """Analyze issues and show what needs attention.
     Replaces Analyze-Issues.ps1."""
     meta = iis_read_json(META_PATH)
@@ -5502,7 +5511,8 @@ def iis_analyze(show_all=False, waiting_only=False, priority_filter=None,
         return
     print()
 
-    all_issues = iis_load_all_issues()
+    all_issues = iis_load_all_issues(("upstream", "fork") if repos == "both" else (repos,))
+    print(f"Scope: {repos}")
     print(f"Total issues in DB: {len(all_issues)}")
 
     # Filter
@@ -5518,6 +5528,17 @@ def iis_analyze(show_all=False, waiting_only=False, priority_filter=None,
         filtered = [i for i in filtered if i.get("priority") == priority_filter]
     if status_filter:
         filtered = [i for i in filtered if i.get("our_status") == status_filter]
+
+    # Keep old closed acknowledgements visible, but do not count them as fresh replies.
+    historical = [i for i in filtered if i.get("state") == "closed"
+                  and not i.get("needs_action") and not i.get("unread_comments")]
+    if not show_all:
+        filtered = [i for i in filtered if i not in historical]
+        if historical:
+            print(f"Closed records without unread feedback (review separately): {len(historical)}")
+            print("  " + ", ".join(f"#{i['number']}" for i in historical))
+            print("  Retained in DB; not evidence of new inbound work. Use --show-all to inspect.")
+            print()
 
     # Categorize
     urgent, iteration, respond, triage, roadmap, other = [], [], [], [], [], []
@@ -5664,7 +5685,7 @@ def iis_ack(issue_numbers, repo="fork"):
 def iis_update(issue_num, new_status, repo="upstream", description=None,
                pr=None, branch=None, release=None, release_url=None,
                post_comment=False, priority=None, notes=None,
-               add_to_roadmap=False):
+               add_to_roadmap=False, comment_file=None):
     """Update issue lifecycle status with iteration tracking.
     Replaces Update-Status.ps1."""
     meta = iis_read_json(META_PATH)
@@ -5678,6 +5699,28 @@ def iis_update(issue_num, new_status, repo="upstream", description=None,
         return False
 
     issue_data = iis_read_json(file_path)
+    reviewed_body = None
+    if post_comment and not comment_file:
+        print("ERROR: --post-comment requires --comment-file with an issue-specific, reviewed reply.")
+        return False
+    if comment_file:
+        try:
+            reviewed_body = Path(comment_file).read_text(encoding="utf-8-sig").strip()
+        except (OSError, UnicodeError) as exc:
+            print(f"ERROR: Cannot read comment file: {exc}")
+            return False
+        if not reviewed_body or re.search(r"\{\{[A-Z_]+\}\}", reviewed_body):
+            print("ERROR: Comment is empty or still contains draft placeholders.")
+            return False
+    if post_comment:
+        current = gh_run_json([
+            "issue", "view", str(issue_num), "--repo", repo_full,
+            "--json", "updatedAt",
+        ])
+        if (not current or not current.get("updatedAt")
+                or current.get("updatedAt") != issue_data.get("github_updated_at")):
+            print("ERROR: Thread changed or freshness could not be verified. Sync, read and revise first.")
+            return False
     old_status = issue_data.get("our_status", "new")
 
     print(f"=== Issue #{issue_num} Status Update ===")
@@ -5752,6 +5795,9 @@ def iis_update(issue_num, new_status, repo="upstream", description=None,
     if comment_body and repo_full == UPSTREAM_REPO:
         comment_body += COMMUNITY_DISCLAIMER
 
+    if reviewed_body is not None:
+        comment_body = reviewed_body
+
     # Post comment
     if comment_body:
         if post_comment:
@@ -5767,7 +5813,7 @@ def iis_update(issue_num, new_status, repo="upstream", description=None,
             else:
                 print("WARNING: Failed to post comment.")
         else:
-            print("--- Suggested comment (not posted, use --post-comment to send) ---")
+            print("--- Draft only: complete evidence, then use --comment-file with --post-comment ---")
             print(comment_body)
             print("--- End suggestion ---")
 
@@ -6286,7 +6332,9 @@ def main():
     parser.add_argument("--release-url", default=None,
                         help="Release download URL for update")
     parser.add_argument("--post-comment", action="store_true",
-                        help="Post templated comment to GitHub")
+                        help="Post the reviewed --comment-file to GitHub after checking thread freshness")
+    parser.add_argument("--comment-file", default=None,
+                        help="UTF-8 file containing an issue-specific reply (required with --post-comment)")
     parser.add_argument("--force-comments", action="store_true",
                         help="Override daily comment limit (use with caution!)")
     parser.add_argument("--force", action="store_true",
@@ -6314,7 +6362,7 @@ def main():
 
     if args.mode == "analyze":
         iis_analyze(show_all=args.show_all, waiting_only=args.waiting_only,
-                    priority_filter=args.priority, status_filter=args.status)
+                    priority_filter=args.priority, status_filter=args.status, repos=args.repos)
         return
 
     if args.mode == "update":
@@ -6329,7 +6377,7 @@ def main():
             state = _load_comment_rate()
             state["daily_count"] = 0
             _save_comment_rate(state)
-        iis_update(
+        updated = iis_update(
             issue_num=args.issue, new_status=args.status,
             repo=args.repo, description=args.description,
             pr=args.pr, branch=args.branch,
@@ -6337,7 +6385,10 @@ def main():
             post_comment=args.post_comment,
             priority=args.priority, notes=args.notes,
             add_to_roadmap=args.add_to_roadmap,
+            comment_file=args.comment_file,
         )
+        if not updated:
+            sys.exit(1)
         return
 
     if args.mode == "ack":
