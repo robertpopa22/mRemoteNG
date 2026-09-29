@@ -21,6 +21,13 @@ It was updated from the [August 29–September 29 review](../.project-roadmap/RE
    local reproduction, human review, design discussion) stays outstanding after our reply.
    Do not use `ack` or an internal lifecycle change to imply an answer was sent.
 
+Maintain these promises in
+[`maintainer-actions.json`](../.project-roadmap/issues-db/maintainer-actions.json), with source,
+owner, review date, priority and next action. `analyze` displays unfinished actions independently
+of the last speaker, including with `--waiting-only`; repository and priority filters still apply.
+IIS sync preserves this separate register. Mark an action `done` only after recording completion
+evidence, not because a comment was sent or the GitHub issue was closed.
+
 At every triage pass, handle new contradictions and new crashes first, then useful diagnostic
 data and contributor work, then due follow-ups. Aim to acknowledge actionable human feedback
 within two working days; this is a triage target, not a promised automatic service or timer.

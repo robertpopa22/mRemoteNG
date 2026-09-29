@@ -10,12 +10,23 @@
   "created_at": "2026-09-23T08:52:32Z",
   "github_updated_at": "2026-09-29T06:54:12Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nFixes here are developed and verified by an AUTOMATED pipeline (6,400+ automated tests,\ncross-review between independent AI models), and we use mRemoteNG ourselves every day on the\nlatest build. What we cannot do is reproduce YOUR setup — your network, your servers, your\nlocale, the exact state that triggers your bug. That means:\n\n  * your report below is the start of the fix,\n  * and when a fix lands in a...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "in-progress",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-29",
+      "type": "in-progress",
+      "description": "September 29 evidence review; publication and resolution remain separate.",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDORKxwDc8AAAABWTl45w",
@@ -49,6 +60,6 @@
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-29T08:35:07Z",
-  "notes": ""
+  "last_synced": "2026-09-29T08:59:43Z",
+  "notes": "September 29 retest contradicts importer-only resolution. CredSSP toggling already tested. Entra extended-property E_UNEXPECTED suppression is a diagnostic lead, not proven cause. No matching Entra target verified. Reply unsent."
 }

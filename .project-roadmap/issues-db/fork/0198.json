@@ -10,12 +10,23 @@
   "created_at": "2026-09-24T14:59:06Z",
   "github_updated_at": "2026-09-29T08:10:22Z",
   "body_snippet": "**What happens** (and what you expected instead):\n-mRemote displays messages clipped with controls overlaped=> messages showing all the content correctly\n-mRemote displays messages windows are fixed with no option to resize to view all the text correctly=> messages resizable by mouse drag on the edges\n-mRemote displays some controls with the font size much bigger than others (In file Menu, Connections Panel, Config Panel, Connections tabs), vs the detailed Display panel with its connect with a m...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "in-progress",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-29",
+      "type": "in-progress",
+      "description": "September 29 evidence review; publication and resolution remain separate.",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDORKxwDc8AAAABW0kjXg",
@@ -40,6 +51,6 @@
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-29T08:35:07Z",
-  "notes": ""
+  "last_synced": "2026-09-29T08:59:43Z",
+  "notes": "September 29 reporter confirms dialog improvement but checkbox clipping remains; mixed-font symptom unconfirmed. Lab close/cancel/disconnect scenario passes at one DPI, checkbox pixels complete there. Exact reporter build and monitor scaling still needed. Reply unsent."
 }

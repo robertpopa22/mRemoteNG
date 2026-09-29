@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-29",
+  "note": "Maintainer obligations, independent of inbound-comment flags. Sync does not clear these. Mark done only with linked completion evidence.",
+  "actions": [
+    {
+      "id": "sshnet-scp-advisories",
+      "repo": "fork",
+      "priority": "P1-security",
+      "status": "pending",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/sshnet/SSH.NET/security/advisories/GHSA-mggc-4xg6-vcxf",
+      "next_action": "Prepare SSH.NET 2026.0.0 and explicit remote-path quoting; validate SCP/SFTP compatibility. Upgrading alone keeps the unsafe legacy default. SecureTransfer uses SCP upload; no recursive download call found."
+    },
+    {
+      "id": "fork-200",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "in-progress",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/200",
+      "next_action": "Run File/Open reproduction and capture tree-handle lifecycle; publish the completed acknowledgement after authorization. No fix verified."
+    },
+    {
+      "id": "fork-198",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "in-progress",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/198",
+      "next_action": "Inspect checkbox pixels and current-DPI geometry; keep mixed-font symptom open. Exact reporter build and scaling remain missing."
+    },
+    {
+      "id": "fork-196",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "pending",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/196",
+      "next_action": "Make requested Entra-property rejection observable, then compare embedded RDP with mstsc against an Entra target. E_UNEXPECTED suppression is a lead, not a proven cause."
+    },
+    {
+      "id": "fork-192",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "pending",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/192",
+      "next_action": "Submit the exact detected release binary to Microsoft when authorized and retain its receipt; no submission is proven. Keep unsigned-release status accurate."
+    },
+    {
+      "id": "fork-177",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "pending",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/177",
+      "next_action": "Recheck Windows RDP target stability before claiming OnLoginComplete or stale-pixel coverage; Linux tests do not establish this."
+    },
+    {
+      "id": "fork-pr-199",
+      "repo": "fork",
+      "priority": "P4-debt",
+      "status": "reviewed",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/pull/199",
+      "next_action": "Analyzer-only version change; six CI checks passed. Merge decision and missing dependencies-label correction remain unpublished."
+    },
+    {
+      "id": "fork-179-ux",
+      "repo": "fork",
+      "priority": "P3-enhancement",
+      "status": "pending",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/179",
+      "next_action": "Prepare a small human-reviewed proposal for OK/Cancel/Apply before changing the options workflow; model consensus is not user acceptance."
+    }
+  ]
+}

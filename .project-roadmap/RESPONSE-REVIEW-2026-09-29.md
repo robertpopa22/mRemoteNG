@@ -29,6 +29,12 @@ old closed confirmations such as #14 ("Thank you") and #120 ("working") in the r
 The updated analysis scopes by repository and shows closed, already-read records separately.
 It still includes new feedback on a closed issue. This is classification, not deletion or ack.
 
+The eight active problem reports now have local lifecycle dispositions and evidence notes.
+The separate [maintainer action register](issues-db/maintainer-actions.json) appears in `analyze`
+even when no new comment is waiting. It includes PR #199 and the newly discovered SCP advisory.
+[Prepared decisions](CATCH-UP-DECISIONS-2026-09-29.md) retain the concrete merge/label proposal,
+vendor-submission prerequisites, advisory analysis and options-UX proposal.
+
 ## Current priorities and ownership
 
 | Case | Evidence now | Next action / owner |
@@ -96,3 +102,9 @@ No further fix has been verified yet.
 - 18 IIS regression tests passed; `git diff --check` passed. Full x64 build passed in 97.7s,
   with pre-existing analyzer warnings and newly surfaced SSH.NET advisories; those are tracked
   in the [catch-up plan](CATCH-UP-PLAN-2026-09-29.md), not represented as a clean warning baseline.
+- Follow-up validation: 20 IIS tests pass, including failed-send atomicity and maintainer promises
+  with an empty inbound queue. Full headless product suite: **7,323 passed, zero failed**, 476s.
+- Isolated UI baseline: three tree scenarios and the live-RDP close-confirmation scenario passed.
+  The latter passed again with retained screenshot evidence: checkbox complete at the lab's
+  single DPI, Cancel kept the tab, Disconnect closed it with one confirmation. This does not
+  reproduce the reporter's DPI/font issue. No product correction for #198 is claimed.

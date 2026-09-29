@@ -48,3 +48,16 @@ Build completed successfully (97.7 seconds), with existing analyzer warnings and
 SSH.NET advisories. The repository's existing local post-build hook also deployed local build
 3721 and preserved its 23 Settings files; it warned that an old backup could not be removed.
 No release was published. The isolated lab baseline is running. No product code edited yet.
+
+### 12:04 checkpoint
+
+- Eight active problem reports have evidence-based local statuses and notes; fresh incoming
+  requests remain unanswered until publication. The independent maintainer-action register is
+  implemented and tested, so a promise cannot disappear merely because we spoke last.
+- 20 IIS tests pass. The full product suite passed **7,323/7,323**, with no crashed groups (476s).
+- UI baseline passed 4/4. The retained close-confirmation screenshot shows a complete checkbox
+  at the lab's single DPI. The exact reporter build/scaling remains necessary for #198.
+- The first new File/Open scenario failed on a test locator (the native picker is named "Open").
+  Corrected from the actual UIA dump; normal and saved-layout reload variants are running.
+- PR #199, #192 vendor submission, SSH.NET exposure and #179 UX have
+  [concrete decision notes](CATCH-UP-DECISIONS-2026-09-29.md). These are pending actions, not fixes.

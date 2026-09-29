@@ -7,17 +7,18 @@ labels: bug
 <!--
 Thank you! A few honest words about how this fork works, so you know what to expect:
 
-Fixes here are developed and verified by an AUTOMATED pipeline (6,400+ automated tests,
-cross-review between independent AI models), and we use mRemoteNG ourselves every day on the
-latest build. What we cannot do is reproduce YOUR setup — your network, your servers, your
-locale, the exact state that triggers your bug. That means:
+This fork uses automated development and verification, and we use mRemoteNG ourselves daily.
+Each reply should name the tests and UI checks actually performed, their limits, and the exact
+published build to try. Our lab cannot reproduce every network, server, locale or display setup.
+That means:
 
   * your report below is the start of the fix,
-  * and when a fix lands in a nightly, YOUR RETEST is the real verification.
+  * your retest establishes whether the reported symptom is resolved in YOUR setup.
 
 Sometimes a fix is right first try, sometimes it takes rounds. You will never be asked to
-retest blind fixes indefinitely — after repeated misses, the issue is escalated to direct
-human attention. Any log line, screenshot, or hunch you include helps enormously.
+retest blind fixes indefinitely — after two unproven fixes, the next step is diagnostics;
+after three failed rounds, work stops for human review or new evidence. A partially improved
+report stays open for the remaining symptoms. Logs and screenshots help us distinguish them.
 Full details: see pinned issue #167.
 -->
 
@@ -30,11 +31,15 @@ Full details: see pinned issue #167.
 2.
 3.
 
-**Version** (Help → About, or the nightly filename):
+**Version and build** (copy Help → About; include portable or installed, x86/x64/ARM64):
 
 **Environment** (OS version; RDP/SSH/VNC target if relevant; anything unusual — locale, multi-monitor, VM):
 
+**For visual/layout problems** (theme, affected monitor's scaling percentage, local or remote desktop):
+
 **Log excerpt** (`%LOCALAPPDATA%\mRemoteNG\mRemoteNG.log` or `Settings\mRemoteNG.log` for portable — the last ~30 lines around the problem):
+
+Remove credentials and identifying server/account details before sharing. Do not attach your connection database.
 
 ```
 ```

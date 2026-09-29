@@ -84,6 +84,12 @@ class ReplyTests(unittest.TestCase):
         self.fetch.assert_not_called()
         self.assertFalse(json.loads(self.issue.read_text())["iterations"][-1]["comment_posted"])
 
+    def test_failed_send_does_not_report_success_or_change_local_status(self):
+        self.send.return_value = False
+        self.assertFalse(self.update(post_comment=True, comment_file=self.reply()))
+        self.send.assert_called_once()
+        self.assertEqual(self.before, self.issue.read_bytes())
+
     def test_automatic_fix_drafts_and_preserves_reviewed_text(self):
         with patch.object(iis, "_run") as run:
             self.assertFalse(iis.post_github_comment(200, "abcd1234", "Candidate change"))
@@ -96,6 +102,27 @@ class ReplyTests(unittest.TestCase):
 
 
 class QueueScopeTests(unittest.TestCase):
+    def test_maintainer_promise_survives_empty_inbound_queue(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "maintainer-actions.json").write_text(json.dumps({"actions": [
+                {"id": "fork-192", "repo": "fork", "status": "pending", "next_action": "Vendor submission",
+                 "owner": "maintainer", "reviewed_at": "2026-09-29"},
+                {"id": "upstream-1", "repo": "upstream", "status": "pending", "next_action": "Hidden"},
+                {"id": "fork-done", "repo": "fork", "status": "done", "next_action": "Finished"},
+            ]}), encoding="utf-8")
+            output = io.StringIO()
+            with patch.object(iis, "ISSUES_DB_ROOT", root), \
+                    patch.object(iis, "iis_read_json", wraps=iis.iis_read_json) as read, \
+                    patch.object(iis, "META_PATH", root / "meta.json"), \
+                    patch.object(iis, "iis_load_all_issues", return_value=[]), \
+                    contextlib.redirect_stdout(output):
+                (root / "meta.json").write_text('{"last_sync":"2026-09-29"}', encoding="utf-8")
+                iis.iis_analyze(waiting_only=True, repos="fork")
+            self.assertIn("fork-192", output.getvalue())
+            self.assertNotIn("upstream-1", output.getvalue())
+            self.assertNotIn("fork-done", output.getvalue())
+
     def test_lowercase_fork_bugs_are_not_classified_as_enhancements(self):
         self.assertEqual("P2-bug", iis._auto_classify({"labels": ["bug"]})["priority"])
         self.assertEqual("P1-security", iis._auto_classify({"labels": ["Security"]})["priority"])

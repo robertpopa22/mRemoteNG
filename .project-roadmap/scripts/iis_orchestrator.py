@@ -5621,6 +5621,21 @@ def iis_analyze(show_all=False, waiting_only=False, priority_filter=None,
     print(f"New (triage):      {len(triage)}")
     print(f"In roadmap:        {len(roadmap)}")
 
+    # Last-speaker flags cannot represent promises made by the maintainer.
+    actions_path = ISSUES_DB_ROOT / "maintainer-actions.json"
+    if actions_path.exists():
+        actions = iis_read_json(actions_path).get("actions", [])
+        actions = [a for a in actions if a.get("status") != "done"
+                   and (repos == "both" or a.get("repo") == repos)
+                   and (not priority_filter or a.get("priority") == priority_filter)
+                   and (not status_filter or a.get("status") == status_filter)]
+        if actions:
+            print()
+            print("-- MAINTAINER ACTIONS - independent of who spoke last --")
+            for action in actions:
+                print(f"  {action['id']} [{action['status']}] {action['next_action']}")
+                print(f"    Owner: {action['owner']}; reviewed: {action['reviewed_at']}")
+
     # Status distribution
     print()
     print("--- Status Distribution ---")
@@ -5811,7 +5826,8 @@ def iis_update(issue_num, new_status, repo="upstream", description=None,
                 print("Comment posted successfully.")
                 iterations[-1]["comment_posted"] = True
             else:
-                print("WARNING: Failed to post comment.")
+                print("ERROR: Comment publication failed; local status has not been changed.")
+                return False
         else:
             print("--- Draft only: complete evidence, then use --comment-file with --post-comment ---")
             print(comment_body)

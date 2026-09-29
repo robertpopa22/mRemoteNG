@@ -12,17 +12,28 @@
   "created_at": "2026-09-28T13:11:05Z",
   "github_updated_at": "2026-09-28T13:11:05Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidOperationException`\r\n**Message:** Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn das Fensterhandle erstellt wurde.\r\n\r\n### Stack Trace\r\n```\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object[] args, bool synchronous)\r\n   at object System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at void mRemoteNG.UI.Controls.ConnectionTree.ConnectionTree.InvokeRebuild...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "in-progress",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-29",
+      "type": "in-progress",
+      "description": "September 29 evidence review; publication and resolution remain separate.",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [],
   "comments_cursor": "2026-09-28T13:11:05Z",
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-29T08:35:07Z",
-  "notes": ""
+  "last_synced": "2026-09-29T08:59:43Z",
+  "notes": "September 29 source review: File/Open tree rebuild invokes a control without a handle. Lab reproduction in progress, including saved-layout reload. No fix verified. Reply draft in RESPONSE-REVIEW-2026-09-29.md; not sent."
 }
