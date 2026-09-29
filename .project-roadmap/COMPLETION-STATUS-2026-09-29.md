@@ -16,8 +16,10 @@ Earlier checkpoints in the catch-up plan are historical, not the current status.
 | #182/#197/#165 | September 25 evidence requests reconciled; no fresh reporter answer. | One follow-up is due no earlier than October 2; preserve the attempt budgets and human-review boundary. |
 
 The full build of the combined code succeeded. Four focused UI scenarios passed, followed by
-two current-code authentication/dialog diagnostic scenarios. The final full-suite rerun is pending
-because the preceding run was interrupted before it produced its completion report.
+two current-code authentication/dialog diagnostic scenarios. The final full-suite rerun passed
+**7,335/7,335 tests in 229 seconds**, with no crashed groups. All 20 IIS regression tests passed.
+The preceding interrupted run is not counted. Publication is tracked in
+[PR #201](https://github.com/robertpopa22/mRemoteNG/pull/201).
 
 Existing local main commits included in this integration also fix duplicate confirmation when the
 last session tab closes and make portable deployment rollback use atomic renames and verify restored
