@@ -191,6 +191,9 @@ namespace mRemoteNGSpecs.Fixtures
             string shot = Path.Combine(Deployment.Directory, screenshotName);
             Capture.Element(dialog).ToFile(shot);
             TestContext.AddTestAttachment(shot, "the confirmation as shown");
+            string evidence = Path.Combine(Path.GetDirectoryName(Deployment.Directory)!, "_evidence", "close-confirmation");
+            Directory.CreateDirectory(evidence);
+            File.Copy(shot, Path.Combine(evidence, screenshotName), overwrite: true);
 
             Rectangle window = dialog.BoundingRectangle;
             Rectangle question = Bounds(dialog, "lbMainInstruction");
