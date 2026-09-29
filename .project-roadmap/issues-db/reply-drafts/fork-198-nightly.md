@@ -1,0 +1,4 @@
+The new diagnostic build is available: [mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip) (commit `b85a4be`). It adds checkbox DPI, font and size measurements; it is not a claimed fix for the remaining clipping or mixed fonts.
+Our real-app Cancel/Disconnect check still passes at measured 96 DPI. An attempted 150% lab setup stayed at 96 DPI, so it provides no higher-scaling evidence.
+Alongside the build/scaling details already requested, the `[#198-diag]` lines in `mRemoteNG.log` immediately after opening that dialog will now show its checkbox metrics. Please share just those lines, with any identifying information removed.
+That should let us test the actual mismatch instead of another guessed layout change. Thank you for the partial confirmation and screenshot; both remaining symptoms stay open.

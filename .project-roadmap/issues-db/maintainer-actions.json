@@ -26,48 +26,69 @@
       "id": "sshnet-scp-advisories",
       "repo": "fork",
       "priority": "P1-security",
-      "status": "in-progress",
+      "status": "done",
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/sshnet/SSH.NET/security/advisories/GHSA-mggc-4xg6-vcxf",
-      "next_action": "Implemented in ab7b7c083: SSH.NET 2026.0.0, explicit POSIX quoting, SFTP default and stream/error cleanup; 16 real literal-path uploads passed. Publish the verified code.",
-      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+      "next_action": "Remediation published in verified nightly; SCP supports POSIX shells, otherwise use SFTP.",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md",
+      "completion_evidence": {
+        "commit": "b85a4be65ea865b632b8f98fae25a9070792aee7",
+        "release": "https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly",
+        "asset": "mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip",
+        "workflow": "https://github.com/robertpopa22/mRemoteNG/actions/runs/36561686114"
+      }
     },
     {
       "id": "fork-200",
       "repo": "fork",
       "priority": "P2-bug",
-      "status": "in-progress",
-      "owner": "maintainer",
+      "status": "waiting-reporter",
+      "owner": "reporter / maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/200",
-      "next_action": "Disposed-window cleanup passed both real File/Open scenarios. Publish the combined build, then obtain reporter confirmation.",
-      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448",
-      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+      "next_action": "Verified fix published. Await the reporter original sequence; issue remains open.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5889455669",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md",
+      "published_build": {
+        "commit": "b85a4be65ea865b632b8f98fae25a9070792aee7",
+        "asset": "mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip",
+        "url": "https://github.com/robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip"
+      }
     },
     {
       "id": "fork-198",
       "repo": "fork",
       "priority": "P2-bug",
-      "status": "in-progress",
-      "owner": "maintainer",
+      "status": "waiting-reporter",
+      "owner": "reporter / maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/198",
-      "next_action": "Checkbox metrics added; real UI passed at measured 96 DPI. Attempted 150% configuration still measured 96 DPI. Await reporter build/scaling and mixed-font evidence.",
-      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5887657061",
-      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+      "next_action": "Checkbox metrics published. Await exact reporter scaling and tagged diagnostic lines; only 96 DPI was measured locally.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5889463817",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md",
+      "published_build": {
+        "commit": "b85a4be65ea865b632b8f98fae25a9070792aee7",
+        "asset": "mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip",
+        "url": "https://github.com/robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip"
+      }
     },
     {
       "id": "fork-196",
       "repo": "fork",
       "priority": "P2-bug",
-      "status": "in-progress",
-      "owner": "maintainer",
+      "status": "waiting-reporter",
+      "owner": "reporter / maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/196",
-      "next_action": "Diagnostics implemented and tested in the real app: EnableRdsAadAuth accepted; RedirectWebAuthn rejected with 0x8000FFFF. Publish diagnostics and obtain the matching Entra result; no sign-in fix established.",
-      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259",
-      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+      "next_action": "Diagnostics published. Await the two setting-result lines and a matching Entra sign-in result; no auth fix claimed.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5889460841",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md",
+      "published_build": {
+        "commit": "b85a4be65ea865b632b8f98fae25a9070792aee7",
+        "asset": "mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip",
+        "url": "https://github.com/robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip"
+      }
     },
     {
       "id": "fork-192",
@@ -97,12 +118,19 @@
       "id": "fork-pr-199",
       "repo": "fork",
       "priority": "P4-debt",
-      "status": "in-progress",
+      "status": "done",
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/pull/199",
-      "next_action": "Exact PR head merged locally; dependencies label created and applied. Publish integration and verify remote merged state.",
-      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+      "next_action": "None; exact contributor head integrated and dependencies label applied.",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md",
+      "completion_evidence": {
+        "mergeCommit": {
+          "oid": "7106b11d3eaa639fe92b72956fd55def3e3b2d74"
+        },
+        "mergedAt": "2026-09-29T11:25:48Z",
+        "state": "MERGED"
+      }
     },
     {
       "id": "fork-179-ux",

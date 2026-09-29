@@ -1,0 +1,3 @@
+The reproduced File/Open crash fix is now available in [mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip) (commit `b85a4be`).
+The combined code passed 7,335 automated tests locally; the published build passed 7,281 tests on GitHub's runner. In our isolated Windows lab, File → Open → Replace displayed the new tree without an exception both normally and after saving/reloading the layout.
+Please try your original sequence with this build and tell us whether the exception returns; your result is needed for triggers outside that reproduced path. Thank you for helping verify it.

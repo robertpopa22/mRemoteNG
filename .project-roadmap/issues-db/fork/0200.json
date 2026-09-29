@@ -10,13 +10,13 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-28T13:11:05Z",
-  "github_updated_at": "2026-09-29T09:40:54Z",
+  "github_updated_at": "2026-09-29T11:36:50Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidOperationException`\r\n**Message:** Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn das Fensterhandle erstellt wurde.\r\n\r\n### Stack Trace\r\n```\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object[] args, bool synchronous)\r\n   at object System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at void mRemoteNG.UI.Controls.ConnectionTree.ConnectionTree.InvokeRebuild...",
-  "our_status": "in-progress",
+  "our_status": "testing",
   "priority": "P2-bug",
-  "target_release": null,
+  "target_release": "nightly",
   "our_branch": "chore/september-response-catch-up",
-  "our_pr": null,
+  "our_pr": 201,
   "iterations": [
     {
       "seq": 1,
@@ -49,6 +49,16 @@
       "comment_posted": true,
       "comment_url": "https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448",
       "comment_id": "IC_kwDORKxwDc8AAAABXu5ueA"
+    },
+    {
+      "seq": 4,
+      "date": "2026-09-29",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": 201,
+      "branch": null,
+      "release": "nightly",
+      "comment_posted": true
     }
   ],
   "comments": [
@@ -60,12 +70,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABXwn2NQ",
+      "author": "robertpopa22",
+      "date": "2026-09-29T11:36:50Z",
+      "snippet": "The reproduced File/Open crash fix is now available in [mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/nightly/mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.zip) (commit `b85a4be`).\r\nThe combined code passed 7,335 automated tests locally; the published build passed 7,281 tests on GitHub's runner. In our isolated Windows lab, File → Open → Replace displayed the new tree without an exception both normally and after saving/reloading ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-29T09:40:54Z",
+  "comments_cursor": "2026-09-29T11:36:50Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-29T09:42:16Z",
+  "last_synced": "2026-09-29T11:37:34Z",
   "notes": "Local #200 fix: disposed Connections pane unsubscribes service, settings, theme and synchronizer events. Full suite 7323/7323 passed; normal and reloaded-layout File/Open show replacement-only without the handle exception. See CATCH-UP-PLAN-2026-09-29.md for artifact hash. Code not published and not reporter-confirmed. Approved response published and read back: https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448"
 }
