@@ -711,6 +711,8 @@ namespace mRemoteNG.UI.TaskDialog
                         $"client {ClientSize.Width}x{ClientSize.Height} (design width {_designClientWidth}), " +
                         $"instruction font {lbMainInstruction.Font.SizeInPoints:0.##}pt/{lbMainInstruction.Font.Height}px " +
                         $"in {lbMainInstruction.Width}x{lbMainInstruction.Height}, " +
+                        $"checkbox DPI {cbVerify.DeviceDpi}, font {cbVerify.Font.SizeInPoints:0.##}pt/{cbVerify.Font.Height}px, " +
+                        $"client {cbVerify.ClientSize.Width}x{cbVerify.ClientSize.Height}, extended theme {ThemeManager.getInstance().ActiveAndExtended}, " +
                         $"monitor {screen.DeviceName} {screen.Bounds.Width}x{screen.Bounds.Height}, " +
                         $"remote session {SystemInformation.TerminalServerSession}"),
                     true);

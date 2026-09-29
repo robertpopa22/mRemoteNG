@@ -792,14 +792,25 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 // ReSharper disable once UseIndexedProperty
                 ((IMsRdpExtendedSettings)_rdpClient).set_Property(property, ref value);
+                if (property is "EnableRdsAadAuth" or "RedirectWebAuthn")
+                    DevLog.Write($"RDP authentication setting {property}: requested={value}; accepted by control (sign-in not verified)");
             }
             catch (COMException ex) when (silent && ex.HResult == unchecked((int)0x8000FFFF))
             {
+                if (property is "EnableRdsAadAuth" or "RedirectWebAuthn")
+                {
+                    DevLog.Write($"RDP authentication setting {property}: requested={value}; rejected HRESULT=0x{ex.HResult:X8}");
+                    if (value is true)
+                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                            $"The RDP control rejected the requested {property} setting (HRESULT 0x{ex.HResult:X8}). The requested authentication flow may be unavailable.", false);
+                }
                 // Silently ignore E_UNEXPECTED for non-essential properties (#1693).
                 // Older RDP clients don't support certain extended properties like scale factors.
             }
             catch (Exception ex)
             {
+                if (property is "EnableRdsAadAuth" or "RedirectWebAuthn")
+                    DevLog.Write($"RDP authentication setting {property}: requested={value}; rejected HRESULT=0x{ex.HResult:X8}");
                 Runtime.MessageCollector.AddExceptionMessage($"Error setting extended RDP property '{property}'", ex, MessageClass.WarningMsg, false);
             }
         }

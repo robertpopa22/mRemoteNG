@@ -194,6 +194,9 @@ namespace mRemoteNGSpecs.Fixtures
             string evidence = Path.Combine(Path.GetDirectoryName(Deployment.Directory)!, "_evidence", "close-confirmation");
             Directory.CreateDirectory(evidence);
             File.Copy(shot, Path.Combine(evidence, screenshotName), overwrite: true);
+            string[] diagnostics = (Deployment.ReadAppLog() ?? "").Split('\n')
+                .Where(line => line.Contains("[#198-diag]", StringComparison.Ordinal)).ToArray();
+            File.WriteAllLines(Path.Combine(evidence, "dialog-diagnostics.txt"), diagnostics);
 
             Rectangle window = dialog.BoundingRectangle;
             Rectangle question = Bounds(dialog, "lbMainInstruction");
