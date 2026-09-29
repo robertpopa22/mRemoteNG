@@ -39,7 +39,7 @@ vendor-submission prerequisites, advisory analysis and options-UX proposal.
 
 | Case | Evidence now | Next action / owner |
 |---|---|---|
-| [#200](https://github.com/robertpopa22/mRemoteNG/issues/200) | New September 28, 1.84.0 Release 3716 x64 portable, non-fatal. File/Open reaches `PopulateTreeView` → post-setup → `InvokeRebuildAll`; `Control.Invoke` fails before a handle exists. Source still invokes unconditionally. | Maintainer: reproduce loading with Connections pane hidden/restored; determine handle lifecycle before changing it. Reporter can add panel state. No fix or UI reproduction claimed. |
+| [#200](https://github.com/robertpopa22/mRemoteNG/issues/200) | New September 28, 1.84.0 Release 3716 x64 portable, non-fatal. File/Open reaches `PopulateTreeView` → post-setup → `InvokeRebuildAll`; `Control.Invoke` fails before a handle exists. Source still invokes unconditionally. | Reproduced in the lab: save/reload a layout, then File/Open/Replace. A disposed pane remains subscribed to ConnectionsLoaded. The disposal cleanup passes the full suite and both File/Open UI cases; publication is pending. This proves one trigger, not every reporter path. |
 | [#196](https://github.com/robertpopa22/mRemoteNG/issues/196) | September 29 response: CredSSP off is rejected; on shows a Windows credential dialog instead of web sign-in. The importer change did not resolve the reported flow. | Maintainer: inspect embedded ActiveX Entra behaviour against the working mstsc case. Source sets `EnableRdsAadAuth` with `silent:true`, suppressing E_UNEXPECTED; this is a diagnostic lead, not the proven cause. Do not repeat the import instructions or invent a web-token implementation from the reporter's theory. |
 | [#198](https://github.com/robertpopa22/mRemoteNG/issues/198) | September 29: dialog appears to work, but checkbox bottom remains clipped. No confirmation that mixed main-window fonts are fixed. | Maintainer: reproduce the residual checkbox layout. Ask only exact tested build and relevant monitor scaling. Keep checkbox and font portions open. |
 | [#192](https://github.com/robertpopa22/mRemoteNG/issues/192) | Reporter supplied `Trojan:Win32/Bearfoos.A!ml`. September 25 reply promised a Microsoft submission but explicitly said it was not yet filed. The non-vault fallback commit `40f78094c` is in v1.84.0. | Maintainer-owned outstanding submission/signing work; no receipt in the inspected thread. Current unsigned status is documented. Do not confuse mitigation with resolving the detection or ask for the name again. |
@@ -72,10 +72,11 @@ not that a proposed remedy works in those environments.
 
 ### #200
 
-Thank you for the report. In 1.84.0, loading a connection file reaches a tree rebuild that calls into a control before a window handle exists; the reported stack and current source agree on that failing call.
-We have not reproduced the UI state that causes it yet, so there is no verified fix to offer.
-The next check on our side is File → Open with the Connections pane hidden and then restored. If you can add one detail, was that pane visible when you opened the file?
-This fork uses [automated development and verification](https://github.com/robertpopa22/mRemoteNG/issues/167); a source finding alone does not establish that your case is resolved.
+We reproduced the same exception in the built application: save and reload a layout, then File → Open → Replace with another connection file.
+The old Connections pane had been destroyed but was still receiving the file-loaded event, so it tried to rebuild a tree whose window handle no longer existed.
+The local fix disconnects the disposed pane from those events. The full 7,323-test suite passes, and both normal File/Open and File/Open after layout reload now display the replacement tree without an exception in our isolated Windows lab.
+No download containing this change has been published yet.
+This establishes one reproducible path to the reported failure, not every possible trigger. If your steps did not involve loading a layout, please add that sequence.
 
 ### #196
 
@@ -87,9 +88,23 @@ There is no verified new fix yet, and repeating the import or toggling CredSSP a
 ### #198
 
 Thank you for retesting and for the screenshot. The dialog is improved, but the clipped checkbox is still a defect; the mixed main-window font sizes also remain unconfirmed.
-We will check the remaining checkbox layout rather than close the whole report.
+In our single-monitor lab at 100% scaling the checkbox is complete, and Cancel/Disconnect work; that does not reproduce your display setup.
 Please add the exact build from Help → About and the scaling percentage of the monitor showing that dialog; the resolution and RDP context are already in your report.
 No further fix has been verified yet.
+
+### #192
+
+The ordinary-connection fallback described above is now in stable v1.84.0, rather than only a future nightly.
+It mitigates a missing `ExternalConnectors.dll`; it does not resolve the Defender detection, and releases remain unsigned.
+The promised Microsoft submission remains an outstanding maintainer action; no submission is confirmed in this review.
+We have the detection name already. The September 22 quarantine report does not identify the build then in use; that detail would help match the correct release sample.
+
+### Pinned #167
+
+The live pinned explanation still promises cross-model review for every change, equates passing
+tests with safety, and says silence always leaves an issue open. Those statements conflict with
+the current evidence standard and charter. A complete
+[replacement body](issues-db/reply-drafts/fork-167-body.md) is prepared; not published.
 
 ## Changes and verification
 
@@ -108,3 +123,11 @@ No further fix has been verified yet.
   The latter passed again with retained screenshot evidence: checkbox complete at the lab's
   single DPI, Cancel kept the tab, Disconnect closed it with one confirmation. This does not
   reproduce the reporter's DPI/font issue. No product correction for #198 is claimed.
+- #200 was then reproduced in the running application by saving/reloading a layout before
+  File/Open/Replace. `ConnectionTreeWindow.Dispose` now detaches its long-lived subscriptions and
+  disposes its components. The reported exception disappeared and the replacement row appeared.
+  Post-fix full suite: **7,323/7,323 passed**, 469s; normal and reloaded-layout UI cases passed.
+- UI harness problems were distinguished from product failures: startup provider timeouts now
+  retry within the existing deadline; native file/message dialogs use the existing Win32 helper.
+  The layout submenu works with an ordinary click; the absent UIA ExpandCollapse pattern was
+  not a menu defect. No application fix was made for that observation.

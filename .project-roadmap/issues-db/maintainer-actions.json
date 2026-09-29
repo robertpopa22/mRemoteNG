@@ -4,6 +4,17 @@
   "note": "Maintainer obligations, independent of inbound-comment flags. Sync does not clear these. Mark done only with linked completion evidence.",
   "actions": [
     {
+      "id": "fork-167-disclosure",
+      "repo": "fork",
+      "priority": "P3-enhancement",
+      "status": "reviewed",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/167",
+      "source_updated_at": "2026-08-15T17:24:52Z",
+      "next_action": "Publish the prepared replacement pinned body after authorization and a freshness check; remove blanket review/test-safety claims and align closure policy."
+    },
+    {
       "id": "sshnet-scp-advisories",
       "repo": "fork",
       "priority": "P1-security",
@@ -21,7 +32,7 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/200",
-      "next_action": "Run File/Open reproduction and capture tree-handle lifecycle; publish the completed acknowledgement after authorization. No fix verified."
+      "next_action": "Local disposal cleanup passed the 7,323-test suite and both File/Open UI scenarios. Publish a reviewed build and the completed response when authorized; no public fix or reporter confirmation yet."
     },
     {
       "id": "fork-198",
@@ -31,7 +42,7 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/198",
-      "next_action": "Inspect checkbox pixels and current-DPI geometry; keep mixed-font symptom open. Exact reporter build and scaling remain missing."
+      "next_action": "Checkbox pixels and close/cancel/disconnect verified at 96 DPI; reporter build/scaling and mixed-font confirmation remain missing. Publish the bounded evidence request when authorized."
     },
     {
       "id": "fork-196",
@@ -61,7 +72,7 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/177",
-      "next_action": "Recheck Windows RDP target stability before claiming OnLoginComplete or stale-pixel coverage; Linux tests do not establish this."
+      "next_action": "September 29 retry connected to Windows but the target replaced its session before dragging; scenario NotExecuted. Repair lab session stability before claiming stale-pixel coverage."
     },
     {
       "id": "fork-pr-199",
@@ -81,7 +92,7 @@
       "owner": "maintainer",
       "reviewed_at": "2026-09-29",
       "source": "https://github.com/robertpopa22/mRemoteNG/issues/179",
-      "next_action": "Prepare a small human-reviewed proposal for OK/Cancel/Apply before changing the options workflow; model consensus is not user acceptance."
+      "next_action": "The OK/Cancel/Apply proposal is prepared in CATCH-UP-DECISIONS-2026-09-29.md. Obtain maintainer and affected-user review before implementation; model consensus is not user acceptance."
     }
   ]
 }

@@ -61,3 +61,43 @@ No release was published. The isolated lab baseline is running. No product code 
   Corrected from the actual UIA dump; normal and saved-layout reload variants are running.
 - PR #199, #192 vendor submission, SSH.NET exposure and #179 UX have
   [concrete decision notes](CATCH-UP-DECISIONS-2026-09-29.md). These are pending actions, not fixes.
+
+### #200 implementation plan (reproduced in the UI)
+
+1. Save/reload layout, then File/Open/Replace reproduces the reported handle exception; the old disposed window is still subscribed to `ConnectionsLoaded`.
+2. In `ConnectionTreeWindow.cs`, unsubscribe long-lived service/settings/synchronizer events during disposal and dispose owned components.
+3. Retain normal and reloaded-layout File/Open scenarios in `ConnectionTreeAcceptanceTests.cs`; require the replacement row and no exception.
+4. Build, run the complete test suite, and rerun both scenarios in the isolated lab.
+5. Record the exact local result; no published fix or reporter confirmation until separately established.
+
+## Executed results and remaining gates
+
+| Work | Result |
+|---|---|
+| Monthly intake | 25 fork issues and 27 PRs reviewed; eight active problem reports have current local dispositions. Three inbound replies remain pending publication. |
+| Response workflow | Canon, charter, public README, bug template, evidence-based replies, freshness checks and independent maintainer actions updated; 20 IIS tests passed. |
+| #200 | Reproduced before editing, fixed by detaching disposed-window subscriptions, then verified with a replaced tree in both File/Open scenarios. |
+| Product verification | Full build succeeded. Post-fix suite: 7,323/7,323 passed, 469 seconds, no crashed groups. Tests/specs compiled with the final harness corrections. |
+| #198 | Close/Cancel/Disconnect passed; screenshot shows complete checkbox at 96 DPI. Reporter build/scaling and mixed-font confirmation remain missing. |
+| #177 | Fresh Windows-target retry reached logon, then target replaced the session; the resize scenario was NotExecuted. Lab stability remains outstanding. |
+| #196 / #182 / #197 / #165 | Entra target/diagnostics and requested reporter evidence remain outstanding; no premature repeat ping or guessed fix. |
+| #199 / #192 / #179 / SSH.NET | Source-backed decisions and next actions prepared in the decision note and persistent action register. Merge, vendor receipt, human UX review and SCP remediation remain outstanding. |
+| Publication | Four exact comments and a replacement #167 body prepared in the publication package. Nothing sent, merged or released. |
+
+The local #200 build is 1.84.0 build 3722; its tested `mRemoteNG.dll` SHA-256 is
+`9291DF8E3324E48BDE0122884699DCA0720642A5B9E61C762A12464573AAF9C6`.
+The same local build number can cover different uncommitted snapshots, so the hash and scenario
+evidence identify this check. The pre-existing post-build hook deployed the local portable copy
+and preserved 23 Settings files; an old-backup cleanup warning persists. No public release exists
+for this correction.
+
+The [publication package](issues-db/reply-drafts/README.md) and
+[remaining decisions](CATCH-UP-DECISIONS-2026-09-29.md) are ready for review. This completes the
+local intake/process update and the reproduced #200 correction; it does not mark the unresolved
+environment-dependent reports, vendor action or dependency remediation complete.
+
+Local implementation commits: `e7d080b9b` (reviewed-reply workflow), `91bd1cc39`
+(maintainer actions and dispositions), `0200b8133` (#200 and UI verification). The final File/Open
+run passed **2/2** after the native-dialog harness adjustment. The other four relevant UI
+scenarios passed on the fixed product in the preceding run; the repaired case is not counted
+as passed from its earlier UIA timeout. No unresolved failure is hidden as a successful check.

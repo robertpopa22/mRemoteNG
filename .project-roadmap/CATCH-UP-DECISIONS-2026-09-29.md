@@ -60,6 +60,15 @@ credentials, tokens or server names. It must not change CredSSP, certificate che
 authentication method. The actual sign-in still requires a matching Entra target; none was verified
 in this session. This source finding does not establish why the reporter sees the Windows dialog.
 
+## #177: current lab check
+
+The Windows-target scenario was retried on September 29. An initial attempt timed out during UI
+startup; the retry connected and reached logon, but the target replaced the session before the
+splitter could be dragged. NUnit reported **NotExecuted**, not passed. The saved connected-screen
+image and result are in local ignored lab artifacts. The stale-pixel symptom remains untested on
+a stable Windows session. Repairing that lab condition is the next maintainer action; sending
+the reporter the same request again would not resolve this coverage gap.
+
 ## #179: options UX proposal for human review
 
 Proposal only: **OK** validates and saves, then closes; **Apply** validates and saves while keeping
