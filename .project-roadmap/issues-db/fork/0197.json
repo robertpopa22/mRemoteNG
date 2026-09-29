@@ -38,8 +38,8 @@
   ],
   "comments_cursor": "2026-09-25T04:03:21Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-29T08:59:44Z",
+  "last_synced": "2026-09-29T11:15:03Z",
   "notes": "September 29 review: awaiting monitor/scaling details requested September 25. DPI/font handle failure is not yet linked to #200 by evidence. No repeat ping before October 2."
 }

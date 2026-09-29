@@ -2,6 +2,7 @@
 
 Maintainer instruction: create a plan to bring everything up to date, then execute it.
 Scope: mRemoteNG fork intake, active issue/PR disposition, response workflow and verification.
+Current execution results: [completion status](COMPLETION-STATUS-2026-09-29.md).
 The [monthly review](RESPONSE-REVIEW-2026-09-29.md) is the evidence baseline. Existing September
 architecture work remains in [its plan](EXECUTION-PLAN-2026-09.md).
 
@@ -113,3 +114,11 @@ Remaining priorities: publish the verified #200 correction; remediate SSH.NET pa
 investigate #196 Entra and #198 DPI/font behavior; restore #177 lab coverage; complete #192
 vendor/signing work; decide PR #199 and #179 UX. For #182/#197/#165, await the requested evidence
 and do not repeat the September 25 request before October 2.
+
+## Execution authorized — remaining work
+
+1. Upgrade SSH.NET and explicitly quote SCP paths for POSIX shells; verify literal-path uploads and SFTP on the disposable target.
+2. Add bounded Entra setting diagnostics in `RdpProtocol.cs`; investigate DPI and the Windows lab session replacement before another product fix.
+3. Integrate reviewed PR #199, build/test the combined changes, and publish the verified #200 correction through a reviewed PR and nightly.
+4. Submit the pristine #192 release sample to Microsoft; establish the actual signing-account prerequisites and retain submission evidence.
+5. Obtain #179 user feedback and retain the October 2 follow-up boundary for #182/#197/#165; do not invent external confirmations.

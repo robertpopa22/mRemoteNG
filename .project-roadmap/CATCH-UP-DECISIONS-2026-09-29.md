@@ -1,6 +1,7 @@
 # Maintainer decisions prepared on September 29
 
-These are reviewable next steps, not completed external actions. See the
+These record the initial decision baseline. For the subsequent authorized execution, see
+[current completion status](COMPLETION-STATUS-2026-09-29.md). See also the
 [catch-up plan](CATCH-UP-PLAN-2026-09-29.md) and [action register](issues-db/maintainer-actions.json).
 
 ## PR #199

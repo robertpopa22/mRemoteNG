@@ -8,15 +8,15 @@ mRemoteNG release binaries should carry an Authenticode signature, so users can 
 
 | Channel | Signing Status |
 |---------|---------------|
-| **Stable releases** (`vX.Y.Z` tags, currently 1.83.x) | :x: **Unsigned.** The workflow is wired for a SignPath `release-signing` policy and stays inert without the secrets |
+| **Stable releases** (`vX.Y.Z` tags, currently 1.84.0) | :x: **Unsigned.** The workflow is wired for a SignPath `release-signing` policy and stays inert without the secrets |
 | **Nightly builds** (main) | :x: **Unsigned.** Wired for a SignPath `test-signing` policy (a test certificate Windows does not trust, so it would only prove the pipeline, not earn reputation); inert without the secrets |
 | **Self-built** | :x: Unsigned (expected — user builds from source) |
 
-> **Honest status (2026-09-22):** no binary this fork has ever published carries an Authenticode
+> **Honest status (2026-09-29):** no binary this fork has ever published carries an Authenticode
 > signature — not the ZIPs, not the MSI, not v1.82.0, not v1.83.0, not the nightlies. That is
-> the missing piece behind #192, where Windows Defender quarantined `ExternalConnectors.dll`:
-> an unsigned library whose job is to read credential vaults and launch other programs' CLIs is
-> exactly what a heuristic engine distrusts.
+> an unresolved release property alongside #192, where Windows Defender quarantined
+> `ExternalConnectors.dll`. The absence of a signature does not establish the cause of the
+> detection or prove a false positive. A Microsoft analysis receipt is still required.
 >
 > The workflows key off `SIGNPATH_CONFIGURED`, a job-level flag that is `true` only when
 > **both** `SIGNPATH_API_TOKEN` and `SIGNPATH_ORGANIZATION_ID` exist as repository secrets. They
@@ -57,6 +57,22 @@ Nothing in this list can be done from the repository; it needs the maintainer's 
 GitHub accounts.
 
 ## Publisher
+
+### Current enrollment prerequisite
+
+The September 29 check found no configured signing secrets for this repository and no usable
+public-trust signing route. Local private-PKI or self-signed certificates are not substitutes
+for a publicly trusted publisher certificate.
+
+[Azure Artifact Signing](https://learn.microsoft.com/en-us/azure/artifact-signing/quickstart)
+currently accepts Public Trust organization validation in the EU; individual validation is
+limited to the US and Canada. It requires a chosen legal publisher, an Azure subscription,
+identity validation in the portal and a certificate profile. Provider selection, billing and
+identity validation are not completed by preparing CI code. A renewed SignPath Foundation
+application is the alternative, subject to its reputation review and approval.
+
+After enrollment, verify signatures on downloaded EXE/DLL payloads and the MSI, their timestamp
+and public trust chain on a clean machine. A successful signing API response alone is insufficient.
 
 - **Certificate Holder:** none yet. Under the SignPath route it would be SignPath Foundation; under
   another provider it would be the maintainer or the maintainer's organisation

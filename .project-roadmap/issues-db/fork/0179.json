@@ -8,7 +8,7 @@
   ],
   "author": "Buster-de",
   "created_at": "2026-09-03T19:57:41Z",
-  "github_updated_at": "2026-09-25T04:03:30Z",
+  "github_updated_at": "2026-09-29T10:46:38Z",
   "body_snippet": "Tested with:\n* mRemoteNG 1.83.0.3684\n* Commit `016d5b4b11c0b9c3e9744e05ff078ba24ab5e906`\n\nThere are multiple issues in the External Tools persistence path.\n\n## 1. External Tools are saved to SQL but never loaded from SQL\n\nWhen `UseSQLServer` is enabled, `ExternalAppsSaver.Save()` routes External Tools to SQL via `SaveToSql()`.\n\nRelevant code:\n\n* `mRemoteNG/Config/Settings/ExternalAppsSaver.cs`\n\nHowever, startup always loads External Tools from `extApps.xml`.\n\nRelevant code:\n\n* `mRemoteNG/Config/...",
   "our_status": "testing",
   "priority": null,
@@ -110,8 +110,8 @@
       "date": "2026-09-11T20:05:07Z",
       "snippet": "Tested using mRemoteNG-nightly-20260911-v1.83.0-ece4c32-x64.msi. The External Tools tab is more responsive now.\n\nHowever, I can no longer save an icon path.\n\nExample tool configuration:\n* **Filename:** `C:\\Program Files\\PowerShell\\7\\pwsh.exe`\n* **Arguments:** `-NoProfile -NonInteractive -Command \"Start-Process 'https://%hostname%'\"`\n* **Icon path:** `C:\\Program Files\\mRemoteNG\\Icons\\Web Server.ico`\n\nI click **Browse...**, select the icon, and click **Open**, but the icon path does not appear in ...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABUKkcSg",
@@ -119,7 +119,7 @@
       "date": "2026-09-12T19:39:41Z",
       "snippet": "Thank you for the retest and for the exact configuration — the icon path not appearing is a regression from the responsiveness change, and it was already latent before it.\n\n**Why the path vanished.** Every other tool property raises a change notification when set; `IconPath` did not (it has been a plain field since #1388). Setting it from the Browse dialog therefore never refreshed the text box, which was harmless while the form was committed only on focus loss. Once the form was committed on ev...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -128,8 +128,8 @@
       "date": "2026-09-13T19:55:04Z",
       "snippet": "Tested using mRemoteNG-nightly-20260912-v1.83.0-ec5794e-x64.msi. This issue on External Tools is fixed and can be closed.\n\n> On OK/Cancel/Apply: noted, and I agree the External Tools window is closer to Options than to connection properties. That is a design change rather than a fix, so it stays out of this issue; if you want to open it as a separate request it will get looked at on its own.\n\nI don't agree on having an automated pipeline implementing UX design changes without discussion within a...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABW0klOA",
@@ -137,14 +137,23 @@
       "date": "2026-09-25T04:03:29Z",
       "snippet": "Thank you for testing through all three rounds and confirming the tab is responsive again and the icon path issue is fixed. Closing this as fixed.\n\n**What shipped.** Three fixes, each landed in a nightly you verified directly: External Tools are now read back from the database instead of being a write-only mirror to XML (20260909); the icon is resolved once per source instead of once per keystroke, which was the sluggishness (20260911); and `IconPath` now raises a change notification so a browse...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABXv2SmA",
+      "author": "robertpopa22",
+      "date": "2026-09-29T10:46:38Z",
+      "snippet": "Your request for human discussion was right: agreement between models does not replace discussion with the people using the editor. We have updated the maintenance policy in #167 accordingly.\n\nThe maintainer has asked us to work through the remaining items. For the External Tools editor, the proposal is: **OK** saves and closes; **Apply** saves and keeps the editor open; **Cancel** discards edits made since opening or the last Apply. Invalid values would keep the editor open with an explanation....",
+      "is_ours": true,
+      "analyzed": true,
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-25T04:03:30Z",
-  "unread_comments": 2,
-  "needs_action": true,
+  "comments_cursor": "2026-09-29T10:46:38Z",
+  "unread_comments": 0,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-25T04:56:38Z",
+  "last_synced": "2026-09-29T11:15:03Z",
   "notes": "Round 2 shipped f5b1acde3, reply posted."
 }

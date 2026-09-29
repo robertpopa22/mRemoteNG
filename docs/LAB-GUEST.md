@@ -145,12 +145,15 @@ learn, so they are written down here once:
   everything else gated on `loginComplete` therefore skips with "login not complete" in the
   verbose log. xrdp is fine for connect/disconnect lifecycle and memory measurements; it cannot
   exercise the resize/reconnect path at all. That needs the Windows target.
-- **The Windows target currently replaces the session moments after logon** — RDP disconnect
-  reason 3, extended reason 5, "another connection was made to the remote computer" — so a
-  scenario that needs a session to stay up for several seconds cannot run against it yet.
-  Disabling its console autologon does not fix it. A scenario that hits this should
-  `Assert.Ignore` rather than fail, the way `RdpSplitterRedrawAcceptanceTests` does: an
-  unreproducible run proves nothing and must not read as a verdict.
+- **Windows target session replacement was resolved on September 29.** Both `AutoAdminLogon`
+  and `ForceAutoLogon` were `1` under Winlogon on the connection target, causing a local console
+  reconnection to replace the RDP session. Both were changed to `0` on **WinTarget only**, with
+  previous values retained for rollback. The UI runner guest still needs its interactive logon.
+  The Windows scenario then completed all four splitter drags with `OnLoginComplete` observed
+  and session widths 600, 760, 840 and 760 pixels. Screenshots showed no persistent stale frame
+  after the drags. This does not establish the absence of a transient artifact during dragging
+  or reproduce every sizing mode. If a target disconnects again, report the scenario as
+  unexecuted rather than treating absence of a live session as a pass.
 - **An unattended upgrade on the Linux target can break every session until it is rebooted.**
   Ubuntu's `unattended-upgrade` restarts `xrdp`/`xrdp-sesman` after installing packages, and the
   desktop session that was already running is orphaned from the new `xrdp-sesman`. Every new
