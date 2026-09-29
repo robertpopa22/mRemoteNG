@@ -11,7 +11,7 @@
   "github_updated_at": "2026-09-25T04:03:28Z",
   "body_snippet": "During testing with `mRemoteNG-nightly-20260909-v1.83.0-00cd029-x64.msi` to validate issue #179, I noticed that opening an RDP connection increases the process's memory usage (active private working set) by roughly 300 MB in my environment.\n\nAfter opening and closing several RDP connections, including closing their tabs and panels, the allocated memory does not appear to be released.\n\nHow to reproduce\n* Open and close several RDP sessions.\n  * I had 8 different concurrent sessions in 3 different...",
   "our_status": "testing",
-  "priority": null,
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
@@ -45,6 +45,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-09-29",
+      "type": "testing",
+      "description": "September 29 evidence review; publication and resolution remain separate.",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -72,8 +82,8 @@
       "date": "2026-09-11T19:32:13Z",
       "snippet": "tested using mRemoteNG-nightly-20260911-v1.83.0-ece4c32-x64.msi\n\nmeasure-rdp-memory.ps1 output:\n> Watching mRemoteNG (PID 9452). Baseline private bytes: 49 MB.\n> Open an RDP session, let the desktop paint, close its tab. Repeat 3-4 times.\n> Press Enter here when the last tab is closed and everything has settled.\n> \n>   t+  13s      55 MB  (+6 MB)\n>   t+  15s      61 MB  (+6 MB)\n>   t+  16s      66 MB  (+5 MB)\n>   t+  36s     200 MB  (+134 MB)\n>   t+  38s     205 MB  (+5 MB)\n>   t+  41s     119 M...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABUKkb7w",
@@ -81,7 +91,7 @@
       "date": "2026-09-12T19:39:40Z",
       "snippet": "Thank you for running it and for pasting the whole series — the raw numbers are what exposed two things, both ours.\n\n**The script's verdict was wrong.** \"No accumulation\" over a process that went from 49 MB to 1036 MB is nonsense. An RDP desktop painting swings private bytes by hundreds of MB from one second to the next; the script's peak-and-trough guess turned your four or five sessions into fifteen and averaged the noise. The number that matters is the plain one — **+987 MB kept after everyth...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -90,8 +100,8 @@
       "date": "2026-09-13T19:45:54Z",
       "snippet": "tested using mRemoteNG-nightly-20260912-v1.83.0-ec5794e-x64.msi\n\nmeasure-rdp-memory.ps1 output:\n> Watching mRemoteNG (PID 7516). Baseline private bytes: 73 MB.\n> Open an RDP session, let the desktop paint, close its tab, wait a few seconds,\n> then press Enter here. Repeat three or four times. Type q and press Enter when done.\n> \n> \n>   session 1: peak while open 525 MB, after close 74 MB (+1 MB above baseline)\n> \n>   session 2: peak while open 514 MB, after close 73 MB (0 MB above baseline)\n> \n>...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABW0kkag",
@@ -99,14 +109,14 @@
       "date": "2026-09-25T04:03:28Z",
       "snippet": "Thank you for running the measurement again, per session, and for pasting the log. Your numbers settle the original report: about 452 MB for the first session and roughly 0 MB kept after each later close. The leak this issue was opened for is fixed on your machine, not just in our lab.\n\nYou also reported two new problems on that build, and we owe you an answer on both. Sorry this took eleven days.\n\n1. Closing a connection panel (X, then both prompts) sometimes closes the session tab but leaves t...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     }
   ],
   "comments_cursor": "2026-09-25T04:03:28Z",
-  "unread_comments": 2,
-  "needs_action": true,
+  "unread_comments": 0,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-25T04:56:38Z",
-  "notes": "Round 2 shipped 791ede63a, reply posted; awaiting reporter log lines + per-close numbers. Attempt budget exhausted."
+  "last_synced": "2026-09-29T11:15:03Z",
+  "notes": "September 29 review: reporter confirmed memory fix, not panel-close/shutdown fix. September 25 diagnostic round follows two attempted fixes. Await [#182-diag] trace; no repeat ping before October 2. Further failure requires human review."
 }

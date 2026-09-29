@@ -1,8 +1,12 @@
 using System;
 using System.Linq;
+using System.IO;
 using System.Runtime.Versioning;
 using FlaUI.Core.AutomationElements;
+using FlaUI.Core.Capturing;
 using FlaUI.Core.Definitions;
+using FlaUI.Core.Input;
+using FlaUI.Core.WindowsAPI;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNGSpecs.Support;
 using NUnit.Framework;
@@ -63,6 +67,74 @@ namespace mRemoteNGSpecs.Fixtures
             TestContext.Out.WriteLine($"rows loaded: {rows.Length}");
             Assert.That(rows, Does.Contain("db-primary"),
                         "the matching connection is missing, so the filter tests below would be vacuous");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        [Issues("#200")]
+        public void OpeningAnotherConnectionsFileReplacesTheVisibleTree(bool reloadLayout)
+        {
+            if (reloadLayout)
+                SaveAndReloadLayout();
+
+            ConnectionsSeeder replacement = new();
+            replacement.Add("replacement-only", "127.0.0.1", ProtocolType.SSH2, 1);
+            string path = Path.Combine(Deployment.Directory, "replacement.xml");
+            File.WriteAllText(path, replacement.Build());
+
+            MainWindow.Focus();
+            Keyboard.TypeSimultaneously(VirtualKeyShort.CONTROL, VirtualKeyShort.KEY_O);
+            // Native modal dialogs can block the owner's UIA provider.
+            UiWait.Until(() => Win32Dialogs.Find([Driver.Application.ProcessId]).Any(d => d.Title == "Open"),
+                "connection file picker", TimeSpan.FromSeconds(15));
+            Keyboard.TypeSimultaneously(VirtualKeyShort.ALT, VirtualKeyShort.KEY_N);
+            Keyboard.Type(path);
+            Keyboard.Press(VirtualKeyShort.RETURN);
+            Keyboard.Release(VirtualKeyShort.RETURN);
+
+            Win32Dialogs.Dialog? question = null;
+            UiWait.Until(() => (question = Win32Dialogs.Find([Driver.Application.ProcessId])
+                .FirstOrDefault(d => d.Text.StartsWith("Replace current connections with this file", StringComparison.Ordinal))) is not null,
+                "replace-or-add question", TimeSpan.FromSeconds(15));
+            Keyboard.TypeSimultaneously(VirtualKeyShort.ALT, VirtualKeyShort.KEY_Y);
+            UiWait.Until(() => VisibleConnectionRows().Contains("replacement-only"),
+                "replacement connections to appear", TimeSpan.FromSeconds(20));
+            Assert.That(VisibleConnectionRows(), Does.Not.Contain("db-primary"));
+            AssertNoCrash("after File > Open > Replace");
+            Assert.That(Deployment.ReadAppLog(), Does.Not.Contain("Invoke or BeginInvoke cannot be called"));
+            string evidence = Path.Combine(Path.GetDirectoryName(Deployment.Directory)!, "_evidence", "tree-file-open");
+            Directory.CreateDirectory(evidence);
+            string screenshot = Path.Combine(evidence, reloadLayout ? "after-layout-reload.png" : "normal-open.png");
+            Capture.Element(MainWindow).ToFile(screenshot);
+            TestContext.AddTestAttachment(screenshot);
+            TestContext.Out.WriteLine("File > Open > Replace showed replacement-only and removed db-primary; no handle exception.");
+        }
+
+        private AutomationElement ViewMenuItem(string name)
+        {
+            UiWait.FindRequired(MainWindow,
+                cf => cf.ByName("View").And(cf.ByControlType(ControlType.MenuItem)), "View menu")
+                .Patterns.ExpandCollapse.Pattern.Expand();
+            return UiWait.FindRequired(Driver.Automation.GetDesktop(),
+                cf => cf.ByName(name).And(cf.ByControlType(ControlType.MenuItem)), name);
+        }
+
+        private void SaveAndReloadLayout()
+        {
+            ViewMenuItem("Save Layout...").Click();
+            AutomationElement save = UiWait.FindRequired(Driver.Automation.GetDesktop(),
+                cf => cf.ByAutomationId("FrmInputBox"), "layout name prompt");
+            UiWait.FindRequired(save, cf => cf.ByAutomationId("textBox"), "layout name")
+                .AsTextBox().Text = "file-open-repro";
+            UiWait.FindRequired(save, cf => cf.ByAutomationId("_Ok"), "save layout")
+                .AsButton().Invoke();
+            UiWait.Settle(MainWindow);
+            ViewMenuItem("Load Layout").Click();
+            UiWait.FindRequired(Driver.Automation.GetDesktop(),
+                cf => cf.ByName("file-open-repro").And(cf.ByControlType(ControlType.MenuItem)), "saved layout")
+                .Click();
+            UiWait.Settle(MainWindow);
+            AssertNoCrash("after reloading the saved layout");
         }
 
         /// <summary>

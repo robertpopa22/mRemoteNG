@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.UIA3;
@@ -53,8 +54,23 @@ namespace mRemoteNGSpecs.Drivers
             _automation = new UIA3Automation();
             _application = Application.Launch(exePath);
 
-            var mainWindow = _application.GetMainWindow(_automation, timeout ?? TimeSpan.FromSeconds(30));
-            return mainWindow;
+            TimeSpan budget = timeout ?? TimeSpan.FromSeconds(30);
+            Stopwatch wait = Stopwatch.StartNew();
+            TimeoutException? lastTimeout = null;
+            while (wait.Elapsed < budget && !_application.HasExited)
+            {
+                try
+                {
+                    return _application.GetMainWindow(_automation, budget - wait.Elapsed);
+                }
+                catch (TimeoutException ex)
+                {
+                    // The native handle can exist before its UIA provider answers during startup.
+                    lastTimeout = ex;
+                    Thread.Sleep(200);
+                }
+            }
+            throw new TimeoutException($"Main window did not become accessible within {budget.TotalSeconds}s.", lastTimeout);
         }
 
         /// <summary>

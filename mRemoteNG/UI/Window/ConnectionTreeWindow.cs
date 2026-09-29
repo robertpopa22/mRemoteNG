@@ -58,6 +58,25 @@ namespace mRemoteNG.UI.Window
             ApplyLanguage();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Runtime.ConnectionsService.ConnectionsLoaded -= ConnectionsServiceOnConnectionsLoaded;
+                Settings.Default.PropertyChanged -= OnAppSettingsChanged;
+                OptionsConnectionsPage.Default.PropertyChanged -= OnConnectionsPageSettingChanged;
+                if (_themeManager != null)
+                    _themeManager.ThemeChanged -= ApplyTheme;
+                if (_subscribedSyncronizer != null)
+                {
+                    _subscribedSyncronizer.ConnectionsReloadedExternally -= OnConnectionsReloadedExternally;
+                    _subscribedSyncronizer = null;
+                }
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
             if (DevLog.IsEnabled && (m.Msg == 0x0021 || m.Msg == 0x0201 || m.Msg == 0x0210))

@@ -23,6 +23,7 @@ namespace mRemoteNG.Tools
         public SftpClient? SftpClt;
         public SftpUploadAsyncResult? asyncResult;
         public AsyncCallback? asyncCallback;
+        private FileStream? _uploadStream;
 
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace mRemoteNG.Tools
         {
             if (Protocol == SSHTransferProtocol.SCP)
             {
-                ScpClt = new ScpClient(Host, Port, User, Password);
+                ScpClt = CreateScpClient();
                 ScpClt.Connect();
             }
 
@@ -92,6 +93,9 @@ namespace mRemoteNG.Tools
                 SftpClt?.Disconnect();
             }
         }
+
+        internal ScpClient CreateScpClient() =>
+            new(Host, Port, User, Password, RemotePathTransformation.ShellQuote);
 
 
         public void Upload()
@@ -122,9 +126,17 @@ namespace mRemoteNG.Tools
                     return;
                 }
 
-                asyncResult =
-                    (SftpUploadAsyncResult)SftpClt.BeginUploadFile(new FileStream(srcFile, Open), dstFile,
-                        asyncCallback);
+                _uploadStream = new FileStream(srcFile, Open, FileAccess.Read, FileShare.Read);
+                try
+                {
+                    asyncResult = (SftpUploadAsyncResult)SftpClt.BeginUploadFile(_uploadStream, dstFile, asyncCallback);
+                }
+                catch
+                {
+                    _uploadStream.Dispose();
+                    _uploadStream = null;
+                    throw;
+                }
             }
         }
 
@@ -145,7 +157,8 @@ namespace mRemoteNG.Tools
 
             if (Protocol == SSHTransferProtocol.SFTP)
             {
-                SftpClt?.Dispose();
+                try { SftpClt?.Dispose(); }
+                finally { _uploadStream?.Dispose(); }
             }
         }
 

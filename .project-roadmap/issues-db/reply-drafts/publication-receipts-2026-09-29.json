@@ -1,0 +1,51 @@
+{
+  "authorized_at": "2026-09-29",
+  "verified_at": "2026-09-29T09:42:12.364924+00:00",
+  "repository": "robertpopa22/mRemoteNG",
+  "actions": [
+    {
+      "issue": 200,
+      "action": "comment",
+      "url": "https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448",
+      "id": "IC_kwDORKxwDc8AAAABXu5ueA",
+      "created_at": "2026-09-29T09:40:53Z",
+      "body_sha256": "66ac3112a6b26b4d4720752cd7ee2bd69435c67dce3bc6693dc3abb8b7426c42",
+      "readback": "exact text matched; issue remains open"
+    },
+    {
+      "issue": 196,
+      "action": "comment",
+      "url": "https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259",
+      "id": "IC_kwDORKxwDc8AAAABXu55cw",
+      "created_at": "2026-09-29T09:41:05Z",
+      "body_sha256": "83dd50d821f2bd8e56b8eaa8975ec3b1ea871bb9a56f9c6fb8bbbccc4e8e53f5",
+      "readback": "exact text matched; issue remains open"
+    },
+    {
+      "issue": 198,
+      "action": "comment",
+      "url": "https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5887657061",
+      "id": "IC_kwDORKxwDc8AAAABXu6EZQ",
+      "created_at": "2026-09-29T09:41:16Z",
+      "body_sha256": "878078a0d6141a02d39c37feece3754777280a1f9faf208c0e80b40acbc623e3",
+      "readback": "exact text matched; issue remains open"
+    },
+    {
+      "issue": 192,
+      "action": "comment",
+      "url": "https://github.com/robertpopa22/mRemoteNG/issues/192#issuecomment-5887659794",
+      "id": "IC_kwDORKxwDc8AAAABXu6PEg",
+      "created_at": "2026-09-29T09:41:27Z",
+      "body_sha256": "aa8a4da6f1a9327ce50ed451dda432a7b65820986a6fff4acbde7dd34adaece7",
+      "readback": "exact text matched; issue remains open"
+    },
+    {
+      "issue": 167,
+      "action": "replace body",
+      "url": "https://github.com/robertpopa22/mRemoteNG/issues/167",
+      "updated_at": "2026-09-29T09:41:47Z",
+      "body_sha256": "edb70314c8c81765d48e4e2dbefac042d5f9933d7cb4205604e888c95eb252c6",
+      "readback": "exact text matched; title unchanged; pinned"
+    }
+  ]
+}

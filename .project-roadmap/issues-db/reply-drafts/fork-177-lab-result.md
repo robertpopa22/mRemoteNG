@@ -1,0 +1,5 @@
+We have resolved the Windows lab provisioning problem: forced console autologon was replacing the remote session. With that removed on the disposable target, the existing UI scenario now reaches `OnLoginComplete` and completes all four splitter drags against Windows.
+
+The resize trace reaches 600, 760, 840 and 760 pixels, and the retained screenshots show the remote desktop redrawn after each drag. We did not observe a persistent stale frame in that Fit-to-window scenario. This does not prove there is no transient artifact while dragging or reproduce a different sizing mode, so we are not claiming a product fix for your report.
+
+The missing evidence remains the short capture of the problematic direction and the connection's sizing mode (Fit to window, Smart size, or fixed resolution). The earlier source theory that the splitter never reaches the resize handler is contradicted by the live trace; we will use the capture to target the remaining behavior rather than add a speculative redraw fix.

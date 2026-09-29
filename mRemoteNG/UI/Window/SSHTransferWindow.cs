@@ -172,8 +172,9 @@ namespace mRemoteNG.UI.Window
             // radProtSFTP
             // 
             radProtSFTP.AutoSize = true;
+            radProtSFTP.Checked = true;
             radProtSFTP.FlatStyle = FlatStyle.Flat;
-            radProtSFTP.Location = new System.Drawing.Point(164, 113);
+            radProtSFTP.Location = new System.Drawing.Point(265, 113);
             radProtSFTP.Name = "radProtSFTP";
             radProtSFTP.Size = new System.Drawing.Size(47, 17);
             radProtSFTP.TabIndex = 90;
@@ -183,14 +184,13 @@ namespace mRemoteNG.UI.Window
             // radProtSCP
             // 
             radProtSCP.AutoSize = true;
-            radProtSCP.Checked = true;
             radProtSCP.FlatStyle = FlatStyle.Flat;
             radProtSCP.Location = new System.Drawing.Point(105, 113);
             radProtSCP.Name = "radProtSCP";
             radProtSCP.Size = new System.Drawing.Size(43, 17);
             radProtSCP.TabIndex = 80;
             radProtSCP.TabStop = true;
-            radProtSCP.Text = "SCP";
+            radProtSCP.Text = "SCP (POSIX shell)";
             radProtSCP.UseVisualStyleBackColor = true;
             // 
             // lblProtocol
@@ -469,13 +469,14 @@ namespace mRemoteNG.UI.Window
                         SshTransfer_Progress(cur, max);
                         Thread.Sleep(50);
                     }
+                    if (st.asyncResult is not null)
+                        st.SftpClt?.EndUploadFile(st.asyncResult);
                 }
 
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                                                     $"Transfer of {Path.GetFileName(st.SrcFile)} completed.", true);
                 st.Disconnect();
                 st.Dispose();
-                EnableButtons();
             }
             catch (Exception ex)
             {
@@ -483,6 +484,10 @@ namespace mRemoteNG.UI.Window
                                                                 MessageClass.ErrorMsg, false);
                 st?.Disconnect();
                 st?.Dispose();
+            }
+            finally
+            {
+                EnableButtons();
             }
         }
 

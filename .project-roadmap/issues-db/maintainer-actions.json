@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-29",
+  "note": "Maintainer obligations, independent of inbound-comment flags. Sync does not clear these. Mark done only with linked completion evidence.",
+  "actions": [
+    {
+      "id": "fork-167-disclosure",
+      "repo": "fork",
+      "priority": "P3-enhancement",
+      "status": "done",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/167",
+      "source_updated_at": "2026-08-15T17:24:52Z",
+      "next_action": "None; approved body published and read back, with title and pin preserved.",
+      "completion_evidence": {
+        "issue": 167,
+        "action": "replace body",
+        "url": "https://github.com/robertpopa22/mRemoteNG/issues/167",
+        "updated_at": "2026-09-29T09:41:47Z",
+        "body_sha256": "edb70314c8c81765d48e4e2dbefac042d5f9933d7cb4205604e888c95eb252c6",
+        "readback": "exact text matched; title unchanged; pinned"
+      }
+    },
+    {
+      "id": "sshnet-scp-advisories",
+      "repo": "fork",
+      "priority": "P1-security",
+      "status": "in-progress",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/sshnet/SSH.NET/security/advisories/GHSA-mggc-4xg6-vcxf",
+      "next_action": "Implemented in ab7b7c083: SSH.NET 2026.0.0, explicit POSIX quoting, SFTP default and stream/error cleanup; 16 real literal-path uploads passed. Publish the verified code.",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+    },
+    {
+      "id": "fork-200",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "in-progress",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/200",
+      "next_action": "Disposed-window cleanup passed both real File/Open scenarios. Publish the combined build, then obtain reporter confirmation.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+    },
+    {
+      "id": "fork-198",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "in-progress",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/198",
+      "next_action": "Checkbox metrics added; real UI passed at measured 96 DPI. Attempted 150% configuration still measured 96 DPI. Await reporter build/scaling and mixed-font evidence.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5887657061",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+    },
+    {
+      "id": "fork-196",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "in-progress",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/196",
+      "next_action": "Diagnostics implemented and tested in the real app: EnableRdsAadAuth accepted; RedirectWebAuthn rejected with 0x8000FFFF. Publish diagnostics and obtain the matching Entra result; no sign-in fix established.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+    },
+    {
+      "id": "fork-192",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "blocked",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/192",
+      "next_action": "Verified pristine v1.82.0 sample and submission explanation are ready. Microsoft portal requires maintainer sign-in; public signing requires provider/legal-publisher selection. No submission receipt or public signer yet.",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/192#issuecomment-5887659794",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+    },
+    {
+      "id": "fork-177",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "waiting-reporter",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/177",
+      "next_action": "Lab repaired and four connected Windows splitter drags passed; result published. Await sizing mode and capture of transient artifact; persistent screenshots do not settle it.",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/177#issuecomment-5888837848"
+    },
+    {
+      "id": "fork-pr-199",
+      "repo": "fork",
+      "priority": "P4-debt",
+      "status": "in-progress",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/pull/199",
+      "next_action": "Exact PR head merged locally; dependencies label created and applied. Publish integration and verify remote merged state.",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md"
+    },
+    {
+      "id": "fork-179-ux",
+      "repo": "fork",
+      "priority": "P3-enhancement",
+      "status": "waiting-reporter",
+      "owner": "maintainer",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/179",
+      "next_action": "OK/Apply/Cancel proposal published for human discussion; await affected-user feedback before implementation.",
+      "evidence": ".project-roadmap/COMPLETION-STATUS-2026-09-29.md",
+      "published_response": "https://github.com/robertpopa22/mRemoteNG/issues/179#issuecomment-5888643736"
+    },
+    {
+      "id": "fork-182-follow-up",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "waiting-reporter",
+      "owner": "reporter",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/182",
+      "next_action": "Await the September 25 evidence request. One follow-up no earlier than October 2; no speculative fix or closure over contradictory feedback.",
+      "follow_up_not_before": "2026-10-02"
+    },
+    {
+      "id": "fork-197-follow-up",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "waiting-reporter",
+      "owner": "reporter",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/197",
+      "next_action": "Await the September 25 evidence request. One follow-up no earlier than October 2; no speculative fix or closure over contradictory feedback.",
+      "follow_up_not_before": "2026-10-02"
+    },
+    {
+      "id": "fork-165-follow-up",
+      "repo": "fork",
+      "priority": "P2-bug",
+      "status": "waiting-reporter",
+      "owner": "reporter",
+      "reviewed_at": "2026-09-29",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/165",
+      "next_action": "Await the September 25 evidence request. One follow-up no earlier than October 2; no speculative fix or closure over contradictory feedback.",
+      "follow_up_not_before": "2026-10-02"
+    }
+  ]
+}

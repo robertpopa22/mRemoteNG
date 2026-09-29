@@ -1,0 +1,71 @@
+{
+  "number": 200,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.InvalidOperationException: Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn ...",
+  "state": "open",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-09-28T13:11:05Z",
+  "github_updated_at": "2026-09-29T09:40:54Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidOperationException`\r\n**Message:** Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn das Fensterhandle erstellt wurde.\r\n\r\n### Stack Trace\r\n```\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object[] args, bool synchronous)\r\n   at object System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at void mRemoteNG.UI.Controls.ConnectionTree.ConnectionTree.InvokeRebuild...",
+  "our_status": "in-progress",
+  "priority": "P2-bug",
+  "target_release": null,
+  "our_branch": "chore/september-response-catch-up",
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-09-29",
+      "type": "in-progress",
+      "description": "September 29 evidence review; publication and resolution remain separate.",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-09-29",
+      "type": "in-progress",
+      "description": "Reproduced after saved-layout reload; local disposal cleanup passed full suite and File/Open UI checks. Publication pending.",
+      "pr": null,
+      "branch": "chore/september-response-catch-up",
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-09-29",
+      "type": "in-progress",
+      "description": "Authorized publication of the September 29 evidence-reviewed response; unresolved work remains open.",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": true,
+      "comment_url": "https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448",
+      "comment_id": "IC_kwDORKxwDc8AAAABXu5ueA"
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABXu5ueA",
+      "author": "robertpopa22",
+      "date": "2026-09-29T09:40:53Z",
+      "snippet": "We reproduced the same exception in the built application: save and reload a layout, then File → Open → Replace with another connection file.\r\nThe old Connections pane had been destroyed but was still receiving the file-loaded event, so it tried to rebuild a tree whose window handle no longer existed.\r\nThe local fix disconnects the disposed pane from those events. The full 7,323-test suite passes, and both normal File/Open and File/Open after layout reload now display the replacement tree withou...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-09-29T09:40:54Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-29T09:42:16Z",
+  "notes": "Local #200 fix: disposed Connections pane unsubscribes service, settings, theme and synchronizer events. Full suite 7323/7323 passed; normal and reloaded-layout File/Open show replacement-only without the handle exception. See CATCH-UP-PLAN-2026-09-29.md for artifact hash. Code not published and not reporter-confirmed. Approved response published and read back: https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448"
+}

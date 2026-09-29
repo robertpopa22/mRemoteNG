@@ -3,6 +3,14 @@
 **MANDATORY**: This system MUST be used for all issue tracking, triage, and release communication.
 Do NOT manage issues manually — always use the scripts below for consistency.
 
+Response policy: [ISSUE-RESPONSE-WORKFLOW.md](../../docs/ISSUE-RESPONSE-WORKFLOW.md).
+Templates are incomplete drafts, not sendable status announcements. `--post-comment` requires
+a reviewed UTF-8 `--comment-file`, no unresolved `{{FIELDS}}`, explicit send authorization and
+an unchanged thread since sync. Automated fix runs create local `reply-drafts/` instead of
+announcing an unverified build. Read back any authorized public comment after sending.
+Use `analyze --repos fork --waiting-only` for fork intake; also track maintainer promises and
+PRs, which the last-speaker flag and issue-only sync cannot cover.
+
 ## Overview
 
 A git-tracked JSON database that syncs GitHub issues from both upstream (`mRemoteNG/mRemoteNG`) and fork (`robertpopa22/mRemoteNG`) repositories. Provides lifecycle tracking, iteration detection, automated GitHub comments, and markdown reports.

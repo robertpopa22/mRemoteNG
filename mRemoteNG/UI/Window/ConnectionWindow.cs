@@ -1094,18 +1094,24 @@ namespace mRemoteNG.UI.Window
         private void Connection_FormClosing(object sender, FormClosingEventArgs e)
         {
             long diagStart = ClosePathDiagnostics.Now();
-            ClosePathDiagnostics.Log($"panel '{Text}' FormClosing: reason {e.CloseReason}, tabs {connDock.Documents.Count()}, app closing {FrmMain.Default.IsClosing}, confirm setting {Settings.Default.ConfirmCloseConnection}");
+            // Count only tabs that are still alive. Closing the last tab disposes its protocol, the
+            // protocol's Closed handler (HandleProtocolClosed) calls ClosePanelIfEmpty, and the
+            // queued close runs in a message pump nested inside that tab's Dispose -- before
+            // DockPanelSuite has removed it from connDock.Contents. Counting it asked the user a
+            // second time about a connection they had just confirmed closing.
+            int liveTabs = LiveConnectionTabCount();
+            ClosePathDiagnostics.Log($"panel '{Text}' FormClosing: reason {e.CloseReason}, tabs {connDock.Documents.Count()}, live tabs {liveTabs}, app closing {FrmMain.Default.IsClosing}, confirm setting {Settings.Default.ConfirmCloseConnection}");
             if (!FrmMain.Default.IsClosing &&
-                (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All & connDock.Documents.Any() ||
+                (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All & liveTabs > 0 ||
                  Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
-                 connDock.Documents.Count() > 1))
+                 liveTabs > 1))
             {
                 DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName, string.Format(CultureInfo.CurrentCulture, Language.ConfirmCloseConnectionPanelMainInstruction, Text), "", "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.DisconnectCancel, ESysIcons.Question, ESysIcons.Question);
                 if (CTaskDialog.VerificationChecked)
                 {
                     if (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All)
                     {
-                        Settings.Default.ConfirmCloseConnection = connDock.Documents.Count() == 1
+                        Settings.Default.ConfirmCloseConnection = liveTabs == 1
                             ? (int)ConfirmCloseEnum.Multiple
                             : (int)ConfirmCloseEnum.Exit;
                     }
@@ -1141,7 +1147,7 @@ namespace mRemoteNG.UI.Window
                 foreach (IDockContent dockContent in connDock.Documents.ToArray())
                 {
                     ConnectionTab tabP = (ConnectionTab)dockContent;
-                    if (tabP.Tag == null) continue;
+                    if (tabP.Tag == null || tabP.IsDisposed || tabP.Disposing) continue;
                     tabP.silentClose = true;
                     long tabStart = ClosePathDiagnostics.Now();
                     tabP.Close();
@@ -1324,16 +1330,18 @@ namespace mRemoteNG.UI.Window
         // of the panel and back, which is what made the comparison above report a switch. (#143)
         private WeifenLuo.WinFormsUI.Docking.IDockContent? _lastActivatedContent;
 
-        private bool HasConnectionTabs()
+        private bool HasConnectionTabs() => LiveConnectionTabCount() > 0;
+
+        private int LiveConnectionTabCount()
         {
             if (connDock == null || connDock.IsDisposed)
             {
-                return false;
+                return 0;
             }
 
             return connDock.DocumentsToArray()
                 .OfType<ConnectionTab>()
-                .Any(tab => !tab.IsDisposed && !tab.Disposing);
+                .Count(tab => !tab.IsDisposed && !tab.Disposing);
         }
 
         private void ClosePanelIfEmpty()

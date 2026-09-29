@@ -190,35 +190,30 @@ namespace mRemoteNGSpecs.Fixtures
             int before = TabCount();
             AutomationElement tab = MainWindow
                 .FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
-                .First(t => SafeName(t).Contains("lab-linux-ssh", StringComparison.OrdinalIgnoreCase));
+                .First(t => LabTargets.IsLinuxSshTab(SafeName(t), "lab-linux-ssh"));
 
             Support.Win32Mouse.MiddleClick(tab);
             UiWait.Settle(MainWindow);
 
-            // The application asks before closing a panel that still holds a live connection --
-            // legitimate behaviour, not the #142 defect. First live run of this scenario surfaced the
-            // exact wording ("Are you sure you want to close the panel... Any connections that it
-            // contains will also be closed"), which ModalDialogs did not yet recognise; it does now.
+            // The application asks before closing a tab that holds a live connection -- legitimate
+            // behaviour, not the #142 defect. The tab used to borrow the panel's wording ("Are you
+            // sure you want to close the panel..."); it now asks "Are you sure you want to
+            // disconnect ...?". ModalDialogs recognises both.
             AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
 
             AssertNoCrash("after middle-clicking the session tab to close it — the #142 NRE");
 
-            // What "closed" means here is decided by KeepTabsOpenAfterDisconnect, and this battery
-            // runs on defaults, where it is TRUE: answering Disconnect closes the PROTOCOL but the
-            // tab deliberately stays as a reconnect placeholder (ConnectionTab.OnFormClosing sets
-            // e.Cancel under that setting — #61, and #139 documents the default). The original
-            // assertion here waited for TabCount() to drop, which that design makes impossible;
-            // it failed deterministically on every code/binary combination once the guest ran the
-            // scenario to this point (proved 2026-08-31 by A/B against the pre-change snapshot).
-            // What #142 actually needs proven is the path through
-            // DockPaneStripNG.MiddleClickCloseTab -> QueueCloseTab without the NRE - the
-            // AssertNoCrash above - plus the tab landing in its disconnected state instead of a
-            // zombie session: the closed-state panel's "Connect" reconnect button.
-            UiWait.Until(() => TabCount() == before &&
-                               MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.Button))
-                                         .Any(b => SafeName(b).Equals("Connect", StringComparison.Ordinal)),
-                         "the tab to stay open showing its disconnected state (Connect button)",
-                         TimeSpan.FromSeconds(10));
+            // What #142 needs proven is the path through DockPaneStripNG.MiddleClickCloseTab ->
+            // QueueCloseTab without the NRE (the AssertNoCrash above), and the tab actually going.
+            // Until PR #158 (merged 2026-09-16) KeepTabsOpenAfterDisconnect kept every closed tab as
+            // a reconnect placeholder, and this waited for that placeholder. Since then the setting
+            // applies only to the Disconnect command; closing the tab takes it down (measured in the
+            // lab on 2026-09-25: the tab and its emptied panel both closed). The old wait was masked
+            // for a while by the tab lookup above, which missed the tab once PuTTY retitled it.
+            UiWait.Until(() => TabCount() == before - 1 &&
+                               !MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
+                                          .Any(t => LabTargets.IsLinuxSshTab(SafeName(t), "lab-linux-ssh")),
+                         "the closed session tab to go", TimeSpan.FromSeconds(15));
         }
 
         /// <summary>

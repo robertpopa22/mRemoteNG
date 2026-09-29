@@ -173,6 +173,15 @@ input the primary attack surface, and a green test suite no proof of safety.
 
 ## Reporter Communication & Transparency (MANDATORY for every GitHub reply)
 
+Follow [the response workflow](docs/ISSUE-RESPONSE-WORKFLOW.md) for intake, per-symptom
+disposition, build evidence, outstanding maintainer actions, and reply review. The September
+review and current reply drafts are in
+[the monthly review](.project-roadmap/RESPONSE-REVIEW-2026-09-29.md). IIS templates are drafts,
+not evidence: automated fix runs prepare local replies; public posting requires a completed
+`--comment-file` and explicit authorization. `analyze --repos fork --waiting-only` separates
+our incoming replies from the upstream backlog. Also review outstanding promises where we
+spoke last; `waiting_for_us=false` does not mean our work is complete.
+
 This fork is maintained by an **automated pipeline**: fixes are developed and verified by automated
 builds and an automated test suite. The maintainers also run mRemoteNG daily on the latest build,
 so real human use does happen — what is missing is the ability to reproduce a *specific reporter's*
@@ -181,8 +190,8 @@ issue **the reporter's confirmation is the only real end-to-end verification**. 
 in either direction: do not claim a QA team tested their scenario, and do not claim nobody uses the
 software. Communication must reflect that honestly:
 
-1. **Never imply human testing happened.** Write "the automated test suite passes and the change is
-   in the next nightly — your environment is the real test", not "this is fixed". Announce every
+1. **Never imply human testing happened without evidence.** State only the checks actually run
+   and the build actually published; a commit is not proof of a downloadable nightly. Announce every
    automated fix with humility: we provide the engineering, infrastructure and model updates; the
    reporter provides the ground truth. Their testing is the most valuable contribution the project
    receives, and any suggestion or log they add is genuine debugging help — say so.

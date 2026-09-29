@@ -5,19 +5,18 @@
     "upstream": "mRemoteNG/mRemoteNG",
     "fork": "robertpopa22/mRemoteNG"
   },
-  "last_sync": "2026-09-25T04:56:38Z",
+  "last_sync": "2026-09-29T11:15:03Z",
   "last_sync_stats": {
     "repos_synced": [
-      "mRemoteNG/mRemoteNG",
       "robertpopa22/mRemoteNG"
     ],
-    "issues_new": 3,
-    "issues_updated": 848,
+    "issues_new": 0,
+    "issues_updated": 5,
     "issues_error": 0,
-    "comments_new": 21,
-    "needs_action": 7,
-    "waiting_for_us": 486,
-    "duration_sec": 16.9
+    "comments_new": 2,
+    "needs_action": 2,
+    "waiting_for_us": 0,
+    "duration_sec": 3.7
   },
   "our_github_user": "robertpopa22",
   "lifecycle_states": [
@@ -38,11 +37,11 @@
     "P4-debt"
   ],
   "comment_templates": {
-    "triaged_to_roadmap": "Thank you for reporting this. Triaged and queued for a fix.\n\nFor transparency: fixes here are produced by an automated pipeline and verified against an automated test suite (6,400+ tests), and we run mRemoteNG daily on the latest build ourselves. What we cannot do is reproduce *your* setup -- your network, servers, locale, the exact state that triggers this. That is the honest limit of our testing, and it is why your feedback here is what actually verifies a fix.",
-    "in_progress": "Update: a fix for this is in progress. Will post here when it lands in a nightly.",
-    "testing": "Update: a fix has landed and the automated test suite passes. It will be in the next nightly build.\n\nWe use the app daily ourselves, but we cannot reproduce your specific environment -- so please treat your next test as the real verification and report back either way. If the fix does not hold after repeated rounds, the issue is escalated for direct human attention rather than another automated attempt.",
-    "released": "This fix is available in **{release_tag}** (fork Releases page, `robertpopa22/mRemoteNG`).\n\nThe automated suite passes and we run the latest build daily, but only your environment can confirm this particular fix end-to-end. Please test and report back either way. Thank you!",
-    "iteration_ack": "Noted -- the issue is not fully resolved. Thank you for retesting.\n\nPer our process: after two fix attempts on an unproven premise, the next build ships instrumentation to capture trace data instead of another guess, and after three failed rounds the issue is flagged for human review. You will not be asked to test blind fixes indefinitely.",
-    "followup_7d": "Checking in: the fix for this issue has been in the nightly for a week. If you have had a chance to test, a quick yes/no here closes the loop -- and if it still fails, say so and it gets escalated. If we do not hear back, the issue simply stays open; no pressure."
+    "triaged_to_roadmap": "Thank you for {{USEFUL_EVIDENCE}}. {{UNDERSTOOD_SYMPTOM}}\n\nNext on our side: {{NEXT_ACTION}}. {{LIMITS}}",
+    "in_progress": "{{CURRENT_FINDING}}\n\nNext on our side: {{NEXT_ACTION}}. {{LIMITS}}",
+    "testing": "{{CHANGE_AND_REMAINING_SYMPTOMS}}\n\nChecked: {{VERIFICATION}}. Not checked: {{LIMITS}}.\n\nBuild: {{VERIFIED_BUILD_LINK_AND_ID}}. Please {{ONE_TARGETED_RETEST}}. {{ESCALATION_IF_APPLICABLE}}",
+    "released": "{{CHANGE_AND_REMAINING_SYMPTOMS}}\n\nRelease: [{release_tag}]({release_url}); {{VERIFIED_COMMIT_IN_RELEASE}}.\nChecked: {{VERIFICATION}}. Not checked: {{LIMITS}}.\n{{NEXT_ACTION_OR_CLOSURE_REASON}}. Please reply or reopen if the symptom persists.",
+    "iteration_ack": "Thank you for retesting. {{WHAT_YOUR_RESULT_RULES_OUT}}\n\nStill open: {{REMAINING_SYMPTOMS}}. Next on our side: {{NEXT_ACTION}}. {{ATTEMPT_COUNT_AND_ESCALATION}}",
+    "followup_7d": "Checking back on {{REMAINING_SYMPTOM}} in {{VERIFIED_BUILD_LINK_AND_ID}}. If you had a chance to try {{ONE_TARGETED_RETEST}}, please let us know the result. {{CLOSURE_BASIS_OR_REASON_TO_KEEP_OPEN}}. A reply that it still fails always keeps or reopens the issue."
   }
 }

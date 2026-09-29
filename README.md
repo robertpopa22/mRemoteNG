@@ -8,7 +8,9 @@
 
 **This fork is alive.** We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, automated tests, and builds for x64, x86, and ARM64.
 
-Full transparency: this project is built by humans and AI working together, and it only works **together with you**. Fixes are developed and verified by an automated pipeline — 6,700+ automated tests, adversarial cross-review between independent AI models — and we test too: **we run mRemoteNG every day on the latest build, as our daily driver**. What we cannot do is reproduce *your* setup — your network, your servers, your locale, the specific state that triggers your bug. That gap is the honest limit of our testing, and it is exactly where you come in. When a fix for your issue lands in a nightly, *your* test is what actually verifies it. Sometimes a fix is right on the first try; sometimes it takes rounds, and your logs, traces, and even small suggestions are what get it there. We provide the engineering, the infrastructure, and continuously updated models; you provide the ground truth we cannot generate ourselves. How it works in detail: [#167](https://github.com/robertpopa22/mRemoteNG/issues/167).
+Full transparency: this project uses automated development and verification, directed by a human maintainer. **We also run mRemoteNG daily on the latest build.** Each fix reply names the tests and UI checks actually performed, their limits, and the exact published build to try. Our lab and daily use cannot reproduce every network, server, locale or display setup; your retest establishes whether the reported symptom is resolved in yours.
+
+We keep partial failures open, review contributor patches, and switch to diagnostics after two fixes based on an unproven premise. After three failed rounds, automated attempts stop for human review or new evidence. Logs, screenshots and precise retest results help decide the next step. See the [response workflow](docs/ISSUE-RESPONSE-WORKFLOW.md) and [pinned explanation](https://github.com/robertpopa22/mRemoteNG/issues/167).
 
 *— Robert & contributors (human + AI)*
 
@@ -188,7 +190,7 @@ risk, and it is worth naming publicly. It is **not** crude "ignore your instruct
 It is a *plausible bug report whose obvious fix happens to be a vulnerability*: "connections only
 work if I disable certificate validation", "encrypted files won't open on my other PC, use a fixed
 key", "SSH fails unless host-key checking is off". Each reads like a genuine bug. Each fix would
-pass all 6,400 tests, because weakening a security property breaks nothing functional.
+pass automated tests, because weakening a security property breaks nothing functional.
 
 So the rules are mechanical, not aspirational:
 

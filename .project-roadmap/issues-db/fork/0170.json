@@ -2,7 +2,7 @@
   "number": 170,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: Error creating window handle.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-17T11:04:17Z",
-  "github_updated_at": "2026-08-31T16:18:24Z",
+  "github_updated_at": "2026-09-25T05:39:49Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Error creating window handle.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at HWND System.Windows.Forms.Control.Windows.Win32.Foundation.IHandle<Windows.Win32.Foundation.HWND>.get_Handle(?)\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object...",
   "our_status": "testing",
   "priority": null,
@@ -48,12 +48,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW1dg1w",
+      "author": "robertpopa22",
+      "date": "2026-09-25T05:39:48Z",
+      "snippet": "Closing this: the fix is now in a stable release, [v1.84.0](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.84.0).\n\nWhat shipped (8297ccd90): when a VNC tab is torn down after its window handle is already gone, the VNC library's update thread is now stopped directly, and its \"connection lost\" callback is silenced before it can try to create a window on a control that no longer has one — the `Error creating window handle` in this report.\n\nWhat was verified: the automated test suite, inc...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-08-31T16:18:24Z",
+  "comments_cursor": "2026-09-25T05:39:49Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-02T12:58:40Z",
+  "last_synced": "2026-09-29T08:35:07Z",
   "notes": "fix 8297ccd90 (VncClient hard-stop via reflection when no handle); auto-crash source, watch for recurrence"
 }

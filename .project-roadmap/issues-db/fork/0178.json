@@ -2,7 +2,7 @@
   "number": 178,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ObjectListView, Version=2.9.3.0, Culture=neutra...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-03T16:46:46Z",
-  "github_updated_at": "2026-09-25T04:03:38Z",
+  "github_updated_at": "2026-09-25T05:40:17Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ObjectListView, Version=2.9.3.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.UI.Window.ConnectionTreeWindow.InitializeComponent() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/UI/Window/ConnectionTreeWindow.Designer.cs:line 20\r\n   at new mRemoteNG.UI.Window.ConnectionTreeWindow(DockContent panel) i...",
   "our_status": "testing",
   "priority": null,
@@ -57,12 +57,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABW1dxRw",
+      "author": "robertpopa22",
+      "date": "2026-09-25T05:40:17Z",
+      "snippet": "Closing this: the change is now in a stable release, [v1.84.0](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.84.0).\n\nAs described above, a missing `ObjectListView.dll` means the installation itself is incomplete (a half-extracted download, an antivirus quarantine, or two downloads mixed in one folder); the app cannot repair that. What changed (ace312c2e) is what you see: the dialog now names the missing file and the folder it belongs in, and says the installation looks incomplete, in...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-25T04:03:38Z",
+  "comments_cursor": "2026-09-25T05:40:17Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-25T04:56:38Z",
+  "last_synced": "2026-09-29T08:35:07Z",
   "notes": "fix shipped; awaiting reporter confirm on nightly"
 }

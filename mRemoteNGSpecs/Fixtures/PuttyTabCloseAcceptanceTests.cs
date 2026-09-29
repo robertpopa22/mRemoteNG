@@ -41,11 +41,14 @@ namespace mRemoteNGSpecs.Fixtures
                        LabTargets.LinuxUser, LabTargets.LinuxPassword);
             Deployment.WriteConnectionsFile(seeder.Build());
 
-            // ConfirmCloseEnum.All: mRemoteNG asks before closing. That is the setting under which
-            // the double prompt was reported, so it is the setting worth testing.
+            // ConfirmCloseEnum.All (4): mRemoteNG asks before closing. That is the setting under
+            // which the double prompt was reported, so it is the setting worth testing. This used to
+            // seed 0 (Unspecified), which asks nothing at all, so "asks once" was never measured.
+            // KeepTabsOpenAfterDisconnect off: the tab really closes, and with it the panel, which is
+            // where a second, panel-level question used to come from.
             Deployment.WriteSettings(new Dictionary<string, string>
             {
-                ["ConfirmCloseConnection"] = "0",
+                ["ConfirmCloseConnection"] = "4",
                 ["KeepTabsOpenAfterDisconnect"] = "False",
             });
 
@@ -70,9 +73,28 @@ namespace mRemoteNGSpecs.Fixtures
             MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
                       .Count(t =>
                       {
-                          try { return (t.Name ?? "").Contains(ConnectionName, StringComparison.OrdinalIgnoreCase); }
+                          try { return LabTargets.IsLinuxSshTab(t.Name ?? "", ConnectionName); }
                           catch (Exception) { return false; }
                       });
+
+        /// <summary>mRemoteNG's own confirmation (a CTaskDialog), if one is on screen.</summary>
+        private AutomationElement? FindConfirmation()
+        {
+            int pid = Driver.Application.ProcessId;
+            return Driver.Automation.GetDesktop()
+                         .FindAllDescendants(cf => cf.ByAutomationId("frmTaskDialog"))
+                         .FirstOrDefault(w =>
+                         {
+                             try { return w.Properties.ProcessId.Value == pid; }
+                             catch (Exception) { return false; }
+                         });
+        }
+
+        private static string Question(AutomationElement dialog)
+        {
+            try { return dialog.FindFirstDescendant(cf => cf.ByAutomationId("lbMainInstruction"))?.Name ?? ""; }
+            catch (Exception) { return ""; }
+        }
 
         /// <summary>Every top-level window owned by a PuTTY child process, as class + title.</summary>
         private static List<string> PuttyWindows()
@@ -190,25 +212,42 @@ namespace mRemoteNGSpecs.Fixtures
                 .FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
                 .FirstOrDefault(t =>
                 {
-                    try { return (t.Name ?? "").Contains(ConnectionName, StringComparison.OrdinalIgnoreCase); }
+                    try { return LabTargets.IsLinuxSshTab(t.Name ?? "", ConnectionName); }
                     catch (Exception) { return false; }
                 });
             Assert.That(tab, Is.Not.Null,
                         "the session tab is gone before the close was attempted; tabs present: "
                         + string.Join(" | ", tabNames));
-            Win32Mouse.MiddleClick(tab!);
+            string caption = tab!.Name ?? "";
+            Win32Mouse.MiddleClick(tab);
+
+            // The one question the user is meant to see: mRemoteNG's own, about this connection.
+            UiWait.Until(() => FindConfirmation() is not null, "mRemoteNG's close confirmation",
+                         TimeSpan.FromSeconds(15));
+            AutomationElement confirmation = FindConfirmation()!;
+            string question = Question(confirmation);
+            TestContext.Out.WriteLine($"mRemoteNG asked: \"{question}\"");
+            // The tab's caption, whichever it shows at this moment: the connection name or the
+            // terminal title PuTTY handed it.
+            Assert.That(question, Does.Contain(caption).And.Not.Contain("panel").IgnoreCase,
+                        "the tab's confirmation should ask about this tab's connection, not a panel");
+            UiWait.FindRequired(confirmation, cf => cf.ByAutomationId("bt2"), "Disconnect button").AsButton().Invoke();
 
             // Whatever PuTTY puts up during the close is the window the fix acts on. Sample it
             // while the close is in flight rather than after, or there is nothing left to see.
+            // A second mRemoteNG confirmation during the same window is the other half of "asks
+            // once" and is recorded rather than answered.
             List<string> duringClose = [];
+            string? secondQuestion = null;
             for (int i = 0; i < 40 && SessionTabs() > 0; i++)
             {
                 foreach (string w in PuttyWindows())
                     if (!duringClose.Contains(w))
                         duringClose.Add(w);
+                if (secondQuestion is null && FindConfirmation() is { } again)
+                    secondQuestion = Question(again);
                 Thread.Sleep(50);
             }
-            AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
 
             TestContext.Out.WriteLine("--- PuTTY windows during the close ---");
             duringClose.ForEach(TestContext.Out.WriteLine);
@@ -216,6 +255,23 @@ namespace mRemoteNGSpecs.Fixtures
                               string.Join(Environment.NewLine,
                                           ["while connected:", .. whileOpen,
                                            "", "during close:", .. duringClose]));
+
+            // Closing the only tab closes its panel, and the panel used to ask again because it
+            // still counted the tab being disposed. Give it the time it took then and more.
+            if (secondQuestion is null && UiWait.Happened(() => FindConfirmation() is not null, TimeSpan.FromSeconds(8)))
+                secondQuestion = FindConfirmation() is { } late ? Question(late) : "";
+            if (secondQuestion is not null && FindConfirmation() is { } leftOver)
+                UiWait.FindRequired(leftOver, cf => cf.ByAutomationId("bt3"), "Cancel button").AsButton().Invoke();
+            Assert.That(secondQuestion, Is.Null,
+                        $"mRemoteNG asked a second time after the user confirmed: \"{secondQuestion}\"");
+
+            // Nothing else may be left on screen. PuTTY's own warn-on-close box is answered by the
+            // product; the harness would answer it too ("Exit Confirmation" matches its whitelist),
+            // which would hide exactly the #158 regression, so it is looked for and not answered.
+            List<string> leftOpen = [.. ModalDialogs.Find(Driver).Select(d => d.ToString())];
+            Assert.That(leftOpen, Is.Empty,
+                        "a dialog is still waiting for the user after one confirmation: "
+                        + string.Join("; ", leftOpen));
 
             // The security property, checked against what PuTTY really showed rather than against
             // a remembered string: nothing we were willing to click was a security alert.
