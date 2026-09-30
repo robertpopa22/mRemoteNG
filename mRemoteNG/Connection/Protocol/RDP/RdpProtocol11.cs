@@ -11,7 +11,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected override AxHost CreateActiveXRdpClientControl()
         {
-            return new AxMsRdpClient11NotSafeForScripting();
+            return new RdpActiveXHosts.Client11();
         }
         public override bool Initialize()
         {

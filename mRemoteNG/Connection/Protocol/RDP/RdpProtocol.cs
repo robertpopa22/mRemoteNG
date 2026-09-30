@@ -51,6 +51,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private bool _alertOnIdleDisconnect;
         private bool _viewOnly;
         private bool _smartSizeBeforeFullscreen;
+        private int _closeStarted;
+        private bool _disconnectRequested;
         private readonly string _diagnosticRdpSession = RuntimeDiagnostics.NewCorrelationId();
         private readonly Stopwatch _diagnosticConnectStopwatch = new();
         protected uint DesktopScaleFactor
@@ -244,7 +246,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected virtual AxHost CreateActiveXRdpClientControl()
         {
-            return new AxMsRdpClient6NotSafeForScripting();
+            return new RdpActiveXHosts.Client6();
         }
 
         public override bool Initialize()
@@ -467,6 +469,36 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpDisconnectFailed, ex);
                 Close();
             }
+        }
+
+        public override void Close()
+        {
+            if (Interlocked.Exchange(ref _closeStarted, 1) != 0) return;
+            void PrepareClose()
+            {
+                if (_rdpClient == null || Control?.IsDisposed != false) return;
+                RemoveEventHandlers();
+                if (_rdpClient.Connected == 1)
+                {
+                    _rdpClient.Disconnect();
+                    _disconnectRequested = true;
+                    ClosePathDiagnostics.Log("RDP Disconnect requested before closing the window");
+                }
+            }
+            try
+            {
+                // FormClosing returns before ProtocolBase's worker reaches the UI thread.
+                // Request native disconnect now, while the session window is still usable.
+                if (Control is { IsHandleCreated: true, IsDisposed: false } && Control.InvokeRequired)
+                    Control.Invoke((Action)PrepareClose);
+                else
+                    PrepareClose();
+            }
+            catch (Exception ex)
+            {
+                ClosePathDiagnostics.Log($"RDP early Disconnect: {ex.GetType().Name} 0x{ex.HResult:X8}");
+            }
+            finally { base.Close(); }
         }
 
         public void ToggleFullscreen()
@@ -2273,31 +2305,16 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _extendedReconnectTimer?.Stop();
                 _extendedReconnectTimer?.Dispose();
 
-                // Remove control from parent BEFORE releasing COM so the message
-                // pump can no longer call AxHost.PreProcessMessage on a detached RCW.
-                // Without this, a queued message can race with FinalReleaseComObject
-                // and throw InvalidComObjectException (see #73).
-                if (Control is { IsDisposed: false, Parent: { } parent })
-                {
-                    parent.Controls.Remove(Control);
-                }
+                // Keep the parent available until native teardown has completed. AxHost.Dispose
+                // owns that teardown and Control.Dispose removes the control afterwards.
 
                 if (_rdpClient != null)
                 {
-                    // The AxHost owns the ActiveX object, and AxHost.Dispose is its teardown: it
-                    // hides the control, closes the OLE object, drops the client site and, at the
-                    // very end, releases the wrapper that _rdpClient also points at. This method
-                    // used to call FinalReleaseComObject on that wrapper itself -- and on the busiest
-                    // path there is, closing a tab, it ran BEFORE the host was disposed, because
-                    // InterfaceControl disposes its protocol before its children. The host's teardown
-                    // then met a separated RCW, threw (the InvalidComObjectException catches in
-                    // InterfaceControl.Dispose are that throw, swallowed), and never closed the
-                    // OLE object: the native control, and the session's memory with it, stayed
-                    // alive for the life of the process (#182). So: unadvise our sinks while the
-                    // wrapper is still usable, then let the host do the release, whichever side
-                    // got here first.
+                    // AxHost owns the ActiveX object and releases the wrapper also referenced by
+                    // _rdpClient. Unadvise our sinks while that wrapper is usable; releasing it
+                    // ourselves before AxHost teardown would separate the host's RCW prematurely.
                     bool hostAlreadyDisposed = Control?.IsDisposed ?? true;
-                    string disconnect = "not connected";
+                    string disconnect = _disconnectRequested ? "disconnect already requested" : "not connected";
                     string release;
                     long disconnectMs = 0, disposeMs = 0;
                     if (hostAlreadyDisposed)
@@ -2308,19 +2325,30 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     }
                     else
                     {
-                        long disconnectStart = ClosePathDiagnostics.Now();
+                        IntPtr diagnosticReference = IntPtr.Zero;
                         try
                         {
-                            if (_rdpClient.Connected == 1)
+                            diagnosticReference = Marshal.GetIUnknownForObject(_rdpClient);
+                            int references = Marshal.AddRef(diagnosticReference);
+                            Marshal.Release(diagnosticReference);
+                            ClosePathDiagnostics.Log($"RDP native references before teardown (without probe): {references - 2}");
+                        }
+                        catch (Exception ex) { ClosePathDiagnostics.Log($"RDP reference probe unavailable: {ex.GetType().Name}"); }
+                        // Closing is already underway; do not reenter Close from a native callback.
+                        RemoveEventHandlers();
+                        long disconnectStart = ClosePathDiagnostics.Now();
+                        string disconnectStep = "read Connected";
+                        try
+                        {
+                            if (!_disconnectRequested && _rdpClient.Connected == 1)
                             {
+                                disconnectStep = "Disconnect";
                                 _rdpClient.Disconnect();
                                 disconnect = "disconnected";
                             }
                         }
-                        catch (Exception ex) { disconnect = "disconnect threw " + ex.GetType().Name; }
+                        catch (Exception ex) { disconnect = $"{disconnectStep} threw {ex.GetType().Name} 0x{ex.HResult:X8}"; }
                         disconnectMs = ClosePathDiagnostics.Since(disconnectStart);
-
-                        RemoveEventHandlers();
 
                         long disposeStart = ClosePathDiagnostics.Now();
                         try
@@ -2329,6 +2357,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             release = "host disposed here, wrapper released";
                         }
                         catch (Exception ex) { release = "host dispose threw " + ex.GetType().Name; }
+                        finally
+                        {
+                            if (diagnosticReference != IntPtr.Zero)
+                                ClosePathDiagnostics.Log($"RDP native references after host disposal: {Marshal.Release(diagnosticReference)}");
+                        }
                         disposeMs = ClosePathDiagnostics.Since(disposeStart);
                     }
 

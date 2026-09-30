@@ -1,7 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.IO;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text.Json;
 using System.Runtime.Versioning;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
@@ -12,61 +17,37 @@ using NUnit.Framework;
 namespace mRemoteNGSpecs.Fixtures
 {
     /// <summary>
-    /// #182: opening an RDP session adds roughly 300 MB to the process and closing it gives
-    /// nothing back, so eight sessions left about 2 GB held with every tab and panel shut.
-    ///
-    /// The unit suite proves the mechanism — the close path skipped the only call that disposes
-    /// the protocol, and disposing the protocol is what releases the MSTSC ActiveX object. It
-    /// cannot prove the consequence, because it never loads MSTSC. This does: a real session
-    /// against the lab's RDP target, opened and closed several times, watching what the process
-    /// actually holds.
+    /// #182: finite resource-retention checks against a real Windows RDP target. Ownership
+    /// tests and a green build cannot substitute for completed logins and measured closes.
     /// </summary>
     [TestFixture]
     [SupportedOSPlatform("windows")]
     [NonParallelizable]
     public class RdpSessionMemoryAcceptanceTests : UiAcceptanceTestBase
     {
-        private const string ConnectionName = "lab-linux-rdp";
-        private const int Cycles = 3;
+        private const string ConnectionName = "lab-windows-rdp";
+        private const int Cycles = RetentionAssessment.RequiredCycles;
+        private static readonly JsonSerializerOptions EvidenceJson = new() { WriteIndented = true };
 
         /// <summary>
-        /// Below this, a "session" never loaded a desktop and the run proves nothing. An xrdp
-        /// session is far smaller than the reporter's Windows ones, so this is not the 300 MB
-        /// class — it is the floor for "MSTSC really connected and painted something".
-        /// </summary>
-        private const long MinimumPlausibleSessionMb = 20;
-
-        /// <summary>
-        /// Whether a closed session leaves a reconnect placeholder tab behind, which is the
-        /// application's default and therefore the reporter's path. The derived fixture below
-        /// runs the same measurement with it on; this one turns it off so a cycle ends with no
-        /// tab at all.
+        /// Run explicit tab/panel closure with each retained-tab preference. The reporter's
+        /// exact preference is not assumed from the application default.
         /// </summary>
         protected virtual bool KeepTabsOpenAfterDisconnect => false;
 
         protected override void SeedSettings()
         {
-            // The Linux host, not the Windows lab target. The Windows target refuses every NLA
-            // logon because it was cloned from the client guest's disk image and the two share a
-            // machine SID; CredSSP resolves "<target>\Administrator" to the client's own account
-            // and LSA rejects the logon (4776 success, 4625 0xc000006d sub-status 0). That is a
-            // lab-provisioning defect, not something a connection setting can route around, and
-            // for what this scenario measures — a live MSTSC session established, closed, and its
-            // allocation not accumulating — any real RDP server does.
-            //
-            // CredSSP and certificate checking stay at their defaults; the self-signed prompt is
-            // answered by AnswerExpectedPrompts like every other RDP scenario here.
             ConnectionsSeeder seeder = new();
-            seeder.Add(ConnectionName, LabTargets.LinuxHost, ProtocolType.RDP, LabTargets.Rdp,
-                       LabTargets.LinuxUser, LabTargets.LinuxPassword);
+            seeder.Add(ConnectionName, LabTargets.WindowsTargetHost, ProtocolType.RDP, LabTargets.Rdp,
+                       LabTargets.WindowsUser, LabTargets.WindowsPassword, LabTargets.WindowsTargetName);
             Deployment.WriteConnectionsFile(seeder.Build());
 
-            // The reporter closes tabs and panels and expects the memory back, so the tab has to
-            // actually go. On defaults it does not: KeepTabsOpenAfterDisconnect leaves a reconnect
-            // placeholder behind (#61, #139); with it on, the cycle closes that placeholder too.
-            Deployment.WriteSettings(new Dictionary<string, string>
+            // Exercise explicit tab/panel closure with both settings. Disconnect-only and its
+            // retained reconnect placeholder are separate paths, not implied by these checks.
+            Deployment.WriteSettings(new Dictionary<string, string>(StringComparer.Ordinal)
             {
                 ["KeepTabsOpenAfterDisconnect"] = KeepTabsOpenAfterDisconnect ? "True" : "False",
+                ["AlwaysShowPanelTabs"] = "True",
                 ["ConfirmCloseConnection"] = "1", // ConfirmCloseEnum.Never — nothing to answer per cycle
             });
         }
@@ -77,11 +58,11 @@ namespace mRemoteNGSpecs.Fixtures
             {
                 using System.Net.Sockets.TcpClient probe = new();
                 if (!probe.ConnectAsync(host, port).Wait(TimeSpan.FromSeconds(3)))
-                    Assert.Ignore($"lab RDP target {host}:{port} did not answer.");
+                    Assert.Fail($"lab RDP target {host}:{port} did not answer.");
             }
             catch (Exception ex)
             {
-                Assert.Ignore($"lab RDP target {host}:{port} not reachable: {ex.GetType().Name}");
+                Assert.Fail($"lab RDP target {host}:{port} not reachable: {ex.GetType().Name}");
             }
         }
 
@@ -141,123 +122,108 @@ namespace mRemoteNGSpecs.Fixtures
                           catch (Exception) { return false; }
                       });
 
-        /// <summary>
-        /// Private bytes, after letting the session finish drawing and the runtime hand memory
-        /// back. "Connected" is logged before the desktop bitmap is fully up, so a measurement
-        /// taken the instant the log line appears still catches the session mid-allocation.
-        /// </summary>
-        private long PrivateMemoryMb()
+        private sealed record Sample(DateTimeOffset At, long PrivateBytes, int Handles, uint GdiObjects);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetGuiResources(IntPtr process, uint flags);
+
+        private Sample ReadSample()
         {
-            UiWait.Settle(MainWindow);
-            System.Threading.Thread.Sleep(4000);
-            using System.Diagnostics.Process process =
-                System.Diagnostics.Process.GetProcessById(Driver.Application.ProcessId);
-            return process.PrivateMemorySize64 / (1024 * 1024);
+            using Process process = Process.GetProcessById(Driver.Application.ProcessId);
+            uint gdi = GetGuiResources(process.Handle, 0);
+            Assert.That(gdi, Is.GreaterThan(0u), "GDI measurement unavailable for the running GUI process");
+            return new(DateTimeOffset.UtcNow, process.PrivateMemorySize64, process.HandleCount, gdi);
         }
 
-        [Test]
-        [Issues("#182")]
-        public void OpeningAndClosingRdpSessionsGivesTheMemoryBack()
+        private void CloseSession(bool closePanel)
         {
-            SkipUnlessReachable(LabTargets.LinuxHost, LabTargets.Rdp);
-
-            // The shape of the credential this run will present, never its value. A logon that
-            // fails with a password known to be correct is usually a credential that never
-            // arrived: the battery reads it from a machine environment variable, and a process
-            // started before that variable existed sees nothing at all.
-            TestContext.Out.WriteLine(
-                $"credential: user '{LabTargets.LinuxUser}' password length {LabTargets.LinuxPassword.Length}");
-            Assert.That(LabTargets.LinuxPassword, Is.Not.Empty,
-                        "MRNG_LAB_LINUX_PASSWORD is not visible to the battery process, so every "
-                        + "logon would fail no matter what the target is configured to accept");
-
-            long baseline = PrivateMemoryMb();
-            TestContext.Out.WriteLine($"baseline before any session: {baseline} MB");
-
-            List<long> whileOpen = [];
-            List<long> afterEachClose = [];
-
-            for (int cycle = 1; cycle <= Cycles; cycle++)
+            if (closePanel)
             {
-                Win32Mouse.DoubleClick(Row(ConnectionName));
-                UiWait.Settle(MainWindow);
-                AnswerExpectedPrompts(TimeSpan.FromSeconds(20));
-                UiWait.Until(() => TabCount() > 0, "an RDP session tab to open", TimeSpan.FromSeconds(60));
-
-                // A tab appears the moment the attempt starts, long before MSTSC has authenticated
-                // and rendered a desktop — which is the memory this issue is about. Measuring on
-                // the tab alone is what made the first run of this scenario report 8 MB a session
-                // and pass without proving anything. The application says when it is really
-                // connected, so wait for it to say so.
-                int established = cycle;
-                UiWait.Until(() => CountInLog("established by user") >= established,
-                             "the RDP session to actually connect", TimeSpan.FromSeconds(90));
-                AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
-
-                // "Established" is the protocol handshake; the desktop, and the memory a session
-                // is really made of, arrives over the next seconds. Measured on the handshake
-                // alone a session once cost 13 MB and the run declared itself inconclusive.
-                Thread.Sleep(TimeSpan.FromSeconds(4));
-
-                long open = PrivateMemoryMb();
-                whileOpen.Add(open);
-
+                // Outer document tab, not the nested RDP session tab.
+                AutomationElement panel = MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
+                    .Single(t => string.Equals(t.Name, "General", StringComparison.Ordinal));
+                Win32Mouse.MiddleClick(panel);
+            }
+            else
                 Win32Mouse.MiddleClick(SessionTabs().First());
-                AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
-
-                // With KeepTabsOpenAfterDisconnect off the tab goes; on, a reconnect placeholder is
-                // left behind (#61, #139) and is closed the way the reporter closes it, so every
-                // cycle ends with no tab either way. The first run of this scenario timed out
-                // waiting for zero tabs on the default setting.
-                UiWait.Until(() => TabCount() == 0 || HasReconnectButton(),
-                             "the session to close, leaving either no tab or a disconnected placeholder",
-                             TimeSpan.FromSeconds(45));
-                // A tab that is still on its way out can vanish between the count and the click,
-                // so the placeholder is looked up once and only clicked if it is really there.
-                AutomationElement? placeholder = SessionTabs().FirstOrDefault();
-                if (placeholder != null)
-                {
-                    TestContext.Out.WriteLine($"cycle {cycle}: closing the reconnect placeholder tab");
-                    try { Win32Mouse.MiddleClick(placeholder); }
-                    catch (Exception ex) { TestContext.Out.WriteLine($"placeholder click skipped: {ex.GetType().Name}"); }
-                    AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
-                    UiWait.Until(() => TabCount() == 0, "the placeholder tab to close", TimeSpan.FromSeconds(30));
-                }
-
-                long closed = PrivateMemoryMb();
-                afterEachClose.Add(closed);
-                TestContext.Out.WriteLine($"cycle {cycle}: open {open} MB, after close {closed} MB");
-            }
-
-            long oneSessionCost = Math.Max(whileOpen[0] - baseline, 1);
-
-            // A session that costs a few MB never loaded a desktop -- the tab opened, the client
-            // did not connect and render -- and then the measurement is vacuous: it cannot tell a
-            // fixed build from a leaking one, because nothing was allocated to leak. Say so
-            // instead of passing; the first run of this scenario did exactly that at 8 MB.
-            if (oneSessionCost < MinimumPlausibleSessionMb)
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+            UiWait.Until(() => TabCount() == 0 || HasReconnectButton(), "session close", TimeSpan.FromSeconds(45));
+            AutomationElement? placeholder = SessionTabs().FirstOrDefault();
+            if (placeholder != null)
             {
-                Assert.Ignore($"an RDP session cost only {oneSessionCost} MB here, so the client never "
-                              + "loaded a real session and this measurement proves nothing either way.");
+                Win32Mouse.MiddleClick(placeholder);
+                UiWait.Until(() => TabCount() == 0, "placeholder close", TimeSpan.FromSeconds(30));
             }
+        }
 
-            // The reporter's signal is ACCUMULATION: each session added its own few hundred MB and
-            // kept them, so eight sessions cost 2 GB. "Back to baseline" is the wrong thing to
-            // demand -- a first connection leaves JIT and caches behind for good reasons, and
-            // native heaps often keep pages after a correct release -- so the assertion is on the
-            // slope: the second and later sessions must not each add another session-sized
-            // chunk. The retained delta between consecutive closes is what a leak makes grow.
-            long retainedAfterFirst = afterEachClose[0] - baseline;
-            long addedByLaterSessions = afterEachClose[^1] - afterEachClose[0];
-            long perLaterSession = addedByLaterSessions / Math.Max(Cycles - 1, 1);
-            TestContext.Out.WriteLine(
-                $"one session costs about {oneSessionCost} MB; first close retained {retainedAfterFirst} MB; "
-                + $"the next {Cycles - 1} session(s) added {addedByLaterSessions} MB in total, "
-                + $"{perLaterSession} MB each");
-
-            Assert.That(perLaterSession, Is.LessThan(oneSessionCost / 2),
-                        $"every session after the first is adding about {perLaterSession} MB that stays, "
-                        + $"against a session cost of {oneSessionCost} MB -- closed sessions are being kept");
+        [TestCase(false)]
+        [TestCase(true)]
+        [Issues("#182")]
+        public void RepeatedWindowsSessionsStayWithinRetentionBudget(bool closePanel)
+        {
+            SkipUnlessReachable(LabTargets.WindowsTargetHost, LabTargets.Rdp);
+            Assert.That(LabTargets.WindowsPassword, Is.Not.Empty, "lab Windows credential unavailable");
+            string evidence = Path.Combine(AppContext.BaseDirectory, "_uiscenarios", "_evidence",
+                $"rdp-memory-keep-{KeepTabsOpenAfterDisconnect}-panel-{closePanel}");
+            Directory.CreateDirectory(evidence);
+            List<Sample> idle = [], open = [], closed = [];
+            int logins = 0;
+            string verdict = "incomplete";
+            try
+            {
+                // A fixed idle control. Excessive noise makes the run inconclusive, not more permissive.
+                for (int i = 0; i < 6; i++)
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(10));
+                    idle.Add(ReadSample());
+                }
+                for (int cycle = 1; cycle <= Cycles; cycle++)
+                {
+                    Win32Mouse.DoubleClick(Row(ConnectionName));
+                    AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
+                    int expected = cycle;
+                    UiWait.Until(() => CountInLog("phase=login_complete") >= expected,
+                        "Windows RDP login completion", TimeSpan.FromSeconds(90));
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    Assert.That(TabCount(), Is.EqualTo(1), "session vanished before measurement");
+                    Assert.That(CountInLog("closed by user"), Is.EqualTo(cycle - 1),
+                        "target disconnected before the close under test");
+                    logins++;
+                    string screenshot = Path.Combine(evidence, $"desktop-{cycle:00}.png");
+                    FlaUI.Core.Capturing.Capture.Element(MainWindow).ToFile(screenshot);
+                    open.Add(ReadSample());
+                    CloseSession(closePanel);
+                    Thread.Sleep(TimeSpan.FromSeconds(RetentionAssessment.RequiredSettleSeconds));
+                    closed.Add(ReadSample());
+                    TestContext.Out.WriteLine($"cycle {cycle}: {JsonSerializer.Serialize(closed[^1])}");
+                    File.WriteAllText(Path.Combine(evidence, "progress.json"), JsonSerializer.Serialize(closed));
+                }
+                var memory = RetentionAssessment.Assess(idle.Select(x => x.PrivateBytes).ToArray(),
+                    closed.Select(x => x.PrivateBytes).ToArray(), RetentionAssessment.PrivateBytesBudget, logins, 30);
+                var handles = RetentionAssessment.Assess(idle.Select(x => (long)x.Handles).ToArray(),
+                    closed.Select(x => (long)x.Handles).ToArray(), RetentionAssessment.HandleBudget, logins, 30);
+                var gdi = RetentionAssessment.Assess(idle.Select(x => (long)x.GdiObjects).ToArray(),
+                    closed.Select(x => (long)x.GdiObjects).ToArray(), RetentionAssessment.GdiBudget, logins, 30);
+                bool withinBudget = new[] { memory, handles, gdi }.All(x => string.Equals(x.Verdict, "within-budget", StringComparison.Ordinal));
+                verdict = "requires-investigation";
+                TestContext.Out.WriteLine(JsonSerializer.Serialize(new { memory, handles, gdi }));
+                Assert.That(withinBudget, Is.True, "retention grew or the control was inconclusive");
+                AssertExitedCleanly(CloseApplicationAndWaitForExit(TimeSpan.FromSeconds(45), true), "after 14 Windows sessions");
+                verdict = "within-budget";
+            }
+            finally
+            {
+                string appDll = Path.Combine(Deployment.Directory, "mRemoteNG.dll");
+                File.WriteAllText(Path.Combine(evidence, "receipt.json"), JsonSerializer.Serialize(new
+                {
+                    schema = 1, verdict, keepTabs = KeepTabsOpenAfterDisconnect, closePanel,
+                    completedLogins = logins, settleSeconds = RetentionAssessment.RequiredSettleSeconds,
+                    appSha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(appDll))),
+                    os = Environment.OSVersion.ToString(), idle, open, closed,
+                    limitations = "Finite Windows lab run; screenshots require inspection; not proof of leak freedom."
+                }, EvidenceJson));
+                File.WriteAllText(Path.Combine(evidence, "application.log"), Deployment.ReadAppLog());
+            }
         }
 
         /// <summary>Opens the seeded RDP connection and waits until MSTSC is really connected.</summary>
@@ -279,7 +245,7 @@ namespace mRemoteNGSpecs.Fixtures
             // tested makes the run inconclusive, not green.
             if (CountInLog("Protocol Event Disconnected") > 0 || TabCount() == 0)
             {
-                Assert.Ignore("the RDP target ended the session on its own before the close under test, "
+                Assert.Fail("the RDP target ended the session on its own before the close under test, "
                               + "so this run cannot say anything about closing a live session");
             }
         }
@@ -310,8 +276,8 @@ namespace mRemoteNGSpecs.Fixtures
         [Issues("#182")]
         public void ClosingTheMainWindowWithAnRdpSessionOpenEndsTheProcess()
         {
-            SkipUnlessReachable(LabTargets.LinuxHost, LabTargets.Rdp);
-            Assert.That(LabTargets.LinuxPassword, Is.Not.Empty, "MRNG_LAB_LINUX_PASSWORD is not visible to the battery process");
+            SkipUnlessReachable(LabTargets.WindowsTargetHost, LabTargets.Rdp);
+            Assert.That(LabTargets.WindowsPassword, Is.Not.Empty, "MRNG_LAB_WINDOWS_PASSWORD is not visible to the battery process");
 
             OpenSessionAndWaitUntilEstablished();
 
@@ -328,8 +294,8 @@ namespace mRemoteNGSpecs.Fixtures
         [Issues("#182")]
         public void ClosingTheTabThenTheMainWindowEndsTheProcess()
         {
-            SkipUnlessReachable(LabTargets.LinuxHost, LabTargets.Rdp);
-            Assert.That(LabTargets.LinuxPassword, Is.Not.Empty, "MRNG_LAB_LINUX_PASSWORD is not visible to the battery process");
+            SkipUnlessReachable(LabTargets.WindowsTargetHost, LabTargets.Rdp);
+            Assert.That(LabTargets.WindowsPassword, Is.Not.Empty, "MRNG_LAB_WINDOWS_PASSWORD is not visible to the battery process");
 
             OpenSessionAndWaitUntilEstablished();
 
@@ -355,9 +321,8 @@ namespace mRemoteNGSpecs.Fixtures
     }
 
     /// <summary>
-    /// The same measurement on the application's default: a closed session leaves a reconnect
-    /// placeholder tab, and the placeholder is then closed. That is how the reporter's sessions
-    /// end, and the first #182 rounds only ever measured the other setting.
+    /// Repeat explicit tab/panel closure with retained tabs enabled. This does not establish
+    /// the reporter's preference or cover disconnect-only reconnect placeholders.
     /// </summary>
     [TestFixture]
     [SupportedOSPlatform("windows")]

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mRemoteNG\mRemoteNG.csproj" />
+    <Compile Include="..\mRemoteNGSpecs\Support\RetentionAssessment.cs" Link="Tools\RetentionAssessment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -54,6 +55,8 @@
          they exist to be replayed as-is, which is the whole reason they are checked in rather
          than generated. -->
     <None Include="testdata\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\scripts\rdp-memory-summary.ps1" Link="scripts\rdp-memory-summary.ps1" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\scripts\test-rdp-memory-summary.ps1" Link="scripts\test-rdp-memory-summary.ps1" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">

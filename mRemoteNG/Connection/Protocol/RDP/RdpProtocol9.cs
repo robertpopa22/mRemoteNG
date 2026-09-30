@@ -42,7 +42,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected override AxHost CreateActiveXRdpClientControl()
         {
-            return new AxMsRdpClient9NotSafeForScripting();
+            return new RdpActiveXHosts.Client9();
         }
 
         protected override void UpdateSessionDisplaySettings(uint width, uint height)

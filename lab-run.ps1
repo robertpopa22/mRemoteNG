@@ -111,6 +111,7 @@ try {
         param($filter)
         [Environment]::SetEnvironmentVariable('MRNG_BATTERY_FILTER', $filter, 'Machine')
         Remove-Item 'C:\mRNG-Lab\_results\done.txt' -ErrorAction SilentlyContinue
+        Remove-Item 'C:\mRNG-Lab\_results\ui-acceptance.trx' -ErrorAction SilentlyContinue
         Start-ScheduledTask -TaskName 'mRNG-UI-Battery'
     } -ArgumentList $Filter
 
@@ -159,7 +160,8 @@ try {
 
     if ($null -eq $summary) { throw 'The run produced no results file.' }
 
-    $colour = if ($summary.Failed -eq 0) { 'Green' } else { 'Red' }
+    $complete = $summary.Total -gt 0 -and $summary.Passed -eq $summary.Total
+    $colour = if ($complete) { 'Green' } else { 'Red' }
     Write-Host ("    total {0}   passed {1}   failed {2}" -f $summary.Total, $summary.Passed, $summary.Failed) `
                -ForegroundColor $colour
 
@@ -213,7 +215,8 @@ try {
         }
     }
 
-    exit $(if ($summary.Failed -eq 0) { 0 } else { 1 })
+    if (-not $complete) { Write-Warning 'The selected battery did not pass every test; skipped, empty and incomplete runs are not acceptance evidence.' }
+    exit $(if ($complete) { 0 } else { 1 })
 }
 finally {
     Remove-PSSession $session

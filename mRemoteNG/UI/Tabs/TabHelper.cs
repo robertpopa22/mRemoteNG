@@ -16,6 +16,17 @@ namespace mRemoteNG.UI.Tabs
         {
         }
 
+        internal void ForgetPanel(ConnectionWindow panel)
+        {
+            if (ReferenceEquals(currentPanel, panel)) currentPanel = null;
+            if (currentTab != null && (currentTab.IsDisposed || panel.Contains(currentTab))) currentTab = null;
+        }
+
+        internal void ForgetTab(ConnectionTab tab)
+        {
+            if (ReferenceEquals(currentTab, tab)) currentTab = null;
+        }
+
         private ConnectionTab? currentTab;
 
         public ConnectionTab? CurrentTab

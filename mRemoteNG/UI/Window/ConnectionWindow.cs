@@ -32,8 +32,6 @@ namespace mRemoteNG.UI.Window
     [SupportedOSPlatform("windows")]
     public partial class ConnectionWindow : BaseWindow
     {
-        private VisualStudioToolStripExtender? _vsToolStripExtender;
-        private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
         private readonly ToolStripMenuItem _cmenTabMoveToPanel = new();
         private readonly ToolStripMenuItem _cmenTabIncludeInMultiSsh = new();
         private readonly ToolStripMenuItem _cmenTabExcludeFromMultiSsh = new();
@@ -985,6 +983,7 @@ namespace mRemoteNG.UI.Window
 
         private new void ApplyTheme()
         {
+            if (IsDisposed || Disposing) return;
             if (!ThemeManager.getInstance().ThemingActive)
             {
                 connDock.Theme = ThemeManager.getInstance().DefaultTheme.Theme;
@@ -1001,11 +1000,9 @@ namespace mRemoteNG.UI.Window
                 Runtime.MessageCollector.AddExceptionMessage("UI.Window.ConnectionWindow.ApplyTheme() failed", ex);
             }
 
-            _vsToolStripExtender = new VisualStudioToolStripExtender(components)
-            {
-                DefaultRenderer = _toolStripProfessionalRenderer
-            };
-            _vsToolStripExtender.SetStyle(cmenTab, ThemeManager.getInstance().ActiveTheme.Version, ThemeManager.getInstance().ActiveTheme.Theme);
+            MremoteNGThemeBase.ApplyToTransientToolStrip(ThemeManager.getInstance().ActiveTheme.Theme, cmenTab);
+            if (TabPageContextMenuStrip != null)
+                MremoteNGThemeBase.ApplyToTransientToolStrip(ThemeManager.getInstance().ActiveTheme.Theme, TabPageContextMenuStrip);
 
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
             connDock.DockBackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette?.getColor("Tab_Item_Background") ?? connDock.DockBackColor;
@@ -1015,6 +1012,30 @@ namespace mRemoteNG.UI.Window
         private bool _floatHandlersAdded;
         private bool _emptyPanelCloseQueued;
         private bool _panelFormClosingInProgress;
+
+        private void ReleasePanelReferences()
+        {
+            TabPageContextMenuStrip?.Dispose();
+            TabPageContextMenuStrip = null;
+            ThemeManager.getInstance().ThemeChanged -= ApplyTheme;
+            if (Runtime.WindowList?.Cast<BaseWindow>().Contains(this) == true)
+                Runtime.WindowList.Remove(this);
+            TabHelper.Instance.ForgetPanel(this);
+            _panelActivationHistory.Remove(this);
+            _tabActivationHistory.Clear();
+            if (_documentHandlersAdded)
+            {
+                FrmMain.Default.ResizeBegin -= Connection_ResizeBegin;
+                FrmMain.Default.ResizeEnd -= Connection_ResizeEnd;
+                _documentHandlersAdded = false;
+            }
+            if (_floatHandlersAdded && DockHandler.FloatPane?.FloatWindow is { } floatWindow)
+            {
+                floatWindow.ResizeBegin -= Connection_ResizeBegin;
+                floatWindow.ResizeEnd -= Connection_ResizeEnd;
+                _floatHandlersAdded = false;
+            }
+        }
 
         private void Connection_DockStateChanged(object sender, EventArgs e)
         {

@@ -76,11 +76,17 @@ public class WindowHandleDiagnosticsTests
         Panel neverShown = new() { Name = "hiddenPanel", Visible = false };
         form.Controls.Add(combo);
         form.Controls.Add(neverShown);
-        form.Show();
-        Application.DoEvents();
+        // Create only the windows this diagnostic needs. Pumping unrelated messages here can
+        // consume a queued thread-exit message from an earlier form-lifecycle test.
+        _ = form.Handle;
+        _ = combo.Handle;
+        Assert.That(neverShown.IsHandleCreated, Is.False);
 
         typeof(Control).GetMethod("DestroyHandle", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
             .Invoke(combo, null);
+
+        Assert.That(form.IsHandleCreated, Is.True, "the parent must survive the failed recreation");
+        Assert.That(combo.IsHandleCreated, Is.False, "the diagnostic requires a missing child window");
 
         string[] lost = WindowHandleDiagnostics.FindControlsWithoutHandle([form]).ToArray();
         form.Close();

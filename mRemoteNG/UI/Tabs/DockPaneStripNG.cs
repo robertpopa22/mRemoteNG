@@ -351,7 +351,7 @@ namespace mRemoteNG.UI.Tabs
             Components = new System.ComponentModel.Container();
             m_toolTip = new ToolTip(Components);
             SelectMenu = new ContextMenuStrip(Components);
-            pane.DockPanel.Theme.ApplyTo(SelectMenu);
+            Themes.MremoteNGThemeBase.ApplyToTransientToolStrip(pane.DockPanel.Theme, SelectMenu);
 
             ResumeLayout();
         }

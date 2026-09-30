@@ -220,7 +220,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected override AxHost CreateActiveXRdpClientControl()
         {
-            return new AxMsRdpClient8NotSafeForScripting();
+            return new RdpActiveXHosts.Client8();
         }
 
         private void DoResizeClient()
@@ -375,6 +375,18 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public override void Close()
         {
+            ReleaseResizeSubscriptions();
+            base.Close();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) ReleaseResizeSubscriptions();
+            base.Dispose(disposing);
+        }
+
+        private void ReleaseResizeSubscriptions()
+        {
             _frmMain.ResizeEnd -= ResizeEnd;
             SystemEvents.DisplaySettingsChanged -= OnDisplaySettingsChangedHandler;
 
@@ -387,7 +399,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _resizeDebounceTimer = null;
             }
 
-            base.Close();
         }
 
     }

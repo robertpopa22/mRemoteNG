@@ -34,7 +34,10 @@ namespace mRemoteNG.UI.Window
         protected override void Dispose(bool disposing)
         {
             if (disposing)
+            {
+                ReleasePanelReferences();
                 components?.Dispose();
+            }
 
             try
             {

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
+using mRemoteNG.Themes;
 
 namespace mRemoteNG.UI.Panels
 {
@@ -68,6 +69,7 @@ namespace mRemoteNG.UI.Panels
             ToolStripMenuItem cMenScreens = CreateScreensMenuItem(pnlcForm);
             ToolStripMenuItem cMenClose = CreateCloseMenuItem(pnlcForm);
             cMen.Items.AddRange(new ToolStripItem[] {cMenRen, cMenScreens, cMenClose});
+            MremoteNGThemeBase.ApplyToTransientToolStrip(ThemeManager.getInstance().ActiveTheme.Theme, cMen);
             pnlcForm.TabPageContextMenuStrip = cMen;
         }
 
