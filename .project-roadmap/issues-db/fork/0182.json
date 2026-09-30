@@ -9,9 +9,9 @@
   ],
   "author": "Buster-de",
   "created_at": "2026-09-09T21:37:57Z",
-  "github_updated_at": "2026-09-30T06:23:00Z",
+  "github_updated_at": "2026-09-30T06:24:12Z",
   "body_snippet": "During testing with `mRemoteNG-nightly-20260909-v1.83.0-00cd029-x64.msi` to validate issue #179, I noticed that opening an RDP connection increases the process's memory usage (active private working set) by roughly 300 MB in my environment.\n\nAfter opening and closing several RDP connections, including closing their tabs and panels, the allocated memory does not appear to be released.\n\nHow to reproduce\n* Open and close several RDP sessions.\n  * I had 8 different concurrent sessions in 3 different...",
-  "our_status": "testing",
+  "our_status": "in-progress",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -56,6 +56,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-09-30",
+      "type": "iteration-reopen",
+      "description": "Status changed to in-progress",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": true
     }
   ],
   "comments": [
@@ -119,14 +129,23 @@
       "date": "2026-09-29T20:32:50Z",
       "snippet": "[Nightly Build — 20260929 (v1.84.0)]\nIs this normal, or is there a leak?\n```\n  session 1: peak while open 431 MB, after close 274 MB (+175 MB above baseline)\n\n  session 2: peak while open 531 MB, after close 376 MB (+277 MB above baseline)\n\n  session 3: peak while open 667 MB, after close 511 MB (+412 MB above baseline)\n\n  session 4: peak while open 778 MB, after close 525 MB (+426 MB above baseline)\n\n  session 5: peak while open 556 MB, after close 520 MB (+421 MB above baseline)\n\n  session 6: ...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABX_2JDw",
+      "author": "robertpopa22",
+      "date": "2026-09-30T06:24:12Z",
+      "snippet": "Your numbers show substantial retained-memory growth: 274 MB after the first close to 1,274 MB after the fourteenth, another 1,000 MB across 13 sessions. Calling that “No accumulation” was wrong; our script compared 77 MB/session with half the first session's 332 MB cost and incorrectly printed a reassuring verdict. Sorry — that is our measurement bug.\r\nWe reproduced that verdict with your exact series and prepared the reporting correction in #202 (checks pending): it reports the growth without ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-30T06:23:00Z",
-  "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-30T06:23:01Z",
+  "comments_cursor": "2026-09-30T06:24:12Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-09-30T06:24:40Z",
   "notes": "September 30: new reporter vndnua supplies 14 measured closes, +1000 MB after first close. No-accumulation script verdict reproduced as false; no product root cause established. Direct maintainer review required. Do not reuse October 2 silence ping. Earlier reporter panel/shutdown symptoms remain separate. See ISSUE-182-REVIEW-2026-09-30.md."
 }
