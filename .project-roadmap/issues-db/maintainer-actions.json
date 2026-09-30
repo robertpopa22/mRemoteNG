@@ -148,12 +148,12 @@
       "id": "fork-182-follow-up",
       "repo": "fork",
       "priority": "P2-bug",
-      "status": "waiting-reporter",
-      "owner": "reporter",
-      "reviewed_at": "2026-09-29",
-      "source": "https://github.com/robertpopa22/mRemoteNG/issues/182",
-      "next_action": "Await the September 25 evidence request. One follow-up no earlier than October 2; no speculative fix or closure over contradictory feedback.",
-      "follow_up_not_before": "2026-10-02"
+      "status": "human-review-required",
+      "owner": "human maintainer (Robert Popa)",
+      "reviewed_at": "2026-09-30",
+      "source": "https://github.com/robertpopa22/mRemoteNG/issues/182#issuecomment-5898279242",
+      "next_action": "New reporter measured +1000 MB after 13 further closes. Script verdict reproduced as incorrect and corrected separately; allocation cause unknown. Review longer Windows-target retention and existing acceptance threshold before any product fix. Earlier panel/shutdown symptoms remain open.",
+      "evidence": ".project-roadmap/ISSUE-182-REVIEW-2026-09-30.md"
     },
     {
       "id": "fork-197-follow-up",

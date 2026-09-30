@@ -1,13 +1,11 @@
 <#
 .SYNOPSIS
-    Watches a running mRemoteNG process while you open and close RDP sessions, and says
-    whether closed sessions are being kept.
+    Reports private-byte measurements while you open and close RDP sessions.
 
 .DESCRIPTION
     Written for #182: roughly 300 MB retained per RDP session, about 2 GB after eight, with
-    every tab and panel closed. The lab can only stand up small xrdp sessions, so the
-    reporter's class of session -- a real Windows desktop -- is measured here, on the
-    machine and the servers you already use, with you at the keyboard.
+    every tab and panel closed. Measures the machine and servers you actually use, with
+    you at the keyboard; a small xrdp lab session cannot establish your Windows result.
 
     You mark each close yourself. The first version of this script tried to find the
     open/close points in the sampled series on its own and got it wrong: an RDP desktop
@@ -17,8 +15,11 @@
     So: open a session, let the desktop paint, close its tab, wait a few seconds, press
     Enter. Repeat three or four times. Type q and Enter when done.
 
-    The verdict is on the slope -- what each session after the first leaves behind -- not
-    on a return to baseline, which a first connection never quite manages (JIT, caches).
+    Reports growth after the first close separately from the initial retention. Private
+    bytes alone cannot distinguish a leak from caches or other retained allocations.
+    The old verdict compared growth with half the first session's peak cost, incorrectly
+    calling +1000 MB over 13 further sessions "No accumulation". No such threshold is used.
+    Exit 0 means measurement completed, not that the application is free of leaks.
 
 .PARAMETER ProcessName
     Defaults to mRemoteNG. The script refuses to guess if more than one is running.
@@ -79,8 +80,8 @@ while ($true) {
     $peak = $closed
 }
 
-if ($afterClose.Count -lt 2) {
-    Write-Host "Fewer than two sessions were marked; at least three are needed to see a slope."
+if ($afterClose.Count -lt 3) {
+    Write-Host "Fewer than three sessions were marked; at least three are needed for this summary."
     exit 2
 }
 
@@ -96,9 +97,10 @@ Write-Host ("The next {0} session(s) added {1} MB in total, about {2} MB each." 
 Write-Host ("Retained after each close, above baseline: {0} MB." -f (($afterClose | ForEach-Object { $_ - $baseline }) -join ', '))
 Write-Host ""
 
-if ($perLater -ge [math]::Round($firstCost / 2)) {
-    Write-Host ("LEAK: every session after the first keeps about {0} MB of its {1} MB." -f $perLater, $firstCost) -ForegroundColor Red
-    exit 1
+if ($laterAdded -gt 0) {
+    Write-Host ("Observed growth after the first close: +{0} MB across {1} further sessions." -f $laterAdded, $laterCount) -ForegroundColor Yellow
+} else {
+    Write-Host ("Net change from the first to the last close: {0:+#;-#;0} MB across {1} further sessions." -f $laterAdded, $laterCount)
 }
-Write-Host ("No accumulation: later sessions keep about {0} MB each against a cost of {1} MB." -f $perLater, $firstCost) -ForegroundColor Green
+Write-Host "These private-byte samples do not establish the cause or rule out a leak. Review the full per-close series."
 exit 0
