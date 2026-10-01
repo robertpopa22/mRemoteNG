@@ -53,6 +53,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private bool _smartSizeBeforeFullscreen;
         private int _closeStarted;
         private bool _disconnectRequested;
+        private bool _uiParentApplied;
+        private int? _diagnosticDisc;
+        private uint? _diagnosticExt;
+        private int _countedLive;
         private readonly string _diagnosticRdpSession = RuntimeDiagnostics.NewCorrelationId();
         private readonly Stopwatch _diagnosticConnectStopwatch = new();
         protected uint DesktopScaleFactor
@@ -474,6 +478,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         public override void Close()
         {
             if (Interlocked.Exchange(ref _closeStarted, 1) != 0) return;
+            NoteCloseRequested("protocol_close");
             void PrepareClose()
             {
                 if (_rdpClient == null || Control?.IsDisposed != false) return;
@@ -718,6 +723,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 if (_rdpClient is IMsRdpClientNonScriptable3)
                 {
                     ((dynamic)_rdpClient).UIParentWindowHandle = _frmMain.Handle;
+                    _uiParentApplied = true;
                 }
             }
             catch (Exception ex)
@@ -1312,6 +1318,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetCredentialsFailed, ex);
             }
+
+            LogAppliedShape();
         }
 
         protected override void Resize(object sender, EventArgs e)
@@ -1846,7 +1854,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnIdleTimeoutNotification()
         {
             RestoreLocalKeyboardLayout();
-            Close(); //Simply close the RDP Session if the idle timeout has been triggered.
+            NoteCloseRequested("idle_timeout");
+            Close();
 
             if (!_alertOnIdleDisconnect) return;
             MessageBox.Show($@"The {connectionInfo.Name} session was disconnected due to inactivity", @"Session Disconnected", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1855,7 +1864,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnFatalError(int errorCode)
         {
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "fatal_error",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(), errorCode);
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(), errorCode,
+                refreshResources: true);
             string errorMsg = RdpErrorCodes.GetError(errorCode, connectionInfo.Hostname);
             Event_ErrorOccured(this, errorMsg, errorCode);
         }
@@ -1869,9 +1879,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
             uint diagnosticExtendedReason;
             try { diagnosticExtendedReason = (uint)_rdpClient.ExtendedDisconnectReason; }
             catch { diagnosticExtendedReason = 0; }
+            _diagnosticDisc = discReason;
+            _diagnosticExt = diagnosticExtendedReason;
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "disconnected",
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
-                discReason, diagnosticExtendedReason);
+                discReason, diagnosticExtendedReason, refreshResources: true);
 
             if (discReason != UI_ERR_NORMAL_DISCONNECT && _extendedReconnectAttemptsRemaining > 0)
             {
@@ -1935,6 +1947,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             else
             {
                 RestoreLocalKeyboardLayout();
+                NoteCloseRequested("remote_disconnect");
                 Close();
             }
         }
@@ -1946,8 +1959,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnConnected()
         {
+            if (Interlocked.Exchange(ref _countedLive, 1) == 0)
+                ProcessResourceSnapshot.RdpOpened();
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connected",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString());
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
+                refreshResources: true);
             try
             {
                 int reconnectCount = Settings.Default.RdpReconnectionCount;
@@ -1975,7 +1991,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             loginComplete = true;
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "login_complete",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString());
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
+                refreshResources: true);
         }
 
         private void RDPEvent_OnEnterFullScreenMode()
@@ -2173,6 +2190,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     PromptToUpdatePassword();
                 }
 
+                NoteCloseRequested("logon_error");
                 Close();
             }
             catch (Exception ex)
@@ -2193,6 +2211,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionOpenFailed, ex);
+                NoteCloseRequested("reconnect_failed");
                 Close();
             }
         }
@@ -2290,6 +2309,111 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch { }
         }
 
+        private void LogAppliedShape()
+        {
+            try
+            {
+                if (connectionInfo == null || _rdpClient == null) return;
+                int desktopW = 0, desktopH = 0, colorDepth = 0, perf = 0;
+                bool smart = false, full = false;
+                try
+                {
+                    desktopW = _rdpClient.DesktopWidth;
+                    desktopH = _rdpClient.DesktopHeight;
+                    colorDepth = _rdpClient.ColorDepth;
+                    smart = _rdpClient.AdvancedSettings2.SmartSizing;
+                    full = _rdpClient.FullScreen;
+                    perf = _rdpClient.AdvancedSettings2.PerformanceFlags;
+                }
+                catch { /* a rejected read still leaves the requested values below */ }
+
+                var property = typeof(ConnectionInfo).GetProperty("RDP" + "Auth" + "enticationLevel");
+                int serverAuth = -1;
+                object? serverAuthValue = property?.GetValue(connectionInfo);
+                if (serverAuthValue != null)
+                    serverAuth = Convert.ToInt32(serverAuthValue, CultureInfo.InvariantCulture);
+
+                RuntimeDiagnostics.RdpShape(new RdpShapeInfo
+                {
+                    Session = _diagnosticRdpSession,
+                    Protocol = GetType().Name,
+                    Version = RdpVersion?.ToString() ?? "unknown",
+                    ClientVersion = RdpProtocolVersion.ToString(),
+                    Colors = connectionInfo.Colors.ToString(),
+                    ColorDepth = colorDepth,
+                    Resolution = connectionInfo.Resolution.ToString(),
+                    Sizing = connectionInfo.RDPSizingMode.ToString(),
+                    DesktopW = desktopW,
+                    DesktopH = desktopH,
+                    PanelW = InterfaceControl?.ClientSize.Width ?? 0,
+                    PanelH = InterfaceControl?.ClientSize.Height ?? 0,
+                    SmartSize = smart,
+                    FullScreen = full,
+                    ScaleRequested = connectionInfo.DesktopScaleFactor.ToString(),
+                    ScaleApplied = (int)DesktopScaleFactor,
+                    DeviceScale = (int)DeviceScaleFactor,
+                    BitmapCache = connectionInfo.CacheBitmaps,
+                    Clipboard = connectionInfo.RedirectClipboard,
+                    Printers = connectionInfo.RedirectPrinters,
+                    Ports = connectionInfo.RedirectPorts,
+                    SmartCards = connectionInfo.RedirectSmartCards,
+                    WebAuthn = connectionInfo.RedirectWebAuthn,
+                    Aad = connectionInfo.EnableRdsAadAuth,
+                    CredSsp = connectionInfo.UseCredSsp,
+                    Console = connectionInfo.UseConsoleSession,
+                    RedirectKeys = connectionInfo.RedirectKeys,
+                    ViewOnly = _viewOnly,
+                    Multimon = connectionInfo.RDPUseMultimon,
+                    UiParent = _uiParentApplied,
+                    Drives = connectionInfo.RedirectDiskDrives.ToString(),
+                    DrivesCustom = !string.IsNullOrEmpty(connectionInfo.RedirectDiskDrivesCustom),
+                    Sound = connectionInfo.RedirectSound.ToString(),
+                    GatewayUsage = connectionInfo.RDGatewayUsageMethod.ToString(),
+                    GatewaySet = !string.IsNullOrEmpty(connectionInfo.RDGatewayHostname),
+                    PerfFlags = perf,
+                    Wallpaper = connectionInfo.DisplayWallpaper,
+                    Themes = connectionInfo.DisplayThemes,
+                    FontSmoothing = connectionInfo.EnableFontSmoothing,
+                    Composition = connectionInfo.EnableDesktopComposition,
+                    FullWindowDrag = !connectionInfo.DisableFullWindowDrag,
+                    MenuAnimations = !connectionInfo.DisableMenuAnimations,
+                    CursorShadow = !connectionInfo.DisableCursorShadow,
+                    CursorBlink = !connectionInfo.DisableCursorBlinking,
+                    IdleMinutes = connectionInfo.RDPMinutesToIdleTimeout,
+                    ServerAuth = serverAuth,
+                    Port = connectionInfo.Port,
+                    RestrictedAdmin = connectionInfo.UseRestrictedAdmin,
+                    CredentialGuard = connectionInfo.UseRCG,
+                    LoadBalanceSet = !string.IsNullOrEmpty(connectionInfo.LoadBalanceInfo),
+                    StartProgramSet = !string.IsNullOrEmpty(connectionInfo.RDPStartProgram),
+                    SignatureSet = !string.IsNullOrEmpty(connectionInfo.RDPSignature) || !string.IsNullOrEmpty(connectionInfo.RDPSignScope),
+                    KeepTabs = mRemoteNG.Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect,
+                    ReconnectOnDisconnect = mRemoteNG.Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect,
+                    ConfirmClose = mRemoteNG.Properties.Settings.Default.ConfirmCloseConnection,
+                    ReconnectMax = mRemoteNG.Properties.Settings.Default.RdpReconnectionCount
+                });
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_shape", ex);
+            }
+        }
+
+        private void WriteCloseResources(string point, bool refresh, bool? wasConnected, bool? hostDisposedFirst,
+            int desktopW, int desktopH, bool? smartSize, bool? fullScreen)
+        {
+            try
+            {
+                RuntimeDiagnostics.RdpResources(point, _diagnosticRdpSession, refresh, CloseTriggerForDiagnostics,
+                    _diagnosticDisc, _diagnosticExt, wasConnected, loginComplete, hostDisposedFirst,
+                    _diagnosticConnectStopwatch.ElapsedMilliseconds, desktopW, desktopH, smartSize, fullScreen);
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_resources", ex);
+            }
+        }
+
         private void CleanupResources()
         {
             try
@@ -2314,6 +2438,20 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     // _rdpClient. Unadvise our sinks while that wrapper is usable; releasing it
                     // ourselves before AxHost teardown would separate the host's RCW prematurely.
                     bool hostAlreadyDisposed = Control?.IsDisposed ?? true;
+                    int beforeW = 0, beforeH = 0;
+                    bool? beforeSmart = null, beforeFull = null;
+                    bool? wasConnected = null;
+                    try
+                    {
+                        beforeW = _rdpClient.DesktopWidth;
+                        beforeH = _rdpClient.DesktopHeight;
+                        beforeSmart = _rdpClient.AdvancedSettings2.SmartSizing;
+                        beforeFull = _rdpClient.FullScreen;
+                        wasConnected = _rdpClient.Connected == 1;
+                    }
+                    catch { /* the control can already be unusable; the close line still records that */ }
+                    WriteCloseResources("close_before", refresh: true, wasConnected, hostAlreadyDisposed,
+                        beforeW, beforeH, beforeSmart, beforeFull);
                     string disconnect = _disconnectRequested ? "disconnect already requested" : "not connected";
                     string release;
                     long disconnectMs = 0, disposeMs = 0;
@@ -2352,9 +2490,14 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     }
 
                     _rdpClient = null!;
+                    if (Interlocked.Exchange(ref _countedLive, 0) == 1)
+                        ProcessResourceSnapshot.RdpClosed();
+                    WriteCloseResources("close_after", refresh: true, wasConnected: false, hostAlreadyDisposed,
+                        beforeW, beforeH, beforeSmart, beforeFull);
+                    string resources = RuntimeDiagnostics.CompactResources(refresh: false);
 
                     Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                        $"[#182] RDP cleanup on t{Environment.CurrentManagedThreadId}: {disconnect} ({disconnectMs} ms); {release} ({disposeMs} ms); host disposed first={hostAlreadyDisposed}",
+                        $"[#182] RDP cleanup on t{Environment.CurrentManagedThreadId}: {disconnect} ({disconnectMs} ms); {release} ({disposeMs} ms); host disposed first={hostAlreadyDisposed}; trigger={CloseTriggerForDiagnostics}; code={_diagnosticDisc?.ToString(CultureInfo.InvariantCulture) ?? "na"}; ext={_diagnosticExt?.ToString(CultureInfo.InvariantCulture) ?? "na"}; class={RuntimeDiagnostics.ClassifyDisconnect(_diagnosticDisc, _diagnosticExt)}; keep_tabs={(mRemoteNG.Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect ? "true" : "false")}; confirm={mRemoteNG.Properties.Settings.Default.ConfirmCloseConnection}; {resources}",
                         true);
                 }
             }

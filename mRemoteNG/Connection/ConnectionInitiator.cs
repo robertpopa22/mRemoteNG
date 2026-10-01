@@ -343,12 +343,14 @@ namespace mRemoteNG.Connection
 
                 if (await newProtocol.InitializeAsync() == false)
                 {
+                    newProtocol.NoteCloseRequested("initialize_failed");
                     newProtocol.Close();
                     return;
                 }
 
                 if (newProtocol.Connect() == false)
                 {
+                    newProtocol.NoteCloseRequested("connect_failed");
                     newProtocol.Close();
                     return;
                 }

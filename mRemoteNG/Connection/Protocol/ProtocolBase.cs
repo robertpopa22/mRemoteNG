@@ -227,6 +227,17 @@ namespace mRemoteNG.Connection.Protocol
             Close();
         }
 
+        private string? _closeTrigger;
+
+        /// <summary>Records the first close request. A later path must not overwrite it.</summary>
+        internal void NoteCloseRequested(string trigger)
+        {
+            if (string.IsNullOrEmpty(_closeTrigger))
+                _closeTrigger = trigger;
+        }
+
+        internal string CloseTriggerForDiagnostics => string.IsNullOrEmpty(_closeTrigger) ? "unset" : _closeTrigger;
+
         private long _closeRequested;
 
         public virtual void Close()

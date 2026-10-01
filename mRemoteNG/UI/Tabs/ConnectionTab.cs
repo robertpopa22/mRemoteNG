@@ -270,7 +270,10 @@ namespace mRemoteNG.UI.Tabs
         {
             try
             {
-                (Tag as InterfaceControl)?.Protocol?.Close();
+                string trigger = disconnectOnly ? "tab_menu" : silentClose ? "panel_or_exit" : "user_tab";
+                ProtocolBase? protocol = (Tag as InterfaceControl)?.Protocol;
+                protocol?.NoteCloseRequested(trigger);
+                protocol?.Close();
             }
             catch (Exception ex)
             {

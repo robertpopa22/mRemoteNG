@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using log4net;
+using mRemoteNG.App.Diagnostics;
 
 namespace mRemoteNG.App
 {
@@ -45,11 +46,23 @@ namespace mRemoteNG.App
             _lastHeartbeatTicks = now;
             _lastCpuTicks = CurrentProcess.TotalProcessorTime.Ticks;
 
+            MachineFacts machine = ProcessResourceSnapshot.ReadMachine();
+            WriteInfo("process_environment",
+                Number("os_major", machine.Major),
+                Number("os_minor", machine.Minor),
+                Number("os_build", machine.Build),
+                Number("os_ubr", machine.Ubr),
+                Field("os_product", machine.Product),
+                Field("os_display", machine.Display),
+                Field("os_install", machine.Install),
+                Number("gdi_quota", machine.GdiQuota),
+                Number("user_quota", machine.UserQuota));
             WriteInfo("process_start",
-                Field("version", SafeVersion(Assembly.GetExecutingAssembly().GetName().Version?.ToString())),
-                Field("runtime", SafeVersion(Environment.Version.ToString())),
-                Field("arch", Environment.Is64BitProcess ? "x64" : "x86"),
-                Number("logical_processors", Environment.ProcessorCount));
+                ResourceFields(ProcessResourceSnapshot.Capture(refreshExpensive: true)).Prepend(
+                    Number("logical_processors", Environment.ProcessorCount)).Prepend(
+                    Field("arch", Environment.Is64BitProcess ? "x64" : "x86")).Prepend(
+                    Field("runtime", SafeVersion(Environment.Version.ToString()))).Prepend(
+                    Field("version", SafeVersion(Assembly.GetExecutingAssembly().GetName().Version?.ToString()))).ToArray());
 
             LogRemoteDesktopEngineInventory();
             _heartbeatTimer = new Timer(_ => WriteHeartbeat(), null, HeartbeatIntervalMs, HeartbeatIntervalMs);
@@ -103,7 +116,7 @@ namespace mRemoteNG.App
                 Field("outcome", SafeOutcome(outcome)));
 
         internal static void RdpPhase(string rdpSession, string phase, long durationMs, string? version = null,
-            int? primaryCode = null, uint? extendedCode = null)
+            int? primaryCode = null, uint? extendedCode = null, bool refreshResources = false)
         {
             FieldValue[] fields =
             [
@@ -112,10 +125,165 @@ namespace mRemoteNG.App
                 Number("duration_ms", durationMs),
                 Field("version", SafeVersion(version)),
                 NullableNumber("code", primaryCode),
-                NullableNumber("extended_code", extendedCode)
+                NullableNumber("extended_code", extendedCode),
+                Field("disc_class", ClassifyDisconnect(primaryCode, extendedCode))
             ];
-            WriteInfo("rdp_phase", fields);
+            WriteInfo("rdp_phase", [..fields, ..ResourceFields(ProcessResourceSnapshot.Capture(refreshResources))]);
         }
+
+        internal static void RdpShape(RdpShapeInfo shape) =>
+            WriteInfo("rdp_shape", [..ShapeFields(shape), ..ResourceFields(ProcessResourceSnapshot.Capture(refreshExpensive: true))]);
+
+        internal static void RdpResources(string point, string session, bool refresh, string trigger,
+            int? code, uint? extended, bool? wasConnected, bool loginComplete, bool? hostDisposedFirst,
+            long sinceConnectMs, int desktopW, int desktopH, bool? smartSize, bool? fullScreen) =>
+            WriteInfo("rdp_resources",
+            [
+                Field("point", point),
+                Field("rdp_session", SafeCorrelationId(session)),
+                Field("trigger", trigger),
+                NullableNumber("code", code),
+                NullableNumber("extended_code", extended.HasValue ? (long)extended.Value : null),
+                Field("disc_class", ClassifyDisconnect(code, extended)),
+                Field("was_connected", wasConnected is null ? "na" : wasConnected.Value ? "true" : "false"),
+                Boolean("login_complete", loginComplete),
+                Field("host_disposed_first", hostDisposedFirst is null ? "na" : hostDisposedFirst.Value ? "true" : "false"),
+                Number("since_connect_ms", sinceConnectMs),
+                Number("desktop_w", desktopW),
+                Number("desktop_h", desktopH),
+                Field("smart_size", smartSize is null ? "na" : smartSize.Value ? "true" : "false"),
+                Field("fullscreen", fullScreen is null ? "na" : fullScreen.Value ? "true" : "false"),
+                Boolean("keep_tabs", mRemoteNG.Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect),
+                Boolean("reconnect_on_disconnect", mRemoteNG.Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect),
+                Number("confirm_close", mRemoteNG.Properties.Settings.Default.ConfirmCloseConnection),
+                ..ResourceFields(ProcessResourceSnapshot.Capture(refresh))
+            ]);
+
+        internal static string CompactResources(bool refresh)
+        {
+            ResourceSample sample = ProcessResourceSnapshot.Capture(refresh);
+            return string.Create(CultureInfo.InvariantCulture,
+                $"private_mb={sample.PrivateMb} working_set_mb={sample.WorkingSetMb} managed_mb={sample.ManagedMb} threads={sample.Threads} handles={sample.Handles} gdi={sample.Gdi} gdi_peak={sample.GdiPeak} user={sample.User} user_peak={sample.UserPeak}");
+        }
+
+        /// <summary>
+        /// Names the disconnect without repeating the control's display string.
+        /// Extended 12 is a user logoff and extended 2 is an API logoff; both make
+        /// <c>GetErrorDescription</c> return "An internal error has occurred."
+        /// </summary>
+        internal static string ClassifyDisconnect(int? code, uint? extended)
+        {
+            if (extended is 12) return "user_logoff";
+            if (extended is 2) return "api_logoff";
+            if (extended is 4) return "logoff";
+            return code switch
+            {
+                null => "na",
+                0 => "no_info",
+                1 => "local_disconnect",
+                2 => "remote_user",
+                3 => "remote_server",
+                0xB08 => "normal",
+                _ => "other"
+            };
+        }
+
+        private static FieldValue[] ResourceFields(ResourceSample sample) =>
+        [
+            Number("private_mb", sample.PrivateMb),
+            Number("working_set_mb", sample.WorkingSetMb),
+            Number("virtual_mb", sample.VirtualMb),
+            Number("managed_mb", sample.ManagedMb),
+            Number("gc_heap_mb", sample.GcHeapMb),
+            Number("gc_committed_mb", sample.GcCommittedMb),
+            Number("gc_fragmented_mb", sample.GcFragmentedMb),
+            Number("gc0", sample.Gc0),
+            Number("gc1", sample.Gc1),
+            Number("gc2", sample.Gc2),
+            Number("threads", sample.Threads),
+            Number("threadpool", sample.ThreadPool),
+            Number("handles", sample.Handles),
+            Number("gdi", sample.Gdi),
+            Number("gdi_peak", sample.GdiPeak),
+            Number("user", sample.User),
+            Number("user_peak", sample.UserPeak),
+            Number("paged_pool_kb", sample.PagedPoolKb),
+            Number("nonpaged_pool_kb", sample.NonPagedPoolKb),
+            Number("page_faults", sample.PageFaults),
+            Number("rdp_live", ProcessResourceSnapshot.LiveRdp),
+            Number("forms", sample.Forms),
+            Boolean("remote_session", sample.RemoteSession),
+            Number("session_id", sample.SessionId),
+            Number("monitors", sample.Monitors),
+            Number("screen_w", sample.ScreenW),
+            Number("screen_h", sample.ScreenH),
+            Number("virtual_w", sample.VirtualW),
+            Number("virtual_h", sample.VirtualH),
+            Number("dpi", sample.Dpi),
+            Number("dpi_context", sample.DpiContext),
+            List("handle_types", sample.HandleTypes),
+            List("thread_modules", sample.ThreadModules)
+        ];
+
+        private static FieldValue[] ShapeFields(RdpShapeInfo shape) =>
+        [
+            Field("rdp_session", SafeCorrelationId(shape.Session)),
+            Field("protocol", shape.Protocol),
+            Field("version", SafeVersion(shape.Version)),
+            Field("client_version", SafeVersion(shape.ClientVersion)),
+            Field("colors", shape.Colors),
+            Number("color_depth", shape.ColorDepth),
+            Field("resolution", shape.Resolution),
+            Field("sizing", shape.Sizing),
+            Number("desktop_w", shape.DesktopW),
+            Number("desktop_h", shape.DesktopH),
+            Number("panel_w", shape.PanelW),
+            Number("panel_h", shape.PanelH),
+            Boolean("smart_size", shape.SmartSize),
+            Boolean("fullscreen", shape.FullScreen),
+            Field("scale_requested", shape.ScaleRequested),
+            Number("scale_applied", shape.ScaleApplied),
+            Number("device_scale", shape.DeviceScale),
+            Boolean("bitmap_cache", shape.BitmapCache),
+            Boolean("clipboard", shape.Clipboard),
+            Boolean("printers", shape.Printers),
+            Boolean("ports", shape.Ports),
+            Boolean("smart_cards", shape.SmartCards),
+            Boolean("webauthn", shape.WebAuthn),
+            Boolean("aad", shape.Aad),
+            Boolean("credssp", shape.CredSsp),
+            Boolean("console", shape.Console),
+            Boolean("redirect_keys", shape.RedirectKeys),
+            Boolean("view_only", shape.ViewOnly),
+            Boolean("multimon", shape.Multimon),
+            Boolean("ui_parent", shape.UiParent),
+            Field("drives", shape.Drives),
+            Boolean("drives_custom", shape.DrivesCustom),
+            Field("sound", shape.Sound),
+            Field("gateway_usage", shape.GatewayUsage),
+            Boolean("gateway_set", shape.GatewaySet),
+            Number("perf_flags", shape.PerfFlags),
+            Boolean("wallpaper", shape.Wallpaper),
+            Boolean("themes", shape.Themes),
+            Boolean("font_smoothing", shape.FontSmoothing),
+            Boolean("composition", shape.Composition),
+            Boolean("full_window_drag", shape.FullWindowDrag),
+            Boolean("menu_animations", shape.MenuAnimations),
+            Boolean("cursor_shadow", shape.CursorShadow),
+            Boolean("cursor_blink", shape.CursorBlink),
+            Number("idle_minutes", shape.IdleMinutes),
+            Number("server_auth", shape.ServerAuth),
+            Number("port", shape.Port),
+            Boolean("restricted_admin", shape.RestrictedAdmin),
+            Boolean("credential_guard", shape.CredentialGuard),
+            Boolean("load_balance_set", shape.LoadBalanceSet),
+            Boolean("start_program_set", shape.StartProgramSet),
+            Boolean("signature_set", shape.SignatureSet),
+            Boolean("keep_tabs", shape.KeepTabs),
+            Boolean("reconnect_on_disconnect", shape.ReconnectOnDisconnect),
+            Number("confirm_close", shape.ConfirmClose),
+            Number("reconnect_max", shape.ReconnectMax)
+        ];
 
         internal static void RdpCapability(string capability, bool supported) =>
             WriteInfo("rdp_capability", Field("name", SafeToken(capability)), Boolean("supported", supported));
@@ -162,16 +330,11 @@ namespace mRemoteNG.App
                       elapsedMs / Math.Max(1, Environment.ProcessorCount) * 100d;
 
                 WriteInfo("heartbeat",
+                [
                     Number("uptime_ms", Uptime.ElapsedMilliseconds),
                     Decimal("cpu_percent", Math.Clamp(cpuPercent, 0d, 100d)),
-                    Number("working_set_mb", BytesToMiB(CurrentProcess.WorkingSet64)),
-                    Number("private_mb", BytesToMiB(CurrentProcess.PrivateMemorySize64)),
-                    Number("managed_mb", BytesToMiB(GC.GetTotalMemory(false))),
-                    Number("gc0", GC.CollectionCount(0)),
-                    Number("gc1", GC.CollectionCount(1)),
-                    Number("gc2", GC.CollectionCount(2)),
-                    Number("threads", CurrentProcess.Threads.Count),
-                    Number("handles", CurrentProcess.HandleCount));
+                    ..ResourceFields(ProcessResourceSnapshot.Capture(refreshExpensive: true))
+                ]);
             }
             catch (Exception ex)
             {
@@ -295,6 +458,14 @@ namespace mRemoteNG.App
         }
 
         private static FieldValue Field(string key, string value) => new(SafeToken(key), SafeToken(value, 160));
+        private static FieldValue List(string key, string value) => new(SafeToken(key), SafeList(value, 700));
+
+        private static string SafeList(string? value, int maxLength)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return "none";
+            string text = new(value.Where(c => char.IsAsciiLetterOrDigit(c) || c is '_' or '.' or '-' or ',' or ':' or '+').Take(maxLength).ToArray());
+            return text.Length == 0 ? "none" : text;
+        }
         private static FieldValue Number(string key, long value) => new(SafeToken(key), value.ToString(CultureInfo.InvariantCulture));
         private static FieldValue NullableNumber(string key, long? value) =>
             new(SafeToken(key), value?.ToString(CultureInfo.InvariantCulture) ?? "na");
@@ -331,5 +502,66 @@ namespace mRemoteNG.App
 
         private readonly record struct FieldValue(string Key, string Value);
         private enum DiagnosticLevel { Info, Warning, Error }
+    }
+
+    /// <summary>Applied RDP settings for one connect. Names, paths, and secrets stay out.</summary>
+    internal sealed class RdpShapeInfo
+    {
+        public string Session = "";
+        public string Protocol = "unknown";
+        public string Version = "unknown";
+        public string ClientVersion = "unknown";
+        public string Colors = "unknown";
+        public int ColorDepth;
+        public string Resolution = "unknown";
+        public string Sizing = "unknown";
+        public int DesktopW;
+        public int DesktopH;
+        public int PanelW;
+        public int PanelH;
+        public bool SmartSize;
+        public bool FullScreen;
+        public string ScaleRequested = "unknown";
+        public int ScaleApplied;
+        public int DeviceScale;
+        public bool BitmapCache;
+        public bool Clipboard;
+        public bool Printers;
+        public bool Ports;
+        public bool SmartCards;
+        public bool WebAuthn;
+        public bool Aad;
+        public bool CredSsp;
+        public bool Console;
+        public bool RedirectKeys;
+        public bool ViewOnly;
+        public bool Multimon;
+        public bool UiParent;
+        public string Drives = "unknown";
+        public bool DrivesCustom;
+        public string Sound = "unknown";
+        public string GatewayUsage = "unknown";
+        public bool GatewaySet;
+        public int PerfFlags;
+        public bool Wallpaper;
+        public bool Themes;
+        public bool FontSmoothing;
+        public bool Composition;
+        public bool FullWindowDrag;
+        public bool MenuAnimations;
+        public bool CursorShadow;
+        public bool CursorBlink;
+        public int IdleMinutes;
+        public int ServerAuth = -1;
+        public int Port;
+        public bool RestrictedAdmin;
+        public bool CredentialGuard;
+        public bool LoadBalanceSet;
+        public bool StartProgramSet;
+        public bool SignatureSet;
+        public bool KeepTabs;
+        public bool ReconnectOnDisconnect;
+        public int ConfirmClose;
+        public int ReconnectMax;
     }
 }

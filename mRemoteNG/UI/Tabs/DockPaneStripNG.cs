@@ -1569,7 +1569,7 @@ namespace mRemoteNG.UI.Tabs
 
         private void Close_Click(object sender, EventArgs e)
         {
-            CloseProtocol();
+            CloseProtocol("user_tab_button");
 
             if (PatchController.EnableMemoryLeakFix == true)
             {
@@ -1654,9 +1654,10 @@ namespace mRemoteNG.UI.Tabs
             PerformLayout();
         }
 
-        private void CloseProtocol()
+        private void CloseProtocol(string trigger)
         {
             InterfaceControl? ic = InterfaceControl.FindInterfaceControl(DockPane.DockPanel);
+            ic?.Protocol.NoteCloseRequested(trigger);
             ic?.Protocol.Close();
         }
 
@@ -1671,7 +1672,7 @@ namespace mRemoteNG.UI.Tabs
 
                 // Option is set, close the tab, then send to base.
                 //DockPane.CloseActiveContent();
-                CloseProtocol();
+                CloseProtocol("user_tab_double_click");
 
                 if (PatchController.EnableMemoryLeakFix == true)
                 {

@@ -960,6 +960,7 @@ namespace mRemoteNG.UI.Window
 
                 foreach (InterfaceControl iControl in controlList)
                 {
+                    iControl.Protocol.NoteCloseRequested("reconnect_all");
                     iControl.Protocol.Close();
                     initiator.OpenConnection(iControl.Info, ConnectionInfo.Force.DoNotJump, this);
                 }
