@@ -40,6 +40,49 @@ A failed budget requires investigation; a valid cache may fail it. Do not loosen
 make a run pass. A budget change needs recorded repeated control runs, the complete series,
 and an explicit explanation of what additional retained resources are acceptable.
 
+The Windows acceptance run also measures Microsoft's generated RDP control in the same test
+process, against the same target. The baseline host does not assign a server-authentication
+policy; it answers this process's certificate warning when one appears. The application is
+charged only for growth beyond that control. The control does not
+widen the budget: its growth is an allowance, a shrinking control gives none, and an
+inconclusive or incomplete control blocks the run. `RetentionAssessmentTests` pins those rules.
+The receipt schema is 2 and names the control series. This differential does not declare #182
+fixed, and it does not replace the reporter's measurement.
+
+## Lab differential, 2026-10-01
+
+Isolated Hyper-V lab, Windows target, 1100x750, steady per closed session after warm-up.
+These figures explain where the lab's residue sits. They do not reproduce the reporter's
+approximately 70 MB per session (lab private growth is about 1 MB per session, about half of
+that from the control).
+
+| Configuration | handles | GDI | USER | threads |
+|---|---|---|---|---|
+| Microsoft generated host, fresh instance, no certificate dialog | ~+73 | 0 | +8 | +2..3 |
+| Same host, per-monitor-v2 thread context | ~+72 | 0 | +8 | +2 |
+| Same host, one instance reused | ~+9 | 0 | 0 | 0 |
+| Any host that shows the server-certificate warning | ~+1 | +9 | +3 | — |
+| `RdpProtocol11` plus `InterfaceControl`, no certificate dialog | ~+73 | 0 | +8 | +2 |
+| Full application, default warn (dialog each session) | ~+82 | +23 | — | — |
+| Full application, no certificate dialog | ~+81 | +8 | — | — |
+
+Waiting for native `OnDisconnected` before dispose changed nothing. A settings bisect (colors,
+clipboard, performance flags, session options, scale factors, drives) did not move GDI, handles,
+USER objects or threads. UI Automation polling during the session added nothing. An induced
+collection left full-application GDI unchanged, so that residue is not finalizer-pending.
+The native RDP refcount reaches 0 when an initialized protocol is disposed, connected and
+unconnected (`DisposingAnInitializedProtocolReleasesTheNativeRdpObject`, selections 6–11).
+
+What remains unexplained is the full application's excess over the minimal protocol path when
+no certificate dialog is shown: about +8 GDI objects and +8 handles per session. Over fourteen
+sessions that excess is above the 16 GDI and 32 handle budgets, so acceptance stays red until
+it is explained or removed. Reusing one ActiveX instance cuts the control's residue sharply and
+is a design question (credential and session isolation), not a #182 fix. `rdclientax.dll` is not
+a substitute: it is not redistributable. The Remote Desktop client for Windows (MSI) that ships
+it left public-cloud support on 2026-03-27
+([Microsoft Learn](https://learn.microsoft.com/en-us/previous-versions/remote-desktop-client/overview),
+retrieved 2026-10-01). Direct RDP in this application stays on `mstscax`.
+
 ## Maintainer acceptance
 
 Run `lab-run.ps1 -NoBuild -Artifacts -Filter 'FullyQualifiedName~RdpSessionMemory'` after building.
