@@ -46,4 +46,44 @@ public class RetentionAssessmentTests
     public void IncompleteEvidenceCannotPass(int cycles, int logins, int settle) =>
         Assert.That(Assess(Enumerable.Repeat(200L, cycles).ToArray(), logins: logins, settle: settle).Verdict,
             Is.EqualTo("inconclusive"));
+
+    private static RetentionAssessment.ControlledResult Controlled(long[] application, long[] control, long[]? controlIdle = null) =>
+        RetentionAssessment.AssessAgainstControl(Assess(application), Assess(control, controlIdle));
+
+    private static long[] Rising(long start, long step) => Enumerable.Range(0, 14).Select(i => start + step * i).ToArray();
+
+    [Test]
+    public void GrowthMatchingMicrosoftsControlIsNotChargedToTheApplication()
+    {
+        var result = Controlled(Rising(1300, 75), Rising(1200, 75));
+        Assert.That(result.Verdict, Is.EqualTo("within-budget"));
+        Assert.That(result.Excess, Is.Zero);
+    }
+
+    [Test]
+    public void GrowthBeyondTheControlByMoreThanTheBudgetFails() =>
+        Assert.That(Controlled(Rising(1300, 78), Rising(1200, 75)).Verdict, Is.EqualTo("growth"));
+
+    [Test]
+    public void ReporterSeriesStillFailsAgainstAFlatControl() =>
+        Assert.That(Controlled([274, 376, 511, 525, 520, 651, 778, 774, 903, 899, 888, 1019, 1136, 1274],
+            Enumerable.Repeat(300L, 14).ToArray()).Verdict, Is.EqualTo("growth"));
+
+    [Test]
+    public void AShrinkingControlGivesNoAllowance()
+    {
+        var result = Controlled(Rising(200, 3), Rising(400, -3));
+        Assert.That(result.ControlGrowth, Is.Zero);
+        Assert.That(result.Verdict, Is.EqualTo("growth"));
+    }
+
+    [Test]
+    public void AnInconclusiveControlBlocksAcceptance() =>
+        Assert.That(Controlled(Enumerable.Repeat(200L, 14).ToArray(), Rising(200, 75), [99, 100, 140, 120, 100, 99]).Verdict,
+            Is.EqualTo("inconclusive"));
+
+    [Test]
+    public void AnIncompleteControlBlocksAcceptance() =>
+        Assert.That(RetentionAssessment.AssessAgainstControl(Assess(Enumerable.Repeat(200L, 14).ToArray()),
+            Assess(Rising(200, 75).Take(13).ToArray(), logins: 13)).Verdict, Is.EqualTo("inconclusive"));
 }

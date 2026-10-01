@@ -169,8 +169,12 @@ namespace mRemoteNGSpecs.Fixtures
             List<Sample> idle = [], open = [], closed = [];
             int logins = 0;
             string verdict = "incomplete";
+            MicrosoftRdpControl.Series? control = null;
             try
             {
+                // Microsoft's own control, same target and prompt, measured once per test process.
+                control = MicrosoftRdpControl.Measure();
+                Assert.That(control.Failure, Is.Null, "the Microsoft RDP control baseline did not complete");
                 // A fixed idle control. Excessive noise makes the run inconclusive, not more permissive.
                 for (int i = 0; i < 6; i++)
                 {
@@ -198,12 +202,17 @@ namespace mRemoteNGSpecs.Fixtures
                     TestContext.Out.WriteLine($"cycle {cycle}: {JsonSerializer.Serialize(closed[^1])}");
                     File.WriteAllText(Path.Combine(evidence, "progress.json"), JsonSerializer.Serialize(closed));
                 }
-                var memory = RetentionAssessment.Assess(idle.Select(x => x.PrivateBytes).ToArray(),
-                    closed.Select(x => x.PrivateBytes).ToArray(), RetentionAssessment.PrivateBytesBudget, logins, 30);
-                var handles = RetentionAssessment.Assess(idle.Select(x => (long)x.Handles).ToArray(),
-                    closed.Select(x => (long)x.Handles).ToArray(), RetentionAssessment.HandleBudget, logins, 30);
-                var gdi = RetentionAssessment.Assess(idle.Select(x => (long)x.GdiObjects).ToArray(),
-                    closed.Select(x => (long)x.GdiObjects).ToArray(), RetentionAssessment.GdiBudget, logins, 30);
+                RetentionAssessment.ControlledResult Compare(Func<Sample, long> app,
+                    Func<MicrosoftRdpControl.Sample, long> baseline, long budget) =>
+                    RetentionAssessment.AssessAgainstControl(
+                        RetentionAssessment.Assess(idle.Select(app).ToArray(), closed.Select(app).ToArray(),
+                            budget, logins, RetentionAssessment.RequiredSettleSeconds),
+                        RetentionAssessment.Assess(control.Idle.Select(baseline).ToArray(),
+                            control.Closed.Select(baseline).ToArray(), budget, control.CompletedLogins,
+                            RetentionAssessment.RequiredSettleSeconds));
+                var memory = Compare(x => x.PrivateBytes, x => x.PrivateBytes, RetentionAssessment.PrivateBytesBudget);
+                var handles = Compare(x => x.Handles, x => x.Handles, RetentionAssessment.HandleBudget);
+                var gdi = Compare(x => x.GdiObjects, x => x.GdiObjects, RetentionAssessment.GdiBudget);
                 bool withinBudget = new[] { memory, handles, gdi }.All(x => string.Equals(x.Verdict, "within-budget", StringComparison.Ordinal));
                 verdict = "requires-investigation";
                 TestContext.Out.WriteLine(JsonSerializer.Serialize(new { memory, handles, gdi }));
@@ -216,11 +225,12 @@ namespace mRemoteNGSpecs.Fixtures
                 string appDll = Path.Combine(Deployment.Directory, "mRemoteNG.dll");
                 File.WriteAllText(Path.Combine(evidence, "receipt.json"), JsonSerializer.Serialize(new
                 {
-                    schema = 1, verdict, keepTabs = KeepTabsOpenAfterDisconnect, closePanel,
+                    schema = 2, verdict, keepTabs = KeepTabsOpenAfterDisconnect, closePanel,
                     completedLogins = logins, settleSeconds = RetentionAssessment.RequiredSettleSeconds,
                     appSha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(appDll))),
-                    os = Environment.OSVersion.ToString(), idle, open, closed,
-                    limitations = "Finite Windows lab run; screenshots require inspection; not proof of leak freedom."
+                    os = Environment.OSVersion.ToString(), idle, open, closed, microsoftControl = control,
+                    limitations = "Finite Windows lab run; budgets apply to growth beyond Microsoft's own RDP control "
+                                  + "in the same run; screenshots require inspection; not proof of leak freedom."
                 }, EvidenceJson));
                 File.WriteAllText(Path.Combine(evidence, "application.log"), Deployment.ReadAppLog());
             }

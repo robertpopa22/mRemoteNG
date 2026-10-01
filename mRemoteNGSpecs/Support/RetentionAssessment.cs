@@ -35,5 +35,25 @@ public static class RetentionAssessment
         return new(growth > budget ? "growth" : "within-budget", growth, noise, budget);
     }
 
+    public sealed record ControlledResult(string Verdict, long ApplicationGrowth, long ControlGrowth, long Excess, long Budget);
+
+    /// <summary>
+    /// Charges the application only for what it retains beyond Microsoft's own RDP control under the
+    /// same run conditions. The control never widens the budget: its growth is the allowance, a
+    /// negative control growth gives none, and an inconclusive control blocks acceptance.
+    /// </summary>
+    public static ControlledResult AssessAgainstControl(Result application, Result control)
+    {
+        if (application.Budget != control.Budget ||
+            string.Equals(application.Verdict, "inconclusive", StringComparison.Ordinal) ||
+            string.Equals(control.Verdict, "inconclusive", StringComparison.Ordinal))
+            return new("inconclusive", application.Growth, control.Growth, 0, application.Budget);
+
+        long allowance = Math.Max(0, control.Growth);
+        long excess = application.Growth - allowance;
+        return new(excess > application.Budget ? "growth" : "within-budget",
+            application.Growth, allowance, excess, application.Budget);
+    }
+
     private static long Median(IEnumerable<long> values) => values.Order().ElementAt(1);
 }

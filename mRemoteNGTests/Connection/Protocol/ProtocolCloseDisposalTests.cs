@@ -58,13 +58,15 @@ public class ProtocolCloseDisposalTests
         return (protocol, ic, tab);
     }
 
-    private static bool DisposedWithin(SpyProtocol protocol, TimeSpan timeout)
+    private static bool DisposedWithin(SpyProtocol protocol, TimeSpan timeout, InterfaceControl? ic = null)
     {
-        // Close() hands the work to its own STA thread, so the assertion has to wait for it.
+        // Close() hands the work to its own STA thread, so the assertion has to wait for it. The
+        // interface control disposes its protocol before it marks itself disposed, so a caller
+        // that also checks the control has to wait for that second step, not just the first.
         Stopwatch clock = Stopwatch.StartNew();
         while (clock.Elapsed < timeout)
         {
-            if (protocol.Disposed)
+            if (protocol.Disposed && (ic == null || ic.IsDisposed))
                 return true;
             Application.DoEvents();
             Thread.Sleep(20);
@@ -81,7 +83,7 @@ public class ProtocolCloseDisposalTests
         {
             protocol.Close();
 
-            Assert.That(DisposedWithin(protocol, TimeSpan.FromSeconds(5)), Is.True,
+            Assert.That(DisposedWithin(protocol, TimeSpan.FromSeconds(5), ic), Is.True,
                         "closing a connection left the protocol undisposed, so whatever it holds — for RDP "
                         + "the MSTSC ActiveX object — is never released");
             Assert.That(ic.IsDisposed, Is.True, "the interface control outlived the connection");
@@ -104,7 +106,7 @@ public class ProtocolCloseDisposalTests
 
             protocol.Close();
 
-            Assert.That(DisposedWithin(protocol, TimeSpan.FromSeconds(5)), Is.True,
+            Assert.That(DisposedWithin(protocol, TimeSpan.FromSeconds(5), ic), Is.True,
                         "a connection whose tab closed first never disposed its protocol — this is the "
                         + "leak in #182, and it is the ordinary close path, not an edge case");
             Assert.That(ic.IsDisposed, Is.True, "the interface control outlived the connection");
