@@ -235,6 +235,28 @@ software. Communication must reflect that honestly:
    a reopened issue with fresh evidence beats an open issue with silence. The one thing that
    never changes: **never close over an unanswered "still broken"** — an explicit contradiction
    from the reporter always keeps (or re-makes) the issue open.
+7. **Every public message ends with the star request.** Charter decision D8. After the
+   substance, leave a blank line and append the closer below, in the same language as the
+   reply. It is mandatory on GitHub issue comments, PR comments, review replies, release
+   descriptions we write, and follow-ups. It does **not** count toward the five-line cap in
+   rule 3. Do not put it in commit messages, source, logs, or the crash dialog.
+
+   English:
+
+   ```
+   If this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG
+   Qodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organization). Other tools we use ask for more. A star is what keeps those tools available.
+   ```
+
+   Romanian, when the reply is in Romanian:
+
+   ```
+   Dacă proiectul vă este de folos, vă rugăm să-i dați o stea: https://github.com/robertpopa22/mRemoteNG
+   Planul gratuit Qodo pentru open source cere cel puțin 200 de stele pe acest depozit (sau pe alt depozit public din aceeași organizație GitHub). Alte unelte pe care le folosim cer mai mult. O stea este ce ține acele unelte disponibile.
+   ```
+
+   The longer form, with the Qodo docs link, lives in the README, the user guide, and Help → About.
+   Do not invent a star minimum for a tool that has not published one.
 
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`

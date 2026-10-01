@@ -29,6 +29,7 @@ namespace mRemoteNG.App.Info
         public const string ForkOwner = "robertpopa22";
         public const string ForkRepo = "mRemoteNG";
         public const string UrlForkHome = "https://github.com/robertpopa22/mRemoteNG";
+        public const string UrlForkStars = "https://github.com/robertpopa22/mRemoteNG/stargazers";
         public const string UrlForkReleases = "https://github.com/robertpopa22/mRemoteNG/releases";
         public const string UrlForkChangelog = "https://github.com/robertpopa22/mRemoteNG/blob/main/CHANGELOG.md";
         // The F1 manual is the upstream one and documents none of this fork's additions.

@@ -18,6 +18,8 @@ namespace mRemoteNG.UI.Forms
             llForkReleases = new System.Windows.Forms.LinkLabel();
             llForkChangelog = new System.Windows.Forms.LinkLabel();
             llDonate = new System.Windows.Forms.LinkLabel();
+            lblStarAsk = new Controls.MrngLabel();
+            llStar = new System.Windows.Forms.LinkLabel();
             lblMaintainedBy = new Controls.MrngLabel();
             lblMaintainer = new Controls.MrngLabel();
             llMaintainerWebsite = new System.Windows.Forms.LinkLabel();
@@ -56,6 +58,8 @@ namespace mRemoteNG.UI.Forms
             pnlBottom.Controls.Add(llForkReleases);
             pnlBottom.Controls.Add(llForkChangelog);
             pnlBottom.Controls.Add(llDonate);
+            pnlBottom.Controls.Add(lblStarAsk);
+            pnlBottom.Controls.Add(llStar);
             pnlBottom.Controls.Add(lblMaintainedBy);
             pnlBottom.Controls.Add(lblMaintainer);
             pnlBottom.Controls.Add(llMaintainerWebsite);
@@ -67,7 +71,7 @@ namespace mRemoteNG.UI.Forms
             pnlBottom.ForeColor = System.Drawing.SystemColors.ControlText;
             pnlBottom.Location = new System.Drawing.Point(0, 120);
             pnlBottom.Name = "pnlBottom";
-            pnlBottom.Size = new System.Drawing.Size(584, 380);
+            pnlBottom.Size = new System.Drawing.Size(584, 460);
             pnlBottom.TabIndex = 1;
             //
             // lblTitle
@@ -191,12 +195,35 @@ namespace mRemoteNG.UI.Forms
             llDonate.Text = "Support the Geseidl Association";
             llDonate.LinkClicked += llDonate_LinkClicked;
             //
+            // lblStarAsk
+            //
+            lblStarAsk.AutoSize = false;
+            lblStarAsk.Font = new System.Drawing.Font("Segoe UI", 9F);
+            lblStarAsk.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblStarAsk.Location = new System.Drawing.Point(5, 308);
+            lblStarAsk.Name = "lblStarAsk";
+            lblStarAsk.Size = new System.Drawing.Size(318, 52);
+            lblStarAsk.TabIndex = 18;
+            lblStarAsk.Text = "Please star this repository.";
+            lblStarAsk.UseCompatibleTextRendering = true;
+            //
+            // llStar
+            //
+            llStar.AutoSize = true;
+            llStar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            llStar.Location = new System.Drawing.Point(5, 362);
+            llStar.Name = "llStar";
+            llStar.TabIndex = 19;
+            llStar.TabStop = true;
+            llStar.Text = "Star on GitHub";
+            llStar.LinkClicked += llStar_LinkClicked;
+            //
             // lblMaintainedBy
             //
             lblMaintainedBy.AutoSize = true;
             lblMaintainedBy.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             lblMaintainedBy.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblMaintainedBy.Location = new System.Drawing.Point(5, 340);
+            lblMaintainedBy.Location = new System.Drawing.Point(5, 392);
             lblMaintainedBy.Name = "lblMaintainedBy";
             lblMaintainedBy.TabIndex = 15;
             lblMaintainedBy.Text = "Maintained by";
@@ -206,7 +233,7 @@ namespace mRemoteNG.UI.Forms
             lblMaintainer.AutoSize = true;
             lblMaintainer.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             lblMaintainer.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblMaintainer.Location = new System.Drawing.Point(110, 340);
+            lblMaintainer.Location = new System.Drawing.Point(110, 392);
             lblMaintainer.Name = "lblMaintainer";
             lblMaintainer.TabIndex = 16;
             lblMaintainer.Text = "Geseidl IT Solutions";
@@ -215,7 +242,7 @@ namespace mRemoteNG.UI.Forms
             //
             llMaintainerWebsite.AutoSize = true;
             llMaintainerWebsite.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            llMaintainerWebsite.Location = new System.Drawing.Point(255, 340);
+            llMaintainerWebsite.Location = new System.Drawing.Point(255, 392);
             llMaintainerWebsite.Name = "llMaintainerWebsite";
             llMaintainerWebsite.TabIndex = 17;
             llMaintainerWebsite.TabStop = true;
@@ -270,7 +297,7 @@ namespace mRemoteNG.UI.Forms
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Control;
-            ClientSize = new System.Drawing.Size(584, 500);
+            ClientSize = new System.Drawing.Size(584, 580);
             Controls.Add(pnlBottom);
             Controls.Add(pbLogo);
             Font = new System.Drawing.Font("Segoe UI", 8.25F);
@@ -302,6 +329,8 @@ namespace mRemoteNG.UI.Forms
         private System.Windows.Forms.LinkLabel llForkReleases;
         private System.Windows.Forms.LinkLabel llForkChangelog;
         private System.Windows.Forms.LinkLabel llDonate;
+        private Controls.MrngLabel lblStarAsk;
+        private System.Windows.Forms.LinkLabel llStar;
         private Controls.MrngLabel lblMaintainedBy;
         private Controls.MrngLabel lblMaintainer;
         private System.Windows.Forms.LinkLabel llMaintainerWebsite;

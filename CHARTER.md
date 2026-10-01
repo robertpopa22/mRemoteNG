@@ -114,6 +114,26 @@ We are a fork of a living project, and we intend to keep being able to take its 
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
 
+### D8 — 2026-10-01 · Every public message asks for a star
+
+The maintainer made this a basic rule. Every public message from this project ends with a
+request to star [robertpopa22/mRemoteNG](https://github.com/robertpopa22/mRemoteNG). The
+reason is stated in the message, not left implied: community tools we already use set a
+public-star minimum. [Qodo's free plan for open source](https://docs.qodo.ai/open-source-program)
+requires at least 200 stars on this repository, or on another public repository in the same
+GitHub organization. Other tools we use ask for more than that. A star is what keeps those
+tools available.
+
+The exact closer, the pages that carry the longer form, and the places that stay free of it
+are in the manual under Reporter Communication. The closer does not count against the
+short-reply length cap. It does not enter commit messages, source, logs, or the crash dialog.
+
+*Why:* the maintainer asked for the obligation on 2026-10-01, and the Qodo eligibility page
+(checked the same day) documents the 200-star minimum.
+
+*Reverses if:* those tools no longer gate access on a public star count, or the maintainer
+withdraws the request.
+
 ### D7 — 2026-09-29 · Replies follow evidence and outstanding actions, not lifecycle templates
 
 The maintainer requested a review of incoming requests and an update to our response process

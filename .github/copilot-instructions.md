@@ -2,6 +2,8 @@
 
 ## Project Overview
 
+When you draft a public reply, release note, or issue comment, end it with a request to star https://github.com/robertpopa22/mRemoteNG. Say why: Qodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organization), and other tools this project uses ask for more. The canonical wording is in `CLAUDE.md` under Reporter Communication.
+
 mRemoteNG is an open-source, multi-protocol, tabbed remote connections manager for Windows. It's a fork of mRemote that allows users to view and manage all their remote connections (RDP, VNC, SSH, Telnet, HTTP/HTTPS, rlogin, Raw Socket, PowerShell remoting, AnyDesk) in a simple yet powerful interface.
 
 ## Technology Stack

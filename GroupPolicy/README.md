@@ -72,3 +72,9 @@ All values are stored under `HKEY_LOCAL_MACHINE\SOFTWARE\mRemoteNG\{Category}` a
 
 **Silent operation (kiosk/shared workstations):**
 - Set "Allow popup notifications" to **Disabled**
+
+## Star the project
+
+If this project helps you, please [star the repository](https://github.com/robertpopa22/mRemoteNG).
+
+Some of the community tools we use set a public-star minimum before they will work with a project. [Qodo's free plan for open source](https://docs.qodo.ai/open-source-program) requires at least 200 stars on this repository, or on another public repository in the same GitHub organization. Other tools we use ask for more than that. A star is what keeps those tools available here.

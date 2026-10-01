@@ -90,6 +90,14 @@ the required verification, or an explicitly described not-planned administrative
 unreproduced silent report. Never close over an unanswered "still broken"; invite reopening.
 When a thread contains several symptoms, account for all of them before closing.
 
+## Star closer
+
+Charter decision D8. Every public reply ends with the star closer defined in the
+[reporter communication rules](../CLAUDE.md#reporter-communication--transparency-mandatory-for-every-github-reply).
+Leave a blank line before it. Write it in the same language as the reply. It does not count
+toward the five-line cap. A security advisory keeps its technical content first and the closer
+last. Do not add it to commit messages, source, logs, or the crash dialog.
+
 ## Publication
 
 IIS templates contain `{{REQUIRED_FIELDS}}`; they are outlines only. Automated fix runs save

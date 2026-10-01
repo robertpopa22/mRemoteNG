@@ -20,6 +20,9 @@ retest blind fixes indefinitely — after two unproven fixes, the next step is d
 after three failed rounds, work stops for human review or new evidence. A partially improved
 report stays open for the remaining symptoms. Logs and screenshots help us distinguish them.
 Full details: see pinned issue #167.
+
+If this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG
+Qodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organization). Other tools we use ask for more. A star is what keeps those tools available.
 -->
 
 **What happens** (and what you expected instead):

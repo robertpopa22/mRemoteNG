@@ -58,6 +58,10 @@ namespace mRemoteNG.UI.Forms
             llForkReleases.Text = Language.ForkReleases;
             llForkChangelog.Text = Language.ForkChangelog;
             llDonate.Text = "Support the Geseidl Association";
+            lblStarAsk.Text =
+                "Please star this repository. Qodo's free open-source plan needs at least 200 stars. " +
+                "Other tools we use ask for more.";
+            llStar.Text = "Star on GitHub";
             lblOriginalHeader.Text = "The Original Project — thank you";
             lblMaintainedBy.Text = Language.MaintainedBy;
             lblMaintainer.Text = "Geseidl IT Solutions";
@@ -135,6 +139,11 @@ namespace mRemoteNG.UI.Forms
         private void llDonate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenUrl(GeneralAppInfo.UrlDonate);
+        }
+
+        private void llStar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenUrl(GeneralAppInfo.UrlForkStars);
         }
 
         private static void OpenUrl(string url)

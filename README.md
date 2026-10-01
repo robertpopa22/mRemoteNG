@@ -12,6 +12,8 @@ Full transparency: this project uses automated development and verification, dir
 
 We keep partial failures open, review contributor patches, and switch to diagnostics after two fixes based on an unproven premise. After three failed rounds, automated attempts stop for human review or new evidence. Logs, screenshots and precise retest results help decide the next step. See the [response workflow](docs/ISSUE-RESPONSE-WORKFLOW.md) and [pinned explanation](https://github.com/robertpopa22/mRemoteNG/issues/167).
 
+If this fork is useful to you, please star it. Community tools we rely on set a public-star minimum: [Qodo's free open-source plan](https://docs.qodo.ai/open-source-program) needs at least 200 stars, and other tools we use ask for more. A star is what keeps those tools available.
+
 *— Robert & contributors (human + AI)*
 
 </blockquote>
@@ -609,7 +611,9 @@ We use mRemoteNG daily across our managed infrastructure (50+ servers, 300+ clie
 
 ## Support the Project
 
-If you find this fork useful, please consider giving it a star — it helps others discover the project and motivates continued development.
+If this project helps you, please [star the repository](https://github.com/robertpopa22/mRemoteNG).
+
+Some of the community tools we use set a public-star minimum before they will work with a project. [Qodo's free plan for open source](https://docs.qodo.ai/open-source-program) requires at least 200 stars on this repository, or on another public repository in the same GitHub organization. Other tools we use ask for more than that. A star is what keeps those tools available here.
 
 <p align="center">
   <a href="https://github.com/robertpopa22/mRemoteNG/stargazers">

@@ -54,3 +54,9 @@ discard folder holding anything taken out of the target; nothing is deleted.
 Pruning old rollback copies happens only after a verified deployment and never
 undoes it: a copy that cannot be removed is reported as a warning and retried on
 the next run.
+
+## Star the project
+
+If this project helps you, please [star the repository](https://github.com/robertpopa22/mRemoteNG).
+
+Some of the community tools we use set a public-star minimum before they will work with a project. [Qodo's free plan for open source](https://docs.qodo.ai/open-source-program) requires at least 200 stars on this repository, or on another public repository in the same GitHub organization. Other tools we use ask for more than that. A star is what keeps those tools available here.

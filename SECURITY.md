@@ -59,3 +59,9 @@ against the `checksums-SHA256.txt` published with every release. Current status 
 mRemoteNG uses legitimate Windows APIs (SendInput, DPAPI, COM Interop) that may trigger
 heuristic antivirus detections. These are **false positives**. See
 [`docs/ANTIVIRUS_FALSE_POSITIVE.md`](docs/ANTIVIRUS_FALSE_POSITIVE.md) for details.
+
+## Star the project
+
+If this project helps you, please [star the repository](https://github.com/robertpopa22/mRemoteNG).
+
+Some of the community tools we use set a public-star minimum before they will work with a project. [Qodo's free plan for open source](https://docs.qodo.ai/open-source-program) requires at least 200 stars on this repository, or on another public repository in the same GitHub organization. Other tools we use ask for more than that. A star is what keeps those tools available here.
