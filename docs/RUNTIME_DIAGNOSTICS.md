@@ -27,10 +27,10 @@ Unhandled exceptions are recorded without `Exception.Message`, `Exception.Data` 
 | `rdp_capability` | Optional ActiveX feature availability without a recurring stack trace |
 | `rdp_shape` | Applied RDP settings for one connect: resolution, color, redirection, scale, gateway mode, server-auth number. No names, paths, or secrets |
 | `rdp_phase` | Anonymous per-session initialization, connect, login and disconnect timings/codes, plus a resource snapshot |
-| `rdp_resources` | Resource snapshot at `close_before` and `close_after`, with the close trigger and disconnect class |
+| `rdp_resources` | Resource snapshot at `close_before` and `close_after`, with the close trigger, disconnect class, and whether Disconnect or Dispose threw. A throw records the numeric HRESULT only |
 | `heartbeat` | CPU plus the same resource snapshot every 60 seconds, including GDI, USER, handle types, and thread modules |
 
-A retention paste has to answer the next question by itself. If a field was missing from a report, the next build adds it to `rdp_shape`, `rdp_resources`, and `heartbeat` rather than asking the reporter to run a second tool. Handle types and thread modules name kinds of objects only. Object names, file paths, hostnames, usernames, and secrets stay out. `disc_class=user_logoff` (extended reason 12) or `api_logoff` (extended reason 2) is the reading of a line whose display text is still "An internal error has occurred."
+A retention paste has to answer the next question by itself. If a field was missing from a report, the next build adds it to `rdp_shape`, `rdp_resources`, `process_stop`, and `heartbeat` rather than asking the reporter to run a second tool. `process_stop` carries the same resource sample as a heartbeat, so the floor at exit is on one line. `disconnect=threw` with `hresult` is a live tab close whose Disconnect call failed; `disconnect=not_connected` together with `disc_class=user_logoff` is a session that had already logged off. Handle types and thread modules name kinds of objects only. Object names, file paths, hostnames, usernames, and secrets stay out. `disc_class=user_logoff` (extended reason 12) or `api_logoff` (extended reason 2) is the reading of a line whose display text is still "An internal error has occurred."
 | `ui_stall` | A background watchdog detects and later confirms recovery from a blocked UI thread |
 | `exception` | Privacy-safe exception signature and method-only frames |
 

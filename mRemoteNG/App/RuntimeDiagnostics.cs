@@ -90,7 +90,17 @@ namespace mRemoteNG.App
             _uiWatchdogTimer?.Dispose();
             _heartbeatTimer = null;
             _uiWatchdogTimer = null;
-            WriteInfo("process_stop", Number("uptime_ms", Uptime.ElapsedMilliseconds));
+            FieldValue[] exitSample;
+            try
+            {
+                exitSample = ResourceFields(ProcessResourceSnapshot.Capture(refreshExpensive: true));
+            }
+            catch (Exception)
+            {
+                exitSample = [];
+            }
+
+            WriteInfo("process_stop", exitSample.Prepend(Number("uptime_ms", Uptime.ElapsedMilliseconds)).ToArray());
             LogManager.Flush(2_000);
         }
 
@@ -136,12 +146,18 @@ namespace mRemoteNG.App
 
         internal static void RdpResources(string point, string session, bool refresh, string trigger,
             int? code, uint? extended, bool? wasConnected, bool loginComplete, bool? hostDisposedFirst,
-            long sinceConnectMs, int desktopW, int desktopH, bool? smartSize, bool? fullScreen) =>
+            long sinceConnectMs, int desktopW, int desktopH, bool? smartSize, bool? fullScreen,
+            string disconnect = "pending", int? disconnectHresult = null,
+            string dispose = "pending", int? disposeHresult = null) =>
             WriteInfo("rdp_resources",
             [
                 Field("point", point),
                 Field("rdp_session", SafeCorrelationId(session)),
                 Field("trigger", trigger),
+                Field("disconnect", disconnect),
+                Field("hresult", disconnectHresult is int hr ? "0x" + unchecked((uint)hr).ToString("X8", CultureInfo.InvariantCulture) : "na"),
+                Field("dispose", dispose),
+                Field("dispose_hresult", disposeHresult is int disposeHr ? "0x" + unchecked((uint)disposeHr).ToString("X8", CultureInfo.InvariantCulture) : "na"),
                 NullableNumber("code", code),
                 NullableNumber("extended_code", extended.HasValue ? (long)extended.Value : null),
                 Field("disc_class", ClassifyDisconnect(code, extended)),

@@ -2400,13 +2400,16 @@ namespace mRemoteNG.Connection.Protocol.RDP
         }
 
         private void WriteCloseResources(string point, bool refresh, bool? wasConnected, bool? hostDisposedFirst,
-            int desktopW, int desktopH, bool? smartSize, bool? fullScreen)
+            int desktopW, int desktopH, bool? smartSize, bool? fullScreen,
+            string disconnect = "pending", int? disconnectHresult = null,
+            string dispose = "pending", int? disposeHresult = null)
         {
             try
             {
                 RuntimeDiagnostics.RdpResources(point, _diagnosticRdpSession, refresh, CloseTriggerForDiagnostics,
                     _diagnosticDisc, _diagnosticExt, wasConnected, loginComplete, hostDisposedFirst,
-                    _diagnosticConnectStopwatch.ElapsedMilliseconds, desktopW, desktopH, smartSize, fullScreen);
+                    _diagnosticConnectStopwatch.ElapsedMilliseconds, desktopW, desktopH, smartSize, fullScreen,
+                    disconnect, disconnectHresult, dispose, disposeHresult);
             }
             catch (Exception ex)
             {
@@ -2453,6 +2456,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     WriteCloseResources("close_before", refresh: true, wasConnected, hostAlreadyDisposed,
                         beforeW, beforeH, beforeSmart, beforeFull);
                     string disconnect = _disconnectRequested ? "disconnect already requested" : "not connected";
+                    string disconnectToken = hostAlreadyDisposed
+                        ? "host_already_disposed"
+                        : _disconnectRequested ? "already_requested" : "not_connected";
+                    int? disconnectHresult = null;
+                    string disposeToken = hostAlreadyDisposed ? "host_first" : "ok";
+                    int? disposeHresult = null;
                     string release;
                     long disconnectMs = 0, disposeMs = 0;
                     if (hostAlreadyDisposed)
@@ -2474,9 +2483,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                 disconnectStep = "Disconnect";
                                 _rdpClient.Disconnect();
                                 disconnect = "disconnected";
+                                disconnectToken = "disconnected";
                             }
                         }
-                        catch (Exception ex) { disconnect = $"{disconnectStep} threw {ex.GetType().Name} 0x{ex.HResult:X8}"; }
+                        catch (Exception ex)
+                        {
+                            disconnectHresult = ex.HResult;
+                            disconnectToken = "threw";
+                            disconnect = $"{disconnectStep} threw {ex.GetType().Name} 0x{ex.HResult:X8}";
+                        }
                         disconnectMs = ClosePathDiagnostics.Since(disconnectStart);
 
                         long disposeStart = ClosePathDiagnostics.Now();
@@ -2485,7 +2500,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             Control!.Dispose();
                             release = "host disposed here, wrapper released";
                         }
-                        catch (Exception ex) { release = "host dispose threw " + ex.GetType().Name; }
+                        catch (Exception ex)
+                        {
+                            disposeHresult = ex.HResult;
+                            disposeToken = "threw";
+                            release = "host dispose threw " + ex.GetType().Name + " 0x" + ex.HResult.ToString("X8", CultureInfo.InvariantCulture);
+                        }
                         disposeMs = ClosePathDiagnostics.Since(disposeStart);
                     }
 
@@ -2493,7 +2513,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     if (Interlocked.Exchange(ref _countedLive, 0) == 1)
                         ProcessResourceSnapshot.RdpClosed();
                     WriteCloseResources("close_after", refresh: true, wasConnected: false, hostAlreadyDisposed,
-                        beforeW, beforeH, beforeSmart, beforeFull);
+                        beforeW, beforeH, beforeSmart, beforeFull,
+                        disconnectToken, disconnectHresult, disposeToken, disposeHresult);
                     string resources = RuntimeDiagnostics.CompactResources(refresh: false);
 
                     Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
