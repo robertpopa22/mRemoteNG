@@ -1,6 +1,7 @@
-<Project Sdk="WixToolset.Sdk/6.0.2">
+<Project Sdk="WixToolset.Sdk/7.0.0">
   <PropertyGroup>
     <OutputType>Package</OutputType>
+    <AcceptEula>wix7</AcceptEula>
     <InstallerPlatform>x64</InstallerPlatform>
     <OutputName>mRemoteNG-Installer</OutputName>
     <!-- Opt out of Central Package Management (repo uses Directory.Packages.props) -->
@@ -23,8 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
-    <PackageReference Include="WixToolset.Util.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="7.0.0" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

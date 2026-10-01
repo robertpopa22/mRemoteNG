@@ -96,12 +96,12 @@ namespace mRemoteNGTests.App.CrashReporting
         }
 
         [Test]
-        public void AFailedCreateIsNotSwallowed()
+        public async Task AFailedCreateIsNotSwallowed()
         {
             // The form falls back to the browser on failure; it can only do that if it hears about it.
             ThrowingGateway gateway = new();
 
-            Assert.ThrowsAsync<HttpRequestException>(() => CrashReportSubmitter.SubmitAsync(gateway, Title, Body));
+            await Assert.ThrowsAsync<HttpRequestException>(() => CrashReportSubmitter.SubmitAsync(gateway, Title, Body));
         }
 
         private sealed class ThrowingGateway : ICrashReportGateway

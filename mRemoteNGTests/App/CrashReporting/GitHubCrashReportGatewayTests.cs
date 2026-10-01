@@ -91,12 +91,12 @@ namespace mRemoteNGTests.App.CrashReporting
         }
 
         [Test]
-        public void ARejectedRequestThrowsWithTheStatusInTheMessage()
+        public async Task ARejectedRequestThrowsWithTheStatusInTheMessage()
         {
             ScriptedHandler handler = new((_, _) => Json(HttpStatusCode.Forbidden, "{\"message\":\"rate limited\"}"));
             using GitHubCrashReportGateway gateway = new("owner", "repo", "secret", "mRemoteNG/1.0", handler);
 
-            HttpRequestException? ex = Assert.ThrowsAsync<HttpRequestException>(
+            HttpRequestException? ex = await Assert.ThrowsAsync<HttpRequestException>(
                 () => gateway.AddCommentAsync(175, "seen again", CancellationToken.None));
 
             Assert.That(ex!.Message, Does.Contain("403").And.Contain("rate limited"));

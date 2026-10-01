@@ -1,6 +1,6 @@
 using FlaUI.Core.AutomationElements;
 using mRemoteNGSpecs.Drivers;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace mRemoteNGSpecs.Hooks
 {

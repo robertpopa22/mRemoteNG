@@ -37,8 +37,7 @@
     <PackageReference Include="NUnit.Extension.TeamCityEventListener" />
     <PackageReference Include="NUnit.Runners" />
     <PackageReference Include="NUnit3TestAdapter" />
-    <PackageReference Include="SpecFlow" />
-    <PackageReference Include="SpecFlow.NUnit" />
+    <PackageReference Include="Reqnroll.NUnit" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mRemoteNG\mRemoteNG.csproj" />

@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using FlaUI.Core.AutomationElements;
 using NUnit.Framework;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace mRemoteNGSpecs.StepDefinitions
 {

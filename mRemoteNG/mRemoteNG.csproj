@@ -245,7 +245,6 @@
     <PackageReference Include="System.Data.Odbc" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="Newtonsoft.Json.Schema" />
-    <PackageReference Include="Renci.SshNet.Async" />
     <PackageReference Include="SSH.NET" />
     <PackageReference Include="System.Management" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" />
@@ -656,10 +655,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="145.0.26" />
+    <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="152.0.10" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='arm64'">
-    <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="145.0.26" />
+    <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="152.0.10" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
