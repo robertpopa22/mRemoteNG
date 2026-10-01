@@ -63,6 +63,9 @@ that from the control).
 | Same host, one instance reused | ~+9 | 0 | 0 | 0 |
 | Any host that shows the server-certificate warning | ~+1 | +9 | +3 | — |
 | `RdpProtocol11` plus `InterfaceControl`, no certificate dialog | ~+73 | 0 | +8 | +2 |
+| Same protocol inside a connection tab, icon and tab menu kept | ~+77 | +5 | +9 | +2 |
+| Same tab, document icon off and tab menu detached | ~+77 | +2 | +8 | +2 |
+| `ConnectionInitiator` opening that same tab | ~+77 | +5 | +9 | +2 |
 | Full application, default warn (dialog each session) | ~+82 | +23 | — | — |
 | Full application, no certificate dialog | ~+81 | +8 | — | — |
 
@@ -73,12 +76,18 @@ collection left full-application GDI unchanged, so that residue is not finalizer
 The native RDP refcount reaches 0 when an initialized protocol is disposed, connected and
 unconnected (`DisposingAnInitializedProtocolReleasesTheNativeRdpObject`, selections 6–11).
 
-What remains unexplained is the full application's excess over the minimal protocol path when
-no certificate dialog is shown: about +8 GDI objects and +8 handles per session. Over fourteen
-sessions that excess is above the 16 GDI and 32 handle budgets, so acceptance stays red until
-it is explained or removed. Reusing one ActiveX instance cuts the control's residue sharply and
-is a design question (credential and session isolation), not a #182 fix. `rdclientax.dll` is not
-a substitute: it is not redistributable. The Remote Desktop client for Windows (MSI) that ships
+A live session inside a real connection tab, measured for six closes on 2026-10-01, keeps about
+5 GDI objects, 4 handles and 1 USER object per session above the Microsoft host. Opening that
+tab through `ConnectionInitiator` does not change the per-session slope. Turning the document
+icon off and detaching the tab context menu removes about 3 of those GDI objects and the extra
+USER object, and leaves about 2 GDI objects and 4 handles per session in the tab host.
+The full application, with no certificate dialog, is still about 3 GDI objects and 4 handles
+per session above that tab. That remainder is outside the protocol, the tab and the initiator.
+Over fourteen sessions the full-application excess stays above the 16 GDI and 32 handle budgets,
+so acceptance stays red until it is explained or removed. Reusing one ActiveX instance cuts the
+control's residue from about 73 handles to about 9, and drops the extra threads. It also reuses
+credential and session state across logons, so it stays a design proposal and is not a #182 fix.
+`rdclientax.dll` is not a substitute: it is not redistributable. The Remote Desktop client for Windows (MSI) that ships
 it left public-cloud support on 2026-03-27
 ([Microsoft Learn](https://learn.microsoft.com/en-us/previous-versions/remote-desktop-client/overview),
 retrieved 2026-10-01). Direct RDP in this application stays on `mstscax`.
