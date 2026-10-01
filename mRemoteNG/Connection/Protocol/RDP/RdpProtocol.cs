@@ -2325,15 +2325,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     }
                     else
                     {
-                        IntPtr diagnosticReference = IntPtr.Zero;
-                        try
-                        {
-                            diagnosticReference = Marshal.GetIUnknownForObject(_rdpClient);
-                            int references = Marshal.AddRef(diagnosticReference);
-                            Marshal.Release(diagnosticReference);
-                            ClosePathDiagnostics.Log($"RDP native references before teardown (without probe): {references - 2}");
-                        }
-                        catch (Exception ex) { ClosePathDiagnostics.Log($"RDP reference probe unavailable: {ex.GetType().Name}"); }
                         // Closing is already underway; do not reenter Close from a native callback.
                         RemoveEventHandlers();
                         long disconnectStart = ClosePathDiagnostics.Now();
@@ -2357,11 +2348,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             release = "host disposed here, wrapper released";
                         }
                         catch (Exception ex) { release = "host dispose threw " + ex.GetType().Name; }
-                        finally
-                        {
-                            if (diagnosticReference != IntPtr.Zero)
-                                ClosePathDiagnostics.Log($"RDP native references after host disposal: {Marshal.Release(diagnosticReference)}");
-                        }
                         disposeMs = ClosePathDiagnostics.Since(disposeStart);
                     }
 

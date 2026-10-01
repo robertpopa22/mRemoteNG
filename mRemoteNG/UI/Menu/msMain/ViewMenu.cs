@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.App;
@@ -494,12 +495,14 @@ namespace mRemoteNG.UI.Menu
         private void mMenReconnectAll_Click(object sender, EventArgs e)
         {
             if (Runtime.WindowList == null || Runtime.WindowList.Count == 0) return;
-            foreach (BaseWindow window in Runtime.WindowList)
+            // Snapshot: ReconnectAll can show a modal prompt, and a panel closed from inside that
+            // loop removes itself from WindowList when it is disposed.
+            foreach (BaseWindow window in Runtime.WindowList.Cast<BaseWindow>().ToArray())
             {
                 // Skip non-connection windows instead of aborting the whole loop: a single
                 // foreign entry in WindowList used to silently cancel Reconnect All for every
                 // window after it.
-                if (!(window is ConnectionWindow connectionWindow))
+                if (!(window is ConnectionWindow connectionWindow) || connectionWindow.IsDisposed)
                     continue;
 
                 connectionWindow.ReconnectAll(Runtime.ConnectionInitiator);
