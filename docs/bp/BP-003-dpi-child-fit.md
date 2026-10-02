@@ -1,6 +1,6 @@
 # BP-003 — A DPI bounce can leave a child at the old size
 
-**Version:** 2 · **Updated:** 2026-10-02
+**Version:** 3 · **Updated:** 2026-10-02
 
 **Does:** record that a per-monitor DPI change can leave a child at the size it was built with after the form has settled. Moving the child does not refit it. A tool strip can keep the font cached at the first DPI while the dock panel follows the window.
 
@@ -19,3 +19,7 @@ The same session's main window, on the way from 96 to 192, kept the menu at 4.5p
 When a child keeps its own font, size the em in pixels from the form's device DPI and give the client an explicit size that fits the font and the label. Paint the glyph inside the current client. A point-size font keeps the pixel height it was realized at. A test that only checks the child is inside its parent does not catch a clip inside the child.
 
 Chrome that does not follow the window is rebuilt so its line spacing at the window DPI matches the dock panel, which does follow. The log records the font unit, the raw size, and that line spacing. `SizeInPoints` alone does not.
+
+## Driven path
+
+The one-monitor guest does not produce this bounce. For that check, add an indirect display for the run and move the window between 96 and 192 as written in [LAB-GUEST.md](../LAB-GUEST.md), then remove the display. On that guest a 1920×1080 target tops out at 175% (168 DPI). The 192 DPI side is a 3840×2160 target, whose recommended scale is 200%, beside the Hyper-V panel at 96. Sixteen virtual targets enumerated; seventeen did not. The evidence is the `[#198-diag]` line: the menu's line spacing at the window DPI against the dock, and, for the 4.5pt reading, screen DPI 192 while the window is still at 96.

@@ -20,8 +20,9 @@ namespace mRemoteNGSpecs.Fixtures
     /// switched on, a middle-click on the tab. The reporter saw this dialog squeezed to a fraction
     /// of its width, the question cut off and the "do not show again" check box under the buttons.
     ///
-    /// This lab runs at one DPI on one monitor, so it cannot recreate their multi-monitor remote
-    /// session; the unit suite narrows the real dialog to their width instead. What this adds is
+    /// This scenario runs at one DPI on one monitor, so it does not drive the 96/192 bounce.
+    /// That drive adds an indirect display for the run, as written in docs/LAB-GUEST.md.
+    /// The unit suite narrows the real dialog to their width instead. What this adds is
     /// the dialog inside the running application: that it is laid out cleanly there, that it can
     /// be resized, that both answers still do what they say, that the question is about the
     /// connection rather than a panel, and that closing the only tab asks exactly once.

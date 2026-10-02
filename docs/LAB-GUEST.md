@@ -16,6 +16,7 @@ the procedure, written so that a person or an agent who has never done it can do
 | Guest VM | `mRNG-Lab-WinSrv2025` (the battery runs here); `mRNG-Lab-WinTarget` and `mRNG-Lab-Ubuntu` are connection targets |
 | Guest paths | `C:\mRNG-Lab\mRemoteNG`, `C:\mRNG-Lab\mRemoteNGSpecs`, results in `C:\mRNG-Lab\_results` |
 | Failure artifacts (pulled back) | `lab-artifacts/<scenario>-<id>/{desktop.png, uia-tree.txt, mRemoteNG.log}` |
+| A 96/192 DPI bounce | Section 6. Add an indirect display for that run, then remove it |
 
 The guest password is **not** in the repository. `lab-run.ps1` reads it from the environment
 variable `MRNG_LAB_GUEST_PASSWORD` and refuses to start without it.
@@ -164,7 +165,91 @@ learn, so they are written down here once:
   clears it. `RdpSessionMemoryAcceptanceTests` now reports such a run as inconclusive instead of
   passing it: a scenario about closing a live session must not go green when there was no session.
 
-## 6. When done
+## 6. A second monitor at another DPI
+
+The guest desktop is one monitor at one scale. Moving a window on it does not send
+`WM_DPICHANGED`, so the battery cannot show the 96 ↔ 192 bounce behind `[#198-diag]`.
+Windows lists a monitor only when a display adapter exposes a target. No call in
+`user32` or Display Configuration invents one.
+
+When a check needs a second device DPI, load an indirect display driver (IddCx) for
+that run, on the throwaway guest. The driver adds a target that
+`EnumDisplayMonitors`, `GetDpiForMonitor`, and `WM_DPICHANGED` treat as a panel.
+Hyper-V's synthetic adapter stays a single guest monitor, and an enhanced session
+copies the client's monitors into the guest instead of giving the guest its own
+second scale. Remove the indirect display device before the run is finished, and
+confirm it is gone from the monitor list.
+
+### Give the two monitors different scales
+
+A second monitor at the same scale still does not send `WM_DPICHANGED`. After Windows
+lists the new panel, set one side to 100% (effective DPI 96) and the other to 200%
+(effective DPI 192) when Display settings offers 200%. A high resolution on the virtual
+panel, such as 3840×2160, is the mode on which Windows usually offers 200%. On this
+guest that mode's recommended scale is 200%, and the measured effective DPI was 192
+while the Hyper-V panel stayed at 96. A 1920×1080 target on the same guest tops out at
+175% (168 DPI); a request for 200% is clamped. A panel whose maximum is below 200%
+still produces a bounce; record that effective DPI and do not call it 192.
+
+Confirm the scale from a process that is per-monitor v2 (`GetDpiForMonitor` with
+`MDT_EFFECTIVE_DPI`). A DPI-unaware process reports 96 for every monitor, including
+after the scale has changed. Restore every scale you change, and confirm both sides
+are back, before the session ends.
+
+Two placements, both required for the report:
+
+- Primary at 96, and the main window moved entirely onto the 192 monitor. The log line
+  `dpi change` goes from 96 to 192. The menu's line spacing at the window DPI is within
+  15% of the dock panel. When a font or icon size was rebuilt, the following line is
+  `dpi change after fit`.
+- Primary at 192, and the main window moved entirely onto the 96 monitor. The same line
+  reports screen DPI 192 while the window DPI is 96. That is the placement that logs a
+  16px line as 4.5pt, because a font that is not in points asks the screen DC.
+
+Move the window from a per-monitor v2 process, with `SetWindowPos`, and keep the whole
+window inside the target work area. A DPI-unaware mover uses virtualized coordinates
+and can miss the monitor. Read `[#198-diag]` in the portable log beside the executable
+(`mRemoteNG Connection Manager.log`). The fields are in
+[RUNTIME_DIAGNOSTICS.md](RUNTIME_DIAGNOSTICS.md). A menu that keeps its old point size
+while the dock scales is the open symptom. A run whose window procedure does not
+return, so `dpi change after fit` is never written, is an incomplete run.
+
+The evidence is the DPI numbers, the font unit, the raw size, and the line spacing.
+Monitor names of the form `\\.\DISPLAYn` may be in the line. Account ids, passwords,
+and machine names stay out of the log and out of this repository.
+
+### What the guest enumerated (2026-10-02)
+
+The desktop starts as one Hyper-V panel, 1024×768 at 96 DPI. That panel's own scale
+list stops at 125%. An IddCx 1.2 sample was loaded for the measurement and removed
+before the guest was returned to one monitor. The sample reads the target count when
+the device is added, so a new count means removing the device and adding it again.
+Session 0 does not see this topology. The counts are from the interactive console, in
+a per-monitor v2 process. "Monitors" includes the Hyper-V panel.
+
+| Virtual targets | Monitors enumerated | What was on screen |
+| --- | --- | --- |
+| 1 | 2 | 1920×1080, its own `\\.\DISPLAYn` |
+| 2 | 3 | 1920×1080, side by side, each at 96 DPI |
+| 4, 8, 16 | 5, 9, 17 | 1280×720, each attached and placed to the right of the previous one |
+| 17, 18, 32, 44 | 1 | The device started and exposed no target |
+
+Sixteen virtual targets is the highest count that enumerated, including a repeat after
+a reboot. Seventeen and above leave the device started and the desktop on the Hyper-V
+panel alone, so 45 monitors was not reached. A shared EDID did not merge the targets:
+each one kept its own device name and its own origin. Active display paths matched the
+monitor count. At 16 virtual targets the all-paths query returned 257 paths and 514
+modes. The guest was not out of memory at the failed counts.
+
+The 96/192 pair measured here is the Hyper-V panel at 100% beside a 3840×2160 virtual
+target at its recommended 200%. That target's scale list runs from 100% to 350%. Both
+were restored afterwards (1920×1080 at 96, Hyper-V still 96). This pass did not move a
+window, so it does not close the font-fit check.
+
+Loading that sample required test signing. Turn test signing off and confirm the
+indirect display is gone before the ordinary battery.
+
+## 7. When done
 
 Leave the guest running if another run is coming; otherwise `Stop-VM -Name 'mRNG-Lab-WinSrv2025'`.
 Nothing on the host changes: the scenario copies live under
