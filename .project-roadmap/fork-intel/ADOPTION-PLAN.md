@@ -13,7 +13,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
 - [x] `b7c487412f`, `a320091188` — clearing the connection-tree filter does not restore expansion. Same family as `#149`. Already in this tree: `70d545ed9` restores the snapshot, `a93729afa` batches the clear. The expansion tests pass.
   Sources: https://github.com/mRemoteNG/mRemoteNG/commit/b7c487412fc8ee89d9001dcbfad754484a42b31b
   https://github.com/mRemoteNG/mRemoteNG/commit/a32009118810e2237c029756814292f30a01343c
-- [ ] `85056294af` — unsaved connection edits can be lost on shutdown. The failure-path save already exists. The gap is flushing the deferred save.
+- [x] `85056294af` — unsaved connection edits can be lost on shutdown. The failure-path save already exists. The gap is flushing the deferred save.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/85056294af97fa3ad7316a36097e0d38f67a9500
 - [ ] `c4d0596f24` — a tab stays behind when its close is cancelled.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/c4d0596f2485d6493ea30bd27219f40c2a068759

@@ -21,6 +21,11 @@
       "decision": "imported",
       "note": "OpenSSH uses the same SCP and SFTP window as SSH1 and SSH2",
       "at": "2026-10-02T18:50:21Z"
+    },
+    "85056294af97fa3ad7316a36097e0d38f67a9500": {
+      "decision": "imported",
+      "note": "shutdown writes a save that is still waiting on the debounce timer",
+      "at": "2026-10-02T18:54:27Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

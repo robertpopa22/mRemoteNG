@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 79,
+    "new": 78,
     "trying": 0,
-    "imported": 8,
+    "imported": 9,
     "present": 8,
     "rejected": 443,
     "deferred": 114
@@ -255,15 +255,6 @@
       "status": "new",
       "fork": "lovaszlaszlo/mRemoteNG",
       "subject": "Put the units back on the Hungarian spin box labels"
-    },
-    {
-      "sha": "85056294af",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "jafin/mRemoteNG",
-      "subject": "fix: stop connection edits from being lost without a word (#10)"
     },
     {
       "sha": "8ec20405e6",

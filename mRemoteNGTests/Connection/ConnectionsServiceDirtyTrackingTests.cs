@@ -192,6 +192,50 @@ public class ConnectionsServiceDirtyTrackingTests
     }
 
     [Test]
+    public void FlushDebouncedSaveWritesThePendingFileImmediately()
+    {
+        ConnectionsService service = NewServiceWithModel(out ConnectionTreeModel model);
+        var root = (RootNodeInfo)model.RootNodes[0];
+        root.AddChild(new ConnectionInfo { Name = "flush-me" });
+
+        string file = Path.Combine(Path.GetTempPath(), $"mrng-flush-{Guid.NewGuid():N}.xml");
+        try
+        {
+            service.SaveConnections(model, false, new SaveFilter(), file, forceSave: true);
+            typeof(ConnectionsService)
+                .GetProperty(nameof(ConnectionsService.ConnectionTreeModel))!
+                .SetValue(service, model);
+            service.IsConnectionsFileLoaded = true;
+            File.Delete(file);
+
+            service.SaveConnectionsAsync();
+            Assert.That(File.Exists(file), Is.False, "the debounced save must not run immediately");
+
+            service.FlushDebouncedSave();
+            Assert.That(File.Exists(file), Is.True, "shutdown must write the save that was still waiting");
+
+            DateTime written = File.GetLastWriteTimeUtc(file);
+            bool rewritten = SpinWait.SpinUntil(
+                () => File.GetLastWriteTimeUtc(file) != written, TimeSpan.FromSeconds(3));
+            Assert.That(rewritten, Is.False, "the timer must not save again after the flush");
+        }
+        finally
+        {
+            if (File.Exists(file)) File.Delete(file);
+        }
+    }
+
+    [Test]
+    public void FlushDebouncedSaveDoesNothingWhenNoneIsWaiting()
+    {
+        ConnectionsService service = NewServiceWithModel(out _);
+
+        service.FlushDebouncedSave();
+
+        Assert.That(service.HasUnsavedChanges, Is.False);
+    }
+
+    [Test]
     public void ReloadingStopsTheOldModelFromArmingTheFlag()
     {
         ConnectionsService service = NewServiceWithModel(out ConnectionTreeModel oldModel);

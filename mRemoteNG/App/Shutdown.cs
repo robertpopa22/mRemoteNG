@@ -74,6 +74,11 @@ namespace mRemoteNG.App
 
         private static void SaveConnections()
         {
+            // A debounced edit save is a save the user already asked for. Write it before the
+            // frequency switch, which returns without saving unless the setting is On Exit
+            // (or a daily or weekly interval has elapsed).
+            Runtime.ConnectionsService.FlushDebouncedSave();
+
             DateTime lastUpdate;
             DateTime updateDate;
             DateTime currentDate = DateTime.Now;
