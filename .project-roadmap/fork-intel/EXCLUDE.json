@@ -41,6 +41,11 @@
       "decision": "imported",
       "note": "Enter opens every selected connection",
       "at": "2026-10-02T19:08:03Z"
+    },
+    "dd54616a2e47bdb94e18b2fbafbd2a30764a3728": {
+      "decision": "imported",
+      "note": "a failed legacy decrypt returns no tree instead of throwing",
+      "at": "2026-10-02T19:09:56Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 75,
+    "new": 74,
     "trying": 0,
-    "imported": 12,
+    "imported": 13,
     "present": 8,
     "rejected": 443,
     "deferred": 114
@@ -48,15 +48,6 @@
       "status": "new",
       "fork": "jafin/mRemoteNG",
       "subject": "fix: measure task dialog text the way it is drawn, and size buttons to the client area"
-    },
-    {
-      "sha": "dd54616a2e",
-      "kind": "fork",
-      "tier": "B",
-      "score": 10,
-      "status": "new",
-      "fork": "k-meeks/mRemoteNG",
-      "subject": "Fix NullReferenceException + recursive dialog cascade on failed decrypt"
     },
     {
       "sha": "eb03e059b2",

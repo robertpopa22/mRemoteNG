@@ -21,7 +21,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/0121f0be4cea9a485f91f41d2bae56ea2b288f65
 - [x] `232fbf32ff` — Enter on a multi-selection opens each selected connection.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/232fbf32ffc324b12ceb8b8e251e4637742a8073
-- [ ] `dd54616a2e` — a failed decrypt still throws into a recursive reload. The null guard already exists.
+- [x] `dd54616a2e` — a failed legacy decrypt returns no tree. It does not throw, so the loader does not open the file dialog again.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/dd54616a2e47bdb94e18b2fbafbd2a30764a3728
 - [ ] `a677fae337` — `ObjectDisposedException` when a connection tab closes.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/a677fae337a8c49890c6a0e2d87b9739d708d25d

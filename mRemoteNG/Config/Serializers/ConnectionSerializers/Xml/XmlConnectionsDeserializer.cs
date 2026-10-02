@@ -59,6 +59,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
                 phaseSw.Restart();
                 LoadXmlConnectionData(xml);
+                // A failed or cancelled legacy decrypt leaves the document unset.
+                // Returning null is the failure the loader already reports. Throwing
+                // was treated as a missing file and opened the file dialog again.
+                if (_xmlDocument == null)
+                    return null;
                 ValidateConnectionFileVersion();
                 long parseMs = phaseSw.ElapsedMilliseconds;
 

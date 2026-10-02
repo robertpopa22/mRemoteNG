@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "imported",
+  "note": "a failed legacy decrypt returns no tree instead of throwing"
 }

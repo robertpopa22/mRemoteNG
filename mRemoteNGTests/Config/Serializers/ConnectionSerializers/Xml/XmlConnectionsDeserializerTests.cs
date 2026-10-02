@@ -32,6 +32,16 @@ public class XmlConnectionsDeserializerTests
         _connectionTreeModel = null;
     }
 
+    [Test]
+    public void FailedLegacyDecryptReturnsNullInsteadOfThrowing()
+    {
+        XmlConnectionsDeserializer deserializer = new();
+        ConnectionTreeModel? loaded = null;
+
+        Assert.DoesNotThrow(() => loaded = deserializer.Deserialize("not-a-connection-file"));
+        Assert.That(loaded, Is.Null);
+    }
+
     [TestCaseSource(typeof(XmlConnectionsDeserializerFixtureData),
         nameof(XmlConnectionsDeserializerFixtureData.FixtureParams))]
     public void DeserializingCreatesRootNode(Datagram testData)
