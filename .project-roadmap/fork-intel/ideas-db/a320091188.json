@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "present",
+  "note": "already batched in a93729afa: RemoveFilter holds one update and resizes the column once"
 }

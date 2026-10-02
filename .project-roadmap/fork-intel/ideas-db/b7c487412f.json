@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "present",
+  "note": "already restored in 70d545ed9: the filter copies ExpandedObjects and RebuildAll restores it on clear"
 }

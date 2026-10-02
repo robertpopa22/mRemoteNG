@@ -10,7 +10,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/7746827c2b4af03f16d59fe482cb6f050bef70c9
 - [x] `f634039a17` — file transfer is offered only for SSH1 and SSH2. OpenSSH is included in the same offer.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/f634039a177f9204454e5fd8680b3cce3ee50863
-- [ ] `b7c487412f`, `a320091188` — clearing the connection-tree filter does not restore expansion. Same family as `#149`.
+- [x] `b7c487412f`, `a320091188` — clearing the connection-tree filter does not restore expansion. Same family as `#149`. Already in this tree: `70d545ed9` restores the snapshot, `a93729afa` batches the clear. The expansion tests pass.
   Sources: https://github.com/mRemoteNG/mRemoteNG/commit/b7c487412fc8ee89d9001dcbfad754484a42b31b
   https://github.com/mRemoteNG/mRemoteNG/commit/a32009118810e2237c029756814292f30a01343c
 - [ ] `85056294af` — unsaved connection edits can be lost on shutdown. The failure-path save already exists. The gap is flushing the deferred save.
