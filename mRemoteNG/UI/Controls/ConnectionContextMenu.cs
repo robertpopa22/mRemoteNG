@@ -98,7 +98,23 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeRefreshDynamicSource = null!;
         private ToolStripSeparator _cMenTreeSep5 = null!;
         private ToolStripMenuItem _cMenTreeOptions = null!;
+        private ToolStripMenuItem _cMenTreeNew = null!;
+        private ToolStripMenuItem _cMenTreeMore = null!;
+        private ToolStripMenuItem _cMenTreeExpandAll = null!;
+        private ToolStripMenuItem _cMenTreeCollapseAll = null!;
+        private ToolStripMenuItem _cMenTreeFavorite = null!;
         private readonly ConnectionTree.ConnectionTree _connectionTree;
+
+        private enum ContextMenuScope
+        {
+            Connection,
+            Folder,
+            Root,
+            PuttyRoot,
+            PuttySession,
+            Multi,
+            Empty
+        }
 
 
         public ConnectionContextMenu(ConnectionTree.ConnectionTree connectionTree)
@@ -107,15 +123,9 @@ namespace mRemoteNG.UI.Controls
             InitializeComponent();
             ApplyLanguage();
             EnableShortcutKeys();
-            Opening += (sender, args) =>
+            Opening += (_, _) =>
             {
                 AddExternalApps();
-                if (_connectionTree.SelectedNode == null)
-                {
-                    args.Cancel = true;
-                    return;
-                }
-
                 ShowHideMenuItems();
             };
         }
@@ -188,6 +198,11 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeMoveDown = new ToolStripMenuItem();
             _cMenTreeSep5 = new ToolStripSeparator();
             _cMenTreeOptions = new ToolStripMenuItem();
+            _cMenTreeNew = new ToolStripMenuItem();
+            _cMenTreeMore = new ToolStripMenuItem();
+            _cMenTreeExpandAll = new ToolStripMenuItem();
+            _cMenTreeCollapseAll = new ToolStripMenuItem();
+            _cMenTreeFavorite = new ToolStripMenuItem();
 
 
             //
@@ -197,46 +212,27 @@ namespace mRemoteNG.UI.Controls
                                            System.Drawing.GraphicsUnit.Point, 0);
             Items.AddRange(new ToolStripItem[]
             {
-                _cMenTreeAddConnection,
-                _cMenTreeAddEntity,
-                _cMenTreeAddFolder,
-                _cMenTreeAddRootFolder,
-                _cMenTreeSep4,
                 _cMenTreeConnect,
                 _cMenTreeConnectWithOptions,
                 _cMenTreeDisconnect,
                 _cMenTreeReconnect,
-                _cMenTreeOpenInBrowser,
-                _cMenTreeTypeUsername,
-                _cMenTreeTypePassword,
-                _cMenTreeTypeClipboard,
                 _cMenTreeSep1,
-                _cMenTreeToolsExternalApps,
-                _cMenTreeToolsTransferFile,
-                _cMenTreeToolsWakeOnLan,
-                _cMenTreeSep2,
                 _cMenTreeDuplicate,
                 _cMenTreeCopy,
                 _cMenTreePaste,
-                _cMenTreeCreateLink,
                 _cMenTreeRename,
                 _cMenTreeDelete,
-                _cMenTreeCopyHostname,
-                _cMenTreeCopyUsername,
-                _cMenTreeCopyPassword,
-                _cMenTreeClearCachedRdpCredentials,
+                _cMenTreeSep2,
+                _cMenTreeNew,
                 _cMenInheritanceSubMenu,
-                _cMenTreeProperties,
-                _cMenTreeConfigureDynamicSource,
-                _cMenTreeRefreshDynamicSource,
+                _cMenTreeToolsSort,
+                _cMenTreeExpandAll,
+                _cMenTreeCollapseAll,
+                _cMenTreeMore,
                 _cMenTreeSep3,
                 _cMenTreeLoadAdditionalFile,
                 _cMenTreeImport,
                 _cMenTreeExportFile,
-                _toolStripSeparator1,
-                _cMenTreeToolsSort,
-                _cMenTreeMoveUp,
-                _cMenTreeMoveDown,
                 _cMenTreeSep5,
                 _cMenTreeOptions
             });
@@ -264,7 +260,8 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptionsNoCredentials,
                 _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting,
                 _cMenTreeConnectWithOptionsAlternativeAddress,
-                _cMenTreeConnectWithOptionsViewOnly
+                _cMenTreeConnectWithOptionsViewOnly,
+                _cMenTreeClearCachedRdpCredentials
             });
             _cMenTreeConnectWithOptions.Name = "_cMenTreeConnectWithOptions";
             _cMenTreeConnectWithOptions.Size = new System.Drawing.Size(199, 22);
@@ -728,6 +725,64 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeOptions.Text = "Options";
             _cMenTreeOptions.Click += OnOptionsClicked;
             //
+            // cMenTreeNew
+            //
+            _cMenTreeNew.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                _cMenTreeAddConnection,
+                _cMenTreeAddEntity,
+                _cMenTreeAddFolder,
+                _cMenTreeAddRootFolder
+            });
+            _cMenTreeNew.Image = Properties.Resources.AddItem_16x;
+            _cMenTreeNew.Name = "_cMenTreeNew";
+            _cMenTreeNew.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeNew.Text = "New";
+            //
+            // cMenTreeMore
+            //
+            _cMenTreeMore.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                _cMenTreeFavorite,
+                _cMenTreeCopyHostname,
+                _cMenTreeCopyUsername,
+                _cMenTreeCopyPassword,
+                _cMenTreeCreateLink,
+                _cMenTreeToolsExternalApps,
+                _cMenTreeToolsTransferFile,
+                _cMenTreeToolsWakeOnLan,
+                _cMenTreeOpenInBrowser,
+                _cMenTreeTypeUsername,
+                _cMenTreeTypePassword,
+                _cMenTreeTypeClipboard,
+                _cMenTreeProperties,
+                _cMenTreeConfigureDynamicSource,
+                _cMenTreeRefreshDynamicSource,
+                _cMenTreeMoveUp,
+                _cMenTreeMoveDown
+            });
+            _cMenTreeMore.Name = "_cMenTreeMore";
+            _cMenTreeMore.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeMore.Text = "More";
+            //
+            // cMenTreeExpandAll / CollapseAll / Favorite
+            //
+            _cMenTreeExpandAll.Image = Properties.Resources.ExpandAll_16x;
+            _cMenTreeExpandAll.Name = "_cMenTreeExpandAll";
+            _cMenTreeExpandAll.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeExpandAll.Text = "Expand all folders";
+            _cMenTreeExpandAll.Click += OnExpandAllClicked;
+            _cMenTreeCollapseAll.Image = Properties.Resources.CollapseAll_16x;
+            _cMenTreeCollapseAll.Name = "_cMenTreeCollapseAll";
+            _cMenTreeCollapseAll.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeCollapseAll.Text = "Collapse all folders";
+            _cMenTreeCollapseAll.Click += OnCollapseAllClicked;
+            _cMenTreeFavorite.Image = Properties.Resources.Favorite_16x;
+            _cMenTreeFavorite.Name = "_cMenTreeFavorite";
+            _cMenTreeFavorite.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeFavorite.Text = "Add to Favorites";
+            _cMenTreeFavorite.Click += OnFavoriteClicked;
+            //
             // cMenEditSubMenu
             //
             _cMenInheritanceSubMenu.DropDownItems.AddRange(new ToolStripItem[]
@@ -823,6 +878,11 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeMoveUp.Text = Language.MoveUp;
             _cMenTreeMoveDown.Text = Language.MoveDown;
             _cMenTreeOptions.Text = Language.OptionsMenuItem;
+            _cMenTreeNew.Text = "New";
+            _cMenTreeMore.Text = "More";
+            _cMenTreeExpandAll.Text = Language.ExpandAllFolders;
+            _cMenTreeCollapseAll.Text = Language.CollapseAllFolders;
+            _cMenTreeFavorite.Text = "Add to Favorites";
 
             _cMenInheritanceSubMenu.Text = Language.Inheritance;
             _cMenTreeApplyInheritanceToChildren.Text = Language.ApplyInheritanceToChildren;
@@ -836,37 +896,49 @@ namespace mRemoteNG.UI.Controls
                 Enabled = true;
                 EnableMenuItemsRecursive(Items);
                 List<ConnectionInfo> selectedNodes = _connectionTree.GetSelectedNodes();
-                if (selectedNodes.Count > 1)
+                ContextMenuScope scope;
+                if (selectedNodes.Count == 0)
                 {
+                    scope = ContextMenuScope.Empty;
+                    ShowHideMenuItemsForEmpty();
+                }
+                else if (selectedNodes.Count > 1)
+                {
+                    scope = ContextMenuScope.Multi;
                     ShowHideMenuItemsForMultiSelection(selectedNodes);
                 }
                 else if (_connectionTree.SelectedNode is RootPuttySessionsNodeInfo)
                 {
+                    scope = ContextMenuScope.PuttyRoot;
                     ShowHideMenuItemsForRootPuttyNode();
                 }
                 else if (_connectionTree.SelectedNode is RootNodeInfo)
                 {
+                    scope = ContextMenuScope.Root;
                     ShowHideMenuItemsForRootConnectionNode();
                 }
                 else if (_connectionTree.SelectedNode is ContainerInfo containerInfo)
                 {
+                    scope = ContextMenuScope.Folder;
                     ShowHideMenuItemsForContainer(containerInfo);
                 }
                 else if (_connectionTree.SelectedNode is PuttySessionInfo puttyNode)
                 {
+                    scope = ContextMenuScope.PuttySession;
                     ShowHideMenuItemsForPuttyNode(puttyNode);
                 }
                 else if (_connectionTree.SelectedNode is ConnectionInfo selectedConnection)
                 {
+                    scope = ContextMenuScope.Connection;
                     ShowHideMenuItemsForConnectionNode(selectedConnection);
                 }
                 else
                 {
-                    // No selection (right-click on empty space) — nothing node-specific to show.
-                    ShowHideMenuItemsForMultiSelection(new List<ConnectionInfo>());
+                    scope = ContextMenuScope.Empty;
+                    ShowHideMenuItemsForEmpty();
                 }
 
-                _cMenTreePaste.Enabled = _connectionTree.HasClipboardNodes;
+                _cMenTreePaste.Enabled = scope != ContextMenuScope.Empty && _connectionTree.HasClipboardNodes;
 
                 if (IsReadOnly)
                 {
@@ -885,10 +957,13 @@ namespace mRemoteNG.UI.Controls
                     _cMenTreeMoveDown.Enabled = false;
                     _cMenTreeApplyInheritanceToChildren.Enabled = false;
                     _cMenTreeApplyDefaultInheritance.Enabled = false;
+                    _cMenTreeFavorite.Enabled = false;
                 }
 
                 _cMenInheritanceSubMenu.Enabled = _cMenInheritanceSubMenu.DropDownItems
                     .OfType<ToolStripMenuItem>().Any(i => i.Enabled);
+
+                ApplyLayout(scope);
             }
             catch (Exception ex)
             {
@@ -1015,6 +1090,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeDisconnect.Enabled = false;
                 // Reconnect stays enabled even with no open connections — e.g. after a lost connection
                 // the protocol is removed from OpenConnections but the user still wants to reconnect (#1660)
+                _cMenTreeTypeUsername.Enabled = false;
                 _cMenTreeTypePassword.Enabled = false;
                 _cMenTreeTypeClipboard.Enabled = false;
             }
@@ -1055,6 +1131,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeDisconnect.Enabled = false;
                 // Reconnect stays enabled even with no open connections — e.g. after a lost connection
                 // the protocol is removed from OpenConnections but the user still wants to reconnect (#1660)
+                _cMenTreeTypeUsername.Enabled = false;
                 _cMenTreeTypePassword.Enabled = false;
                 _cMenTreeTypeClipboard.Enabled = false;
             }
@@ -1144,6 +1221,179 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeImport.Enabled = false;
             _cMenTreeExportFile.Enabled = false;
             _cMenTreeLoadAdditionalFile.Enabled = false;
+        }
+
+        private void ShowHideMenuItemsForEmpty()
+        {
+            _cMenTreeConnect.Enabled = false;
+            _cMenTreeConnectWithOptions.Enabled = false;
+            _cMenTreeDisconnect.Enabled = false;
+            _cMenTreeReconnect.Enabled = false;
+            _cMenTreeTypeUsername.Enabled = false;
+            _cMenTreeTypePassword.Enabled = false;
+            _cMenTreeTypeClipboard.Enabled = false;
+            _cMenTreeToolsTransferFile.Enabled = false;
+            _cMenTreeToolsWakeOnLan.Enabled = false;
+            _cMenTreeToolsExternalApps.Enabled = false;
+            _cMenTreeDuplicate.Enabled = false;
+            _cMenTreeCopy.Enabled = false;
+            _cMenTreePaste.Enabled = false;
+            _cMenTreeCreateLink.Enabled = false;
+            _cMenTreeRename.Enabled = false;
+            _cMenTreeDelete.Enabled = false;
+            _cMenTreeMoveUp.Enabled = false;
+            _cMenTreeMoveDown.Enabled = false;
+            _cMenTreeCopyHostname.Enabled = false;
+            _cMenTreeCopyUsername.Enabled = false;
+            _cMenTreeCopyPassword.Enabled = false;
+            _cMenTreeClearCachedRdpCredentials.Enabled = false;
+            _cMenTreeProperties.Enabled = false;
+            _cMenTreeOpenInBrowser.Enabled = false;
+            _cMenTreeFavorite.Enabled = false;
+            _cMenTreeApplyInheritanceToChildren.Enabled = false;
+            _cMenTreeApplyDefaultInheritance.Enabled = false;
+            _cMenTreeConfigureDynamicSource.Visible = false;
+            _cMenTreeRefreshDynamicSource.Visible = false;
+        }
+
+        private void ApplyLayout(ContextMenuScope scope)
+        {
+            bool dynamicConfig = _cMenTreeConfigureDynamicSource.Visible;
+            bool dynamicRefresh = _cMenTreeRefreshDynamicSource.Visible;
+            bool session = scope is ContextMenuScope.Connection or ContextMenuScope.Folder
+                or ContextMenuScope.PuttySession or ContextMenuScope.Multi;
+            bool edits = scope is ContextMenuScope.Connection or ContextMenuScope.Folder
+                or ContextMenuScope.PuttySession or ContextMenuScope.Multi;
+            bool more = scope is ContextMenuScope.Connection or ContextMenuScope.Folder
+                or ContextMenuScope.PuttySession;
+            bool creating = scope is ContextMenuScope.Connection or ContextMenuScope.Folder
+                or ContextMenuScope.Root or ContextMenuScope.Empty;
+            bool files = scope is ContextMenuScope.Root or ContextMenuScope.Empty;
+            bool sorting = scope is ContextMenuScope.Folder or ContextMenuScope.Root or ContextMenuScope.Empty;
+            bool expanding = scope is ContextMenuScope.Folder or ContextMenuScope.Root
+                or ContextMenuScope.PuttyRoot or ContextMenuScope.Empty;
+
+            if (scope == ContextMenuScope.Multi)
+            {
+                EnsureTopLevelAfter(_cMenTreeMoveDown, _cMenTreeDelete);
+                EnsureTopLevelAfter(_cMenTreeMoveUp, _cMenTreeDelete);
+            }
+            else
+            {
+                EnsureParent(_cMenTreeMoveUp, _cMenTreeMore.DropDownItems);
+                EnsureParent(_cMenTreeMoveDown, _cMenTreeMore.DropDownItems);
+            }
+
+            Show(_cMenTreeConnect, session && _cMenTreeConnect.Enabled);
+            ShowChildrenByEnabled(_cMenTreeConnectWithOptions);
+            _cMenTreeConnectWithOptionsDontConnectToConsoleSession.Visible = false;
+            Show(_cMenTreeConnectWithOptions, session && AnyVisible(_cMenTreeConnectWithOptions));
+            Show(_cMenTreeDisconnect, session && _cMenTreeDisconnect.Enabled);
+            Show(_cMenTreeReconnect, session && _cMenTreeReconnect.Enabled);
+
+            Show(_cMenTreeDuplicate, edits && _cMenTreeDuplicate.Enabled);
+            Show(_cMenTreeCopy, edits && _cMenTreeCopy.Enabled);
+            Show(_cMenTreePaste, edits);
+            Show(_cMenTreeRename, edits && _cMenTreeRename.Enabled);
+            Show(_cMenTreeDelete, edits && _cMenTreeDelete.Enabled);
+            Show(_cMenTreeMoveUp, (scope == ContextMenuScope.Multi || more) && _cMenTreeMoveUp.Enabled);
+            Show(_cMenTreeMoveDown, (scope == ContextMenuScope.Multi || more) && _cMenTreeMoveDown.Enabled);
+
+            ShowChildrenByEnabled(_cMenTreeNew);
+            Show(_cMenTreeNew, creating && AnyVisible(_cMenTreeNew));
+
+            Show(_cMenInheritanceSubMenu, scope == ContextMenuScope.Folder);
+            ShowChildrenByEnabled(_cMenInheritanceSubMenu);
+            if (!_cMenInheritanceSubMenu.DropDownItems.OfType<ToolStripMenuItem>().Any(item => item.Available))
+                _cMenInheritanceSubMenu.Visible = false;
+
+            Show(_cMenTreeToolsSort, sorting && _cMenTreeToolsSort.Enabled);
+            Show(_cMenTreeExpandAll, expanding);
+            Show(_cMenTreeCollapseAll, expanding);
+
+            ShowChildrenByEnabled(_cMenTreeMore);
+            Show(_cMenTreeFavorite, scope == ContextMenuScope.Connection && _cMenTreeFavorite.Enabled);
+            if (_connectionTree?.SelectedNode is ConnectionInfo favoriteNode && !favoriteNode.IsContainer)
+                _cMenTreeFavorite.Text = favoriteNode.Favorite ? "Remove from Favorites" : "Add to Favorites";
+            _cMenTreeConfigureDynamicSource.Visible = scope == ContextMenuScope.Folder && dynamicConfig;
+            _cMenTreeRefreshDynamicSource.Visible = scope == ContextMenuScope.Folder && dynamicRefresh;
+            Show(_cMenTreeMore, more && AnyVisible(_cMenTreeMore));
+
+            Show(_cMenTreeLoadAdditionalFile, files && _cMenTreeLoadAdditionalFile.Enabled);
+            Show(_cMenTreeImport, files && _cMenTreeImport.Enabled);
+            Show(_cMenTreeExportFile, files && _cMenTreeExportFile.Enabled);
+            Show(_cMenTreeOptions, (files || scope == ContextMenuScope.PuttyRoot) && _cMenTreeOptions.Enabled);
+
+            CollapseSeparators();
+        }
+
+        private static void Show(ToolStripItem item, bool visible)
+        {
+            item.Visible = visible;
+        }
+
+        private static void ShowChildrenByEnabled(ToolStripMenuItem parent)
+        {
+            foreach (ToolStripItem child in parent.DropDownItems)
+            {
+                if (child is ToolStripMenuItem menuItem)
+                    menuItem.Visible = menuItem.Enabled;
+            }
+        }
+
+        private static bool AnyVisible(ToolStripMenuItem parent)
+        {
+            // Visible also requires the popup to be on screen. Available is the flag Show() sets.
+            return parent.DropDownItems.OfType<ToolStripItem>().Any(item => item.Available);
+        }
+
+        private static void EnsureParent(ToolStripItem item, ToolStripItemCollection destination)
+        {
+            ToolStrip? current = item.GetCurrentParent();
+            if (current != null && ReferenceEquals(current.Items, destination))
+                return;
+
+            current?.Items.Remove(item);
+            destination.Add(item);
+        }
+
+        private void EnsureTopLevelAfter(ToolStripItem item, ToolStripItem after)
+        {
+            ToolStrip? current = item.GetCurrentParent();
+            int target = Items.IndexOf(after) + 1;
+            if (ReferenceEquals(current, this) && Items.IndexOf(item) == target)
+                return;
+
+            current?.Items.Remove(item);
+            target = Items.IndexOf(after) + 1;
+            Items.Insert(target, item);
+        }
+
+        private void CollapseSeparators()
+        {
+            bool previousContent = false;
+            ToolStripSeparator? pending = null;
+            foreach (ToolStripItem item in Items)
+            {
+                if (item is ToolStripSeparator separator)
+                {
+                    separator.Visible = false;
+                    if (previousContent)
+                        pending = separator;
+                    continue;
+                }
+
+                if (!item.Available)
+                    continue;
+
+                if (pending != null)
+                {
+                    pending.Visible = true;
+                    pending = null;
+                }
+
+                previousContent = true;
+            }
         }
 
         internal void DisableShortcutKeys()
@@ -1846,6 +2096,24 @@ namespace mRemoteNG.UI.Controls
         private void OnOptionsClicked(object sender, EventArgs e)
         {
             AppWindows.Show(WindowType.Options);
+        }
+
+        private void OnExpandAllClicked(object sender, EventArgs e)
+        {
+            _connectionTree.UserExpandAll();
+        }
+
+        private void OnCollapseAllClicked(object sender, EventArgs e)
+        {
+            _connectionTree.CollapseAll();
+        }
+
+        private void OnFavoriteClicked(object sender, EventArgs e)
+        {
+            if (_connectionTree.SelectedNode is not ConnectionInfo node || node.IsContainer)
+                return;
+
+            node.Favorite = !node.Favorite;
         }
 
         private void OnOpenInBrowserClicked(object sender, EventArgs e)
