@@ -2451,15 +2451,7 @@ namespace mRemoteNG.UI.Window
                 tabPage.protocolClose = true;
                 try
                 {
-                    tabPage.Close();
-                }
-                catch (ObjectDisposedException)
-                {
-                    // Tab was already disposed by another close path.
-                }
-                catch (InvalidOperationException)
-                {
-                    // Handle invalidated during close operation.
+                    ProtocolCloseActions.CloseTab(() => tabPage.Close());
                 }
                 finally
                 {

@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "present",
+  "note": "HandleProtocolClosed already catches ObjectDisposedException around tab close and around the marshal back to the UI thread. ProtocolCloseActions.CloseTab is that decision, and the window calls it."
 }
