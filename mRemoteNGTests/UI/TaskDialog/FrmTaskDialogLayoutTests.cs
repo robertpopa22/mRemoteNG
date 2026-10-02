@@ -77,6 +77,38 @@ namespace mRemoteNGTests.UI.TaskDialog
         }
 
         [Test]
+        public void ACheckboxLeftAtTheOtherMonitorsSizeIsFittedToTheDialogDpi()
+        {
+            // The reporter's log: after 96 -> 192 -> 96 the checkbox client stayed 28x27
+            // with an 8.25pt font realized as 30px. Layout only moved it, so the glyph was clipped.
+            ShowAndInspect(verificationText: DoNotShowAgain, beforeShow: null, inspect: dialog =>
+            {
+                Control check = Find(dialog, "cbVerify");
+                check.AutoSize = false;
+                check.Font = new Font("Segoe UI", 30f, FontStyle.Regular, GraphicsUnit.Pixel);
+                check.ClientSize = new Size(28, 27);
+
+                dialog.LayoutToContent();
+
+                float dialogEm = 8.25f * dialog.DeviceDpi / 72f;
+                Size text = TextRenderer.MeasureText(check.Text, check.Font);
+                Assert.Multiple(() =>
+                {
+                    Assert.That(check.Font.Unit, Is.EqualTo(GraphicsUnit.Pixel));
+                    Assert.That(check.Font.Size, Is.EqualTo(dialogEm).Within(0.5f),
+                                "the font is rebuilt from the dialog DPI, not left at 30px");
+                    Assert.That(check.Font.Height, Is.LessThanOrEqualTo(check.ClientSize.Height),
+                                "the font must fit inside the checkbox");
+                    Assert.That(check.ClientSize.Width, Is.GreaterThanOrEqualTo(text.Width),
+                                "the label must fit on one line");
+                    Assert.That(check.ClientSize, Is.Not.EqualTo(new Size(28, 27)),
+                                "the stuck glyph-only client is replaced by a fit to this dialog");
+                });
+                AssertLaidOutForContent(dialog);
+            });
+        }
+
+        [Test]
         public void WideningTheDialogRewrapsTheTextAndTheHeightFollows()
         {
             ShowAndInspect(verificationText: DoNotShowAgain, beforeShow: null, inspect: dialog =>

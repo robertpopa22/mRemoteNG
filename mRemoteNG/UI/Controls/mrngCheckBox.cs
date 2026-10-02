@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.Themes;
@@ -16,18 +17,33 @@ namespace mRemoteNG.UI.Controls
     public class MrngCheckBox : CheckBox
     {
         private ThemeManager? _themeManager;
-        private readonly Size _checkboxSize;
-        private readonly int _checkboxYCoord;
-        private readonly int _textXCoord;
 
         public MrngCheckBox()
         {
             InitializeComponent();
             ThemeManager.getInstance().ThemeChanged += OnCreateControl;
-            DisplayProperties display = new();
-            _checkboxSize = new Size(display.ScaleWidth(11), display.ScaleHeight(11));
-            _checkboxYCoord = (display.ScaleHeight(Height) - _checkboxSize.Height) / 2 - display.ScaleHeight(5);
-            _textXCoord = _checkboxSize.Width + display.ScaleWidth(2);
+        }
+
+        /// <summary>
+        /// Sizes the glyph and the label for <paramref name="deviceDpi"/>. A per-monitor bounce can
+        /// leave this control at the previous DPI, with a glyph-only client and a font whose pixel
+        /// height is taller than that client (#198: 30px in a 27px box). A point size would be
+        /// measured again at that stale DPI, so the em size is in pixels of the dialog's DPI.
+        /// </summary>
+        internal void FitToDeviceDpi(int deviceDpi)
+        {
+            int dpi = Math.Max(1, deviceDpi);
+            float emPx = 8.25f * dpi / 72f;
+            if (Font.Unit != GraphicsUnit.Pixel || Math.Abs(Font.Size - emPx) >= 0.5f)
+                Font = new Font(Font.FontFamily, emPx, Font.Style, GraphicsUnit.Pixel, Font.GdiCharSet, Font.GdiVerticalFont);
+
+            // AutoSize keeps the empty-glyph size from before the text and the DPI were known.
+            AutoSize = false;
+            int box = Math.Max(1, (int)Math.Round(11d * dpi / 96d));
+            Size text = TextRenderer.MeasureText(Text, Font);
+            int pad = Math.Max(1, (int)Math.Round(dpi / 96d));
+            int height = Math.Max(box, Math.Max(text.Height, Font.Height)) + pad;
+            Size = new Size(box + (pad * 4) + text.Width, height);
         }
 
         public enum MouseState
@@ -124,22 +140,32 @@ namespace mRemoteNG.UI.Controls
             Color parentBack = Parent?.BackColor ?? BackColor;
             pevent.Graphics.Clear(parentBack);
 
+            int box = Math.Max(1, (int)Math.Round(11d * Math.Max(1, DeviceDpi) / 96d));
+            box = Math.Min(box, Math.Max(1, ClientSize.Height - 2));
+            int y = Math.Max(0, (ClientSize.Height - box) / 2);
+            Rectangle boxRect = new(0, y, box, box);
+            // The pen is centered on the rectangle edge, so the border stops one pixel inside.
+            Rectangle border = new(boxRect.X, boxRect.Y, Math.Max(1, boxRect.Width - 1), Math.Max(1, boxRect.Height - 1));
+
             using (Pen p = new(checkBorder))
+            using (SolidBrush fill = new(back))
             {
-                Rectangle boxRect = new(0, _checkboxYCoord, _checkboxSize.Width, _checkboxSize.Height);
-                pevent.Graphics.FillRectangle(new SolidBrush(back), boxRect);
-                pevent.Graphics.DrawRectangle(p, boxRect);
+                pevent.Graphics.FillRectangle(fill, boxRect);
+                pevent.Graphics.DrawRectangle(p, border);
             }
 
             if (Checked)
             {
-                // | \uE001 | &#xE001; |  |  is the tick/check mark and it exists in Segoe UI Symbol at least...
-                pevent.Graphics.DrawString("\uE001", new Font("Segoe UI Symbol", 7.75f), new SolidBrush(glyph), -4, 0);
+                // U+E001 is the tick in Segoe UI Symbol.
+                using Font mark = new("Segoe UI Symbol", Math.Max(1, border.Height - 1), FontStyle.Regular, GraphicsUnit.Pixel);
+                TextRenderer.DrawText(pevent.Graphics, "\uE001", mark, boxRect, glyph,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
             }
 
-            Rectangle textRect = new(_textXCoord, 0, Width - 16, Height);
+            int textX = boxRect.Right + 2;
+            Rectangle textRect = new(textX, 0, Math.Max(1, ClientSize.Width - textX), ClientSize.Height);
             TextRenderer.DrawText(pevent.Graphics, Text, Font, textRect, fore, parentBack,
-                                  TextFormatFlags.PathEllipsis);
+                                  TextFormatFlags.VerticalCenter | TextFormatFlags.PathEllipsis);
         }
 
         private void InitializeComponent()

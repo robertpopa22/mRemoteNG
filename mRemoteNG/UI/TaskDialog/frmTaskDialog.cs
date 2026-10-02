@@ -647,6 +647,9 @@ namespace mRemoteNG.UI.TaskDialog
         /// </summary>
         private void LayoutButtonRow()
         {
+            if (cbVerify.Visible)
+                cbVerify.FitToDeviceDpi(DeviceDpi);
+
             int gap = LogicalToDeviceUnits(6);
             int leftmostButton = pnlButtons.ClientSize.Width;
             int buttonsTop = int.MaxValue;

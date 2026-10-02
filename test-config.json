@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "total_expected": 6842,
+    "total_expected": 7416,
     "min_total_threshold": 5999,
-    "last_updated": "2026-09-13",
+    "last_updated": "2026-10-02",
     "stats": {
       "unique_methods": 1555,
       "static_test_cases": 1743,
@@ -15,7 +15,7 @@
       {
         "name": "Connection",
         "filter": "FullyQualifiedName~mRemoteNGTests.Connection",
-        "expected": 1155
+        "expected": 1267
       },
       {
         "name": "Config.Xml",
@@ -25,17 +25,17 @@
       {
         "name": "Config.Other",
         "filter": "FullyQualifiedName~mRemoteNGTests.Config&FullyQualifiedName\\!~Serializers.ConnectionSerializers.Xml",
-        "expected": 901
+        "expected": 925
       },
       {
         "name": "UI",
         "filter": "FullyQualifiedName~mRemoteNGTests.UI&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 421
+        "expected": 438
       },
       {
         "name": "Tools",
         "filter": "FullyQualifiedName~mRemoteNGTests.Tools",
-        "expected": 412
+        "expected": 538
       },
       {
         "name": "Security",
@@ -50,7 +50,7 @@
       {
         "name": "Remaining",
         "filter": "FullyQualifiedName\\!~mRemoteNGTests.Connection&FullyQualifiedName\\!~mRemoteNGTests.Config&FullyQualifiedName\\!~mRemoteNGTests.UI&FullyQualifiedName\\!~mRemoteNGTests.Tools&FullyQualifiedName\\!~mRemoteNGTests.Security&FullyQualifiedName\\!~mRemoteNGTests.Tree&FullyQualifiedName\\!~mRemoteNGTests.Container&FullyQualifiedName\\!~mRemoteNGTests.Credential&FullyQualifiedName\\!~mRemoteNGTests.IntegrationTests&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 3391
+        "expected": 3686
       },
       {
         "name": "Integration",
