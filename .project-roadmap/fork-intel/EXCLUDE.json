@@ -31,6 +31,11 @@
       "decision": "imported",
       "note": "a cancelled close activates the tab that stays",
       "at": "2026-10-02T18:57:25Z"
+    },
+    "0121f0be4cea9a485f91f41d2bae56ea2b288f65": {
+      "decision": "imported",
+      "note": "a scan that cannot start names the reason and does not change the button",
+      "at": "2026-10-02T19:05:24Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

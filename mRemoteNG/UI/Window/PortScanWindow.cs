@@ -167,45 +167,25 @@ namespace mRemoteNG.UI.Window
 
         private void StartScan()
         {
-            // Build the scanner FIRST. Constructing it validates and enumerates the address range and
-            // can throw (e.g. the range exceeds the scan limit, or the endpoints are different IP
-            // families). Do this before flipping into the "scanning" state so a failure can't leave the
-            // Scan/Stop button stuck on "Stop" with nothing running.
-            if (!IpRangeParser.TryParse(txtIpRange.Text, out IPAddress? ipAddressStart, out IPAddress? ipAddressEnd,
-                                       out string ipError))
-            {
-                ReportInvalidInput(ipError);
-                return;
-            }
-
+            // The gate validates the address and the port list and names the reason when it
+            // cannot start. The button stays on Scan until that gate accepts the scan.
             if (!TryGetSelectedPorts(out List<int> ports, out string portError))
             {
                 ReportInvalidInput(portError);
                 return;
             }
 
-            PortScanner scanner;
-            try
+            int timeoutMs = (int)numericSelectorTimeout.Value * 1000;
+            int parallelScans = (int)numericParallelScans.Value;
+            if (!PortScanStartGate.TryCreate(txtIpRange.Text, ports, timeoutMs, parallelScans,
+                                             out PortScanner? scanner, out string reason))
             {
-                int timeoutMs = (int)numericSelectorTimeout.Value * 1000;
-                int parallelScans = (int)numericParallelScans.Value;
-
-                scanner = new PortScanner(ipAddressStart!, ipAddressEnd!, ports, timeoutMs, parallelScans);
-            }
-            catch (ArgumentException ex)
-            {
-                // Range too large — surface the reason instead of silently doing nothing.
-                ReportInvalidInput(ex.Message);
-                return;
-            }
-            catch (Exception ex)
-            {
-                Runtime.MessageCollector.AddExceptionMessage("StartScan failed (UI.Window.PortScan)", ex);
+                ReportInvalidInput(reason);
                 return;
             }
 
             _portScanner?.Dispose();
-            _portScanner = scanner;
+            _portScanner = scanner!;
             _portScanner.BeginHostScan += PortScanner_BeginHostScan;
             _portScanner.HostScanned += PortScanner_HostScanned;
             _portScanner.ScanComplete += PortScanner_ScanComplete;
