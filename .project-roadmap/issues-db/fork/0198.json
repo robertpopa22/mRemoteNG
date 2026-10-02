@@ -110,5 +110,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-10-02T06:07:21Z",
-  "notes": "2026-10-02: checkbox fit is 63fe644b1 and is not in nightly 20261001. Mixed fonts remain, so the issue stays open."
+  "notes": "2026-10-02: checkbox fit is 63fe644b1 and is not in nightly 20261001. Chrome whose line spacing does not follow the dock panel is rebuilt from that panel, and the log records font unit, raw size, and line spacing at the window DPI. A two-monitor session was not driven, so the issue stays open."
 }

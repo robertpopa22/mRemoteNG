@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "total_expected": 7416,
+    "total_expected": 7428,
     "min_total_threshold": 5999,
     "last_updated": "2026-10-02",
     "stats": {
@@ -30,7 +30,7 @@
       {
         "name": "UI",
         "filter": "FullyQualifiedName~mRemoteNGTests.UI&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 438
+        "expected": 444
       },
       {
         "name": "Tools",
@@ -50,7 +50,7 @@
       {
         "name": "Remaining",
         "filter": "FullyQualifiedName\\!~mRemoteNGTests.Connection&FullyQualifiedName\\!~mRemoteNGTests.Config&FullyQualifiedName\\!~mRemoteNGTests.UI&FullyQualifiedName\\!~mRemoteNGTests.Tools&FullyQualifiedName\\!~mRemoteNGTests.Security&FullyQualifiedName\\!~mRemoteNGTests.Tree&FullyQualifiedName\\!~mRemoteNGTests.Container&FullyQualifiedName\\!~mRemoteNGTests.Credential&FullyQualifiedName\\!~mRemoteNGTests.IntegrationTests&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 3686
+        "expected": 3692
       },
       {
         "name": "Integration",
@@ -1690,6 +1690,16 @@
         "_classes": {
           "ConnectionContextMenuConnectWithCredentialsTests": {
             "VerifyConnectWithCredentialsMenuItemExists": 1
+          },
+          "ConnectionContextMenuLayoutTests": {
+            "ConnectionMenu_ShowsTheShortRow_AndHidesFileCommands": 1,
+            "RootMenu_ShowsFileCommands_AndHidesConnect": 1
+          },
+          "DeviceDpiFontFitTests": {
+            "AgreedMenuAndDockFontsAreLeftAlone": 1,
+            "DescribeRecordsUnitRawSizeAndHeightAtTheWindowDpi": 1,
+            "HalvedMenuFontIsRebuiltToTheDockLineSpacing": 1,
+            "ToolStripIconsFollowTheWindowDpiWhenTheFontIsRebuilt": 1
           },
           "ConnectionContextMenuRecursiveTests": {
             "DisconnectConnection_ShouldDisconnectRecursively": 1

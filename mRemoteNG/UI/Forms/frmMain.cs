@@ -38,6 +38,7 @@ using System.Windows.Forms;
 using mRemoteNG.UI.Panels;
 using WeifenLuo.WinFormsUI.Docking;
 using mRemoteNG.UI.Controls;
+using mRemoteNG.UI.Controls.ConnectionTree;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using mRemoteNG.Config.Settings.Registry;
@@ -664,41 +665,148 @@ namespace mRemoteNG.UI.Forms
             BringToFront();
             NativeMethods.SetForegroundWindow(Handle);
             LogDpiState("startup", DeviceDpi, DeviceDpi);
+            if (FitChromeFonts())
+                LogDpiState("startup after fit", DeviceDpi, DeviceDpi);
 
             PromptForUpdatesPreference();
             await CheckForUpdates();
         }
 
         /// <summary>
-        /// #198 reports the menu, tree, Config panel and tabs drawn with a much bigger font than a
-        /// connection's own panel, inside an RDP session with several monitors; #197 crashes while a
-        /// DPI change is being applied. Nothing in the app logged a DPI change, so neither report
-        /// could say what DPI the window moved between or whether the chrome's fonts followed.
-        /// Log-only: one line per change, and one at startup to compare against.
+        /// #198: after 96 -> 192 the menu stayed at 16px while the dock panel went to 30px.
+        /// The menu font is cached at the first DPI. .NET 10 does not rescale a ToolStrip when
+        /// the old and new DPI it is handed are equal. SizeInPoints of a non-point font uses the
+        /// screen DC, so the same 16px line was logged as 4.5pt. The line below records the unit,
+        /// the raw size, and the line spacing at the window DPI. Chrome that still disagrees with
+        /// the dock panel is then rebuilt from that panel.
         /// </summary>
         protected override void OnDpiChanged(DpiChangedEventArgs e)
         {
             base.OnDpiChanged(e);
             LogDpiState("dpi change", e.DeviceDpiOld, e.DeviceDpiNew);
+            if (FitChromeFonts())
+                LogDpiState("dpi change after fit", e.DeviceDpiNew, e.DeviceDpiNew);
         }
 
         private void LogDpiState(string when, int oldDpi, int newDpi)
         {
             try
             {
+                Screen screen = Screen.FromControl(this);
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                     string.Create(CultureInfo.InvariantCulture,
-                        $"[#198-diag] {when}: window DPI {oldDpi} -> {newDpi}, form DeviceDpi {DeviceDpi}, " +
-                        $"menu font {msMain.Font.SizeInPoints:0.##}pt/{msMain.Font.Height}px, " +
-                        $"dock panel DeviceDpi {pnlDock.DeviceDpi} font {pnlDock.Font.SizeInPoints:0.##}pt/{pnlDock.Font.Height}px, " +
-                        $"monitor {Screen.FromControl(this).DeviceName} {Screen.FromControl(this).Bounds.Width}x{Screen.FromControl(this).Bounds.Height}, " +
+                        $"[#198-diag] {when}: window DPI {oldDpi} -> {newDpi}, form DeviceDpi {DeviceDpi}, screen DPI {ReadScreenDpi():0.#}, " +
+                        $"window {WindowState}, form {DeviceDpiFontFit.Describe(Font, DeviceDpi)}, " +
+                        $"menu dpi {msMain.DeviceDpi} {DeviceDpiFontFit.Describe(msMain.Font, DeviceDpi)}, " +
+                        $"dock dpi {pnlDock.DeviceDpi} {DeviceDpiFontFit.Describe(pnlDock.Font, DeviceDpi)}, " +
+                        $"{DescribeChrome("tree", ChromeFont(AppWindows.TreeForm?.ConnectionTree))}, " +
+                        $"{DescribeChrome("config", ChromeFont(FindPropertyGrid(AppWindows.ConfigForm)))}, " +
+                        $"monitor {screen.DeviceName} {screen.Bounds.Width}x{screen.Bounds.Height}, " +
                         $"remote session {SystemInformation.TerminalServerSession}"),
                     true);
             }
-            catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException)
+            catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException or ExternalException)
             {
                 // Diagnostics must never take the window down with them.
             }
+        }
+
+        private string DescribeChrome(string name, (Font Font, int Dpi)? sample)
+        {
+            if (sample == null)
+                return $"{name} -";
+
+            return string.Create(CultureInfo.InvariantCulture,
+                $"{name} dpi {sample.Value.Dpi} {DeviceDpiFontFit.Describe(sample.Value.Font, DeviceDpi)}");
+        }
+
+        private static (Font Font, int Dpi)? ChromeFont(Control? control)
+        {
+            if (control == null || control.IsDisposed)
+                return null;
+
+            return (control.Font, control.DeviceDpi);
+        }
+
+        private static PropertyGrid? FindPropertyGrid(Control? root)
+        {
+            if (root == null || root.IsDisposed)
+                return null;
+
+            if (root is PropertyGrid grid)
+                return grid;
+
+            foreach (Control child in root.Controls)
+            {
+                PropertyGrid? found = FindPropertyGrid(child);
+                if (found != null)
+                    return found;
+            }
+
+            return null;
+        }
+
+        private bool FitChromeFonts()
+        {
+            try
+            {
+                Font reference = pnlDock.Font;
+                int dpi = Math.Max(1, DeviceDpi);
+                bool changed = false;
+                changed |= FitChromeControls(this, reference, dpi, skipDock: true);
+                if (AppWindows.TreeForm is { IsDisposed: false } tree)
+                {
+                    changed |= DeviceDpiFontFit.FitControl(tree, reference, dpi);
+                    changed |= DeviceDpiFontFit.FitControl(tree.ConnectionTree, reference, dpi);
+                    changed |= FitChromeControls(tree, reference, dpi, skipDock: false);
+                }
+
+                if (AppWindows.ConfigForm is { IsDisposed: false } config)
+                {
+                    changed |= DeviceDpiFontFit.FitControl(config, reference, dpi);
+                    changed |= FitChromeControls(config, reference, dpi, skipDock: false);
+                }
+
+                return changed;
+            }
+            catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException or ExternalException)
+            {
+                return false;
+            }
+        }
+
+        private static bool FitChromeControls(Control root, Font reference, int dpi, bool skipDock)
+        {
+            bool changed = false;
+            foreach (Control child in root.Controls)
+            {
+                if (child.IsDisposed)
+                    continue;
+                if (skipDock && child is DockPanel)
+                    continue;
+
+                switch (child)
+                {
+                    case ToolStrip strip:
+                        changed |= DeviceDpiFontFit.FitToolStrip(strip, reference, dpi);
+                        break;
+                    case PropertyGrid:
+                    case ConnectionTree:
+                        changed |= DeviceDpiFontFit.FitControl(child, reference, dpi);
+                        break;
+                }
+
+                if (child is not ToolStrip)
+                    changed |= FitChromeControls(child, reference, dpi, skipDock);
+            }
+
+            return changed;
+        }
+
+        private static float ReadScreenDpi()
+        {
+            using Graphics graphics = Graphics.FromHwnd(IntPtr.Zero);
+            return graphics.DpiY;
         }
 
         private void PromptForUpdatesPreference()
@@ -1385,11 +1493,27 @@ namespace mRemoteNG.UI.Forms
                             // Fix #1174: Do not manually set Bounds if maximized, as this can cause
                             // the window to enter an invalid state or render incorrectly.
                             // The OS and WinForms (PerMonitorV2) handle maximized scaling.
-                            if (WindowState != FormWindowState.Maximized)
+                            int dpiX = unchecked((int)(long)m.WParam) & 0xFFFF;
+                            int dpiY = (unchecked((int)(long)m.WParam) >> 16) & 0xFFFF;
+                            Rect32 suggested = Marshal.PtrToStructure<Rect32>(m.LParam);
+                            bool applyBounds = WindowState != FormWindowState.Maximized;
+                            try
                             {
-                                Rect32 newRect = Marshal.PtrToStructure<Rect32>(m.LParam);
-                                Bounds = new Rectangle(newRect.left, newRect.top, newRect.right - newRect.left, newRect.bottom - newRect.top);
+                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                                    string.Create(CultureInfo.InvariantCulture,
+                                        $"[#198-diag] dpi message: suggested DPI {dpiX}x{dpiY}, window {WindowState}, " +
+                                        $"bounds {Bounds.X},{Bounds.Y} {Bounds.Width}x{Bounds.Height}, " +
+                                        $"suggested {suggested.left},{suggested.top} {suggested.right - suggested.left}x{suggested.bottom - suggested.top}, " +
+                                        $"apply bounds {applyBounds}"),
+                                    true);
                             }
+                            catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException or ExternalException)
+                            {
+                                // Diagnostics must never take the window down with them.
+                            }
+
+                            if (applyBounds)
+                                Bounds = new Rectangle(suggested.left, suggested.top, suggested.right - suggested.left, suggested.bottom - suggested.top);
 
                             // Force layout refresh for DockPanel to fix missing tabs/config
                             pnlDock.PerformLayout();
