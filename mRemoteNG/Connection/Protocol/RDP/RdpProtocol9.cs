@@ -45,6 +45,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             return new RdpActiveXHosts.Client9();
         }
 
+        protected override bool SupportsDynamicResize => true;
+
         protected override void UpdateSessionDisplaySettings(uint width, uint height)
         {
             try

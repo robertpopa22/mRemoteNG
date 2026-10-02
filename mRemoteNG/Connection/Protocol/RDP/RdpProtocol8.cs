@@ -138,8 +138,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             // Always use debounced resize — during state changes (Maximize/Restore),
             // InterfaceControl.Size may not yet reflect the final layout. The debounce
-            // timer lets layout complete before calling Reconnect() with correct
-            // dimensions. For unchanged state, handles programmatic resizes (#69).
+            // timer lets layout complete before the session size is applied.
+            // For unchanged state, handles programmatic resizes (#69).
             ScheduleDebouncedResize();
         }
 
@@ -265,23 +265,34 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             try
             {
-                Size size = Fullscreen
-                    ? Screen.FromControl(Control).Bounds.Size
-                    : InterfaceControl.Size;
+                SessionResizeDecision decision = DecideSessionResize(
+                    SupportsDynamicResize,
+                    InterfaceControl.Info.Resolution,
+                    Fullscreen,
+                    Fullscreen ? Screen.FromControl(Control).Bounds.Size : Size.Empty,
+                    InterfaceControl.ClientRectangle,
+                    InterfaceControl.Padding);
 
-                DevLog.Write($"Fullscreen={Fullscreen} targetSize={size.Width}x{size.Height} Control.Size={Control.Size} InterfaceControl.Size={InterfaceControl.Size}");
+                DevLog.Write($"Fullscreen={Fullscreen} apply={decision.Apply} targetSize={decision.Size.Width}x{decision.Size.Height} Control.Size={Control.Size} InterfaceControl.Size={InterfaceControl.Size}");
 
-                if (size.Width <= 0 || size.Height <= 0)
+                if (!decision.Apply)
                 {
-                    DevLog.Write($"SKIP: invalid size {size.Width}x{size.Height}");
+                    DevLog.Write($"SKIP: session resize not applied ({decision.Size.Width}x{decision.Size.Height})");
                     return;
                 }
 
-                DevLog.Write($"Calling Reconnect({size.Width}, {size.Height})");
-                UpdateSessionDisplaySettings((uint)size.Width, (uint)size.Height);
+                DevLog.Write($"Calling UpdateSessionDisplaySettings({decision.Size.Width}, {decision.Size.Height})");
+                UpdateSessionDisplaySettings((uint)decision.Size.Width, (uint)decision.Size.Height);
 
                 EnsureSmartSizing();
-                DevLog.Write($"Reconnect done. SmartSize={SmartSize}");
+                DevLog.Write($"Session display update done. SmartSize={SmartSize}");
+
+                if (!InterfaceControl.IsDisposed &&
+                    NeedsAnotherPass(Fullscreen, decision.Size, InterfaceControl.ClientRectangle, InterfaceControl.Padding))
+                {
+                    DevLog.Write($"Panel changed while the size was applied, scheduling another pass");
+                    ScheduleDebouncedResize();
+                }
             }
             catch (Exception ex)
             {
@@ -363,6 +374,59 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     $"EnsureSmartSizing - Re-applying SmartSizing for '{connectionInfo.Hostname}' after restore");
                 SmartSize = true;
             }
+        }
+
+        /// <summary>
+        /// False when a new session size is reached only by reconnecting.
+        /// RDP 9 and later override this because the display channel can take the new size.
+        /// </summary>
+        protected virtual bool SupportsDynamicResize => false;
+
+        internal readonly record struct SessionResizeDecision(bool Apply, Size Size);
+
+        /// <summary>
+        /// Panel client area minus the frame padding. The ActiveX control sizes itself to the
+        /// session, so its own size is not a measurement of the space available.
+        /// </summary>
+        internal static Size ContentSize(Rectangle client, Padding padding)
+        {
+            int width = client.Width - padding.Horizontal;
+            int height = client.Height - padding.Vertical;
+            return new Size(Math.Max(0, width), Math.Max(0, height));
+        }
+
+        /// <summary>
+        /// FitToWindow on a client that cannot resize in place does not apply a session size.
+        /// Fullscreen and the other resolution modes still apply. A non-positive size does not apply.
+        /// </summary>
+        internal static SessionResizeDecision DecideSessionResize(
+            bool supportsDynamicResize,
+            RDPResolutions resolution,
+            bool fullscreen,
+            Size fullscreenBounds,
+            Rectangle client,
+            Padding padding)
+        {
+            if (!supportsDynamicResize && resolution == RDPResolutions.FitToWindow)
+                return new SessionResizeDecision(false, Size.Empty);
+
+            Size size = fullscreen ? fullscreenBounds : ContentSize(client, padding);
+            if (size.Width <= 0 || size.Height <= 0)
+                return new SessionResizeDecision(false, size);
+
+            return new SessionResizeDecision(true, size);
+        }
+
+        /// <summary>
+        /// True when the panel's content size changed while a non-fullscreen size was applied.
+        /// </summary>
+        internal static bool NeedsAnotherPass(bool fullscreen, Size applied, Rectangle client, Padding padding)
+        {
+            if (fullscreen)
+                return false;
+
+            Size settled = ContentSize(client, padding);
+            return settled.Width > 0 && settled.Height > 0 && settled != applied;
         }
 
         protected virtual void UpdateSessionDisplaySettings(uint width, uint height)

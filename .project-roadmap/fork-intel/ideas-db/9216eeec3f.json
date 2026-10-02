@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "imported",
+  "note": "FitToWindow on RDP 8 does not apply a session size, because that client would have to reconnect. RDP 9 still updates the display in place."
 }

@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 60,
+    "new": 57,
     "trying": 0,
-    "imported": 23,
+    "imported": 26,
     "present": 12,
     "rejected": 443,
     "deferred": 114
@@ -66,15 +66,6 @@
       "status": "new",
       "fork": "lovaszlaszlo/mRemoteNG",
       "subject": "Translate the menus, dialogs and options pages into Hungarian"
-    },
-    {
-      "sha": "4edeaba5c1",
-      "kind": "fork",
-      "tier": "B",
-      "score": 8,
-      "status": "new",
-      "fork": "lovaszlaszlo/mRemoteNG",
-      "subject": "Re-run the resize when the panel moved again while it was applied"
     },
     {
       "sha": "ac2988542d",
@@ -257,15 +248,6 @@
       "subject": "Fix dark title bar requiring two restarts to apply"
     },
     {
-      "sha": "08b056f698",
-      "kind": "fork",
-      "tier": "B",
-      "score": 5,
-      "status": "new",
-      "fork": "lovaszlaszlo/mRemoteNG",
-      "subject": "Measure the panel, not the RDP control, when resizing the session"
-    },
-    {
       "sha": "4b2768dcea",
       "kind": "fork",
       "tier": "B",
@@ -273,15 +255,6 @@
       "status": "new",
       "fork": "lovaszlaszlo/mRemoteNG",
       "subject": "fix: claim the foreground for the main window at startup"
-    },
-    {
-      "sha": "9216eeec3f",
-      "kind": "fork",
-      "tier": "B",
-      "score": 5,
-      "status": "new",
-      "fork": "lovaszlaszlo/mRemoteNG",
-      "subject": "Never reconnect an RDP 8 session just to resize it"
     },
     {
       "sha": "af33a3f833",
