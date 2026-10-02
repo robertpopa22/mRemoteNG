@@ -42,8 +42,10 @@ namespace mRemoteNG.Tools.Cmdline
             {
                 foreach (string txt in args)
                 {
-                    // Look for new parameters (-,/ or --) and a possible enclosed value (=,:)
-                    string[] Parts = spliter.Split(txt, 3);
+                    // A value that is not itself a switch stays whole. The splitter treats ':' as a
+                    // separator, which would cut a Windows path such as C:\dir\file.xml.
+                    bool switchToken = txt.StartsWith('-') || txt.StartsWith('/');
+                    string[] Parts = switchToken ? spliter.Split(txt, 3) : [txt];
                     switch (Parts.Length)
                     {
                         case 1:

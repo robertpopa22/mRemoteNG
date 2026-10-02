@@ -6,7 +6,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
 
 ## Confirmed bugs
 
-- [ ] `7746827c2b` — a command-line value is split on `:`, so a Windows path disappears. A token that is not itself a switch stays whole. Switch forms (`/cons:C:\...`, `/name=value`, a bare flag) stay as they are.
+- [x] `7746827c2b` — a command-line value is split on `:`, so a Windows path disappears. A token that is not itself a switch stays whole. Switch forms (`/cons:C:\...`, `/name=value`, a bare flag) stay as they are.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/7746827c2b4af03f16d59fe482cb6f050bef70c9
 - [ ] `f634039a17` — file transfer is offered only for SSH1 and SSH2. OpenSSH is included in the same offer.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/f634039a177f9204454e5fd8680b3cce3ee50863

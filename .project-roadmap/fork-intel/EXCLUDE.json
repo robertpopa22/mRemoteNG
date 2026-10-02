@@ -11,6 +11,11 @@
       "decision": "imported",
       "note": "reimplemented as a03da0082 (original targeted mRemoteV1 tree)",
       "at": "2026-07-26T04:53:09Z"
+    },
+    "7746827c2b4af03f16d59fe482cb6f050bef70c9": {
+      "decision": "imported",
+      "note": "a non-switch token is kept whole, so a Windows path survives the colon",
+      "at": "2026-10-02T18:47:37Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

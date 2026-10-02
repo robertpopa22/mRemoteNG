@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 83,
+    "new": 82,
     "trying": 0,
-    "imported": 6,
+    "imported": 7,
     "present": 6,
     "rejected": 443,
     "deferred": 114
@@ -399,15 +399,6 @@
       "status": "new",
       "fork": "mRemoteNG/mRemoteNG",
       "subject": "Languages updates"
-    },
-    {
-      "sha": "7746827c2b",
-      "kind": "fork",
-      "tier": "B",
-      "score": 6,
-      "status": "new",
-      "fork": "jafin/mRemoteNG",
-      "subject": "fix: take a command-line switch value whole, whatever it contains (#41)"
     },
     {
       "sha": "7f12c5dc64",
