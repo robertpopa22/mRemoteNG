@@ -396,8 +396,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
         }
 
         /// <summary>
-        /// FitToWindow on a client that cannot resize in place does not apply a session size.
-        /// Fullscreen and the other resolution modes still apply. A non-positive size does not apply.
+        /// A fullscreen session applies the screen bounds even when the saved resolution is
+        /// still FitToWindow, which is what ToggleFullscreen leaves in place. A windowed
+        /// FitToWindow session on a client that cannot resize in place does not apply a size.
+        /// A non-positive size does not apply.
         /// </summary>
         internal static SessionResizeDecision DecideSessionResize(
             bool supportsDynamicResize,
@@ -407,7 +409,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             Rectangle client,
             Padding padding)
         {
-            if (!supportsDynamicResize && resolution == RDPResolutions.FitToWindow)
+            if (!fullscreen && !supportsDynamicResize && resolution == RDPResolutions.FitToWindow)
                 return new SessionResizeDecision(false, Size.Empty);
 
             Size size = fullscreen ? fullscreenBounds : ContentSize(client, padding);

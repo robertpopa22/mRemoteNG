@@ -58,7 +58,7 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
         {
             RdpProtocol8.SessionResizeDecision decision = RdpProtocol8.DecideSessionResize(
                 false,
-                RDPResolutions.Fullscreen,
+                RDPResolutions.FitToWindow,
                 true,
                 new Size(1920, 1080),
                 new Rectangle(0, 0, 200, 100),
