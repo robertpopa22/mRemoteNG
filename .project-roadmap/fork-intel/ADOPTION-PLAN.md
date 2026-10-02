@@ -60,7 +60,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   https://github.com/mRemoteNG/mRemoteNG/commit/9216eeec3fc53ba08f2ea15804a58983916a8f6e
 - [x] `c535880a14` — one address field on the port scan. The CIDR parser already exists.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/c535880a14c0395a18dfe24a3c22d4c1853dfe2a
-- [ ] `42f6eaaf62` — notification-panel messages keep one order across threads.
+- [x] `42f6eaaf62` — notification-panel messages keep one order across threads.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/42f6eaaf62bcc6cd83538304a1c0b8184eb50f6c
 - [ ] `b1e1dcfe5d` — handing a console to another process does not leave an empty window.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/b1e1dcfe5db54b1acd6d191c57dd3980a38ab3cf

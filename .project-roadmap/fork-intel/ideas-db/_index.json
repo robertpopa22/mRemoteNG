@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 56,
+    "new": 55,
     "trying": 0,
-    "imported": 26,
+    "imported": 27,
     "present": 13,
     "rejected": 443,
     "deferred": 114
@@ -471,15 +471,6 @@
       "status": "new",
       "fork": "lthobois/mRemoteNG",
       "subject": "Enhance connection handling and UI features"
-    },
-    {
-      "sha": "42f6eaaf62",
-      "kind": "fork",
-      "tier": "C",
-      "score": 4,
-      "status": "new",
-      "fork": "jafin/mRemoteNG",
-      "subject": "fix: give the notification panel one ordering point across threads (#11)"
     },
     {
       "sha": "47c8b9b978",

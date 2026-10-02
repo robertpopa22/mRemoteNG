@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": null,
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "imported",
+  "note": "Every notification is queued in one locked order. One drain renders them oldest first, including messages reported on the UI thread."
 }

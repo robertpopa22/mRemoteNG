@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.UI;
@@ -11,75 +10,74 @@ namespace mRemoteNG.Messages.MessageWriters
     public class NotificationPanelMessageWriter(ErrorAndInfoWindow messageWindow) : IMessageWriter
     {
         private readonly ErrorAndInfoWindow _messageWindow = messageWindow ?? throw new ArgumentNullException(nameof(messageWindow));
-        private List<ListViewItem>? _pendingItems = [];
+        private readonly NotificationMessageQueue _queue = new();
 
         public void Write(IMessage message)
-        {
-            NotificationMessageListViewItem lvItem = new(message);
-            AddToList(lvItem);
-        }
-
-        private void AddToList(ListViewItem lvItem)
         {
             if (_messageWindow.lvErrorCollector.IsDisposed)
                 return;
 
-            // Buffer messages until the control handle is created.
-            // ErrorAndInfoWindow starts in DockBottomAutoHide — its handle is only
-            // created when the user first opens the panel, which is well after
-            // startup timing messages are posted (#53).
-            if (_pendingItems != null)
-            {
-                if (!_messageWindow.lvErrorCollector.IsHandleCreated)
-                {
-                    if (_pendingItems.Count == 0)
-                        _messageWindow.lvErrorCollector.HandleCreated += OnHandleCreated;
-                    _pendingItems.Add(lvItem);
-                    return;
-                }
+            if (_queue.Enqueue(message))
+                ScheduleDrain();
+        }
 
-                // Handle already exists — flush and switch to direct mode
-                FlushPending();
+        private void ScheduleDrain()
+        {
+            ListView list = _messageWindow.lvErrorCollector;
+
+            // The panel starts auto-hidden. Its handle is created when the user first opens it,
+            // which is after startup messages have already been reported. They stay queued.
+            if (!list.IsHandleCreated)
+            {
+                list.HandleCreated += OnHandleCreated;
+
+                if (!list.IsHandleCreated)
+                    return;
+
+                list.HandleCreated -= OnHandleCreated;
             }
 
-            if (_messageWindow.lvErrorCollector.InvokeRequired)
-            {
-                try
-                {
-                    _messageWindow.lvErrorCollector.Invoke((MethodInvoker)(() => AddToList(lvItem)));
-                }
-                catch (System.ComponentModel.InvalidAsynchronousStateException)
-                {
-                    return;
-                }
-                catch (ObjectDisposedException)
-                {
-                    return;
-                }
-                catch (InvalidOperationException)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                _messageWindow.AddMessage(lvItem);
-            }
+            PostDrain(list);
         }
 
         private void OnHandleCreated(object? sender, EventArgs e)
         {
-            _messageWindow.lvErrorCollector.HandleCreated -= OnHandleCreated;
-            FlushPending();
+            ListView list = _messageWindow.lvErrorCollector;
+            list.HandleCreated -= OnHandleCreated;
+
+            // HandleCreated runs before the list pushes its columns. Posting the drain puts the
+            // items in after that, so the text column exists.
+            PostDrain(list);
         }
 
-        private void FlushPending()
+        private void PostDrain(ListView list)
         {
-            if (_pendingItems == null) return;
-            var items = _pendingItems;
-            _pendingItems = null; // switch to direct mode permanently
-            foreach (var pending in items)
-                _messageWindow.AddMessage(pending);
+            try
+            {
+                list.BeginInvoke((MethodInvoker)Drain);
+            }
+            catch (InvalidOperationException)
+            {
+                _queue.ReleaseDrain();
+            }
+        }
+
+        private void Drain()
+        {
+            while (true)
+            {
+                if (_messageWindow.lvErrorCollector.IsDisposed)
+                {
+                    _queue.Clear();
+                    return;
+                }
+
+                IMessage? message = _queue.Dequeue();
+                if (message is null)
+                    return;
+
+                _messageWindow.AddMessage(new NotificationMessageListViewItem(message));
+            }
         }
     }
 }

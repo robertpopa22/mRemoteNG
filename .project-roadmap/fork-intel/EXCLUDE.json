@@ -111,6 +111,11 @@
       "decision": "imported",
       "note": "FitToWindow on RDP 8 does not apply a session size, because that client would have to reconnect. RDP 9 still updates the display in place.",
       "at": "2026-10-02T19:46:32Z"
+    },
+    "42f6eaaf62bcc6cd83538304a1c0b8184eb50f6c": {
+      "decision": "imported",
+      "note": "Every notification is queued in one locked order. One drain renders them oldest first, including messages reported on the UI thread.",
+      "at": "2026-10-02T19:50:30Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",
