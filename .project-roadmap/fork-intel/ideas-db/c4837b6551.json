@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "imported",
+  "note": "the command button measures its large line the way it is drawn"
 }

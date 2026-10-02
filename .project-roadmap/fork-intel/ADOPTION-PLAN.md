@@ -32,7 +32,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/53451f91f5195273903d0ac51e92ec1ee45e13ab
 - [x] `0045263765` — the detected PuTTY path is shown on the Advanced page. A path that is not on disk says it was not detected.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/004526376515164a858c98a9a1c782d04a28c33c
-- [ ] `c4837b6551`, `739847ef5a`, `2a90030329` — task-dialog text is measured the way it is drawn, and the command button draws its focus ring.
+- [x] `c4837b6551`, `739847ef5a`, `2a90030329` — task-dialog text is measured the way it is drawn, and the command button draws its focus ring.
   Sources: https://github.com/mRemoteNG/mRemoteNG/commit/c4837b6551b9d8fe8ffc9980159905d0442824f3
   https://github.com/mRemoteNG/mRemoteNG/commit/739847ef5a331f124a67e09d20f59c478f54adf0
   https://github.com/mRemoteNG/mRemoteNG/commit/2a900303298b1f4583b2c74ad65373d7c4ab140d

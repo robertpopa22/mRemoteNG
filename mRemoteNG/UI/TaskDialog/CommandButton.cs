@@ -24,6 +24,12 @@ namespace mRemoteNG.UI.TaskDialog
         private const int TOP_MARGIN = 10;
         private const int ARROW_WIDTH = 19;
 
+        /// <summary>
+        /// The large line is drawn with <see cref="TextRenderer"/> and these flags.
+        /// The height is measured with the same call.
+        /// </summary>
+        internal const TextFormatFlags LargeTextFormat = TextFormatFlags.Default;
+
         enum eButtonState
         {
             Normal,
@@ -133,11 +139,32 @@ namespace mRemoteNG.UI.TaskDialog
 
         SizeF GetLargeTextSizeF()
         {
-            int x = LEFT_MARGIN + ARROW_WIDTH + 5;
-            SizeF mzSize = new(Width - x - LEFT_MARGIN, 5000.0F); // presume RIGHT_MARGIN = LEFT_MARGIN
-            Graphics g = Graphics.FromHwnd(Handle);
-            SizeF textSize = g.MeasureString(GetLargeText(), Font, mzSize);
-            return textSize;
+            int inset = LEFT_MARGIN + ARROW_WIDTH + 5;
+            int available = ClientSize.Width - inset - LEFT_MARGIN;
+            using Graphics g = Graphics.FromHwnd(Handle);
+            return MeasureLargeText(g, GetLargeText(), Font, available);
+        }
+
+        /// <summary>
+        /// Measures the large line the way <see cref="OnPaint"/> draws it, inside the client area.
+        /// </summary>
+        internal static Size MeasureLargeText(Graphics graphics, string text, Font font, int availableWidth)
+        {
+            Size proposed = new(Math.Max(1, availableWidth), int.MaxValue);
+            return TextRenderer.MeasureText(graphics, text ?? string.Empty, font, proposed, LargeTextFormat);
+        }
+
+        /// <summary>
+        /// The themed paint fills the face itself, so the button has to draw its own focus ring.
+        /// </summary>
+        internal static Rectangle FocusRing(Rectangle face, bool focused)
+        {
+            if (!focused || face.Width < 8 || face.Height < 8)
+                return Rectangle.Empty;
+
+            Rectangle ring = face;
+            ring.Inflate(-3, -3);
+            return ring;
         }
 
         SizeF GetSmallTextSizeF()
@@ -145,8 +172,8 @@ namespace mRemoteNG.UI.TaskDialog
             string s = GetSmallText();
             if (s == "") return new SizeF(0, 0);
             int x = LEFT_MARGIN + ARROW_WIDTH + 8; // <- indent small text slightly more
-            SizeF mzSize = new(Width - x - LEFT_MARGIN, 5000.0F); // presume RIGHT_MARGIN = LEFT_MARGIN
-            Graphics g = Graphics.FromHwnd(Handle);
+            SizeF mzSize = new(ClientSize.Width - x - LEFT_MARGIN, 5000.0F); // presume RIGHT_MARGIN = LEFT_MARGIN
+            using Graphics g = Graphics.FromHwnd(Handle);
             SizeF textSize = g.MeasureString(s, SmallFont, mzSize);
             return textSize;
         }
@@ -244,7 +271,11 @@ namespace mRemoteNG.UI.TaskDialog
             TextRenderer.DrawText(pevent.Graphics, largetext, Font,
                                   new Rectangle(LEFT_MARGIN + imgArrow1.Width + 5, TOP_MARGIN, (int)szL.Width,
                                                 (int)szL.Height), fore,
-                                  TextFormatFlags.Default);
+                                  LargeTextFormat);
+
+            Rectangle focusRing = FocusRing(newRect, Focused);
+            if (!focusRing.IsEmpty)
+                ControlPaint.DrawFocusRectangle(pevent.Graphics, focusRing);
 
             if (smalltext != "")
             {
