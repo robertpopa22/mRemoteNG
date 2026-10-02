@@ -1,0 +1,24 @@
+{
+  "sha": "197f6fbc91c7053fa489096293df61e7909985fd",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "Fix SonarCloud vulnerabilities and critical bugs on develop branch",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/197f6fbc91c7053fa489096293df61e7909985fd",
+  "date": "2026-04-07T14:04:01Z",
+  "tier": "Q",
+  "score": 4,
+  "why": "security review required (critical)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

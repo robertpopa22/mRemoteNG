@@ -1,0 +1,23 @@
+{
+  "sha": "15635dff6d0d6ad9d2a435430c50a41ba319e6c3",
+  "kind": "fork",
+  "fork": "hthvdmeer/mRemoteNG",
+  "subject": "added copy password option",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15635dff6d0d6ad9d2a435430c50a41ba319e6c3",
+  "date": "2026-05-01T13:32:42Z",
+  "tier": "D",
+  "score": -7,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 4,
+  "maps_to_issue": 128,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

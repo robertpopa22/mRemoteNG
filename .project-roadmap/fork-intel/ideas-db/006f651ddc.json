@@ -1,0 +1,21 @@
+{
+  "sha": "006f651ddc4f02d36163b53f55197cf696c8632f",
+  "kind": "fork",
+  "fork": "wolverine2k/mRemoteNG",
+  "subject": "Fix misleading version label",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/006f651ddc4f02d36163b53f55197cf696c8632f",
+  "date": "2023-08-15T06:45:33Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "37f9436bca152fdf26ef366fd09a9ecac9cda6c6",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix for testing part",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/37f9436bca152fdf26ef366fd09a9ecac9cda6c6",
+  "date": "2026-09-15T10:05:42Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

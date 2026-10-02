@@ -1,0 +1,21 @@
+{
+  "sha": "8daed191630d8472f8d48971a914ab64239603d6",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Fix passive RDP scroll origin and enable view-only after scroll",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8daed191630d8472f8d48971a914ab64239603d6",
+  "date": "2026-05-16T17:18:43Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "74a588edcf8cf223b4da462a412f37f8e4af95f3",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix(logging): stop truncating log levels, keep five backups, and close out the Serilog verification (#22)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/74a588edcf8cf223b4da462a412f37f8e4af95f3",
+  "date": "2026-08-11T02:52:16Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

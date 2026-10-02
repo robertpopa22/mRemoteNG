@@ -1,0 +1,21 @@
+{
+  "sha": "a677fae337a8c49890c6a0e2d87b9739d708d25d",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Fix ObjectDisposedException when closing a connection tab",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a677fae337a8c49890c6a0e2d87b9739d708d25d",
+  "date": "2026-06-11T22:12:08Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": 11,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

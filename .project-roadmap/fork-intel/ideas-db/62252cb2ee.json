@@ -1,0 +1,23 @@
+{
+  "sha": "62252cb2ee79b0ba3bceb83b2dee84186b41db1d",
+  "kind": "fork",
+  "fork": "MyLabs-LLC/mRemoteNG",
+  "subject": "Add RDP multi-monitor spanning and credential resolver",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/62252cb2ee79b0ba3bceb83b2dee84186b41db1d",
+  "date": "2026-02-13T14:43:56Z",
+  "tier": "Q",
+  "score": 4,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

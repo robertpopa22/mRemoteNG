@@ -1,0 +1,23 @@
+{
+  "sha": "66ad958c477e0217554c90af1963098f67c88a65",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Fix Visual Studio targets path in passive RDP build",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/66ad958c477e0217554c90af1963098f67c88a65",
+  "date": "2026-05-15T19:32:23Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

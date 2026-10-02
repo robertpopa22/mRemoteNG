@@ -1,0 +1,21 @@
+{
+  "sha": "a645175d54ef8363298fbc8e14cdb7064a9b830e",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Revise installation parameters in README",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a645175d54ef8363298fbc8e14cdb7064a9b830e",
+  "date": "2026-09-27T13:46:52Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

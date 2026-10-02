@@ -1,0 +1,21 @@
+{
+  "sha": "f35d0a9a0fb10aec84f73f53bc290991a2973ffe",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): rename SSH_DotNet enum value + namespace/folder to SshDotNet",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f35d0a9a0fb10aec84f73f53bc290991a2973ffe",
+  "date": "2026-06-21T16:24:23Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "be611b897ceac5a5e26ccbfab16303a35346f9e6",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Sign temporary native RDP files when certificate is configured",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/be611b897ceac5a5e26ccbfab16303a35346f9e6",
+  "date": "2026-08-03T12:34:04Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,26 @@
+{
+  "sha": "4e04f5ca22d9fdaab85535c9a3eda6a282854266",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "removed option to hide connection tab when only one connection is open.",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4e04f5ca22d9fdaab85535c9a3eda6a282854266",
+  "date": "2020-05-30T12:45:45Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

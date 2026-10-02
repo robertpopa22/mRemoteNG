@@ -1,0 +1,21 @@
+{
+  "sha": "9150b1da4e0cc50de84b50f99573a805ca865a03",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Fix ActiveX autoreconnect event signature",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9150b1da4e0cc50de84b50f99573a805ca865a03",
+  "date": "2026-05-16T13:52:10Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

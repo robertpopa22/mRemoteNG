@@ -1,0 +1,21 @@
+{
+  "sha": "718f5c28c1300e2745e3a95700bf5787d8c03f61",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(sftp): reconnect a dropped session, and make the listing readable",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/718f5c28c1300e2745e3a95700bf5787d8c03f61",
+  "date": "2026-08-09T03:28:10Z",
+  "tier": "B",
+  "score": -3,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "SFTP session types are not in this tree"
+}

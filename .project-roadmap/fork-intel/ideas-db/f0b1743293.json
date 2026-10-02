@@ -1,0 +1,21 @@
+{
+  "sha": "f0b1743293736f58374b22abcb0ea6ba68b54cf3",
+  "kind": "fork",
+  "fork": "Morgadoo/mRemoteNG",
+  "subject": "docs: clarify all remaining blocked tasks in MIGRATION_PROGRESS.md",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0b1743293736f58374b22abcb0ea6ba68b54cf3",
+  "date": "2026-03-10T14:03:05Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

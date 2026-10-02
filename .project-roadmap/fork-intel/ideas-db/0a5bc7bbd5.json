@@ -1,0 +1,21 @@
+{
+  "sha": "0a5bc7bbd51d0e755bfdbf716cec2c2b3bc59997",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Add SSH_DotNet protocol to Username field visibility",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0a5bc7bbd51d0e755bfdbf716cec2c2b3bc59997",
+  "date": "2025-11-06T16:20:07Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

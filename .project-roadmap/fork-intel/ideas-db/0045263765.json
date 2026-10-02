@@ -1,0 +1,21 @@
+{
+  "sha": "004526376515164a858c98a9a1c782d04a28c33c",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Show auto-detected PuTTY path on Advanced options page",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/004526376515164a858c98a9a1c782d04a28c33c",
+  "date": "2026-06-12T12:04:29Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

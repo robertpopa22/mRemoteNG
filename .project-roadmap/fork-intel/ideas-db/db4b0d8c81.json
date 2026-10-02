@@ -1,0 +1,21 @@
+{
+  "sha": "db4b0d8c81dc0603babc53a7c5d49df3b4a4c86b",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: say on export that the classic copy is protected more weakly",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/db4b0d8c81dc0603babc53a7c5d49df3b4a4c86b",
+  "date": "2026-08-10T11:21:11Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

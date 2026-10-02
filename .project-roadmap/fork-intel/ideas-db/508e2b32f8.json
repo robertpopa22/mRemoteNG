@@ -1,0 +1,21 @@
+{
+  "sha": "508e2b32f85998361a2f785452db4476524a46a5",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add support for root group containers in tree UI",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/508e2b32f85998361a2f785452db4476524a46a5",
+  "date": "2026-07-21T14:17:04Z",
+  "tier": "B",
+  "score": 1,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

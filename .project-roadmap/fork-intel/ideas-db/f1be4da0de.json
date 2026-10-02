@@ -1,0 +1,25 @@
+{
+  "sha": "f1be4da0de7d5ac31265e9708936fa6192bb3009",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(sftp): add the SFTP session behind an interface",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1be4da0de7d5ac31265e9708936fa6192bb3009",
+  "date": "2026-08-08T23:35:15Z",
+  "tier": "Q",
+  "score": 3,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "network-download",
+    "network-download",
+    "network-download"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

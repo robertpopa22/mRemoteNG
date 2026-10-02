@@ -1,0 +1,25 @@
+{
+  "sha": "93fa7c8cca5e20122f87fc7376bb59fbb8746edc",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: make the ssh fixture idempotent and install its key without a race (#20)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/93fa7c8cca5e20122f87fc7376bb59fbb8746edc",
+  "date": "2026-08-11T02:58:35Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "build-script",
+    "build-script",
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

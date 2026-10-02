@@ -1,0 +1,23 @@
+{
+  "sha": "a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
+  "kind": "fork",
+  "fork": "vindict6/mRemoteNG",
+  "subject": "Only require PuTTYNG end anchors to follow their start anchor",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a0809b0d01dbbb247e74c00c12da8e69b2c777f3",
+  "date": "2026-07-16T00:09:10Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

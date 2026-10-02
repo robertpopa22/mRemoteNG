@@ -1,0 +1,21 @@
+{
+  "sha": "739847ef5a331f124a67e09d20f59c478f54adf0",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add focus rectangle support to custom buttons",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/739847ef5a331f124a67e09d20f59c478f54adf0",
+  "date": "2026-04-06T10:53:56Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

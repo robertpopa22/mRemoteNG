@@ -1,0 +1,21 @@
+{
+  "sha": "3ed352c27c5b9024811ddb6c2e8f00fed0e32aaf",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Fix SSHDotNetDiagnosticsTests compilation",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3ed352c27c5b9024811ddb6c2e8f00fed0e32aaf",
+  "date": "2026-06-21T12:18:59Z",
+  "tier": "D",
+  "score": 3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

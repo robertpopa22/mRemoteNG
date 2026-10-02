@@ -1,0 +1,23 @@
+{
+  "sha": "1bd9222e5e045549f942288d92730e9fe37f8687",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(sftp): edit a remote file locally and write it back",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1bd9222e5e045549f942288d92730e9fe37f8687",
+  "date": "2026-08-09T01:22:10Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

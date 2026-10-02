@@ -1,0 +1,23 @@
+{
+  "sha": "50244d8ff6f6b8b3b47a72640b4599bd61e41b67",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "ci: add a build-and-test workflow for dev and pull requests",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/50244d8ff6f6b8b3b47a72640b4599bd61e41b67",
+  "date": "2026-08-08T00:29:49Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

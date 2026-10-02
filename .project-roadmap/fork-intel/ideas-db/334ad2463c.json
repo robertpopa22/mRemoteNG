@@ -1,0 +1,23 @@
+{
+  "sha": "334ad2463ce02fca43475e26c0352202db298576",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "ci: switch v4 workflow to manual dispatch only (avoid auto-builds during testing)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/334ad2463ce02fca43475e26c0352202db298576",
+  "date": "2026-06-16T17:12:44Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "c4837b6551b9d8fe8ffc9980159905d0442824f3",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: measure task dialog text the way it is drawn, and size buttons to the client area",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c4837b6551b9d8fe8ffc9980159905d0442824f3",
+  "date": "2026-08-10T13:24:36Z",
+  "tier": "B",
+  "score": 10,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "969f94014686a95e0e149249dde3befa29be69ba",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "feat(ui): add 'Work in Fullscreen' tab menu item (drop View Only + go fullscreen)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/969f94014686a95e0e149249dde3befa29be69ba",
+  "date": "2026-06-16T13:58:59Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

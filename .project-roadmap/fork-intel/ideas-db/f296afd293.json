@@ -1,0 +1,23 @@
+{
+  "sha": "f296afd2936aec3325aa6ce86c64897a7675039f",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix for Enable animated expand/collapse for connection tree#3391",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f296afd2936aec3325aa6ce86c64897a7675039f",
+  "date": "2026-09-09T20:56:06Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (critical)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "binary-artifact"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,26 @@
+{
+  "sha": "bd70907e65b0790c80f931e957f4ec03160cd681",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "BouncyCastle.Crypto版本升级至1.8.9",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bd70907e65b0790c80f931e957f4ec03160cd681",
+  "date": "2025-08-21T14:35:59Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

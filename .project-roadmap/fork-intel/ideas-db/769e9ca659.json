@@ -1,0 +1,28 @@
+{
+  "sha": "769e9ca65955e35437315154a840b7284392d97e",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "Add embedded SFTP browser and xterm.js SSH terminal",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/769e9ca65955e35437315154a840b7284392d97e",
+  "date": "2026-04-07T07:59:10Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "opaque-file",
+    "network-download",
+    "network-download",
+    "process-exec",
+    "network-download",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

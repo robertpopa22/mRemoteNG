@@ -1,0 +1,23 @@
+{
+  "sha": "fc076999ca59f4253638bd172b49e763e1201618",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "added missing usings",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fc076999ca59f4253638bd172b49e763e1201618",
+  "date": "2020-07-26T14:00:27Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

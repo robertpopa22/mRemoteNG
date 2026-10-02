@@ -1,0 +1,21 @@
+{
+  "sha": "1d97942a461c3784d8b3ee6c4e9a030695ae501a",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Also follow the panel when it is resized without the main window",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1d97942a461c3784d8b3ee6c4e9a030695ae501a",
+  "date": "2026-08-15T08:31:19Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

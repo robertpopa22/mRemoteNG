@@ -1,0 +1,24 @@
+{
+  "sha": "6defe1091f1a6244d56d4b4ceb9127bb465fef41",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs: document the hardened connection file, and archive the change (#40)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6defe1091f1a6244d56d4b4ceb9127bb465fef41",
+  "date": "2026-08-14T13:19:31Z",
+  "tier": "Q",
+  "score": -1,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

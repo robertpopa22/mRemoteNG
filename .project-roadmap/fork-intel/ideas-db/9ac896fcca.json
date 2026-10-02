@@ -1,0 +1,23 @@
+{
+  "sha": "9ac896fcca6ebbc4dbc26c907e97cce54fbbf9f7",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore(deps): drop framework-provided System.DirectoryServices reference",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9ac896fcca6ebbc4dbc26c907e97cce54fbbf9f7",
+  "date": "2026-08-05T10:28:47Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

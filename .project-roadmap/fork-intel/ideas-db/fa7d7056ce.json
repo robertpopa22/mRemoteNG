@@ -1,0 +1,23 @@
+{
+  "sha": "fa7d7056ceeb459e2730b73c7ae000d565538e0c",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Fix certificate import on Windows PowerShell 5.1",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fa7d7056ceeb459e2730b73c7ae000d565538e0c",
+  "date": "2026-08-03T19:00:46Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

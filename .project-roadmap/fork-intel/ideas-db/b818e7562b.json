@@ -1,0 +1,23 @@
+{
+  "sha": "b818e7562b8d0482f34be7167bd96d32223a0977",
+  "kind": "fork",
+  "fork": "yosale2011/mRemoteNG",
+  "subject": "Fix Qodo review: infinite loop, race condition, SecureString leak, hardcoded string",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b818e7562b8d0482f34be7167bd96d32223a0977",
+  "date": "2026-07-03T20:17:48Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

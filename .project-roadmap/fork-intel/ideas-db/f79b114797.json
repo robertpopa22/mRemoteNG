@@ -1,0 +1,21 @@
+{
+  "sha": "f79b114797f959056fdd21e12bcc9e480b799a3d",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add Explorer-style slow click rename to ConnectionTree",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f79b114797f959056fdd21e12bcc9e480b799a3d",
+  "date": "2026-04-01T13:33:15Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "8f7f87c89bbc85316c8dc7145ffb508be3f2b7db",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: keep an unparseable colour value when the picker is dismissed",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f7f87c89bbc85316c8dc7145ffb508be3f2b7db",
+  "date": "2026-08-05T12:21:47Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": 176,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

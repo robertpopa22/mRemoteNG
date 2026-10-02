@@ -1,0 +1,23 @@
+{
+  "sha": "5dc5f58dd4b40af6284f5d91521c5973a6fffd8f",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "feat: localize Options pages with hardcoded English labels",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dc5f58dd4b40af6284f5d91521c5973a6fffd8f",
+  "date": "2026-05-15T08:44:17Z",
+  "tier": "Q",
+  "score": 6,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

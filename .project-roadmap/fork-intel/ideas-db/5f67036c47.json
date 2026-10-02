@@ -1,0 +1,21 @@
+{
+  "sha": "5f67036c470e41e1ea589d22b2bbd7e0605b5086",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(sftp): record the maintainer's smoke test of the file manager",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5f67036c470e41e1ea589d22b2bbd7e0605b5086",
+  "date": "2026-08-09T01:37:54Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

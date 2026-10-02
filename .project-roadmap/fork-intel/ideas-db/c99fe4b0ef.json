@@ -1,0 +1,21 @@
+{
+  "sha": "c99fe4b0efae22c17b366ea7042b4bcfe1de5c6f",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "removed oboslete settings for rendering engine",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c99fe4b0efae22c17b366ea7042b4bcfe1de5c6f",
+  "date": "2020-05-23T21:22:00Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

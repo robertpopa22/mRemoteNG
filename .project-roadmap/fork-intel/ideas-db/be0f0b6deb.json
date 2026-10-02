@@ -1,0 +1,21 @@
+{
+  "sha": "be0f0b6deb519df86e4b7bd172419fcf522f5a71",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Use code-signing certificates for RDP file publishing",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/be0f0b6deb519df86e4b7bd172419fcf522f5a71",
+  "date": "2026-08-03T17:05:17Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

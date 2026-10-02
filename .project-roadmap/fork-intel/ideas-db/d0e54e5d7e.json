@@ -1,0 +1,21 @@
+{
+  "sha": "d0e54e5d7e3f3e360c32b1ab0d4ff2346efc66b7",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Document native RDP signing diagnostics",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0e54e5d7e3f3e360c32b1ab0d4ff2346efc66b7",
+  "date": "2026-08-03T15:33:15Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

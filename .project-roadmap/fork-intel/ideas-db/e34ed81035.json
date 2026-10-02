@@ -1,0 +1,21 @@
+{
+  "sha": "e34ed81035e6eb244d930519a439bb7fd99875f8",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "自定义字体功能优化，现使用Type=\"System.Drawing.Font\"，系统可自动转化",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e34ed81035e6eb244d930519a439bb7fd99875f8",
+  "date": "2025-08-21T14:16:53Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "581d55a5578492b68f4d3ff57826d6e76e0b3f9f",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "优化及补全中文翻译",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/581d55a5578492b68f4d3ff57826d6e76e0b3f9f",
+  "date": "2025-08-17T16:04:57Z",
+  "tier": "D",
+  "score": -7,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "bfcf3c26d484e82baee96cfef319acc1d1c1b572",
+  "kind": "fork",
+  "fork": "nickbeentjes/mRemoteNG",
+  "subject": "Add NickHQ session controller — register terminal tabs, poll + execute remote commands",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bfcf3c26d484e82baee96cfef319acc1d1c1b572",
+  "date": "2026-04-23T02:43:53Z",
+  "tier": "D",
+  "score": -7,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

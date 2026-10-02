@@ -1,0 +1,21 @@
+{
+  "sha": "7d47769f49cd4658beeafc4f3a482ff763784a15",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Put the units back on the Hungarian spin box labels",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7d47769f49cd4658beeafc4f3a482ff763784a15",
+  "date": "2026-08-16T08:57:18Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

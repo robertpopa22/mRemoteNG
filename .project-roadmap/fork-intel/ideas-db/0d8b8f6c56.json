@@ -1,0 +1,21 @@
+{
+  "sha": "0d8b8f6c56485861217abdc30a25ae0420827ccf",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Add \"Copy All to Clipboard\" to PuTTY connection tab context menu",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0d8b8f6c56485861217abdc30a25ae0420827ccf",
+  "date": "2026-06-12T20:52:21Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "imported",
+  "note": "Copy All is on the PuTTY tab menu and calls the existing method"
+}

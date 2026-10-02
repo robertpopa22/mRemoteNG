@@ -1,0 +1,31 @@
+{
+  "sha": "43b28abb7f1797b7899d9d33610847149e9567fa",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: narrow how long a connection's password exists as plain text (#49)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/43b28abb7f1797b7899d9d33610847149e9567fa",
+  "date": "2026-08-15T06:24:32Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "env-secret-access",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

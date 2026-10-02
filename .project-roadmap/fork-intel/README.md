@@ -15,7 +15,15 @@ python .project-roadmap/fork-intel/fork_intel.py preapprove
 python .project-roadmap/fork-intel/fork_intel.py report
 ```
 
-Then read `reports/<date>_fork-radar.md` and `IMPORT_QUEUE.md`. After acting on an entry:
+Then read `reports/<date>_fork-radar.md` and `IMPORT_QUEUE.md`.
+
+```bash
+python .project-roadmap/fork-intel/fork_intel.py export-ideas
+```
+
+`export-ideas` writes `ideas-db/`, the tracked ledger. One file per judged commit: kind, tier, score, action, security-flag ids, and `status` (`new`, `trying`, `imported`, `present`, `rejected`, `deferred`). `present` means this tree already has the behavior, so it leaves the walk list. No patch, no file list. Commits that have not been triaged stay in the local cache and are only counted in `ideas-db/_index.json`. A later export refreshes the judgement and keeps `status` and `note` once they no longer match the suggestion. `walk_next` in the index is the A/B/C set still marked `new` or `trying`. Nothing in that list is imported by the export.
+
+After acting on an entry:
 
 ```bash
 python .project-roadmap/fork-intel/fork_intel.py mark --sha <sha> --decision imported --note "landed as abc1234"
@@ -89,6 +97,7 @@ fork-intel/
 │   └── candidates/<sha>.json        one file per commit: files, flags, triage verdict
 ├── reports/<date>_fork-radar.md
 ├── IMPORT_QUEUE.md            actionable queue with ready-to-run commands
+├── ideas-db/                  tracked adoption ledger: judged ideas, no patches
 └── EXCLUDE.json               permanent denylist + memory of decisions already made
 ```
 

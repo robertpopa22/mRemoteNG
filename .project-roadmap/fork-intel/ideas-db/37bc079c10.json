@@ -1,0 +1,23 @@
+{
+  "sha": "37bc079c10e13f2a4fcae9c971374f3f764b3f79",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "Rename COPYING.TXT to COPYING.txt",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/37bc079c10e13f2a4fcae9c971374f3f764b3f79",
+  "date": "2020-05-24T00:31:57Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "license"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

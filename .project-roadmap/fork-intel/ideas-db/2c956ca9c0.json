@@ -1,0 +1,32 @@
+{
+  "sha": "2c956ca9c0fb85ad214c4dd1b9a9c5d409e20f9a",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "chore: resolve nullable warnings in Tree, Container and Credential",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c956ca9c0fb85ad214c4dd1b9a9c5d409e20f9a",
+  "date": "2026-05-20T15:27:30Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "31ddce7885a467910cc0259ed7832b494af5184b",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "test(ssh_dotnet): fix Connect tests to construct InterfaceControl (6 failing -> passing)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/31ddce7885a467910cc0259ed7832b494af5184b",
+  "date": "2026-06-21T18:25:01Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

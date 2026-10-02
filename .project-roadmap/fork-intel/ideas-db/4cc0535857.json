@@ -1,0 +1,21 @@
+{
+  "sha": "4cc05358576979d48fdc944d6e309f28189d32d9",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: single \"Port Range\" checkbox with start/end ports on one line",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4cc05358576979d48fdc944d6e309f28189d32d9",
+  "date": "2026-08-07T05:32:57Z",
+  "tier": "C",
+  "score": 4,
+  "why": "keep an eye on it",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

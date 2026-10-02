@@ -1,0 +1,27 @@
+{
+  "sha": "6dbfccb60cfcf34b317d7e41df13852aab714a4f",
+  "kind": "fork",
+  "fork": "Morgadoo/mRemoteNG",
+  "subject": "fix(build): enable CLI build by fixing CPM, missing refs, and namespace collision",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6dbfccb60cfcf34b317d7e41df13852aab714a4f",
+  "date": "2026-03-10T14:36:03Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

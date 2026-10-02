@@ -1,0 +1,21 @@
+{
+  "sha": "22f14aa1eb67902d299f90a63bd621e37c144cb8",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix for vulnerability detected by Ravindu Lakmina",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/22f14aa1eb67902d299f90a63bd621e37c144cb8",
+  "date": "2026-03-24T14:05:26Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

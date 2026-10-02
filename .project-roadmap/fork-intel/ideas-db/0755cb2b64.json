@@ -1,0 +1,21 @@
+{
+  "sha": "0755cb2b6419ac500511f5d6debceec8177d641e",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix XML formatting in Language.tr-TR.resx",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0755cb2b6419ac500511f5d6debceec8177d641e",
+  "date": "2026-03-26T13:15:53Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

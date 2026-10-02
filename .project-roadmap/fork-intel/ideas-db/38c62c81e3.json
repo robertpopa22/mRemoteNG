@@ -1,0 +1,24 @@
+{
+  "sha": "38c62c81e34e0038c8b0e45f4b0b8d2558b743cc",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Implement SSH_DotNet Protocol Phase 1 & 2",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/38c62c81e34e0038c8b0e45f4b0b8d2558b743cc",
+  "date": "2025-11-06T15:57:45Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

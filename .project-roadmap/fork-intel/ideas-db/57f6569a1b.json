@@ -1,0 +1,23 @@
+{
+  "sha": "57f6569a1bce59cb4172ee9c6bd1e0dac6fc6f8a",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "updated project information (license, icon)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/57f6569a1bce59cb4172ee9c6bd1e0dac6fc6f8a",
+  "date": "2020-06-08T10:39:38Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "6eab38e82036ac0c66ea35136aa79e937e2e89ae",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): pin connection bar to top-right via WM_WINDOWPOSCHANGING subclass",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6eab38e82036ac0c66ea35136aa79e937e2e89ae",
+  "date": "2026-06-16T15:44:56Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

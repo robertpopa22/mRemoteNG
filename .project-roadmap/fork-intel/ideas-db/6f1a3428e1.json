@@ -1,0 +1,23 @@
+{
+  "sha": "6f1a3428e1e59909d2513570d78627d31ad68c1c",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: refuse writes from a cached fallback, and stop caching secrets under a published key (#56)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6f1a3428e1e59909d2513570d78627d31ad68c1c",
+  "date": "2026-08-18T00:04:22Z",
+  "tier": "Q",
+  "score": 6,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 4,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

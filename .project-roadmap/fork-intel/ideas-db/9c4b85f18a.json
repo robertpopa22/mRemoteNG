@@ -1,0 +1,21 @@
+{
+  "sha": "9c4b85f18ab51f04b455d198cbf86b284dd6c3f8",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "fix: set temp key-file attribute via File.SetAttributes",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c4b85f18ab51f04b455d198cbf86b284dd6c3f8",
+  "date": "2026-05-21T15:59:51Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

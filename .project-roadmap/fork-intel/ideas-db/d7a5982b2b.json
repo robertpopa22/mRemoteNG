@@ -1,0 +1,23 @@
+{
+  "sha": "d7a5982b2b8f7959fc16e87ff1a4647875231a9c",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Update Process.Start to use ProcessStartInfo",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d7a5982b2b8f7959fc16e87ff1a4647875231a9c",
+  "date": "2026-09-22T10:28:55Z",
+  "tier": "Q",
+  "score": 5,
+  "why": "security review required (critical)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

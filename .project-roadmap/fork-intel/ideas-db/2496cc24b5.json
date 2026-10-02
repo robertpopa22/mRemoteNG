@@ -1,0 +1,24 @@
+{
+  "sha": "2496cc24b51abab98a50697bc6d6e2506d751394",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "removed old project backup files",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2496cc24b51abab98a50697bc6d6e2506d751394",
+  "date": "2020-06-07T15:17:57Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

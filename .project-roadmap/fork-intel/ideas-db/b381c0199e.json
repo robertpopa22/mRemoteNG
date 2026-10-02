@@ -1,0 +1,21 @@
+{
+  "sha": "b381c0199e29ed3fb340eeceda46b056066c3f5b",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix duplicate using directive for System namespace",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b381c0199e29ed3fb340eeceda46b056066c3f5b",
+  "date": "2026-09-19T12:06:06Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,24 @@
+{
+  "sha": "4e5bc4402415db3b351bdb4845d3b70613796856",
+  "kind": "fork",
+  "fork": "vindict6/mRemoteNG",
+  "subject": "Update bundled PuTTYNG to 0.84",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4e5bc4402415db3b351bdb4845d3b70613796856",
+  "date": "2026-07-16T00:13:33Z",
+  "tier": "Q",
+  "score": 5,
+  "why": "security review required (critical)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "binary-artifact"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "6c1dbeaf8209f23145c456805bb5cd72d03cff32",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: make ConnectionsFileResolver sole-candidate test deterministic",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6c1dbeaf8209f23145c456805bb5cd72d03cff32",
+  "date": "2026-08-08T02:55:46Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

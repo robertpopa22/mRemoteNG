@@ -1,0 +1,21 @@
+{
+  "sha": "c5606cccf5d8b618df63b2b4e7e32bdf84584462",
+  "kind": "fork",
+  "fork": "Zarlengo/mRemoteNG",
+  "subject": "Hide username/password",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c5606cccf5d8b618df63b2b4e7e32bdf84584462",
+  "date": "2026-02-25T21:59:51Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

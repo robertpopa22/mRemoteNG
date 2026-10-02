@@ -1,0 +1,29 @@
+{
+  "sha": "496a3701de60df5df8c8a150c9120dba1f9889f0",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: make the test suite three times faster to run (#51)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/496a3701de60df5df8c8a150c9120dba1f9889f0",
+  "date": "2026-08-15T06:24:49Z",
+  "tier": "Q",
+  "score": 6,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "build-script"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

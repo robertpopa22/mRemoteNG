@@ -1,0 +1,21 @@
+{
+  "sha": "e53cd9c6809cc5ce380978b6c5199117398a7de4",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Remove planning document from feature branch",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e53cd9c6809cc5ce380978b6c5199117398a7de4",
+  "date": "2025-11-07T08:01:37Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

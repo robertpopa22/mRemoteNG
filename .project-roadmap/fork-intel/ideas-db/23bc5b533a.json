@@ -1,0 +1,21 @@
+{
+  "sha": "23bc5b533a708fc2ca070070fbe401246848c486",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs: archive fix-command-line-value-parsing (#42)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/23bc5b533a708fc2ca070070fbe401246848c486",
+  "date": "2026-08-14T23:50:09Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "spec only, no product code"
+}

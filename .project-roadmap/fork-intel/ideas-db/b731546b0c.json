@@ -1,0 +1,21 @@
+{
+  "sha": "b731546b0c82e7a99d6ff436ae39ba23dd6b8ba0",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "security: harden Terminal SSH argument/exe handling (review follow-ups #3335)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b731546b0c82e7a99d6ff436ae39ba23dd6b8ba0",
+  "date": "2026-08-07T00:18:54Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "46f82860a8cc238667bbb0ccc2724aa68b80378a",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Revise restricted admin mode description in Language.resx",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/46f82860a8cc238667bbb0ccc2724aa68b80378a",
+  "date": "2026-09-19T11:27:30Z",
+  "tier": "B",
+  "score": 10,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

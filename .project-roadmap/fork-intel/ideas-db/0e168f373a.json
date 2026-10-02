@@ -1,0 +1,21 @@
+{
+  "sha": "0e168f373ae1499ddeb1f804c27b9db6bc515857",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "fix: use current connection when validating native RDP tunnel",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0e168f373ae1499ddeb1f804c27b9db6bc515857",
+  "date": "2026-08-03T10:15:48Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

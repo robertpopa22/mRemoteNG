@@ -1,0 +1,21 @@
+{
+  "sha": "f887f940a13debc9ef199f9ee2197de1c3926319",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Fix RDP signing certificate instructions",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f887f940a13debc9ef199f9ee2197de1c3926319",
+  "date": "2026-08-03T14:01:34Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

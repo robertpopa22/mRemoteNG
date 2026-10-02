@@ -1,0 +1,23 @@
+{
+  "sha": "eeb7944d3d6d973e20390cfb1067c10c7adeefff",
+  "kind": "fork",
+  "fork": "raohj1987/mRemoteNG",
+  "subject": "Add SFTP connection to Linux remote server for file transfer functionality",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eeb7944d3d6d973e20390cfb1067c10c7adeefff",
+  "date": "2026-05-14T09:04:31Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "network-download"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

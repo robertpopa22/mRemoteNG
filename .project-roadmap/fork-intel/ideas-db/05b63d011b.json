@@ -1,0 +1,33 @@
+{
+  "sha": "05b63d011b7c15b3e0dc6fe3137ceff9d3e2f829",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): archive the three SQL security changes (#58)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/05b63d011b7c15b3e0dc6fe3137ceff9d3e2f829",
+  "date": "2026-08-18T21:18:34Z",
+  "tier": "Q",
+  "score": 7,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

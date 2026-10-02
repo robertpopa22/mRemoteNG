@@ -1,0 +1,23 @@
+{
+  "sha": "7ab0def09286e44aad1c61b702668bd2c28d2371",
+  "kind": "fork",
+  "fork": "YuLiangLin/mRemoteNG",
+  "subject": "Make remote sessions easier to focus and carry",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7ab0def09286e44aad1c61b702668bd2c28d2371",
+  "date": "2026-07-27T09:16:29Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

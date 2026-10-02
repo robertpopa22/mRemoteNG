@@ -1,0 +1,27 @@
+{
+  "sha": "14041a13c9e7f0f0f78519c74e6270ded48ed78c",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "moved to .net core and fixed all compiler errors",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/14041a13c9e7f0f0f78519c74e6270ded48ed78c",
+  "date": "2020-06-02T17:42:01Z",
+  "tier": "D",
+  "score": -12,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "2a9a06a5c7ba6485ca429c9da7ccee0e66831b12",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Translate the menus, dialogs and options pages into Hungarian",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2a9a06a5c7ba6485ca429c9da7ccee0e66831b12",
+  "date": "2026-08-16T08:49:31Z",
+  "tier": "B",
+  "score": 8,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

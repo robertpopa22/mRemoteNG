@@ -1,0 +1,21 @@
+{
+  "sha": "82c11574ec7db07fa710f3ded57d28085b80393b",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Reference PKCS package for mRemoteNG",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/82c11574ec7db07fa710f3ded57d28085b80393b",
+  "date": "2026-08-03T16:54:46Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

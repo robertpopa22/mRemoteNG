@@ -244,6 +244,7 @@ namespace mRemoteNG.UI.Window
             cmenTabDisconnect.Click += (sender, args) => CloseTabMenu();
             cmenTabDisconnectOthers.Click += (sender, args) => CloseOtherTabs();
             cmenTabDisconnectOthersRight.Click += (sender, args) => CloseOtherTabsToTheRight();
+            cmenTabCopyAll.Click += (sender, args) => CopyAllToClipboard();
             cmenTabPuttySettings.Click += (sender, args) => ShowPuttySettingsDialog();
             _cmenTabIncludeInMultiSsh.Click += (sender, args) => ToggleMultiSshInclude();
             _cmenTabExcludeFromMultiSsh.Click += (sender, args) => ToggleMultiSshExclude();
@@ -1108,6 +1109,7 @@ namespace mRemoteNG.UI.Window
             cmenTabDisconnect.Text = Language.Disconnect;
             cmenTabDisconnectOthers.Text = Language.DisconnectOthers;
             cmenTabDisconnectOthersRight.Text = Language.DisconnectOthersRight;
+            cmenTabCopyAll.Text = Language.CopyAll;
             cmenTabPuttySettings.Text = Language.PuttySettings;
             _cmenTabIncludeInMultiSsh.Text = "Include in Multi SSH";
             _cmenTabExcludeFromMultiSsh.Text = "Exclude from Multi SSH";
@@ -1471,6 +1473,7 @@ namespace mRemoteNG.UI.Window
                     cmenTabRefreshScreen.Visible = false;
                     cmenTabScreenshot.Visible = false;
                     cmenTabTransferFile.Visible = false;
+                    cmenTabCopyAll.Visible = false;
                     cmenTabPuttySettings.Visible = false;
                     cmenTabExternalApps.Visible = false;
                     _cmenTabMultiSshSeparator.Visible = false;
@@ -1547,6 +1550,7 @@ namespace mRemoteNG.UI.Window
                     _cmenTabExcludeFromMultiSsh.Enabled = !selectedConnectionInfo.IncludeInMultiSsh;
                 }
 
+                cmenTabCopyAll.Visible = interfaceControl.Protocol is PuttyBase;
                 cmenTabPuttySettings.Visible = interfaceControl.Protocol is PuttyBase;
 
                 AddExternalApps();
@@ -1790,6 +1794,22 @@ namespace mRemoteNG.UI.Window
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("ToggleFullscreen (UI.Window.ConnectionWindow) failed",
+                                                             ex);
+            }
+        }
+
+        private void CopyAllToClipboard()
+        {
+            try
+            {
+                InterfaceControl? interfaceControl = GetInterfaceControl();
+                PuttyBase? puttyBase = interfaceControl?.Protocol as PuttyBase;
+                puttyBase?.CopyAllToClipboard();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage(
+                                                             "CopyAllToClipboard (UI.Window.ConnectionWindow) failed",
                                                              ex);
             }
         }

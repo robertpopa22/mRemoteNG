@@ -1,0 +1,23 @@
+{
+  "sha": "eaa705d76ca87124d940c045fa176f10cec0cf78",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "ci: pass solution dir to portable project build",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eaa705d76ca87124d940c045fa176f10cec0cf78",
+  "date": "2026-05-16T11:12:28Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

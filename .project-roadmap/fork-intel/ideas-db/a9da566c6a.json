@@ -1,0 +1,23 @@
+{
+  "sha": "a9da566c6af58ac37aa9fc2d187fd283b62d8cfb",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: update test and analyzer packages",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9da566c6af58ac37aa9fc2d187fd283b62d8cfb",
+  "date": "2026-08-07T02:15:50Z",
+  "tier": "Q",
+  "score": 2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

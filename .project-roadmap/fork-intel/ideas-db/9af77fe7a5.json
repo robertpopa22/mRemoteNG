@@ -1,0 +1,21 @@
+{
+  "sha": "9af77fe7a59f2a02e3d7ffd3120c42de4cbc09bc",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Refactor RDP password assignment condition",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9af77fe7a59f2a02e3d7ffd3120c42de4cbc09bc",
+  "date": "2026-09-19T11:27:13Z",
+  "tier": "B",
+  "score": 2,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

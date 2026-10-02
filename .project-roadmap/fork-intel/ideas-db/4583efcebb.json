@@ -1,0 +1,23 @@
+{
+  "sha": "4583efcebbab1e4c34a06f67b8ab3eca444000ad",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "fix: resolve native RDP migration against current upstream",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4583efcebbab1e4c34a06f67b8ab3eca444000ad",
+  "date": "2026-08-03T09:04:22Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

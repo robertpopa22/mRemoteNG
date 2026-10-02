@@ -1,0 +1,21 @@
+{
+  "sha": "3e0751ec1c840af2e86af30cf2ed5051b6da6ee4",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): close out manual verification for the KDF change",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e0751ec1c840af2e86af30cf2ed5051b6da6ee4",
+  "date": "2026-08-10T11:13:03Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

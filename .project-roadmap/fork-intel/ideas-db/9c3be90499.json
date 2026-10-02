@@ -1,0 +1,21 @@
+{
+  "sha": "9c3be904993fe3855cf8aa542d17298ab770fa9b",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): rename SSH_DotNet classes to PascalCase (S101)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c3be904993fe3855cf8aa542d17298ab770fa9b",
+  "date": "2026-06-21T16:17:26Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

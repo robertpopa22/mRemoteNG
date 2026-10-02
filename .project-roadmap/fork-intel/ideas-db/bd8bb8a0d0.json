@@ -1,0 +1,21 @@
+{
+  "sha": "bd8bb8a0d08671e7af045f093e887a8c85420bf7",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "优化：外部工具图标未能从文件获取时，可从Icons目录获取",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bd8bb8a0d08671e7af045f093e887a8c85420bf7",
+  "date": "2025-01-24T16:20:36Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "12887e577db9a75f16d526e0434dd32eedb42a50",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Allow parentheses in executable paths (External Tools, custom PuTTY path)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/12887e577db9a75f16d526e0434dd32eedb42a50",
+  "date": "2026-06-12T14:19:16Z",
+  "tier": "D",
+  "score": 6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

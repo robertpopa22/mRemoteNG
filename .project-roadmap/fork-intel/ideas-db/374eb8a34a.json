@@ -1,0 +1,21 @@
+{
+  "sha": "374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+  "kind": "fork",
+  "fork": "wolverine2k/mRemoteNG",
+  "subject": "fixed WinSCP extended arguments",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/374eb8a34ab3e07a26554751cbfc0f67280ec28a",
+  "date": "2023-04-11T13:18:49Z",
+  "tier": "C",
+  "score": 4,
+  "why": "keep an eye on it",
+  "action": "IMPORT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "imported",
+  "note": "cheat sheet now says -rawsettings"
+}

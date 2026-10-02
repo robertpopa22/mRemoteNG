@@ -1,0 +1,21 @@
+{
+  "sha": "3f94a2c23980a384cbf15386ae7ffc506a92e6e5",
+  "kind": "fork",
+  "fork": "vindict6/mRemoteNG",
+  "subject": "Dark mode: follow the OS, honor the theming setting, dark title bars",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3f94a2c23980a384cbf15386ae7ffc506a92e6e5",
+  "date": "2026-07-15T22:04:49Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 4,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": 47,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

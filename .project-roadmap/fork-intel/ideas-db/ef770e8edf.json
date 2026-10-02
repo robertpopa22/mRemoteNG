@@ -1,0 +1,21 @@
+{
+  "sha": "ef770e8edfa6c0211c8bdd5dcffb2ddeba3d57b7",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "feat: localize theme palette element names",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ef770e8edfa6c0211c8bdd5dcffb2ddeba3d57b7",
+  "date": "2026-05-15T11:47:52Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

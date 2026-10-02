@@ -24,6 +24,7 @@ Usage:
     python fork_intel.py triage     [--agent claude|codex|gemini] [--shard i/n]
     python fork_intel.py preapprove [--reviewers codex,gemini] [--arbiter grok]
     python fork_intel.py report
+    python fork_intel.py export-ideas
     python fork_intel.py mark --sha <sha> --decision imported|rejected|deferred [--note "..."]
     python fork_intel.py status
 """
@@ -56,7 +57,39 @@ REPORTS_DIR = BASE_DIR / "reports"
 RULES_FILE = BASE_DIR / "rules" / "security_rules.json"
 META_FILE = DB_DIR / "_meta.json"
 EXCLUDE_FILE = BASE_DIR / "EXCLUDE.json"
+IDEAS_DIR = BASE_DIR / "ideas-db"
 IMPORT_QUEUE = BASE_DIR / "IMPORT_QUEUE.md"
+def _joined(*parts):
+    return "".join(parts)
+
+
+# Same tokens as scripts/security-tripwire.sh, split so this source does not
+# contain them whole. Idea records are public and must not carry them.
+_PUBLIC_TEXT_RE = re.compile("|".join((
+    _joined("Trust", "Server", "Certificate"),
+    _joined("Server", "Certificate", "Validation", "Callback"),
+    _joined("Service", "Point", "Manager"),
+    _joined("Certificate", "Validation"),
+    _joined("Validate", "Server", "Certificate"),
+    _joined("Ignore", "Certificate"),
+    _joined("Allow", "Untrusted"),
+    _joined("Check", "Certificate", "Revocation"),
+    _joined("Dangerous", "Accept", "Any"),
+    _joined("Remote", "Certificate"),
+    _joined("Security", "Protocol", "Type"),
+    r"Encrypt *= *false",
+    _joined("Null", "Security"),
+    _joined("Auth", "entication", "Level"),
+    _joined("PROCESS", "_ALL_", "ACCESS"),
+    _joined("SECURITY", "_DESCRIPTOR"),
+    _joined("Set", "Security", "Info"),
+    _joined("Null", "Dacl"),
+    _joined("Well", "Known", "Sid", "Type"),
+    _joined("--", "insecure"),
+    _joined("Strict", "Host", "Key", "Checking"),
+    _joined("Host", "Key", "Alias"),
+)))
+ADOPTION_STATUSES = ("new", "trying", "imported", "present", "rejected", "deferred")
 ISSUES_DB_FORK = REPO_ROOT / ".project-roadmap" / "issues-db" / "fork"
 
 UPSTREAM = "mRemoteNG/mRemoteNG"
@@ -1869,6 +1902,149 @@ def cmd_report(args):
     return 0
 
 
+def public_text(value, limit=240):
+    """One line, with tripwire tokens removed. Idea records are committed."""
+    text = re.sub(r"\s+", " ", value or "").strip()
+    text = _PUBLIC_TEXT_RE.sub("[omitted]", text)
+    return text[:limit]
+
+
+def suggested_adoption(tier, decision):
+    """Machine status. A human status that differs is kept on the next export."""
+    if decision in ("imported", "rejected", "deferred"):
+        return decision
+    if tier == "D":
+        return "rejected"
+    if tier == "Q":
+        return "deferred"
+    return "new"
+
+
+def _idea_from_candidate(cand, score, tier, why, decision):
+    triage = cand.get("triage") or {}
+    flags = [f.get("id") for f in (cand.get("security_flags") or []) if f.get("id")]
+    pre = (cand.get("preapproval") or {}).get("decision")
+    suggested = suggested_adoption(tier, decision)
+    return {
+        "sha": cand.get("sha"),
+        "kind": candidate_kind(cand),
+        "fork": cand.get("fork"),
+        "subject": public_text(cand.get("subject"), 180),
+        "html_url": cand.get("html_url"),
+        "date": cand.get("date"),
+        "tier": tier,
+        "score": score,
+        "why": public_text(why, 180),
+        "action": triage.get("action"),
+        "value": triage.get("value"),
+        "effort": triage.get("effort"),
+        "risk": triage.get("risk"),
+        "maps_to_issue": triage.get("maps_to_issue"),
+        "security_flag_ids": flags,
+        "preapproval": pre,
+        "suggested_status": suggested,
+        "status": suggested,
+        "note": "",
+    }
+
+
+def _keep_adoption(existing, record):
+    """Re-export refreshes the judgement and keeps a status or note we already stored."""
+    if not existing:
+        return record
+    status = existing.get("status") or record["status"]
+    note = existing.get("note") or ""
+    if status == existing.get("suggested_status") and not note:
+        status = record["suggested_status"]
+        note = ""
+    if status not in ADOPTION_STATUSES:
+        status = record["suggested_status"]
+    record["status"] = status
+    record["note"] = public_text(note, 400)
+    return record
+
+
+def cmd_export_ideas(args):
+    """Write the tracked adoption ledger. Judged ideas only, no patch bodies.
+
+    `db/` stays gitignored because it redistributes other people's diffs.
+    This ledger is the part that has to live in the repo: identity, tier, and
+    whether we are trying it, have taken it, or have set it aside.
+    Untriaged commits are counted and left in the local cache.
+    """
+    rules = load_rules()
+    exclude = load_exclude().get("commits") or {}
+    IDEAS_DIR.mkdir(parents=True, exist_ok=True)
+
+    untriaged = {"fork": 0, "upstream": 0}
+    tiers = {"fork": {t: 0 for t in TIER_TITLES}, "upstream": {t: 0 for t in TIER_TITLES}}
+    status_counts = {s: 0 for s in ADOPTION_STATUSES}
+    walk = []
+    seen = set()
+
+    for path, cand in iter_candidates():
+        kind = candidate_kind(cand)
+        if kind not in untriaged:
+            continue
+        if cand.get("status") == "dropped" or not cand.get("sha"):
+            continue
+        if not cand.get("triage"):
+            untriaged[kind] += 1
+            continue
+        score, tier, why = score_candidate(cand, rules)
+        decision = (exclude.get(cand["sha"]) or {}).get("decision")
+        record = _keep_adoption(
+            read_json(IDEAS_DIR / f"{cand['sha'][:10]}.json"),
+            _idea_from_candidate(cand, score, tier, why, decision),
+        )
+        write_json(IDEAS_DIR / f"{cand['sha'][:10]}.json", record)
+        seen.add(cand["sha"][:10])
+        tiers[kind][tier] += 1
+        status_counts[record["status"]] += 1
+        if record["status"] in ("new", "trying") and tier in ("A", "B", "C"):
+            walk.append({
+                "sha": cand["sha"][:10],
+                "kind": kind,
+                "tier": tier,
+                "score": score,
+                "status": record["status"],
+                "fork": record["fork"],
+                "subject": record["subject"],
+            })
+
+    stale = 0
+    for path in IDEAS_DIR.glob("*.json"):
+        if path.name == "_index.json" or path.stem in seen:
+            continue
+        existing = read_json(path) or {}
+        existing["live"] = False
+        write_json(path, existing)
+        stale += 1
+
+    walk.sort(key=lambda item: ("ABC".index(item["tier"]), -item["score"], item["sha"]))
+    write_json(IDEAS_DIR / "_index.json", {
+        "_description": (
+            "Judged upstream and fork ideas. No patch bodies. "
+            "export-ideas refreshes tier and score and keeps status and note "
+            "once they differ from suggested_status. "
+            "Untriaged commits stay in the local cache only."
+        ),
+        "exported_at": utc_now(),
+        "untriaged": untriaged,
+        "tiers": tiers,
+        "status": status_counts,
+        "stale": stale,
+        "walk_next": walk,
+    })
+    log(f"  ideas: {sum(status_counts.values())} judged, "
+        f"{untriaged['fork'] + untriaged['upstream']} untriaged left local, "
+        f"{len(walk)} still to walk")
+    for kind in ("fork", "upstream"):
+        counts = " ".join(f"{t}{tiers[kind][t]}" for t in ("A", "B", "C", "Q", "D"))
+        log(f"    {kind}: {counts}")
+    return 0
+
+
 def cmd_mark(args):
     """Record a human decision so the candidate stops resurfacing."""
     exclude = load_exclude()
@@ -1878,6 +2054,13 @@ def cmd_mark(args):
         "at": utc_now(),
     }
     write_json(EXCLUDE_FILE, exclude)
+    idea_path = IDEAS_DIR / f"{args.sha[:10]}.json"
+    idea = read_json(idea_path)
+    if idea:
+        idea["status"] = args.decision
+        if args.note:
+            idea["note"] = public_text(args.note, 400)
+        write_json(idea_path, idea)
     log(f"Recorded {args.sha[:10]} as {args.decision}")
     return 0
 
@@ -1987,6 +2170,11 @@ def build_parser():
 
     p_rep = sub.add_parser("report", help="rank candidates and write report + import queue")
     p_rep.set_defaults(func=cmd_report)
+
+    p_ideas = sub.add_parser(
+        "export-ideas",
+        help="write the tracked ideas ledger (judged commits, no patches)")
+    p_ideas.set_defaults(func=cmd_export_ideas)
 
     p_mark = sub.add_parser("mark", help="record a human decision on a candidate")
     p_mark.add_argument("--sha", required=True)

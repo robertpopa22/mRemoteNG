@@ -1,0 +1,21 @@
+{
+  "sha": "582603cd001d3a20124954f439d734da213593b7",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Show connection names in mstsc window titles",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/582603cd001d3a20124954f439d734da213593b7",
+  "date": "2026-08-03T12:14:34Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

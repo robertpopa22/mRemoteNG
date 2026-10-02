@@ -1,0 +1,21 @@
+{
+  "sha": "226ed1abe16ce1f3383db4a79c8ebbf893c2f1d1",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add option for Explorer-style slow double-click rename",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/226ed1abe16ce1f3383db4a79c8ebbf893c2f1d1",
+  "date": "2026-04-02T11:07:26Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "73267c1fcfc95daccb3abd954b2a122c6007bd09",
+  "kind": "fork",
+  "fork": "vindict6/mRemoteNG",
+  "subject": "Tag releases with the version that was built; honor release_flag",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/73267c1fcfc95daccb3abd954b2a122c6007bd09",
+  "date": "2026-07-15T21:41:46Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

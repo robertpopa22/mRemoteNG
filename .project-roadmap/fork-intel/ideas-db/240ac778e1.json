@@ -1,0 +1,21 @@
+{
+  "sha": "240ac778e1b5156975db52e99379847f00151e74",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: apply the colour picked in the property grid Color/TabColor fields",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/240ac778e1b5156975db52e99379847f00151e74",
+  "date": "2026-08-05T11:51:59Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": 176,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

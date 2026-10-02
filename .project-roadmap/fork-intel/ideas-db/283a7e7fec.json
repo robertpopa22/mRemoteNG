@@ -1,0 +1,23 @@
+{
+  "sha": "283a7e7fecdcb0e1665f944996e92ef30a52e7dd",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Add experimental SSH_DotNet protocol implementation with Trace logging",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/283a7e7fecdcb0e1665f944996e92ef30a52e7dd",
+  "date": "2025-11-06T23:04:44Z",
+  "tier": "Q",
+  "score": -5,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "build-script"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

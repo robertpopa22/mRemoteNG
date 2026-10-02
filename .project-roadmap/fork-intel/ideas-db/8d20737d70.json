@@ -1,0 +1,21 @@
+{
+  "sha": "8d20737d70decd773962e4fd5f8a45ed8a1ae035",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "语言文件使用带BOM的UTF8，另改用CRLF换行（才可在程序中正常显示换行）",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8d20737d70decd773962e4fd5f8a45ed8a1ae035",
+  "date": "2025-08-20T01:16:07Z",
+  "tier": "D",
+  "score": 3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

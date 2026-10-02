@@ -1,0 +1,23 @@
+{
+  "sha": "34cf25fa379fe02c63a49041b2dd6f441d20bc65",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "Added back System.Configuration.ConfigurationManager nuget",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/34cf25fa379fe02c63a49041b2dd6f441d20bc65",
+  "date": "2020-06-07T14:54:25Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

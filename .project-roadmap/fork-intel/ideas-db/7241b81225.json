@@ -1,0 +1,23 @@
+{
+  "sha": "7241b81225eefc24e07cc6830fdb818b638a785d",
+  "kind": "fork",
+  "fork": "vindict6/mRemoteNG",
+  "subject": "Add a workflow to build PuTTYNG from a pinned PuTTY tag",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7241b81225eefc24e07cc6830fdb818b638a785d",
+  "date": "2026-07-16T00:01:37Z",
+  "tier": "Q",
+  "score": 7,
+  "why": "security review required (critical)",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,24 @@
+{
+  "sha": "1534a261c8d547df36f73588f9e37c924e314abd",
+  "kind": "fork",
+  "fork": "Zarlengo/mRemoteNG",
+  "subject": "Heavy refactor & move to fork",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1534a261c8d547df36f73588f9e37c924e314abd",
+  "date": "2026-02-24T18:41:33Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

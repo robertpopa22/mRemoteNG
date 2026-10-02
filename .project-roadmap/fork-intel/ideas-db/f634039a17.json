@@ -1,0 +1,21 @@
+{
+  "sha": "f634039a177f9204454e5fd8680b3cce3ee50863",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: offer the SSH transfer window for the protocols it can reach (#24)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f634039a177f9204454e5fd8680b3cce3ee50863",
+  "date": "2026-08-11T13:01:18Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,27 @@
+{
+  "sha": "b801a78ca0edaa024ad83bd8a1dfee74d9562cb9",
+  "kind": "fork",
+  "fork": "VantIer/mRemoteNG",
+  "subject": "added custom action to check if .net 6 is installed",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b801a78ca0edaa024ad83bd8a1dfee74d9562cb9",
+  "date": "2021-12-09T20:02:45Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "installer",
+    "installer",
+    "installer",
+    "installer",
+    "installer"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

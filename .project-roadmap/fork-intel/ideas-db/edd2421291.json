@@ -1,0 +1,21 @@
+{
+  "sha": "edd2421291eec6647d962d060ac00b0c68aecc4d",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Fix critical bug: DataConsumer never initialized due to constructor setting _isInitialized",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/edd2421291eec6647d962d060ac00b0c68aecc4d",
+  "date": "2025-11-06T16:59:29Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

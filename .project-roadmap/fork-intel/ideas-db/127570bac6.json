@@ -1,0 +1,21 @@
+{
+  "sha": "127570bac6d10d312d1461a3a6cb755a16bee039",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(ui): host connection sessions in a split so a side panel can share the tab",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/127570bac6d10d312d1461a3a6cb755a16bee039",
+  "date": "2026-08-08T23:58:30Z",
+  "tier": "B",
+  "score": -2,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "session split host is not in this tree"
+}

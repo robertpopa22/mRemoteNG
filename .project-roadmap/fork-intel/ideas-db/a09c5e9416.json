@@ -1,0 +1,21 @@
+{
+  "sha": "a09c5e94166012e249497d0befc3010a1f65e7ef",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "docs: C1 build succeeded on GitHub Actions (portable zip artifact ready)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a09c5e94166012e249497d0befc3010a1f65e7ef",
+  "date": "2026-06-16T14:19:12Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

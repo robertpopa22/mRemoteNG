@@ -1,0 +1,21 @@
+{
+  "sha": "7adcba145c9b87c92ecf2de7c60fcdc5349c476d",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): static terminal helpers + drop dead stream fields (S2325/S1144)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7adcba145c9b87c92ecf2de7c60fcdc5349c476d",
+  "date": "2026-06-21T17:12:11Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

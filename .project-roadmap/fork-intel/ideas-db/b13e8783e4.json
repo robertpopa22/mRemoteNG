@@ -1,0 +1,26 @@
+{
+  "sha": "b13e8783e4f7fa8711f4973362fe6c411374eb8d",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix for correct structure",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b13e8783e4f7fa8711f4973362fe6c411374eb8d",
+  "date": "2026-09-15T10:14:26Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "installer",
+    "installer",
+    "installer",
+    "installer"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

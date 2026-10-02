@@ -1,0 +1,23 @@
+{
+  "sha": "56188a510401818cd80a3afbbac237874f402ee1",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "SSH Dot Net Cert and Quality plan implemented",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/56188a510401818cd80a3afbbac237874f402ee1",
+  "date": "2026-06-21T13:14:54Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "env-secret-access"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "ca19ebabdd54cae80ea23f3393aa4bc4d74d8785",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "外部工具增加WaitAfterStart字段，启动后的等待时间（阻塞）。修正外部工具尝试集成启动后%name%变量不正确的问题",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca19ebabdd54cae80ea23f3393aa4bc4d74d8785",
+  "date": "2025-08-21T12:59:00Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

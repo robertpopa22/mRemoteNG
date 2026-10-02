@@ -1,0 +1,26 @@
+{
+  "sha": "8e3e35f7d28ebe67b3407495e6b6f4c437940b44",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "feat: add native mstsc implementation files",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8e3e35f7d28ebe67b3407495e6b6f4c437940b44",
+  "date": "2026-08-03T08:58:45Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

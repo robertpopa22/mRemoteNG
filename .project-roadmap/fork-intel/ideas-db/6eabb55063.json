@@ -1,0 +1,21 @@
+{
+  "sha": "6eabb55063017b51f2a2a0097f9714508ae98b19",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: remove the dead space between the timeout row and the progress bar",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6eabb55063017b51f2a2a0097f9714508ae98b19",
+  "date": "2026-08-07T06:42:39Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

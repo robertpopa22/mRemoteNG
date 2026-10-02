@@ -1,0 +1,30 @@
+{
+  "sha": "bbc8b5e9575eddac9c1edef4cebdc56c712008ee",
+  "kind": "fork",
+  "fork": "Morgadoo/mRemoteNG",
+  "subject": "feat(phase-4): Packaging, testing & nightly CI — Linux AppImage/.deb/Flatpak, macOS DMG, Windows MSI, cross-platform tests",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbc8b5e9575eddac9c1edef4cebdc56c712008ee",
+  "date": "2026-03-10T13:41:54Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": 137,
+  "security_flag_ids": [
+    "ci-workflow",
+    "ci-workflow",
+    "security-code",
+    "dependency-manifest",
+    "build-script",
+    "build-script",
+    "build-script",
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

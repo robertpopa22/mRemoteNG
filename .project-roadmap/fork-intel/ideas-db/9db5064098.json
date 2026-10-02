@@ -1,0 +1,23 @@
+{
+  "sha": "9db50640988827947b013ead3fcb7ccef7e65be4",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Apply passive RDP monitor file replacement for 1.77.2",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9db50640988827947b013ead3fcb7ccef7e65be4",
+  "date": "2026-05-16T01:25:40Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

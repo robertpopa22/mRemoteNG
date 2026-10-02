@@ -1,0 +1,30 @@
+{
+  "sha": "61af705a4774e17c9934f79a9c3176c2732c3306",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "adding management tab in debug mode to maintain db entries for options",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/61af705a4774e17c9934f79a9c3176c2732c3306",
+  "date": "2026-07-16T18:58:11Z",
+  "tier": "Q",
+  "score": -8,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

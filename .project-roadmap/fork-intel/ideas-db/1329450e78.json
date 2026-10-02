@@ -1,0 +1,21 @@
+{
+  "sha": "1329450e782556cc4fdc33bd916aedabe9434064",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Extend dark theme coverage to floating windows, dialogs and native controls",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1329450e782556cc4fdc33bd916aedabe9434064",
+  "date": "2026-07-02T14:34:26Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

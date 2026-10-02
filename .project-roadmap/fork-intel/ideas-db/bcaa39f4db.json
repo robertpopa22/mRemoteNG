@@ -1,0 +1,21 @@
+{
+  "sha": "bcaa39f4db1b25d19f4335019d0b709fc40d0865",
+  "kind": "fork",
+  "fork": "nickbeentjes/mRemoteNG",
+  "subject": "windows-agent: add file logging so it runs silently in background",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bcaa39f4db1b25d19f4335019d0b709fc40d0865",
+  "date": "2026-04-23T02:31:12Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

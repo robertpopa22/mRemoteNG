@@ -1,0 +1,23 @@
+{
+  "sha": "f5858ce19b7c288e7d124a9ee8151ff89f18157f",
+  "kind": "fork",
+  "fork": "MyLabs-LLC/mRemoteNG",
+  "subject": "Add AI-powered security scanner with multi-LLM support",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f5858ce19b7c288e7d124a9ee8151ff89f18157f",
+  "date": "2026-02-13T14:47:24Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

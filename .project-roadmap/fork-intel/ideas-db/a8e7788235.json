@@ -1,0 +1,23 @@
+{
+  "sha": "a8e7788235087a4e148e7604509486bfae1d81b7",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix XML declaration check to support single and double quotes",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a8e7788235087a4e148e7604509486bfae1d81b7",
+  "date": "2026-09-17T17:49:05Z",
+  "tier": "Q",
+  "score": 8,
+  "why": "security review required (high)",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

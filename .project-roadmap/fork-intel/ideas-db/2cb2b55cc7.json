@@ -1,0 +1,21 @@
+{
+  "sha": "2cb2b55cc723d161a670d4ad41f98ad830871d4f",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: drop the redundant panel-close prompt after a tab disconnect (#46)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2cb2b55cc723d161a670d4ad41f98ad830871d4f",
+  "date": "2026-08-15T04:29:14Z",
+  "tier": "B",
+  "score": 8,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "present",
+  "note": "empty-panel close already uses HasConnectionTabs"
+}

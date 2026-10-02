@@ -1,0 +1,21 @@
+{
+  "sha": "9c5c4484ce6059312dfc4a75dcf2bb89675bf3be",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "perf: stop the port scan flooding the UI thread; add common-ports button",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c5c4484ce6059312dfc4a75dcf2bb89675bf3be",
+  "date": "2026-08-07T05:52:36Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

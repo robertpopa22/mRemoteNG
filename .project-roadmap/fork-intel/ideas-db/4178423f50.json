@@ -1,0 +1,23 @@
+{
+  "sha": "4178423f50fe48c07322ba30417ce96232e67010",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "chore: validate native RDP with upstream build prerequisites",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4178423f50fe48c07322ba30417ce96232e67010",
+  "date": "2026-08-03T09:15:47Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

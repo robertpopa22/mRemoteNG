@@ -1,0 +1,21 @@
+{
+  "sha": "af04ff460cc9838331fc1c47e638f9e3ee90df50",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "resize fix for DPI",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/af04ff460cc9838331fc1c47e638f9e3ee90df50",
+  "date": "2026-03-08T23:46:48Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": 198,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "3dc00ad1aedd73bd1002e70b02dd5c947a6d29ca",
+  "kind": "fork",
+  "fork": "Zarlengo/mRemoteNG",
+  "subject": "Add options",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3dc00ad1aedd73bd1002e70b02dd5c947a6d29ca",
+  "date": "2026-02-25T01:14:40Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

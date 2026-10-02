@@ -1,0 +1,23 @@
+{
+  "sha": "00e3567a8518e0962f6795fe292b904819c1e0c5",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Adapt native RDP credential resolver to fork providers",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/00e3567a8518e0962f6795fe292b904819c1e0c5",
+  "date": "2026-08-03T10:36:54Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "20245100e0423262d8e4b3b1a714db56a1ad2289",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "外部工具增加可供使用的新变量：%GUID%",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/20245100e0423262d8e4b3b1a714db56a1ad2289",
+  "date": "2025-11-27T03:21:28Z",
+  "tier": "B",
+  "score": 10,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "pre-approved",
+  "suggested_status": "imported",
+  "status": "imported",
+  "note": ""
+}

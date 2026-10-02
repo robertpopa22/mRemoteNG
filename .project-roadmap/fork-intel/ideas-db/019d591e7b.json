@@ -1,0 +1,21 @@
+{
+  "sha": "019d591e7bdf914ff58622379a8f068eb97d4570",
+  "kind": "fork",
+  "fork": "julesbobb/mRemoteNG",
+  "subject": "Refactored the ExpandCollapseAnimationTimer_Tick to reduce cognitive load.",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/019d591e7bdf914ff58622379a8f068eb97d4570",
+  "date": "2026-07-21T13:35:55Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

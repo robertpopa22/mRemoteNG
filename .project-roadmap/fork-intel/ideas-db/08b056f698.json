@@ -1,0 +1,21 @@
+{
+  "sha": "08b056f698587be31a2582070549e24dc7147fcb",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Measure the panel, not the RDP control, when resizing the session",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/08b056f698587be31a2582070549e24dc7147fcb",
+  "date": "2026-08-15T08:20:24Z",
+  "tier": "B",
+  "score": 5,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

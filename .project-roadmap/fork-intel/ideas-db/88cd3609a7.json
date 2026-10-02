@@ -1,0 +1,23 @@
+{
+  "sha": "88cd3609a7fb13091f30fb869b1b919a232b13f5",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Implement Phase 3: VtNetCore Terminal Integration for SSH_DotNet Protocol",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88cd3609a7fb13091f30fb869b1b919a232b13f5",
+  "date": "2025-11-06T16:32:05Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

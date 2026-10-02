@@ -1,0 +1,23 @@
+{
+  "sha": "68e39d4ece6726c3c62389c0b6490c3f04ba959a",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "chore: publish native RDP validation as UTF-8",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/68e39d4ece6726c3c62389c0b6490c3f04ba959a",
+  "date": "2026-08-03T09:47:10Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

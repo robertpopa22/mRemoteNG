@@ -1,0 +1,27 @@
+{
+  "sha": "b15a5738c47fb386e2ca2b7e01f54dabdcbf91ee",
+  "kind": "fork",
+  "fork": "YuLiangLin/mRemoteNG",
+  "subject": "Make fork releases self-updating and portable",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b15a5738c47fb386e2ca2b7e01f54dabdcbf91ee",
+  "date": "2026-07-28T00:56:04Z",
+  "tier": "D",
+  "score": -12,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "env-secret-access",
+    "build-script",
+    "process-exec",
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

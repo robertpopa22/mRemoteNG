@@ -1,0 +1,23 @@
+{
+  "sha": "4eb1833a62da203783124f967105d0516b4d416c",
+  "kind": "fork",
+  "fork": "lthobois/mRemoteNG",
+  "subject": "Enhance build instructions and settings; refactor connection handling",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4eb1833a62da203783124f967105d0516b4d416c",
+  "date": "2026-03-13T10:05:03Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

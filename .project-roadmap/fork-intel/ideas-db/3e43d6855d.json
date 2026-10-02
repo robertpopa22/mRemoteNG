@@ -1,0 +1,23 @@
+{
+  "sha": "3e43d6855db0d441befaa429ff56c37a687e0a74",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Fix passive RDP portable build workflow",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3e43d6855db0d441befaa429ff56c37a687e0a74",
+  "date": "2026-05-15T19:14:43Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

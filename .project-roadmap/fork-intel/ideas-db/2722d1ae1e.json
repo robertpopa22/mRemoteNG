@@ -1,0 +1,21 @@
+{
+  "sha": "2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+  "kind": "fork",
+  "fork": "azet/mRemoteNG",
+  "subject": "Prevent current tab edge cases",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2722d1ae1e98bd068b30d50a06396e550db6a8b7",
+  "date": "2019-02-18T17:58:08Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": 118,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

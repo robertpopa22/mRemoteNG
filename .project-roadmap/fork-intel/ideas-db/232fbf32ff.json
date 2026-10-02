@@ -1,0 +1,21 @@
+{
+  "sha": "232fbf32ffc324b12ceb8b8e251e4637742a8073",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: multi-selection Enter opens connections, and task dialog buttons show focus (#52)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/232fbf32ffc324b12ceb8b8e251e4637742a8073",
+  "date": "2026-08-15T07:13:52Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

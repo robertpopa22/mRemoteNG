@@ -1,0 +1,23 @@
+{
+  "sha": "8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+  "kind": "fork",
+  "fork": "wolverine2k/mRemoteNG",
+  "subject": "postregsql database support",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ae75ec5d2012a91457c3d210a2a7e97724feda6",
+  "date": "2022-07-30T13:06:48Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

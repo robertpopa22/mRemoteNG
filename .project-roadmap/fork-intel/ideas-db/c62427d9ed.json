@@ -1,0 +1,23 @@
+{
+  "sha": "c62427d9ed11106668e06237856fc0de3184e02c",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: give a connection store an explicit storage format level",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c62427d9ed11106668e06237856fc0de3184e02c",
+  "date": "2026-08-10T04:09:52Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

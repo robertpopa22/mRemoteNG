@@ -1,0 +1,21 @@
+{
+  "sha": "960bff595a3c1923c5132f342c276383fbb33748",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore(tests): silence analyzer warnings in serializer tests",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/960bff595a3c1923c5132f342c276383fbb33748",
+  "date": "2026-08-05T10:28:16Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

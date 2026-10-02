@@ -1,0 +1,23 @@
+{
+  "sha": "04a6c9cfc98b7cefa87bf8396f67c2fa8ed4ea05",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix(notifications): stop losing startup messages and show info, warnings and times",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/04a6c9cfc98b7cefa87bf8396f67c2fa8ed4ea05",
+  "date": "2026-08-08T13:16:10Z",
+  "tier": "Q",
+  "score": 9,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 4,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": 175,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

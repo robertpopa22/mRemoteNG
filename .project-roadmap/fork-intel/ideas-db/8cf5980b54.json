@@ -1,0 +1,21 @@
+{
+  "sha": "8cf5980b54389c19162a23091ec9096cac8612e9",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): replace reflection pty-resize with public API (S3011 hotspot)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8cf5980b54389c19162a23091ec9096cac8612e9",
+  "date": "2026-06-21T16:02:09Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

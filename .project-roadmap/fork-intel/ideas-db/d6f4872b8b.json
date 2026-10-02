@@ -1,0 +1,21 @@
+{
+  "sha": "d6f4872b8bd1a73e4f293a78243ed424b7347e3e",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "标签右键中增加关闭菜单",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d6f4872b8bd1a73e4f293a78243ed424b7347e3e",
+  "date": "2025-08-17T06:17:12Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

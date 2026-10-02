@@ -1,0 +1,21 @@
+{
+  "sha": "50800b8f005eb7361c7f21b6b8eeaf55d82a0c81",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "adding import/export options for schema of settings db",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/50800b8f005eb7361c7f21b6b8eeaf55d82a0c81",
+  "date": "2026-07-17T10:31:23Z",
+  "tier": "B",
+  "score": -2,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

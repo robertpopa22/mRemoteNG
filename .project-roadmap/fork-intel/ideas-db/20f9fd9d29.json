@@ -1,0 +1,23 @@
+{
+  "sha": "20f9fd9d29db41e3f1f04ab2d76986cbb40c92ac",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Add PKCS package for managed RDP signing",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/20f9fd9d29db41e3f1f04ab2d76986cbb40c92ac",
+  "date": "2026-08-03T16:54:00Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

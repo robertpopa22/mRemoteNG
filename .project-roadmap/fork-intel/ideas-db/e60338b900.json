@@ -1,0 +1,21 @@
+{
+  "sha": "e60338b9008291dc3f02c3c4dd2cb934e02f53a5",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): decompose Connect() into focused helpers (S3776)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e60338b9008291dc3f02c3c4dd2cb934e02f53a5",
+  "date": "2026-06-21T17:01:28Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "355d88f5e6030cdecbf9f5e18f673994c542f32b",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add dark native title bar based on active theme",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/355d88f5e6030cdecbf9f5e18f673994c542f32b",
+  "date": "2026-07-02T13:17:59Z",
+  "tier": "Q",
+  "score": 3,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

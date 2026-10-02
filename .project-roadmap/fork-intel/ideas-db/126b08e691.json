@@ -1,0 +1,23 @@
+{
+  "sha": "126b08e691f92dfa196ee09bcc15e66a57d7c2c6",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Harden PowerShell 5.1 certificate hash parsing",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/126b08e691f92dfa196ee09bcc15e66a57d7c2c6",
+  "date": "2026-08-03T18:41:44Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

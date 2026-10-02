@@ -1,0 +1,21 @@
+{
+  "sha": "df26e434d5eb0c8b3698f99347879bc1d548f5e1",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "feat(ssh_dotnet): wire private-key authentication (key-first, passphrase, clear errors)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/df26e434d5eb0c8b3698f99347879bc1d548f5e1",
+  "date": "2026-06-21T17:57:44Z",
+  "tier": "D",
+  "score": -10,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

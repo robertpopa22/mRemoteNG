@@ -1,0 +1,21 @@
+{
+  "sha": "dde69a28219e0817e2eb0d19aa8bff7512a8bf56",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "test(ssh_dotnet): consolidate duplicate test files; add [Category] taxonomy",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dde69a28219e0817e2eb0d19aa8bff7512a8bf56",
+  "date": "2026-06-21T13:43:57Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

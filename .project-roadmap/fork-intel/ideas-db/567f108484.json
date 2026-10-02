@@ -1,0 +1,23 @@
+{
+  "sha": "567f108484aaf48c62cc291f874521f4a79a007e",
+  "kind": "fork",
+  "fork": "vindict6/mRemoteNG",
+  "subject": "Run the unit tests in CI",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/567f108484aaf48c62cc291f874521f4a79a007e",
+  "date": "2026-07-15T22:40:18Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

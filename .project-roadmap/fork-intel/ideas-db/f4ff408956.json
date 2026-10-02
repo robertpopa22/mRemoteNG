@@ -1,0 +1,21 @@
+{
+  "sha": "f4ff4089563f42252d97a689e57d22a50ca23f68",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: compact connection tree to reduce horizontal footprint (#5)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f4ff4089563f42252d97a689e57d22a50ca23f68",
+  "date": "2026-08-09T06:16:16Z",
+  "tier": "C",
+  "score": 4,
+  "why": "keep an eye on it",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

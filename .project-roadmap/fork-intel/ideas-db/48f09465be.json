@@ -1,0 +1,21 @@
+{
+  "sha": "48f09465be39a72a0100ff5d16ec6b0e4376f90c",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Implement bidirectional SSH input/output flow to fix blank terminal",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/48f09465be39a72a0100ff5d16ec6b0e4376f90c",
+  "date": "2025-11-06T16:53:40Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

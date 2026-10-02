@@ -1,0 +1,21 @@
+{
+  "sha": "fb4478483e40bc8dee542c21586afbd7f09e65d8",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Debounce the resize on a window state change too",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fb4478483e40bc8dee542c21586afbd7f09e65d8",
+  "date": "2026-08-15T19:01:33Z",
+  "tier": "D",
+  "score": 6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

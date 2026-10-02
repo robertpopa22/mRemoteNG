@@ -1,0 +1,21 @@
+{
+  "sha": "a8cf98d9337077278cde6c1772ce2e826eda135d",
+  "kind": "fork",
+  "fork": "yosale2011/mRemoteNG",
+  "subject": "Add reveal password context menu for password fields",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a8cf98d9337077278cde6c1772ce2e826eda135d",
+  "date": "2026-07-03T20:53:07Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": 128,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

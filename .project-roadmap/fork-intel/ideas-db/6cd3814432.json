@@ -1,0 +1,23 @@
+{
+  "sha": "6cd38144327e342cb392af59bd26e7c58ae43ee1",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: bump dependencies and align transitive pins to .NET 10.0.10",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6cd38144327e342cb392af59bd26e7c58ae43ee1",
+  "date": "2026-08-07T00:04:31Z",
+  "tier": "Q",
+  "score": 2,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "7931524a00bb59babf6468047f117061cac8e4fb",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "外部工具增加“启动后等待”的参数，批量执行时可以用此设置执行间隔",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7931524a00bb59babf6468047f117061cac8e4fb",
+  "date": "2025-11-27T03:19:31Z",
+  "tier": "D",
+  "score": 3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

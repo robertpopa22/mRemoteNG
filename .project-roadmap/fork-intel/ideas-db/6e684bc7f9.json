@@ -1,0 +1,21 @@
+{
+  "sha": "6e684bc7f9fe7b5e711598862639629e1e6e815a",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Fix the spin buttons and the crowded backup page",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6e684bc7f9fe7b5e711598862639629e1e6e815a",
+  "date": "2026-08-16T09:23:43Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

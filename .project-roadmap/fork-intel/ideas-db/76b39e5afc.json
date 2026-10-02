@@ -1,0 +1,21 @@
+{
+  "sha": "76b39e5afc647c902a6daba9ab8846a7465124d8",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "chore: remove migration trigger",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/76b39e5afc647c902a6daba9ab8846a7465124d8",
+  "date": "2026-08-03T09:33:40Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

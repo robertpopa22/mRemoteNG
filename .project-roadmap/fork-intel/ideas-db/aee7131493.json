@@ -1,0 +1,25 @@
+{
+  "sha": "aee71314937252eb27f02a8362c083b363c80b48",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): archive add-sftp-browser-panel and retire-legacy-rijndael-for-settings (#26)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aee71314937252eb27f02a8362c083b363c80b48",
+  "date": "2026-08-11T13:37:12Z",
+  "tier": "Q",
+  "score": 7,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "network-download"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "2a900303298b1f4583b2c74ad65373d7c4ab140d",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Improve focus rectangle rendering for CommandButton",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2a900303298b1f4583b2c74ad65373d7c4ab140d",
+  "date": "2026-04-06T10:57:53Z",
+  "tier": "B",
+  "score": 6,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

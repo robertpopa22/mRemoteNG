@@ -1,0 +1,24 @@
+{
+  "sha": "707aa11f897caf10b49b97ce6f6887328aae3ba7",
+  "kind": "fork",
+  "fork": "MyLabs-LLC/mRemoteNG",
+  "subject": "Fix critical bugs identified in codebase review",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/707aa11f897caf10b49b97ce6f6887328aae3ba7",
+  "date": "2026-02-13T14:40:35Z",
+  "tier": "Q",
+  "score": 10,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

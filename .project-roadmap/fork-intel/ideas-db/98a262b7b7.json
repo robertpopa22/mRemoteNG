@@ -1,0 +1,21 @@
+{
+  "sha": "98a262b7b79fc3a6736234e9b6caa31a1ef7e047",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "fix: recognise the embedded PuTTY window as our own foreground",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/98a262b7b79fc3a6736234e9b6caa31a1ef7e047",
+  "date": "2026-08-14T15:58:09Z",
+  "tier": "B",
+  "score": 2,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

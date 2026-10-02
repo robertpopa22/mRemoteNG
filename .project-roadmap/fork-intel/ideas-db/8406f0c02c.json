@@ -1,0 +1,21 @@
+{
+  "sha": "8406f0c02cdcce3db7127d4d8bf149a268902ea2",
+  "kind": "fork",
+  "fork": "yosale2011/mRemoteNG",
+  "subject": "Update CHANGELOG with PR #3371",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8406f0c02cdcce3db7127d4d8bf149a268902ea2",
+  "date": "2026-07-03T20:05:55Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

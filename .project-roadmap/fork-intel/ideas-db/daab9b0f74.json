@@ -1,0 +1,25 @@
+{
+  "sha": "daab9b0f7402ecbec2525b2e9eefac2f38a19664",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix settings db access from managing page",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/daab9b0f7402ecbec2525b2e9eefac2f38a19664",
+  "date": "2026-07-16T22:07:57Z",
+  "tier": "Q",
+  "score": -5,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

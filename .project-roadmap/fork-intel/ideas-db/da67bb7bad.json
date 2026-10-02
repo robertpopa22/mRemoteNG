@@ -1,0 +1,23 @@
+{
+  "sha": "da67bb7bad76f1fe41528297583dc5eba6bd006a",
+  "kind": "fork",
+  "fork": "MyLabs-LLC/mRemoteNG",
+  "subject": "Fix PowerShell credential exposure and increase PBKDF2 iterations",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/da67bb7bad76f1fe41528297583dc5eba6bd006a",
+  "date": "2026-02-13T14:48:18Z",
+  "tier": "Q",
+  "score": 8,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 5,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "3b345ef4a681623b0e84bc5e88b6f78ebcfae5f2",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "added request handler to differentiate between local and remote sites",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3b345ef4a681623b0e84bc5e88b6f78ebcfae5f2",
+  "date": "2020-05-23T21:23:08Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

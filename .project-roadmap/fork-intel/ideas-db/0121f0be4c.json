@@ -1,0 +1,21 @@
+{
+  "sha": "0121f0be4cea9a485f91f41d2bae56ea2b288f65",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: port scan reports why a scan can't start instead of doing nothing",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0121f0be4cea9a485f91f41d2bae56ea2b288f65",
+  "date": "2026-08-07T04:27:46Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

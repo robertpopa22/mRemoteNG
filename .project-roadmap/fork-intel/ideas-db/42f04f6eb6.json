@@ -1,0 +1,21 @@
+{
+  "sha": "42f04f6eb66fd55845ae5da9176520579ba13c4d",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Native SSH: do not lose the message when something goes wrong",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/42f04f6eb66fd55845ae5da9176520579ba13c4d",
+  "date": "2026-08-15T17:37:57Z",
+  "tier": "B",
+  "score": -2,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 5,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "ProtocolSshNative is not in this tree"
+}

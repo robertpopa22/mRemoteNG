@@ -1,0 +1,21 @@
+{
+  "sha": "8f69e4cb774945580750f99bf0ab6f2fce45f578",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "place about form in center of current screen",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f69e4cb774945580750f99bf0ab6f2fce45f578",
+  "date": "2020-05-24T14:41:45Z",
+  "tier": "D",
+  "score": 3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

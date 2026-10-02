@@ -1,0 +1,25 @@
+{
+  "sha": "54a4f01241d3c7cc1378a4b556703ff09b2042be",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "changed project framework to .net5",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/54a4f01241d3c7cc1378a4b556703ff09b2042be",
+  "date": "2020-06-07T16:26:16Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

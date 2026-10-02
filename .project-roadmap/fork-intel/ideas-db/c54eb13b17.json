@@ -1,0 +1,21 @@
+{
+  "sha": "c54eb13b1767f84f2614610248a28a20ba677fd0",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): archive connection save durability and notification panel (#14)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c54eb13b1767f84f2614610248a28a20ba677fd0",
+  "date": "2026-08-10T10:57:16Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

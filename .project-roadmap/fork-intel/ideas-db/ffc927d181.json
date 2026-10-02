@@ -1,0 +1,21 @@
+{
+  "sha": "ffc927d1818c5913576d01a67af3386023558995",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Hand the keyboard to the connection when the tab changes",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ffc927d1818c5913576d01a67af3386023558995",
+  "date": "2026-08-16T07:19:45Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 2,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

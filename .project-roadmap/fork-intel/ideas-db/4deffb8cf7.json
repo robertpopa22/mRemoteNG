@@ -1,0 +1,21 @@
+{
+  "sha": "4deffb8cf79b124e63f8f8325abdc4f28d952635",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Languages updates",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4deffb8cf79b124e63f8f8325abdc4f28d952635",
+  "date": "2026-09-15T21:26:45Z",
+  "tier": "B",
+  "score": 6,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

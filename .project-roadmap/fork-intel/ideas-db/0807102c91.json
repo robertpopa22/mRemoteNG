@@ -1,0 +1,21 @@
+{
+  "sha": "0807102c9101de527a835873b6825326a9bcf2b3",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "test: cover the information_schema lookup that decides table existence",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0807102c9101de527a835873b6825326a9bcf2b3",
+  "date": "2026-09-21T16:49:51Z",
+  "tier": "B",
+  "score": 8,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 5,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": 165,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

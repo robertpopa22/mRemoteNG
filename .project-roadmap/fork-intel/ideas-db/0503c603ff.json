@@ -1,0 +1,26 @@
+{
+  "sha": "0503c603ff71ecf0a9a6133a2e254f634b550112",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): propose the SFTP browser panel and the native SSH terminal",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0503c603ff71ecf0a9a6133a2e254f634b550112",
+  "date": "2026-08-08T13:43:07Z",
+  "tier": "Q",
+  "score": 7,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "network-download",
+    "network-download",
+    "network-download",
+    "network-download"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

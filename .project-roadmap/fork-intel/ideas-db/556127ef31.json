@@ -1,0 +1,21 @@
+{
+  "sha": "556127ef31c31603313145d28cbfc63fec4378fa",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: keep Options usable when a settings secret cannot be decrypted (#18)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/556127ef31c31603313145d28cbfc63fec4378fa",
+  "date": "2026-08-11T02:50:11Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

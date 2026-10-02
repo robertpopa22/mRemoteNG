@@ -1,0 +1,32 @@
+{
+  "sha": "0a998eb5f37d695a15a0f63122941efc993b079f",
+  "kind": "fork",
+  "fork": "savornicesei/mRemoteNG",
+  "subject": "Adding more awesome to build process and documentation",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0a998eb5f37d695a15a0f63122941efc993b079f",
+  "date": "2023-10-18T08:07:24Z",
+  "tier": "D",
+  "score": -12,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "binary-artifact",
+    "binary-artifact",
+    "build-script",
+    "dependency-manifest",
+    "dependency-manifest",
+    "security-code",
+    "security-code",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "b939635404025d16afbc64b0f7de2b4de3baf3f1",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(sftp): add the dual-pane file manager tab",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b939635404025d16afbc64b0f7de2b4de3baf3f1",
+  "date": "2026-08-09T00:48:29Z",
+  "tier": "B",
+  "score": 0,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "file-transfer panes are not in this tree"
+}

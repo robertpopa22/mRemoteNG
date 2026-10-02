@@ -1,0 +1,21 @@
+{
+  "sha": "8ec20405e6151c033b6d9193e57cb5cd74bddca2",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "test: run the WinForms tab tests on a real message loop with a reliable timeout",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ec20405e6151c033b6d9193e57cb5cd74bddca2",
+  "date": "2026-08-06T00:44:11Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

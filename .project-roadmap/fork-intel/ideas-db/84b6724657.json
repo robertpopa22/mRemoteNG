@@ -1,0 +1,21 @@
+{
+  "sha": "84b672465781ad590cdddaa282365610d9da7ffa",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): connection bar - match exact class BBarWindowClass (from diagnostics)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/84b672465781ad590cdddaa282365610d9da7ffa",
+  "date": "2026-06-16T15:31:27Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

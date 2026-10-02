@@ -1,0 +1,21 @@
+{
+  "sha": "6d810fa1214de360bad69ccec85a400f60b43e53",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix duplicate using directive for System.Collections.Generic",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6d810fa1214de360bad69ccec85a400f60b43e53",
+  "date": "2026-09-19T12:05:52Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

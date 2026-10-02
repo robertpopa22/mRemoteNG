@@ -1,0 +1,21 @@
+{
+  "sha": "8d6be4cbd22389d6489b9459dd558d9b03b98d0b",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Remove unsupported native RDP serializer tests",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8d6be4cbd22389d6489b9459dd558d9b03b98d0b",
+  "date": "2026-08-03T10:45:28Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

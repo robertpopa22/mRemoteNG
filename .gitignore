@@ -350,5 +350,6 @@ lab-artifacts/
 # Fork-intel harvested cache: third-party patch bodies, regenerable by re-running
 # the pipeline. Kept out of a public repo — it redistributes other people's diffs and
 # carries their security-relevant tokens, which the tripwire correctly refuses.
-# The decisions that must survive live in fork-intel/EXCLUDE.json, which stays tracked.
+# The decisions that must survive live in fork-intel/EXCLUDE.json and
+# fork-intel/ideas-db/ (status and tier, no patches). Both stay tracked.
 .project-roadmap/fork-intel/db/

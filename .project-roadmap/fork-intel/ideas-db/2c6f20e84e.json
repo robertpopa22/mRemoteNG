@@ -1,0 +1,21 @@
+{
+  "sha": "2c6f20e84e95af320c724defdf10165c1f9d553e",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "修复跳转升级选项页时总是跳转到第一页的问题",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c6f20e84e95af320c724defdf10165c1f9d553e",
+  "date": "2025-08-24T05:34:26Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

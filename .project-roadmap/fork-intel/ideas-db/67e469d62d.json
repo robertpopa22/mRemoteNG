@@ -1,0 +1,21 @@
+{
+  "sha": "67e469d62d24b3ced48634753906579dc3ee6ced",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Use dedicated options store contract",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/67e469d62d24b3ced48634753906579dc3ee6ced",
+  "date": "2026-08-03T10:48:58Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

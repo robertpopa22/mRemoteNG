@@ -1,0 +1,23 @@
+{
+  "sha": "ef77a9d9ce738e08a61af03daaab880081ad406f",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: offer the storage format upgrade once, and keep it reachable",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ef77a9d9ce738e08a61af03daaab880081ad406f",
+  "date": "2026-08-10T13:05:17Z",
+  "tier": "Q",
+  "score": 0,
+  "why": "security review required (high)",
+  "action": null,
+  "value": 2,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

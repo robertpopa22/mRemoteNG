@@ -27,6 +27,7 @@ namespace mRemoteNG.UI.Window
         private ToolStripMenuItem cmenTabStartChat;
         private ToolStripMenuItem cmenTabRefreshScreen;
         private ToolStripMenuItem cmenTabScreenshot;
+        private ToolStripMenuItem cmenTabCopyAll;
         private ToolStripMenuItem cmenTabPuttySettings;
         private ToolStripMenuItem cmenTabStatistics;
 
@@ -78,6 +79,7 @@ namespace mRemoteNG.UI.Window
             this.cmenTabSendSpecialKeysCtrlAltDel = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabSendSpecialKeysCtrlEsc = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmenTabCopyAll = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabPuttySettings = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabStatistics = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabExternalApps = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,11 +117,12 @@ namespace mRemoteNG.UI.Window
             this.cmenTabSendSpecialKeys,
             this.cmenTabStatistics,
             this.cmenTabSep2,
+            this.cmenTabCopyAll,
             this.cmenTabPuttySettings,
             this.cmenTabExternalApps});
             this.cmenTab.Name = "cmenTab";
             this.cmenTab.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.cmenTab.Size = new System.Drawing.Size(231, 390);
+            this.cmenTab.Size = new System.Drawing.Size(231, 412);
             // 
             // cmenTabReconnect
             // 
@@ -244,6 +247,12 @@ namespace mRemoteNG.UI.Window
             // 
             this.cmenTabSep2.Name = "cmenTabSep2";
             this.cmenTabSep2.Size = new System.Drawing.Size(227, 6);
+            // 
+            // cmenTabCopyAll
+            // 
+            this.cmenTabCopyAll.Name = "cmenTabCopyAll";
+            this.cmenTabCopyAll.Size = new System.Drawing.Size(230, 22);
+            this.cmenTabCopyAll.Text = "Copy All";
             // 
             // cmenTabPuttySettings
             // 

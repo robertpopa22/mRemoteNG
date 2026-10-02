@@ -1,0 +1,24 @@
+{
+  "sha": "43b1a5477328a37cf8b1cc44627bc0952eb27cbb",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "test: close add-ssh-agent-credential-resolver and cover SecureTransfer's upload (#28)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/43b1a5477328a37cf8b1cc44627bc0952eb27cbb",
+  "date": "2026-08-11T23:08:34Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

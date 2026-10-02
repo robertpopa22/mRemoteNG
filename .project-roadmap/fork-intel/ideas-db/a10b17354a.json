@@ -1,0 +1,32 @@
+{
+  "sha": "a10b17354a02fc4c8c93410e2942e2a44f635b3b",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: drop the unused WebView2 WPF assembly, and migrate to slnx (#47)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a10b17354a02fc4c8c93410e2942e2a44f635b3b",
+  "date": "2026-08-15T04:29:29Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "ci-workflow",
+    "ci-workflow",
+    "ci-workflow",
+    "ci-workflow",
+    "ci-workflow",
+    "ci-workflow",
+    "build-script",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

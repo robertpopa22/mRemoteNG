@@ -1,0 +1,21 @@
+{
+  "sha": "215eb6c564eacd35cd55dc124cfd90d9232fad7a",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Adapt native RDP serializer to fork model",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/215eb6c564eacd35cd55dc124cfd90d9232fad7a",
+  "date": "2026-08-03T10:36:33Z",
+  "tier": "B",
+  "score": 3,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "RdpFileSerializer is not in this tree"
+}

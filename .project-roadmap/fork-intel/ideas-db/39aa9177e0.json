@@ -1,0 +1,21 @@
+{
+  "sha": "39aa9177e059dc7ed421c7a4d151f7a90b23d1a1",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix(sftp): attach the pane's icons where the list actually looks",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/39aa9177e059dc7ed421c7a4d151f7a90b23d1a1",
+  "date": "2026-08-09T03:44:35Z",
+  "tier": "B",
+  "score": -1,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "FilePaneControl is not in this tree"
+}

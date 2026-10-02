@@ -1,0 +1,24 @@
+{
+  "sha": "b597f6ee1bb94081f2a0e62b7a46a672d5969696",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Add SCP/SFTP file browser with dual-pane transfer interface",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b597f6ee1bb94081f2a0e62b7a46a672d5969696",
+  "date": "2025-11-08T15:31:01Z",
+  "tier": "Q",
+  "score": 3,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 4,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "network-download",
+    "network-download"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

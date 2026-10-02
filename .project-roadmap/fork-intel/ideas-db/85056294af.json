@@ -1,0 +1,21 @@
+{
+  "sha": "85056294af97fa3ad7316a36097e0d38f67a9500",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: stop connection edits from being lost without a word (#10)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/85056294af97fa3ad7316a36097e0d38f67a9500",
+  "date": "2026-08-10T10:07:41Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 4,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

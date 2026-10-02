@@ -1,0 +1,21 @@
+{
+  "sha": "888cc44fdae9f83a989724966d1816efd17138ed",
+  "kind": "fork",
+  "fork": "nickbeentjes/mRemoteNG",
+  "subject": "Add AI layer: Claude chat, session logging, SCP transfers, host-call protocol, Windows agent",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/888cc44fdae9f83a989724966d1816efd17138ed",
+  "date": "2026-04-23T02:26:39Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

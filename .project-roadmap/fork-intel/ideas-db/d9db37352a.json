@@ -1,0 +1,23 @@
+{
+  "sha": "d9db37352a78e91564552f20b585aa31309da446",
+  "kind": "fork",
+  "fork": "julesbobb/mRemoteNG",
+  "subject": "Add option: Open all selected connections with Enter",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d9db37352a78e91564552f20b585aa31309da446",
+  "date": "2026-04-06T09:34:52Z",
+  "tier": "Q",
+  "score": 4,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "opaque-file"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

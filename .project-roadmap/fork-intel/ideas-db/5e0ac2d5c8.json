@@ -1,0 +1,30 @@
+{
+  "sha": "5e0ac2d5c8aa770797430477c5b72fd334c69267",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: decrypt a connection's password when it is needed, not when the file is opened (#59)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e0ac2d5c8aa770797430477c5b72fd334c69267",
+  "date": "2026-08-19T02:31:37Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

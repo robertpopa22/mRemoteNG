@@ -1,0 +1,23 @@
+{
+  "sha": "c261d36261268b1d9dad449c4c943795577119cd",
+  "kind": "fork",
+  "fork": "YuLiangLin/mRemoteNG",
+  "subject": "Keep remote sessions dependable in fullscreen",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c261d36261268b1d9dad449c4c943795577119cd",
+  "date": "2026-07-28T14:22:20Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

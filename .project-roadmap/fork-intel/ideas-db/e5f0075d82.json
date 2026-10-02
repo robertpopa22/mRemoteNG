@@ -1,0 +1,25 @@
+{
+  "sha": "e5f0075d82b51d456585a03de48e9c4a99e1e38a",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: close out the hardening changes against a real upstream build",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e5f0075d82b51d456585a03de48e9c4a99e1e38a",
+  "date": "2026-08-10T21:20:26Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

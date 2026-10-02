@@ -1,0 +1,21 @@
+{
+  "sha": "234e7f48f098cbdf0eccd8a7e4aa718589434296",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Finalize passive RDP monitor v2 fullscreen view-only and scroll behavior",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/234e7f48f098cbdf0eccd8a7e4aa718589434296",
+  "date": "2026-05-16T13:46:38Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

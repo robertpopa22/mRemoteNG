@@ -1,0 +1,21 @@
+{
+  "sha": "380c221b56f2c36bd3b9691c7e20f917daf6f811",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "docs(ssh_dotnet): remove planning/design docs from PR (keep local)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/380c221b56f2c36bd3b9691c7e20f917daf6f811",
+  "date": "2026-06-21T18:34:31Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

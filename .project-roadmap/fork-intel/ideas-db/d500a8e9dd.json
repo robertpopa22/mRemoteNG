@@ -1,0 +1,21 @@
+{
+  "sha": "d500a8e9dda08af453e3e69f3d891e2be4145686",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "CustomConsPath为相对路径时，主窗口标题也能正确显示全路径（上一提交引入）",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d500a8e9dda08af453e3e69f3d891e2be4145686",
+  "date": "2025-08-25T07:32:59Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

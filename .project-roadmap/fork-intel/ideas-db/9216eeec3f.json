@@ -1,0 +1,21 @@
+{
+  "sha": "9216eeec3fc53ba08f2ea15804a58983916a8f6e",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Never reconnect an RDP 8 session just to resize it",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9216eeec3fc53ba08f2ea15804a58983916a8f6e",
+  "date": "2026-08-16T08:33:12Z",
+  "tier": "B",
+  "score": 5,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

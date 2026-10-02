@@ -1,0 +1,23 @@
+{
+  "sha": "95fd90ccbc72f2311ca3406491abccc4787b711a",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "chore: validate native RDP with full Visual Studio MSBuild",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/95fd90ccbc72f2311ca3406491abccc4787b711a",
+  "date": "2026-08-03T09:29:13Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

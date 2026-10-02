@@ -1,0 +1,29 @@
+{
+  "sha": "763fffff45d5d2da8aa15a9736bdb9f37236ee91",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix warnings",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/763fffff45d5d2da8aa15a9736bdb9f37236ee91",
+  "date": "2026-09-16T18:19:56Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": 200,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "dependency-manifest",
+    "security-code",
+    "security-code",
+    "security-code",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

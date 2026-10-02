@@ -1,0 +1,25 @@
+{
+  "sha": "fc2d3bb02a08915d865c582baf72572aa0be6866",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "reduced about windows to a simple form",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fc2d3bb02a08915d865c582baf72572aa0be6866",
+  "date": "2020-05-23T22:54:09Z",
+  "tier": "D",
+  "score": -10,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

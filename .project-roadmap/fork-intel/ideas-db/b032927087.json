@@ -1,0 +1,26 @@
+{
+  "sha": "b03292708796b64ab08f2b230ff0521aeefe6208",
+  "kind": "fork",
+  "fork": "YuLiangLin/mRemoteNG",
+  "subject": "Modernize remote connection UX while preserving session state",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b03292708796b64ab08f2b230ff0521aeefe6208",
+  "date": "2026-07-25T06:49:05Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "license",
+    "binary-artifact",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

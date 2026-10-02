@@ -1,0 +1,21 @@
+{
+  "sha": "b7c487412fc8ee89d9001dcbfad754484a42b31b",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: restore connection tree state when the search filter is cleared",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b7c487412fc8ee89d9001dcbfad754484a42b31b",
+  "date": "2026-08-06T06:55:44Z",
+  "tier": "B",
+  "score": 10,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 4,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": 149,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

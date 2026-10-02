@@ -1,0 +1,21 @@
+{
+  "sha": "ead4062d23408fdbd127e9c7813ad4a96004c410",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "refactor(ui): remove the unused session split host",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ead4062d23408fdbd127e9c7813ad4a96004c410",
+  "date": "2026-08-09T01:47:19Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": null,
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "session split host is not in this tree"
+}

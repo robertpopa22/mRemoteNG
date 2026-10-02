@@ -1,0 +1,21 @@
+{
+  "sha": "6d3b170f0e4c688deeb3e1ca44c1843184d7e092",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Apply theme changes immediately, no restart required",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6d3b170f0e4c688deeb3e1ca44c1843184d7e092",
+  "date": "2026-06-11T21:24:59Z",
+  "tier": "D",
+  "score": 12,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 5,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

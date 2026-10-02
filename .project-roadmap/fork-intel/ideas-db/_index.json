@@ -1,0 +1,782 @@
+{
+  "_description": "Judged upstream and fork ideas. No patch bodies. export-ideas refreshes tier and score and keeps status and note once they differ from suggested_status. Untriaged commits stay in the local cache only.",
+  "exported_at": "2026-10-02T14:33:25Z",
+  "untriaged": {
+    "fork": 434,
+    "upstream": 0
+  },
+  "tiers": {
+    "fork": {
+      "A": 2,
+      "B": 73,
+      "C": 7,
+      "Q": 69,
+      "D": 400
+    },
+    "upstream": {
+      "A": 0,
+      "B": 38,
+      "C": 1,
+      "Q": 20,
+      "D": 42
+    }
+  },
+  "status": {
+    "new": 83,
+    "trying": 0,
+    "imported": 6,
+    "present": 6,
+    "rejected": 443,
+    "deferred": 114
+  },
+  "stale": 0,
+  "walk_next": [
+    {
+      "sha": "46f82860a8",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 10,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Revise restricted admin mode description in Language.resx"
+    },
+    {
+      "sha": "b7c487412f",
+      "kind": "fork",
+      "tier": "B",
+      "score": 10,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: restore connection tree state when the search filter is cleared"
+    },
+    {
+      "sha": "c4837b6551",
+      "kind": "fork",
+      "tier": "B",
+      "score": 10,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: measure task dialog text the way it is drawn, and size buttons to the client area"
+    },
+    {
+      "sha": "dd54616a2e",
+      "kind": "fork",
+      "tier": "B",
+      "score": 10,
+      "status": "new",
+      "fork": "k-meeks/mRemoteNG",
+      "subject": "Fix NullReferenceException + recursive dialog cascade on failed decrypt"
+    },
+    {
+      "sha": "eb03e059b2",
+      "kind": "fork",
+      "tier": "B",
+      "score": 9,
+      "status": "new",
+      "fork": "k-meeks/mRemoteNG",
+      "subject": "Add configurable interface font (Options > Appearance)"
+    },
+    {
+      "sha": "0807102c91",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 8,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "test: cover the information_schema lookup that decides table existence"
+    },
+    {
+      "sha": "14d902276d",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 8,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Update ExternalConnectors/DSS/SecretServerInterface.cs"
+    },
+    {
+      "sha": "2a9a06a5c7",
+      "kind": "fork",
+      "tier": "B",
+      "score": 8,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Translate the menus, dialogs and options pages into Hungarian"
+    },
+    {
+      "sha": "4edeaba5c1",
+      "kind": "fork",
+      "tier": "B",
+      "score": 8,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Re-run the resize when the panel moved again while it was applied"
+    },
+    {
+      "sha": "ac2988542d",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 8,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "fix: use a provider-specific table lookup instead of matching either column"
+    },
+    {
+      "sha": "c4d0596f24",
+      "kind": "fork",
+      "tier": "B",
+      "score": 8,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Keep the tab in front when its close is cancelled"
+    },
+    {
+      "sha": "dfb7a14dc3",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 8,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Turkish translation file update"
+    },
+    {
+      "sha": "0121f0be4c",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: port scan reports why a scan can't start instead of doing nothing"
+    },
+    {
+      "sha": "07532bce52",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Translate the connection properties into Hungarian"
+    },
+    {
+      "sha": "232fbf32ff",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: multi-selection Enter opens connections, and task dialog buttons show focus (#52)"
+    },
+    {
+      "sha": "32645f92b6",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "fix: Japanese translation gaps and AdvancedPage label mis-binding"
+    },
+    {
+      "sha": "3f94a2c239",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "vindict6/mRemoteNG",
+      "subject": "Dark mode: follow the OS, honor the theming setting, dark title bars"
+    },
+    {
+      "sha": "4d62f0a6e5",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "fix: correct CheckboxAutomaticReconnect English value to match its actual usage"
+    },
+    {
+      "sha": "53451f91f5",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Default the main window to 90% of the screen"
+    },
+    {
+      "sha": "556127ef31",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: keep Options usable when a settings secret cannot be decrypted (#18)"
+    },
+    {
+      "sha": "6c1dbeaf82",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: make ConnectionsFileResolver sole-candidate test deterministic"
+    },
+    {
+      "sha": "6e684bc7f9",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Fix the spin buttons and the crowded backup page"
+    },
+    {
+      "sha": "6eabb55063",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: remove the dead space between the timeout row and the progress bar"
+    },
+    {
+      "sha": "6ecce9b6be",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix(notifications): render the message text on startup messages"
+    },
+    {
+      "sha": "739847ef5a",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Add focus rectangle support to custom buttons"
+    },
+    {
+      "sha": "7d47769f49",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Put the units back on the Hungarian spin box labels"
+    },
+    {
+      "sha": "85056294af",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: stop connection edits from being lost without a word (#10)"
+    },
+    {
+      "sha": "8ec20405e6",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "test: run the WinForms tab tests on a real message loop with a reliable timeout"
+    },
+    {
+      "sha": "918f324072",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "fix: throw InvalidOperationException instead of bare Exception"
+    },
+    {
+      "sha": "9c4b85f18a",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "eran132/mRemoteNG",
+      "subject": "fix: set temp key-file attribute via File.SetAttributes"
+    },
+    {
+      "sha": "9c5c4484ce",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "perf: stop the port scan flooding the UI thread; add common-ports button"
+    },
+    {
+      "sha": "a645175d54",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Revise installation parameters in README"
+    },
+    {
+      "sha": "a677fae337",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "k-meeks/mRemoteNG",
+      "subject": "Fix ObjectDisposedException when closing a connection tab"
+    },
+    {
+      "sha": "b1e1dcfe5d",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: stop docking the placeholder window a handed-off console leaves behind (#48)"
+    },
+    {
+      "sha": "b4affea30a",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Chore: Update CHANGELOG for MSI single package authoring"
+    },
+    {
+      "sha": "c535880a14",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "feat: single address field and port mode selector for the port scan"
+    },
+    {
+      "sha": "d500a8e9dd",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "Hovn/mRemoteNG",
+      "subject": "CustomConsPath为相对路径时，主窗口标题也能正确显示全路径（上一提交引入）"
+    },
+    {
+      "sha": "d6f4872b8b",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "Hovn/mRemoteNG",
+      "subject": "标签右键中增加关闭菜单"
+    },
+    {
+      "sha": "f634039a17",
+      "kind": "fork",
+      "tier": "B",
+      "score": 7,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: offer the SSH transfer window for the protocols it can reach (#24)"
+    },
+    {
+      "sha": "2a90030329",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 6,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Improve focus rectangle rendering for CommandButton"
+    },
+    {
+      "sha": "4deffb8cf7",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 6,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Languages updates"
+    },
+    {
+      "sha": "7746827c2b",
+      "kind": "fork",
+      "tier": "B",
+      "score": 6,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: take a command-line switch value whole, whatever it contains (#41)"
+    },
+    {
+      "sha": "7f12c5dc64",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 6,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Docs: Update README with silent install instructions for per-user mode"
+    },
+    {
+      "sha": "9db6e8b09b",
+      "kind": "fork",
+      "tier": "B",
+      "score": 6,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "feat: put the port scan IP range on one line and tighten the layout"
+    },
+    {
+      "sha": "e24d23efe9",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 6,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Fix dark title bar requiring two restarts to apply"
+    },
+    {
+      "sha": "08b056f698",
+      "kind": "fork",
+      "tier": "B",
+      "score": 5,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Measure the panel, not the RDP control, when resizing the session"
+    },
+    {
+      "sha": "4b2768dcea",
+      "kind": "fork",
+      "tier": "B",
+      "score": 5,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "fix: claim the foreground for the main window at startup"
+    },
+    {
+      "sha": "9216eeec3f",
+      "kind": "fork",
+      "tier": "B",
+      "score": 5,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Never reconnect an RDP 8 session just to resize it"
+    },
+    {
+      "sha": "af33a3f833",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 5,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "chore: harden ThemeSerializer.SaveToXmlFile path handling"
+    },
+    {
+      "sha": "b50926bfdd",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 5,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "fix: stop dropping SQL Server connections on every load"
+    },
+    {
+      "sha": "0045263765",
+      "kind": "fork",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "k-meeks/mRemoteNG",
+      "subject": "Show auto-detected PuTTY path on Advanced options page"
+    },
+    {
+      "sha": "1329450e78",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Extend dark theme coverage to floating windows, dialogs and native controls"
+    },
+    {
+      "sha": "46548c8c3e",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Refactor focus handling in custom button controls"
+    },
+    {
+      "sha": "4953fb981e",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Improve default focus handling in TaskDialog form"
+    },
+    {
+      "sha": "553b50c018",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "AI code review issues: SQL deserialization issues; and frame border paint issues"
+    },
+    {
+      "sha": "7011b30b42",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "DPI fix for menu"
+    },
+    {
+      "sha": "8f6df579b1",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "The designer crash \"Object reference not set to an instance of an object\" was caused by:"
+    },
+    {
+      "sha": "903e58ef27",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Route splash close through ProgramRoot.CloseSplash() and harden it"
+    },
+    {
+      "sha": "938611f022",
+      "kind": "fork",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: close a PuTTY tab in one step, without PuTTY's own prompt"
+    },
+    {
+      "sha": "a320091188",
+      "kind": "fork",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "perf: batch the passes RemoveFilter runs when clearing the tree filter"
+    },
+    {
+      "sha": "cf1709b6d2",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Completely refactored Resizing logic and fixed broken functionality; default to SmartSize"
+    },
+    {
+      "sha": "ef770e8edf",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "feat: localize theme palette element names"
+    },
+    {
+      "sha": "5293862e10",
+      "kind": "fork",
+      "tier": "B",
+      "score": 3,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "feat: make port scan parallelism configurable from the UI"
+    },
+    {
+      "sha": "ba164119c1",
+      "kind": "fork",
+      "tier": "B",
+      "score": 3,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "feat: localize the port scan panel"
+    },
+    {
+      "sha": "98a262b7b7",
+      "kind": "fork",
+      "tier": "B",
+      "score": 2,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "fix: recognise the embedded PuTTY window as our own foreground"
+    },
+    {
+      "sha": "9af77fe7a5",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 2,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Refactor RDP password assignment condition"
+    },
+    {
+      "sha": "f8b3b93411",
+      "kind": "fork",
+      "tier": "B",
+      "score": 2,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "Anchor the RDP control to the panel instead of assigning its size"
+    },
+    {
+      "sha": "f92a9cc609",
+      "kind": "fork",
+      "tier": "B",
+      "score": 2,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "security: stop writing every debug message to the log by default"
+    },
+    {
+      "sha": "508e2b32f8",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 1,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Add support for root group containers in tree UI"
+    },
+    {
+      "sha": "6acf79a056",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 1,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "chore: resolve nullable warnings in Themes and App"
+    },
+    {
+      "sha": "8f39c112b5",
+      "kind": "fork",
+      "tier": "B",
+      "score": 1,
+      "status": "new",
+      "fork": "guvity/mRemoteNG-passive-rdp",
+      "subject": "fix(rdp): reapply performance flags and input finalizer on all reconnect paths"
+    },
+    {
+      "sha": "9533f242aa",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 1,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Avoid full theme load before splash by persisting active-theme dark flag"
+    },
+    {
+      "sha": "964d7c2997",
+      "kind": "upstream",
+      "tier": "B",
+      "score": 0,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "fix for Options settings handling"
+    },
+    {
+      "sha": "43ccda0675",
+      "kind": "upstream",
+      "tier": "B",
+      "score": -1,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "some fixes"
+    },
+    {
+      "sha": "50800b8f00",
+      "kind": "upstream",
+      "tier": "B",
+      "score": -2,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "adding import/export options for schema of settings db"
+    },
+    {
+      "sha": "932e6f6116",
+      "kind": "fork",
+      "tier": "B",
+      "score": -2,
+      "status": "new",
+      "fork": "lthobois/mRemoteNG",
+      "subject": "Enhance connection handling and UI features"
+    },
+    {
+      "sha": "42f6eaaf62",
+      "kind": "fork",
+      "tier": "C",
+      "score": 4,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "fix: give the notification panel one ordering point across threads (#11)"
+    },
+    {
+      "sha": "47c8b9b978",
+      "kind": "fork",
+      "tier": "C",
+      "score": 4,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "perf: async bounded-parallel port scan that stays responsive and cancels"
+    },
+    {
+      "sha": "4cc0535857",
+      "kind": "fork",
+      "tier": "C",
+      "score": 4,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "feat: single \"Port Range\" checkbox with start/end ports on one line"
+    },
+    {
+      "sha": "ecc3eee525",
+      "kind": "upstream",
+      "tier": "C",
+      "score": 4,
+      "status": "new",
+      "fork": "mRemoteNG/mRemoteNG",
+      "subject": "Add changelog entry for dark native title bar (#2642)"
+    },
+    {
+      "sha": "f4ff408956",
+      "kind": "fork",
+      "tier": "C",
+      "score": 4,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "feat: compact connection tree to reduce horizontal footprint (#5)"
+    },
+    {
+      "sha": "647d1dd630",
+      "kind": "fork",
+      "tier": "C",
+      "score": 3,
+      "status": "new",
+      "fork": "lovaszlaszlo/mRemoteNG",
+      "subject": "fix: keep the splash screen up until the main window is shown"
+    },
+    {
+      "sha": "f94eba33b1",
+      "kind": "fork",
+      "tier": "C",
+      "score": 1,
+      "status": "new",
+      "fork": "jafin/mRemoteNG",
+      "subject": "feat: port scan accepts full IP in one field and supports IPv6 ranges"
+    }
+  ]
+}

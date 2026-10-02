@@ -1,0 +1,21 @@
+{
+  "sha": "39f0a717bc5ee3c6aadc37c12701a588e803bbd6",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "removed geckofx from components check",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/39f0a717bc5ee3c6aadc37c12701a588e803bbd6",
+  "date": "2020-05-23T21:20:08Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

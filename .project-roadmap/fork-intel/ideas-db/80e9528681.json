@@ -1,0 +1,30 @@
+{
+  "sha": "80e95286816efe5af7b42656d50b90b45931cc79",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: refuse a connection file whose format level is unknown, and scope the log (#29)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/80e95286816efe5af7b42656d50b90b45931cc79",
+  "date": "2026-08-12T04:04:17Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

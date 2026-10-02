@@ -1,0 +1,25 @@
+{
+  "sha": "bd01dfbdb5bedbdfa0584c586b97e4b3cabba428",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Feat: Add option to install without admin privileges",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bd01dfbdb5bedbdfa0584c586b97e4b3cabba428",
+  "date": "2026-09-10T19:28:12Z",
+  "tier": "Q",
+  "score": 4,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 4,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "installer",
+    "installer",
+    "installer"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

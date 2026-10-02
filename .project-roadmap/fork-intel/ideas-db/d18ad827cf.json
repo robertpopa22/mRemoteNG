@@ -1,0 +1,21 @@
+{
+  "sha": "d18ad827cff3dc973c3caad1f476421a9de748c3",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "Fix all remaining SonarCloud code smells",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d18ad827cff3dc973c3caad1f476421a9de748c3",
+  "date": "2026-04-07T12:02:25Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

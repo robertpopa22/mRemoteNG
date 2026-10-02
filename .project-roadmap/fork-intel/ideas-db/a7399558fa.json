@@ -1,0 +1,23 @@
+{
+  "sha": "a7399558fa155a23c2454ce6f11844d8b06fd7d6",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "chore: remove temporary migration runner",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a7399558fa155a23c2454ce6f11844d8b06fd7d6",
+  "date": "2026-08-03T09:33:31Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

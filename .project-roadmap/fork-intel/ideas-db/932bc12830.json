@@ -1,0 +1,21 @@
+{
+  "sha": "932bc12830ba4bcd078aa175d55fa588c08f1430",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): split PortForwardRuleParser parse/apply + unit tests",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/932bc12830ba4bcd078aa175d55fa588c08f1430",
+  "date": "2026-06-21T17:25:28Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

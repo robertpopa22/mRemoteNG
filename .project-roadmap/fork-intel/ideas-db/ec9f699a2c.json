@@ -1,0 +1,21 @@
+{
+  "sha": "ec9f699a2cc3f09e0fa2e036206bc9337ebcf6fe",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Say which terminal this is while PuTTY is still around",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ec9f699a2cc3f09e0fa2e036206bc9337ebcf6fe",
+  "date": "2026-08-15T17:12:06Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": null,
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "no terminal page in this tree"
+}

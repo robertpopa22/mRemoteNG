@@ -1,0 +1,23 @@
+{
+  "sha": "c5ad2eb8a83276febcd4100916a1c659c12ad012",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "security: fix command injection in Terminal protocol (#3335)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c5ad2eb8a83276febcd4100916a1c659c12ad012",
+  "date": "2026-08-06T23:38:39Z",
+  "tier": "D",
+  "score": 10,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 5,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "e3eb690eb653368366a6b532e751b48372112598",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "docs: close B3 (performance flags semantics verified, fixed via A5)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e3eb690eb653368366a6b532e751b48372112598",
+  "date": "2026-06-16T13:59:51Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

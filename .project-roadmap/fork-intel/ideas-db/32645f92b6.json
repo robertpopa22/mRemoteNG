@@ -1,0 +1,21 @@
+{
+  "sha": "32645f92b652c7ca35170d3662b012585960d77f",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: Japanese translation gaps and AdvancedPage label mis-binding",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/32645f92b652c7ca35170d3662b012585960d77f",
+  "date": "2026-05-15T10:02:07Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

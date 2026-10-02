@@ -1,0 +1,21 @@
+{
+  "sha": "eac3e4d183ccafb84fb61a4b55c37c2cecbf94e5",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): release input capture after auto-reconnect (fix flying mouse)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eac3e4d183ccafb84fb61a4b55c37c2cecbf94e5",
+  "date": "2026-06-16T13:42:11Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

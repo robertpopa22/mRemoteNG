@@ -1,0 +1,23 @@
+{
+  "sha": "9680ed90af33119bbce923ed10e117a7a1e03b8a",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "fixed help window and about windows partially",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9680ed90af33119bbce923ed10e117a7a1e03b8a",
+  "date": "2020-05-23T21:27:38Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

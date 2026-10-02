@@ -1,0 +1,21 @@
+{
+  "sha": "4953fb981e8576fe1b59fb2c9ae9881622a1785d",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Improve default focus handling in TaskDialog form",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4953fb981e8576fe1b59fb2c9ae9881622a1785d",
+  "date": "2026-04-06T14:26:53Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

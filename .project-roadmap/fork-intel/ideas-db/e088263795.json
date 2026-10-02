@@ -1,0 +1,21 @@
+{
+  "sha": "e0882637954a3afdfa19fdca54dc538d855c9c3d",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Document rdpsign compatibility fallback",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e0882637954a3afdfa19fdca54dc538d855c9c3d",
+  "date": "2026-08-03T15:18:32Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

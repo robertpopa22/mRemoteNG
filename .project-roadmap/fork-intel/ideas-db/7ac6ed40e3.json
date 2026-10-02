@@ -1,0 +1,21 @@
+{
+  "sha": "7ac6ed40e317eb11f3fffc313f8723f17cde7e2d",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "Fix last 2 SonarCloud JS issues: log caught exceptions",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7ac6ed40e317eb11f3fffc313f8723f17cde7e2d",
+  "date": "2026-04-07T12:50:57Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

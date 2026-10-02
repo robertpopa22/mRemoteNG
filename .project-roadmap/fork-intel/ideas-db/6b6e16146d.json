@@ -1,0 +1,21 @@
+{
+  "sha": "6b6e16146d55d1858c8ed732c90f0a0ac3c86b84",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix(sftp): widen the Modified column so the time is not clipped",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6b6e16146d55d1858c8ed732c90f0a0ac3c86b84",
+  "date": "2026-08-09T03:57:07Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

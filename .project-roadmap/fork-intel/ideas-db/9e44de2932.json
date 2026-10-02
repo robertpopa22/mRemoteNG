@@ -1,0 +1,30 @@
+{
+  "sha": "9e44de293218ab5718311420ba2ac15e4e38d467",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: derive hardened connection files with PBKDF2-HMAC-SHA256",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9e44de293218ab5718311420ba2ac15e4e38d467",
+  "date": "2026-08-10T04:35:49Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

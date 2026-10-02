@@ -1,0 +1,21 @@
+{
+  "sha": "a32009118810e2237c029756814292f30a01343c",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "perf: batch the passes RemoveFilter runs when clearing the tree filter",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a32009118810e2237c029756814292f30a01343c",
+  "date": "2026-08-06T08:45:03Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

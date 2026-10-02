@@ -1,0 +1,21 @@
+{
+  "sha": "4c236d567c9e042d5d70e527a36e8c3b0c9d3e53",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "修复：Icons应仅使用顶层目录的ico图标",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4c236d567c9e042d5d70e527a36e8c3b0c9d3e53",
+  "date": "2025-01-24T16:09:08Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

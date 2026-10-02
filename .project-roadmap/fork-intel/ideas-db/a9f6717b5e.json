@@ -1,0 +1,23 @@
+{
+  "sha": "a9f6717b5e02dab63e3cd252718af5c65225aa4a",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Add one-click native RDP trust bootstrap",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9f6717b5e02dab63e3cd252718af5c65225aa4a",
+  "date": "2026-08-03T18:40:01Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

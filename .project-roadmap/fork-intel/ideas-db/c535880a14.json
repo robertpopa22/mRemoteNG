@@ -1,0 +1,21 @@
+{
+  "sha": "c535880a14c0395a18dfe24a3c22d4c1853dfe2a",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: single address field and port mode selector for the port scan",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c535880a14c0395a18dfe24a3c22d4c1853dfe2a",
+  "date": "2026-08-07T08:49:46Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "2ab6305e6f46d55661fc6a655bbea0047c5e180d",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): rebind input blocker on auto-reconnect",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ab6305e6f46d55661fc6a655bbea0047c5e180d",
+  "date": "2026-06-16T13:46:14Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,24 @@
+{
+  "sha": "f0c571b5cf3c1d7b74b94b78c755be0d56f5c464",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "Renci.SshNet版本升级至2020.0.2",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f0c571b5cf3c1d7b74b94b78c755be0d56f5c464",
+  "date": "2025-08-21T16:15:31Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

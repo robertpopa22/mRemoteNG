@@ -1,0 +1,23 @@
+{
+  "sha": "29e00a1a139794131ca2c34df3c2b4f0db2a8aa4",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Finalize passive RDP monitor v2 workflow and menu sync",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/29e00a1a139794131ca2c34df3c2b4f0db2a8aa4",
+  "date": "2026-05-16T12:19:23Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

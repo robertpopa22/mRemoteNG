@@ -1,0 +1,21 @@
+{
+  "sha": "8ddbfaa46445e83b33890b035aca312dec4eb183",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Default to the vs2015darkNG theme",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ddbfaa46445e83b33890b035aca312dec4eb183",
+  "date": "2026-08-14T13:28:29Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

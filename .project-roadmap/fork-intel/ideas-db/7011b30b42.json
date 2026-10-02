@@ -1,0 +1,21 @@
+{
+  "sha": "7011b30b421c755001f67133fc012120c9a31d95",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "DPI fix for menu",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7011b30b421c755001f67133fc012120c9a31d95",
+  "date": "2026-03-08T22:04:41Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": 198,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

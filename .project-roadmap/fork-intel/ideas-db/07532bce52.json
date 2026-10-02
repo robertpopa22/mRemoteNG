@@ -1,0 +1,21 @@
+{
+  "sha": "07532bce526b55e47bc43768c4152bcdca922d2a",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Translate the connection properties into Hungarian",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/07532bce526b55e47bc43768c4152bcdca922d2a",
+  "date": "2026-08-16T08:44:24Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

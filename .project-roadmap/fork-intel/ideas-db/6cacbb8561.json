@@ -1,0 +1,21 @@
+{
+  "sha": "6cacbb8561cef8be1741f442927a4da9a6a7e233",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): clear SWP_NOMOVE to defeat mstscax connection bar position lock",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6cacbb8561cef8be1741f442927a4da9a6a7e233",
+  "date": "2026-06-16T16:46:29Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

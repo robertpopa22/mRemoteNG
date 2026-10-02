@@ -1,0 +1,21 @@
+{
+  "sha": "3567ecabb18f190897415f43b4061f06fb270319",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: validate the ports argument in the PortScanner constructor",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3567ecabb18f190897415f43b4061f06fb270319",
+  "date": "2026-08-07T23:58:23Z",
+  "tier": "B",
+  "score": 6,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "present",
+  "note": "PortScanner already rejects null, empty, and out-of-range ports"
+}

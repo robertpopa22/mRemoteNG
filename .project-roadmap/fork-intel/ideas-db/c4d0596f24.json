@@ -1,0 +1,21 @@
+{
+  "sha": "c4d0596f2485d6493ea30bd27219f40c2a068759",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Keep the tab in front when its close is cancelled",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c4d0596f2485d6493ea30bd27219f40c2a068759",
+  "date": "2026-08-15T08:41:51Z",
+  "tier": "B",
+  "score": 8,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

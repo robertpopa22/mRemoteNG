@@ -1,0 +1,33 @@
+{
+  "sha": "a7d5503015456c6a02b29879152d97346aafa02e",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix installer part with necessary package updates",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a7d5503015456c6a02b29879152d97346aafa02e",
+  "date": "2026-09-15T10:04:48Z",
+  "tier": "Q",
+  "score": -5,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": 192,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "installer",
+    "installer",
+    "installer",
+    "installer",
+    "installer",
+    "installer",
+    "installer",
+    "installer",
+    "installer"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

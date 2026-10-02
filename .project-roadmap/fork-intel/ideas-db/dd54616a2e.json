@@ -1,0 +1,21 @@
+{
+  "sha": "dd54616a2e47bdb94e18b2fbafbd2a30764a3728",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Fix NullReferenceException + recursive dialog cascade on failed decrypt",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dd54616a2e47bdb94e18b2fbafbd2a30764a3728",
+  "date": "2026-06-12T13:57:54Z",
+  "tier": "B",
+  "score": 10,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "2d1411667e60c4e001933d60f8de825dd2ac9213",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "修复：容器的ID现保持与文件中一致",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2d1411667e60c4e001933d60f8de825dd2ac9213",
+  "date": "2025-11-27T08:26:22Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "present",
+  "note": "XML load already passes the file Id into ContainerInfo"
+}

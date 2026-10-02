@@ -1,0 +1,21 @@
+{
+  "sha": "55aed5eb7088aa25252181bad5fda41fb70c121a",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "CustomConsPath配置项默认会保存相对路径（如可用）",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/55aed5eb7088aa25252181bad5fda41fb70c121a",
+  "date": "2025-08-25T07:21:01Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

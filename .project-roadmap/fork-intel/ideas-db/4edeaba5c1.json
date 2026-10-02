@@ -1,0 +1,21 @@
+{
+  "sha": "4edeaba5c11fe819d1cf1fd37584e6b4fa79c325",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Re-run the resize when the panel moved again while it was applied",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4edeaba5c11fe819d1cf1fd37584e6b4fa79c325",
+  "date": "2026-08-15T08:48:41Z",
+  "tier": "B",
+  "score": 8,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

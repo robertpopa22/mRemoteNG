@@ -1,0 +1,21 @@
+{
+  "sha": "ebd3383a1c6bc2a2eb4f1dfe7ffcce9fa205f134",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Remember passive RDP scroll position across tab switches",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ebd3383a1c6bc2a2eb4f1dfe7ffcce9fa205f134",
+  "date": "2026-05-16T22:11:26Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

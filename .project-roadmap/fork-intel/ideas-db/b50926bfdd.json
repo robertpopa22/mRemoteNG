@@ -1,0 +1,21 @@
+{
+  "sha": "b50926bfdd321b4c8f9c69f99ea766f18b3f7056",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: stop dropping SQL Server connections on every load",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b50926bfdd321b4c8f9c69f99ea766f18b3f7056",
+  "date": "2026-09-21T11:47:56Z",
+  "tier": "B",
+  "score": 5,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": 165,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "97465e65db48bbfc02f6acf8914ffd7004fb3613",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Update mRemoteNG/Properties/Settings.settings",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/97465e65db48bbfc02f6acf8914ffd7004fb3613",
+  "date": "2026-04-04T13:03:11Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

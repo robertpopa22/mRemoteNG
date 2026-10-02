@@ -1,0 +1,24 @@
+{
+  "sha": "5eb1d371a338103a556cc4343c0f14ee1ce756c4",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Add a native SSH protocol: xterm.js in WebView2 over SSH.NET",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5eb1d371a338103a556cc4343c0f14ee1ce756c4",
+  "date": "2026-08-15T16:53:52Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "opaque-file",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

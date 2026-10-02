@@ -1,0 +1,23 @@
+{
+  "sha": "c5506049a62658c40c7896bff495a22cdd87df5b",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "Refactor methods to reduce cognitive complexity below threshold",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c5506049a62658c40c7896bff495a22cdd87df5b",
+  "date": "2026-04-07T10:49:06Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "network-download"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

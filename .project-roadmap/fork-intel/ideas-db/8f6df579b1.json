@@ -1,0 +1,21 @@
+{
+  "sha": "8f6df579b1cfbf2dd6739593c43ee63f77dd2b5c",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "The designer crash \"Object reference not set to an instance of an object\" was caused by:",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f6df579b1cfbf2dd6739593c43ee63f77dd2b5c",
+  "date": "2026-07-16T20:36:53Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "bbde106b165f4eba3b08fef8f6e2d7359959c633",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "small fix for the designer error",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbde106b165f4eba3b08fef8f6e2d7359959c633",
+  "date": "2026-07-16T20:43:49Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

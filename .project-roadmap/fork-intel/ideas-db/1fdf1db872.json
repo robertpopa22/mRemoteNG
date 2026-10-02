@@ -1,0 +1,21 @@
+{
+  "sha": "1fdf1db872bb16d6cfb602c66c97cdf429d3355f",
+  "kind": "fork",
+  "fork": "Morgadoo/mRemoteNG",
+  "subject": "feat(phase-2+4): SSH File Transfer dialog, cross-platform install docs in README",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1fdf1db872bb16d6cfb602c66c97cdf429d3355f",
+  "date": "2026-03-10T13:53:21Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

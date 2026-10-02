@@ -1,0 +1,23 @@
+{
+  "sha": "df292fe86fbf78d476eea00cd8e21600c6c8f9ba",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Updating Putty to v.84",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/df292fe86fbf78d476eea00cd8e21600c6c8f9ba",
+  "date": "2026-07-16T22:07:09Z",
+  "tier": "D",
+  "score": -7,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "binary-artifact"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

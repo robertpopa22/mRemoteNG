@@ -1,0 +1,21 @@
+{
+  "sha": "8f39c112b57865efa6c34cd735c1b35394c203dc",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): reapply performance flags and input finalizer on all reconnect paths",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8f39c112b57865efa6c34cd735c1b35394c203dc",
+  "date": "2026-06-16T13:53:22Z",
+  "tier": "B",
+  "score": 1,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

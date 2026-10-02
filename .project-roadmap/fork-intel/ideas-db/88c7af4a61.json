@@ -1,0 +1,21 @@
+{
+  "sha": "88c7af4a61a305d2c0a6a4e90a9e895a4851bb38",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "docs(ssh_dotnet): changelog entry for private-key auth + SQL limitation",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/88c7af4a61a305d2c0a6a4e90a9e895a4851bb38",
+  "date": "2026-06-21T18:01:57Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "8ded8c7535559aef80bdcae609b431df7a3eb8d6",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Native SSH: take the appearance from the named PuTTY session",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ded8c7535559aef80bdcae609b431df7a3eb8d6",
+  "date": "2026-08-15T17:30:58Z",
+  "tier": "B",
+  "score": 0,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "ProtocolSshNative is not in this tree"
+}

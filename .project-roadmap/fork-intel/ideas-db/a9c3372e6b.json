@@ -1,0 +1,21 @@
+{
+  "sha": "a9c3372e6b5143547ca1d5f8945d60359359de89",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Native SSH: adjust the font size from the terminal",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9c3372e6b5143547ca1d5f8945d60359359de89",
+  "date": "2026-08-15T18:00:43Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

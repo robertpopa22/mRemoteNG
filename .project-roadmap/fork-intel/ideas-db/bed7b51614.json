@@ -1,0 +1,21 @@
+{
+  "sha": "bed7b5161495bb958142d11fa7c4898a2008dad6",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Revert \"fix: focus the connection on a tab change, without the feedback loop\"",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bed7b5161495bb958142d11fa7c4898a2008dad6",
+  "date": "2026-08-14T16:50:54Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

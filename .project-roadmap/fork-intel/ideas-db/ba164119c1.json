@@ -1,0 +1,21 @@
+{
+  "sha": "ba164119c17eac43c6536d4012963df68f6f3f52",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: localize the port scan panel",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba164119c17eac43c6536d4012963df68f6f3f52",
+  "date": "2026-08-07T23:54:45Z",
+  "tier": "B",
+  "score": 3,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

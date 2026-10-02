@@ -1,0 +1,21 @@
+{
+  "sha": "8a2140793b56747632cafdf7d2f2ae47e66b4ec1",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "Add unit tests, UX improvements, and runtime SRI hash injection",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8a2140793b56747632cafdf7d2f2ae47e66b4ec1",
+  "date": "2026-04-08T09:00:01Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

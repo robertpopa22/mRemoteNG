@@ -1,0 +1,24 @@
+{
+  "sha": "098ae74bf3b504e09e7dcc2bc193cd5d788ad383",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "Citrix资源更新",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/098ae74bf3b504e09e7dcc2bc193cd5d788ad383",
+  "date": "2025-08-24T04:06:02Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "binary-artifact",
+    "binary-artifact"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

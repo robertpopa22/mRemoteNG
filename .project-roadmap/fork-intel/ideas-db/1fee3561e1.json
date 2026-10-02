@@ -1,0 +1,21 @@
+{
+  "sha": "1fee3561e12ea0864339dd503f420cf7d104920a",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs: let agents commit their own verified work",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1fee3561e12ea0864339dd503f420cf7d104920a",
+  "date": "2026-08-09T02:56:45Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

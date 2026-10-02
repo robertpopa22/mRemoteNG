@@ -1,0 +1,21 @@
+{
+  "sha": "ba514de60148cd127ace217f9a5dce5c8c8f79dd",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Native SSH: close the tab when the session ends",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba514de60148cd127ace217f9a5dce5c8c8f79dd",
+  "date": "2026-08-15T17:43:32Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

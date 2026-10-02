@@ -1,0 +1,24 @@
+{
+  "sha": "f801785c0a74bf64887a35bfa3dc1457c7a0d602",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "removing not used",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f801785c0a74bf64887a35bfa3dc1457c7a0d602",
+  "date": "2026-03-24T23:13:42Z",
+  "tier": "Q",
+  "score": 2,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

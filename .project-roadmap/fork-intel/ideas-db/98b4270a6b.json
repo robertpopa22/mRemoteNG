@@ -1,0 +1,24 @@
+{
+  "sha": "98b4270a6b0cbc00faad0bce5b90b7ec69e582a7",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "ci: add a manual pre-release workflow that packages the binaries",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/98b4270a6b0cbc00faad0bce5b90b7ec69e582a7",
+  "date": "2026-08-08T00:56:55Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "env-secret-access"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

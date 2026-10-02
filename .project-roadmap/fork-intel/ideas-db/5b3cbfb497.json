@@ -1,0 +1,21 @@
+{
+  "sha": "5b3cbfb4972b93380ffd5f97ebba9ea8f4d67a0e",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Revert the automatic focus on tab change",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5b3cbfb4972b93380ffd5f97ebba9ea8f4d67a0e",
+  "date": "2026-08-14T16:05:23Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

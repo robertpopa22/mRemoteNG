@@ -48,6 +48,7 @@ namespace mRemoteNG.UI.Forms
             // btnApply
             // 
             this.btnApply._mice = mRemoteNG.UI.Controls.MrngButton.MouseState.OUT;
+            this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.Location = new System.Drawing.Point(677, 5);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
@@ -59,6 +60,7 @@ namespace mRemoteNG.UI.Forms
             // btnCancel
             // 
             this.btnCancel._mice = mRemoteNG.UI.Controls.MrngButton.MouseState.OUT;
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Location = new System.Drawing.Point(596, 5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -70,6 +72,7 @@ namespace mRemoteNG.UI.Forms
             // btnOK
             // 
             this.btnOK._mice = mRemoteNG.UI.Controls.MrngButton.MouseState.OUT;
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.Location = new System.Drawing.Point(515, 5);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);

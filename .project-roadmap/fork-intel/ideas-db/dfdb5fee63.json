@@ -1,0 +1,21 @@
+{
+  "sha": "dfdb5fee637e4a6007b0c96b31d60bc1a80afd23",
+  "kind": "fork",
+  "fork": "azet/mRemoteNG",
+  "subject": "add 'Serial' to Lang",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dfdb5fee637e4a6007b0c96b31d60bc1a80afd23",
+  "date": "2020-03-16T11:07:58Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

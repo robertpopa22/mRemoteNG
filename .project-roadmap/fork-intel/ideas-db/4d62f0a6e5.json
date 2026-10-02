@@ -1,0 +1,21 @@
+{
+  "sha": "4d62f0a6e5ccee65625a2ca728414f7a8ff6927e",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: correct CheckboxAutomaticReconnect English value to match its actual usage",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4d62f0a6e5ccee65625a2ca728414f7a8ff6927e",
+  "date": "2026-05-15T10:19:41Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "b42e782584dfdf47de3fe7f46abe5ddc4d5698a0",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "adding readme about plug-ins",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b42e782584dfdf47de3fe7f46abe5ddc4d5698a0",
+  "date": "2026-09-15T21:31:12Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "separate plugin solution is not in this tree"
+}

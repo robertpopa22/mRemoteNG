@@ -1,0 +1,23 @@
+{
+  "sha": "400dfce67c2f3a0f956106fecb9f04f4f36bcf42",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "updated german and french language files",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/400dfce67c2f3a0f956106fecb9f04f4f36bcf42",
+  "date": "2020-05-24T14:25:19Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

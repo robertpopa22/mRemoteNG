@@ -1,0 +1,21 @@
+{
+  "sha": "bef31a3ca23b4784bfc97be21f022febf983a4f3",
+  "kind": "fork",
+  "fork": "nickbeentjes/mRemoteNG",
+  "subject": "NickHQ multi-server config: settings UI, auto-connect on startup",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bef31a3ca23b4784bfc97be21f022febf983a4f3",
+  "date": "2026-04-23T03:46:12Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

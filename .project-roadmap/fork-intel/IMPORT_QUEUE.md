@@ -1,6 +1,6 @@
 # Import Queue
 
-Generated 2026-09-30 from the fork radar. **Nothing is applied automatically.**
+Generated 2026-10-02 from the fork radar. **Nothing is applied automatically.**
 
 Both mRemoteNG and its forks are GPL-2.0, so importing is licence-compatible. `git cherry-pick` preserves the original author and `-x` records the source commit; add a `Ported-from:` trailer with the upstream URL so the origin stays visible.
 

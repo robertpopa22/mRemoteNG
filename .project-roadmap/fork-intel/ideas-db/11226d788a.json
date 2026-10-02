@@ -1,0 +1,21 @@
+{
+  "sha": "11226d788a986662c87e9d57854f5411e40efe6b",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix for download url",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/11226d788a986662c87e9d57854f5411e40efe6b",
+  "date": "2026-03-06T12:04:54Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

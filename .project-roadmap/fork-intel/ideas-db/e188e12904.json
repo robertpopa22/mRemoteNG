@@ -1,0 +1,21 @@
+{
+  "sha": "e188e129048b62a027908f8a4bdda754def50522",
+  "kind": "fork",
+  "fork": "hthvdmeer/mRemoteNG",
+  "subject": "Config now read tools from the command line config position",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e188e129048b62a027908f8a4bdda754def50522",
+  "date": "2026-05-05T10:06:15Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

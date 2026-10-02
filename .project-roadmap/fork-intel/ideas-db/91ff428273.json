@@ -1,0 +1,23 @@
+{
+  "sha": "91ff428273e7bc936870d4816a719ffba48cd551",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "re-coding - part 1, splitting hardcoded tools into plug-ins services",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/91ff428273e7bc936870d4816a719ffba48cd551",
+  "date": "2026-09-15T21:24:27Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "80b75874c838c437f675814f30e98988dfe441d4",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "task: update gitignore",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/80b75874c838c437f675814f30e98988dfe441d4",
+  "date": "2026-08-09T02:59:24Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "d6feb5a21919bcd5c6e53757f1d63172d66b0a48",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Document native RDP trust bootstrap",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d6feb5a21919bcd5c6e53757f1d63172d66b0a48",
+  "date": "2026-08-03T18:40:24Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

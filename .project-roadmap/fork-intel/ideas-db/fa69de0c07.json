@@ -1,0 +1,21 @@
+{
+  "sha": "fa69de0c077cdd92ed73f7443d94dd4e085f9245",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Remove CLAUDE.md from feature branch",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fa69de0c077cdd92ed73f7443d94dd4e085f9245",
+  "date": "2025-11-07T07:59:50Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

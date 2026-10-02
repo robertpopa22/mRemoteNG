@@ -1,0 +1,28 @@
+{
+  "sha": "a921eef2ef1c21da952a42e935a2df740d67ac2a",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: verify the SQL sentinel by its contents",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a921eef2ef1c21da952a42e935a2df740d67ac2a",
+  "date": "2026-08-10T02:59:31Z",
+  "tier": "Q",
+  "score": 8,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 4,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

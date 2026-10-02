@@ -1,0 +1,21 @@
+{
+  "sha": "b4affea30a10a6c904f4f3fbf4b9821d68959ad2",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Chore: Update CHANGELOG for MSI single package authoring",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4affea30a10a6c904f4f3fbf4b9821d68959ad2",
+  "date": "2026-09-10T19:45:17Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

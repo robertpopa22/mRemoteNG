@@ -1,0 +1,21 @@
+{
+  "sha": "95f621308b5afe3d59675a5721fc186c663fca40",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: validate the ports in the port-range PortScanner constructor too",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/95f621308b5afe3d59675a5721fc186c663fca40",
+  "date": "2026-08-08T00:05:16Z",
+  "tier": "B",
+  "score": 6,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "present",
+  "note": "the same PortScanner constructor already validates the port list"
+}

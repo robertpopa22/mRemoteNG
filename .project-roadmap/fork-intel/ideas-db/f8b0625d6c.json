@@ -1,0 +1,23 @@
+{
+  "sha": "f8b0625d6cc0a34d6c4240c1adbb1d45652e867d",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Update regex to filter GitHub links more accurately",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f8b0625d6cc0a34d6c4240c1adbb1d45652e867d",
+  "date": "2026-03-17T18:44:48Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

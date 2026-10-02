@@ -1,0 +1,21 @@
+{
+  "sha": "9db6e8b09be0d332ba383b5d3489649ccd577b06",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: put the port scan IP range on one line and tighten the layout",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9db6e8b09be0d332ba383b5d3489649ccd577b06",
+  "date": "2026-08-07T05:40:21Z",
+  "tier": "B",
+  "score": 6,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

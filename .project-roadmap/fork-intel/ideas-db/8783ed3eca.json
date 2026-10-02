@@ -1,0 +1,21 @@
+{
+  "sha": "8783ed3ecaefbd72e7007ddbc4daef9d2aa44a85",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Change terminal re-initialization guard to Debug log level",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8783ed3ecaefbd72e7007ddbc4daef9d2aa44a85",
+  "date": "2025-11-06T16:39:54Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

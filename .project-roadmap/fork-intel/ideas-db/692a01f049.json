@@ -1,0 +1,23 @@
+{
+  "sha": "692a01f049612fe55bc1fa04902869819b5f3f0f",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: fix Terminal protocol command injection (#3335)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/692a01f049612fe55bc1fa04902869819b5f3f0f",
+  "date": "2026-08-07T01:42:11Z",
+  "tier": "Q",
+  "score": 13,
+  "why": "security review required (critical)",
+  "action": "IMPORT",
+  "value": 5,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "process-exec"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

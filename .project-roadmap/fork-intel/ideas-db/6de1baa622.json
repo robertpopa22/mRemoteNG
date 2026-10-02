@@ -1,0 +1,21 @@
+{
+  "sha": "6de1baa62201788a72a1688a1cf7f4f5f7929bc7",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "修正：拼写错误srtWorkingDirectory修正为strWorkingDirectory",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6de1baa62201788a72a1688a1cf7f4f5f7929bc7",
+  "date": "2025-01-25T13:47:50Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

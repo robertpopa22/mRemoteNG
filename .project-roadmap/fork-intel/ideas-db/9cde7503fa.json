@@ -1,0 +1,21 @@
+{
+  "sha": "9cde7503fa9d5ddd99e60a52a217bc53687b1628",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Refactor else statement to simplify sound playback",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9cde7503fa9d5ddd99e60a52a217bc53687b1628",
+  "date": "2026-09-22T10:29:12Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

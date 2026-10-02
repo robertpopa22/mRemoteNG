@@ -1,0 +1,21 @@
+{
+  "sha": "e4c7944632bfc7e22400599c59739462da6a081e",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "input.cs UI细节调整",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e4c7944632bfc7e22400599c59739462da6a081e",
+  "date": "2025-08-17T06:59:25Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

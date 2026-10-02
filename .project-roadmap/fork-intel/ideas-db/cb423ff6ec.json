@@ -1,0 +1,21 @@
+{
+  "sha": "cb423ff6ecf8949d2dd730cacba61f55b082c6ba",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: stop backup recovery misreporting a key it cannot unwrap (#35)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cb423ff6ecf8949d2dd730cacba61f55b082c6ba",
+  "date": "2026-08-14T10:28:31Z",
+  "tier": "B",
+  "score": 0,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "per-file connection key is not in this tree"
+}

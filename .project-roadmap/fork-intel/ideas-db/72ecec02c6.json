@@ -1,0 +1,23 @@
+{
+  "sha": "72ecec02c6b27e1a3eb2cc47d1969bb5c7a1d216",
+  "kind": "fork",
+  "fork": "YuLiangLin/mRemoteNG",
+  "subject": "feat(session): make sessions focused and portable",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/72ecec02c6b27e1a3eb2cc47d1969bb5c7a1d216",
+  "date": "2026-07-28T06:09:06Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

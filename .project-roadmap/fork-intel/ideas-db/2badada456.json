@@ -1,0 +1,28 @@
+{
+  "sha": "2badada456c8210e3b741fbc0da221edb5986f97",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: portable edition, runtime edition detection, and the §8 verification findings (#38)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2badada456c8210e3b741fbc0da221edb5986f97",
+  "date": "2026-08-14T10:46:49Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (critical)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "build-script",
+    "security-code",
+    "security-code",
+    "dependency-manifest",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

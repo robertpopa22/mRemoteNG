@@ -1,0 +1,21 @@
+{
+  "sha": "cbd1a802cc13dba8879c4f5f0f371fed8b825099",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Clarify dark-theme heuristic: rename doc to brightness and extract threshold constant",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cbd1a802cc13dba8879c4f5f0f371fed8b825099",
+  "date": "2026-07-05T12:27:57Z",
+  "tier": "D",
+  "score": 3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

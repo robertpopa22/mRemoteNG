@@ -1,0 +1,21 @@
+{
+  "sha": "c295c52083efd67015f31ba85bc497df2b684b45",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "test: run the WinForms tests on a real message loop with a reliable timeout",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c295c52083efd67015f31ba85bc497df2b684b45",
+  "date": "2026-08-06T00:40:36Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

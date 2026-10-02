@@ -1,0 +1,21 @@
+{
+  "sha": "e7e798799513674ec37d5bfc7fc283feb2dc87b6",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(sftp): record section 7 verification results",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e7e798799513674ec37d5bfc7fc283feb2dc87b6",
+  "date": "2026-08-09T01:24:49Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

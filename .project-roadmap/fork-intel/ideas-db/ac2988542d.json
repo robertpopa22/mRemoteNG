@@ -1,0 +1,21 @@
+{
+  "sha": "ac2988542d71b171123115b9518323bca87a4638",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: use a provider-specific table lookup instead of matching either column",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ac2988542d71b171123115b9518323bca87a4638",
+  "date": "2026-09-21T16:06:30Z",
+  "tier": "B",
+  "score": 8,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 5,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": 165,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

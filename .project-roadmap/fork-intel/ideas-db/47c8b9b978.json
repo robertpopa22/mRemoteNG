@@ -1,0 +1,21 @@
+{
+  "sha": "47c8b9b97817123179118e2b401e1486c61ddb2a",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "perf: async bounded-parallel port scan that stays responsive and cancels",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/47c8b9b97817123179118e2b401e1486c61ddb2a",
+  "date": "2026-08-07T05:20:19Z",
+  "tier": "C",
+  "score": 4,
+  "why": "keep an eye on it",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

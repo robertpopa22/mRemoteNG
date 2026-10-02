@@ -1,0 +1,21 @@
+{
+  "sha": "3c2fd1770ab8b9c2ee1ece2bb5dd6ad255f3bc09",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: drop the trailing comma from the port scan open/closed port columns",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3c2fd1770ab8b9c2ee1ece2bb5dd6ad255f3bc09",
+  "date": "2026-08-07T08:49:47Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "present",
+  "note": "ScanHost already joins port names with string.Join"
+}

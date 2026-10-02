@@ -1,0 +1,23 @@
+{
+  "sha": "2eefaf10a75409bd65389dafe99bb0e6b11d9c83",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: stop the task dialog clipping its own content, and its buttons splitting",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2eefaf10a75409bd65389dafe99bb0e6b11d9c83",
+  "date": "2026-08-10T13:17:11Z",
+  "tier": "Q",
+  "score": 6,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

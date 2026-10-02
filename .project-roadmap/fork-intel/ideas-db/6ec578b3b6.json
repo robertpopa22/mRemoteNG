@@ -1,0 +1,23 @@
+{
+  "sha": "6ec578b3b6e2d668fc042c8eda3d5c3c98788165",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "added 32 and 64 bit build configs",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6ec578b3b6e2d668fc042c8eda3d5c3c98788165",
+  "date": "2020-06-08T08:24:23Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "ca42b787e80fd2d75879966f7aaf8af66e9f3038",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Native SSH: put the cursor in the terminal when it opens",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ca42b787e80fd2d75879966f7aaf8af66e9f3038",
+  "date": "2026-08-15T17:40:20Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

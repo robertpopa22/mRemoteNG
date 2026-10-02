@@ -1,0 +1,30 @@
+{
+  "sha": "4cded1cc376680b686a5fd219c982e16920e7fd4",
+  "kind": "fork",
+  "fork": "yosale2011/mRemoteNG",
+  "subject": "Add master password feature with startup unlock, hint, and settings migration",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4cded1cc376680b686a5fd219c982e16920e7fd4",
+  "date": "2026-07-03T19:58:29Z",
+  "tier": "Q",
+  "score": -1,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 5,
+  "maps_to_issue": 128,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

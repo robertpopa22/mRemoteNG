@@ -1,0 +1,21 @@
+{
+  "sha": "d49f440d5279c765b6c0412628a22170f98da961",
+  "kind": "fork",
+  "fork": "nickbeentjes/mRemoteNG",
+  "subject": "Add orchestrator engine + rich notifications panel; drop Telegram",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d49f440d5279c765b6c0412628a22170f98da961",
+  "date": "2026-04-23T04:04:49Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

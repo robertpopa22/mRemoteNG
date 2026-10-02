@@ -1,0 +1,21 @@
+{
+  "sha": "4550ec45192913ec441e414eb70dd71cc09afa18",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "test: note why the call-site guards need an in-repo build",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4550ec45192913ec441e414eb70dd71cc09afa18",
+  "date": "2026-08-10T05:41:50Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

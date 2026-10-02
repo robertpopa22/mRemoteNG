@@ -1,0 +1,21 @@
+{
+  "sha": "5293862e1066e03c86909fccf7d33bdf478f433c",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: make port scan parallelism configurable from the UI",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5293862e1066e03c86909fccf7d33bdf478f433c",
+  "date": "2026-08-07T05:58:02Z",
+  "tier": "B",
+  "score": 3,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

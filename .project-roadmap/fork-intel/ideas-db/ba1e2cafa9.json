@@ -1,0 +1,29 @@
+{
+  "sha": "ba1e2cafa9de2a96be8167ad331fa6882cfb5730",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(ssh): enable agent authentication by default and offer hardware keys",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ba1e2cafa9de2a96be8167ad331fa6882cfb5730",
+  "date": "2026-08-08T11:31:01Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

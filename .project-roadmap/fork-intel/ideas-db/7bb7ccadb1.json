@@ -1,0 +1,24 @@
+{
+  "sha": "7bb7ccadb196a730373d544121c6238f6064c9f9",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "updates and small fixes for UI in options page",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7bb7ccadb196a730373d544121c6238f6064c9f9",
+  "date": "2026-09-15T21:27:36Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "installer"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

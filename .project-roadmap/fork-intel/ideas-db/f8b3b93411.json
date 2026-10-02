@@ -1,0 +1,21 @@
+{
+  "sha": "f8b3b934116f748df84a075f36a9f07d55cb228b",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Anchor the RDP control to the panel instead of assigning its size",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f8b3b934116f748df84a075f36a9f07d55cb228b",
+  "date": "2026-08-15T09:23:30Z",
+  "tier": "B",
+  "score": 2,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

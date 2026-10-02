@@ -1,0 +1,21 @@
+{
+  "sha": "cee638bbd21cc817481f9be689391944481ce37a",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): record manual verification for connection save durability (#13)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cee638bbd21cc817481f9be689391944481ce37a",
+  "date": "2026-08-10T10:42:47Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

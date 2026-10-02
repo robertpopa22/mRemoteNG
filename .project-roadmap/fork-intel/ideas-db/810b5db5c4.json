@@ -1,0 +1,21 @@
+{
+  "sha": "810b5db5c43bb8089f4fb67e02d796f79f27b364",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Refactor limit calculation for reveal limits",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/810b5db5c43bb8089f4fb67e02d796f79f27b364",
+  "date": "2026-09-09T20:19:31Z",
+  "tier": "B",
+  "score": 0,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "tree reveal animation is not in this tree"
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "5402b3a89235fd28d2458bb583985bf6b0df6f90",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Document this fork's purpose and changes in README",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5402b3a89235fd28d2458bb583985bf6b0df6f90",
+  "date": "2026-06-12T12:09:52Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

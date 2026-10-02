@@ -1,0 +1,21 @@
+{
+  "sha": "da48bf817e021a3fb9aa42e446b45c4fce76b27e",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "去除一些调试日志输出",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/da48bf817e021a3fb9aa42e446b45c4fce76b27e",
+  "date": "2026-02-07T08:51:27Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

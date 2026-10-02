@@ -1,0 +1,27 @@
+{
+  "sha": "bb4341499481dcd7d68540a3d0ad11cb3c08db7b",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: let a shared connection file unlock for everyone, and offer a rekey that actually revokes (#43)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bb4341499481dcd7d68540a3d0ad11cb3c08db7b",
+  "date": "2026-08-15T04:28:50Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 4,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

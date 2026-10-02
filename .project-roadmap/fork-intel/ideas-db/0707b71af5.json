@@ -1,0 +1,23 @@
+{
+  "sha": "0707b71af5eddbb73d7abf6fbafd26ea6daafaa1",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Add passive RDP monitor mode",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0707b71af5eddbb73d7abf6fbafd26ea6daafaa1",
+  "date": "2026-05-15T18:52:49Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "641d7e8d1e40fca96bf332e399fa4c2a9a560252",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "test(ssh_dotnet): key-auth matrix with runtime-generated keys (Phase 8)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/641d7e8d1e40fca96bf332e399fa4c2a9a560252",
+  "date": "2026-06-21T18:01:19Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

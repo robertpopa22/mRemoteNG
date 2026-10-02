@@ -1,0 +1,25 @@
+{
+  "sha": "ce94b0a5b040991f8988f9ff287a6925b12a8dc6",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "prefix warnings and small fixes",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ce94b0a5b040991f8988f9ff287a6925b12a8dc6",
+  "date": "2026-09-10T20:47:02Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (critical)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "process-exec",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

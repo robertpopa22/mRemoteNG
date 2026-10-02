@@ -1,0 +1,23 @@
+{
+  "sha": "5bdd5ae40cae4322216eff8b95c94b67e74c22f8",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: refuse a SQL database newer than this build",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5bdd5ae40cae4322216eff8b95c94b67e74c22f8",
+  "date": "2026-08-10T03:07:30Z",
+  "tier": "Q",
+  "score": 7,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

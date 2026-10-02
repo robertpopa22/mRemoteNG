@@ -1,0 +1,21 @@
+{
+  "sha": "268520fbb41afed4e087b2bd4fa1de023d30f97f",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): use monotonic clock for elapsed-time (S6561)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/268520fbb41afed4e087b2bd4fa1de023d30f97f",
+  "date": "2026-06-21T15:54:44Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

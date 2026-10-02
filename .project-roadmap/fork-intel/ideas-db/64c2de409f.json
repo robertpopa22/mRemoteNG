@@ -1,0 +1,21 @@
+{
+  "sha": "64c2de409f13f2a48456aa3d950ddbbad6c876f5",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Commit passive RDP auto-scroll position like manual scrollbar movement",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/64c2de409f13f2a48456aa3d950ddbbad6c876f5",
+  "date": "2026-05-16T22:31:42Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "91b1ba820cc38aff7283964ff37b1e731004039e",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): pin connection bar post-mstscax + add after-move/thread diagnostics",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/91b1ba820cc38aff7283964ff37b1e731004039e",
+  "date": "2026-06-16T16:07:42Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

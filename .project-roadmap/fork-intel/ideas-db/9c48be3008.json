@@ -1,0 +1,23 @@
+{
+  "sha": "9c48be30086691de64e7a4d2a29c3cb241e45f87",
+  "kind": "fork",
+  "fork": "Ahmed-ElHamidy/mRemoteNG",
+  "subject": "bump minor version and build number up",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9c48be30086691de64e7a4d2a29c3cb241e45f87",
+  "date": "2026-01-23T10:40:46Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

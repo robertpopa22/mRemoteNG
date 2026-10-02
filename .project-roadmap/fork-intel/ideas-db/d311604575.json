@@ -1,0 +1,21 @@
+{
+  "sha": "d31160457510532d4738616434392682be89f2eb",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Remove SSH_DotNet specific username/password fields and use generic credentials",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d31160457510532d4738616434392682be89f2eb",
+  "date": "2025-11-06T16:14:50Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

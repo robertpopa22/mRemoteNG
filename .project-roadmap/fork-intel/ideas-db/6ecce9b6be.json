@@ -1,0 +1,21 @@
+{
+  "sha": "6ecce9b6becc1bc5f81b8190157996e009ae292f",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix(notifications): render the message text on startup messages",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6ecce9b6becc1bc5f81b8190157996e009ae292f",
+  "date": "2026-08-08T13:33:01Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

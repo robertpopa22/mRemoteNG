@@ -1,0 +1,21 @@
+{
+  "sha": "8ca850223b5c5079d47890f0945022590be3d9ad",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "NGTextBox还原更改（修复搜索无响应），增加搜索结果数量提示，部分空值异常修复",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8ca850223b5c5079d47890f0945022590be3d9ad",
+  "date": "2026-02-07T14:17:30Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

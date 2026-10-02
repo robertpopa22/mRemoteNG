@@ -1,0 +1,23 @@
+{
+  "sha": "fc51c5978156146be09a9b86cc5ce1f8c7a5c4c6",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "manually added cefsharp dependencies back to project",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fc51c5978156146be09a9b86cc5ce1f8c7a5c4c6",
+  "date": "2020-06-11T20:45:59Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

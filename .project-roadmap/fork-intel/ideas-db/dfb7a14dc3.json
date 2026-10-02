@@ -1,0 +1,21 @@
+{
+  "sha": "dfb7a14dc3be62e9c7ced9f6645ffcac88d85912",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Turkish translation file update",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/dfb7a14dc3be62e9c7ced9f6645ffcac88d85912",
+  "date": "2026-03-26T13:03:48Z",
+  "tier": "B",
+  "score": 8,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

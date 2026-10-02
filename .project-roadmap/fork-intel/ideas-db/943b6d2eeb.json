@@ -1,0 +1,21 @@
+{
+  "sha": "943b6d2eebc4f3d370dcde31e72c981551285a50",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "自动更新设置弹框代码优化",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/943b6d2eebc4f3d370dcde31e72c981551285a50",
+  "date": "2025-08-24T09:54:06Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

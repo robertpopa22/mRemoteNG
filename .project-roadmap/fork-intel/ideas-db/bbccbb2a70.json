@@ -1,0 +1,21 @@
+{
+  "sha": "bbccbb2a701beae624f50f63acf7310cf5770af6",
+  "kind": "fork",
+  "fork": "julesbobb/mRemoteNG",
+  "subject": "Refactor Enter key multi-connection open logic to reduce cognitive load.",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bbccbb2a701beae624f50f63acf7310cf5770af6",
+  "date": "2026-04-06T09:53:52Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

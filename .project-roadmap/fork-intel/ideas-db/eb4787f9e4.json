@@ -1,0 +1,21 @@
+{
+  "sha": "eb4787f9e4bf591713f4341c6fa21dece2b024d3",
+  "kind": "fork",
+  "fork": "Zarlengo/mRemoteNG",
+  "subject": "Add additional unlock methods",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eb4787f9e4bf591713f4341c6fa21dece2b024d3",
+  "date": "2026-02-24T21:26:56Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

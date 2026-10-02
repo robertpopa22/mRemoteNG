@@ -1,0 +1,23 @@
+{
+  "sha": "3c03a6d9f1d7d097d2761c21a50ff41f3c1fa368",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: dispose RSA provider when rejecting a weak Passwordstate key",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3c03a6d9f1d7d097d2761c21a50ff41f3c1fa368",
+  "date": "2026-09-20T13:24:57Z",
+  "tier": "Q",
+  "score": 4,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

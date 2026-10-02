@@ -1,0 +1,21 @@
+{
+  "sha": "2a9e7da749cfef954df523be9cb503f365bd218b",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Document PowerShell fallback for RDP signing",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2a9e7da749cfef954df523be9cb503f365bd218b",
+  "date": "2026-08-03T16:08:07Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

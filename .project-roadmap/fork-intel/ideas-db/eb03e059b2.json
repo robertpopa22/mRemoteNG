@@ -1,0 +1,21 @@
+{
+  "sha": "eb03e059b2ecc1a1b00dc70056b70cdb348a2195",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Add configurable interface font (Options > Appearance)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/eb03e059b2ecc1a1b00dc70056b70cdb348a2195",
+  "date": "2026-06-11T21:29:34Z",
+  "tier": "B",
+  "score": 9,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 4,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

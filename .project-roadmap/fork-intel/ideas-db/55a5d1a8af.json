@@ -1,0 +1,21 @@
+{
+  "sha": "55a5d1a8af2f4b3386281b22471f26803f57f134",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "increased width of about screen",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/55a5d1a8af2f4b3386281b22471f26803f57f134",
+  "date": "2020-05-25T20:12:34Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

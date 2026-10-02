@@ -1,0 +1,21 @@
+{
+  "sha": "5dbc11d851a0b96dbcd1188f5680fe9c393cefcf",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): connection bar mover v2 (geometry-based) + enlarge new menu item",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5dbc11d851a0b96dbcd1188f5680fe9c393cefcf",
+  "date": "2026-06-16T14:55:27Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

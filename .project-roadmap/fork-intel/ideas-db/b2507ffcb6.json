@@ -1,0 +1,21 @@
+{
+  "sha": "b2507ffcb6eb6a841d1cc4b62362bf9530955ab2",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): introduce ISshClientAdapter seam for testability",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b2507ffcb6eb6a841d1cc4b62362bf9530955ab2",
+  "date": "2026-06-21T16:42:09Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

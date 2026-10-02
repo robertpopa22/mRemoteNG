@@ -1,0 +1,21 @@
+{
+  "sha": "0bff034d49b5021c6650200112a6027e39e60076",
+  "kind": "fork",
+  "fork": "VantIer/mRemoteNG",
+  "subject": "added button for import from rdm (#887)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0bff034d49b5021c6650200112a6027e39e60076",
+  "date": "2021-12-09T10:16:00Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

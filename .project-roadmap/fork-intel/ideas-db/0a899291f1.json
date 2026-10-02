@@ -1,0 +1,27 @@
+{
+  "sha": "0a899291f1691cbc7695960b7bc480bea31811df",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): archive fix-ssh-credential-diagnostics (#12)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0a899291f1691cbc7695960b7bc480bea31811df",
+  "date": "2026-08-10T10:42:35Z",
+  "tier": "Q",
+  "score": 7,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

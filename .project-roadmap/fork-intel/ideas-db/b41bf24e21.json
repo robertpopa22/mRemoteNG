@@ -1,0 +1,21 @@
+{
+  "sha": "b41bf24e218064c3ce7804a2cf11aecb1c187680",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Make \"Fit to panel\" actually follow the panel for RDP",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b41bf24e218064c3ce7804a2cf11aecb1c187680",
+  "date": "2026-08-15T07:52:08Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

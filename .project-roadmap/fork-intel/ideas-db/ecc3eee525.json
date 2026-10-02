@@ -1,0 +1,21 @@
+{
+  "sha": "ecc3eee525d4b29b6302745e6787b2280bc343ed",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add changelog entry for dark native title bar (#2642)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ecc3eee525d4b29b6302745e6787b2280bc343ed",
+  "date": "2026-07-02T14:56:43Z",
+  "tier": "C",
+  "score": 4,
+  "why": "keep an eye on it",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

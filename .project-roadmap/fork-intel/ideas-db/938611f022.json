@@ -1,0 +1,21 @@
+{
+  "sha": "938611f02255a6e9bbe40fe59bffd8b588c85dd2",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: close a PuTTY tab in one step, without PuTTY's own prompt",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/938611f02255a6e9bbe40fe59bffd8b588c85dd2",
+  "date": "2026-08-06T01:25:35Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

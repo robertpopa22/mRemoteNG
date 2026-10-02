@@ -1,0 +1,21 @@
+{
+  "sha": "43ccda0675e2509b9bd04f410a0d95ad96064c06",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "some fixes",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/43ccda0675e2509b9bd04f410a0d95ad96064c06",
+  "date": "2026-04-14T16:20:24Z",
+  "tier": "B",
+  "score": -1,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

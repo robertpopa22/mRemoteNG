@@ -1,0 +1,32 @@
+{
+  "sha": "613fd6712566cb98d92e372681a47d9e485637bb",
+  "kind": "fork",
+  "fork": "eran132/mRemoteNG",
+  "subject": "test: add end-to-end harness for embedded SFTP browser and xterm.js terminal",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/613fd6712566cb98d92e372681a47d9e485637bb",
+  "date": "2026-05-20T14:16:12Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "security-code",
+    "security-code",
+    "opaque-file",
+    "security-code",
+    "security-code",
+    "network-download",
+    "process-exec",
+    "ci-config",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

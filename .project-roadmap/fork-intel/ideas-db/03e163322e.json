@@ -1,0 +1,21 @@
+{
+  "sha": "03e163322e3c4b6101401436585bcf42ac746a3e",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "优化：重命名节点名称时，使用正则表达式提取IP信息并设为主机名",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/03e163322e3c4b6101401436585bcf42ac746a3e",
+  "date": "2025-01-24T16:32:41Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "15ebcd18dfe01d45045f27b9aab7cc54427f8d28",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): make the three manual checks a checklist (#60)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/15ebcd18dfe01d45045f27b9aab7cc54427f8d28",
+  "date": "2026-09-14T00:06:52Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

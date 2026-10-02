@@ -1,0 +1,21 @@
+{
+  "sha": "553b50c018e48a16909bf2106c4c95ab21630dc3",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "AI code review issues: SQL deserialization issues; and frame border paint issues",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/553b50c018e48a16909bf2106c4c95ab21630dc3",
+  "date": "2026-03-27T08:52:38Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "d68681e512011a19b6c4c938c7907ce850a5204d",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Declare OptionsStore settings interface",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d68681e512011a19b6c4c938c7907ce850a5204d",
+  "date": "2026-08-03T10:46:06Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

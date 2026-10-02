@@ -1,0 +1,21 @@
+{
+  "sha": "647d1dd6301a65ef58214ba2898c536df10f1c6e",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "fix: keep the splash screen up until the main window is shown",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/647d1dd6301a65ef58214ba2898c536df10f1c6e",
+  "date": "2026-08-14T12:27:45Z",
+  "tier": "C",
+  "score": 3,
+  "why": "keep an eye on it",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

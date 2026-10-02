@@ -1,0 +1,21 @@
+{
+  "sha": "b1baa8910846e37ccb8bbfaca648e0925babeed9",
+  "kind": "fork",
+  "fork": "azet/mRemoteNG",
+  "subject": "Fixed incorrect menu showed on left click",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b1baa8910846e37ccb8bbfaca648e0925babeed9",
+  "date": "2019-02-18T23:45:12Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

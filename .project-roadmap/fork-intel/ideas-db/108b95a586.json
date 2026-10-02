@@ -1,0 +1,21 @@
+{
+  "sha": "108b95a586e5197d94123762c21e04f7d25049f2",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): make FormatBytes static (S2325)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/108b95a586e5197d94123762c21e04f7d25049f2",
+  "date": "2026-06-21T17:04:06Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

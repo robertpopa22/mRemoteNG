@@ -1,0 +1,21 @@
+{
+  "sha": "3ca395ed8b6d02d6fd0b80b3a91685f3e5bfa21d",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): narrow fatal-path Connect catches to ArgumentException (S2221)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3ca395ed8b6d02d6fd0b80b3a91685f3e5bfa21d",
+  "date": "2026-06-21T17:31:39Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

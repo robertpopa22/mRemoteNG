@@ -1,0 +1,21 @@
+{
+  "sha": "cf1709b6d2fca51367fde330c5ea2b8c41732979",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Completely refactored Resizing logic and fixed broken functionality; default to SmartSize",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/cf1709b6d2fca51367fde330c5ea2b8c41732979",
+  "date": "2026-03-27T08:21:46Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 5,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

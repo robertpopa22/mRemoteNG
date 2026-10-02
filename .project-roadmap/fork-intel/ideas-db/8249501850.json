@@ -1,0 +1,23 @@
+{
+  "sha": "8249501850a795fdb6bb9c8e241f424db76b9f58",
+  "kind": "fork",
+  "fork": "YuLiangLin/mRemoteNG",
+  "subject": "Make Release-page publishing start the build",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8249501850a795fdb6bb9c8e241f424db76b9f58",
+  "date": "2026-07-28T01:02:52Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,25 @@
+{
+  "sha": "d105cb9e8896586b26b265ae163941485a6aee88",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "大量调整：mRemoteNG.exe反编译修改的所有内容同步至源码",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d105cb9e8896586b26b265ae163941485a6aee88",
+  "date": "2025-08-17T14:40:00Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "opaque-file",
+    "opaque-file",
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

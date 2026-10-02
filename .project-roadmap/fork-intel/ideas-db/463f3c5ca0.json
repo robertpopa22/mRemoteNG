@@ -1,0 +1,24 @@
+{
+  "sha": "463f3c5ca07a58099e5077ae4024dfdc31862d7e",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "修复缺失的资源，现可正常编译并打开设置页面",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/463f3c5ca07a58099e5077ae4024dfdc31862d7e",
+  "date": "2024-12-24T09:19:38Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

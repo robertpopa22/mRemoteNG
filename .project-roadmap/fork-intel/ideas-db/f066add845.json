@@ -1,0 +1,21 @@
+{
+  "sha": "f066add8452cb4221010dffa8a7aa0174277290d",
+  "kind": "fork",
+  "fork": "lthobois/mRemoteNG",
+  "subject": "Enhance notification message handling and add new settings for RDP gateway access token and start program",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f066add8452cb4221010dffa8a7aa0174277290d",
+  "date": "2026-03-13T21:20:27Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,27 @@
+{
+  "sha": "e279b752e1bf8569180266d8d2aa75f31ce8d51d",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "chore: resolve nullable warnings in the Security namespace",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e279b752e1bf8569180266d8d2aa75f31ce8d51d",
+  "date": "2026-05-20T14:51:12Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

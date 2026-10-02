@@ -1,0 +1,23 @@
+{
+  "sha": "405520de0000f5c056b55d7b1fcee1b89f59a521",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "feat: integrate native mstsc mode with current upstream",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/405520de0000f5c056b55d7b1fcee1b89f59a521",
+  "date": "2026-08-03T09:32:24Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

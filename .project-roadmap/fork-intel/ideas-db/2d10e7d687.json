@@ -1,0 +1,21 @@
+{
+  "sha": "2d10e7d6872053db2ef8e303dbba634aaaeff934",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add LINQ using directive",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2d10e7d6872053db2ef8e303dbba634aaaeff934",
+  "date": "2026-09-19T12:37:16Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

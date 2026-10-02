@@ -1,0 +1,21 @@
+{
+  "sha": "45b5de6f958f0260673631c3d43c4dfa1c287cb1",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Route native RDP signing through diagnostics-enabled signer",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/45b5de6f958f0260673631c3d43c4dfa1c287cb1",
+  "date": "2026-08-03T15:32:50Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

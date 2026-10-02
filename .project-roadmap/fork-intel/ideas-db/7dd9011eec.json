@@ -1,0 +1,21 @@
+{
+  "sha": "7dd9011eec0bb331b14d2f4d5ba4b1535247d665",
+  "kind": "fork",
+  "fork": "Ahmed-ElHamidy/mRemoteNG",
+  "subject": "Enhance Prot_Event_Closed with exception handling",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7dd9011eec0bb331b14d2f4d5ba4b1535247d665",
+  "date": "2025-12-31T15:06:51Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": 142,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

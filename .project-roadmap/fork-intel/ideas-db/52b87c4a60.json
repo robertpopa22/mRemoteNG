@@ -1,0 +1,21 @@
+{
+  "sha": "52b87c4a60b803e03f85659369b174e3c54cd06e",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "快速连接地址框的字体适当缩小，以便控件在缩放场景下能够完整展示。",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/52b87c4a60b803e03f85659369b174e3c54cd06e",
+  "date": "2026-02-09T12:22:22Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

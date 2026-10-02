@@ -1,0 +1,21 @@
+{
+  "sha": "59518d6685fb8836a3e9fe753936b1813e9ea693",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: offer the SFTP file manager for native SSH connections (#19)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/59518d6685fb8836a3e9fe753936b1813e9ea693",
+  "date": "2026-08-11T02:50:33Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "d46e07d6aad354c072fb9221adc53b4a9f01f553",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Update diagnostics for managed RDP signing",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d46e07d6aad354c072fb9221adc53b4a9f01f553",
+  "date": "2026-08-03T16:56:46Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

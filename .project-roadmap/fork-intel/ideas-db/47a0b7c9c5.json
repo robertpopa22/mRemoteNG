@@ -1,0 +1,21 @@
+{
+  "sha": "47a0b7c9c5cbdda6c5079da353d827139d16c623",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Revert \"Re-run the resize when the panel moved again while it was applied\"",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/47a0b7c9c5cbdda6c5079da353d827139d16c623",
+  "date": "2026-08-15T09:03:23Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": 177,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

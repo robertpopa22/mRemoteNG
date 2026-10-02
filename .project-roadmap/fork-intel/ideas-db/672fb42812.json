@@ -1,0 +1,23 @@
+{
+  "sha": "672fb42812ab090808bae64f53b43389e278109d",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "chore: rerun native RDP validation after branch restore",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/672fb42812ab090808bae64f53b43389e278109d",
+  "date": "2026-08-03T09:49:16Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

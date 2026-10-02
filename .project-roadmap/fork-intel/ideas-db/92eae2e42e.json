@@ -1,0 +1,21 @@
+{
+  "sha": "92eae2e42e1f2805bced75e4d80829ec0f2f47e7",
+  "kind": "fork",
+  "fork": "Zarlengo/mRemoteNG",
+  "subject": "Fix errors",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/92eae2e42e1f2805bced75e4d80829ec0f2f47e7",
+  "date": "2026-02-27T19:44:50Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

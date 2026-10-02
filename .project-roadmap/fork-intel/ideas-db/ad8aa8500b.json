@@ -1,0 +1,21 @@
+{
+  "sha": "ad8aa8500be164b820972a8ab2ca4106191260e7",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Restore passive RDP scroll after DockPanel tab activation",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ad8aa8500be164b820972a8ab2ca4106191260e7",
+  "date": "2026-05-16T22:48:52Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

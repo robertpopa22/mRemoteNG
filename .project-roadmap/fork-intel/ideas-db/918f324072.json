@@ -1,0 +1,21 @@
+{
+  "sha": "918f3240721c03e0a8a7dc1506ae01410b53e51c",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fix: throw InvalidOperationException instead of bare Exception",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/918f3240721c03e0a8a7dc1506ae01410b53e51c",
+  "date": "2026-09-21T11:54:45Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": 165,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

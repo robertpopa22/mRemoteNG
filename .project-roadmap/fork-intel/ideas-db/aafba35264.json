@@ -1,0 +1,21 @@
+{
+  "sha": "aafba35264c02b216e6a8598be0e4780c84abec7",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add changelog entry for splash screen crash fix (#3367)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/aafba35264c02b216e6a8598be0e4780c84abec7",
+  "date": "2026-07-02T14:53:49Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "4b276d68c2b3030ef3d4a0335691b7c4b04ebb56",
+  "kind": "fork",
+  "fork": "YuLiangLin/mRemoteNG",
+  "subject": "fix(rdp): restore Linux clipboard sync",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4b276d68c2b3030ef3d4a0335691b7c4b04ebb56",
+  "date": "2026-07-27T15:07:23Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 0,
+  "effort": 0,
+  "risk": 0,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

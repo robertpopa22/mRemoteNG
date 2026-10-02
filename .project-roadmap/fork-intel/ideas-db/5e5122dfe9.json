@@ -1,0 +1,23 @@
+{
+  "sha": "5e5122dfe900359b84b840aee5a302d509abdce6",
+  "kind": "fork",
+  "fork": "VantIer/mRemoteNG",
+  "subject": "added custom action for .net 6 check",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5e5122dfe900359b84b840aee5a302d509abdce6",
+  "date": "2021-12-09T21:17:34Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "installer"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

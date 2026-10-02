@@ -1,0 +1,23 @@
+{
+  "sha": "84212eb05a69cde844e37a909f3b8fa776cf042b",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "added download handler",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/84212eb05a69cde844e37a909f3b8fa776cf042b",
+  "date": "2020-05-22T18:31:14Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

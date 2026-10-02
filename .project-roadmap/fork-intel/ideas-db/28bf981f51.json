@@ -1,0 +1,21 @@
+{
+  "sha": "28bf981f51c298af9932caf4dc4d0cae7956d2b0",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "fix: never let refocusing the connection change the foreground window",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/28bf981f51c298af9932caf4dc4d0cae7956d2b0",
+  "date": "2026-08-14T14:29:48Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

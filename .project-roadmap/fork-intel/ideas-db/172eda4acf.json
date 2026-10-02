@@ -1,0 +1,21 @@
+{
+  "sha": "172eda4acfce3e5f09eb99f7c52969c34f933e60",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "搜索结果数量提示优化",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/172eda4acfce3e5f09eb99f7c52969c34f933e60",
+  "date": "2026-02-07T15:26:19Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

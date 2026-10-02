@@ -1,0 +1,21 @@
+{
+  "sha": "2014fe697654617b4d98a41144260ece865e8b31",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(sftp): delete a directory with its contents, through the queue",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2014fe697654617b4d98a41144260ece865e8b31",
+  "date": "2026-08-09T04:16:46Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 5,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

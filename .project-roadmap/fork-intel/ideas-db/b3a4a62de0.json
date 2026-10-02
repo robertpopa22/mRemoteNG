@@ -1,0 +1,24 @@
+{
+  "sha": "b3a4a62de097af39dc8491a1816a163c2430a9ee",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: pin the credential file to the classic format",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b3a4a62de097af39dc8491a1816a163c2430a9ee",
+  "date": "2026-08-10T05:03:41Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

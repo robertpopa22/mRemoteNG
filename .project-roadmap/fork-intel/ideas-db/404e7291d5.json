@@ -1,0 +1,21 @@
+{
+  "sha": "404e7291d589796fae4332a40cae13b166dd3e7e",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Fix native RDP launch when signing fails",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/404e7291d589796fae4332a40cae13b166dd3e7e",
+  "date": "2026-08-03T14:01:08Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "NativeRdpLauncher is not in this tree"
+}

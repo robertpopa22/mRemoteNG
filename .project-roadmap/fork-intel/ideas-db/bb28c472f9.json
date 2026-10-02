@@ -1,0 +1,21 @@
+{
+  "sha": "bb28c472f9dc5803abd248775dbdea234eb3ce92",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Test managed RDP file signing",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bb28c472f9dc5803abd248775dbdea234eb3ce92",
+  "date": "2026-08-03T16:55:15Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

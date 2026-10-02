@@ -1,0 +1,21 @@
+{
+  "sha": "2a693c85c2525ff21e0f35968f9a0745dc612022",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "Added SSH Tunnel via SSH_DotNet",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2a693c85c2525ff21e0f35968f9a0745dc612022",
+  "date": "2026-03-07T11:30:27Z",
+  "tier": "B",
+  "score": -2,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "SSH.NET tunnel protocol is not in this tree"
+}

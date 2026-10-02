@@ -1,0 +1,26 @@
+{
+  "sha": "d762ef4de265f09ebba6c1ad0f4e4d5f66540524",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "log4net版本更新至2.0.17",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d762ef4de265f09ebba6c1ad0f4e4d5f66540524",
+  "date": "2025-08-21T12:50:47Z",
+  "tier": "D",
+  "score": -2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

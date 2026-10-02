@@ -1,0 +1,21 @@
+{
+  "sha": "715d3401a88c1e2fe0785dc0ea3d02ef332ac279",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "frmTaskDialog界面参数微调",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/715d3401a88c1e2fe0785dc0ea3d02ef332ac279",
+  "date": "2025-08-17T06:18:42Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "2cc389174231d83d3c1146aa117d832f1eeadcc0",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: tidy (#8)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2cc389174231d83d3c1146aa117d832f1eeadcc0",
+  "date": "2026-08-09T09:31:11Z",
+  "tier": "D",
+  "score": 3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

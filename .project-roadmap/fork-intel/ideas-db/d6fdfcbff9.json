@@ -1,0 +1,21 @@
+{
+  "sha": "d6fdfcbff92310f3f958c8cfae85e0afed44270a",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): connection bar mover v3 (recursive child search + file diagnostics)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d6fdfcbff92310f3f958c8cfae85e0afed44270a",
+  "date": "2026-06-16T15:16:09Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

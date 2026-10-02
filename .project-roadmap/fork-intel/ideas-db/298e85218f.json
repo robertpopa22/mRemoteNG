@@ -1,0 +1,27 @@
+{
+  "sha": "298e85218f06c87fdfd09e53da6bcfb71a2cbae4",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(ssh): route ProtocolOpenSSH through the credential resolver",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/298e85218f06c87fdfd09e53da6bcfb71a2cbae4",
+  "date": "2026-08-08T07:31:49Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

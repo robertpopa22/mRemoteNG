@@ -1,0 +1,23 @@
+{
+  "sha": "c36a1c1028a10331624f782f59a08cbe099bc7a8",
+  "kind": "fork",
+  "fork": "CancanTang/mRemoteNG",
+  "subject": "Retarget to .NET 11",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c36a1c1028a10331624f782f59a08cbe099bc7a8",
+  "date": "2026-03-19T05:35:22Z",
+  "tier": "Q",
+  "score": -3,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 2,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

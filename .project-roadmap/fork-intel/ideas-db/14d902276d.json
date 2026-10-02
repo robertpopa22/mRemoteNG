@@ -1,0 +1,21 @@
+{
+  "sha": "14d902276de0cfbe18409d5908b52776ca15a17e",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Update ExternalConnectors/DSS/SecretServerInterface.cs",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/14d902276de0cfbe18409d5908b52776ca15a17e",
+  "date": "2026-09-16T20:01:58Z",
+  "tier": "B",
+  "score": 8,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 4,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

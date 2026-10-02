@@ -1,0 +1,21 @@
+{
+  "sha": "4c28bd0a89c1870df29bd5dc01ad1bc2689d4ba8",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "test(ssh_dotnet): add Dispose + CreateAdapter unit tests (no fakes)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4c28bd0a89c1870df29bd5dc01ad1bc2689d4ba8",
+  "date": "2026-06-21T17:21:36Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

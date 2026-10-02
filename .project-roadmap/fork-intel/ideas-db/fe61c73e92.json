@@ -1,0 +1,21 @@
+{
+  "sha": "fe61c73e92c2abe48c7158a94f5b1b2e1aa2566a",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "feat(rdp): move RDP connection bar to top-right in fullscreen",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fe61c73e92c2abe48c7158a94f5b1b2e1aa2566a",
+  "date": "2026-06-16T14:06:16Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

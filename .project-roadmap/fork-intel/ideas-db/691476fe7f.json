@@ -1,0 +1,21 @@
+{
+  "sha": "691476fe7fede603caf1ce1dd0249c0f17507901",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Fix connection tree jumping to a random \"...Research\" connection",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/691476fe7fede603caf1ce1dd0249c0f17507901",
+  "date": "2026-06-12T12:39:35Z",
+  "tier": "A",
+  "score": 13,
+  "why": "ready to cherry-pick",
+  "action": "IMPORT",
+  "value": 4,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "pre-approved",
+  "suggested_status": "imported",
+  "status": "imported",
+  "note": ""
+}

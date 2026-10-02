@@ -1,0 +1,27 @@
+{
+  "sha": "fcd265e96346c913dbaba60986a006d3c4dc7838",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "security: key a hardened connection file on itself rather than on mR3m (#32)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fcd265e96346c913dbaba60986a006d3c4dc7838",
+  "date": "2026-08-12T12:00:37Z",
+  "tier": "Q",
+  "score": -2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

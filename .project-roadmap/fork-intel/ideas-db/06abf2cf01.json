@@ -1,0 +1,21 @@
+{
+  "sha": "06abf2cf01d7361af4b54af00fd0821d6e0009e6",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Revert \"Fix RDP mouse capture after fullscreen leave and fine tune scroll edge\"",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/06abf2cf01d7361af4b54af00fd0821d6e0009e6",
+  "date": "2026-05-16T18:38:23Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

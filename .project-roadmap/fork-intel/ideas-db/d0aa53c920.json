@@ -1,0 +1,26 @@
+{
+  "sha": "d0aa53c92035162e52ea1aff7bd71d3f6568124d",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat(ssh): authenticate SSH.NET transfers from the resolved credential",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d0aa53c92035162e52ea1aff7bd71d3f6568124d",
+  "date": "2026-08-08T11:09:19Z",
+  "tier": "Q",
+  "score": 0,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 3,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "836c979e908c6d57b675ab3090973c0e960d9997",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "针对RadminConnect外部工具进行特殊集成处理，现在可在mRemoteNG内部窗口显示Radmin了",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/836c979e908c6d57b675ab3090973c0e960d9997",
+  "date": "2025-12-01T03:11:20Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

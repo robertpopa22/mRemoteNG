@@ -1,0 +1,27 @@
+{
+  "sha": "2c1b08114d737158fd981add1db384b59b99ce4a",
+  "kind": "fork",
+  "fork": "Morgadoo/mRemoteNG",
+  "subject": "feat(phase-1+2): Settings migration, DI wiring, PuTTY providers, Credential/PortScanner dialogs",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c1b08114d737158fd981add1db384b59b99ce4a",
+  "date": "2026-03-10T13:52:25Z",
+  "tier": "Q",
+  "score": -5,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": 137,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

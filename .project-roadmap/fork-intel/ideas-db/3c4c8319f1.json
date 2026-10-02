@@ -1,0 +1,21 @@
+{
+  "sha": "3c4c8319f1c01ae29bf961e6c04466172708cc24",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "fix: refocus the active connection on keyboard activation",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/3c4c8319f1c01ae29bf961e6c04466172708cc24",
+  "date": "2026-08-14T11:03:53Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

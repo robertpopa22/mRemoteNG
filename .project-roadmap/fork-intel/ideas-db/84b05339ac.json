@@ -1,0 +1,21 @@
+{
+  "sha": "84b05339ac965c97d48990460163df4e9762b3fa",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "docs: add HANDOFF.md with passive RDP v4 roadmap and diagnosis",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/84b05339ac965c97d48990460163df4e9762b3fa",
+  "date": "2026-06-16T13:38:09Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

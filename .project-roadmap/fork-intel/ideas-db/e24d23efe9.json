@@ -1,0 +1,21 @@
+{
+  "sha": "e24d23efe9f31bd2b4eff8037a61a7e99d647c22",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix dark title bar requiring two restarts to apply",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e24d23efe9f31bd2b4eff8037a61a7e99d647c22",
+  "date": "2026-07-06T07:25:24Z",
+  "tier": "B",
+  "score": 6,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

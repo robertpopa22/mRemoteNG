@@ -1,0 +1,21 @@
+{
+  "sha": "08353d4655b784ed048d5633d9656dd029db6d8f",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Anchor Options dialog OK/Cancel/Apply buttons to the right",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/08353d4655b784ed048d5633d9656dd029db6d8f",
+  "date": "2026-07-02T14:34:36Z",
+  "tier": "B",
+  "score": 10,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": 198,
+  "security_flag_ids": [],
+  "preapproval": "pre-approved",
+  "suggested_status": "new",
+  "status": "imported",
+  "note": "anchored OK, Cancel, and Apply Top|Right in our designer"
+}

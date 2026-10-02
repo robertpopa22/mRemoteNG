@@ -1,0 +1,23 @@
+{
+  "sha": "b4f2405d8d566372b374e886d61b72d953e1b5d6",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix: build only main project to avoid test restore error",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b4f2405d8d566372b374e886d61b72d953e1b5d6",
+  "date": "2026-05-16T01:14:56Z",
+  "tier": "D",
+  "score": 2,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

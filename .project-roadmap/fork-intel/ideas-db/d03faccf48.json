@@ -1,0 +1,21 @@
+{
+  "sha": "d03faccf484ed801f9c324f0fb17e7aa3510aa4f",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "fix(rdp): resolve ambiguous Message reference in ConnectionBarPinner (build fix)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d03faccf484ed801f9c324f0fb17e7aa3510aa4f",
+  "date": "2026-06-16T15:48:46Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

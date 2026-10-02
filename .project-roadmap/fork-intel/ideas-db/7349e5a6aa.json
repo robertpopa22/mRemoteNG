@@ -1,0 +1,21 @@
+{
+  "sha": "7349e5a6aa3b85440a6f934e5269555c476fbb04",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Fix main window stuck behind other windows after startup",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7349e5a6aa3b85440a6f934e5269555c476fbb04",
+  "date": "2026-06-11T21:23:26Z",
+  "tier": "A",
+  "score": 13,
+  "why": "ready to cherry-pick",
+  "action": "IMPORT",
+  "value": 4,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "rejected",
+  "note": "manual-review; the panel rejected it; do not cherry-pick"
+}

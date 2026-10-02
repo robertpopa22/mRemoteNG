@@ -1,0 +1,21 @@
+{
+  "sha": "c73b0530977fe428d8b96a8c566d667bb5035a51",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "test: assert the reflection lookups and drop the stray nullable annotation",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c73b0530977fe428d8b96a8c566d667bb5035a51",
+  "date": "2026-08-06T00:33:48Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

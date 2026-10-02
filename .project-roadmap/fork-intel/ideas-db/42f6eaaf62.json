@@ -1,0 +1,21 @@
+{
+  "sha": "42f6eaaf62bcc6cd83538304a1c0b8184eb50f6c",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: give the notification panel one ordering point across threads (#11)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/42f6eaaf62bcc6cd83538304a1c0b8184eb50f6c",
+  "date": "2026-08-10T10:15:47Z",
+  "tier": "C",
+  "score": 4,
+  "why": "keep an eye on it",
+  "action": "IMPORT",
+  "value": 3,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "1fba339843b891009c1cb85702338dfdd4f1d092",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): dispose per-connection CancellationTokenSource (S2930)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1fba339843b891009c1cb85702338dfdd4f1d092",
+  "date": "2026-06-21T16:31:23Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

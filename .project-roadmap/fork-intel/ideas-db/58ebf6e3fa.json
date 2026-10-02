@@ -1,0 +1,26 @@
+{
+  "sha": "58ebf6e3faf513390fbcdbfb1dd033651dd00475",
+  "kind": "fork",
+  "fork": "vindict6/mRemoteNG",
+  "subject": "Read and write machine-bound connection files",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/58ebf6e3faf513390fbcdbfb1dd033651dd00475",
+  "date": "2026-07-15T23:54:42Z",
+  "tier": "Q",
+  "score": 4,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 4,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": 128,
+  "security_flag_ids": [
+    "security-code",
+    "security-code",
+    "security-code",
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

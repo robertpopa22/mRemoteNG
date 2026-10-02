@@ -1,0 +1,21 @@
+{
+  "sha": "ff3ed60e8807fb80b95c7227ee1cf59862127484",
+  "kind": "fork",
+  "fork": "nickbeentjes/mRemoteNG",
+  "subject": "Disable auto-update + fix Claude API key setup",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ff3ed60e8807fb80b95c7227ee1cf59862127484",
+  "date": "2026-04-23T03:39:53Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

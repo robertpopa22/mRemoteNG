@@ -1,0 +1,21 @@
+{
+  "sha": "a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Fix ambiguous WinForms Message reference",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a3241cac85258c371bdc3ce97a7a0d94d76af1f1",
+  "date": "2026-05-15T22:00:10Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

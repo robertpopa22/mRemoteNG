@@ -1,0 +1,21 @@
+{
+  "sha": "08de05d7314dc42af1aa8fbf65130b059c1af5c1",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: update claude to be less restrictive on commits",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/08de05d7314dc42af1aa8fbf65130b059c1af5c1",
+  "date": "2026-08-09T02:58:28Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 0,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

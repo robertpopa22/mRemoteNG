@@ -1,0 +1,21 @@
+{
+  "sha": "a9f463c540eef91e033bff7b4fcbeb9d6598e842",
+  "kind": "fork",
+  "fork": "VantIer/mRemoteNG",
+  "subject": "removed resize events of main form",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a9f463c540eef91e033bff7b4fcbeb9d6598e842",
+  "date": "2021-12-01T19:09:58Z",
+  "tier": "D",
+  "score": -8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

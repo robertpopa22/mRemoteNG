@@ -304,7 +304,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // lblBacupPageShowInOptionsMenu
             // 
             lblBacupPageShowInOptionsMenu.AutoSize = true;
-            lblBacupPageShowInOptionsMenu.BackColor = System.Drawing.Color.Salmon;
             lblBacupPageShowInOptionsMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             lblBacupPageShowInOptionsMenu.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             lblBacupPageShowInOptionsMenu.Location = new System.Drawing.Point(100, 0);
@@ -318,7 +317,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // pnlShowForUser
             // 
-            pnlShowForUser.BackColor = System.Drawing.Color.Salmon;
             pnlShowForUser.Controls.Add(cbBacupPageInOptionMenu);
             pnlShowForUser.Dock = System.Windows.Forms.DockStyle.Fill;
             pnlShowForUser.Location = new System.Drawing.Point(271, 0);
@@ -342,7 +340,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // lblACL
             // 
             lblACL.AutoSize = true;
-            lblACL.BackColor = System.Drawing.Color.Salmon;
             lblACL.Dock = System.Windows.Forms.DockStyle.Fill;
             lblACL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             lblACL.Location = new System.Drawing.Point(0, 0);
@@ -356,7 +353,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // plBackupEnable
             // 
-            plBackupEnable.BackColor = System.Drawing.Color.Salmon;
             plBackupEnable.Controls.Add(cbBackupEnableACL);
             plBackupEnable.Location = new System.Drawing.Point(0, 27);
             plBackupEnable.Margin = new System.Windows.Forms.Padding(0);
@@ -367,7 +363,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // cbBackupEnableACL
             // 
-            cbBackupEnableACL.BackColor = System.Drawing.Color.Salmon;
             cbBackupEnableACL.Cursor = System.Windows.Forms.Cursors.Hand;
             cbBackupEnableACL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cbBackupEnableACL.FormattingEnabled = true;
@@ -380,7 +375,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // plBackupType
             // 
-            plBackupType.BackColor = System.Drawing.Color.Salmon;
             plBackupType.Controls.Add(cbBackupTypeACL);
             plBackupType.Location = new System.Drawing.Point(0, 57);
             plBackupType.Margin = new System.Windows.Forms.Padding(0);
@@ -403,7 +397,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // plBackupFrequency
             // 
-            plBackupFrequency.BackColor = System.Drawing.Color.Salmon;
             plBackupFrequency.Controls.Add(cbBackupFrequencyACL);
             plBackupFrequency.Location = new System.Drawing.Point(0, 87);
             plBackupFrequency.Margin = new System.Windows.Forms.Padding(0);
@@ -426,7 +419,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // plBackupNumber
             // 
-            plBackupNumber.BackColor = System.Drawing.Color.Salmon;
             plBackupNumber.Controls.Add(cbBackupNumberACL);
             plBackupNumber.Location = new System.Drawing.Point(0, 117);
             plBackupNumber.Margin = new System.Windows.Forms.Padding(0);
@@ -449,7 +441,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // plBackupNameFormat
             // 
-            plBackupNameFormat.BackColor = System.Drawing.Color.Salmon;
             plBackupNameFormat.Controls.Add(cbBackupNameFormatACL);
             plBackupNameFormat.Location = new System.Drawing.Point(0, 147);
             plBackupNameFormat.Margin = new System.Windows.Forms.Padding(0);
@@ -472,7 +463,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // plBackupLocation
             // 
-            plBackupLocation.BackColor = System.Drawing.Color.Salmon;
             plBackupLocation.Controls.Add(cbBackupLocationACL);
             plBackupLocation.Location = new System.Drawing.Point(0, 177);
             plBackupLocation.Margin = new System.Windows.Forms.Padding(0);
@@ -536,7 +526,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Salmon;
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             panel1.Location = new System.Drawing.Point(494, 0);
             panel1.Margin = new System.Windows.Forms.Padding(0);

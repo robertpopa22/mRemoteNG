@@ -1,0 +1,26 @@
+{
+  "sha": "8e4cc69437baa09673de475b581af5d1e2b81c85",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore(deps): drop redundant direct ZstdSharp.Port references",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8e4cc69437baa09673de475b581af5d1e2b81c85",
+  "date": "2026-08-05T11:25:11Z",
+  "tier": "Q",
+  "score": 2,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 1,
+  "effort": 1,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

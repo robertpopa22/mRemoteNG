@@ -1,0 +1,25 @@
+{
+  "sha": "f9259873b4e8ac98f58c255319c82d26355fc17e",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "fixing tests",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f9259873b4e8ac98f58c255319c82d26355fc17e",
+  "date": "2026-03-06T12:05:47Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (high)",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

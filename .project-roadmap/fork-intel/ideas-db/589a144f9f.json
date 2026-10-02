@@ -1,0 +1,25 @@
+{
+  "sha": "589a144f9fc5c81549febbb82b24b1fc4bccc713",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "removed and re-added COnsoleControle and MySQL.Data nuget packages in hopes to fix appveyor reference error",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/589a144f9fc5c81549febbb82b24b1fc4bccc713",
+  "date": "2020-05-24T21:47:03Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "opaque-file",
+    "dependency-manifest",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

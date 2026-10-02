@@ -1,0 +1,21 @@
+{
+  "sha": "90aa5e8c05dcf7e0c85429a9312def4ca6456279",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: double the default width of the port scan Hostname column (130 -> 260)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/90aa5e8c05dcf7e0c85429a9312def4ca6456279",
+  "date": "2026-08-07T06:02:00Z",
+  "tier": "B",
+  "score": 7,
+  "why": "worth doing, needs work",
+  "action": "IMPORT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "present",
+  "note": "clmHostName.Width is already 260"
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "51eadbb85eb92b7944a2afa60749f45c7ba458c7",
+  "kind": "fork",
+  "fork": "Hovn/mRemoteNG",
+  "subject": "多选删除提示语（暂未使用）",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/51eadbb85eb92b7944a2afa60749f45c7ba458c7",
+  "date": "2025-08-21T12:46:46Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

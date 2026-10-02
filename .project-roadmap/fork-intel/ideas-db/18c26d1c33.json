@@ -1,0 +1,25 @@
+{
+  "sha": "18c26d1c33690db02d80f1d7919d5b6acdfae902",
+  "kind": "fork",
+  "fork": "hthvdmeer/mRemoteNG",
+  "subject": "now uses mariadb and shared user-config",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/18c26d1c33690db02d80f1d7919d5b6acdfae902",
+  "date": "2026-04-21T13:50:13Z",
+  "tier": "D",
+  "score": -11,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 5,
+  "maps_to_issue": 145,
+  "security_flag_ids": [
+    "opaque-file",
+    "build-script",
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

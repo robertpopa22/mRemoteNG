@@ -1,0 +1,23 @@
+{
+  "sha": "7c4c9d891f81a8d2fbae959ed4c5cc010cf94363",
+  "kind": "fork",
+  "fork": "lthobois/mRemoteNG",
+  "subject": "Refactor RDP protocol initialization and enhance error handling; update launch configurations",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7c4c9d891f81a8d2fbae959ed4c5cc010cf94363",
+  "date": "2026-03-20T19:34:02Z",
+  "tier": "Q",
+  "score": -1,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 3,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

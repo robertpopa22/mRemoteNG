@@ -1,0 +1,21 @@
+{
+  "sha": "2c2e19d4cf397defb7575f27074bab37f9de5e75",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs: scale build/test verification to the change",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2c2e19d4cf397defb7575f27074bab37f9de5e75",
+  "date": "2026-08-07T05:32:45Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

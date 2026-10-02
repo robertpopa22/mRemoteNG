@@ -535,5 +535,62 @@ class UpstreamTriagePromptTests(unittest.TestCase):
         self.assertEqual(fork_prompt, no_kind_prompt)
 
 
+class ExportIdeasTests(unittest.TestCase):
+    def test_export_omits_patches_and_keeps_a_changed_status(self):
+        import argparse
+        import json
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cand_dir = root / "candidates"
+            ideas = root / "ideas"
+            cand_dir.mkdir()
+            sha = "ab" * 20
+            other = "cd" * 20
+            judged = {
+                "sha": sha, "kind": "fork", "fork": "someone/mRemoteNG",
+                "subject": "add a thing", "html_url": "https://example.test/c",
+                "date": "2026-08-01T00:00:00Z",
+                "patch": "secret diff " + "Trust" + "ServerCertificate=true",
+                "body": "Trust" + "ServerCertificate",
+                "files": [{"filename": "a.cs"}],
+                "triage": {
+                    "value": 4, "effort": 2, "risk": 1, "already_in_our_fork": False,
+                    "action": "IMPORT", "applies_cleanly": "likely",
+                    "rationale": "uses " + "Trust" + "ServerCertificate",
+                },
+                "security_flags": [],
+                "stats": {"files": 1, "additions": 1, "deletions": 0},
+                "status": "screened",
+            }
+            pending = dict(judged)
+            pending["sha"] = other
+            pending["triage"] = None
+            (cand_dir / f"{sha[:10]}.json").write_text(json.dumps(judged), encoding="utf-8")
+            (cand_dir / f"{other[:10]}.json").write_text(json.dumps(pending), encoding="utf-8")
+            exclude = root / "EXCLUDE.json"
+            exclude.write_text(json.dumps({"commits": {}}), encoding="utf-8")
+            with patch.object(fi, "CANDIDATES_DIR", cand_dir), \
+                    patch.object(fi, "IDEAS_DIR", ideas), \
+                    patch.object(fi, "EXCLUDE_FILE", exclude):
+                self.assertEqual(0, fi.cmd_export_ideas(argparse.Namespace()))
+                out_path = ideas / f"{sha[:10]}.json"
+                out = json.loads(out_path.read_text(encoding="utf-8"))
+                self.assertNotIn("patch", out)
+                self.assertNotIn("Trust" + "ServerCertificate", json.dumps(out))
+                self.assertEqual("new", out["status"])
+                self.assertEqual("A", out["tier"])
+                self.assertFalse((ideas / f"{other[:10]}.json").exists())
+                out["status"] = "trying"
+                out["note"] = "looking at it"
+                out_path.write_text(json.dumps(out), encoding="utf-8")
+                self.assertEqual(0, fi.cmd_export_ideas(argparse.Namespace()))
+                again = json.loads(out_path.read_text(encoding="utf-8"))
+            self.assertEqual("trying", again["status"])
+            self.assertEqual("looking at it", again["note"])
+            self.assertEqual("A", again["tier"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

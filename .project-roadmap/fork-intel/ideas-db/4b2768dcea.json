@@ -1,0 +1,21 @@
+{
+  "sha": "4b2768dcea09bbec5dc3f857d37f3163dd2ac0c4",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "fix: claim the foreground for the main window at startup",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4b2768dcea09bbec5dc3f857d37f3163dd2ac0c4",
+  "date": "2026-08-14T12:10:21Z",
+  "tier": "B",
+  "score": 5,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

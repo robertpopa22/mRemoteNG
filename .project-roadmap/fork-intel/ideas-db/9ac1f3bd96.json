@@ -1,0 +1,21 @@
+{
+  "sha": "9ac1f3bd969255c33ede2d3ee81031cdbacc5ace",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix license comment formatting in PortableSettingsProvider",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/9ac1f3bd969255c33ede2d3ee81031cdbacc5ace",
+  "date": "2026-09-23T11:20:22Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "04fbeb5d0e3a7067f07204377c97c54b6597d25a",
+  "kind": "fork",
+  "fork": "stdexception/mRemoteNG",
+  "subject": "added schema for local help files",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/04fbeb5d0e3a7067f07204377c97c54b6597d25a",
+  "date": "2020-05-23T21:25:23Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 5,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

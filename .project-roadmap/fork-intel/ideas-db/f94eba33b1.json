@@ -1,0 +1,21 @@
+{
+  "sha": "f94eba33b165ad51dfec1db5b1a795022a6b94a0",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: port scan accepts full IP in one field and supports IPv6 ranges",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f94eba33b165ad51dfec1db5b1a795022a6b94a0",
+  "date": "2026-08-07T04:15:48Z",
+  "tier": "C",
+  "score": 1,
+  "why": "keep an eye on it",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 3,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

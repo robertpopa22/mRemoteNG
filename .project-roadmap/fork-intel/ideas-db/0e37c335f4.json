@@ -1,0 +1,21 @@
+{
+  "sha": "0e37c335f4b07bd59b4510cfece97f396754d05d",
+  "kind": "fork",
+  "fork": "azet/mRemoteNG",
+  "subject": "add serial connections to factory",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0e37c335f4b07bd59b4510cfece97f396754d05d",
+  "date": "2020-03-11T16:23:14Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,23 @@
+{
+  "sha": "7ea1eded8cd1d73bea965ff47b14040bdd93f742",
+  "kind": "fork",
+  "fork": "julesbobb/mRemoteNG",
+  "subject": "Add setting for opening multiple connections with Enter",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/7ea1eded8cd1d73bea965ff47b14040bdd93f742",
+  "date": "2026-04-06T15:16:32Z",
+  "tier": "D",
+  "score": 8,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 3,
+  "effort": 3,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "dependency-manifest"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

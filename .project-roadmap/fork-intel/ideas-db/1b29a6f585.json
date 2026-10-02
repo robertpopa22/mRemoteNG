@@ -1,0 +1,21 @@
+{
+  "sha": "1b29a6f585a09fde733e5422e2db847ce7fcd81b",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Test PowerShell RDP signing command escaping",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1b29a6f585a09fde733e5422e2db847ce7fcd81b",
+  "date": "2026-08-03T16:07:32Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

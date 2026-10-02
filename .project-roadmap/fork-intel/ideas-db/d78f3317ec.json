@@ -1,0 +1,21 @@
+{
+  "sha": "d78f3317ec089aae42c2bf6c320d7ceba7ae5c0a",
+  "kind": "fork",
+  "fork": "Zarlengo/mRemoteNG",
+  "subject": "Allow item name & handle revoked tokens + logging",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/d78f3317ec089aae42c2bf6c320d7ceba7ae5c0a",
+  "date": "2026-02-26T00:57:17Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

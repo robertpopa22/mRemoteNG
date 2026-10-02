@@ -1,0 +1,21 @@
+{
+  "sha": "c41ad67f2534bb5547318dd5ed1ffc84e42a571a",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "fix: focus the connection when the active tab changes",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/c41ad67f2534bb5547318dd5ed1ffc84e42a571a",
+  "date": "2026-08-14T15:40:06Z",
+  "tier": "D",
+  "score": -7,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

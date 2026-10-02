@@ -1,0 +1,23 @@
+{
+  "sha": "ad85171bf66692535917780b392e4c34a8d7d0c1",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "chore: fix and revalidate native RDP migration",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/ad85171bf66692535917780b392e4c34a8d7d0c1",
+  "date": "2026-08-03T09:34:06Z",
+  "tier": "D",
+  "score": -6,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

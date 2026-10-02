@@ -1,0 +1,23 @@
+{
+  "sha": "731d7a0ad12d317aacec95fb1c79fc7d77012829",
+  "kind": "fork",
+  "fork": "changsongyang/mRemoteNG",
+  "subject": "Rename LICENSE.md to LICENSE.txt",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/731d7a0ad12d317aacec95fb1c79fc7d77012829",
+  "date": "2020-05-24T00:29:18Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "license"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

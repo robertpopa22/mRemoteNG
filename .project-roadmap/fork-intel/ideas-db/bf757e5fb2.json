@@ -1,0 +1,21 @@
+{
+  "sha": "bf757e5fb241e1ae7c3fe927f1995c14ac08b5fb",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "feat(ssh_dotnet): add file-picker (\"...\") editor for the private key file property",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/bf757e5fb241e1ae7c3fe927f1995c14ac08b5fb",
+  "date": "2026-06-21T18:12:53Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

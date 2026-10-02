@@ -1,0 +1,24 @@
+{
+  "sha": "2ceb92c85ace4e6b21f9658d285645bbf7dc1b51",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Fix of embedding puttyng and include signed version",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/2ceb92c85ace4e6b21f9658d285645bbf7dc1b51",
+  "date": "2026-09-04T22:19:41Z",
+  "tier": "Q",
+  "score": 1,
+  "why": "security review required (critical)",
+  "action": "REIMPLEMENT",
+  "value": 3,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": 198,
+  "security_flag_ids": [
+    "binary-artifact",
+    "dependency-manifest"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

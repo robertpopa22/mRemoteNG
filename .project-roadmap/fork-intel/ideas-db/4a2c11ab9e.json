@@ -1,0 +1,21 @@
+{
+  "sha": "4a2c11ab9e5d19a4506df96cf722ed9bd4c08e99",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Add validation for ordered roots in ConnectionTreeModel",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/4a2c11ab9e5d19a4506df96cf722ed9bd4c08e99",
+  "date": "2026-09-19T12:05:34Z",
+  "tier": "B",
+  "score": 3,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "SetRootNodeOrder is not in this tree"
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "6b5c4cfe6e45f37d9c1fa46a46b83170fe4d8fc2",
+  "kind": "fork",
+  "fork": "nickbeentjes/mRemoteNG",
+  "subject": "Fix DockState namespace reference and update build number",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/6b5c4cfe6e45f37d9c1fa46a46b83170fe4d8fc2",
+  "date": "2026-04-23T03:34:27Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

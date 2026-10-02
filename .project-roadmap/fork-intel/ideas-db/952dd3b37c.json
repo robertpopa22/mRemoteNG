@@ -1,0 +1,21 @@
+{
+  "sha": "952dd3b37cb18f9a1c39fabb986d150d7940216a",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Native SSH: verify the host key and support private keys",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/952dd3b37cb18f9a1c39fabb986d150d7940216a",
+  "date": "2026-08-15T17:22:33Z",
+  "tier": "B",
+  "score": 0,
+  "why": "port the idea, the patch will not apply",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "deferred",
+  "note": "ProtocolSshNative is not in this tree"
+}

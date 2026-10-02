@@ -1,0 +1,21 @@
+{
+  "sha": "5b7e2ae0fb3f5527b5ff2df538ca082be09c7054",
+  "kind": "fork",
+  "fork": "raohj1987/mRemoteNG",
+  "subject": "Add translations in other languages",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/5b7e2ae0fb3f5527b5ff2df538ca082be09c7054",
+  "date": "2026-05-14T09:32:27Z",
+  "tier": "D",
+  "score": 1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

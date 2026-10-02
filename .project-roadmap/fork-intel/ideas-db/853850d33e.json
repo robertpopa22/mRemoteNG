@@ -1,0 +1,21 @@
+{
+  "sha": "853850d33e315bcd71b84c2442364e8f1ad43f02",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Adapt native RDP launcher to fork model",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/853850d33e315bcd71b84c2442364e8f1ad43f02",
+  "date": "2026-08-03T10:37:15Z",
+  "tier": "D",
+  "score": -3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

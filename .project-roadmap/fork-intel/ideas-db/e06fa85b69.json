@@ -1,0 +1,24 @@
+{
+  "sha": "e06fa85b6915fbef42656440d71095215b0cfc0e",
+  "kind": "fork",
+  "fork": "guvity/mRemoteNG-passive-rdp",
+  "subject": "Add passive RDP monitor build for mRemoteNG 1.77.2",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/e06fa85b6915fbef42656440d71095215b0cfc0e",
+  "date": "2026-05-15T22:52:49Z",
+  "tier": "D",
+  "score": -4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 2,
+  "effort": 4,
+  "risk": 5,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "build-script"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

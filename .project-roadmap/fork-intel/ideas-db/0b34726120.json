@@ -1,0 +1,21 @@
+{
+  "sha": "0b34726120a9b20270c490df7f9cb53922edc9d9",
+  "kind": "fork",
+  "fork": "Morgadoo/mRemoteNG",
+  "subject": "Add cross-platform portability analysis report for Linux and macOS",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/0b34726120a9b20270c490df7f9cb53922edc9d9",
+  "date": "2026-03-10T12:10:21Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": 137,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

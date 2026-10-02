@@ -1,0 +1,21 @@
+{
+  "sha": "fdc967394a2c1762a168f63f83fb6a5723a485a2",
+  "kind": "fork",
+  "fork": "AlexanderTimofeev/mRemoteNG",
+  "subject": "Revert options store interface change",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/fdc967394a2c1762a168f63f83fb6a5723a485a2",
+  "date": "2026-08-03T10:49:44Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

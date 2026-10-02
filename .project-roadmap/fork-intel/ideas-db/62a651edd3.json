@@ -1,0 +1,21 @@
+{
+  "sha": "62a651edd3b87a94bb6fbf68c231ce5985934981",
+  "kind": "fork",
+  "fork": "MyLabs-LLC/mRemoteNG",
+  "subject": "Update CODEBASE_REVIEW.md with implementation status for all fixes and new features",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/62a651edd3b87a94bb6fbf68c231ce5985934981",
+  "date": "2026-02-13T14:48:57Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

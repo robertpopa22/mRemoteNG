@@ -1,0 +1,21 @@
+{
+  "sha": "08b37384ed26c40d7da7970085e7d4fd2b350399",
+  "kind": "fork",
+  "fork": "joubertdj/mRemoteNG",
+  "subject": "refactor(ssh_dotnet): canonical IDisposable + fix ProtocolBase.Dispose (S3881/S2930)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/08b37384ed26c40d7da7970085e7d4fd2b350399",
+  "date": "2026-06-21T16:35:48Z",
+  "tier": "D",
+  "score": 9,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 4,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

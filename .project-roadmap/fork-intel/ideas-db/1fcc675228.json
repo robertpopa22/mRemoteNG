@@ -1,0 +1,21 @@
+{
+  "sha": "1fcc6752283c79bc4ee17c82129edd8614f2d6b3",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "docs(openspec): record that the classic export opens in upstream",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/1fcc6752283c79bc4ee17c82129edd8614f2d6b3",
+  "date": "2026-08-10T12:01:38Z",
+  "tier": "D",
+  "score": 4,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

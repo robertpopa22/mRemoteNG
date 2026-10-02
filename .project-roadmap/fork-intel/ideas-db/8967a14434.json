@@ -1,0 +1,27 @@
+{
+  "sha": "8967a14434963f67c0a349dfda3db46fabc99e92",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "chore: drop \"Connection Manager\" branding from product identity (#44)",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/8967a14434963f67c0a349dfda3db46fabc99e92",
+  "date": "2026-08-15T00:40:14Z",
+  "tier": "D",
+  "score": -1,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "ci-workflow",
+    "ci-workflow",
+    "ci-workflow",
+    "dependency-manifest",
+    "installer"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

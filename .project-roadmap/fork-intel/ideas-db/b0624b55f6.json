@@ -1,0 +1,21 @@
+{
+  "sha": "b0624b55f6db130d8adbab4f0f0c29687a1da7ff",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix(sftp): enable the File Manager menu item",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/b0624b55f6db130d8adbab4f0f0c29687a1da7ff",
+  "date": "2026-08-09T01:35:38Z",
+  "tier": "D",
+  "score": 0,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 3,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

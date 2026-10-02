@@ -1,0 +1,21 @@
+{
+  "sha": "53451f91f5195273903d0ac51e92ec1ee45e13ab",
+  "kind": "fork",
+  "fork": "lovaszlaszlo/mRemoteNG",
+  "subject": "Default the main window to 90% of the screen",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/53451f91f5195273903d0ac51e92ec1ee45e13ab",
+  "date": "2026-08-15T15:33:40Z",
+  "tier": "B",
+  "score": 7,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 1,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

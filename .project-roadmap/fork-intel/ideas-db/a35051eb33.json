@@ -1,0 +1,23 @@
+{
+  "sha": "a35051eb3377f8cd473c1bfdf399ef18c5695a80",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "feat: ask once before hardening a store, and say what it costs",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/a35051eb3377f8cd473c1bfdf399ef18c5695a80",
+  "date": "2026-08-10T12:11:55Z",
+  "tier": "Q",
+  "score": 0,
+  "why": "security review required (high)",
+  "action": "WATCH",
+  "value": 2,
+  "effort": 4,
+  "risk": 3,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "security-code"
+  ],
+  "preapproval": "manual-review",
+  "suggested_status": "deferred",
+  "status": "deferred",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "050fab1bb358a14d727b4d53a5561704f1632dd9",
+  "kind": "fork",
+  "fork": "jafin/mRemoteNG",
+  "subject": "fix: localize the storage format property grid labels",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/050fab1bb358a14d727b4d53a5561704f1632dd9",
+  "date": "2026-08-10T21:33:39Z",
+  "tier": "D",
+  "score": 3,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 2,
+  "risk": 1,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}

@@ -1,0 +1,21 @@
+{
+  "sha": "46548c8c3e65ee665830fc98e70363240d3c03b1",
+  "kind": "upstream",
+  "fork": "mRemoteNG/mRemoteNG",
+  "subject": "Refactor focus handling in custom button controls",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/46548c8c3e65ee665830fc98e70363240d3c03b1",
+  "date": "2026-04-06T14:35:47Z",
+  "tier": "B",
+  "score": 4,
+  "why": "port the idea, the patch will not apply",
+  "action": "REIMPLEMENT",
+  "value": 2,
+  "effort": 2,
+  "risk": 2,
+  "maps_to_issue": null,
+  "security_flag_ids": [],
+  "preapproval": "manual-review",
+  "suggested_status": "new",
+  "status": "new",
+  "note": ""
+}

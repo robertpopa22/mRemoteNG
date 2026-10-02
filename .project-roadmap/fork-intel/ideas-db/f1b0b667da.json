@@ -1,0 +1,26 @@
+{
+  "sha": "f1b0b667da1d4e827c472d901a953e3dfb1a8de7",
+  "kind": "fork",
+  "fork": "k-meeks/mRemoteNG",
+  "subject": "Remove bundled PuTTYNG, auto-detect official PuTTY instead",
+  "html_url": "https://github.com/mRemoteNG/mRemoteNG/commit/f1b0b667da1d4e827c472d901a953e3dfb1a8de7",
+  "date": "2026-06-12T11:57:26Z",
+  "tier": "D",
+  "score": -5,
+  "why": "already covered or rejected at triage",
+  "action": "REJECT",
+  "value": 1,
+  "effort": 4,
+  "risk": 4,
+  "maps_to_issue": null,
+  "security_flag_ids": [
+    "binary-artifact",
+    "process-exec",
+    "dependency-manifest",
+    "installer"
+  ],
+  "preapproval": null,
+  "suggested_status": "rejected",
+  "status": "rejected",
+  "note": ""
+}
