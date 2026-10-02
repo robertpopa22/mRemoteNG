@@ -36,7 +36,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   Sources: https://github.com/mRemoteNG/mRemoteNG/commit/c4837b6551b9d8fe8ffc9980159905d0442824f3
   https://github.com/mRemoteNG/mRemoteNG/commit/739847ef5a331f124a67e09d20f59c478f54adf0
   https://github.com/mRemoteNG/mRemoteNG/commit/2a900303298b1f4583b2c74ad65373d7c4ab140d
-- [ ] `4d62f0a6e5` — the English automatic-reconnect label says what the control does. One string is adapted. The resource file is not imported wholesale.
+- [x] `4d62f0a6e5` — the English automatic-reconnect label says what the control does. One string is adapted. The resource file is not imported wholesale.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/4d62f0a6e5ccee65625a2ca728414f7a8ff6927e
 - [ ] `d6f4872b8b` — Close is on the panel-tab menu.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/d6f4872b8bd1a73e4f293a78243ed424b7347e3e

@@ -22,10 +22,10 @@
     }
   },
   "status": {
-    "new": 68,
+    "new": 67,
     "trying": 0,
     "imported": 18,
-    "present": 9,
+    "present": 10,
     "rejected": 443,
     "deferred": 114
   },
@@ -129,15 +129,6 @@
       "status": "new",
       "fork": "vindict6/mRemoteNG",
       "subject": "Dark mode: follow the OS, honor the theming setting, dark title bars"
-    },
-    {
-      "sha": "4d62f0a6e5",
-      "kind": "upstream",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "mRemoteNG/mRemoteNG",
-      "subject": "fix: correct CheckboxAutomaticReconnect English value to match its actual usage"
     },
     {
       "sha": "556127ef31",
