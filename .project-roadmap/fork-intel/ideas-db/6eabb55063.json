@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "present",
+  "note": "pnlMain already reserves 116 pixels for the four port-scan setting rows plus the panel margins, and the progress bar follows that row."
 }

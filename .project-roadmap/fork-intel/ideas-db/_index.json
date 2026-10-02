@@ -22,10 +22,10 @@
     }
   },
   "status": {
-    "new": 64,
+    "new": 63,
     "trying": 0,
     "imported": 20,
-    "present": 11,
+    "present": 12,
     "rejected": 443,
     "deferred": 114
   },
@@ -147,15 +147,6 @@
       "status": "new",
       "fork": "lovaszlaszlo/mRemoteNG",
       "subject": "Fix the spin buttons and the crowded backup page"
-    },
-    {
-      "sha": "6eabb55063",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "jafin/mRemoteNG",
-      "subject": "fix: remove the dead space between the timeout row and the progress bar"
     },
     {
       "sha": "6ecce9b6be",
