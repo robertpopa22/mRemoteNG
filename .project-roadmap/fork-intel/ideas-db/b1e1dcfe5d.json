@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "imported",
+  "note": "A PseudoConsoleWindow left by a handed-off console is not docked. The tool keeps running in its own window and the panel is not left empty."
 }

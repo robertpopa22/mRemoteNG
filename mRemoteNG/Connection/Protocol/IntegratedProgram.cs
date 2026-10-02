@@ -133,10 +133,17 @@ namespace mRemoteNG.Connection.Protocol
                 if (_handle == IntPtr.Zero)
                 {
                     Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg,
-                        $"IntegratedProgram: Could not find a window handle for '{_externalTool.DisplayName}' (PID {processId}). " +
-                        "The application may have opened in a separate window.");
+                        BuildNoEmbeddableWindowMessage(_externalTool.DisplayName, processId,
+                            IsCommonShellTool(_externalTool, parsedFileName)));
+
+                    // Nothing to embed. Leave the tool running in its own window. Clearing the
+                    // process first keeps Close from killing it when this returns false.
+                    _process.Exited -= ProcessExited;
+                    _process.Dispose();
+                    _process = null;
+                    return false;
                 }
-                else
+
                 {
                     _ = NativeMethods.GetWindowThreadProcessId(_handle, out uint windowPid);
                     if (windowPid != (uint)_process.Id)
@@ -246,6 +253,23 @@ namespace mRemoteNG.Connection.Protocol
                 TryIntegrate = true,
                 ShowOnToolbar = false
             };
+        }
+
+        internal static string BuildNoEmbeddableWindowMessage(string displayName, int processId, bool isConsoleTool)
+        {
+            string message =
+                $"'{displayName}' (PID {processId}) started, but it has no window that can be docked, " +
+                "so it is running in its own window instead of in a panel.";
+
+            if (isConsoleTool)
+            {
+                message +=
+                    " Console tools hand their window to the Windows default terminal application. When that is " +
+                    "Windows Terminal, the console lives in a separate process that cannot be docked. To dock this tool, " +
+                    "set the default terminal application to Windows Console Host.";
+            }
+
+            return message;
         }
 
         private static bool IsCommonShellTool(ExternalTool externalTool, string parsedFileName)

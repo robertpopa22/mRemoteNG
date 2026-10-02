@@ -220,6 +220,39 @@ public class ExternalProcessProtocolBaseTests
 
     #endregion
 
+    #region Embeddable window
+
+    [Test]
+    public void APlaceholderConsoleClassIsNotDockable()
+    {
+        Assert.That(ExternalProcessProtocolBase.IsDockableWindowClass("PseudoConsoleWindow"), Is.False);
+        Assert.That(ExternalProcessProtocolBase.IsDockableWindowClass("Notepad"), Is.True);
+    }
+
+    [Test]
+    public void AZeroHandleIsNotEmbeddable()
+    {
+        Assert.That(TestProtocol.TestIsEmbeddableWindow(IntPtr.Zero), Is.False);
+    }
+
+    [Test]
+    [Apartment(System.Threading.ApartmentState.STA)]
+    public void AVisibleFormIsEmbeddable()
+    {
+        using var form = new System.Windows.Forms.Form { Text = "embeddable probe" };
+        form.Show();
+        try
+        {
+            Assert.That(TestProtocol.TestIsEmbeddableWindow(form.Handle), Is.True);
+        }
+        finally
+        {
+            form.Close();
+        }
+    }
+
+    #endregion
+
     #region ProcessExited
 
     [Test]
@@ -258,6 +291,8 @@ public class ExternalProcessProtocolBaseTests
 
         public static IntPtr TestFindWindowInDescendantProcesses(int rootPid, int timeoutMs, int maxDepth)
             => FindWindowInDescendantProcesses(rootPid, timeoutMs, maxDepth);
+
+        public static bool TestIsEmbeddableWindow(IntPtr hWnd) => IsEmbeddableWindow(hWnd);
 
         public void SetProcess(Process? process) => _process = process;
         public void SetHandle(IntPtr handle) => _handle = handle;

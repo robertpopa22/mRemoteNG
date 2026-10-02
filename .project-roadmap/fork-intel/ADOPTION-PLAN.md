@@ -62,5 +62,5 @@ One commit per bullet. A bullet that names several commits is one commit and car
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/c535880a14c0395a18dfe24a3c22d4c1853dfe2a
 - [x] `42f6eaaf62` — notification-panel messages keep one order across threads.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/42f6eaaf62bcc6cd83538304a1c0b8184eb50f6c
-- [ ] `b1e1dcfe5d` — handing a console to another process does not leave an empty window.
+- [x] `b1e1dcfe5d` — handing a console to another process does not leave an empty window.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/b1e1dcfe5db54b1acd6d191c57dd3980a38ab3cf

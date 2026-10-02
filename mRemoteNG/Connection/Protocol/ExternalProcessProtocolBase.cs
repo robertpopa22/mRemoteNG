@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Management;
 using System.Runtime.Versioning;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.App;
@@ -27,6 +28,27 @@ namespace mRemoteNG.Connection.Protocol
 
         #region Window Finding
 
+        private const string PseudoConsoleWindowClass = "PseudoConsoleWindow";
+
+        /// <summary>
+        /// A visible top-level window that can be reparented. A console handed to Windows Terminal
+        /// leaves a zero-size PseudoConsoleWindow that reports itself visible.
+        /// </summary>
+        protected static bool IsEmbeddableWindow(IntPtr hWnd)
+        {
+            if (!NativeMethods.IsWindowVisible(hWnd))
+                return false;
+
+            StringBuilder className = new(256);
+            if (NativeMethods.GetClassName(hWnd, className, className.Capacity) <= 0)
+                return true;
+
+            return IsDockableWindowClass(className.ToString());
+        }
+
+        internal static bool IsDockableWindowClass(string className) =>
+            !string.Equals(className, PseudoConsoleWindowClass, StringComparison.Ordinal);
+
         /// <summary>
         /// Polls Process.MainWindowHandle for up to <paramref name="timeoutMs"/> milliseconds.
         /// Works for direct GUI apps (PuTTY, Notepad++, etc.).
@@ -44,7 +66,9 @@ namespace mRemoteNG.Connection.Protocol
                     process.Refresh();
                     if (!string.Equals(process.MainWindowTitle, "Default IME", StringComparison.Ordinal))
                     {
-                        handle = process.MainWindowHandle;
+                        IntPtr mainWindow = process.MainWindowHandle;
+                        if (mainWindow != IntPtr.Zero && IsEmbeddableWindow(mainWindow))
+                            handle = mainWindow;
                     }
                 }
                 catch (InvalidOperationException)
@@ -73,7 +97,7 @@ namespace mRemoteNG.Connection.Protocol
                 NativeMethods.EnumWindows((hWnd, lParam) =>
                 {
                     _ = NativeMethods.GetWindowThreadProcessId(hWnd, out uint windowPid);
-                    if (windowPid == (uint)processId && NativeMethods.IsWindowVisible(hWnd))
+                    if (windowPid == (uint)processId && IsEmbeddableWindow(hWnd))
                     {
                         found = hWnd;
                         return false; // Stop enumeration
@@ -105,7 +129,7 @@ namespace mRemoteNG.Connection.Protocol
                     NativeMethods.EnumWindows((hWnd, lParam) =>
                     {
                         _ = NativeMethods.GetWindowThreadProcessId(hWnd, out uint windowPid);
-                        if (windowPid == (uint)childPid && NativeMethods.IsWindowVisible(hWnd))
+                        if (windowPid == (uint)childPid && IsEmbeddableWindow(hWnd))
                         {
                             found = hWnd;
                             return false;
@@ -139,7 +163,7 @@ namespace mRemoteNG.Connection.Protocol
                     NativeMethods.EnumWindows((hWnd, lParam) =>
                     {
                         _ = NativeMethods.GetWindowThreadProcessId(hWnd, out uint windowPid);
-                        if (windowPid == (uint)descendantPid && NativeMethods.IsWindowVisible(hWnd))
+                        if (windowPid == (uint)descendantPid && IsEmbeddableWindow(hWnd))
                         {
                             found = hWnd;
                             return false;

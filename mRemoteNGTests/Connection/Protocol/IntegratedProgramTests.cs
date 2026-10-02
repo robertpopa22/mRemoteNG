@@ -21,6 +21,26 @@ public class IntegratedProgramTests
     };
 
     [Test]
+    public void NoEmbeddableWindowMessageSaysTheToolIsRunningOutsideAPanel()
+    {
+        string message = IntegratedProgram.BuildNoEmbeddableWindowMessage("notepad", 1234, false);
+
+        Assert.That(message, Does.Contain("notepad"));
+        Assert.That(message, Does.Contain("1234"));
+        Assert.That(message, Does.Contain("its own window"));
+        Assert.That(message, Does.Not.Contain("Windows Console Host"));
+    }
+
+    [Test]
+    public void NoEmbeddableWindowMessageNamesTheDefaultTerminalForConsoleTools()
+    {
+        string message = IntegratedProgram.BuildNoEmbeddableWindowMessage("cmd.exe", 1234, true);
+
+        Assert.That(message, Does.Contain("Windows Terminal"));
+        Assert.That(message, Does.Contain("Windows Console Host"));
+    }
+
+    [Test]
     public void InitializeSucceedsWhenExternalToolExists()
     {
         SetExternalToolList(_extTool);
