@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 66,
+    "new": 65,
     "trying": 0,
-    "imported": 18,
+    "imported": 19,
     "present": 11,
     "rejected": 443,
     "deferred": 114
@@ -255,15 +255,6 @@
       "status": "new",
       "fork": "jafin/mRemoteNG",
       "subject": "feat: single address field and port mode selector for the port scan"
-    },
-    {
-      "sha": "d500a8e9dd",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "Hovn/mRemoteNG",
-      "subject": "CustomConsPath为相对路径时，主窗口标题也能正确显示全路径（上一提交引入）"
     },
     {
       "sha": "4deffb8cf7",

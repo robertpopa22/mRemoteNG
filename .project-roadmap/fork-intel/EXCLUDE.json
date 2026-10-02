@@ -71,6 +71,11 @@
       "decision": "imported",
       "note": "the themed command button draws a focus ring inside its face",
       "at": "2026-10-02T19:20:05Z"
+    },
+    "d500a8e9dda08af453e3e69f3d891e2be4145686": {
+      "decision": "imported",
+      "note": "a relative connections file is shown as its full path in the window title",
+      "at": "2026-10-02T19:26:11Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

@@ -1875,7 +1875,9 @@ namespace mRemoteNG.UI.Forms
                     if (!string.IsNullOrEmpty(Runtime.ConnectionsService.ConnectionFileName))
                     {
                         titleBuilder.Append(separator);
-                        titleBuilder.Append(Properties.OptionsAppearancePage.Default.ShowCompleteConsPathInTitle ? Runtime.ConnectionsService.ConnectionFileName : Path.GetFileName(Runtime.ConnectionsService.ConnectionFileName));
+                        titleBuilder.Append(WindowTitleConnectionsPath.For(
+                            Runtime.ConnectionsService.ConnectionFileName,
+                            Properties.OptionsAppearancePage.Default.ShowCompleteConsPathInTitle));
                     }
                 }
             }
