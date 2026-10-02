@@ -2,7 +2,7 @@
   "number": 2442,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Remove Putty connections from connection list",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Enhancement",
     "Connections",
@@ -160,8 +160,8 @@
   ],
   "comments_cursor": "2026-02-26T13:48:37Z",
   "unread_comments": 13,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "Feature: option to hide PuTTY saved connections from tree. UX toggle, low priority."
 }

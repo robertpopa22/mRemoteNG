@@ -2,7 +2,7 @@
   "number": 192,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=ne...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,9 +10,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-16T09:31:00Z",
-  "github_updated_at": "2026-09-29T09:41:28Z",
+  "github_updated_at": "2026-10-02T06:07:13Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at async void mRemoteNG.Connection.ConnectionInitiator.OpenConnection(ConnectionInfo connectionInfo, Force force, ConnectionWindow conForm) x 2\r\n   at void System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start<TStateMachi...",
-  "our_status": "in-progress",
+  "our_status": "released",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -114,12 +114,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYnCFXA",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:07:03Z",
+      "snippet": "Closing — fixed in v1.84.0.\n\nThe missing `ExternalConnectors.dll` no longer crashes a connection that uses no credential vault. The fallback is in stable v1.84.0. A connection that does need the vault still cannot use it until that assembly is present; the dialog says what is missing. That remainder is the missing file, not an open defect in the fallback.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\nQodo's free open-source plan requires at least 200 stars...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-29T09:41:28Z",
+  "comments_cursor": "2026-10-02T06:07:13Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-29T09:42:16Z",
-  "notes": "September 29 review: Microsoft submission promised September 25 has no receipt. Detection name already supplied. Releases remain unsigned; fallback commit 40f78094c is in v1.84.0. Maintainer action remains open. Approved response published and read back: https://github.com/robertpopa22/mRemoteNG/issues/192#issuecomment-5887659794"
+  "last_synced": "2026-10-02T06:07:21Z",
+  "notes": "2026-10-02: closed, fixed in v1.84.0. A missing ExternalConnectors assembly no longer crashes a connection that uses no vault."
 }

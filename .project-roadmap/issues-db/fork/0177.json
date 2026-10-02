@@ -2,13 +2,13 @@
   "number": 177,
   "repo": "robertpopa22/mRemoteNG",
   "title": "RDP panel does not redraw when the vertical splitter is dragged (shows stale frame)",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "robertpopa22",
   "created_at": "2026-09-03T13:27:40Z",
-  "github_updated_at": "2026-09-29T10:58:40Z",
+  "github_updated_at": "2026-10-02T06:07:10Z",
   "body_snippet": "## Summary\n\nDragging the vertical splitter between the connections tree / property grid and the RDP connection panel does not resize the RDP surface live — the panel shows a stale frame (visually, whatever was behind or underneath the previous frame) instead of the redrawn desktop, until some other event forces a repaint.\n\n## Steps to reproduce\n\n1. Open an RDP connection so its tab is active and docked normally (splitter between the side panels and the connection panel).\n2. Drag the vertical spl...",
-  "our_status": "in-progress",
+  "our_status": "wontfix",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -63,12 +63,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYnCBHw",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:06:58Z",
+      "snippet": "Closing — not reproduced.\n\nThe lab session reached logon and completed four splitter drags, at 600, 760, 840 and 760 pixels. The remote desktop was redrawn after each drag. A persistent stale frame was not on screen in that Fit-to-window run. A transient artifact while the drag is moving was not watched, and no other sizing mode was run.\n\nClosed so it does not sit open without a new fact. A short capture of the direction that stays stale, and the connection's sizing mode, reopens it.\n\nIf this pr...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-29T10:58:40Z",
+  "comments_cursor": "2026-10-02T06:07:10Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-29T11:15:03Z",
-  "notes": "Fresh Windows-target retry connected and reached logon, then the target replaced its session before splitter dragging. The result is NotExecuted, not passed; stale pixels remain unverified. Initial startup timeout was separately diagnosed as a UIA harness problem. Maintain the lab-stability action before requesting another reporter test."
+  "last_synced": "2026-10-02T06:07:21Z",
+  "notes": "2026-10-02: closed, not reproduced. Lab redraw after four drags. Reopen with a capture and the sizing mode."
 }

@@ -1,0 +1,43 @@
+{
+  "number": 3524,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "version 1.77 and 1.78",
+  "state": "open",
+  "labels": [],
+  "author": "wongcc2012",
+  "created_at": "2026-10-01T10:28:32Z",
+  "github_updated_at": "2026-10-01T17:22:24Z",
+  "body_snippet": "I know that 1.77.1 (BETA) maybe a little bit out-dated, however the 1.78 update is quite frequent.\nhow can I export the configuration files and the connection files between different version or during updates?",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABYXegtA",
+      "author": "Kvarkas",
+      "date": "2026-10-01T11:15:46Z",
+      "snippet": "Hello, at the moment 1.78 nb is not expected to be used for work, only for testing and its partialy able to work with existing config of connections but I ask to work carefully as NB could add something what not exist in older format and 1.77 could stop working. I am planing this month to get into stage where will start testing import functionality from older versions so then its will be posible to use saftly",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABYdtwhA",
+      "author": "wongcc2012",
+      "date": "2026-10-01T17:22:24Z",
+      "snippet": "thank you I will stay in v1.77\nhow to export those settings for different machine? with portable and installed version? do you have any suggestion and recommendation?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-01T17:22:24Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-02T05:02:40Z",
+  "notes": ""
+}

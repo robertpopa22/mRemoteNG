@@ -228,18 +228,10 @@ software. Communication must reflect that honestly:
 4. **State the escalation path when asking for another test.** After repeated failures the reporter
    must know the process changes: "if this round fails too, the issue gets human attention rather
    than another automated attempt."
-5. **Follow up after 7 days** on issues in `testing` with no reporter response — one short,
-   polite ping, once. Silence after the ping means the closing policy below applies.
-6. **Closing policy (maintainer decision, v1.83.0 onward): we close what our own verification
-   supports.** An issue whose fix shipped in a stable release and is backed by the three-level
-   verification (unit suite + lab UI battery + live backends where applicable) is closed by us,
-   with a comment that states exactly WHAT was verified, HOW, and what was not — never a bare
-   "fixed". Unreproducible reports with no reporter response are closed as not-planned, stated
-   as bookkeeping rather than a verdict. Every closing comment explicitly invites reopening:
-   a reopened issue with fresh evidence beats an open issue with silence. The one thing that
-   never changes: **never close over an unanswered "still broken"** — an explicit contradiction
-   from the reporter always keeps (or re-makes) the issue open.
-7. **Every public message ends with the star request.** Charter decision D8. After the
+5. **The open list is work in progress.** Charter decision D10. This manual does not restate
+   the four closing words or the seven-day silence. A closing comment still says what was
+   checked, what was not, and that new evidence reopens the issue.
+6. **Every public message ends with the star request.** Charter decision D8. After the
    substance, leave a blank line and append the closer below, in the same language as the
    reply. It is mandatory on GitHub issue comments, PR comments, review replies, release
    descriptions we write, and follow-ups. It does **not** count toward the five-line cap in

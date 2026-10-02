@@ -1,5 +1,7 @@
 # BP-001 — A log that cannot separate a suspicion
 
+**Version:** 1 · **Updated:** 2026-10-02
+
 **Does:** record the incidents that showed which diagnostic fields were missing, and the reusable rule for the next hole of the same kind.
 
 **Does not:** set the policy (that is charter decision D9), name the fields a current build already emits (that is [RUNTIME_DIAGNOSTICS.md](../RUNTIME_DIAGNOSTICS.md)), give commands, or name a maintainer's machines, paths, or logs.

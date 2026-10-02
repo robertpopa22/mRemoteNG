@@ -2,13 +2,13 @@
   "number": 167,
   "repo": "robertpopa22/mRemoteNG",
   "title": "How this fork is maintained: automated pipeline, your testing is the real verification",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "documentation"
   ],
   "author": "robertpopa22",
   "created_at": "2026-08-15T16:15:24Z",
-  "github_updated_at": "2026-09-29T09:41:47Z",
+  "github_updated_at": "2026-10-02T06:07:09Z",
   "body_snippet": "This fork uses automated development and verification, directed by a human maintainer. We also use mRemoteNG daily. That gives us useful evidence, but it cannot reproduce every reporter's network, server, locale or display setup.\n\n## What to expect from a reply\n\n- We address your latest result and keep distinct symptoms separate. \"Improved, but still clipped\" is partial confirmation.\n- We name the checks actually run, what appeared in the UI, their limits, and the exact published build to try. A...",
   "our_status": "wontfix",
   "priority": null,
@@ -27,11 +27,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-09-29T09:41:47Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABYnCGjA",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:07:04Z",
+      "snippet": "Closing — not a defect.\n\nThis issue is the note on how the fork is maintained. It is not a defect, and it has no report to confirm. The statement lives in the repository. Closed so the open list stays the work in progress.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\nQodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organization). Other tools we use ask for more. A star is what ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-02T06:07:09Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-29T09:42:16Z",
-  "notes": "meta/documentation: pinned transparency issue explaining the maintenance model; not a bug, exclude from work queue"
+  "last_synced": "2026-10-02T06:07:21Z",
+  "notes": "2026-10-02: closed, not a defect."
 }

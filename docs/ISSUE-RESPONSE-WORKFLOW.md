@@ -83,12 +83,10 @@ versus OK/Cancel/Apply, needs an explicit proposal and maintainer/user discussio
 change; automated consensus does not answer the request for human participation. Maintain the
 proposal and its rationale locally instead of making the reporter restate evidence in a new issue.
 
-Follow up once after seven days in testing, using the current build and the unresolved symptom.
-Record the ping so the next run does not repeat it. No new ping is due simply because a sync ran.
-Silence is not acceptance. Apply the manual's existing closure policy: shipped stable fix plus
-the required verification, or an explicitly described not-planned administrative closure for an
-unreproduced silent report. Never close over an unanswered "still broken"; invite reopening.
-When a thread contains several symptoms, account for all of them before closing.
+The open list is work in progress. Charter decision D10 is the only close rule: the four words,
+the seven-day silence, and the order that answers a "still broken" before that silence can close
+it. This workflow does not restate the table. A closing comment still names what was checked and
+invites a reopen. When a thread contains several symptoms, account for all of them before closing.
 
 ## Star closer
 

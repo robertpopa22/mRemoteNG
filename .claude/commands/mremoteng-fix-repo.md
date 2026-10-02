@@ -45,12 +45,16 @@ Download any attached screenshot into the process temp directory, outside this c
 
 Before writing a new public reply, read who spoke last:
 
-- **Reply stands.** The latest comment is ours and it either asks for a specific missing detail or names the build that contains the fix. Say so in the session report. Do not post another copy.
-- **New reply this run.** They spoke last, or we never answered. The run ends with a fix or with one reply that asks for the missing detail. Not both a vague status and a second ask.
-- **Ping.** One short follow-up, once, seven days after our ask if they have not answered. A second ping is not a new response.
-- **Not a bug.** A maintainer announcement whose body says it is not a defect is listed and left without a fake bug reply.
+Charter D10. The open list is work in progress. The comment uses one word: `unanswered`, `not reproduced`, `not a defect`, or `fixed`. GitHub's reason is `completed` only for `fixed`. The other three use `not planned`.
 
-The session report is one line per open issue: number, who spoke last, and `reply stands`, `ping`, `fix`, or `new ask`. The run is incomplete while an open issue has none of those.
+- **fixed.** A named build contains the change and the check we can name matches the report. Close it.
+- **unanswered.** We asked for a detail or a retest, that ask is still the latest word, and seven days have passed. Close it. The close comment is the only follow-up. Do not ping and then leave it open.
+- **not reproduced.** We tried, the report did not appear, and no further question would change the next step. Close it.
+- **not a defect.** An announcement, an answered question, or expected behaviour. Close it.
+- **open.** A fix is in progress, or a named remainder is confirmed and not shipped. An explicit "still broken" stays open until we have answered it and that answer has itself been silent for seven days. [BP-005](../../docs/bp/BP-005-premature-close.md).
+- **Reply stands.** The latest comment is already the close, the fix, or an ask younger than seven days. Do not post another copy.
+
+The session report is one line per open issue: number, who spoke last, and one of those words. The run is incomplete while an open issue has none. After the public comment or close, update `.project-roadmap/issues-db/fork/` and commit that database with the documentation. A stale database makes the next run lie.
 
 ### Step 2a: Read the maintainer logs before any intervention
 

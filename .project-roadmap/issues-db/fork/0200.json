@@ -2,7 +2,7 @@
   "number": 200,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.InvalidOperationException: Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn ...",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,9 +10,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-09-28T13:11:05Z",
-  "github_updated_at": "2026-09-29T11:36:50Z",
+  "github_updated_at": "2026-10-02T06:07:15Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidOperationException`\r\n**Message:** Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn das Fensterhandle erstellt wurde.\r\n\r\n### Stack Trace\r\n```\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object[] args, bool synchronous)\r\n   at object System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at void mRemoteNG.UI.Controls.ConnectionTree.ConnectionTree.InvokeRebuild...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": "P2-bug",
   "target_release": "nightly",
   "our_branch": "chore/september-response-catch-up",
@@ -79,12 +79,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYnCIrw",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:07:06Z",
+      "snippet": "Closing — fixed in nightly 20260929.\n\nFile / Open on a disposed Connections pane was raising \"Invoke or BeginInvoke cannot be called on a control until the window handle has been created.\" The pane now drops its service, settings, theme, and synchronizer handlers when it is disposed. Checked here by opening a file on the normal layout and again after the layout was reloaded: the pane was replaced, and that exception was not raised. That check is the built app on our machine. It is not your sessi...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-29T11:36:50Z",
+  "comments_cursor": "2026-10-02T06:07:15Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-29T11:37:34Z",
-  "notes": "Local #200 fix: disposed Connections pane unsubscribes service, settings, theme and synchronizer events. Full suite 7323/7323 passed; normal and reloaded-layout File/Open show replacement-only without the handle exception. See CATCH-UP-PLAN-2026-09-29.md for artifact hash. Code not published and not reporter-confirmed. Approved response published and read back: https://github.com/robertpopa22/mRemoteNG/issues/200#issuecomment-5887651448"
+  "last_synced": "2026-10-02T06:07:21Z",
+  "notes": "2026-10-02: closed, fixed in nightly 20260929. A disposed Connections pane drops its handlers."
 }

@@ -2,16 +2,16 @@
   "number": 182,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Possible memory leak / retained memory after closing RDP sessions",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "needs-human-review"
   ],
   "author": "Buster-de",
   "created_at": "2026-09-09T21:37:57Z",
-  "github_updated_at": "2026-09-30T06:24:12Z",
+  "github_updated_at": "2026-10-02T06:06:57Z",
   "body_snippet": "During testing with `mRemoteNG-nightly-20260909-v1.83.0-00cd029-x64.msi` to validate issue #179, I noticed that opening an RDP connection increases the process's memory usage (active private working set) by roughly 300 MB in my environment.\n\nAfter opening and closing several RDP connections, including closing their tabs and panels, the allocated memory does not appear to be released.\n\nHow to reproduce\n* Open and close several RDP sessions.\n  * I had 8 different concurrent sessions in 3 different...",
-  "our_status": "in-progress",
+  "our_status": "wontfix",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -140,12 +140,39 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYMnfnQ",
+      "author": "Buster-de",
+      "date": "2026-09-30T20:10:04Z",
+      "snippet": "I'll provide another data point. I tested `mRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64.msi` on Windows 11 25H2 (Build 26200.9457). Session 4 and 5 had concurrent RDP connections open, hence higher peak RAM usage. Connections were made to several Windows Servers 2016, 2022, 2025.\n\noutput of measure-rdp-memory.ps1 (latest version, commit 4425a8f from 3 weeks ago):\n> Watching mRemoteNG (PID 9896). Baseline private bytes: 47 MB.\n> Open an RDP session, let the desktop paint, close its tab, wait a ...",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYTjsvw",
+      "author": "vndnua",
+      "date": "2026-10-01T06:36:33Z",
+      "snippet": "> Please add the exact nightly filename/commit, whether “Keep tabs open after disconnect” is enabled, and the complete `[#182] RDP cleanup` lines for two already-measured closes, with identifying data removed. \n\nI repeated the measurements\nWindows 10 21H2 (19044.7725)\nmRemoteNG-nightly-20260929-v1.84.0-b85a4be-x64\n“Keep tabs open after disconnect” is disabled.\n\n```\nWatching mRemoteNG (PID 3508). Baseline private bytes: 101 MB.\nOpen an RDP session, let the desktop paint, close its tab, wait a few...",
+      "is_ours": false,
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYnCAGQ",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:06:57Z",
+      "snippet": "This issue was closed by a commit word on 1 October. That close is not a finding that the retained memory is fixed.\n\nWhat we can say: in our lab a closed RDP session kept about 1 MB of private memory, on the order of the other report of about 4 MB per close, and above the empty mstscax control. We have not reproduced a jump of hundreds of megabytes on the first close. The builds those reports were taken on do not have the later per-close fields. Nightly 20261001 has the resource line, the shape ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-30T06:24:12Z",
+  "comments_cursor": "2026-10-02T06:06:57Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-30T06:24:40Z",
-  "notes": "September 30: new reporter vndnua supplies 14 measured closes, +1000 MB after first close. No-accumulation script verdict reproduced as false; no product root cause established. Direct maintainer review required. Do not reuse October 2 silence ping. Earlier reporter panel/shutdown symptoms remain separate. See ISSUE-182-REVIEW-2026-09-30.md."
+  "last_synced": "2026-10-02T06:07:21Z",
+  "notes": "2026-10-02: closed, not reproduced at the reported size. The keyword close was not a fix. Reopen with a log from nightly 20261001 or later."
 }

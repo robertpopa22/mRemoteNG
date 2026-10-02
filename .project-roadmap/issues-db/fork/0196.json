@@ -101,5 +101,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-09-29T11:37:34Z",
-  "notes": "September 29 retest contradicts importer-only resolution. CredSSP toggling already tested. Entra extended-property E_UNEXPECTED suppression is a diagnostic lead, not proven cause. No matching Entra target verified. Approved response published and read back: https://github.com/robertpopa22/mRemoteNG/issues/196#issuecomment-5887654259"
+  "notes": "2026-10-02: diagnostic ask of 29 Sep is inside the seven-day window. Close unanswered on 6 Oct if it is still the latest word."
 }

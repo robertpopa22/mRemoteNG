@@ -106,8 +106,9 @@ instrumentation that produces evidence. After three failed rounds the issue goes
 work stops until new evidence redirects it. This was learned from #143, where four confident fixes
 missed and the first diagnostic trace found the cause immediately.
 
-**Never close over an unanswered "still broken".** An explicit contradiction from a reporter keeps
-the issue open, or reopens it. No verification of ours outranks it.
+**The open list is work in progress.** What stays open, what is closed, and the seven-day
+silence are decision D10. The incident is [BP-005](docs/bp/BP-005-premature-close.md).
+This paragraph does not restate the table.
 
 **Never claim a verification that did not happen.** The unit suite, the lab UI battery and a live
 backend check are separate evidence and are named separately. Where something was not checked, the
@@ -140,6 +141,34 @@ We are a fork of a living project, and we intend to keep being able to take its 
 ## 7. Decision log
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
+
+### D10 — 2026-10-02 · The open list is work in progress
+
+An issue stays open only while a fix is in progress or a named remainder is confirmed and not
+shipped. Anything else is closed with one comment. The comment names the outcome, states what
+was checked, and invites a reopen. A reopen with new evidence is the right next step. A second
+ping is not.
+
+The outcome word is one of these. GitHub has no separate reason for each, so the word lives in
+the comment. The GitHub reason is `completed` only for fixed. The other three use `not planned`,
+which here means "not in the open list", not "rejected".
+
+| Word | When |
+| --- | --- |
+| unanswered | We asked for a detail or a retest. Seven days passed. That ask is still the latest word. |
+| not reproduced | We tried. The report did not appear. There is no further question that would change the next step. |
+| not a defect | The issue is an announcement, an answered question, or expected behaviour. |
+| fixed | A named build contains the change, and the check we name matches the report. |
+
+An explicit "still broken" is answered first. The close comes only after that answer has itself
+gone unanswered for seven days. Closing in the same action that ignores the contradiction is the
+failure [BP-005](docs/bp/BP-005-premature-close.md) records.
+
+*Why:* on 2026-10-02 the maintainer asked for a clean open list. Dormant issues that add no new
+fact are not work in progress. The same day's reading of #165 separated "do not ignore a
+contradiction" from "do not keep a silent ask open".
+
+*Reverses if:* the maintainer wants a silent ask to stay open past seven days.
 
 ### D9 — 2026-10-02 · A suspicion the log cannot separate is logged before it is fixed
 

@@ -1,5 +1,7 @@
 # BP-003 — A DPI bounce can leave a child at the old size
 
+**Version:** 1 · **Updated:** 2026-10-02
+
 **Does:** record that a per-monitor DPI change can leave a child control at the previous device DPI after the form has settled, and that moving the child does not refit it.
 
 **Does not:** set DPI policy, describe a machine, or cover mixed fonts on the main window. Those fonts can still disagree after the same bounce, and that is a separate symptom.

@@ -8,9 +8,9 @@
   ],
   "author": "vansanper",
   "created_at": "2026-09-24T14:59:06Z",
-  "github_updated_at": "2026-09-30T07:53:28Z",
+  "github_updated_at": "2026-10-02T06:06:59Z",
   "body_snippet": "**What happens** (and what you expected instead):\n-mRemote displays messages clipped with controls overlaped=> messages showing all the content correctly\n-mRemote displays messages windows are fixed with no option to resize to view all the text correctly=> messages resizable by mouse drag on the edges\n-mRemote displays some controls with the font size much bigger than others (In file Menu, Connections Panel, Config Panel, Connections tabs), vs the detailed Display panel with its connect with a m...",
-  "our_status": "testing",
+  "our_status": "in-progress",
   "priority": "P2-bug",
   "target_release": "nightly",
   "our_branch": null,
@@ -92,14 +92,23 @@
       "date": "2026-09-30T07:53:28Z",
       "snippet": "> [#198-diag]\n\nThanks, I tested your nightly and post below the related log lines:\n2026-09-30T09:38:48.180+02:00 mono_ms=4476 pid=25180 app_session=3bc5f986e8c1 [2] INFO  - [#198-diag] startup: window DPI 96 -> 96, form DeviceDpi 96, menu font 4.5pt/16px, dock panel DeviceDpi 96 font 4.13pt/15px, monitor \\\\.\\DISPLAY354 1680x1050, remote session True\n2026-09-30T09:38:48.219+02:00 mono_ms=4515 pid=25180 app_session=3bc5f986e8c1 [2] INFO  - [#198-diag] task dialog DPI changed 96 -> 192: DeviceDpi 1...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYnCCIg",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:06:59Z",
+      "snippet": "Thank you for the [#198-diag] lines. They show the confirmation checkbox left at the previous monitor's size. After the dialog settled at 96 DPI the checkbox was still at 192 DPI: an 8.25pt font drawn as 30px inside a 28 by 27 client, so the bottom of the box was clipped. Layout had only moved it.\n\nThe checkbox is now sized from the dialog DPI, and the glyph is painted inside the current client. That change is commit 63fe644b1 on main. It is not in nightly 20261001. The next nightly is what to r...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-30T07:53:28Z",
-  "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-09-30T08:09:00Z",
-  "notes": "September 29 reporter confirms dialog improvement but checkbox clipping remains; mixed-font symptom unconfirmed. Lab close/cancel/disconnect scenario passes at one DPI, checkbox pixels complete there. Exact reporter build and monitor scaling still needed. Approved response published and read back: https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5887657061"
+  "comments_cursor": "2026-10-02T06:06:59Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-02T06:07:21Z",
+  "notes": "2026-10-02: checkbox fit is 63fe644b1 and is not in nightly 20261001. Mixed fonts remain, so the issue stays open."
 }

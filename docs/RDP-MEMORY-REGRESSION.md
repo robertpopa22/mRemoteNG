@@ -2,7 +2,8 @@
 
 These checks detect bounded regressions in a finite Windows lab run. They cannot certify that
 all allocations are released, explain a native heap's ownership, or cover every RDP server.
-Issue #182 stays open while the reporter's contrary result is unanswered.
+Issue #182 was closed on 2026-10-02 as not reproduced at the reported size. These checks stay.
+A log that shows the reported growth reopens the issue.
 
 ## Automatic checks
 
