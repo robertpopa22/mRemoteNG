@@ -28,7 +28,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
 
 ## Small, and worth taking
 
-- [ ] `53451f91f5` — the first main window opens at 90% of the screen.
+- [x] `53451f91f5` — the first main window opens at 90% of the screen, centred on the working area.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/53451f91f5195273903d0ac51e92ec1ee45e13ab
 - [ ] `0045263765` — the detected PuTTY path is shown on the Advanced page.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/004526376515164a858c98a9a1c782d04a28c33c

@@ -127,6 +127,8 @@ namespace mRemoteNG.Config.Settings
                     MainForm.Location = Properties.App.Default.MainFormLocation;
                 if (!Properties.App.Default.MainFormSize.IsEmpty)
                     MainForm.Size = Properties.App.Default.MainFormSize;
+                else
+                    ApplyFirstRunBounds();
             }
             else
             {
@@ -151,6 +153,8 @@ namespace mRemoteNG.Config.Settings
                     MainForm.Location = restoreLocation;
                 if (!Properties.App.Default.MainFormRestoreSize.IsEmpty)
                     MainForm.Size = Properties.App.Default.MainFormRestoreSize;
+                else
+                    ApplyFirstRunBounds();
             }
 
             if (Properties.App.Default.MainFormState == FormWindowState.Maximized)
@@ -174,6 +178,13 @@ namespace mRemoteNG.Config.Settings
                 newBounds.Y = screenBounds.Bottom - minVertical;
 
             MainForm.Location = newBounds.Location;
+        }
+
+        private void ApplyFirstRunBounds()
+        {
+            Rectangle bounds = MainWindowPlacement.FirstRunBounds(
+                Screen.FromHandle(MainForm.Handle).WorkingArea);
+            MainForm.Bounds = bounds;
         }
 
         private void SetAutoSave()

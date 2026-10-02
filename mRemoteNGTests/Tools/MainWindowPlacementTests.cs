@@ -14,6 +14,21 @@ public class MainWindowPlacementTests
     ];
 
     [Test]
+    public void FirstRunBoundsCoverNinetyPercentOfTheWorkingAreaAndStayCentred()
+    {
+        Rectangle workingArea = new(100, 40, 1000, 800);
+
+        Rectangle bounds = MainWindowPlacement.FirstRunBounds(workingArea);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(bounds.Size, Is.EqualTo(new Size(900, 720)));
+            Assert.That(bounds.Location, Is.EqualTo(new Point(150, 80)));
+            Assert.That(MainWindowPlacement.FirstRunScreenFraction, Is.EqualTo(0.9));
+        });
+    }
+
+    [Test]
     public void RestoreBoundsLeftAloneWhenTheyShareTheMaximizedScreen()
     {
         Rectangle restore = new(200, 150, 974, 620);

@@ -43,6 +43,26 @@ namespace mRemoteNG.Tools
         }
 
         /// <summary>
+        /// Fraction of the working area used when the main window has no remembered size.
+        /// </summary>
+        public const double FirstRunScreenFraction = 0.9;
+
+        /// <summary>
+        /// A first run has no remembered size, so the designer size would be the window.
+        /// Cover most of the working area and centre it there.
+        /// </summary>
+        public static Rectangle FirstRunBounds(Rectangle workingArea)
+        {
+            int width = (int)(workingArea.Width * FirstRunScreenFraction);
+            int height = (int)(workingArea.Height * FirstRunScreenFraction);
+            return new Rectangle(
+                workingArea.Left + ((workingArea.Width - width) / 2),
+                workingArea.Top + ((workingArea.Height - height) / 2),
+                width,
+                height);
+        }
+
+        /// <summary>
         /// Keeps the window on the monitor even when the offset it carried over does not fit there
         /// - a wider window, or bounds that were off every screen to begin with.
         /// </summary>

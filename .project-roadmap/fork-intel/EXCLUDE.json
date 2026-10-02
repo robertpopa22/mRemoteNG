@@ -46,6 +46,11 @@
       "decision": "imported",
       "note": "a failed legacy decrypt returns no tree instead of throwing",
       "at": "2026-10-02T19:09:56Z"
+    },
+    "53451f91f5195273903d0ac51e92ec1ee45e13ab": {
+      "decision": "imported",
+      "note": "a main window with no remembered size opens at 90 percent of the working area",
+      "at": "2026-10-02T19:13:19Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",
