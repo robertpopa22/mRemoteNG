@@ -2,7 +2,7 @@
   "number": 2610,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "New release at some point?",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "RTFM",
     "1.77.3"
@@ -146,8 +146,8 @@
   ],
   "comments_cursor": "2026-09-03T07:55:42Z",
   "unread_comments": 12,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-09-04T08:56:47Z",
   "notes": "Manual triage: Meta issue asking for a new release. v1.79.0 and v1.80.0 Community Editions have been published. Not an actionable bug/feature request."
 }

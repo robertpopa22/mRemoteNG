@@ -1,0 +1,49 @@
+{
+  "number": 203,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.IO.FileLoadException: Could not load file or assembly 'C:\\Program Files\\mRemoteNG\\Interop.MSTSCLib.dll...",
+  "state": "closed",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-02T06:23:01Z",
+  "github_updated_at": "2026-10-02T13:22:37Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileLoadException`\r\n**Message:** Could not load file or assembly 'C:\\Program Files\\mRemoteNG\\Interop.MSTSCLib.dll'. Una directiva de Control de aplicaciones bloqueó este archivo. (0x800711C7)\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.Connection.Protocol.RDP.RdpProtocol.CleanupResources() x 2\r\n   at void mRemoteNG.Connection.Protocol.RDP.RdpProtocol.Dispose(bool disposing)\r\n   at void mRemoteNG.Connection.Protocol.ProtocolBase.Dispose()\r\n...",
+  "our_status": "wontfix",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-02",
+      "type": "wontfix",
+      "description": "not a defect: Application Control blocked the unsigned interop library on Release 3716; current main still ships it",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": true
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABYthfYA",
+      "author": "robertpopa22",
+      "date": "2026-10-02T13:22:26Z",
+      "snippet": "Outcome: not a defect.\r\n\r\nThis report is from 1.84.0 (Release 3716), portable x64. Closing a tab raised FileLoadException while loading Interop.MSTSCLib.dll. HRESULT 0x800711C7, and the message says an Application Control policy blocked the file. The report says the app continued.\r\n\r\nCurrent main still ships that COM library beside the program (EmbedInteropTypes is false). Nothing since v1.84.0 embeds or moves it, so a newer build does not remove the block. We did not reproduce the dialog on our...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-02T13:22:37Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-02T13:22:47Z",
+  "notes": "not a defect"
+}

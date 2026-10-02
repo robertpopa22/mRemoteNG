@@ -2,7 +2,7 @@
   "number": 2881,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Does PuttyNG run on ARM64? - mRemoteNG requiring Visual C++ Redistributable x64",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Priority - Low",
     "Need 2 check",
@@ -62,8 +62,8 @@
   ],
   "comments_cursor": "2026-02-26T13:54:44Z",
   "unread_comments": 2,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "ARM64 PuttyNG dependency - PuttyNG binary not built for ARM64. Outside our control."
 }

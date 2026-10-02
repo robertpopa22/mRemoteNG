@@ -2,7 +2,7 @@
   "number": 2721,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Site Download Page Error",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "In development",
     "Downloads",
@@ -131,8 +131,8 @@
   ],
   "comments_cursor": "2026-09-09T13:48:43Z",
   "unread_comments": 10,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-09-20T20:37:19Z",
   "notes": "AI triage (claude): This is a website/downloads page maintenance issue unrelated to the application source code — it concerns updating mremoteng.org download page content, not fixing a bug in the .NET codebase.\nApproach: Update the project website downloads page to reflect current pre-release versions and portable options; outside scope of this repository's source code"
 }

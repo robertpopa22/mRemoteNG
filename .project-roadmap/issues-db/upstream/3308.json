@@ -2,7 +2,7 @@
   "number": 3308,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Cannot access a disposed object",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "Need 2 check",
@@ -31,8 +31,8 @@
   ],
   "comments_cursor": "2026-07-11T11:01:42Z",
   "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-09-02T12:58:40Z",
   "notes": ""
 }

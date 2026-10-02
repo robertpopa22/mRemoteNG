@@ -1,0 +1,36 @@
+{
+  "number": 204,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Reorganize the connection tree right-click menu",
+  "state": "closed",
+  "labels": [
+    "enhancement"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-02T06:48:35Z",
+  "github_updated_at": "2026-10-02T06:48:40Z",
+  "body_snippet": "The right-click menu on the connection tree is one long list. The same commands stay. They are grouped so the row for a connection stays short.\n\nA connection shows:\n\n- Connect\n- Connect with options\n- Disconnect, only while a session is open\n- Reconnect\n- Duplicate, Copy, Paste, Rename, Delete\n- New\n- More\n\nPaste stays on the row and is grey when the clipboard is empty.\n\nConnect with options keeps the existing entries and also holds Clear Cached RDP Credentials.\n\nNew holds New Connection, New En...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABYncJrg",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:48:39Z",
+      "snippet": "Outcome: not a defect. This issue records the layout of the connection-tree right-click menu. It is not an open bug.\n\nThe layout in the description is in the working tree. It is not in v1.84.0 and it is not in a published nightly, so this is not closed as fixed.\n\nChecked on a Release build:\n- the solution build completed\n- the connection-context-menu tests passed, 8 of 8, including the short row for a connection and the file commands on a connection root\n- the unit suite reported 7428 passed. On...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-02T06:48:40Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-02T12:36:14Z",
+  "notes": ""
+}

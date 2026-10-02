@@ -2,7 +2,7 @@
   "number": 2258,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Restricted admin support | mRemoteNG v1.76.20.24615",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "RDP",
     "1.77.3"
@@ -73,7 +73,7 @@
   ],
   "comments_cursor": "2026-02-26T14:06:06Z",
   "unread_comments": 2,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): To enhance the existing 'restricted admin' functionality, improving security or user experience for RDP connections and potentially extending to other protocols.\nApproach: Investigate current 'UseRestrictedAdmin' implementation in RdpProtocol8.cs, identify improvements for RDP and potential extension to other protocols, update ConnectionInfo, modify relevant UI pages, and add/update unit tests."

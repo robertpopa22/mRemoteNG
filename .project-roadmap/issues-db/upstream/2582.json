@@ -2,7 +2,7 @@
   "number": 2582,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Starting .exe from UNC path with config from UNC path not working. Issue is back.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Need 2 check",
     "Connections",
@@ -65,7 +65,7 @@
   ],
   "comments_cursor": "2026-02-27T10:28:29Z",
   "unread_comments": 1,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Issue about UNC path startup not working lacks reproducible steps, affected code paths, and confirmation on current build (v1.79+).\nApproach: Request reporter to retest on latest build with specific UNC path scenario, share logs and exact error"

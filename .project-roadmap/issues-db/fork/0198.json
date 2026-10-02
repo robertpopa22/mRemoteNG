@@ -8,7 +8,7 @@
   ],
   "author": "vansanper",
   "created_at": "2026-09-24T14:59:06Z",
-  "github_updated_at": "2026-10-02T06:06:59Z",
+  "github_updated_at": "2026-10-02T06:58:30Z",
   "body_snippet": "**What happens** (and what you expected instead):\n-mRemote displays messages clipped with controls overlaped=> messages showing all the content correctly\n-mRemote displays messages windows are fixed with no option to resize to view all the text correctly=> messages resizable by mouse drag on the edges\n-mRemote displays some controls with the font size much bigger than others (In file Menu, Connections Panel, Config Panel, Connections tabs), vs the detailed Display panel with its connect with a m...",
   "our_status": "in-progress",
   "priority": "P2-bug",
@@ -103,12 +103,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABYniWgg",
+      "author": "robertpopa22",
+      "date": "2026-10-02T06:58:30Z",
+      "snippet": "The mixed menu and dock fonts come from the menu keeping the font it was created with.\n\nOn the 2026-09-30 log the window moved from 96 to 192 DPI. The dock panel followed, at 8.25pt and 30px. The menu stayed at 16px. That same 16px line was logged as 4.5pt because a font that is not stored in points is measured against the screen, and the screen was at 192 DPI. On .NET 10 the menu is told the old and new DPI are equal, so it does not take a new font. Upstream records that behavior as dotnet/winf...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-02T06:06:59Z",
+  "comments_cursor": "2026-10-02T06:58:30Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-02T06:07:21Z",
+  "last_synced": "2026-10-02T12:36:14Z",
   "notes": "2026-10-02: checkbox fit is 63fe644b1 and is not in nightly 20261001. Chrome whose line spacing does not follow the dock panel is rebuilt from that panel in 2eb2e5ca6. The log records font unit, raw size, and line spacing at the window DPI. A two-monitor session was not driven. Public comment https://github.com/robertpopa22/mRemoteNG/issues/198#issuecomment-5947037314 names that commit. The issue stays open."
 }

@@ -2,7 +2,7 @@
   "number": 2241,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Rendering Engine \"Edge Chromium\" not working",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Need 2 check"
   ],
@@ -111,7 +111,7 @@
   ],
   "comments_cursor": "2026-02-27T09:14:42Z",
   "unread_comments": 6,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): The Edge Chromium rendering engine (WebView2) is reported as not working, indicating a bug in its initialization or usage within mRemoteNG's HTTP protocol connections.\nApproach: Investigate the InitializeWebView2Async method and CoreWebView2InitializationCompleted event handler in Connection.Protocol.HTTPBase.cs to identify failures in WebView2 initialization, environment creation, or navigation, potentially by adding detailed logging."

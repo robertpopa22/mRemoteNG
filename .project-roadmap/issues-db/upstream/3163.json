@@ -2,7 +2,7 @@
   "number": 3163,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "белый экран",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "Need 2 check",
@@ -74,7 +74,7 @@
   ],
   "comments_cursor": "2026-02-27T11:22:47Z",
   "unread_comments": 2,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Issue title says 'white screen' but has no reproduction steps, no version info, no screenshot, and no description of what was being done when it occurred.\nApproach: Request: mRemoteNG version, steps to reproduce, screenshot of the white screen, and whether it happens on startup or when connecting to a specific host"
