@@ -19,7 +19,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/c4d0596f2485d6493ea30bd27219f40c2a068759
 - [x] `0121f0be4c` — a port scan that cannot start names the reason. The Scan button stays on Scan until that check accepts the scan.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/0121f0be4cea9a485f91f41d2bae56ea2b288f65
-- [ ] `232fbf32ff` — Enter on a multi-selection opens one connection.
+- [x] `232fbf32ff` — Enter on a multi-selection opens each selected connection.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/232fbf32ffc324b12ceb8b8e251e4637742a8073
 - [ ] `dd54616a2e` — a failed decrypt still throws into a recursive reload. The null guard already exists.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/dd54616a2e47bdb94e18b2fbafbd2a30764a3728

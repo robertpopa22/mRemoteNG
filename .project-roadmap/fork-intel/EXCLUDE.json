@@ -36,6 +36,11 @@
       "decision": "imported",
       "note": "a scan that cannot start names the reason and does not change the button",
       "at": "2026-10-02T19:05:24Z"
+    },
+    "232fbf32ffc324b12ceb8b8e251e4637742a8073": {
+      "decision": "imported",
+      "note": "Enter opens every selected connection",
+      "at": "2026-10-02T19:08:03Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

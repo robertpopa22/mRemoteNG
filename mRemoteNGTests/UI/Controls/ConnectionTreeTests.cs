@@ -280,6 +280,27 @@ namespace mRemoteNGTests.UI.Controls
 		});
 
 		[Test]
+		public void EnterOnAMultiSelectionNamesEverySelectedConnection() => RunWithMessagePump(tree =>
+		{
+			var connectionTreeModel = new ConnectionTreeModel();
+			var root = new RootNodeInfo(RootNodeType.Connection);
+			var con1 = new ConnectionInfo { Name = "con1" };
+			var con2 = new ConnectionInfo { Name = "con2" };
+			root.AddChildRange(new[] { con1, con2 });
+			connectionTreeModel.AddRootNode(root);
+			tree.ConnectionTreeModel = connectionTreeModel;
+			Application.DoEvents();
+			tree.ExpandAll();
+			Application.DoEvents();
+
+			tree.MultiSelect = true;
+			tree.SelectedObjects = new object[] { con1, con2 };
+			Application.DoEvents();
+
+			Assert.That(tree.NodesToOpenOnEnter(), Is.EquivalentTo(new[] { con1, con2 }));
+		});
+
+		[Test]
 		public void CanDeleteMultipleSelectedNodes() => RunWithMessagePump(tree =>
 		{
 			var connectionTreeModel = new ConnectionTreeModel();

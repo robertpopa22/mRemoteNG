@@ -505,6 +505,12 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             return selectedNodes;
         }
 
+        /// <summary>
+        /// Enter opens every selected connection. <see cref="SelectedNode"/> is only the focused
+        /// row, so a multi-selection used to open that one row and leave the rest closed.
+        /// </summary>
+        internal List<ConnectionInfo> NodesToOpenOnEnter() => GetSelectedNodes();
+
         private static void ExecuteInBatchedSaveContext(Action action)
         {
             Runtime.ConnectionsService.BeginBatchingSaves();

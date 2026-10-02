@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 76,
+    "new": 75,
     "trying": 0,
-    "imported": 11,
+    "imported": 12,
     "present": 8,
     "rejected": 443,
     "deferred": 114
@@ -129,15 +129,6 @@
       "status": "new",
       "fork": "lovaszlaszlo/mRemoteNG",
       "subject": "Translate the connection properties into Hungarian"
-    },
-    {
-      "sha": "232fbf32ff",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "jafin/mRemoteNG",
-      "subject": "fix: multi-selection Enter opens connections, and task dialog buttons show focus (#52)"
     },
     {
       "sha": "32645f92b6",
