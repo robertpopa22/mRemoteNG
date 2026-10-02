@@ -231,20 +231,20 @@ namespace mRemoteNG.UI.Tabs
 
                         if (result == DialogResult.No)
                         {
-                            e.Cancel = true;
+                            CancelCloseAndStayInFront(e);
                         }
                         else
                         {
                             CloseProtocolSafe();
                             if (KeepTabOpenAfterDisconnect)
-                                e.Cancel = true;
+                                CancelCloseAndStayInFront(e);
                         }
                     }
                     else
                     {
                         CloseProtocolSafe();
                         if (KeepTabOpenAfterDisconnect)
-                            e.Cancel = true;
+                            CancelCloseAndStayInFront(e);
                     }
                 }
                 else if (hasActiveProtocol)
@@ -265,6 +265,24 @@ namespace mRemoteNG.UI.Tabs
         /// </summary>
         private bool KeepTabOpenAfterDisconnect =>
             disconnectOnly && Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect;
+
+        /// <summary>
+        /// Closing the document moves another tab in front before this method can refuse the
+        /// close. Cancelling without activating leaves the session that the user kept hidden
+        /// behind that other tab.
+        /// </summary>
+        private void CancelCloseAndStayInFront(FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            try
+            {
+                DockHandler.Activate();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector?.AddExceptionMessage("CancelCloseAndStayInFront (UI.Tabs.ConnectionTab) failed", ex);
+            }
+        }
 
         private void CloseProtocolSafe()
         {

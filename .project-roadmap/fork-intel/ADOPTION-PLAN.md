@@ -15,7 +15,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   https://github.com/mRemoteNG/mRemoteNG/commit/a32009118810e2237c029756814292f30a01343c
 - [x] `85056294af` — unsaved connection edits can be lost on shutdown. The failure-path save already exists. The gap is flushing the deferred save.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/85056294af97fa3ad7316a36097e0d38f67a9500
-- [ ] `c4d0596f24` — a tab stays behind when its close is cancelled.
+- [x] `c4d0596f24` — a tab stays behind when its close is cancelled.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/c4d0596f2485d6493ea30bd27219f40c2a068759
 - [ ] `0121f0be4c` — port scan does not say why it cannot start, and the button stays on Stop.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/0121f0be4cea9a485f91f41d2bae56ea2b288f65

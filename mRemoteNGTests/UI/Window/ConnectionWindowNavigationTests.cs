@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Properties;
 using mRemoteNG.UI.Tabs;
 using mRemoteNG.UI.Window;
 using NUnit.Framework;
@@ -439,5 +440,80 @@ namespace mRemoteNGTests.UI.Window
                 hostForm.Dispose();
             }
         });
+
+    [Test]
+    public void AKeptTabComesBackInFrontWhenItsCloseIsCancelled() => RunWithMessagePump(() =>
+    {
+        bool originalKeep = OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect;
+        OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect = true;
+        var hostForm = new Form
+        {
+            Width = 800, Height = 600,
+            ShowInTaskbar = false,
+            StartPosition = FormStartPosition.Manual,
+            Location = new System.Drawing.Point(-10000, -10000)
+        };
+        var hostDockPanel = new DockPanel
+        {
+            Dock = DockStyle.Fill,
+            DocumentStyle = DocumentStyle.DockingWindow,
+            Theme = new VS2015LightTheme()
+        };
+        hostForm.Controls.Add(hostDockPanel);
+
+        try
+        {
+            hostForm.Show();
+            Application.DoEvents();
+
+            using var connectionWindow = new ConnectionWindow(new DockContent(), "Cancel Test");
+            connectionWindow.Show(hostDockPanel, DockState.Document);
+            Application.DoEvents();
+
+            ConnectionTab? kept = AddTab(connectionWindow, "Kept");
+            ConnectionTab? other = AddTab(connectionWindow, "Other");
+            Assert.That(kept, Is.Not.Null);
+            Assert.That(other, Is.Not.Null);
+
+            var protocol = new CountingProtocol();
+            var info = new ConnectionInfo { Name = "Kept", Protocol = ProtocolType.SSH2, Hostname = "example-host" };
+            var interfaceControl = new InterfaceControl(kept!, protocol, info);
+            protocol.InterfaceControl = interfaceControl;
+            kept!.Tag = interfaceControl;
+            kept.disconnectOnly = true;
+
+            other!.DockHandler.Activate();
+            Application.DoEvents();
+
+            var connDock = GetConnDock(connectionWindow);
+            Assert.That(connDock.ActiveContent, Is.EqualTo(other));
+
+            FormClosingEventArgs closingArgs = new(CloseReason.UserClosing, false);
+            MethodInfo onFormClosing = typeof(ConnectionTab).GetMethod(
+                "OnFormClosing", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            onFormClosing.Invoke(kept, [closingArgs]);
+            Application.DoEvents();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(closingArgs.Cancel, Is.True);
+                Assert.That(connDock.ActiveContent, Is.EqualTo(kept),
+                    "the tab whose close was cancelled must be the one in front");
+            });
+        }
+        finally
+        {
+            OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect = originalKeep;
+            hostForm.Close();
+            hostForm.Dispose();
+        }
+    });
+
+    private sealed class CountingProtocol : ProtocolBase
+    {
+        public override void Close()
+        {
+        }
     }
+}
 }

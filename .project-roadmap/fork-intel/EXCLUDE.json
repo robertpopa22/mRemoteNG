@@ -26,6 +26,11 @@
       "decision": "imported",
       "note": "shutdown writes a save that is still waiting on the debounce timer",
       "at": "2026-10-02T18:54:27Z"
+    },
+    "c4d0596f2485d6493ea30bd27219f40c2a068759": {
+      "decision": "imported",
+      "note": "a cancelled close activates the tab that stays",
+      "at": "2026-10-02T18:57:25Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

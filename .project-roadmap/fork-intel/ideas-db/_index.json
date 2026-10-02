@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 78,
+    "new": 77,
     "trying": 0,
-    "imported": 9,
+    "imported": 10,
     "present": 8,
     "rejected": 443,
     "deferred": 114
@@ -111,15 +111,6 @@
       "status": "new",
       "fork": "mRemoteNG/mRemoteNG",
       "subject": "fix: use a provider-specific table lookup instead of matching either column"
-    },
-    {
-      "sha": "c4d0596f24",
-      "kind": "fork",
-      "tier": "B",
-      "score": 8,
-      "status": "new",
-      "fork": "lovaszlaszlo/mRemoteNG",
-      "subject": "Keep the tab in front when its close is cancelled"
     },
     {
       "sha": "dfb7a14dc3",
