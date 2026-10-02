@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "present",
+  "note": "The port scan already has one address field. It accepts a single address, an explicit range, or a CIDR block, and the port mode selector is already on the same page."
 }
