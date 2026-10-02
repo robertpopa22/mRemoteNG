@@ -76,6 +76,11 @@
       "decision": "imported",
       "note": "a relative connections file is shown as its full path in the window title",
       "at": "2026-10-02T19:26:11Z"
+    },
+    "6c1dbeaf8209f23145c456805bb5cd72d03cff32": {
+      "decision": "imported",
+      "note": "the sole-candidate test calls Resolve with a synthetic candidate and does not read the machine disk",
+      "at": "2026-10-02T19:28:23Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

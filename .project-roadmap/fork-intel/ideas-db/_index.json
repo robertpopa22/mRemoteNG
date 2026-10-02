@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 65,
+    "new": 64,
     "trying": 0,
-    "imported": 19,
+    "imported": 20,
     "present": 11,
     "rejected": 443,
     "deferred": 114
@@ -138,15 +138,6 @@
       "status": "new",
       "fork": "jafin/mRemoteNG",
       "subject": "fix: keep Options usable when a settings secret cannot be decrypted (#18)"
-    },
-    {
-      "sha": "6c1dbeaf82",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "jafin/mRemoteNG",
-      "subject": "fix: make ConnectionsFileResolver sole-candidate test deterministic"
     },
     {
       "sha": "6e684bc7f9",

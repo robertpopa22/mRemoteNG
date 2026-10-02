@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using mRemoteNG.Config.Putty;
 using mRemoteNG.Connection;
@@ -61,40 +60,31 @@ public class ConnectionsServiceStartupPathTests
     }
 
     [Test]
-    public void StartupConnectionPathReturnsSavedPathWhenItIsTheSoleCandidate()
+    public void ResolveReturnsSoleCandidateSilently()
     {
-        // New semantics (post fix #95 v2): the saved ConnectionFilePath is just
-        // one candidate among others. When it is the only candidate present,
-        // discovery returns it silently with no prompt. When additional
-        // candidates are found on the dev box (e.g. %LOCALAPPDATA%\mRemoteNG)
-        // the cancelling prompt drives the resolver to return null and the
-        // startup method falls back to the saved ConnectionFilePath — also OK.
         var optionsType = typeof(ConnectionsService).Assembly.GetType("mRemoteNG.Properties.OptionsConnectionsPage", throwOnError: true);
         var defaultProperty = optionsType!.GetProperty("Default", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
         var settingsInstance = defaultProperty!.GetValue(null);
-        var connectionFilePathProperty = optionsType.GetProperty("ConnectionFilePath", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        var resolvedPathProperty = optionsType.GetProperty("ResolvedConnectionFilePath", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        var originalPath = (string)connectionFilePathProperty!.GetValue(settingsInstance);
-        var originalResolved = (string)resolvedPathProperty!.GetValue(settingsInstance);
-
-        string customPath = Path.Combine(Path.GetTempPath(), $"mrng_test_{Path.GetRandomFileName()}.xml");
-        File.WriteAllText(customPath, "<?xml version=\"1.0\"?><Connections/>");
+        var forceProperty = optionsType.GetProperty("ForceConnectionsFilePickerOnNextStart", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        bool originalForce = (bool)forceProperty!.GetValue(settingsInstance)!;
         try
         {
-            connectionFilePathProperty.SetValue(settingsInstance, customPath);
-            resolvedPathProperty.SetValue(settingsInstance, customPath);
+            forceProperty.SetValue(settingsInstance, false);
+            var only = new ConnectionsFileResolver.Candidate(
+                @"C:\not\on\this\machine\confCons.xml",
+                new DateTime(2026, 1, 2, 3, 4, 5, DateTimeKind.Utc),
+                1,
+                "Saved");
 
-            // ResolvedConnectionFilePath is set to customPath so Resolve returns it
-            // silently regardless of how many other candidates discovery finds.
-            string startupPath = InvokeStartup(CancellingPrompt);
+            ConnectionsFileResolver.Candidate? chosen = ConnectionsFileResolver.Resolve(
+                [only],
+                (_, _) => throw new InvalidOperationException("a sole candidate must not open the picker"));
 
-            Assert.That(startupPath, Is.EqualTo(customPath));
+            Assert.That(chosen, Is.SameAs(only));
         }
         finally
         {
-            connectionFilePathProperty.SetValue(settingsInstance, originalPath);
-            resolvedPathProperty.SetValue(settingsInstance, originalResolved);
-            try { File.Delete(customPath); } catch { /* best-effort cleanup */ }
+            forceProperty.SetValue(settingsInstance, originalForce);
         }
     }
 

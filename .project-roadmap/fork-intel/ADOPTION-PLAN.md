@@ -42,7 +42,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/d6f4872b8bd1a73e4f293a78243ed424b7347e3e
 - [x] `d500a8e9dd` — the window title shows the full path when the connections file path is relative.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/d500a8e9dda08af453e3e69f3d891e2be4145686
-- [ ] `6c1dbeaf82` — the sole-candidate path test does not depend on the machine disk.
+- [x] `6c1dbeaf82` — the sole-candidate path test does not depend on the machine disk.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/6c1dbeaf8209f23145c456805bb5cd72d03cff32
 - [ ] `6eabb55063` — the dead space in the port-scan window is removed.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/6eabb55063017b51f2a2a0097f9714508ae98b19
