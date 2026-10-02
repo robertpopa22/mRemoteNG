@@ -51,6 +51,11 @@
       "decision": "imported",
       "note": "a main window with no remembered size opens at 90 percent of the working area",
       "at": "2026-10-02T19:13:19Z"
+    },
+    "004526376515164a858c98a9a1c782d04a28c33c": {
+      "decision": "imported",
+      "note": "the Advanced page names the detected PuTTY path",
+      "at": "2026-10-02T19:15:36Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

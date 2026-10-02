@@ -279,6 +279,12 @@
   <data name="CheckboxPuttyPath" xml:space="preserve">
     <value>Use custom PuTTY path:</value>
   </data>
+  <data name="DetectedPutty" xml:space="preserve">
+    <value>Detected PuTTY:</value>
+  </data>
+  <data name="PuttyNotDetected" xml:space="preserve">
+    <value>(not detected - configure a custom path below or install PuTTY)</value>
+  </data>
   <data name="CheckboxReconnectWhenReady" xml:space="preserve">
     <value>Reconnect when ready</value>
   </data>

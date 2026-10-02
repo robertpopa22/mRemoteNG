@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 72,
+    "new": 71,
     "trying": 0,
-    "imported": 14,
+    "imported": 15,
     "present": 9,
     "rejected": 443,
     "deferred": 114
@@ -390,15 +390,6 @@
       "status": "new",
       "fork": "mRemoteNG/mRemoteNG",
       "subject": "fix: stop dropping SQL Server connections on every load"
-    },
-    {
-      "sha": "0045263765",
-      "kind": "fork",
-      "tier": "B",
-      "score": 4,
-      "status": "new",
-      "fork": "k-meeks/mRemoteNG",
-      "subject": "Show auto-detected PuTTY path on Advanced options page"
     },
     {
       "sha": "1329450e78",

@@ -42,6 +42,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnLaunchPutty = new MrngButton();
             lblSeconds = new MrngLabel();
             btnBrowseCustomPuttyPath = new MrngButton();
+            lblDetectedPutty = new MrngLabel();
             chkLoadBalanceInfoUseUtf8 = new MrngCheckBox();
             chkNoReconnect = new MrngCheckBox();
             chkConnectionLogging = new MrngCheckBox();
@@ -138,6 +139,15 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblSeconds.Size = new System.Drawing.Size(49, 13);
             lblSeconds.TabIndex = 9;
             lblSeconds.Text = "seconds";
+            //
+            // lblDetectedPutty
+            //
+            lblDetectedPutty.AutoEllipsis = true;
+            lblDetectedPutty.Location = new System.Drawing.Point(9, 206);
+            lblDetectedPutty.Name = "lblDetectedPutty";
+            lblDetectedPutty.Size = new System.Drawing.Size(560, 18);
+            lblDetectedPutty.TabIndex = 15;
+            lblDetectedPutty.Text = "Detected PuTTY:";
             // 
             // btnBrowseCustomPuttyPath
             // 
@@ -230,6 +240,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Controls.Add(btnLaunchPutty);
             Controls.Add(lblSeconds);
             Controls.Add(btnBrowseCustomPuttyPath);
+            Controls.Add(lblDetectedPutty);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "AdvancedPage";
             Size = new System.Drawing.Size(589, 440);
@@ -247,6 +258,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngButton btnLaunchPutty;
         internal Controls.MrngLabel lblSeconds;
         internal MrngButton btnBrowseCustomPuttyPath;
+        internal Controls.MrngLabel lblDetectedPutty;
         private MrngCheckBox chkLoadBalanceInfoUseUtf8;
         internal MrngCheckBox chkNoReconnect;
         internal MrngCheckBox chkConnectionLogging;

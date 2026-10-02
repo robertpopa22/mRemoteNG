@@ -46,6 +46,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnLaunchPutty.Text = Language.ButtonLaunchPutty;
             btnBrowseCustomPuttyPath.Text = Language._Browse;
             chkUseCustomPuttyPath.Text = Language.CheckboxPuttyPath;
+            ShowDetectedPutty();
         }
 
         public override void LoadSettings()
@@ -60,6 +61,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkUseCustomPuttyPath.Checked = Properties.OptionsAdvancedPage.Default.UseCustomPuttyPath;
             txtCustomPuttyPath.Text = Properties.OptionsAdvancedPage.Default.CustomPuttyPath;
             SetPuttyLaunchButtonEnabled();
+            ShowDetectedPutty();
 
 
             chkConnectionLogging.Checked = Properties.OptionsAdvancedPage.Default.EnableConnectionLogging;
@@ -175,6 +177,23 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             lblConfigurePuttySessions.Enabled = exists;
             btnLaunchPutty.Enabled = exists;
+        }
+
+        private void ShowDetectedPutty()
+        {
+            string path = GeneralAppInfo.PuttyPath;
+            bool exists = false;
+            try
+            {
+                exists = File.Exists(path);
+            }
+            catch (System.Exception)
+            {
+                exists = false;
+            }
+
+            lblDetectedPutty.Text = DetectedPuttyCaption.For(
+                path, exists, Language.DetectedPutty, Language.PuttyNotDetected);
         }
 
         private void chkNoReconnect_CheckedChanged(object sender, EventArgs e)
