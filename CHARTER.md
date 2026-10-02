@@ -2,6 +2,13 @@
 
 The rules that govern the rules.
 
+**Does:** directives. Purpose, security, honesty, the attempt budget, when a suspicion is
+instrumented before it is fixed, who may change a rule, and where every other document's job
+starts and stops.
+
+**Does not:** measurements, commands, field lists, lesson narratives, or anything about a
+maintainer's own machines beyond the principle that they are operated outside this repository.
+
 [CLAUDE.md](CLAUDE.md) is the manual: how to build, how to test, what the workflow is. This document
 is the constitution: what this fork is for, which rules may never be bent, who may bend the rest,
 and the record of decisions taken and why. When the manual and the charter disagree, the charter
@@ -39,6 +46,26 @@ infrastructure, internal tooling, client data or corporate process of whoever ma
 that is not about this application is not done from this checkout. The full statement, including the
 one deliberate exception for maintainer attribution and the lab, is in
 [CLAUDE.md](CLAUDE.md#scope-boundary--this-repository-stands-alone).
+
+The maintainer's own machines are operated outside this repository. The public tree states that
+principle and nothing else about them: no paths, no names, no logs, and no copy of the scripts
+that operate them. A separate directory on the maintainer's machine may hold that work. It is not
+a folder inside this checkout, because one accidental add would publish it. Session memory is the
+same kind of place: it records today's state, and it is not a rule.
+
+### What each document does
+
+One fact, one home. This table is the definition. The other documents point here and do not copy it.
+
+| Home | Does | Does not |
+| --- | --- | --- |
+| This charter | Directives: purpose, security, honesty, the attempt budget, instrumenting an unseparated suspicion before fixing it, and the rule that personal machine operation lives outside the repository | Measurements, commands, machine names, field lists, lesson narratives |
+| [CLAUDE.md](CLAUDE.md) | Technical instructions: build, tests, the tripwire, and where the other documents live | Policy essays, lesson narratives, personal paths |
+| [docs/BEST_PRACTICES.md](docs/BEST_PRACTICES.md) and [docs/bp/](docs/bp/) | Numbered lessons anyone can reuse: the incident, and the rule that follows from it | Policy, commands, personal paths, a second copy of a directive |
+| [docs/RUNTIME_DIAGNOSTICS.md](docs/RUNTIME_DIAGNOSTICS.md) | The names of log fields, and the privacy rule of one log line | Policy, incidents, anyone's logs |
+| `.claude/commands/` | Procedures: the steps, with pointers | A second copy of a directive or a lesson |
+| Session memory, outside this repository | Today's state | Stable rules |
+| A directory outside this repository | The maintainer's own copy scripts, log pulls, and logs | Anything this repository tracks |
 
 ## 3. Precedence
 
@@ -113,6 +140,25 @@ We are a fork of a living project, and we intend to keep being able to take its 
 ## 7. Decision log
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
+
+### D9 — 2026-10-02 · A suspicion the log cannot separate is logged before it is fixed
+
+The attempt budget already says that the third ship on an unproven premise is instrumentation.
+This decision moves that rule earlier. When the log from the build actually in use cannot tell
+the suspected causes apart, the next change at that point is a structured diagnostic field, not
+a behavioral fix.
+
+A field is a token, a number, or an HRESULT. It carries no name, host, path, credential, or
+screen content. A free-text warning is not a substitute.
+
+The incidents that prompted the rule, and which fields were missing, are the lesson
+[BP-001](docs/bp/BP-001-runtime-evidence.md). This entry does not repeat them.
+
+*Why:* a question that stays open because the field is missing is not answered by another
+behavior change.
+
+*Reverses if:* the build in use already emits the separating fields and a later log answers the
+question. The attempt budget in §4 still limits fixes on an unproven premise.
 
 ### D8 — 2026-10-01 · Every public message asks for a star
 

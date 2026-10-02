@@ -1,6 +1,10 @@
 .test-profile/
 provider_debug.log
+# Tripwire. Personal operation lives outside this repository.
+# If one of these names reappears in the tree, it still must not be committed.
 post-build-local.ps1
+scripts/pull-maintainer-logs.ps1
+local-logs/
 verbose.log.enable
 mRemoteNG-verbose.log
 tree-debug.log

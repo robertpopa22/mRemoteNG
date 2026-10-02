@@ -1,5 +1,9 @@
 # /mremoteng-fix-complete — Maintenance status + delegate to fix-repo
 
+**Does:** a status report of this fork, then hands actionable fork comments to the fix-repo procedure.
+
+**Does not:** fix code itself, set policy, hold a lesson (the delegated procedure writes one in [docs/bp/](../../docs/bp/) when the run learned it), or name the maintainer's machines.
+
 Run-at-startup situational report for the maintenance phase: where the fork stands (local vs origin vs upstream), what upstream work is pending integration, and which open **fork** issues have new tester comments waiting on us. After the report, automatically hand off the actionable fork comments to the `/mremoteng-fix-repo` workflow.
 
 This command is **read-only** for assessment; the only changes come from the delegated fix-repo phase (which itself stops for confirmation before anything outward-facing). It never integrates upstream automatically — it only lists the gap.
@@ -17,7 +21,7 @@ The user may specify arguments after the command:
 ```bash
 python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py sync
 ```
-Refreshes both repos' issue JSON from GitHub. Expected ~10-14 min for 800+ issues. For a faster startup the user can pass `--no-sync`.
+Refreshes both repos' issue JSON from GitHub. Duration varies with the backlog. Wait for exit 0. `--no-sync` uses the cached DB.
 
 ### Step 2: Git state — local vs origin
 ```bash
@@ -50,7 +54,7 @@ Report version + last CI runs. For deep QA (SonarCloud, analyzer warnings, full 
 ### Step 6: Consolidated report + delegate
 Print ONE consolidated markdown table covering: git state (local/origin), upstream integration gap, fork work queue, release/CI. Then:
 - If `--report-only`, stop.
-- Otherwise, if Step 4 found actionable fork comments, execute the `/mremoteng-fix-repo` workflow — read and follow `D:/github/mRemoteNG/.claude/commands/mremoteng-fix-repo.md` (pass `--no-sync` to it, since Step 1 already synced).
+- Otherwise, if Step 4 found actionable fork comments, execute the `/mremoteng-fix-repo` workflow — read and follow `D:/github/mRemoteNG/.claude/commands/mremoteng-fix-repo.md` (pass `--no-sync` to it, since Step 1 already synced). That workflow reads the maintainer logs from outside this repository before any edit (its Step 2a) and does not publish them. A suspicion those logs cannot separate follows CHARTER D9: add the diagnostic field before a behavioral fix. The lesson is docs/bp; do not copy it.
 
 ## Important notes
 

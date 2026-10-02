@@ -20,10 +20,11 @@ exact file without opening its encrypted payload, migrates the portable settings
 and backups, and records initialization state. Once a target profile exists, it is
 authoritative and is only hash-checked before and after program deployment.
 
-For automatic workstation deployment, create the gitignored
-`post-build-local.ps1`. `build.ps1` calls this hook only outside CI and passes
-`Arch`, `Configuration`, `BuildOutput`, and the `Portable` switch. Keep all machine-
-specific paths in that ignored hook, not in tracked files.
+`build.ps1` may call a gitignored file named `post-build-local.ps1` beside itself, and
+only outside CI. That hook is not part of this repository. A maintainer's own machines
+are operated from a directory outside the checkout. This document does not name those
+machines or their paths. Do not put them in a tracked file, a commit, or a public reply.
+If the hook file is absent, the build still succeeds and copies nothing.
 
 Local builds also derive their assembly metadata from the `<Version>` in
 `mRemoteNG.csproj`. CI continues to generate `AssemblyInfo.cs`; the local path does

@@ -20,17 +20,18 @@
         green.
 
 .PARAMETER Target
-    The daily-driver install. Defaults to the maintainer's.
+    The install directory. Required. This script does not name a maintainer's machines.
 
 .PARAMETER Source
     The self-contained publish output. Build it with: build.ps1 -SelfContained
 
 .EXAMPLE
-    pwsh -NoProfile -File scripts\deploy-daily-driver.ps1
+    pwsh -NoProfile -File scripts\deploy-daily-driver.ps1 -Target <install-dir>
 #>
 [CmdletBinding()]
 param(
-    [string]$Target = 'E:\OneDrive\_Portable\mRemoteNG-latest',
+    [Parameter(Mandatory)]
+    [string]$Target,
     [string]$Source = "$PSScriptRoot\..\mRemoteNG\bin\x64\Release\publish"
 )
 

@@ -1,5 +1,9 @@
 # Runtime diagnostics
 
+**Does:** name the fields of one diagnostic line, and the privacy rule that line must keep.
+
+**Does not:** decide policy (that is [CHARTER.md](../CHARTER.md)), record an incident (that is [docs/bp/](bp/)), or hold anyone's logs.
+
 The portable build writes one bounded, human-readable log through log4net. Each new-format line contains:
 
 - a local ISO-8601 timestamp with the UTC offset;

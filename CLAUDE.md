@@ -7,6 +7,10 @@
 > rest, and the log of decisions with their reasoning. Where the two disagree, the charter wins and
 > this file gets corrected.
 
+**Does:** technical instructions. How to build, how to test, the tripwire, and where the other documents live.
+
+**Does not:** repeat a directive, repeat a lesson, or name a maintainer's machines. Document roles are defined in [CHARTER.md](CHARTER.md). Lessons live in [docs/BEST_PRACTICES.md](docs/BEST_PRACTICES.md). The log field contract is [docs/RUNTIME_DIAGNOSTICS.md](docs/RUNTIME_DIAGNOSTICS.md). Procedures live in `.claude/commands/` and only point at those documents.
+
 ## Scope boundary — this repository stands alone
 
 mRemoteNG is a public, open-source fork. It carries no dependency on, and no reference to, any
@@ -293,9 +297,11 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1
 # Skip build (fast iteration):
 pwsh -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -Headless -NoBuild
 
-# Bash runner (fastest, no build):
-bash run-tests-core.sh
+# Bash runner (fastest, no build). Use Git Bash, not WSL:
+& "C:\Program Files\Git\bin\bash.exe" run-tests-core.sh
 ```
+
+`C:\Windows\System32\bash.exe` is WSL and has no `dotnet`, so it reports 0 tests.
 
 ### Single test group:
 ```bash
