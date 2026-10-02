@@ -428,6 +428,15 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("ChooseInterfaceFont", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Match the Windows app theme.
+        /// </summary>
+        internal static string MatchWindowsAppTheme {
+            get {
+                return ResourceManager.GetString("MatchWindowsAppTheme", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Apply.

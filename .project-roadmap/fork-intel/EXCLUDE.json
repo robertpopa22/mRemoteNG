@@ -86,6 +86,16 @@
       "decision": "imported",
       "note": "Appearance can choose the interface font and the choice is applied on save and at startup",
       "at": "2026-10-02T19:33:46Z"
+    },
+    "3f94a2c23980a384cbf15386ae7ffc506a92e6e5": {
+      "decision": "imported",
+      "note": "The theme option follows the Windows app setting and applies through the existing live theme event. The saved theme name is kept.",
+      "at": "2026-10-02T19:42:08Z"
+    },
+    "1329450e782556cc4fdc33bd916aedabe9434064": {
+      "decision": "imported",
+      "note": "A dark dialog background asks open forms, floating windows and task dialogs for a dark title bar. Native controls follow the same choice.",
+      "at": "2026-10-02T19:42:08Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

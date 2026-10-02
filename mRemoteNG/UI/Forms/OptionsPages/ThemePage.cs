@@ -7,6 +7,7 @@ using BrightIdeasSoftware;
 using mRemoteNG.Properties;
 using mRemoteNG.UI.TaskDialog;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.UI.Controls;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.UI.Forms.OptionsPages
@@ -18,19 +19,24 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private readonly ThemeManager _themeManager;
         private readonly bool _oriActiveTheming;
+        private readonly bool _originalFollowOs;
         private ThemeInfo? _oriActiveTheme;
         private readonly List<ThemeInfo> modifiedThemes = [];
+        private MrngCheckBox? chkFollowOsTheme;
+        private bool _followOsChanging;
 
         #endregion
 
         public ThemePage()
         {
             InitializeComponent();
+            AddFollowOsCheckbox();
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.AppearanceEditor_16x);
             _themeManager = ThemeManager.getInstance();
+            _originalFollowOs = Properties.OptionsThemePage.Default.FollowOsTheme;
+            _oriActiveTheming = _themeManager.ThemingActive;
             if (!_themeManager.ThemingActive) return;
             _themeManager.ThemeChanged += ApplyTheme;
-            _oriActiveTheming = _themeManager.ThemingActive;
         }
 
         public override string PageName
@@ -46,6 +52,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnThemeDelete.Text = Language._Delete;
             btnThemeNew.Text = Language._New;
             labelRestart.Text = "Theme changes are applied live.";
+            if (chkFollowOsTheme != null)
+                chkFollowOsTheme.Text = Language.MatchWindowsAppTheme;
         }
 
         private new void ApplyTheme()
@@ -68,6 +76,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             cboTheme.SelectedItem = _themeManager.ActiveTheme;
             // Store the original active theme for reverting
             _oriActiveTheme = _themeManager.ActiveTheme;
+            if (chkFollowOsTheme != null)
+            {
+                _followOsChanging = true;
+                chkFollowOsTheme.Checked = Properties.OptionsThemePage.Default.FollowOsTheme;
+                _followOsChanging = false;
+                cboTheme.Enabled = !chkFollowOsTheme.Checked;
+            }
             cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
 
             listPalette.FormatCell += ListPalette_FormatCell; //Color cell formatter
@@ -89,6 +104,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             base.SaveSettings();
 
             Properties.OptionsThemePage.Default.ThemingActive = true;
+            if (chkFollowOsTheme != null)
+                Properties.OptionsThemePage.Default.FollowOsTheme = chkFollowOsTheme.Checked;
 
             // Apply the selected theme live without requiring a restart
             if (cboTheme.SelectedItem != null)
@@ -113,6 +130,14 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         {
             base.RevertSettings();
             _themeManager.ThemingActive = _oriActiveTheming;
+            Properties.OptionsThemePage.Default.FollowOsTheme = _originalFollowOs;
+            if (chkFollowOsTheme != null)
+            {
+                _followOsChanging = true;
+                chkFollowOsTheme.Checked = _originalFollowOs;
+                _followOsChanging = false;
+                cboTheme.Enabled = !_originalFollowOs;
+            }
 
             // Clear the modified themes list without saving
             modifiedThemes.Clear();
@@ -127,6 +152,39 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 cboTheme.SelectedItem = _oriActiveTheme;
                 cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
             }
+        }
+
+        private void AddFollowOsCheckbox()
+        {
+            chkFollowOsTheme = new MrngCheckBox
+            {
+                Name = "chkFollowOsTheme",
+                AutoSize = true,
+                Dock = DockStyle.Fill,
+                Text = "Match the Windows app theme"
+            };
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
+            tableLayoutPanel1.Controls.Add(chkFollowOsTheme, 0, 1);
+            tableLayoutPanel1.SetColumnSpan(chkFollowOsTheme, 3);
+            tlpMain.RowStyles[0] = new RowStyle(SizeType.Absolute, 56F);
+            chkFollowOsTheme.CheckedChanged += (_, _) =>
+            {
+                if (_followOsChanging || chkFollowOsTheme == null)
+                    return;
+                Properties.OptionsThemePage.Default.FollowOsTheme = chkFollowOsTheme.Checked;
+                cboTheme.Enabled = !chkFollowOsTheme.Checked;
+                if (chkFollowOsTheme.Checked)
+                    _themeManager.ApplyOperatingSystemTheme();
+                else
+                {
+                    string saved = Properties.OptionsThemePage.Default.ThemeName ?? "";
+                    ThemeInfo? savedTheme = _themeManager.LoadThemes()
+                        .FirstOrDefault(t => string.Equals(t.Name, saved, StringComparison.Ordinal));
+                    if (savedTheme != null)
+                        _themeManager.ActiveTheme = savedTheme;
+                }
+            };
         }
 
         #region Private Methods

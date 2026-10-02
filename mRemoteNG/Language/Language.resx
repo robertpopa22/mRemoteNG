@@ -252,6 +252,9 @@
   <data name="ChooseInterfaceFont" xml:space="preserve">
     <value>Choose font...</value>
   </data>
+  <data name="MatchWindowsAppTheme" xml:space="preserve">
+    <value>Match the Windows app theme</value>
+  </data>
   <data name="Connection" xml:space="preserve">
     <value>Connection</value>
   </data>

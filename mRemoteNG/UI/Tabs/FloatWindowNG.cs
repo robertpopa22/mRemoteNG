@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using mRemoteNG.Themes;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace mRemoteNG.UI.Tabs
@@ -31,6 +32,12 @@ namespace mRemoteNG.UI.Tabs
 
             // Allow the Windows default behavior of maximizing/restoring the window
             DoubleClickTitleBarToDock = true;
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            WindowTitleBar.UseDarkCaption(Handle, OsAppTheme.CaptionIsDark(ThemeManager.getInstance().ActiveTheme));
         }
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]

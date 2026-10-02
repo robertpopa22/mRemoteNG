@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "imported",
+  "note": "The theme option follows the Windows app setting and applies through the existing live theme event. The saved theme name is kept."
 }

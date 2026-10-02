@@ -61,10 +61,37 @@ namespace mRemoteNG.Themes
                     NotifyThemeChanged(this, new PropertyChangedEventArgs("HighContrast"));
                 }
             }
+
+            if (Properties.OptionsThemePage.Default.FollowOsTheme &&
+                (e.Category == UserPreferenceCategory.General || e.Category == UserPreferenceCategory.Color || e.Category == UserPreferenceCategory.VisualStyle))
+            {
+                ApplyOperatingSystemTheme();
+            }
+        }
+
+        /// <summary>
+        /// Selects the built-in light or dark theme from the Windows app setting.
+        /// The saved theme name is put back so turning this off returns to that choice.
+        /// The running theme still changes through the live theme event.
+        /// </summary>
+        public bool ApplyOperatingSystemTheme()
+        {
+            if (themes == null)
+                return false;
+            string saved = Properties.OptionsThemePage.Default.ThemeName ?? "";
+            string name = OsAppTheme.ThemeName(OsAppTheme.ReadPrefersLight());
+            if (themes[name] is not ThemeInfo osTheme)
+                return false;
+            ActiveTheme = osTheme;
+            Properties.OptionsThemePage.Default.ThemeName = saved;
+            return true;
         }
 
         private void SetActive()
         {
+            if (Properties.OptionsThemePage.Default.FollowOsTheme && ApplyOperatingSystemTheme())
+                return;
+
             var themeName = Properties.OptionsThemePage.Default.ThemeName;
             if (themeName != null && themes[themeName] is ThemeInfo savedTheme)
                 ActiveTheme = savedTheme;
@@ -320,6 +347,8 @@ namespace mRemoteNG.Themes
                 // Ensure we don't crash the whole app if one listener fails
                 Debug.WriteLine($"Error in ThemeChangedEvent: {ex.Message}");
             }
+
+            WindowTitleBar.ApplyToOpenForms(OsAppTheme.CaptionIsDark(ActiveTheme));
         }
 
         #endregion

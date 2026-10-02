@@ -51,7 +51,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
 
 - [x] `eb03e059b2` — the user can choose the interface font.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/eb03e059b2ecc1a1b00dc70056b70cdb348a2195
-- [ ] `3f94a2c239`, `1329450e78` — follow the system theme, including dark title bars. Our theme already applies live, so the two-restart path is not copied.
+- [x] `3f94a2c239`, `1329450e78` — follow the system theme, including dark title bars. Our theme already applies live, so the two-restart path is not copied.
   Sources: https://github.com/mRemoteNG/mRemoteNG/commit/3f94a2c23980a384cbf15386ae7ffc506a92e6e5
   https://github.com/mRemoteNG/mRemoteNG/commit/1329450e782556cc4fdc33bd916aedabe9434064
 - [ ] `4edeaba5c1`, `08b056f698`, `9216eeec3f` — an RDP resize that moves again while it is applied, and an RDP 8 session that reconnects only to change size. Trace first. This touches `#177`. It is not treated as a general reconnect defect.

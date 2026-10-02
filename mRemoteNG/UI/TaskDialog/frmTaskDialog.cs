@@ -841,6 +841,12 @@ namespace mRemoteNG.UI.TaskDialog
 
         #endregion
 
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            WindowTitleBar.UseDarkCaption(Handle, OsAppTheme.CaptionIsDark(ThemeManager.getInstance().ActiveTheme));
+        }
+
         //--------------------------------------------------------------------------------
     }
 }

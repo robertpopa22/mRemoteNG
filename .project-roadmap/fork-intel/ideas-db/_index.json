@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 62,
+    "new": 60,
     "trying": 0,
-    "imported": 21,
+    "imported": 23,
     "present": 12,
     "rejected": 443,
     "deferred": 114
@@ -111,15 +111,6 @@
       "status": "new",
       "fork": "mRemoteNG/mRemoteNG",
       "subject": "fix: Japanese translation gaps and AdvancedPage label mis-binding"
-    },
-    {
-      "sha": "3f94a2c239",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "vindict6/mRemoteNG",
-      "subject": "Dark mode: follow the OS, honor the theming setting, dark title bars"
     },
     {
       "sha": "556127ef31",
@@ -309,15 +300,6 @@
       "status": "new",
       "fork": "mRemoteNG/mRemoteNG",
       "subject": "fix: stop dropping SQL Server connections on every load"
-    },
-    {
-      "sha": "1329450e78",
-      "kind": "upstream",
-      "tier": "B",
-      "score": 4,
-      "status": "new",
-      "fork": "mRemoteNG/mRemoteNG",
-      "subject": "Extend dark theme coverage to floating windows, dialogs and native controls"
     },
     {
       "sha": "46548c8c3e",
