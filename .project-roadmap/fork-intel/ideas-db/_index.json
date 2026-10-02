@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 63,
+    "new": 62,
     "trying": 0,
-    "imported": 20,
+    "imported": 21,
     "present": 12,
     "rejected": 443,
     "deferred": 114
@@ -39,15 +39,6 @@
       "status": "new",
       "fork": "mRemoteNG/mRemoteNG",
       "subject": "Revise restricted admin mode description in Language.resx"
-    },
-    {
-      "sha": "eb03e059b2",
-      "kind": "fork",
-      "tier": "B",
-      "score": 9,
-      "status": "new",
-      "fork": "k-meeks/mRemoteNG",
-      "subject": "Add configurable interface font (Options > Appearance)"
     },
     {
       "sha": "0807102c91",

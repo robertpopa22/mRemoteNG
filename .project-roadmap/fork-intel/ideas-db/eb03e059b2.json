@@ -16,6 +16,6 @@
   "security_flag_ids": [],
   "preapproval": "manual-review",
   "suggested_status": "new",
-  "status": "new",
-  "note": ""
+  "status": "imported",
+  "note": "Appearance can choose the interface font and the choice is applied on save and at startup"
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using mRemoteNG.App;
@@ -7,6 +8,7 @@ using mRemoteNG.Tools;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using mRemoteNG.Config.Settings.Registry;
+using mRemoteNG.Themes;
 
 namespace mRemoteNG.UI.Forms.OptionsPages
 {
@@ -14,9 +16,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     public sealed partial class AppearancePage
     {
         private OptRegistryAppearancePage? pageRegSettingsInstance;
+        private string? _pendingFontFamily;
+        private float? _pendingFontSize;
+        private FontStyle? _pendingFontStyle;
         public AppearancePage()
         {
             InitializeComponent();
+            btnChooseInterfaceFont.Click += btnChooseInterfaceFont_Click;
             ApplyTheme();
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.Panel_16x);
         }
@@ -41,6 +47,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkMinimizeToSystemTray.Text = Language.MinimizeToSysTray;
             chkCloseToSystemTray.Text = Language.CloseToSysTray;
             lblRegistrySettingsUsedInfo.Text = Language.OptionsCompanyPolicyMessage;
+            btnChooseInterfaceFont.Text = Language.ChooseInterfaceFont;
+            ShowInterfaceFont();
         }
 
         public override void LoadSettings()
@@ -72,6 +80,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowSystemTrayIcon.Checked = Properties.OptionsAppearancePage.Default.ShowSystemTrayIcon;
             chkMinimizeToSystemTray.Checked = Properties.OptionsAppearancePage.Default.MinimizeToTray;
             chkCloseToSystemTray.Checked = Properties.OptionsAppearancePage.Default.CloseToTray;
+            ShowInterfaceFont();
         }
 
         public override void SaveSettings()
@@ -116,6 +125,50 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             Properties.OptionsAppearancePage.Default.ReplaceIconOnConnect = chkReplaceIconOnConnect.Checked;
             Properties.OptionsAppearancePage.Default.BoldActiveConnections = chkBoldActiveConnections.Checked;
+            SaveInterfaceFont();
+        }
+
+        private void ShowInterfaceFont()
+        {
+            using Font font = InterfaceFont.Create(
+                _pendingFontFamily ?? Properties.OptionsAppearancePage.Default.UIFontFamily,
+                _pendingFontSize ?? Properties.OptionsAppearancePage.Default.UIFontSize,
+                _pendingFontStyle ?? (FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
+            lblInterfaceFont.Text = Language.InterfaceFont + ": " + InterfaceFont.Describe(font);
+        }
+
+        private void btnChooseInterfaceFont_Click(object? sender, EventArgs e)
+        {
+            using Font current = InterfaceFont.Create(
+                _pendingFontFamily ?? Properties.OptionsAppearancePage.Default.UIFontFamily,
+                _pendingFontSize ?? Properties.OptionsAppearancePage.Default.UIFontSize,
+                _pendingFontStyle ?? (FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
+            using FontDialog dialog = new()
+            {
+                Font = current,
+                ShowEffects = false,
+                MinSize = (int)InterfaceFont.MinSize,
+                MaxSize = (int)InterfaceFont.MaxSize,
+                AllowScriptChange = false
+            };
+            if (dialog.ShowDialog(FindForm()) != DialogResult.OK)
+                return;
+
+            _pendingFontFamily = dialog.Font.FontFamily.Name;
+            _pendingFontSize = dialog.Font.SizeInPoints;
+            _pendingFontStyle = InterfaceFont.AllowedStyle(dialog.Font.Style);
+            ShowInterfaceFont();
+        }
+
+        private void SaveInterfaceFont()
+        {
+            if (_pendingFontFamily == null || _pendingFontSize == null || _pendingFontStyle == null)
+                return;
+
+            Properties.OptionsAppearancePage.Default.UIFontFamily = _pendingFontFamily;
+            Properties.OptionsAppearancePage.Default.UIFontSize = _pendingFontSize.Value;
+            Properties.OptionsAppearancePage.Default.UIFontStyle = (int)InterfaceFont.AllowedStyle(_pendingFontStyle.Value);
+            InterfaceFont.ApplyToOpenForms();
         }
 
         public override void LoadRegistrySettings()

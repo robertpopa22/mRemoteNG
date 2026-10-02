@@ -81,6 +81,11 @@
       "decision": "imported",
       "note": "the sole-candidate test calls Resolve with a synthetic candidate and does not read the machine disk",
       "at": "2026-10-02T19:28:23Z"
+    },
+    "eb03e059b2ecc1a1b00dc70056b70cdb348a2195": {
+      "decision": "imported",
+      "note": "Appearance can choose the interface font and the choice is applied on save and at startup",
+      "at": "2026-10-02T19:33:46Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

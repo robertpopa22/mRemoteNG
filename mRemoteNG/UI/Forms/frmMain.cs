@@ -370,6 +370,7 @@ namespace mRemoteNG.UI.Forms
             }
 
             // FrmOptions is lazy-loaded on first access — no need to create at startup
+            InterfaceFont.ApplyToOpenForms();
             Debug.Print($"[Startup] Total FrmMain_Load: {totalSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] Total: {totalSw.ElapsedMilliseconds}ms");
             RuntimeDiagnostics.StartupPhase("total", totalSw.ElapsedMilliseconds);

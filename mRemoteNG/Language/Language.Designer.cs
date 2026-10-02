@@ -410,6 +410,24 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("Appearance", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Interface font.
+        /// </summary>
+        internal static string InterfaceFont {
+            get {
+                return ResourceManager.GetString("InterfaceFont", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Choose font....
+        /// </summary>
+        internal static string ChooseInterfaceFont {
+            get {
+                return ResourceManager.GetString("ChooseInterfaceFont", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Apply.

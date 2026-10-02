@@ -49,7 +49,7 @@ One commit per bullet. A bullet that names several commits is one commit and car
 
 ## Larger, on our design
 
-- [ ] `eb03e059b2` — the user can choose the interface font.
+- [x] `eb03e059b2` — the user can choose the interface font.
   Source: https://github.com/mRemoteNG/mRemoteNG/commit/eb03e059b2ecc1a1b00dc70056b70cdb348a2195
 - [ ] `3f94a2c239`, `1329450e78` — follow the system theme, including dark title bars. Our theme already applies live, so the two-restart path is not copied.
   Sources: https://github.com/mRemoteNG/mRemoteNG/commit/3f94a2c23980a384cbf15386ae7ffc506a92e6e5

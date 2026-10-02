@@ -246,6 +246,12 @@
   <data name="Appearance" xml:space="preserve">
     <value>Appearance</value>
   </data>
+  <data name="InterfaceFont" xml:space="preserve">
+    <value>Interface font</value>
+  </data>
+  <data name="ChooseInterfaceFont" xml:space="preserve">
+    <value>Choose font...</value>
+  </data>
   <data name="Connection" xml:space="preserve">
     <value>Connection</value>
   </data>

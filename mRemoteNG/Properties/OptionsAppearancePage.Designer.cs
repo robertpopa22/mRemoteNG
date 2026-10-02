@@ -82,6 +82,42 @@ namespace mRemoteNG.Properties {
                 this["ShowCompleteConsPathInTitle"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
+        public string UIFontFamily {
+            get {
+                return ((string)(this["UIFontFamily"]));
+            }
+            set {
+                this["UIFontFamily"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8.25")]
+        public float UIFontSize {
+            get {
+                return ((float)(this["UIFontSize"]));
+            }
+            set {
+                this["UIFontSize"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int UIFontStyle {
+            get {
+                return ((int)(this["UIFontStyle"]));
+            }
+            set {
+                this["UIFontStyle"] = value;
+            }
+        }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

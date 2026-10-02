@@ -46,6 +46,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowSystemTrayIcon = new MrngCheckBox();
             chkMinimizeToSystemTray = new MrngCheckBox();
             chkCloseToSystemTray = new MrngCheckBox();
+            lblInterfaceFont = new MrngLabel();
+            btnChooseInterfaceFont = new MrngButton();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlOptions.SuspendLayout();
@@ -176,8 +178,28 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCloseToSystemTray.Text = "Close to System Tray";
             chkCloseToSystemTray.UseVisualStyleBackColor = true;
             // 
+            // lblInterfaceFont
+            // 
+            lblInterfaceFont.AutoSize = true;
+            lblInterfaceFont.Location = new System.Drawing.Point(3, 294);
+            lblInterfaceFont.Name = "lblInterfaceFont";
+            lblInterfaceFont.Size = new System.Drawing.Size(74, 13);
+            lblInterfaceFont.TabIndex = 11;
+            lblInterfaceFont.Text = "Interface font";
+            // 
+            // btnChooseInterfaceFont
+            // 
+            btnChooseInterfaceFont.Location = new System.Drawing.Point(3, 314);
+            btnChooseInterfaceFont.Name = "btnChooseInterfaceFont";
+            btnChooseInterfaceFont.Size = new System.Drawing.Size(140, 25);
+            btnChooseInterfaceFont.TabIndex = 12;
+            btnChooseInterfaceFont.Text = "Choose font...";
+            btnChooseInterfaceFont.UseVisualStyleBackColor = true;
+            // 
             // pnlOptions
             // 
+            pnlOptions.Controls.Add(btnChooseInterfaceFont);
+            pnlOptions.Controls.Add(lblInterfaceFont);
             pnlOptions.Controls.Add(cboLanguage);
             pnlOptions.Controls.Add(chkCloseToSystemTray);
             pnlOptions.Controls.Add(chkMinimizeToSystemTray);
@@ -192,7 +214,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 313);
+            pnlOptions.Size = new System.Drawing.Size(610, 352);
             pnlOptions.TabIndex = 8;
             // 
             // lblRegistrySettingsUsedInfo
@@ -232,6 +254,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngCheckBox chkShowSystemTrayIcon;
         internal MrngCheckBox chkMinimizeToSystemTray;
         internal MrngCheckBox chkCloseToSystemTray;
+        internal Controls.MrngLabel lblInterfaceFont;
+        internal MrngButton btnChooseInterfaceFont;
         private System.Windows.Forms.Panel pnlOptions;
         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;
     }
