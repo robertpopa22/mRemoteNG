@@ -16,6 +16,11 @@
       "decision": "imported",
       "note": "a non-switch token is kept whole, so a Windows path survives the colon",
       "at": "2026-10-02T18:47:37Z"
+    },
+    "f634039a177f9204454e5fd8680b3cce3ee50863": {
+      "decision": "imported",
+      "note": "OpenSSH uses the same SCP and SFTP window as SSH1 and SSH2",
+      "at": "2026-10-02T18:50:21Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",

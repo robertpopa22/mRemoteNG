@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 82,
+    "new": 81,
     "trying": 0,
-    "imported": 7,
+    "imported": 8,
     "present": 6,
     "rejected": 443,
     "deferred": 114
@@ -372,15 +372,6 @@
       "status": "new",
       "fork": "Hovn/mRemoteNG",
       "subject": "标签右键中增加关闭菜单"
-    },
-    {
-      "sha": "f634039a17",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "jafin/mRemoteNG",
-      "subject": "fix: offer the SSH transfer window for the protocols it can reach (#24)"
     },
     {
       "sha": "2a90030329",

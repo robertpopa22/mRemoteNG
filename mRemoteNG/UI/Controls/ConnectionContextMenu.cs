@@ -1095,7 +1095,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeTypeClipboard.Enabled = false;
             }
 
-            if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
+            if (!ProtocolFeature.OffersSshFileTransfer(connectionInfo.Protocol))
                 _cMenTreeToolsTransferFile.Enabled = false;
 
             _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(connectionInfo.MacAddress);
@@ -1136,7 +1136,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeTypeClipboard.Enabled = false;
             }
 
-            if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
+            if (!ProtocolFeature.OffersSshFileTransfer(connectionInfo.Protocol))
                 _cMenTreeToolsTransferFile.Enabled = false;
 
             _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(connectionInfo.MacAddress);

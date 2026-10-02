@@ -1529,8 +1529,7 @@ namespace mRemoteNG.UI.Window
                     cmenTabTransferFile.Visible = false;
                 }
 
-                if (interfaceControl.Info.Protocol == ProtocolType.SSH1 |
-                    interfaceControl.Info.Protocol == ProtocolType.SSH2)
+                if (ProtocolFeature.OffersSshFileTransfer(interfaceControl.Info.Protocol))
                 {
                     cmenTabTransferFile.Visible = true;
                 }
@@ -1628,8 +1627,7 @@ namespace mRemoteNG.UI.Window
                 InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
 
-                if (interfaceControl.Info.Protocol == ProtocolType.SSH1 |
-                    interfaceControl.Info.Protocol == ProtocolType.SSH2)
+                if (ProtocolFeature.OffersSshFileTransfer(interfaceControl.Info.Protocol))
                     SshTransferFile();
                 else if (interfaceControl.Info.Protocol == ProtocolType.VNC)
                     VncTransferFile();

@@ -72,5 +72,14 @@ namespace mRemoteNG.Connection.Protocol
         {
             return (protocolType == ProtocolType.IntApp || protocolType == ProtocolType.PowerShell || protocolType == ProtocolType.WSL || protocolType == ProtocolType.Terminal);
         }
+
+        /// <summary>
+        /// The SSH transfer window speaks SCP and SFTP to the host. It does not need the live
+        /// session to be PuTTY, so OpenSSH is included with SSH1 and SSH2.
+        /// </summary>
+        public static bool OffersSshFileTransfer(ProtocolType protocolType)
+        {
+            return protocolType is ProtocolType.SSH1 or ProtocolType.SSH2 or ProtocolType.OpenSSH;
+        }
     }
 }
