@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 53,
+    "new": 52,
     "trying": 0,
-    "imported": 29,
+    "imported": 30,
     "present": 13,
     "rejected": 443,
     "deferred": 114
@@ -165,15 +165,6 @@
       "status": "new",
       "fork": "jafin/mRemoteNG",
       "subject": "perf: stop the port scan flooding the UI thread; add common-ports button"
-    },
-    {
-      "sha": "a645175d54",
-      "kind": "upstream",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "mRemoteNG/mRemoteNG",
-      "subject": "Revise installation parameters in README"
     },
     {
       "sha": "b4affea30a",

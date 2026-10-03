@@ -126,6 +126,11 @@
       "decision": "imported",
       "note": "Arrow buttons use one device-DPI scale. Backup page was not changed.",
       "at": "2026-10-03T06:34:26Z"
+    },
+    "a645175d54ef8363298fbc8e14cdb7064a9b830e": {
+      "decision": "imported",
+      "note": "The README states that an elevated per-machine install honors the folder property.",
+      "at": "2026-10-03T07:07:42Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",
