@@ -109,11 +109,11 @@ namespace mRemoteNG.UI.Controls
             LayoutArrowButtons();
         }
 
-        protected override void ScaleControl(SizeF factor, BoundsSpecified specified)
+        protected override void OnLayout(LayoutEventArgs levent)
         {
-            base.ScaleControl(factor, specified);
-            // The options page scales this control. Assign the arrows again so that
-            // scale is not a second factor on top of DeviceDpi.
+            base.OnLayout(levent);
+            // Scale(SizeF) sizes children after ScaleControl returns. This pass
+            // runs after that, so the arrows keep a single DeviceDpi factor.
             LayoutArrowButtons();
         }
 

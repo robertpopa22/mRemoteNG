@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Themed numeric up/down arrows follow the control's device DPI once. At 96 DPI the arrow stays 16 pixels wide. At a higher DPI it grows by that single factor, including after a DPI change and a second layout.
+- Themed numeric up/down arrows follow the control's device DPI once. At 96 DPI the arrow stays 16 pixels wide. At a higher DPI it grows by that single factor, including after a DPI change, a second layout, and an options-page scale.
 
 ## [1.84.0] - 2026-09-25
 

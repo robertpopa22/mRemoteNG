@@ -61,6 +61,12 @@ namespace mRemoteNGTests.UI.Controls
                 RaiseDpiChanged(spinner);
                 Assert.That(up.Width, Is.EqualTo(16 * 192 / 96));
 
+                spinner.Scale(new System.Drawing.SizeF(2, 2));
+                Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "the options-page scale doubled the arrow width");
+
+                spinner.Scale(new System.Drawing.SizeF(2, 2));
+                Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "a second scale doubled the arrow width");
+
                 spinner.Size = new System.Drawing.Size(140, 36);
                 RaiseDpiChanged(spinner);
                 Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "layout after the DPI change applied the scale again");
