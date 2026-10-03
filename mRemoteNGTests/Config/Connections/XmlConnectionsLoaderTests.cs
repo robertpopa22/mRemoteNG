@@ -75,7 +75,7 @@ internal sealed class XmlConnectionsLoaderTests
     {
         using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
         {
-            File.WriteAllText(filePath, "this is not xml at all");
+            File.WriteAllText(filePath, @"<?xml version=""1.0"" encoding=""utf-8""?><Connections");
 
             XmlConnectionsLoader loader = new(filePath, new MessageCollector(), NoPasswordRequestor);
 
@@ -88,13 +88,13 @@ internal sealed class XmlConnectionsLoaderTests
     {
         using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
         {
-            File.WriteAllText(filePath, "corrupt primary");
+            File.WriteAllText(filePath, @"<?xml version=""1.0"" encoding=""utf-8""?><Connections");
 
             string backup1 = $"{filePath}.20250207-1100000000.backup";
-            File.WriteAllText(backup1, "corrupt backup 1");
+            File.WriteAllText(backup1, @"<?xml version=""1.0"" encoding=""utf-8""?><Connections");
 
             string backup2 = $"{filePath}.20250207-1200000000.backup";
-            File.WriteAllText(backup2, "corrupt backup 2");
+            File.WriteAllText(backup2, @"<?xml version=""1.0"" encoding=""utf-8""?><Connections");
 
             XmlConnectionsLoader loader = new(filePath, new MessageCollector(), NoPasswordRequestor);
 
