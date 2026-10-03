@@ -1,7 +1,9 @@
 # /iis-status — Show IIS Orchestrator Status
 
 Show the current status of the IIS Orchestrator (running or last completed run),
-plus overall project progress and new issues.
+plus overall project progress and new issues. New fork issues include ones we
+opened. A crash report the app filed under our account is work until it is
+dispositioned.
 
 ## What to do
 
@@ -360,19 +362,21 @@ if not recent:
     print('  (none)')
 "
 
-# Fork new issues (last 7 days)
-gh issue list --repo robertpopa22/mRemoteNG --state open --json number,title,createdAt --limit 10 | python -c "
+# Fork new issues (last 7 days), including ones we opened
+gh issue list --repo robertpopa22/mRemoteNG --state open --json number,title,createdAt,author --limit 30 | python -c "
 import json, sys
 from datetime import datetime, timedelta
 cutoff = datetime.utcnow() - timedelta(days=7)
 issues = json.load(sys.stdin)
 recent = [i for i in issues if datetime.fromisoformat(i['createdAt'].rstrip('Z')) > cutoff]
 for i in recent:
-    print(f'  #{i[\"number\"]} {i[\"title\"]}')
+    who = (i.get('author') or {}).get('login') or ''
+    print(f'  #{i[\"number\"]} @{who} {i[\"title\"]}')
 if not recent:
     print('  (none)')
 "
 ```
+An open issue whose author is us, including an auto-generated crash report with no comments, is listed here and is work until it is dispositioned. Do not hide it because there is no external comment.
 
 ### 4. If no status file exists
 Inform the user that no orchestrator run has been recorded yet, but still show

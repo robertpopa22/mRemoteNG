@@ -1,6 +1,6 @@
 # /iis-orchestrator — Full IIS Session (sync + analyze + orchestrate + report)
 
-Run a complete Issue Intelligence System session: sync from GitHub, analyze, run AI triage/fix, generate reports.
+Run a complete Issue Intelligence System session: sync from GitHub, analyze, run AI triage/fix, generate reports. Issues we opened are in that session, including an auto-submitted crash report with no comments. Do not drop one because the author is us.
 
 ## Usage
 
@@ -25,7 +25,7 @@ Run in background. Expected duration: ~14 min for 830+ issues. Monitor progress 
 ```bash
 python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py analyze
 ```
-Quick — shows categorized issues. Capture the output summary for the user.
+Quick — shows categorized issues. Capture the output summary for the user. An open issue we filed is in that summary, including an auto-submitted crash report with no comments. Do not drop it because the author is us. A `wontfix` announcement stays out.
 
 ### Step 3: Report (pre-orchestrator snapshot)
 ```bash
