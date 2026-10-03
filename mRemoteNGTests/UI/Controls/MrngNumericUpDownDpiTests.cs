@@ -43,11 +43,19 @@ namespace mRemoteNGTests.UI.Controls
             Assert.That(previousAwareness, Is.Not.EqualTo(IntPtr.Zero));
             try
             {
+                using var page = new UserControl
+                {
+                    AutoScaleMode = AutoScaleMode.Dpi,
+                    AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F),
+                    Size = new System.Drawing.Size(240, 80)
+                };
                 using var spinner = new MrngNumericUpDown
                 {
                     Size = new System.Drawing.Size(80, 22)
                 };
-                spinner.CreateControl();
+                page.Controls.Add(spinner);
+                page.CreateControl();
+                Assert.That(spinner.Parent, Is.SameAs(page));
 
                 SetDeviceDpi(spinner, 96);
                 RaiseDpiChanged(spinner);
@@ -60,12 +68,23 @@ namespace mRemoteNGTests.UI.Controls
                 SetDeviceDpi(spinner, 192);
                 RaiseDpiChanged(spinner);
                 Assert.That(up.Width, Is.EqualTo(16 * 192 / 96));
+                TestContext.Out.WriteLine($"dpi={spinner.DeviceDpi} before-scale={up.Width}");
 
                 spinner.Scale(new System.Drawing.SizeF(2, 2));
+                TestContext.Out.WriteLine($"dpi={spinner.DeviceDpi} after-scale-1={up.Width}");
                 Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "the options-page scale doubled the arrow width");
 
                 spinner.Scale(new System.Drawing.SizeF(2, 2));
+                TestContext.Out.WriteLine($"dpi={spinner.DeviceDpi} after-scale-2={up.Width}");
                 Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "a second scale doubled the arrow width");
+
+                page.Scale(new System.Drawing.SizeF(2, 2));
+                TestContext.Out.WriteLine($"dpi={spinner.DeviceDpi} after-parent-scale-1={up.Width}");
+                Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "the parent scale doubled the arrow width");
+
+                page.Scale(new System.Drawing.SizeF(2, 2));
+                TestContext.Out.WriteLine($"dpi={spinner.DeviceDpi} after-parent-scale-2={up.Width}");
+                Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "a second parent scale doubled the arrow width");
 
                 spinner.Size = new System.Drawing.Size(140, 36);
                 RaiseDpiChanged(spinner);
