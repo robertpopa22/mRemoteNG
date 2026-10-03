@@ -445,7 +445,7 @@ The model is not specific to mRemoteNG. Any project with hundreds of open issues
 
 | Version | Date | Highlights |
 |---------|------|------------|
-| **v1.84.0** | 2026-09-25 | Crash and security cycle. A missing or antivirus-quarantined `ExternalConnectors.dll` no longer crashes on connect; connections without a credential vault open normally ([#192](https://github.com/robertpopa22/mRemoteNG/issues/192)). Command injection closed in the Terminal protocol (upstream #3335) and argument injection in OpenSSH/WSL; bundled PuTTYNG on the PuTTY 0.85 base ([#169](https://github.com/robertpopa22/mRemoteNG/issues/169)). RDP memory released on close ([#182](https://github.com/robertpopa22/mRemoteNG/issues/182)), .rdp import keeps authentication settings ([#196](https://github.com/robertpopa22/mRemoteNG/issues/196)), close confirmation re-lays out on DPI changes ([#198](https://github.com/robertpopa22/mRemoteNG/issues/198)), Port Scan rebuilt (async, cancellable, IPv6). Full list in CHANGELOG.md |
+| **v1.84.0** | 2026-09-25 | Crash and security cycle. A missing or antivirus-quarantined `ExternalConnectors.dll` no longer crashes on connect; connections without a credential vault open normally ([#192](https://github.com/robertpopa22/mRemoteNG/issues/192)). Command injection closed in the Terminal protocol (upstream #3335) and argument injection in OpenSSH/WSL; bundled PuTTYNG on the PuTTY 0.85 base ([#169](https://github.com/robertpopa22/mRemoteNG/issues/169)). RDP close retention was not reproduced at the reported size ([#182](https://github.com/robertpopa22/mRemoteNG/issues/182)); see Recent work below, .rdp import keeps authentication settings ([#196](https://github.com/robertpopa22/mRemoteNG/issues/196)), close confirmation re-lays out on DPI changes ([#198](https://github.com/robertpopa22/mRemoteNG/issues/198)), Port Scan rebuilt (async, cancellable, IPv6). Full list in CHANGELOG.md |
 | **v1.83.0** | 2026-08-16 | Upstream re-synchronisation: every substantive upstream change since March triaged, ported and adapted (including SQL-schema support upstream does not have). *Use Redirection Server Name* RDP property (schema v3.4 → v3.5), *Clear Cached RDP Credentials* action, Explorer-style slow-click rename, RD Gateway token inheritance. Fixed CSV export column misalignment ([#141](https://github.com/robertpopa22/mRemoteNG/issues/141)) and RDP auto-reconnect after a deliberate logoff ([#140](https://github.com/robertpopa22/mRemoteNG/issues/140)); MSI now attached to stable releases and listed in the checksums ([#138](https://github.com/robertpopa22/mRemoteNG/issues/138)) |
 | **v1.82.0** | 2026-07-02 | First stable of the 1.82 line (.NET 10). GitHub-Releases-only update check, WebAuthn/FIDO2 + Entra ID auth, MSI installer (WiX 6), MS Remote Desktop + MobaXTerm importers, host-status LED icons, startup ~10s→1.2s, plus the 2-release model and a repo-wide simplification cleanup |
 | **v1.81.0** | 2026-03-02 | First stable of the 1.81 line — SonarCloud Quality Gate A/A/A, 0 analyzer warnings, upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) |
@@ -624,6 +624,31 @@ Some of the community tools we use set a public-star minimum before they will wo
 ## Contributing
 
 Submit code via pull request. See the [Wiki](https://github.com/mRemoteNG/mRemoteNG/wiki) for development environment setup.
+
+---
+
+## Recent work
+
+Since the v1.84.0 tag (25 September 2026). None of this is a new stable release. The downloadable nightly of 3 October 2026 is commit [`3d1fe2252`](https://github.com/robertpopa22/mRemoteNG/commit/3d1fe2252a3dc7a49aab4da4fc1868aabb5827f2) (`mRemoteNG-nightly-20261003-v1.84.0-3d1fe22-x64` ZIP and MSI), unsigned, and framework-dependent (it needs the .NET 10 desktop runtime).
+
+**Dependencies.** `main` is on the .NET 10.0.12 line ([`b19c9d35f`](https://github.com/robertpopa22/mRemoteNG/commit/b19c9d35f)). Direct packages moved to their then-current stable releases, including NUnit 5, Reqnroll 3.3.4 (SpecFlow is gone), FlaUI 5, WiX 7, SqlClient 7.1.1, and MySql.Data 26.7.0. The unused `Renci.SshNet.Async` package was removed. Certificate checks, credential storage, and authentication behavior were not changed. The suite recorded for that move was 7414 passed.
+
+**RDP retention ([#182](https://github.com/robertpopa22/mRemoteNG/issues/182)).** The issue is closed as not reproduced at the reported size. That close is not a finding that the retained memory is gone. A log from nightly 20261001 or later, with the per-close lines and no session names, reopens it. Two public measurements on nightly 20260929 do not match each other. On Windows 10 21H2 the later closes kept about 96 MB of private memory each, and the first close left about 171 MB. On Windows 11 25H2 the later closes kept about 4 MB each. Both pastes show a completed dispose. The sentence "An internal error has occurred." is what the client returns for disconnect code 2 with extended code 12 (a remote logoff). It does not, by itself, mean dispose failed.
+
+The nightly above includes [`299380d47`](https://github.com/robertpopa22/mRemoteNG/commit/299380d47) and [`9541adc1c`](https://github.com/robertpopa22/mRemoteNG/commit/9541adc1c). `[Perf]` lines carry the OS build, whether the process itself is in a Remote Desktop session, screen size, the applied RDP shape (version, color depth, resolution, desktop size, redirections), the close trigger, `disc_class`, and a resource sample (private memory, handles, GDI, USER, threads, handle types, thread modules). A `process_stop` line carries the same resource sample. `rdp_resources` records whether Disconnect or Dispose threw, and the numeric HRESULT only. Those lines do not contain connection names, hosts, user names, or paths. Details are in [docs/RUNTIME_DIAGNOSTICS.md](docs/RUNTIME_DIAGNOSTICS.md).
+
+A UI run of the full application in the isolated lab, one Windows target, 16-bit color, ActiveX 10.0.26100, guest display 1024×768, panel 760×465, 30 seconds of settle after each close:
+
+| Run | Setup | Settled result |
+|-----|--------|----------------|
+| 14 tab closes | Remote desktop 1920×1080 | Private memory 66.1 MB to 79.9 MB, about +1.1 MB per close. Handles about +74, GDI +23, USER about +15, threads about +2.5. Process exit: 81 MB private. |
+| 8 cycles aimed at a remote logoff | Start program was set; the session did not log off in time | The test closed the tab instead. This run did not measure extended code 12. The tab-close slope was about +2 MB per close. |
+| One session held 30 minutes | 1920×1080, sampled each minute, then closed | Private memory stayed at 265–267 MB while connected. GDI, USER, and threads stayed flat. Handles rose by about 16 per minute and were released on close. Floor after close: 66 MB, the same as one short session. |
+| 40 tab closes | Fit to window (760×465) | Private memory 63.3 MB to 114.3 MB, about +1.3 MB per close, still linear at close 40. Handles about +76, GDI +23, USER about +15, threads about +2.9. Process exit: 115 MB private, managed heap 24 MB. |
+
+Dispose completed on every measured close. A 1920×1080 desktop and a long-lived session do not produce the 96 MB retained per close. The lab result is in the same range as the 4 MB report. What this lab did not match is the Windows 10 21H2 environment, a connection file of about 700 nodes, and a close that begins as a remote logoff.
+
+**Also on this nightly.** Themed numeric up/down arrows follow the control's device DPI once: 16 pixels wide at 96 DPI, and that single factor at a higher DPI. Appearance has a font chooser (family, 6–24 points, bold or italic). A checked option follows the Windows app theme and returns to the saved theme when turned off; a dark dialog uses a dark title bar. Fit to window applies the screen size when the session goes fullscreen. An RDP session is sized from the panel, and RDP 8 is not reconnected only to resize. An empty translated string falls back to the English text. An elevated per-machine install honors `INSTALLFOLDER`, as the install section above says.
 
 ---
 
