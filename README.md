@@ -76,7 +76,7 @@ Two live releases, always:
 
 Nightly builds (ZIP + MSI, x64) live on the [nightly release](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly), refreshed every push.
 
-**Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0). **Self-contained** includes the .NET runtime — no prerequisites. **MSI** installs to Program Files with desktop & Start Menu shortcuts.
+**Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0). **Self-contained** includes the .NET runtime — no prerequisites. **MSI** installs to Program Files with desktop & Start Menu shortcuts. The package is per-machine and needs administrator rights. An elevated install honors INSTALLFOLDER and writes the files into that folder.
 
 ### How releases work
 
