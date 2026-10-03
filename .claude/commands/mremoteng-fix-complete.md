@@ -1,10 +1,10 @@
 # /mremoteng-fix-complete — Maintenance status + delegate to fix-repo
 
-**Does:** a status report of this fork, then hands actionable fork comments to the fix-repo procedure.
+**Does:** a status report of this fork, then hands actionable fork issues to the fix-repo procedure. An issue we opened is in that handoff when it is still open and not yet dispositioned, including a crash report the app filed under our own account.
 
 **Does not:** fix code itself, set policy, hold a lesson (the delegated procedure writes one in [docs/bp/](../../docs/bp/) when the run learned it), or name the maintainer's machines.
 
-Run-at-startup situational report for the maintenance phase: where the fork stands (local vs origin vs upstream), what upstream work is pending integration, and which open **fork** issues have new tester comments waiting on us. After the report, automatically hand off the actionable fork comments to the `/mremoteng-fix-repo` workflow.
+Run-at-startup situational report for the maintenance phase: where the fork stands (local vs origin vs upstream), what upstream work is pending integration, and which open **fork** issues are waiting on us. That includes a new tester comment and an issue we opened ourselves that has no disposition yet. After the report, automatically hand off that queue to the `/mremoteng-fix-repo` workflow.
 
 This command is **read-only** for assessment; the only changes come from the delegated fix-repo phase (which itself stops for confirmation before anything outward-facing). It never integrates upstream automatically — it only lists the gap.
 
@@ -41,9 +41,17 @@ List untracked upstream commits + `status==pending` commits/PRs that need a deci
 
 ### Step 4: Fork issues waiting on us (the fix-repo work queue)
 ```bash
-python -c "import json,glob,os; rows=[]; [rows.append((j['number'], j.get('title','')[:60], j.get('unread_comments',0), next((c['snippet'][:80] for c in reversed(j.get('comments',[])) if not c.get('is_ours')), ''))) for j in (json.load(open(f,encoding='utf-8')) for f in glob.glob(r'D:/github/mRemoteNG/.project-roadmap/issues-db/fork/*.json')) if j.get('state')=='open' and j.get('unread_comments',0)>0 and j.get('waiting_for_us')]; [print(f'#{n}\t({u} new)\t{t}\t-> {s}') for n,t,u,s in sorted(rows)]"
+python -c "import json,glob; rows=[]
+for f in glob.glob(r'D:/github/mRemoteNG/.project-roadmap/issues-db/fork/*.json'):
+ j=json.load(open(f,encoding='utf-8'))
+ if j.get('state')!='open' or not j.get('waiting_for_us'): continue
+ cs=j.get('comments') or []
+ last=cs[-1] if cs else {}
+ who='ours' if (not cs or last.get('is_ours')) else 'theirs'
+ rows.append((j['number'], j.get('unread_comments',0), who, j.get('author',''), (j.get('title') or '')[:60]))
+[print(f'#{n}\t({u} unread)\t{who}\t@{a}\t{t}') for n,u,who,a,t in sorted(rows)]"
 ```
-This is the actionable queue: open fork issues with new external comments. Capture it.
+This is the actionable queue: every open fork issue with `waiting_for_us`. Zero comments does not remove it. An auto-submitted crash and a bug we filed are waiting on us until they are dispositioned. Capture the list, including rows marked `ours`.
 
 ### Step 5: Release / CI snapshot
 ```bash
@@ -54,7 +62,7 @@ Report version + last CI runs. For deep QA (SonarCloud, analyzer warnings, full 
 ### Step 6: Consolidated report + delegate
 Print ONE consolidated markdown table covering: git state (local/origin), upstream integration gap, fork work queue, release/CI. Then:
 - If `--report-only`, stop.
-- Otherwise, if Step 4 found actionable fork comments, execute the `/mremoteng-fix-repo` workflow — read and follow `D:/github/mRemoteNG/.claude/commands/mremoteng-fix-repo.md` (pass `--no-sync` to it, since Step 1 already synced). That workflow reads the maintainer logs from outside this repository before any edit (its Step 2a) and does not publish them. A suspicion those logs cannot separate follows CHARTER D9: add the diagnostic field before a behavioral fix. The lesson is docs/bp; do not copy it.
+- Otherwise, if Step 4 found any waiting issue, including one we opened, execute the `/mremoteng-fix-repo` workflow — read and follow `D:/github/mRemoteNG/.claude/commands/mremoteng-fix-repo.md` (pass `--no-sync` to it, since Step 1 already synced). That workflow reads the maintainer logs from outside this repository before any edit (its Step 2a) and does not publish them. A suspicion those logs cannot separate follows CHARTER D9: add the diagnostic field before a behavioral fix. The lesson is docs/bp; do not copy it.
 
 ## Important notes
 

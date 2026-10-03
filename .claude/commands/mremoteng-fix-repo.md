@@ -11,7 +11,7 @@ Scope is the fork (`robertpopa22/mRemoteNG`) only — this command never touches
 ## Usage
 
 The user may specify arguments after the command:
-- `/mremoteng-fix-repo` — process every open fork issue with new external comments
+- `/mremoteng-fix-repo` — process every open fork issue, including one we opened or that the app filed under our account, plus a closed issue whose latest comment is not ours
 - `/mremoteng-fix-repo 110` — target a single issue number
 - `/mremoteng-fix-repo --no-sync` — skip the fork sync (use cached issue DB; used when called by `/mremoteng-fix-complete`)
 
@@ -370,7 +370,7 @@ The lesson text stays in that file. Do not copy it into CHARTER.md, CLAUDE.md, o
 - **Reviewers are read-only.** `codex:codex-rescue` defaults to `--write` (it edits the working tree, auto-applied, uncommitted) unless the prompt explicitly says read-only/diagnosis. Always invoke it read-only + `--wait` for the dual review, and `git status --short` after — the main thread is the sole author of edits/builds/commits.
 - Build: `build.ps1` (NOT `dotnet build` — COM refs fail MSB4803). Tests: `run-tests.ps1 -Headless`, `--verbosity normal` only.
 - Issue DB: `.project-roadmap/issues-db/fork/*.json`; flags used — `unread_comments`, `waiting_for_us`, `comments[].is_ours`.
-- **The queue includes brand-new zero-comment issues.** A fresh report by an external author has no comments at all, so it has `unread_comments == 0`; gating the queue on that flag alone silently hid new bug reports (they only showed as `[needs action]` in the sync summary, which is easy to skim past). `waiting_for_us` is now also true for an unanswered issue opened by someone other than us.
+- **The queue includes brand-new zero-comment issues, including ours.** A fresh report has no comments at all, so it has `unread_comments == 0`. Gating the queue on that flag hid new bug reports. The same gate hid a crash report the app filed under our own account. `waiting_for_us` is true for an undispositioned issue whoever opened it. Author == us is not a reason to leave it out. An announcement we already marked `wontfix` stays out, because that status is a disposition.
 - **The queue includes CLOSED issues with an unread reporter comment.** A reporter who comes back
   to an issue we closed ("still broken in 1.83.0", #165) is the one case the closing policy
   forbids ignoring — yet an open-state sync never re-fetched closed issues, so the comment never
