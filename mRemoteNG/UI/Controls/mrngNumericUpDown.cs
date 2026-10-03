@@ -47,8 +47,16 @@ namespace mRemoteNG.UI.Controls
                      * OptionsPages are an example where the control is potentially created twice:
                      * AddOptionsPagesToListView and then LstOptionPages_SelectedIndexChanged
                      */
-                    if (!(Controls[i] is MrngButton)) continue;
-                    if (!Controls[i].Text.Equals("\u25B2", StringComparison.Ordinal) && !Controls[i].Text.Equals("\u25BC", StringComparison.Ordinal)) continue;
+                    if (!(Controls[i] is MrngButton button)) continue;
+                    if (button.Text.Equals("\u25B2", StringComparison.Ordinal))
+                        Up = button;
+                    else if (button.Text.Equals("\u25BC", StringComparison.Ordinal))
+                        Down = button;
+                }
+
+                if (Up is not null && Down is not null)
+                {
+                    LayoutArrowButtons();
                     Invalidate();
                     return;
                 }
@@ -60,18 +68,59 @@ namespace mRemoteNG.UI.Controls
                 Text = "\u25B2",
                 Font = new Font(Font.FontFamily, 5f)
             };
-            Up.SetBounds(Controls.Owner.Width - 17, 2, 16, Controls.Owner.Height / 2 - 1);
             Up.Click += Up_Click;
             Down = new MrngButton
             {
                 Text = "\u25BC",
                 Font = new Font(Font.FontFamily, 5f)
             };
-            Down.SetBounds(Controls.Owner.Width - 17, Controls.Owner.Height / 2 + 1, 16, Controls.Owner.Height / 2 - 1);
             Down.Click += Down_Click;
             Controls.Add(Up);
             Controls.Add(Down);
+            LayoutArrowButtons();
             Invalidate();
+        }
+
+        /// <summary>
+        /// Design-time pixels at 96 DPI, multiplied once by the control's device DPI.
+        /// </summary>
+        internal static int DevicePixels(int designPixelsAt96Dpi, int deviceDpi)
+        {
+            int dpi = deviceDpi > 0 ? deviceDpi : 96;
+            return Math.Max(1, designPixelsAt96Dpi * dpi / 96);
+        }
+
+        private void LayoutArrowButtons()
+        {
+            if (Up is null || Down is null)
+                return;
+
+            int edge = DevicePixels(1, DeviceDpi);
+            int width = DevicePixels(16, DeviceDpi);
+            int top = DevicePixels(2, DeviceDpi);
+            int half = Height / 2;
+            Up.SetBounds(Width - width - edge, top, width, Math.Max(1, half - edge));
+            Down.SetBounds(Width - width - edge, half + edge, width, Math.Max(1, half - edge));
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            LayoutArrowButtons();
+        }
+
+        protected override void ScaleControl(SizeF factor, BoundsSpecified specified)
+        {
+            base.ScaleControl(factor, specified);
+            // The options page scales this control. Assign the arrows again so that
+            // scale is not a second factor on top of DeviceDpi.
+            LayoutArrowButtons();
+        }
+
+        protected override void OnDpiChangedAfterParent(EventArgs e)
+        {
+            base.OnDpiChangedAfterParent(e);
+            LayoutArrowButtons();
         }
 
         private void Down_Click(object sender, EventArgs e)

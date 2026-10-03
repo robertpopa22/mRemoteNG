@@ -22,9 +22,9 @@
     }
   },
   "status": {
-    "new": 54,
+    "new": 53,
     "trying": 0,
-    "imported": 28,
+    "imported": 29,
     "present": 13,
     "rejected": 443,
     "deferred": 114
@@ -111,15 +111,6 @@
       "status": "new",
       "fork": "jafin/mRemoteNG",
       "subject": "fix: keep Options usable when a settings secret cannot be decrypted (#18)"
-    },
-    {
-      "sha": "6e684bc7f9",
-      "kind": "fork",
-      "tier": "B",
-      "score": 7,
-      "status": "new",
-      "fork": "lovaszlaszlo/mRemoteNG",
-      "subject": "Fix the spin buttons and the crowded backup page"
     },
     {
       "sha": "6ecce9b6be",

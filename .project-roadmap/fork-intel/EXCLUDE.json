@@ -121,6 +121,11 @@
       "decision": "imported",
       "note": "A PseudoConsoleWindow left by a handed-off console is not docked. The tool keeps running in its own window and the panel is not left empty.",
       "at": "2026-10-02T19:50:49Z"
+    },
+    "6e684bc7f9fe7b5e711598862639629e1e6e815a": {
+      "decision": "imported",
+      "note": "Arrow buttons use one device-DPI scale. Backup page was not changed.",
+      "at": "2026-10-03T06:34:26Z"
     }
   },
   "_owner_note": "Add an owner here only for sustained noise or hostile behaviour, with a reason in _owner_reasons.",
