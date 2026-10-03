@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using mRemoteNG.Themes;
 using mRemoteNG.UI.Controls;
@@ -36,32 +37,48 @@ namespace mRemoteNGTests.UI.Controls
         {
             Assert.That(ThemeManager.getInstance().ActiveAndExtended, Is.True);
 
-            using var spinner = new MrngNumericUpDown
+            // The suite has already created a window, so SetHighDpiMode cannot run.
+            // DeviceDpi follows the thread awareness context.
+            IntPtr previousAwareness = SetThreadDpiAwarenessContext(PerMonitorAwareV2);
+            Assert.That(previousAwareness, Is.Not.EqualTo(IntPtr.Zero));
+            try
             {
-                Size = new System.Drawing.Size(80, 22)
-            };
-            spinner.CreateControl();
+                using var spinner = new MrngNumericUpDown
+                {
+                    Size = new System.Drawing.Size(80, 22)
+                };
+                spinner.CreateControl();
 
-            SetDeviceDpi(spinner, 96);
-            RaiseDpiChanged(spinner);
-            MrngButton up = UpButton(spinner);
-            Assert.That(up.Width, Is.EqualTo(16));
+                SetDeviceDpi(spinner, 96);
+                RaiseDpiChanged(spinner);
+                MrngButton up = UpButton(spinner);
+                Assert.That(up.Width, Is.EqualTo(16));
 
-            spinner.Size = new System.Drawing.Size(120, 30);
-            Assert.That(up.Width, Is.EqualTo(16), "a second layout at 96 DPI changed the arrow width");
+                spinner.Size = new System.Drawing.Size(120, 30);
+                Assert.That(up.Width, Is.EqualTo(16), "a second layout at 96 DPI changed the arrow width");
 
-            SetDeviceDpi(spinner, 192);
-            RaiseDpiChanged(spinner);
-            Assert.That(up.Width, Is.EqualTo(16 * 192 / 96));
+                SetDeviceDpi(spinner, 192);
+                RaiseDpiChanged(spinner);
+                Assert.That(up.Width, Is.EqualTo(16 * 192 / 96));
 
-            spinner.Size = new System.Drawing.Size(140, 36);
-            RaiseDpiChanged(spinner);
-            Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "layout after the DPI change applied the scale again");
+                spinner.Size = new System.Drawing.Size(140, 36);
+                RaiseDpiChanged(spinner);
+                Assert.That(up.Width, Is.EqualTo(16 * 192 / 96), "layout after the DPI change applied the scale again");
 
-            SetDeviceDpi(spinner, 96);
-            RaiseDpiChanged(spinner);
-            Assert.That(up.Width, Is.EqualTo(16));
+                SetDeviceDpi(spinner, 96);
+                RaiseDpiChanged(spinner);
+                Assert.That(up.Width, Is.EqualTo(16));
+            }
+            finally
+            {
+                SetThreadDpiAwarenessContext(previousAwareness);
+            }
         }
+
+        private static readonly IntPtr PerMonitorAwareV2 = new(-4);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetThreadDpiAwarenessContext(IntPtr dpiContext);
 
         private static MrngButton UpButton(MrngNumericUpDown spinner)
         {
