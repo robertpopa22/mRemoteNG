@@ -1,6 +1,8 @@
-# /mremoteng-fix-repo — Process open fork issues (classify → dual-review fix → UI-verify → commit)
+# /mremoteng-fix-repo — Status, then a disposition for every open issue
 
-**Does:** give every open fork issue a disposition, including an issue we opened and a crash report the app filed under our own account with no comments. Classify, investigate, review, fix, build, test, check the UI, commit locally, write a lesson when this run learned one, then stop before push and before a public reply. Author == us is not a reason to skip it. An announcement already marked `wontfix` stays out.
+**Does:** one procedure. Print where the fork stands, then give every open issue a disposition, including an issue we opened and a crash report the app filed under our account with no comments. Classify, investigate, review, fix, build, test, check the UI, commit locally, write a lesson when this run learned one, then stop before push and before a public reply. Author == us is not a reason to skip it. An announcement already marked `wontfix` stays out.
+
+`/mremoteng-fix-complete` is this same procedure. Do not keep a second queue and do not stop after the report.
 
 **Does not:** set policy ([CHARTER.md](../../CHARTER.md)), hold the lesson text ([docs/bp/](../../docs/bp/) holds it; Step 9 only requires the write), define log fields ([docs/RUNTIME_DIAGNOSTICS.md](../../docs/RUNTIME_DIAGNOSTICS.md)), merge upstream, or name the maintainer's machines, paths, or logs.
 
@@ -11,9 +13,10 @@ Scope is the fork (`robertpopa22/mRemoteNG`) only — this command never touches
 ## Usage
 
 The user may specify arguments after the command:
-- `/mremoteng-fix-repo` — process every open fork issue, including one we opened or that the app filed under our account, plus a closed issue whose latest comment is not ours
-- `/mremoteng-fix-repo 110` — target a single issue number
-- `/mremoteng-fix-repo --no-sync` — skip the fork sync (use cached issue DB; used when called by `/mremoteng-fix-complete`)
+- `/mremoteng-fix-repo` — status report, then every open fork issue, including one we opened or that the app filed under our account, plus a closed issue whose latest comment is not ours
+- `/mremoteng-fix-repo 110` — print the full status and the open list, then do the work for that number
+- `/mremoteng-fix-repo --report-only` — print the status and stop before any edit
+- `/mremoteng-fix-repo --no-sync` — use the cached issue DB
 
 ## What to do
 
@@ -23,6 +26,24 @@ python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py sync
 ```
 Complete sync (fork + upstream issue DBs) so the queue and cross-references are fresh. **Fixes and
 replies remain fork-scoped** — never modify upstream tracking or merge upstream changes from here.
+Skip this step for `--no-sync`.
+
+### Step 1b: Status, before any edit
+
+Print one table: git, the upstream gap, and CI. With `--report-only`, stop after the table.
+The queue in Step 2 is part of that table, not a later handoff.
+
+```powershell
+Set-Location D:\github\mRemoteNG
+git fetch origin --quiet
+git status -sb
+git log --oneline origin/main..HEAD
+Select-String -Path mRemoteNG\mRemoteNG.csproj -Pattern "<Version>" | Select-Object -First 1
+gh run list --repo robertpopa22/mRemoteNG --branch main --limit 6 --json headSha,status,conclusion,name
+& "C:\Program Files\Git\bin\bash.exe" .project-roadmap/scripts/check-upstream.sh
+```
+
+Read `.project-roadmap/upstream-tracking.json`. List commits and pull requests whose status is `pending`. Do not merge them. A deep build and Sonar check is `/iis-verify`.
 
 ### Step 2: Build the work queue
 
@@ -359,7 +380,7 @@ The lesson text stays in that file. Do not copy it into CHARTER.md, CLAUDE.md, o
 
 ## Important notes
 
-- **Fork-scoped only** — never edits `upstream-tracking.json` or merges upstream. Upstream decisions belong to `/mremoteng-fix-complete`'s report.
+- **Fork-scoped only** — never edits `upstream-tracking.json` or merges upstream. Step 1b lists that gap and stops there.
 - **CHARTER D9.** A suspicion the log from the build in use cannot separate is instrumented before it is fixed. The directive is D9. The lesson is [docs/bp](../../docs/bp/). Do not copy either here.
 - **Closing keywords.** Step 6. `fix(#n)` is a close, even when the body says the issue stays open.
 - **Stops before every outward-facing action** — local commits are autonomous; push + GitHub comments require explicit confirmation.

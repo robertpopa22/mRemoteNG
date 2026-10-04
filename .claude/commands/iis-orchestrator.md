@@ -2,7 +2,7 @@
 
 Run the unattended pipeline: sync from GitHub, analyze, triage, report. Issues we opened are in that session, including an auto-submitted crash report with no comments. Do not drop one because the author is us.
 
-This is not the daily path. Interactive work is `/mremoteng-fix-complete` then `/mremoteng-fix-repo`. `/iis-supervisor` stops or restarts this pipeline. `/iis-update` edits its script. Do not start this pipeline to answer one open issue.
+This is not the daily path. Interactive work is `/mremoteng-fix-repo`, which includes the status report. `/iis-supervisor` stops or restarts this pipeline. `/iis-update` edits its script. Do not start this pipeline to answer one open issue.
 
 ## Usage
 

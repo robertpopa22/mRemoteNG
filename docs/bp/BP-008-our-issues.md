@@ -4,7 +4,7 @@
 
 **Does:** record that a crash report filed under our own account was left unprocessed because the status queue required an external comment.
 
-**Does not:** restate the queue. The procedure is `.claude/commands/mremoteng-fix-complete.md` and `.claude/commands/mremoteng-fix-repo.md`. The predicate is `iis_is_waiting_for_us`.
+**Does not:** restate the queue. The procedure is `.claude/commands/mremoteng-fix-repo.md`. The predicate is `iis_is_waiting_for_us`.
 
 ## Incident
 
