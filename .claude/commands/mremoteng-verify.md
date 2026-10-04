@@ -1,4 +1,4 @@
-# /iis-verify — Quality check of this fork
+# /mremoteng-verify — Quality check of this fork
 
 **Does:** build, test, and read CI for `robertpopa22/mRemoteNG`, then list what failed.
 

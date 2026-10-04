@@ -1,4 +1,4 @@
-# /iis-supervisor — Stop or restart the unattended pipeline
+# /mremoteng-pipeline-supervise — Stop or restart the unattended pipeline
 
 **Does:** check, stop, or restart `orchestrator_supervisor.py`.
 

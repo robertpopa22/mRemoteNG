@@ -1,4 +1,4 @@
-# /iis-update — Edit the unattended pipeline script
+# /mremoteng-pipeline-edit — Edit the unattended pipeline script
 
 **Does:** change `iis_orchestrator.py` when a run of that pipeline showed a concrete script defect.
 

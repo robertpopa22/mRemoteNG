@@ -1,4 +1,4 @@
-# /fork-radar — Mine the upstream fork network for work worth importing
+# /mremoteng-fork-radar — Mine the upstream fork network for work worth importing
 
 Run the Fork Intelligence pipeline over the ~1600 forks of `mRemoteNG/mRemoteNG`, pre-approve the safe candidates through independent counter-opinions, and present a ranked queue. **Nothing is imported without explicit approval.**
 
@@ -6,10 +6,10 @@ Full system documentation: `.project-roadmap/fork-intel/README.md`.
 
 ## Usage
 
-- `/fork-radar` — full pass: discover → diverge → screen → triage → preapprove → report
-- `/fork-radar refresh` — same, but re-screen and re-triage cached candidates
-- `/fork-radar report` — regenerate the report and queue from what is already in the database
-- `/fork-radar import <sha>` — carry out one import from the queue (see step 6)
+- `/mremoteng-fork-radar` — full pass: discover → diverge → screen → triage → preapprove → report
+- `/mremoteng-fork-radar refresh` — same, but re-screen and re-triage cached candidates
+- `/mremoteng-fork-radar report` — regenerate the report and queue from what is already in the database
+- `/mremoteng-fork-radar import <sha>` — carry out one import from the queue (see step 6)
 
 ## What to do
 

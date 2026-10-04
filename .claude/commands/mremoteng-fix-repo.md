@@ -43,7 +43,7 @@ gh run list --repo robertpopa22/mRemoteNG --branch main --limit 6 --json headSha
 & "C:\Program Files\Git\bin\bash.exe" .project-roadmap/scripts/check-upstream.sh
 ```
 
-Read `.project-roadmap/upstream-tracking.json`. List commits and pull requests whose status is `pending`. Do not merge them. A deep build and Sonar check is `/iis-verify`.
+Read `.project-roadmap/upstream-tracking.json`. List commits and pull requests whose status is `pending`. Do not merge them. A deep build and Sonar check is `/mremoteng-verify`.
 
 ### Step 2: Build the work queue
 

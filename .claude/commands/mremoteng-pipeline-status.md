@@ -1,6 +1,6 @@
-# /iis-status — Show IIS Orchestrator Status
+# /mremoteng-pipeline-status — Read the unattended pipeline
 
-Show the current status of the IIS Orchestrator (running or last completed run),
+Show whether the unattended pipeline is running or when it last finished,
 plus overall project progress and new issues. New fork issues include ones we
 opened. A crash report the app filed under our account is work until it is
 dispositioned. This skill only reads. The disposition belongs to `/mremoteng-fix-repo`.
@@ -387,7 +387,7 @@ overall progress and new issues sections.
 Present the status in a clean, readable format. Example:
 
 ```
-IIS Orchestrator Status: RUNNING                          Report: 2026-02-25 10:55
+Pipeline status: RUNNING                                Report: 2026-02-25 10:55
 Phase: issues | Task: Claude fixing #730 (Remote printing) — Sonnet
 
 --- Processes --------------------------------------------------

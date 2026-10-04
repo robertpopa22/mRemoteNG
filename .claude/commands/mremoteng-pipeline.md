@@ -1,19 +1,19 @@
-# /iis-orchestrator — Unattended issue pipeline
+# /mremoteng-pipeline — Unattended issue pipeline
 
 Run the unattended pipeline: sync from GitHub, analyze, triage, report. Issues we opened are in that session, including an auto-submitted crash report with no comments. Do not drop one because the author is us.
 
-This is not the daily path. Interactive work is `/mremoteng-fix-repo`, which includes the status report. `/iis-supervisor` stops or restarts this pipeline. `/iis-update` edits its script. Do not start this pipeline to answer one open issue.
+This is not the daily path. Interactive work is `/mremoteng-fix-repo`, which includes the status report. `/mremoteng-pipeline-supervise` stops or restarts this pipeline. `/mremoteng-pipeline-edit` edits its script. Do not start this pipeline to answer one open issue.
 
 ## Usage
 
 The user may specify arguments after the command:
-- `/iis-orchestrator` — **full session**: sync → analyze → orchestrate issues → report
-- `/iis-orchestrator quick` — sync + analyze + report only (no AI triage, ~15 min)
-- `/iis-orchestrator issues` — full session focused on issues only
-- `/iis-orchestrator warnings` — full session focused on warnings only
-- `/iis-orchestrator issues --max-issues 10` — limit AI triage to 10 issues
-- `/iis-orchestrator warnings --max-files 5` — limit files processed
-- `/iis-orchestrator --dry-run` — simulate without changes
+- `/mremoteng-pipeline` — **full session**: sync → analyze → orchestrate issues → report
+- `/mremoteng-pipeline quick` — sync + analyze + report only (no AI triage, ~15 min)
+- `/mremoteng-pipeline issues` — full session focused on issues only
+- `/mremoteng-pipeline warnings` — full session focused on warnings only
+- `/mremoteng-pipeline issues --max-issues 10` — limit AI triage to 10 issues
+- `/mremoteng-pipeline warnings --max-files 5` — limit files processed
+- `/mremoteng-pipeline --dry-run` — simulate without changes
 
 ## What to do
 
