@@ -1,0 +1,49 @@
+{
+  "number": 205,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.InvalidOperationException: Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn ...",
+  "state": "closed",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-03T08:34:26Z",
+  "github_updated_at": "2026-10-03T15:24:39Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.InvalidOperationException`\r\n**Message:** Invoke oder BeginInvoke kann für ein Steuerelement erst aufgerufen werden, wenn das Fensterhandle erstellt wurde.\r\n\r\n### Stack Trace\r\n```\r\n   at object System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, object[] args, bool synchronous)\r\n   at object System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at void mRemoteNG.UI.Controls.ConnectionTree.ConnectionTree.InvokeRebuild...",
+  "our_status": "wontfix",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-04",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABY99Z8g",
+      "author": "robertpopa22",
+      "date": "2026-10-03T15:24:38Z",
+      "snippet": "Outcome: not a defect.\n\nThis issue was opened by our own crash dialog, from this repository's maintainer account. It is not a report from someone else.\n\nWhat it contains: portable 1.84.0 (Release 3716). File, then Load Connections, called the tree rebuild before the connection tree had a window handle. The message says Invoke cannot run until that handle exists. The dialog says the application continued running.\n\nChecked: the author is robertpopa22, the footer says the report is auto-generated, ...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-03T15:24:39Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-04T06:31:59Z",
+  "notes": "2026-10-03 close stands: not a defect. Auto-filed under our account. No newer report."
+}

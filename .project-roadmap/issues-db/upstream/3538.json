@@ -1,0 +1,34 @@
+{
+  "number": 3538,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "New stable release? Latest stable is always 1.76.20 (2019-04-12) with a lot of vulnerabilities",
+  "state": "open",
+  "labels": [],
+  "author": "Neustradamus",
+  "created_at": "2026-10-02T14:45:54Z",
+  "github_updated_at": "2026-10-03T08:00:45Z",
+  "body_snippet": "Dear @mRemoteNG team,\n\nAfter several requests, tickets, ...\n\nWhen a new stable version will be released with CVE fixes?\n\nRECALL: Currently, the latest is always 1.76.20 (2019-04-12) with a lot of vulnerabilities.\n\nThanks in advance.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABY6j23w",
+      "author": "wongcc2012",
+      "date": "2026-10-03T08:00:45Z",
+      "snippet": "the 1.76 is lack of newer RDP protocols, and lack of inheritance selection. please update asap.\nI would say v1.77 is better at all. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-03T08:00:45Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-04T06:27:42Z",
+  "notes": ""
+}

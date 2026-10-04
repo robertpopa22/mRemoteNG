@@ -8,7 +8,7 @@
   ],
   "author": "obtim",
   "created_at": "2026-08-09T18:14:19Z",
-  "github_updated_at": "2026-09-10T20:54:18Z",
+  "github_updated_at": "2026-10-02T14:44:39Z",
   "body_snippet": "# Security Audit — mRemoteNG 1.78.2-NB (3405)\n\n- **Tag:** `20260222-v1.78.2-NB-(3405)` · **Commit:** `ff3da2c` · **TFM:** `net10.0`\n- **Method:** static source review (762 `.cs`). No runtime/build. No PoC included.\n- **Baseline:** CVE-2023-30367 (CVSS 7.5, CWE-312/316) — checked for regression.\n\nSeverity: **HIGH** = credential compromise realistic · **MEDIUM** = weakens crypto/needs conditions · **LOW/INFO** = hardening.\n\n---\n\n## Summary table\n\n| ID | Severity | Issue | Location |\n|----|--------...",
   "our_status": "new",
   "priority": null,
@@ -25,12 +25,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABYvCmog",
+      "author": "Neustradamus",
+      "date": "2026-10-02T14:44:39Z",
+      "snippet": "The latest is always 1.76.20 (2019-04-12).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-09-10T20:54:18Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-10-02T14:44:39Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-20T20:37:19Z",
+  "last_synced": "2026-10-04T06:27:42Z",
   "notes": ""
 }

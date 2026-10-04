@@ -6,7 +6,7 @@
   "labels": [],
   "author": "wongcc2012",
   "created_at": "2026-10-01T10:28:32Z",
-  "github_updated_at": "2026-10-01T17:22:24Z",
+  "github_updated_at": "2026-10-02T16:50:39Z",
   "body_snippet": "I know that 1.77.1 (BETA) maybe a little bit out-dated, however the 1.78 update is quite frequent.\nhow can I export the configuration files and the connection files between different version or during updates?",
   "our_status": "new",
   "priority": null,
@@ -32,12 +32,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABYvCYiA",
+      "author": "Neustradamus",
+      "date": "2026-10-02T14:44:25Z",
+      "snippet": "The latest is always 1.76.20 (2019-04-12).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABYxGVtQ",
+      "author": "wongcc2012",
+      "date": "2026-10-02T16:50:28Z",
+      "snippet": "> The latest is always 1.76.20 (2019-04-12).\n\n\nthe v1.76 is lack of RDP version selection, no default inheritance and inheritance  settings\nI prefer 1.77 beta it has full options\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-01T17:22:24Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-10-02T16:50:39Z",
+  "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-02T05:02:40Z",
+  "last_synced": "2026-10-04T06:27:42Z",
   "notes": ""
 }

@@ -15,6 +15,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-006](bp/BP-006-round-trip.md) | 1 | 2026-10-02 | A save that returns success has not proved that the bytes changed. |
 | [BP-007](bp/BP-007-driven-path.md) | 1 | 2026-10-02 | A UI claim counts only the path that was actually driven. |
 | [BP-008](bp/BP-008-our-issues.md) | 1 | 2026-10-03 | An issue we opened, including an auto-filed crash report, stays in the work queue until it is dispositioned. |
+| [BP-009](bp/BP-009-closed-thanks.md) | 1 | 2026-10-04 | A thanks, a confirmation, or a duplicate mark on a closed issue is not a new report. |
 
 ## Retired
 

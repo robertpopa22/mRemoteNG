@@ -2,7 +2,7 @@
   "number": 2881,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Does PuttyNG run on ARM64? - mRemoteNG requiring Visual C++ Redistributable x64",
-  "state": "closed",
+  "state": "open",
   "labels": [
     "Priority - Low",
     "Need 2 check",
@@ -13,7 +13,7 @@
   ],
   "author": "simonai1254",
   "created_at": "2025-10-08T20:57:36Z",
-  "github_updated_at": "2026-02-26T13:54:44Z",
+  "github_updated_at": "2026-10-02T20:15:22Z",
   "body_snippet": "As identified in issue #2870 PuttyNG is compiled as x64, which requires mRemoteNG to install the [Visual C++ runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) on x64-Builds of the software.\n\nOn ARM-Builds I would expect PuTTYNG to be unable to start, as it's not compiled correctly. Funnily the Visual C++ runtime downloaded as x64-Build also contains the ARM-Binary, so this makes it quite easy to install it re...",
   "our_status": "wontfix",
   "priority": "P4-debt",
@@ -58,12 +58,39 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABYqLhlw",
+      "author": "Kvarkas",
+      "date": "2026-10-02T10:00:03Z",
+      "snippet": "I strongly believe this not apply now for latest NB",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABYu9xaQ",
+      "author": "Neustradamus",
+      "date": "2026-10-02T14:39:40Z",
+      "snippet": "False, the latest is always 1.76.20 (2019-04-12).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABY0m2qg",
+      "author": "simonai1254",
+      "date": "2026-10-02T20:15:22Z",
+      "snippet": "> False, the latest is always 1.76.20 (2019-04-12).\n\nIt doesn't matter which version is the \"latest stable\". \n\nThis question here arises with version 1.77.3+ from the moment on that mRemoteNG is being compiled (also) as ARM binary.\n\n> I strongly believe this not apply now for latest NB\n\n@Kvarkas unless with the latest NB you removed PuttyNG from the bundle (I couldn't catch up yet with the recent changes) I still expect this to be an issue, as it's a subprocess from mRemoteNG with the wrong arch...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T13:54:44Z",
-  "unread_comments": 2,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "comments_cursor": "2026-10-02T20:15:22Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-04T06:27:42Z",
   "notes": "ARM64 PuttyNG dependency - PuttyNG binary not built for ARM64. Outside our control."
 }
