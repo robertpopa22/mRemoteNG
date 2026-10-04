@@ -4,7 +4,7 @@
 
 **Does not:** set policy ([CHARTER.md](../../CHARTER.md)), hold the lesson text ([docs/bp/](../../docs/bp/) holds it; Step 9 only requires the write), define log fields ([docs/RUNTIME_DIAGNOSTICS.md](../../docs/RUNTIME_DIAGNOSTICS.md)), merge upstream, or name the maintainer's machines, paths, or logs.
 
-Handle every open issue on the fork, whoever opened it. A zero-comment crash report filed by the app under our account is in this run. A closed issue is included only when it has a new reporter comment. For each open issue the run ends with one of two outcomes already visible on the issue: a fix, or our reply asking for the specific missing detail. If that reply or that fix is already the latest word, do not post it again. For a new fix: investigate the root cause, get an independent counter-opinion from Grok AND Gemini (Codex as optional third when responsive), apply a minimal fix, build, run the full test suite, **verify in the running UI as a user would (FlaUI)**, and make an atomic local commit. Then **stop and ask for confirmation** before pushing and posting any GitHub reply.
+Handle every open issue on the fork, whoever opened it. A zero-comment crash report filed by the app under our account is in this run. A closed issue is included only when it has a new reporter comment. The visible outcome is one Charter D10 word: `fixed`, `unanswered`, `not reproduced`, or `not a defect`. An issue we opened does not get a reply that asks that same account for more detail. It is fixed, or it is closed. If that outcome is already the latest word, do not post it again. For a new fix: investigate the root cause, get an independent counter-opinion from Grok AND Gemini (Codex as optional third when responsive), apply a minimal fix, build, run the full test suite, **verify in the running UI as a user would (FlaUI)**, and make an atomic local commit. Then **stop and ask for confirmation** before pushing and posting any GitHub reply.
 
 Scope is the fork (`robertpopa22/mRemoteNG`) only — this command never touches upstream tracking or merges upstream changes.
 
@@ -50,7 +50,7 @@ Charter D10. The open list is work in progress. The comment uses one word: `unan
 - **fixed.** A named build contains the change and the check we can name matches the report. Close it.
 - **unanswered.** We asked for a detail or a retest, that ask is still the latest word, and seven days have passed. Close it. The close comment is the only follow-up. Do not ping and then leave it open.
 - **not reproduced.** We tried, the report did not appear, and no further question would change the next step. Close it.
-- **not a defect.** An announcement, an answered question, or expected behaviour. Close it.
+- **not a defect.** An announcement, an answered question, or expected behaviour. Close it. An auto-generated crash opened by the maintainer account uses this word when the current nightly does not show it. When the current nightly does show it, the word is `fixed` after the change, not a request for more detail.
 - **open.** A fix is in progress, or a named remainder is confirmed and not shipped. An explicit "still broken" stays open until we have answered it and that answer has itself been silent for seven days. [BP-005](../../docs/bp/BP-005-premature-close.md).
 - **Reply stands.** The latest comment is already the close, the fix, or an ask younger than seven days. Do not post another copy.
 
@@ -193,36 +193,33 @@ out. Only a human may authorize `MRNG_SECURITY_REVIEWED=1`.
 
 ### Step 5: Verify (full build + full test suite)
 ```bash
-pwsh -NoProfile -ExecutionPolicy Bypass -File "D:/github/mRemoteNG/build.ps1"
-pwsh -NoProfile -ExecutionPolicy Bypass -File "D:/github/mRemoteNG/run-tests.ps1" -Headless
+pwsh -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
+& "C:\Program Files\Git\bin\bash.exe" "D:\github\mRemoteNG\run-tests-core.sh"
 ```
 Must be green. The passing count has one home, `test-config.json`; do not copy a number into this
 runbook. Golden Rule: every test failure is resolved — fix the code, fix the test, or remove an
-invalid test; **never** `[Ignore]`. If you use the bash runner, invoke
-`C:\Program Files\Git\bin\bash.exe`. `system32\bash.exe` is WSL and reports 0 tests.
+invalid test; **never** `[Ignore]`. The suite runner is Git Bash at
+`C:\Program Files\Git\bin\bash.exe`. `C:\Windows\System32\bash.exe` is WSL and reports 0 tests.
+Do not use `dotnet build`. Do not use `run-tests.ps1` for this gate.
 
 ### Step 5b: UI verification as a user (MANDATORY for EVERY issue, not only `fix`)
 
 Every issue in the queue gets a hands-on pass in the running application — the automated suite
-exercises classes, not the product. Launch the built app and drive it the way the reporter does:
+exercises classes, not the product. The procedure is [docs/LAB-GUEST.md](../../docs/LAB-GUEST.md).
 
 - **Target:** `mRemoteNG/bin/x64/Release/mRemoteNG.exe` (portable mode — its own `Settings/`
   folder). Back up `Settings/mRemoteNG.settings` and `Settings/confCons.xml` first; restore after.
-- **Drive it with the FlaUI MCP tools** (`mcp__flaui__*`): click the actual menus, type into the
-  actual fields, restart the app when the scenario needs persistence, and read the UI state back.
-  Prefer `windows_click`/`windows_fill` on refs over `SendKeys` (shared desktop — CLAUDE.md).
-- **For a `fix`:** reproduce the symptom in the UI BEFORE the edit (a failing repro proves the
-  premise); re-run the same scenario after the fix and observe it pass. This is Mandatory Workflow
-  steps 2/5 — the suite being green does not replace it.
-- **For `needs-info` / `wontfix` / by-design:** verify in the UI the claim the reply will make
-  (e.g. "the option exists and works when enabled" — enable it, restart, watch it work). A reply
-  that asserts behavior nobody watched happen is a guess with good grammar.
-- **Desktop-wide interactions** (Alt-Tab ordering, foreground stealing, multi-monitor placement,
-  anything driven by real keyboard focus) run **inside the Hyper-V lab guest** (`lab-run.ps1`,
-  PowerShell Direct) — never on the operator's desktop, where concurrent human input makes the
-  evidence unreliable and the injected keys land in the operator's session.
-- A modal MessageBox freezes UIA — clear it via Win32 (`AppActivate` + `SendKeys` mnemonic), see
-  CLAUDE.md FlaUI notes.
+- **Clicks run in the lab guest.** An interactive repro, a menu, a double-click, and anything that
+  needs a real key or pointer goes through the lab (`lab-run.ps1`, PowerShell Direct). The
+  operator desktop does not accept that input from an agent session.
+- **FlaUI** (`mcp__flaui__*`) is evidence only when the call lands in the app under test. Prefer
+  `windows_click` and `windows_fill` on a ref. A shared desktop makes `SendKeys` unreliable.
+- **For a `fix`:** reproduce the symptom before the edit; run the same scenario after it. A green
+  suite does not replace that pass.
+- **For a close:** watch the claim the comment will make. A reply that asserts behavior nobody
+  watched is not a UI check.
+- A modal MessageBox freezes UIA. Clear it from Win32 (`AppActivate` plus the button mnemonic).
+  See the FlaUI notes in CLAUDE.md.
 - Record in the commit body / reply draft exactly WHAT was clicked and observed — the reply may
   state a UI check only when it actually ran (Transparency rule 2).
 
@@ -259,7 +256,7 @@ For `needs-info` / `wontfix` / `confirm-fixed` issues (no commit), draft the rep
 - **Thank them for the specific thing they did** — comparing two versions, re-testing the same day, sending a trace, reporting that our fix made it worse. Name it; generic thanks reads as boilerplate.
 - Reply length follows confidence: trace-proven mechanism → full explanation; unproven premise or guard → max ~5 lines (what changed, what to test, one sentence of uncertainty).
 - **Attempt budget:** max 2 premise-based fixes per issue; the third ship must be a diagnostic build. After 3 failed rounds, flag the issue for human review in the issue itself and stop shipping.
-- Before asking the reporter to test, attempt local repro first (FlaUI MCP tools can drive the built app). Only ask for what cannot be reproduced here.
+- Before asking the reporter to test, attempt the repro in the lab guest. Only ask for what cannot be reproduced here.
 - When asking for a repeat test, state the escalation path ("if this fails too, a human takes over, not another automated round").
 
 ### Step 7b: Verify the shipped result end-to-end (NOT just the local suite)
@@ -368,7 +365,7 @@ The lesson text stays in that file. Do not copy it into CHARTER.md, CLAUDE.md, o
 - **Stops before every outward-facing action** — local commits are autonomous; push + GitHub comments require explicit confirmation.
 - Replies are custom-written via `gh issue comment` (not the orchestrator's templated `update --post-comment`), so the daily comment rate limit does not gate this path.
 - **Reviewers are read-only.** `codex:codex-rescue` defaults to `--write` (it edits the working tree, auto-applied, uncommitted) unless the prompt explicitly says read-only/diagnosis. Always invoke it read-only + `--wait` for the dual review, and `git status --short` after — the main thread is the sole author of edits/builds/commits.
-- Build: `build.ps1` (NOT `dotnet build` — COM refs fail MSB4803). Tests: `run-tests.ps1 -Headless`, `--verbosity normal` only.
+- Build: `build.ps1` (NOT `dotnet build` — COM refs fail MSB4803). Tests: `C:\Program Files\Git\bin\bash.exe run-tests-core.sh`. Not `C:\Windows\System32\bash.exe`. Not `run-tests.ps1`.
 - Issue DB: `.project-roadmap/issues-db/fork/*.json`; flags used — `unread_comments`, `waiting_for_us`, `comments[].is_ours`.
 - **The queue includes brand-new zero-comment issues, including ours.** A fresh report has no comments at all, so it has `unread_comments == 0`. Gating the queue on that flag hid new bug reports. The same gate hid a crash report the app filed under our own account. `waiting_for_us` is true for an undispositioned issue whoever opened it. Author == us is not a reason to leave it out. An announcement we already marked `wontfix` stays out, because that status is a disposition.
 - **The queue includes CLOSED issues with an unread reporter comment.** A reporter who comes back

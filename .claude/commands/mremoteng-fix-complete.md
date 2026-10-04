@@ -4,6 +4,8 @@
 
 **Does not:** fix code itself, set policy, hold a lesson (the delegated procedure writes one in [docs/bp/](../../docs/bp/) when the run learned it), or name the maintainer's machines.
 
+Daily work starts here and continues in `/mremoteng-fix-repo`. A build check is `/iis-verify`. Ideas from other forks are `/fork-radar`. `/iis-status` only reads. `/iis-orchestrator` is the unattended pipeline, and `/iis-supervisor` plus `/iis-update` exist only for that pipeline. Do not start it from this report.
+
 Run-at-startup situational report for the maintenance phase: where the fork stands (local vs origin vs upstream), what upstream work is pending integration, and which open **fork** issues are waiting on us. That includes a new tester comment and an issue we opened ourselves that has no disposition yet. After the report, automatically hand off that queue to the `/mremoteng-fix-repo` workflow.
 
 This command is **read-only** for assessment; the only changes come from the delegated fix-repo phase (which itself stops for confirmation before anything outward-facing). It never integrates upstream automatically — it only lists the gap.
@@ -11,7 +13,7 @@ This command is **read-only** for assessment; the only changes come from the del
 ## Usage
 
 The user may specify arguments after the command:
-- `/mremoteng-fix-complete` — full status report, then run `/mremoteng-fix-repo` if fork comments need action
+- `/mremoteng-fix-complete` — full status report, then run `/mremoteng-fix-repo` when any open issue is still waiting, including one we opened
 - `/mremoteng-fix-complete --report-only` — status report only, do NOT delegate
 - `/mremoteng-fix-complete --no-sync` — skip the GitHub sync (use cached issue DB)
 

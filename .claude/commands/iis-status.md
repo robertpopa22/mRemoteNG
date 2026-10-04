@@ -3,7 +3,7 @@
 Show the current status of the IIS Orchestrator (running or last completed run),
 plus overall project progress and new issues. New fork issues include ones we
 opened. A crash report the app filed under our account is work until it is
-dispositioned.
+dispositioned. This skill only reads. The disposition belongs to `/mremoteng-fix-repo`.
 
 ## What to do
 

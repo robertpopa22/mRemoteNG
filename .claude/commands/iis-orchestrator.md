@@ -1,6 +1,8 @@
-# /iis-orchestrator — Full IIS Session (sync + analyze + orchestrate + report)
+# /iis-orchestrator — Unattended issue pipeline
 
-Run a complete Issue Intelligence System session: sync from GitHub, analyze, run AI triage/fix, generate reports. Issues we opened are in that session, including an auto-submitted crash report with no comments. Do not drop one because the author is us.
+Run the unattended pipeline: sync from GitHub, analyze, triage, report. Issues we opened are in that session, including an auto-submitted crash report with no comments. Do not drop one because the author is us.
+
+This is not the daily path. Interactive work is `/mremoteng-fix-complete` then `/mremoteng-fix-repo`. `/iis-supervisor` stops or restarts this pipeline. `/iis-update` edits its script. Do not start this pipeline to answer one open issue.
 
 ## Usage
 
@@ -19,7 +21,7 @@ The user may specify arguments after the command:
 ```bash
 python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py sync
 ```
-Run in background. Expected duration: ~14 min for 830+ issues. Monitor progress via status output.
+Run it and read its own progress. Do not budget 14 minutes; that figure was for a backlog of about 800 issues.
 
 ### Step 2: Analyze
 ```bash
@@ -38,13 +40,10 @@ Skip this step if user specified `quick` mode.
 ```bash
 python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py <issues|warnings|all> [args]
 ```
-Run in background. Expected duration:
-- **issues**: ~3 hours for 800 issues (~13s per issue via claude -p)
-- **warnings**: ~30 min for 50 files (~36s per file)
+Run it in the background and read the status file. Duration follows the number of issues actually selected, not a fixed hour count.
 
-Monitor progress by reading the status file periodically:
-```bash
-cat D:/github/mRemoteNG/.project-roadmap/scripts/orchestrator-status.json
+```powershell
+Get-Content D:\github\mRemoteNG\.project-roadmap\scripts\orchestrator-status.json
 ```
 
 ### Step 5: Final report
@@ -62,15 +61,6 @@ Show the user:
 - **Errors**: list of failures
 - **Duration**: total session time (sync + orchestrate)
 - **Delta**: what changed vs pre-orchestrator state
-
-## Time estimates
-
-| Mode | Duration | Notes |
-|------|----------|-------|
-| `quick` | ~15 min | Sync only, no AI |
-| `issues` | ~3 hours | 800 issues via claude -p |
-| `warnings` | ~30 min | Depends on warning count |
-| `all` | ~3.5 hours | Issues + warnings |
 
 ## Important notes
 
