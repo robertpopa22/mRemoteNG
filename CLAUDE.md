@@ -1,5 +1,7 @@
 ﻿# mRemoteNG - Build & Development Notes
 
+> **Working mode with models (Geseidl, 2026-10-06):** large models (e.g. Fable, Astra; Opus/Sol where justified) do the analysis, coordination, architecture decisions and counter-opinions; execution (mechanical implementation, migrations, repeatable checks) goes to smaller models (Sonnet, Luna, Haiku), with Opus/Sol only for steps that need heavy judgement. Nothing is fixed: estimate complexity, risk and verification needs at every task and step, then pick model and effort — never inherit the session model by default.
+
 > **Project canon for all agents.** [AGENTS.md](AGENTS.md) is only the discovery bootstrap for tools that do not load `CLAUDE.md` directly.
 >
 > This file is the **manual**: how to build, how to test, what the workflow is. [CHARTER.md](CHARTER.md)
