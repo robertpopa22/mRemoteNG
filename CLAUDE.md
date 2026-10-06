@@ -56,7 +56,6 @@ Every output token costs 5x an input token. Your #1 priority after correctness i
 
 ## Agent Entry Points and Skills
 
-- Instruction chain: global/user instructions → [parent canon](../CLAUDE.md) → this project canon. System and user instructions remain highest priority; among repository documents, this local canon is more specific than the parent.
 - `AGENTS.md` intentionally contains no duplicated build, test, or workflow rules; update this file when project guidance changes.
 - This repository currently has no native `SKILL.md` package.
 - Files under `.claude/commands/` are opt-in Claude Code slash-command runbooks, not agent skills and not automatically applicable to ordinary code work.
