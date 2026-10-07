@@ -299,6 +299,7 @@ namespace mRemoteNG.UI.Window
             ConnectionTree.SingleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = singleClickHandlers };
             ConnectionTree.DoubleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = doubleClickHandlers };
             ConnectionTree.MiddleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = middleClickHandlers };
+            ConnectionTree.WindowedFullscreenClickHandler = new WindowedFullscreenClickHandler(Runtime.ConnectionInitiator);
         }
 
         private void OnTreeSelectionChangedShowPreview(object sender, EventArgs e)
@@ -588,7 +589,15 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyData == (Keys.Shift | Keys.Enter))
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    var selected = ConnectionTree.GetSelectedNodes();
+                    if (selected.Count == 1)
+                        ConnectionTree.WindowedFullscreenClickHandler.Execute(selected[0]);
+                }
+                else if (e.KeyCode == Keys.Enter)
                 {
                     e.Handled = true;
                     foreach (ConnectionInfo node in ConnectionTree.NodesToOpenOnEnter())

@@ -8311,6 +8311,12 @@ namespace mRemoteNG.Resources.Language {
             }
         }
         
+        internal static string WindowedFullscreen => ResourceManager.GetString("WindowedFullscreen", resourceCulture);
+
+        internal static string WindowedFullscreenHint => ResourceManager.GetString("WindowedFullscreenHint", resourceCulture);
+
+        internal static string WindowedFullscreenReturn => ResourceManager.GetString("WindowedFullscreenReturn", resourceCulture);
+
         /// <summary>
         ///   Looks up a localized string similar to Do not dock to tab when minimizing from Full screen.
         /// </summary>

@@ -45,6 +45,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         protected Version RdpVersion = null!; // initialized in Initialize()
         protected readonly FrmMain _frmMain = FrmMain.Default;
         protected bool loginComplete;
+        protected bool WindowedFullscreenSizingActive { get; private set; }
         private int _extendedReconnectAttemptsRemaining;
         private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
         private bool _redirectKeys;
@@ -178,6 +179,53 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         MessageClass.WarningMsg,
                         false);
                 }
+            }
+        }
+
+        internal bool SmartSizeForWindowedFullscreen
+        {
+            get => SmartSize;
+            set => SmartSize = value;
+        }
+
+        internal virtual void BeginWindowedFullscreenSizing()
+        {
+            WindowedFullscreenSizingActive = true;
+            Fullscreen = false;
+            SmartSize = true;
+        }
+
+        internal virtual void UpdateWindowedFullscreenSizing()
+        {
+            SmartSize = true;
+        }
+
+        protected Size WindowedFullscreenDesktopSize
+        {
+            get
+            {
+                try { return new Size(_rdpClient.DesktopWidth, _rdpClient.DesktopHeight); }
+                catch (COMException) { return Size.Empty; }
+                catch (InvalidComObjectException) { return Size.Empty; }
+            }
+        }
+
+        internal Size WindowedFullscreenDesktopSizeForDiagnostics => WindowedFullscreenDesktopSize;
+        internal Size WindowedFullscreenControlSizeForDiagnostics => Control?.Size ?? Size.Empty;
+        internal DockStyle WindowedFullscreenControlDockForDiagnostics => Control?.Dock ?? DockStyle.None;
+
+        internal virtual void EndWindowedFullscreenSizing(bool smartSizeBefore)
+        {
+            try
+            {
+                // Native fullscreen is deliberately not restored here: the tab must be safely
+                // redocked before a later explicit fullscreen request can change its host window.
+                Fullscreen = false;
+                SmartSize = smartSizeBefore;
+            }
+            finally
+            {
+                WindowedFullscreenSizingActive = false;
             }
         }
 
@@ -1424,6 +1472,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 SetExtendedProperty("DesktopScaleFactor", scaleFactor, silent: true);
                 SetExtendedProperty("DeviceScaleFactor", DeviceScaleFactor, silent: true);
 
+                if (Force.HasFlag(ConnectionInfo.Force.WindowedFullscreen))
+                {
+                    TrySetRdpClientDesktopSize(InterfaceControl.Size.Width, InterfaceControl.Size.Height,
+                                               "windowed fullscreen working area");
+                    _rdpClient.AdvancedSettings2.SmartSizing = true;
+                    _rdpClient.FullScreen = false;
+                    return;
+                }
+
                 if (Force.HasFlag(ConnectionInfo.Force.Fullscreen))
                 {
                     var forcedScreen = Screen.FromControl(InterfaceControl ?? (Control)_frmMain);
@@ -1993,6 +2050,18 @@ namespace mRemoteNG.Connection.Protocol.RDP
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "login_complete",
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
                 refreshResources: true);
+            if (WindowedFullscreenSizingActive)
+            {
+                try
+                {
+                    UpdateWindowedFullscreenSizing();
+                }
+                catch (Exception ex)
+                {
+                    Runtime.MessageCollector.AddExceptionMessage(
+                        "Windowed fullscreen sizing after RDP login failed.", ex, MessageClass.WarningMsg, false);
+                }
+            }
         }
 
         private void RDPEvent_OnEnterFullScreenMode()

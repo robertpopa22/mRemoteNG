@@ -270,7 +270,8 @@ namespace mRemoteNG.Connection
             DontUseConsoleSession = 16,
             NoCredentials = 32,
             ViewOnly = 64,
-            UseAlternativeAddress = 128
+            UseAlternativeAddress = 128,
+            WindowedFullscreen = 256
         }
 
         #endregion

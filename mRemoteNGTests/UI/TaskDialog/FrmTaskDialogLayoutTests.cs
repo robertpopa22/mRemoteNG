@@ -52,13 +52,19 @@ namespace mRemoteNGTests.UI.TaskDialog
             // What #198's screenshot shows: the window arrives at a fraction of its width (on the
             // reporter's multi-monitor remote session, most likely through a DPI change between
             // building the dialog and showing it).
+            int designClientWidth = 0;
             ShowAndInspect(verificationText: DoNotShowAgain,
-                           beforeShow: dialog => dialog.Width = dialog.LogicalToDeviceUnits(217),
+                           beforeShow: dialog =>
+                           {
+                               designClientWidth = dialog.ClientSize.Width;
+                               dialog.Width = dialog.LogicalToDeviceUnits(217);
+                           },
                            inspect: dialog =>
                            {
                                AssertLaidOutForContent(dialog);
-                               Assert.That(dialog.Width, Is.GreaterThanOrEqualTo(dialog.LogicalToDeviceUnits(CTaskDialog.EmulatedFormWidth)),
-                                           "the dialog must be restored to the width it was built for");
+                               Assert.That(dialog.ClientSize.Width,
+                                           Is.GreaterThanOrEqualTo(dialog.LogicalToDeviceUnits(designClientWidth)),
+                                           "the dialog client area must be restored to the width it was laid out for");
                            });
         }
 

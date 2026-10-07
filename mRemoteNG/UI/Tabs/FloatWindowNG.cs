@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using mRemoteNG.App;
 using mRemoteNG.Themes;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -34,6 +35,11 @@ namespace mRemoteNG.UI.Tabs
             DoubleClickTitleBarToDock = true;
         }
 
+        internal void SetWindowedFullscreenWorkingArea(Rectangle workingArea)
+        {
+            MaximizedBounds = workingArea;
+        }
+
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -48,9 +54,20 @@ namespace mRemoteNG.UI.Tabs
         {
             int WM_NCLBUTTONDOWN = 0x00A1;
             int WM_SYSCOMMAND = 0x0112;
+            int WM_CLOSE = 0x0010;
 
             int SC_MINIMIZE = 0xF020;
             int SC_RESTORE = 0xF120;
+
+            if (m.Msg == NativeMethods.WM_HOTKEY && WindowedFullscreenManager.HandleHotKey(this, (int)m.WParam))
+                return;
+
+            // DockPanelSuite handles WM_CLOSE on its float host before the normal FormClosing
+            // path. Return the live tab to its original pane here; application shutdown must
+            // continue through the base implementation so the protocol is actually closed.
+            if (m.Msg == WM_CLOSE && !mRemoteNG.UI.Forms.FrmMain.Default.IsClosing &&
+                WindowedFullscreenManager.TryExit(this))
+                return;
 
             if (m.Msg == WM_NCLBUTTONDOWN)
             {
@@ -83,6 +100,61 @@ namespace mRemoteNG.UI.Tabs
             {
                 ShowInTaskbar = true;
             }
+
+            WindowedFullscreenManager.ConfigureWindow(this);
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            WindowedFullscreenManager.WindowActivated(this);
+        }
+
+        protected override void OnDeactivate(EventArgs e)
+        {
+            WindowedFullscreenManager.WindowDeactivated(this);
+            base.OnDeactivate(e);
+        }
+
+        protected override void OnLocationChanged(EventArgs e)
+        {
+            base.OnLocationChanged(e);
+            WindowedFullscreenManager.WindowBoundsChanged(this);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            WindowedFullscreenManager.WindowBoundsChanged(this);
+        }
+
+        protected override void OnDpiChanged(DpiChangedEventArgs e)
+        {
+            base.OnDpiChanged(e);
+            WindowedFullscreenManager.WindowBoundsChanged(this);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.Alt | Keys.Enter) &&
+                WindowedFullscreenManager.TryExit(this))
+                return true;
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.ApplicationExitCall &&
+                !mRemoteNG.UI.Forms.FrmMain.Default.IsClosing &&
+                WindowedFullscreenManager.TryExit(this))
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            WindowedFullscreenManager.Forget(this);
+            base.OnFormClosing(e);
         }
     }
 }

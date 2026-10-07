@@ -73,6 +73,10 @@ namespace mRemoteNGTests.UI.Controls
 
                 ToolStripMenuItem connectWithOptions = (ToolStripMenuItem)menu.Items["_cMenTreeConnectWithOptions"];
                 Assert.That(connectWithOptions.DropDownItems["_cMenTreeClearCachedRdpCredentials"].Available, Is.True);
+                Assert.That(connectWithOptions.DropDownItems["_cMenTreeWindowedFullscreen"].Available, Is.True);
+                connection.Protocol = ProtocolType.SSH2;
+                menu.ShowHideMenuItems();
+                Assert.That(connectWithOptions.DropDownItems["_cMenTreeWindowedFullscreen"].Available, Is.False);
             });
         }
 

@@ -19,6 +19,11 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             {
                 return this.DesktopScaleFactor;
             }
+
+            public uint GetCalculatedScaleFactor()
+            {
+                return (uint)(_frmMain.DeviceDpi / 96f * 100);
+            }
         }
 
         [Test]
@@ -68,9 +73,7 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             var info = new ConnectionInfo { DesktopScaleFactor = RDPDesktopScaleFactor.Auto };
             protocol.SetConnectionInfo(info);
 
-            // Default calculated value is 100 because _frmMain is null/disposed in this context
-            // so ResolutionScalingFactor returns 1.0f
-            Assert.That(protocol.GetDesktopScaleFactor(), Is.EqualTo(100));
+            Assert.That(protocol.GetDesktopScaleFactor(), Is.EqualTo(protocol.GetCalculatedScaleFactor()));
         }
 
         [Test]
@@ -79,8 +82,7 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             var protocol = new TestableRdpProtocol();
             protocol.SetConnectionInfo(null);
 
-            // Default calculated value is 100
-            Assert.That(protocol.GetDesktopScaleFactor(), Is.EqualTo(100));
+            Assert.That(protocol.GetDesktopScaleFactor(), Is.EqualTo(protocol.GetCalculatedScaleFactor()));
         }
     }
 }

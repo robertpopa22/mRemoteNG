@@ -31,6 +31,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private System.Timers.Timer? _resizeDebounceTimer;
         private Size _pendingResizeSize;
         private bool _hasPendingResize;
+        private int _resizeGeneration;
+        private System.Windows.Forms.Timer? _windowedFullscreenSettleTimer;
+        private Size _windowedFullscreenTarget;
+        private int _windowedFullscreenSettleAttempts;
+        private bool _windowedFullscreenRetryPending;
 
         public RdpProtocol8()
         {
@@ -182,7 +187,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             if (!_hasPendingResize) return;
 
-            // Check if controls are still valid (not disposed during shutdown)
             if (Control == null || Control.IsDisposed || InterfaceControl == null || InterfaceControl.IsDisposed)
             {
                 _hasPendingResize = false;
@@ -190,19 +194,18 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
 
             _hasPendingResize = false;
-
+            int generation = _resizeGeneration;
             Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,
                 $"Debounce timer fired - executing delayed resize to {_pendingResizeSize.Width}x{_pendingResizeSize.Height}");
 
-            // Marshal to the UI thread because DoResizeClient() accesses WinForms and COM objects
+            Action resizeIfCurrent = () =>
+            {
+                if (generation == _resizeGeneration) DoResizeClient();
+            };
             if (InterfaceControl.InvokeRequired)
-            {
-                InterfaceControl.BeginInvoke(new Action(DoResizeClient));
-            }
+                InterfaceControl.BeginInvoke(resizeIfCurrent);
             else
-            {
-                DoResizeClient();
-            }
+                resizeIfCurrent();
         }
 
         private void OnDisplaySettingsChangedHandler(object? sender, EventArgs e) => OnDisplaySettingsChanged();
@@ -236,6 +239,16 @@ namespace mRemoteNG.Connection.Protocol.RDP
             if (Control == null || InterfaceControl == null || Control.IsDisposed || InterfaceControl.IsDisposed)
             {
                 DevLog.Write($"SKIP: controls disposed");
+                return;
+            }
+
+            if (WindowedFullscreenSizingActive)
+            {
+                SmartSize = true;
+                SessionResizeDecision transientDecision = DecideWindowedFullscreenResize(
+                    SupportsDynamicResize, loginComplete, InterfaceControl.ClientRectangle, InterfaceControl.Padding);
+                if (transientDecision.Apply)
+                    UpdateSessionDisplaySettings((uint)transientDecision.Size.Width, (uint)transientDecision.Size.Height);
                 return;
             }
 
@@ -301,6 +314,75 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     string.Format(CultureInfo.InvariantCulture, Language.ChangeConnectionResolutionError, connectionInfo?.Hostname),
                     ex, MessageClass.WarningMsg, false);
             }
+        }
+
+        internal override void BeginWindowedFullscreenSizing()
+        {
+            _resizeDebounceTimer?.Stop();
+            _hasPendingResize = false;
+            _resizeGeneration++;
+            base.BeginWindowedFullscreenSizing();
+        }
+
+        internal override void UpdateWindowedFullscreenSizing()
+        {
+            base.UpdateWindowedFullscreenSizing();
+            if (Control == null || InterfaceControl == null || Control.IsDisposed || InterfaceControl.IsDisposed)
+                return;
+
+            SessionResizeDecision decision = DecideWindowedFullscreenResize(
+                SupportsDynamicResize, loginComplete, InterfaceControl.ClientRectangle, InterfaceControl.Padding);
+            if (decision.Apply)
+            {
+                UpdateSessionDisplaySettings((uint)decision.Size.Width, (uint)decision.Size.Height);
+                StartWindowedFullscreenSettleCheck(decision.Size);
+            }
+            Size desktop = WindowedFullscreenDesktopSize;
+            var tab = InterfaceControl.Parent as mRemoteNG.UI.Tabs.ConnectionTab;
+            Rectangle floatBounds = tab?.DockHandler.FloatPane?.FloatWindow?.Bounds ?? Rectangle.Empty;
+            Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                $"phase=windowed_fullscreen_sized panel={InterfaceControl.ClientSize.Width}x{InterfaceControl.ClientSize.Height} " +
+                $"target={decision.Size.Width}x{decision.Size.Height} desktop={desktop.Width}x{desktop.Height} " +
+                $"dynamic={SupportsDynamicResize} loginComplete={loginComplete} apply={decision.Apply} " +
+                $"smartSize={SmartSize} icBounds={InterfaceControl.Bounds.Width}x{InterfaceControl.Bounds.Height}@{InterfaceControl.Bounds.X},{InterfaceControl.Bounds.Y} " +
+                $"tab={tab?.ClientSize.Width ?? 0}x{tab?.ClientSize.Height ?? 0} " +
+                $"control={Control.Width}x{Control.Height} controlBounds={Control.Bounds.Width}x{Control.Bounds.Height}@{Control.Bounds.X},{Control.Bounds.Y} " +
+                $"dock={Control.Dock} float={floatBounds.Width}x{floatBounds.Height}@{floatBounds.X},{floatBounds.Y}");
+        }
+
+        internal override void EndWindowedFullscreenSizing(bool smartSizeBefore)
+        {
+            _resizeDebounceTimer?.Stop();
+            _hasPendingResize = false;
+            _resizeGeneration++;
+            _windowedFullscreenSettleTimer?.Stop();
+            _windowedFullscreenRetryPending = false;
+            try
+            {
+                if (Control != null && InterfaceControl != null && !Control.IsDisposed && !InterfaceControl.IsDisposed)
+                {
+                    SessionResizeDecision decision = DecideWindowedFullscreenResize(
+                        SupportsDynamicResize, loginComplete, InterfaceControl.ClientRectangle, InterfaceControl.Padding);
+                    if (decision.Apply)
+                        UpdateSessionDisplaySettings((uint)decision.Size.Width, (uint)decision.Size.Height);
+                }
+            }
+            finally
+            {
+                base.EndWindowedFullscreenSizing(smartSizeBefore);
+            }
+        }
+
+        internal static SessionResizeDecision DecideWindowedFullscreenResize(bool supportsDynamicResize,
+                                                                               bool loginComplete,
+                                                                               Rectangle client,
+                                                                               Padding padding)
+        {
+            if (!supportsDynamicResize || !loginComplete)
+                return new SessionResizeDecision(false, Size.Empty);
+
+            Size size = ContentSize(client, padding);
+            return new SessionResizeDecision(size.Width > 0 && size.Height > 0, size);
         }
 
         private bool DoResizeControl()
@@ -433,6 +515,14 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected virtual void UpdateSessionDisplaySettings(uint width, uint height)
         {
+            if (WindowedFullscreenSizingActive)
+            {
+                SmartSize = true;
+                Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                    $"Windowed fullscreen sizing: skipped legacy reconnect for {width}x{height}; SmartSize remains enabled.");
+                return;
+            }
+
             if (RdpClient8 != null)
             {
                 RdpClient8.Reconnect(width, height);
@@ -465,6 +555,102 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _resizeDebounceTimer = null;
             }
 
+            _windowedFullscreenSettleTimer?.Stop();
+            _windowedFullscreenSettleTimer?.Dispose();
+            _windowedFullscreenSettleTimer = null;
+            _windowedFullscreenRetryPending = false;
+
+        }
+
+        private void StartWindowedFullscreenSettleCheck(Size target)
+        {
+            _windowedFullscreenTarget = target;
+            _windowedFullscreenSettleAttempts = 0;
+            _windowedFullscreenSettleTimer ??= new System.Windows.Forms.Timer { Interval = 100 };
+            _windowedFullscreenSettleTimer.Interval = _windowedFullscreenRetryPending ? 500 : 100;
+            _windowedFullscreenSettleTimer.Tick -= WindowedFullscreenSettleTimer_Tick;
+            _windowedFullscreenSettleTimer.Tick += WindowedFullscreenSettleTimer_Tick;
+            _windowedFullscreenSettleTimer.Stop();
+            _windowedFullscreenSettleTimer.Start();
+        }
+
+        private void WindowedFullscreenSettleTimer_Tick(object? sender, EventArgs e)
+        {
+            if (!WindowedFullscreenSizingActive || Control == null || InterfaceControl == null ||
+                Control.IsDisposed || InterfaceControl.IsDisposed)
+            {
+                _windowedFullscreenSettleTimer?.Stop();
+                return;
+            }
+
+            Size desktop = WindowedFullscreenDesktopSize;
+            _windowedFullscreenSettleAttempts++;
+            if (_windowedFullscreenRetryPending)
+            {
+                if (_windowedFullscreenSettleAttempts > 10)
+                {
+                    _windowedFullscreenRetryPending = false;
+                    _windowedFullscreenSettleTimer?.Stop();
+                    Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                        $"phase=windowed_fullscreen_retry_timeout target={_windowedFullscreenTarget.Width}x{_windowedFullscreenTarget.Height} " +
+                        $"desktop={desktop.Width}x{desktop.Height} attempts={_windowedFullscreenSettleAttempts - 1}");
+                    return;
+                }
+
+                Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                    $"phase=windowed_fullscreen_retry attempt={_windowedFullscreenSettleAttempts} " +
+                    $"target={_windowedFullscreenTarget.Width}x{_windowedFullscreenTarget.Height} desktop={desktop.Width}x{desktop.Height}");
+                _windowedFullscreenRetryPending = false;
+                UpdateSessionDisplaySettings((uint)_windowedFullscreenTarget.Width, (uint)_windowedFullscreenTarget.Height);
+                if (_windowedFullscreenRetryPending && _windowedFullscreenSettleAttempts >= 10)
+                {
+                    _windowedFullscreenRetryPending = false;
+                    _windowedFullscreenSettleTimer?.Stop();
+                    Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                        $"phase=windowed_fullscreen_retry_timeout target={_windowedFullscreenTarget.Width}x{_windowedFullscreenTarget.Height} " +
+                        $"desktop={WindowedFullscreenDesktopSize.Width}x{WindowedFullscreenDesktopSize.Height} attempts={_windowedFullscreenSettleAttempts}");
+                    return;
+                }
+                if (!_windowedFullscreenRetryPending && _windowedFullscreenSettleTimer != null)
+                    _windowedFullscreenSettleTimer.Interval = 100;
+                return;
+            }
+
+            if (desktop == _windowedFullscreenTarget)
+            {
+                _windowedFullscreenSettleTimer?.Stop();
+                Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                    $"phase=windowed_fullscreen_settled panel={InterfaceControl.ClientSize.Width}x{InterfaceControl.ClientSize.Height} " +
+                    $"target={_windowedFullscreenTarget.Width}x{_windowedFullscreenTarget.Height} " +
+                    $"desktop={desktop.Width}x{desktop.Height} smartSize={SmartSize} " +
+                    $"control={Control.Width}x{Control.Height}");
+            }
+            else if (_windowedFullscreenSettleAttempts >= 20)
+            {
+                _windowedFullscreenSettleTimer?.Stop();
+                Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                    $"phase=windowed_fullscreen_settle_timeout target={_windowedFullscreenTarget.Width}x{_windowedFullscreenTarget.Height} " +
+                    $"desktop={desktop.Width}x{desktop.Height}");
+            }
+        }
+
+        protected void ScheduleWindowedFullscreenDynamicRetry(uint width, uint height)
+        {
+            if (!WindowedFullscreenSizingActive || !loginComplete)
+                return;
+
+            _windowedFullscreenTarget = new Size((int)width, (int)height);
+            _windowedFullscreenRetryPending = true;
+            _windowedFullscreenSettleTimer ??= new System.Windows.Forms.Timer();
+            _windowedFullscreenSettleTimer.Tick -= WindowedFullscreenSettleTimer_Tick;
+            _windowedFullscreenSettleTimer.Tick += WindowedFullscreenSettleTimer_Tick;
+            _windowedFullscreenSettleTimer.Interval = 500;
+            _windowedFullscreenSettleTimer.Start();
+        }
+
+        protected void ClearWindowedFullscreenDynamicRetry()
+        {
+            _windowedFullscreenRetryPending = false;
         }
 
     }

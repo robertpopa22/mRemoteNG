@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using AxMSTSCLib;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
@@ -53,7 +54,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 if (RdpClient9 != null)
                 {
+                    if (WindowedFullscreenSizingActive)
+                        Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                            $"phase=windowed_fullscreen_dynamic_call requested={width}x{height}");
                     RdpClient9.UpdateSessionDisplaySettings(width, height, width, height, Orientation, DesktopScaleFactor, DeviceScaleFactor);
+                    ClearWindowedFullscreenDynamicRetry();
+                    if (WindowedFullscreenSizingActive)
+                    {
+                        var desktop = WindowedFullscreenDesktopSize;
+                        Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                            $"phase=windowed_fullscreen_dynamic_return requested={width}x{height} desktop={desktop.Width}x{desktop.Height}");
+                    }
                 }
                 else
                 {
@@ -62,9 +73,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
             catch (Exception ex)
             {
+                if (WindowedFullscreenSizingActive && loginComplete &&
+                    ex is COMException && ex.HResult == unchecked((int)0x8000FFFF))
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        $"phase=windowed_fullscreen_dynamic_not_ready requested={width}x{height} " +
+                        $"type={ex.GetType().Name} hresult=0x{ex.HResult:X8}");
+                    ScheduleWindowedFullscreenDynamicRetry(width, height);
+                    return;
+                }
+
                 // target OS does not support newer method, fallback to an older method
-                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
-                    $"RdpProtocol9: UpdateSessionDisplaySettings failed (falling back to Reconnect): {ex.Message}");
+                Runtime.MessageCollector.AddMessage(
+                    WindowedFullscreenSizingActive ? MessageClass.InformationMsg : MessageClass.DebugMsg,
+                    $"phase=windowed_fullscreen_dynamic_error requested={width}x{height} " +
+                    $"type={ex.GetType().Name} hresult=0x{ex.HResult:X8} message={ex.Message}");
                 base.UpdateSessionDisplaySettings(width, height);
             }
         }

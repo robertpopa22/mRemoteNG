@@ -59,6 +59,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         public ITreeNodeClickHandler<ConnectionInfo> MiddleClickHandler { get; set; } = new TreeNodeCompositeClickHandler();
 
+        public ITreeNodeClickHandler<ConnectionInfo> WindowedFullscreenClickHandler { get; set; } = new TreeNodeCompositeClickHandler();
+
         public ConnectionTreeModel ConnectionTreeModel
         {
             get { return _connectionTreeModel!; }
@@ -978,9 +980,13 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         }
 
         private ConnectionInfo? _pendingClickTarget;
+        private Keys _clickModifiers;
 
         private void OnMouse_Down(object sender, MouseEventArgs e)
         {
+            _clickModifiers = ModifierKeys;
+            if ((_clickModifiers & Keys.Alt) != 0)
+                _slowClickRenameHandler?.Cancel();
             DevLog.Write($"at ({e.X},{e.Y}) Button={e.Button} Focused={Focused} SelectedObject={SelectedObject}");
             if (!Focused)
                 Focus();
@@ -1001,8 +1007,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             // ReSharper disable once NotAccessedVariable
             OLVListItem listItem = GetItemAt(mouseEventArgs.X, mouseEventArgs.Y, out _);
             if (listItem?.RowObject is not ConnectionInfo clickedNode) return;
-            _slowClickRenameHandler?.Cancel();
-            DoubleClickHandler.Execute(clickedNode);
+            DispatchConnectionClick(clickedNode, mouseEventArgs.Clicks, _clickModifiers);
         }
 
         private void OnMouse_SingleClick(object sender, MouseEventArgs mouseEventArgs)
@@ -1012,6 +1017,25 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             // ReSharper disable once NotAccessedVariable
             OLVListItem listItem = GetItemAt(mouseEventArgs.X, mouseEventArgs.Y, out _);
             if (listItem?.RowObject is not ConnectionInfo clickedNode) return;
+            DispatchConnectionClick(clickedNode, mouseEventArgs.Clicks, _clickModifiers);
+        }
+
+        internal void DispatchConnectionClick(ConnectionInfo clickedNode, int clicks, Keys modifiers)
+        {
+            if ((modifiers & Keys.Alt) != 0)
+            {
+                _slowClickRenameHandler?.Cancel();
+                if (mRemoteNG.Tree.ClickHandlers.WindowedFullscreenClickHandler.IsGesture(
+                        MouseButtons.Left, clicks, modifiers))
+                    WindowedFullscreenClickHandler.Execute(clickedNode);
+                return;
+            }
+            if (clicks > 1)
+            {
+                _slowClickRenameHandler?.Cancel();
+                DoubleClickHandler.Execute(clickedNode);
+                return;
+            }
             _slowClickRenameHandler?.Execute(clickedNode);
             SingleClickHandler.Execute(clickedNode);
         }
@@ -1048,6 +1072,10 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 {
                     e.Text = description;
                 }
+                if (mRemoteNG.Tree.ClickHandlers.WindowedFullscreenClickHandler.CanOpen(nodeProducingTooltip))
+                    e.Text = string.IsNullOrWhiteSpace(e.Text)
+                        ? Language.WindowedFullscreenHint
+                        : e.Text + "\n" + Language.WindowedFullscreenHint;
             }
             catch (Exception ex)
             {

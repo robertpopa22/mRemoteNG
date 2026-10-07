@@ -16,6 +16,7 @@ using WeifenLuo.WinFormsUI.Docking;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace mRemoteNG.Connection
 {
@@ -32,6 +33,8 @@ namespace mRemoteNG.Connection
         private readonly List<string> _activeConnections = [];
         private readonly IProtocolFactory _protocolFactory;
         private readonly ITunnelPortValidator _tunnelPortValidator;
+        private static readonly ConcurrentDictionary<string, byte> WindowedFullscreenConnectionsInFlight =
+            new(StringComparer.Ordinal);
 
         public IEnumerable<string> ActiveConnections => _activeConnections;
 
@@ -109,23 +112,62 @@ namespace mRemoteNG.Connection
             if (connectionInfo == null)
                 return;
 
-            if (connectionInfo.IsTemplate)
+            bool windowedFullscreen = force.HasFlag(ConnectionInfo.Force.WindowedFullscreen);
+            string windowedFullscreenKey = connectionInfo.ConstantID;
+            if (windowedFullscreen)
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, $"Connection '{connectionInfo.Name}' is a template and cannot be opened.");
-                return;
+                if (connectionInfo.Protocol != ProtocolType.RDP)
+                    return;
+
+                ConnectionTab? openTab = FindConnectionTab(connectionInfo);
+                if (openTab != null)
+                {
+                    try
+                    {
+                        WindowedFullscreenManager.Enter(openTab);
+                    }
+                    catch (Exception ex)
+                    {
+                        Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionOpenFailed, ex);
+                    }
+                    return;
+                }
+
+                if (!TryBeginWindowedFullscreen(windowedFullscreenKey))
+                    return;
             }
+
+            try
+            {
+                if (connectionInfo.IsTemplate)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, $"Connection '{connectionInfo.Name}' is a template and cannot be opened.");
+                    return;
+                }
 
             // Only a connection that actually uses a credential vault or the EC2 lookup needs
             // ExternalConnectors.dll: those calls live in methods of their own, so the connect
             // path no longer needs the assembly to compile. When the file has been quarantined
             // (#175/#191/#192) such a connection is refused with a message naming the file; every
             // other connection opens as usual.
-            if (ExternalConnectorsAssembly.IsNeededBy(connectionInfo, force)
-                && !ExternalConnectorsAssembly.EnsureAvailable(Runtime.MessageCollector))
-                return;
+                if (ExternalConnectorsAssembly.IsNeededBy(connectionInfo, force)
+                    && !ExternalConnectorsAssembly.EnsureAvailable(Runtime.MessageCollector))
+                    return;
 
-            await OpenConnectionCoreAsync(connectionInfo, force, conForm);
+                await OpenConnectionCoreAsync(connectionInfo, force, conForm);
+            }
+            finally
+            {
+                if (windowedFullscreen)
+                    EndWindowedFullscreen(windowedFullscreenKey);
+            }
         }
+
+        internal static bool TryBeginWindowedFullscreen(string connectionId) =>
+            WindowedFullscreenConnectionsInFlight.TryAdd(connectionId, 0);
+
+        internal static void EndWindowedFullscreen(string connectionId) =>
+            WindowedFullscreenConnectionsInFlight.TryRemove(connectionId, out _);
 
         private async Task OpenConnectionCoreAsync(ConnectionInfo connectionInfo,
                                                    ConnectionInfo.Force force,
@@ -359,6 +401,10 @@ namespace mRemoteNG.Connection
                 _activeConnections.Add(useAlternativeAddress ? connectionInfoOriginal.ConstantID : connectionInfo.ConstantID);
                 if (FrmMain.IsCreated)
                     FrmMain.Default.SelectedConnection = useAlternativeAddress ? connectionInfoOriginal : connectionInfo;
+
+                if (force.HasFlag(ConnectionInfo.Force.WindowedFullscreen) &&
+                    newProtocol.InterfaceControl.Parent is ConnectionTab connectionTab)
+                    WindowedFullscreenManager.Enter(connectionTab);
             }
             catch (Exception ex)
             {
@@ -466,7 +512,7 @@ namespace mRemoteNG.Connection
             return null;
         }
 
-        private static ConnectionTab? FindConnectionTab(ConnectionInfo connectionInfo)
+        internal static ConnectionTab? FindConnectionTab(ConnectionInfo connectionInfo)
         {
             for (int i = 0; i <= Runtime.WindowList.Count - 1; i++)
             {
@@ -474,7 +520,7 @@ namespace mRemoteNG.Connection
                 if (connectionWindow.Controls.Count < 1) continue;
                 if (!(connectionWindow.Controls[0] is DockPanel dockPanel)) continue;
 
-                foreach (IDockContent dockContent in dockPanel.Documents)
+                foreach (IDockContent dockContent in dockPanel.Contents)
                 {
                     if (dockContent is not ConnectionTab connectionTab) continue;
 

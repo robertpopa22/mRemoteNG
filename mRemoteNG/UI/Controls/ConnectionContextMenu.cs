@@ -44,6 +44,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectToConsoleSession = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsNoCredentials = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectInFullscreen = null!;
+        private ToolStripMenuItem _cMenTreeWindowedFullscreen = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsAlternativeAddress = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsViewOnly = null!;
         private ToolStripMenuItem _cMenTreeDisconnect = null!;
@@ -139,6 +140,18 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsConnectToConsoleSession = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsDontConnectToConsoleSession = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsConnectInFullscreen = new ToolStripMenuItem();
+            _cMenTreeWindowedFullscreen = new ToolStripMenuItem
+            {
+                Name = "_cMenTreeWindowedFullscreen",
+                ShortcutKeyDisplayString = "Alt+click / Shift+Enter"
+            };
+            _cMenTreeWindowedFullscreen.Click += (_, _) =>
+            {
+                var selected = _connectionTree.GetSelectedNodes();
+                if (selected.Count == 1)
+                    new mRemoteNG.Tree.ClickHandlers.WindowedFullscreenClickHandler(Runtime.ConnectionInitiator)
+                        .Execute(selected[0]);
+            };
             _cMenTreeConnectWithOptionsNoCredentials = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsAlternativeAddress = new ToolStripMenuItem();
@@ -257,6 +270,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptionsConnectToConsoleSession,
                 _cMenTreeConnectWithOptionsDontConnectToConsoleSession,
                 _cMenTreeConnectWithOptionsConnectInFullscreen,
+                _cMenTreeWindowedFullscreen,
                 _cMenTreeConnectWithOptionsNoCredentials,
                 _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting,
                 _cMenTreeConnectWithOptionsAlternativeAddress,
@@ -828,6 +842,8 @@ namespace mRemoteNG.UI.Controls
 
         private void ApplyLanguage()
         {
+            _cMenTreeWindowedFullscreen.Text = Language.WindowedFullscreen;
+            _cMenTreeWindowedFullscreen.ToolTipText = Language.WindowedFullscreenHint;
             _cMenTreeConnect.Text = Language.Connect;
             _cMenTreeConnectWithOptions.Text = Language.ConnectWithOptions;
             _cMenTreeConnectWithOptionsWithCredentials.Text = "Connect with credentials..."; 
@@ -963,6 +979,8 @@ namespace mRemoteNG.UI.Controls
                 _cMenInheritanceSubMenu.Enabled = _cMenInheritanceSubMenu.DropDownItems
                     .OfType<ToolStripMenuItem>().Any(i => i.Enabled);
 
+                _cMenTreeWindowedFullscreen.Enabled = selectedNodes.Count == 1
+                    && mRemoteNG.Tree.ClickHandlers.WindowedFullscreenClickHandler.CanOpen(selectedNodes[0]);
                 ApplyLayout(scope);
             }
             catch (Exception ex)

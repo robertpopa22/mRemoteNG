@@ -2952,4 +2952,13 @@ Loader: {3}</value>
   <data name="OriginalCredits" xml:space="preserve">
     <value>Original Credits</value>
   </data>
+  <data name="WindowedFullscreen" xml:space="preserve">
+    <value>Windowed fullscreen</value>
+  </data>
+  <data name="WindowedFullscreenHint" xml:space="preserve">
+    <value>Alt+click or Shift+Enter: windowed fullscreen (keep the local taskbar visible)</value>
+  </data>
+  <data name="WindowedFullscreenReturn" xml:space="preserve">
+    <value>Return to tab (Ctrl+Alt+Enter)</value>
+  </data>
 </root>

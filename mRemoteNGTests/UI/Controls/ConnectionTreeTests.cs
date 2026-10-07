@@ -20,6 +20,34 @@ namespace mRemoteNGTests.UI.Controls
 		private static readonly string[] SortedCd = ["c", "d"];
 		private static readonly string[] Reordered2143 = ["2", "1", "4", "3"];
 
+        [Test]
+        public void AltDoubleClickDoesNotAlsoRunOrdinaryOpenOrRename()
+        {
+            RunWithMessagePump(tree =>
+            {
+                var single = Substitute.For<mRemoteNG.Tree.ClickHandlers.ITreeNodeClickHandler<ConnectionInfo>>();
+                var doubleClick = Substitute.For<mRemoteNG.Tree.ClickHandlers.ITreeNodeClickHandler<ConnectionInfo>>();
+                var windowed = Substitute.For<mRemoteNG.Tree.ClickHandlers.ITreeNodeClickHandler<ConnectionInfo>>();
+                tree.SingleClickHandler = single;
+                tree.DoubleClickHandler = doubleClick;
+                tree.WindowedFullscreenClickHandler = windowed;
+                var node = new ConnectionInfo();
+
+                tree.DispatchConnectionClick(node, 1, Keys.Alt);
+                tree.DispatchConnectionClick(node, 2, Keys.Alt);
+
+                windowed.Received(1).Execute(node);
+                Assert.That(single.ReceivedCalls(), Is.Empty);
+                Assert.That(doubleClick.ReceivedCalls(), Is.Empty);
+
+                tree.DispatchConnectionClick(node, 1, Keys.None);
+                tree.DispatchConnectionClick(node, 2, Keys.None);
+                single.Received(1).Execute(node);
+                doubleClick.Received(1).Execute(node);
+                windowed.Received(1).Execute(node);
+            });
+        }
+
 		/// <summary>
 		/// Runs the given action on a dedicated STA thread with a WinForms message pump.
 		/// Required because ConnectionTree inherits from TreeListView/ObjectListView

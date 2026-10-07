@@ -378,6 +378,9 @@ namespace mRemoteNG.UI.Tabs
 
         protected override int MeasureHeight()
         {
+            if (WindowedFullscreenManager.IsWindowedFullscreenPane(DockPane))
+                return 0;
+
             if (Appearance == DockPane.AppearanceStyle.ToolWindow)
                 return MeasureHeight_ToolWindow();
             return MeasureHeight_Document();
