@@ -695,6 +695,24 @@ namespace mRemoteNG.UI.Forms
             LogDpiState("dpi change", e.DeviceDpiOld, e.DeviceDpiNew);
             if (FitChromeFonts())
                 LogDpiState("dpi change after fit", e.DeviceDpiNew, e.DeviceDpiNew);
+
+            // #209: a combo box whose window Windows refused to recreate during the DPI change is
+            // given one back after the whole change has been delivered.
+            if (IsHandleCreated)
+                BeginInvoke(RecreateLostWindows);
+        }
+
+        private void RecreateLostWindows()
+        {
+            try
+            {
+                foreach (string result in WindowHandleDiagnostics.RecreateLostComboBoxes(Application.OpenForms.Cast<Form>().ToList()))
+                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "[#209] " + result, true);
+            }
+            catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException)
+            {
+                // The window is closing; there is nothing left to repair.
+            }
         }
 
         private void LogDpiState(string when, int oldDpi, int newDpi)

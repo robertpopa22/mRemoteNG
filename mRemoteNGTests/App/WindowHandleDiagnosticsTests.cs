@@ -99,6 +99,70 @@ public class WindowHandleDiagnosticsTests
     }
 
     [Test]
+    public void TheBlockNamesTheWin32Error()
+    {
+        using Form form = new() { Name = "probe" };
+        _ = form.Handle;
+
+        string block = WindowHandleDiagnostics.Describe(AWindowCreationFailure(), [form]);
+
+        Assert.That(block, Does.Contain("Win32 error: 1158 (0x486)"));
+    }
+
+    private static void DestroyHandleOf(Control control) =>
+        typeof(Control).GetMethod("DestroyHandle", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .Invoke(control, null);
+
+    [Test]
+    public void AToolStripComboBoxThatLostItsWindowGetsItBack()
+    {
+        // #209: the Quick Connect combo box is hosted in a ToolStrip, uses autocomplete, and is
+        // the control whose window a DPI change failed to recreate.
+        using Form form = new() { Name = "host", ShowInTaskbar = false, StartPosition = FormStartPosition.Manual, Location = new System.Drawing.Point(-3000, -3000) };
+        ToolStrip strip = new() { Name = "quickConnectStrip" };
+        ToolStripComboBox item = new() { Name = "quickConnect" };
+        item.Items.AddRange(["alpha", "beta"]);
+        strip.Items.Add(item);
+        form.Controls.Add(strip);
+        form.Show();
+        item.ComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+        item.ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+        item.ComboBox.Text = "beta";
+        IntPtr before = item.ComboBox.Handle;
+        Assert.That(item.ComboBox.Visible, Is.True, "precondition: shown before the loss");
+
+        DestroyHandleOf(item.ComboBox);
+        Assert.That(item.ComboBox.IsHandleCreated, Is.False, "the repair needs a missing window");
+
+        var results = WindowHandleDiagnostics.RecreateLostComboBoxes([form]);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(results, Has.Count.EqualTo(1));
+            Assert.That(results[0], Does.EndWith("window recreated"));
+            Assert.That(item.ComboBox.IsHandleCreated, Is.True);
+            Assert.That(item.ComboBox.Handle, Is.Not.EqualTo(before));
+            Assert.That(item.ComboBox.Visible, Is.True, "a recreated combo box must be shown again");
+            Assert.That(item.Placement, Is.EqualTo(ToolStripItemPlacement.Main), "and laid out on its strip again");
+            Assert.That(item.ComboBox.Text, Is.EqualTo("beta"));
+            Assert.That(WindowHandleDiagnostics.FindControlsWithoutHandle([form]), Is.Empty);
+        });
+        form.Close();
+    }
+
+    [Test]
+    public void NothingIsRecreatedWhenNoWindowIsMissing()
+    {
+        using Form form = new() { Name = "host", ShowInTaskbar = false, StartPosition = FormStartPosition.Manual, Location = new System.Drawing.Point(-3000, -3000) };
+        ComboBox combo = new() { Name = "fine" };
+        form.Controls.Add(combo);
+        _ = form.Handle;
+        _ = combo.Handle;
+
+        Assert.That(WindowHandleDiagnostics.RecreateLostComboBoxes([form]), Is.Empty);
+    }
+
+    [Test]
     public void TheRuntimeLineNamesDotNetAndTheWinFormsBuild() =>
         Assert.That(WindowHandleDiagnostics.RuntimeLine(), Does.StartWith(".NET: ").And.Contain("WinForms "));
 }

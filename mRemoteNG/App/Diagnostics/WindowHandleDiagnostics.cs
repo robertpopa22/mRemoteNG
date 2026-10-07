@@ -19,7 +19,9 @@ namespace mRemoteNG.App.Diagnostics
     /// process was near its window or GDI object limits, what DPI the app was at, or which
     /// WinForms build the machine runs (a WmDpiChangedBeforeParent regression was fixed upstream
     /// in dotnet/winforms#14454, and this app does not pin a runtime patch level). This collects
-    /// exactly those facts, once, at the moment the exception is reported. It changes nothing.
+    /// exactly those facts, once, at the moment the exception is reported; collecting them changes
+    /// nothing. <see cref="RecreateLostComboBoxes"/> is the one repair (#209), run by the main window
+    /// after a DPI change.
     /// </summary>
     [SupportedOSPlatform("windows")]
     public static class WindowHandleDiagnostics
@@ -65,6 +67,17 @@ namespace mRemoteNG.App.Diagnostics
 
             StringBuilder sb = new();
             sb.AppendLine("Window handle diagnostics:");
+            // #209: the Win32 error is what tells a refused child window (bad parent, quota)
+            // apart from anything else; the message text alone is always the same.
+            for (Exception? e = exception; e != null; e = e.InnerException)
+            {
+                if (e is Win32Exception win32)
+                {
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"  Win32 error: {win32.NativeErrorCode} (0x{win32.NativeErrorCode:X})");
+                    break;
+                }
+            }
+
             try
             {
                 IntPtr process = GetCurrentProcess();
@@ -109,7 +122,10 @@ namespace mRemoteNG.App.Diagnostics
         /// claims to be visible, so controls that were simply never shown do not drown the list.
         /// ToolStrip-hosted controls (the Quick Connect combo box) are reached through their host.
         /// </summary>
-        internal static IEnumerable<string> FindControlsWithoutHandle(IEnumerable<Form> forms)
+        internal static IEnumerable<string> FindControlsWithoutHandle(IEnumerable<Form> forms) =>
+            FindLostControls(forms).Select(PathOf);
+
+        internal static IEnumerable<Control> FindLostControls(IEnumerable<Form> forms)
         {
             HashSet<Control> seen = [];
             foreach (Form form in forms)
@@ -126,7 +142,7 @@ namespace mRemoteNG.App.Diagnostics
                     if (control is not ComboBox && !control.Visible)
                         continue;
                     if (control.Parent is { IsHandleCreated: true })
-                        yield return PathOf(control);
+                        yield return control;
                 }
             }
         }
@@ -155,6 +171,44 @@ namespace mRemoteNG.App.Diagnostics
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// #209: gives a combo box its window back after a DPI change refused to recreate it.
+        /// ComboBox.OnFontChanged recreates the window whenever AutoCompleteMode is not None (the
+        /// Quick Connect box uses SuggestAppend), and that recreation runs inside
+        /// WM_DPICHANGED_BEFOREPARENT, where Windows has refused it. Called once the DPI change has
+        /// completed. Returns one line per combo box tried.
+        /// </summary>
+        internal static IReadOnlyList<string> RecreateLostComboBoxes(IEnumerable<Form> forms)
+        {
+            List<string> results = [];
+            foreach (ComboBox combo in FindLostControls(forms).OfType<ComboBox>().ToList())
+            {
+                string path = PathOf(combo);
+                try
+                {
+                    _ = combo.Handle;
+                    // The lost window also took the visible state with it, and the ToolStrip then laid
+                    // its item out as unavailable. The only hosted combo box (Quick Connect) is shown
+                    // whenever its strip is, so the strip's visibility is the intent to restore.
+                    if (combo.Parent is ToolStrip { Visible: true } strip)
+                    {
+                        ToolStripControlHost? host = strip.Items.OfType<ToolStripControlHost>()
+                            .FirstOrDefault(h => ReferenceEquals(h.Control, combo));
+                        if (host != null)
+                            host.Available = true;
+                        combo.Visible = true;
+                    }
+                    results.Add($"{path}: window recreated");
+                }
+                catch (Win32Exception ex)
+                {
+                    results.Add(string.Create(CultureInfo.InvariantCulture, $"{path}: still refused, Win32 error {ex.NativeErrorCode}"));
+                }
+            }
+
+            return results;
         }
 
         private static string PathOf(Control control)
