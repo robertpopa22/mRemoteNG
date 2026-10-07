@@ -48,6 +48,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         protected bool WindowedFullscreenSizingActive { get; private set; }
         private int _extendedReconnectAttemptsRemaining;
         private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
+        private readonly RdpAutoReconnectGate _arcGate = new();
+        private readonly System.Windows.Forms.Timer _arcLivenessTimer;
         private bool _redirectKeys;
         private bool _alertOnIdleDisconnect;
         private bool _viewOnly;
@@ -290,6 +292,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             tmrReconnect.Tick += tmrReconnect_Tick;
             _extendedReconnectTimer = new System.Windows.Forms.Timer { Interval = 2000 };
             _extendedReconnectTimer.Tick += ExtendedReconnectTimer_Tick;
+            _arcLivenessTimer = new System.Windows.Forms.Timer { Interval = (int)RdpAutoReconnectGate.TouchInterval.TotalMilliseconds };
+            _arcLivenessTimer.Tick += (_, _) => _arcGate.Touch(Environment.TickCount64, DateTime.UtcNow);
         }
 
         #endregion
@@ -1865,6 +1869,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnLoginComplete += RDPEvent_OnLoginComplete;
                 _rdpClient.OnFatalError += RDPEvent_OnFatalError;
                 _rdpClient.OnDisconnected += RDPEvent_OnDisconnected;
+                _rdpClient.OnAutoReconnecting += RDPEvent_OnAutoReconnecting;
                 _rdpClient.OnIdleTimeoutNotification += RDPEvent_OnIdleTimeoutNotification;
                 _rdpClient.OnEnterFullScreenMode += RDPEvent_OnEnterFullScreenMode;
                 _rdpClient.OnLeaveFullScreenMode += RDPEvent_OnLeaveFullscreenMode;
@@ -1893,6 +1898,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnLoginComplete -= RDPEvent_OnLoginComplete;
                 _rdpClient.OnFatalError -= RDPEvent_OnFatalError;
                 _rdpClient.OnDisconnected -= RDPEvent_OnDisconnected;
+                _rdpClient.OnAutoReconnecting -= RDPEvent_OnAutoReconnecting;
                 _rdpClient.OnIdleTimeoutNotification -= RDPEvent_OnIdleTimeoutNotification;
                 _rdpClient.OnEnterFullScreenMode -= RDPEvent_OnEnterFullScreenMode;
                 _rdpClient.OnLeaveFullScreenMode -= RDPEvent_OnLeaveFullscreenMode;
@@ -1927,6 +1933,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
             Event_ErrorOccured(this, errorMsg, errorCode);
         }
 
+        private AutoReconnectContinueState RDPEvent_OnAutoReconnecting(int disconnectReason, int attemptCount)
+        {
+            if (_arcGate.ShouldContinue(Environment.TickCount64, DateTime.UtcNow))
+                return AutoReconnectContinueState.autoReconnectContinueAutomatic;
+
+            // #212: the client was suspended since the session was last alive. Resuming the
+            // session now could take it from whoever is using it, so the user decides.
+            RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "auto_reconnect_stopped_after_resume",
+                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
+                disconnectReason, (uint)attemptCount);
+            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                $"Automatic reconnection to {connectionInfo.Hostname} stopped: this computer was asleep since the session was last active.");
+            return AutoReconnectContinueState.autoReconnectContinueStop;
+        }
+
         private void RDPEvent_OnDisconnected(int discReason)
         {
             const int UI_ERR_NORMAL_DISCONNECT = 0xB08;
@@ -1942,7 +1963,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
                 discReason, diagnosticExtendedReason, refreshResources: true);
 
-            if (discReason != UI_ERR_NORMAL_DISCONNECT && _extendedReconnectAttemptsRemaining > 0)
+            if (discReason != UI_ERR_NORMAL_DISCONNECT && _extendedReconnectAttemptsRemaining > 0 &&
+                !_arcGate.StoppedAfterResume)
             {
                 uint extendedDisconnectReason = (uint)_rdpClient.ExtendedDisconnectReason;
                 // 4 = exDiscReasonLogoff, 12 = exDiscReasonLogoffByUser
@@ -2021,6 +2043,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connected",
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
                 refreshResources: true);
+            _arcGate.Reset(Environment.TickCount64, DateTime.UtcNow);
+            _arcLivenessTimer.Start();
             try
             {
                 int reconnectCount = Settings.Default.RdpReconnectionCount;
@@ -2500,6 +2524,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 _extendedReconnectTimer?.Stop();
                 _extendedReconnectTimer?.Dispose();
+                _arcLivenessTimer?.Stop();
+                _arcLivenessTimer?.Dispose();
 
                 // Keep the parent available until native teardown has completed. AxHost.Dispose
                 // owns that teardown and Control.Dispose removes the control afterwards.
