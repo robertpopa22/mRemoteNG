@@ -143,11 +143,9 @@ namespace mRemoteNG.App
                 if (Properties.OptionsDBsPage.Default.UseSQLServer)
                 {
                     ConnectionsService.LastSqlUpdate = DateTime.Now.ToUniversalTime();
-                } 
-				else
-                {
-                    ConnectionsService.LastFileUpdate =  System.IO.File.GetLastWriteTimeUtc(connectionFileName);
                 }
+                // File mode: LoadConnections records LastFileUpdate itself, from the timestamp
+                // captured before the file was read (#210).
 
                 UpdateRemoteConnectionsSynchronizer(Properties.OptionsDBsPage.Default.UseSQLServer, connectionFileName);
 
@@ -304,6 +302,20 @@ namespace mRemoteNG.App
         #endregion
 
         #region Host Status Monitor
+
+        /// <summary>
+        /// Called after every connections load, including a team-sync reload that bypasses
+        /// <see cref="LoadConnections"/>: a running monitor keeps probing the detached old model
+        /// otherwise (#210). Does nothing when the monitor already follows the current model.
+        /// </summary>
+        public static void RebindHostStatusMonitorToCurrentModel()
+        {
+            var model = ConnectionsService.ConnectionTreeModel;
+            if (HostStatusMonitor == null || model == null || ReferenceEquals(HostStatusMonitor.Model, model))
+                return;
+
+            StartHostStatusMonitorIfEnabled();
+        }
 
         public static void StartHostStatusMonitorIfEnabled()
         {

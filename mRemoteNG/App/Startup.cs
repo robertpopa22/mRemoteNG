@@ -118,11 +118,24 @@ namespace mRemoteNG.App
                 }
 
                 messageCollector.AddMessage(MessageClass.DebugMsg, "Creating database syncronizer");
+                // Exactly one live synchronizer: Runtime.LoadConnections may already have created
+                // one; replacing it without disposing left two timers polling (#210).
+                Runtime.ConnectionsService.RemoteConnectionsSyncronizer?.Dispose();
                 Runtime.ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new SqlConnectionsUpdateChecker());
                 Runtime.ConnectionsService.RemoteConnectionsSyncronizer.Enable();
             }
             else if (Properties.OptionsConnectionsPage.Default.WatchConnectionFile)
             {
+                // Runtime.LoadConnections already created the file synchronizer for the file it
+                // actually loaded; creating a second one left two watchers and two timers alive,
+                // so every external change was reloaded twice (#210).
+                if (Runtime.ConnectionsService.RemoteConnectionsSyncronizer != null)
+                {
+                    messageCollector.AddMessage(MessageClass.DebugMsg, "File syncronizer already exists");
+                    Runtime.ConnectionsService.RemoteConnectionsSyncronizer.Enable();
+                    return;
+                }
+
                 messageCollector.AddMessage(MessageClass.DebugMsg, "Creating file syncronizer");
                 string startupFile = ConnectionsService.GetStartupConnectionFileName();
                 if (!string.IsNullOrEmpty(startupFile))

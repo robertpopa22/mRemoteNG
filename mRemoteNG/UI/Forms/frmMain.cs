@@ -105,7 +105,9 @@ namespace mRemoteNG.UI.Forms
         private readonly FileBackupPruner _backupPruner = new();
         private readonly System.Windows.Forms.Timer _autoLockTimer = new() { Interval = 1000 };
         private readonly System.Windows.Forms.Timer _runtimeDiagnosticsPulseTimer = new() { Interval = 1000 };
+        private bool _runtimeDiagnosticsPulseStarted;
         private const int AutoLockIdleThresholdMs = 5 * 60 * 1000;
+        private volatile bool _autoLockKnownDisabledWhileIdle;
         private const int HOTKEY_ID_ACTIVATE = 1;
         private const int HT_CLOSE = 20;
         private bool _isAutoLocked;
@@ -364,6 +366,7 @@ namespace mRemoteNG.UI.Forms
                 if (Properties.OptionsAppearancePage.Default.MinimizeToTray)
                     ShowInTaskbar = false;
             }
+            PowerAwareness.IsMinimized = WindowState == FormWindowState.Minimized;
             if (Properties.OptionsStartupExitPage.Default.StartFullScreen)
             {
                 Fullscreen.Value = true;
@@ -377,7 +380,9 @@ namespace mRemoteNG.UI.Forms
             RuntimeDiagnostics.StartupPhase("total", totalSw.ElapsedMilliseconds);
             RuntimeDiagnostics.PulseUi();
             RuntimeDiagnostics.StartUiWatchdog();
-            _runtimeDiagnosticsPulseTimer.Start();
+            _runtimeDiagnosticsPulseStarted = true;
+            if (WindowState != FormWindowState.Minimized)
+                _runtimeDiagnosticsPulseTimer.Start();
 
             // Auto-start external tools flagged with RunOnStartup (#318)
             foreach (var tool in Runtime.ExternalToolsService.ExternalTools)
@@ -533,6 +538,8 @@ namespace mRemoteNG.UI.Forms
             UpdateWindowTitle();
             UI.Taskbar.JumpListManager.Initialize();
             StartRestApiIfConfigured();
+            Runtime.RebindHostStatusMonitorToCurrentModel();
+            _autoLockKnownDisabledWhileIdle = false;
         }
 
         private static void StartRestApiIfConfigured()
@@ -1046,12 +1053,27 @@ namespace mRemoteNG.UI.Forms
 
         private void AutoLockTimer_Tick(object sender, EventArgs e)
         {
-            if (_isAutoLocked || IsClosing || !AutoLockEnabled())
+            if (_isAutoLocked || IsClosing)
                 return;
 
+            // Idle time is one cheap P/Invoke; the root-node lookup is only needed once the
+            // threshold is reached, and its negative answer cannot change while the user stays
+            // idle (a reload resets it), so it is not repeated every second (#210).
             int idleMilliseconds = NativeMethods.GetIdleMilliseconds();
             if (idleMilliseconds < AutoLockIdleThresholdMs)
+            {
+                _autoLockKnownDisabledWhileIdle = false;
                 return;
+            }
+
+            if (_autoLockKnownDisabledWhileIdle)
+                return;
+
+            if (!AutoLockEnabled())
+            {
+                _autoLockKnownDisabledWhileIdle = true;
+                return;
+            }
 
             EngageAutoLock("idle-timeout");
         }
@@ -1145,6 +1167,8 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmMain_Resize(object sender, EventArgs e)
         {
+            UpdateMinimizedPowerState();
+
             if (WindowState == FormWindowState.Minimized)
             {
                 EngageAutoLock("minimized");
@@ -1171,6 +1195,30 @@ namespace mRemoteNG.UI.Forms
                 }
 
                 PreviousWindowState = WindowState;
+            }
+        }
+
+        /// <summary>
+        /// Publishes the minimized state to <see cref="PowerAwareness"/> and pauses the 1 s UI pulse
+        /// while minimized; <see cref="RuntimeDiagnostics"/> pauses its watchdog on the same change (#210).
+        /// </summary>
+        private void UpdateMinimizedPowerState()
+        {
+            bool minimized = WindowState == FormWindowState.Minimized;
+            PowerAwareness.IsMinimized = minimized;
+
+            // Do not restart the pulse timer while the form is shutting down.
+            if (!_runtimeDiagnosticsPulseStarted || IsClosing)
+                return;
+
+            if (minimized)
+            {
+                _runtimeDiagnosticsPulseTimer.Stop();
+            }
+            else if (!_runtimeDiagnosticsPulseTimer.Enabled)
+            {
+                RuntimeDiagnostics.PulseUi();
+                _runtimeDiagnosticsPulseTimer.Start();
             }
         }
 

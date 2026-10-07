@@ -33,7 +33,7 @@ namespace mRemoteNG.Connection.Protocol
     public class PuttyBase : ProtocolBase
     {
         private const int IDM_RECONF = 0x50; // PuTTY Settings Menu ID
-        private const int TerminalTitlePollIntervalMs = 500;
+        private const int TerminalTitlePollIntervalMs = 2000;
         private const int WindowTextBufferLength = 512;
         private const int OpeningCommandPollIntervalMs = 250;
         private const int GracefulCloseTimeoutMs = 1000;
@@ -250,12 +250,23 @@ namespace mRemoteNG.Connection.Protocol
 
                 if (UseTerminalTitlePollingTimer)
                 {
-                    _terminalTitleTimer = new Timer(_ => UpdateTabTitleFromTerminalTitle(),
+                    _terminalTitleTimer = new Timer(_ => PollTerminalTitle(),
                                                     null,
                                                     TerminalTitlePollIntervalMs,
                                                     TerminalTitlePollIntervalMs);
                 }
             }
+        }
+
+        // Tab captions of inactive tabs must keep updating, so there is no visibility gate; only a
+        // minimized window skips the cross-process WM_GETTEXT and catches up on the first poll
+        // after restore (#210).
+        private void PollTerminalTitle()
+        {
+            if (PowerAwareness.IsMinimized)
+                return;
+
+            UpdateTabTitleFromTerminalTitle();
         }
 
         protected void StopTerminalTitleTracking()

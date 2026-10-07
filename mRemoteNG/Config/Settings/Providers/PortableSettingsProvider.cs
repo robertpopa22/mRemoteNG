@@ -44,10 +44,19 @@ namespace mRemoteNG.Config.Settings.Providers
         private const string _className = "PortableSettingsProvider";
         private XmlDocument? _xmlDocument;
 
+        /// <summary>
+        /// Test hook: when set, the settings are read from and written to this file instead of
+        /// the edition-specific settings folder.
+        /// </summary>
+        internal string? FilePathOverride { get; set; }
+
         private string _filePath
         {
             get
             {
+                if (!string.IsNullOrEmpty(FilePathOverride))
+                    return FilePathOverride;
+
                 // Reuse SettingsFileInfo's writable path logic which falls back to
                 // %APPDATA% when the exe directory is read-only (e.g. Program Files).
                 string settingsDir = SettingsFileInfo.SettingsPath;
@@ -102,12 +111,32 @@ namespace mRemoteNG.Config.Settings.Providers
 
         public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection collection)
         {
+            // ApplicationSettingsBase.Save() hands over every property; when none of them changed
+            // there is nothing to persist. Rewriting the file anyway churned mRemoteNG.settings on
+            // every connections reload (#210). A missing file is still created.
+            // Known limitation: reading a non-primitive property (e.g. a collection) through the
+            // settings base class marks its value dirty, so such a read still triggers a rewrite.
+            bool anyDirty = false;
+            foreach (SettingsPropertyValue propertyValue in collection)
+            {
+                if (propertyValue.IsDirty)
+                {
+                    anyDirty = true;
+                    break;
+                }
+            }
+
+            if (!anyDirty && File.Exists(_filePath))
+                return;
+
             foreach (SettingsPropertyValue propertyValue in collection)
                 SetValue(propertyValue);
 
             try
             {
                 _rootDocument.Save(_filePath);
+                foreach (SettingsPropertyValue propertyValue in collection)
+                    propertyValue.IsDirty = false;
             }
             catch (Exception ex)
             {

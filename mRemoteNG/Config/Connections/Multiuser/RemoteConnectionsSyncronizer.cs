@@ -14,6 +14,16 @@ namespace mRemoteNG.Config.Connections.Multiuser
     [SupportedOSPlatform("windows")]
     public class RemoteConnectionsSyncronizer : IConnectionsUpdateChecker
     {
+        /// <summary>
+        /// Poll interval used when the checker is a <see cref="FileConnectionsUpdateChecker"/>.
+        /// The FileSystemWatcher reports changes within ~1 s, so the timer is only a safety net
+        /// for missed watcher events; polling at SQLReloadInterval in file mode was redundant (#210).
+        /// </summary>
+        public const double FileModeSafetyNetIntervalInMilliseconds = 300000.0;
+
+        /// <summary>Lower bound for the poll interval used after the file watcher degraded.</summary>
+        internal const double MinimumFallbackIntervalInMilliseconds = 5000.0;
+
         private readonly System.Timers.Timer _updateTimer;
         private readonly IConnectionsUpdateChecker _updateChecker;
         private readonly Lock _timerLock = new();
@@ -37,9 +47,30 @@ namespace mRemoteNG.Config.Connections.Multiuser
         public RemoteConnectionsSyncronizer(IConnectionsUpdateChecker updateChecker)
         {
             _updateChecker = updateChecker;
-            double intervalMs = OptionsDBsPage.Default.SQLReloadInterval * 1000.0;
+            double intervalMs = updateChecker is FileConnectionsUpdateChecker
+                ? FileModeSafetyNetIntervalInMilliseconds
+                : OptionsDBsPage.Default.SQLReloadInterval * 1000.0;
             _updateTimer = new System.Timers.Timer(intervalMs > 0 ? intervalMs : 30000.0);
             SetEventListeners();
+            if (updateChecker is FileConnectionsUpdateChecker fileChecker)
+                fileChecker.WatcherDegraded += OnWatcherDegraded;
+        }
+
+        /// <summary>
+        /// The file watcher failed (typically an unreliable SMB/NAS share): fall back to the
+        /// regular reload interval so team sync keeps its old latency.
+        /// </summary>
+        private void OnWatcherDegraded(object? sender, EventArgs e)
+        {
+            double fallbackMs = Math.Max(MinimumFallbackIntervalInMilliseconds, OptionsDBsPage.Default.SQLReloadInterval * 1000.0);
+            lock (_timerLock)
+            {
+                if (_disposed)
+                    return;
+                _updateTimer.Interval = fallbackMs;
+            }
+            Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                $"Connection file watcher degraded; polling every {fallbackMs / 1000.0:0.#} s", true);
         }
 
         private void SetEventListeners()
@@ -53,6 +84,11 @@ namespace mRemoteNG.Config.Connections.Multiuser
 
         private void Load(object sender, ConnectionsUpdateAvailableEventArgs args)
         {
+            // A watcher/timer callback already in flight when this instance was replaced must
+            // not trigger a reload through the orphaned synchronizer (#210).
+            if (_disposed)
+                return;
+
             // Update checkers (SQL polling, file watcher) raise this event from
             // background threads. Marshal the reload onto the UI thread so the
             // tree/model stays single-threaded — otherwise concurrent Children
@@ -63,6 +99,7 @@ namespace mRemoteNG.Config.Connections.Multiuser
                 return;
             }
 
+            bool reloaded = true;
             if (args.DatabaseConnector != null)
             {
                 Runtime.ConnectionsService.LoadConnections(true, false, "");
@@ -70,9 +107,13 @@ namespace mRemoteNG.Config.Connections.Multiuser
             else
             {
                 if (Runtime.ConnectionsService.ConnectionFileName != null)
-                    Runtime.ConnectionsService.LoadConnections(false, false, Runtime.ConnectionsService.ConnectionFileName);
+                    reloaded = Runtime.ConnectionsService.LoadConnections(false, false, Runtime.ConnectionsService.ConnectionFileName, skipIfContentUnchanged: true);
             }
             args.Handled = true;
+
+            // Same bytes as already loaded: nothing was reloaded, so no "team sync" event (#210).
+            if (!reloaded)
+                return;
 
             LastExternalSync = DateTime.UtcNow;
             string source = args.DatabaseConnector != null ? "database" : "file";

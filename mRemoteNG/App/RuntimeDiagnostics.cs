@@ -20,6 +20,7 @@ namespace mRemoteNG.App
     internal static class RuntimeDiagnostics
     {
         private const int HeartbeatIntervalMs = 60_000;
+        private const int HeartbeatLowPowerIntervalMs = 300_000;
         private const int UiWatchdogIntervalMs = 5_000;
         private const int UiStallThresholdMs = 5_000;
         private const int ResumeGapThresholdMs = 30_000;
@@ -36,6 +37,26 @@ namespace mRemoteNG.App
         private static long _uiStallStartedTicks;
         private static int _uiStallReported;
         private static int _initialized;
+        private static bool _heartbeatLowPower;
+        private static int _heartbeatPeriodMs;
+        private static DateTime _heartbeatNextDueUtc;
+        private static bool _uiWatchdogPaused;
+
+        /// <summary>Heartbeat period: 60 s normally, 300 s on battery or while minimized (#210).</summary>
+        internal static int GetHeartbeatIntervalMs(bool lowPower) =>
+            lowPower ? HeartbeatLowPowerIntervalMs : HeartbeatIntervalMs;
+
+        /// <summary>
+        /// Due time for the heartbeat timer after the period changed: the time left until the
+        /// already scheduled tick, capped at the new period. Re-arming with the full new period on
+        /// every change would starve the heartbeat when the window is minimized/restored repeatedly.
+        /// </summary>
+        internal static int ComputeHeartbeatDueMs(DateTime nextDueUtc, DateTime nowUtc, int newPeriodMs)
+        {
+            double remainingMs = (nextDueUtc - nowUtc).TotalMilliseconds;
+            if (remainingMs <= 0) return 0;
+            return (int)Math.Min(remainingMs, newPeriodMs);
+        }
 
         internal static void Initialize()
         {
@@ -65,7 +86,63 @@ namespace mRemoteNG.App
                     Field("version", SafeVersion(Assembly.GetExecutingAssembly().GetName().Version?.ToString()))).ToArray());
 
             LogRemoteDesktopEngineInventory();
-            _heartbeatTimer = new Timer(_ => WriteHeartbeat(), null, HeartbeatIntervalMs, HeartbeatIntervalMs);
+            PowerAwareness.Initialize();
+            lock (StateLock)
+            {
+                _heartbeatLowPower = PowerAwareness.LowPowerMode;
+                int heartbeatMs = GetHeartbeatIntervalMs(_heartbeatLowPower);
+                _heartbeatPeriodMs = heartbeatMs;
+                _heartbeatNextDueUtc = DateTime.UtcNow.AddMilliseconds(heartbeatMs);
+                _heartbeatTimer = new Timer(_ => WriteHeartbeat(), null, heartbeatMs, heartbeatMs);
+            }
+            PowerAwareness.Changed += OnPowerStateChanged;
+        }
+
+        // Heartbeat slows down on battery/minimized. The UI watchdog is a safety feature, so it
+        // follows only the minimized state (while minimized the UI pulse is paused as well).
+        private static void OnPowerStateChanged(object? sender, EventArgs e)
+        {
+            lock (StateLock)
+            {
+                // Shutdown may have disposed the timers; a late notification must be a no-op.
+                if (_heartbeatTimer == null && _uiWatchdogTimer == null)
+                    return;
+
+                // Read inside the lock so concurrent notifications apply in a consistent order.
+                bool lowPower = PowerAwareness.LowPowerMode;
+                bool minimized = PowerAwareness.IsMinimized;
+
+                if (_heartbeatTimer != null && _heartbeatLowPower != lowPower)
+                {
+                    _heartbeatLowPower = lowPower;
+                    int heartbeatMs = GetHeartbeatIntervalMs(lowPower);
+                    if (heartbeatMs != _heartbeatPeriodMs)
+                    {
+                        DateTime nowUtc = DateTime.UtcNow;
+                        int dueMs = ComputeHeartbeatDueMs(_heartbeatNextDueUtc, nowUtc, heartbeatMs);
+                        _heartbeatPeriodMs = heartbeatMs;
+                        _heartbeatNextDueUtc = nowUtc.AddMilliseconds(dueMs);
+                        _heartbeatTimer.Change(dueMs, heartbeatMs);
+                    }
+                }
+
+                if (_uiWatchdogTimer != null && _uiWatchdogPaused != minimized)
+                {
+                    _uiWatchdogPaused = minimized;
+                    if (minimized)
+                    {
+                        _uiWatchdogTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                    }
+                    else
+                    {
+                        long now = Stopwatch.GetTimestamp();
+                        Interlocked.Exchange(ref _lastUiPulseTicks, now);
+                        Interlocked.Exchange(ref _lastWatchdogTicks, now);
+                        Interlocked.Exchange(ref _uiStallReported, 0);
+                        _uiWatchdogTimer.Change(UiWatchdogIntervalMs, UiWatchdogIntervalMs);
+                    }
+                }
+            }
         }
 
         internal static void StartUiWatchdog()
@@ -76,8 +153,9 @@ namespace mRemoteNG.App
 
             lock (StateLock)
             {
-                _uiWatchdogTimer ??= new Timer(_ => CheckUiResponsiveness(), null,
-                    UiWatchdogIntervalMs, UiWatchdogIntervalMs);
+                _uiWatchdogPaused = PowerAwareness.IsMinimized;
+                int dueMs = _uiWatchdogPaused ? Timeout.Infinite : UiWatchdogIntervalMs;
+                _uiWatchdogTimer ??= new Timer(_ => CheckUiResponsiveness(), null, dueMs, dueMs);
             }
         }
 
@@ -86,10 +164,14 @@ namespace mRemoteNG.App
 
         internal static void Shutdown()
         {
-            _heartbeatTimer?.Dispose();
-            _uiWatchdogTimer?.Dispose();
-            _heartbeatTimer = null;
-            _uiWatchdogTimer = null;
+            PowerAwareness.Changed -= OnPowerStateChanged;
+            lock (StateLock)
+            {
+                _heartbeatTimer?.Dispose();
+                _uiWatchdogTimer?.Dispose();
+                _heartbeatTimer = null;
+                _uiWatchdogTimer = null;
+            }
             FieldValue[] exitSample;
             try
             {
@@ -335,6 +417,13 @@ namespace mRemoteNG.App
         {
             try
             {
+                lock (StateLock)
+                {
+                    if (_heartbeatTimer == null)
+                        return;
+                    _heartbeatNextDueUtc = DateTime.UtcNow.AddMilliseconds(_heartbeatPeriodMs);
+                }
+
                 long now = Stopwatch.GetTimestamp();
                 long elapsedMs = ElapsedMilliseconds(Interlocked.Exchange(ref _lastHeartbeatTicks, now), now);
                 CurrentProcess.Refresh();

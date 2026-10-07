@@ -52,6 +52,11 @@ namespace mRemoteNG.Connection
         private const int SaveDebounceMs = 2000;
         // Cached SQL custom encryption password — avoids re-prompting on every reload (#1646)
         private SecureString? _cachedSqlEncryptionPassword;
+        // SHA-256 of the raw bytes of the connections file as of the last successful file load,
+        // and the path it belongs to. Lets an external-change reload skip the full deserialize
+        // (XML parse + PBKDF2 + batch decrypt) when only the timestamp moved (#210).
+        private string? _lastLoadedContentHash;
+        private string? _lastLoadedContentPath;
 
         public bool IsConnectionsFileLoaded { get; set; }
 
@@ -336,7 +341,47 @@ namespace mRemoteNG.Connection
         /// <param name="connectionFileName"></param>
         public void LoadConnections(bool useDatabase, bool import, string connectionFileName)
         {
+            LoadConnections(useDatabase, import, connectionFileName, skipIfContentUnchanged: false);
+        }
+
+        /// <summary>
+        /// Load connections from a source. When <paramref name="skipIfContentUnchanged"/> is true
+        /// (external-change reloads), a file whose bytes are identical to the last successfully
+        /// loaded content of the same path is not deserialized again and
+        /// <see cref="ConnectionsLoaded"/> is not raised; only <see cref="LastFileUpdate"/> is
+        /// refreshed (#210).
+        /// </summary>
+        /// <returns>False when the reload was skipped because the content was unchanged.</returns>
+        public bool LoadConnections(bool useDatabase, bool import, string connectionFileName, bool skipIfContentUnchanged)
+        {
             Stopwatch diagnosticsStopwatch = Stopwatch.StartNew();
+
+            // Capture the file timestamp BEFORE reading it: a write that lands while we load
+            // then has a newer timestamp than LastFileUpdate and is picked up by the next check
+            // instead of being silently marked as already loaded (#210).
+            bool isFileLoad = !useDatabase && !import && !string.IsNullOrEmpty(connectionFileName);
+            DateTime? fileTimestampBeforeLoad = null;
+            string? contentHash = null;
+            if (isFileLoad && File.Exists(connectionFileName))
+            {
+                fileTimestampBeforeLoad = File.GetLastWriteTimeUtc(connectionFileName);
+                contentHash = TryComputeFileContentHash(connectionFileName);
+
+                if (skipIfContentUnchanged &&
+                    contentHash != null &&
+                    IsConnectionsFileLoaded &&
+                    ConnectionTreeModel != null &&
+                    !UsingDatabase &&
+                    string.Equals(contentHash, _lastLoadedContentHash, StringComparison.Ordinal) &&
+                    string.Equals(connectionFileName, _lastLoadedContentPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    LastFileUpdate = fileTimestampBeforeLoad.Value;
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        $"Connections file '{connectionFileName}' timestamp changed but its content is unchanged; reload skipped");
+                    return false;
+                }
+            }
+
             ConnectionTreeModel? oldConnectionTreeModel = ConnectionTreeModel;
             bool oldIsUsingDatabaseValue = UsingDatabase;
 
@@ -386,6 +431,8 @@ namespace mRemoteNG.Connection
                 {
                     LastSqlUpdate = DateTime.Now.ToUniversalTime();
                     TrySaveSqlConnectionsCache(newConnectionTreeModel);
+                    _lastLoadedContentHash = null;
+                    _lastLoadedContentPath = null;
                 }
             }
             catch (Exception ex) when (useDatabase)
@@ -408,14 +455,30 @@ namespace mRemoteNG.Connection
             {
                 RuntimeDiagnostics.ConnectionLoad(useDatabase, import, 0,
                     diagnosticsStopwatch.ElapsedMilliseconds, "failed");
+                // This version of the file has been processed (and the failure reported); do not
+                // let the file watcher retry it on every poll until the file actually changes.
+                if (fileTimestampBeforeLoad.HasValue)
+                    LastFileUpdate = fileTimestampBeforeLoad.Value;
                 DialogFactory.ShowLoadConnectionsFailedDialog(connectionFileName, "Decrypting connection file failed", IsConnectionsFileLoaded);
-                return;
+                return true;
             }
 
             IsConnectionsFileLoaded = true;
             ConnectionFileName = connectionFileName;
-            Properties.OptionsConnectionsPage.Default.ConnectionFilePath = connectionFileName;
-            Properties.OptionsConnectionsPage.Default.Save();
+            if (fileTimestampBeforeLoad.HasValue)
+            {
+                LastFileUpdate = fileTimestampBeforeLoad.Value;
+                _lastLoadedContentHash = contentHash;
+                _lastLoadedContentPath = connectionFileName;
+            }
+
+            // Only persist the settings when the path really changed: an unconditional Save()
+            // rewrote mRemoteNG.settings on every external-change reload (#210).
+            if (!string.Equals(Properties.OptionsConnectionsPage.Default.ConnectionFilePath, connectionFileName, StringComparison.Ordinal))
+            {
+                Properties.OptionsConnectionsPage.Default.ConnectionFilePath = connectionFileName;
+                Properties.OptionsConnectionsPage.Default.Save();
+            }
 
             UsingDatabase = useDatabase;
 
@@ -444,6 +507,21 @@ namespace mRemoteNG.Connection
             RuntimeDiagnostics.ConnectionLoad(useDatabase, import,
                 newConnectionTreeModel.GetRecursiveChildList().Count,
                 diagnosticsStopwatch.ElapsedMilliseconds, "success");
+            return true;
+        }
+
+        private static string? TryComputeFileContentHash(string path)
+        {
+            try
+            {
+                using FileStream stream = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+                return Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(stream));
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                // No hash means no short-circuit: the normal load path runs and reports errors.
+                return null;
+            }
         }
 
         /// <summary>
@@ -548,6 +626,11 @@ namespace mRemoteNG.Connection
                 RemoteConnectionsSyncronizer?.Disable();
 
                 bool previouslyUsingDatabase = UsingDatabase;
+
+                // The content about to be written is no longer the last *loaded* content;
+                // forget its hash so the next external change is always reloaded (#210).
+                _lastLoadedContentHash = null;
+                _lastLoadedContentPath = null;
 
                 if (useDatabase)
                 {

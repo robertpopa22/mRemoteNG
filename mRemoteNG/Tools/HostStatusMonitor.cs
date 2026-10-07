@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
+using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Properties;
 using mRemoteNG.Tree;
@@ -44,6 +45,22 @@ namespace mRemoteNG.Tools
         /// </summary>
         public bool? RequireIcmpEcho { get; set; }
 
+        /// <summary>
+        /// Reports whether idle background work should back off (battery or minimized window, #210).
+        /// Evaluated at the start of every cycle; a test replaces it to avoid touching the OS.
+        /// </summary>
+        internal Func<bool> IsLowPowerMode { get; set; } = static () => PowerAwareness.LowPowerMode;
+
+        /// <summary>In low-power mode only every Nth scan cycle probes (4 x 30 s = ~120 s at the default interval).</summary>
+        internal const int LowPowerProbeEveryNthCycle = 4;
+
+        private readonly SemaphoreSlim _wake = new(0, 1);
+        private int _lowPowerSkippedCycles;
+        private int _forcePass;
+
+        /// <summary>True when a prompt probe pass was requested because low-power mode ended.</summary>
+        internal bool WakePending => _wake.CurrentCount > 0;
+
         public HostStatusMonitor(ConnectionTreeModel model)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
@@ -53,6 +70,7 @@ namespace mRemoteNG.Tools
         public void Start()
         {
             Stop();
+            PowerAwareness.Changed += OnPowerStateChanged;
             _cts = new CancellationTokenSource();
             Task.Run(() => RunAsync(_cts.Token), _cts.Token);
         }
@@ -60,12 +78,33 @@ namespace mRemoteNG.Tools
         /// <summary>Stop the background monitoring loop.</summary>
         public void Stop()
         {
+            PowerAwareness.Changed -= OnPowerStateChanged;
             _cts?.Cancel();
             _cts?.Dispose();
             _cts = null;
         }
 
         public void Dispose() => Stop();
+
+        /// <summary>
+        /// When low-power mode ends while probe cycles were being skipped, wake the loop so a
+        /// pass runs within one cycle instead of waiting out the remaining delay (#210).
+        /// </summary>
+        internal void OnPowerStateChanged(object? sender, EventArgs e)
+        {
+            if (IsLowPowerMode() || Volatile.Read(ref _lowPowerSkippedCycles) == 0)
+                return;
+
+            try
+            {
+                if (_wake.CurrentCount == 0)
+                    _wake.Release();
+            }
+            catch (SemaphoreFullException)
+            {
+                // A wake-up is already pending.
+            }
+        }
 
         private async Task RunAsync(CancellationToken ct)
         {
@@ -77,8 +116,9 @@ namespace mRemoteNG.Tools
             {
                 try
                 {
-                    await CheckAllHostsAsync(ct).ConfigureAwait(false);
-                    await Task.Delay(TimeSpan.FromSeconds(CheckIntervalSeconds), ct).ConfigureAwait(false);
+                    await RunCycleAsync(ct).ConfigureAwait(false);
+                    if (await _wake.WaitAsync(TimeSpan.FromSeconds(CheckIntervalSeconds), ct).ConfigureAwait(false))
+                        Volatile.Write(ref _forcePass, 1);
                 }
                 catch (OperationCanceledException)
                 {
@@ -90,6 +130,26 @@ namespace mRemoteNG.Tools
                     try { await Task.Delay(5000, ct).ConfigureAwait(false); } catch { break; }
                 }
             }
+        }
+
+        /// <summary>
+        /// Runs one probe pass. In low-power mode only every <see cref="LowPowerProbeEveryNthCycle"/>th
+        /// cycle probes, and a pass requested by <see cref="OnPowerStateChanged"/> (low power ended)
+        /// always runs. Returns false when the pass was skipped.
+        /// </summary>
+        internal async Task<bool> RunCycleAsync(CancellationToken ct)
+        {
+            bool forced = Interlocked.Exchange(ref _forcePass, 0) == 1;
+            if (!forced && IsLowPowerMode())
+            {
+                int skipped = Interlocked.Increment(ref _lowPowerSkippedCycles);
+                if (skipped < LowPowerProbeEveryNthCycle)
+                    return false;
+            }
+
+            Volatile.Write(ref _lowPowerSkippedCycles, 0);
+            await CheckAllHostsAsync(ct).ConfigureAwait(false);
+            return true;
         }
 
         private async Task CheckAllHostsAsync(CancellationToken ct)

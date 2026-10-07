@@ -360,22 +360,18 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 - Meziantou MA0049 (type name matches namespace) e **error** by default — trebuie suprimat explicit pentru legacy code
 - `gh run list` pe un fork caută pe upstream — folosește `--repo robertpopa22/mRemoteNG`
 
-## Branch Strategy
+## Branch Strategy — zero branches, everything on `main`
 
 | Branch | Purpose |
 |--------|---------|
-| `main` | Active development — default branch |
-| `release/X.Y` | Historical release branches (frozen) |
+| `main` | The only working branch. Fixes, features, chores and docs are committed directly here. |
+| `release/X.Y` | Historical release branches (frozen, never updated) |
 
-### Feature branch naming:
-| Prefix | When | Example |
-|--------|------|---------|
-| `fix/<issue>-<desc>` | Bug fix | `fix/2735-rdp-smartsize-focus` |
-| `feat/<issue>-<desc>` | New feature | `feat/1634-protocol-token` |
-| `security/<desc>` | Security | `security/ldap-sanitizer` |
-| `chore/<desc>` | Infra, deps, CI | `chore/sqlclient-sni-runtime` |
-
-Lowercase, kebab-case, max 50 chars after prefix. No tool prefixes.
+**Rule (maintainer decision, 2026-10-07):** agents and contributors with push access do **not** create
+feature branches (`fix/*`, `feat/*`, `security/*`, `chore/*`) and do not open pull requests against
+`main` for their own work. Work in the checkout on `main`, verify (build + tests), commit in small
+verified steps, push. Any stray branch is merged into `main` or archived as a tag `archive/*`, then
+deleted. External contributors without push access keep the normal fork + PR flow.
 
 ### Sync upstream:
 ```bash
