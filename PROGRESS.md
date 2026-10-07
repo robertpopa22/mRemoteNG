@@ -1,5 +1,7 @@
 # PROGRESS — handover
 
+Current status: #210 and #211 are closed with recorded test conclusions. The latest published source revision was installed and tested on the affected laptop; the notes below retain the earlier handover history.
+
 ## Issue #210 — reload loop + idle power optimizations (2026-10-07)
 
 Issue: https://github.com/robertpopa22/mRemoteNG/issues/210
@@ -25,7 +27,7 @@ Issue: https://github.com/robertpopa22/mRemoteNG/issues/210
 ### Open items
 1. Completed: #210 is CLOSED as fixed on 2026-10-07. The affected laptop was updated and exercised; the final short battery sample gave 4.02 W from capacity loss and 5.54 W from discharge-rate telemetry. The sub-5-W target is met by the capacity calculation only; a long-term endurance result is not claimed.
 2. Residual: FAT/SMB 2 s mtime granularity can miss a write landing in the same 2 s window as a load. The content hash avoids redundant reloads once a change is detected; it does not detect a change hidden by an equal timestamp.
-3. `SingleInstance=True` was applied and read back in the maintainer's portable source settings, with a backup. Propagation to the affected laptop is not confirmed; this does not change application defaults for other users.
+3. Completed: `SingleInstance=True` was applied and read back both in the maintainer's portable source and on the affected laptop, with backups. This does not change application defaults for other users.
 4. Optional follow-ups from the review: mark host-status icons stale while probing is throttled; `PortableSettingsProvider` dirty detection for non-primitive properties.
 5. Nightly for `a5e97098a10d4efb6b87c205b196d704062cb9a7` was published on 2026-10-07 at 12:47 Europe/Bucharest, with x64 ZIP/MSI assets. The maintainer's portable source was updated from build 3727 to Release 3733 using that ZIP: SHA-256 verified, 71/71 declared runtime assemblies present, 24 settings files preserved, program hashes matched, `SingleInstance=True`, and the hidden `--version` smoke check exited 0. Installation on the affected laptop and battery validation are still pending; no stable release was cut.
 
@@ -41,3 +43,4 @@ Issue: https://github.com/robertpopa22/mRemoteNG/issues/210
 - A fresh battery report was generated. The laptop subsequently went offline when the maintainer left; the final raw sample and battery-report XML remain there, while their received numeric summary is documented. No long-term battery endurance or post-fix SRUM share was measured.
 - The maintainer also confirmed #211's real workflow: Alt+click → fullscreen in a window → work → close → return to the tab. This is human acceptance of that path, distinct from automated test results.
 - Closing evidence: https://github.com/robertpopa22/mRemoteNG/issues/210#issuecomment-6036871604. The app was left available for normal use. The old build's post-cleanup process remnant was recorded; shutdown of the new build was not separately retested.
+- At the maintainer's explicit final closure request, #211 was also closed with the human acceptance and automated results: https://github.com/robertpopa22/mRemoteNG/issues/211#issuecomment-6036925358. That comment explicitly limits the live acceptance to the reported Alt+click/work/close/return path; the dedicated fullscreen lab scenarios and all keyboard/DPI/taskbar combinations were not rerun in this follow-up.
