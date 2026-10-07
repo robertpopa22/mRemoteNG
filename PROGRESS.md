@@ -23,7 +23,7 @@ Issue: https://github.com/robertpopa22/mRemoteNG/issues/210
 - Docs: `docs/bp/BP-010-power-aware-background-work.md` + index row; `CLAUDE.md` branch policy.
 
 ### Open items
-1. Re-measure on a laptop on battery (`powercfg /batteryreport`, `powercfg /srumutil`): target idle drain < 5 W with no connections open; then close #210 with the numbers.
+1. Completed: #210 is CLOSED as fixed on 2026-10-07. The affected laptop was updated and exercised; the final short battery sample gave 4.02 W from capacity loss and 5.54 W from discharge-rate telemetry. The sub-5-W target is met by the capacity calculation only; a long-term endurance result is not claimed.
 2. Residual: FAT/SMB 2 s mtime granularity can miss a write landing in the same 2 s window as a load. The content hash avoids redundant reloads once a change is detected; it does not detect a change hidden by an equal timestamp.
 3. `SingleInstance=True` was applied and read back in the maintainer's portable source settings, with a backup. Propagation to the affected laptop is not confirmed; this does not change application defaults for other users.
 4. Optional follow-ups from the review: mark host-status icons stale while probing is throttled; `PortableSettingsProvider` dirty detection for non-primitive properties.
@@ -33,3 +33,11 @@ Issue: https://github.com/robertpopa22/mRemoteNG/issues/210
 - The affected laptop remained inaccessible through both registered management routes on the follow-up check. Its old process ID is not assumed to still identify the same instance.
 - When access returns: inspect current processes and live connections, close only the confirmed idle duplicate, verify the installed build and `SingleInstance`, then collect comparable battery samples and a fresh battery report. Stopping an old process alone measures a mitigation; validation of the code fix requires the corrected build to be running.
 - The separately developed fullscreen change was subsequently committed by its own session. This follow-up changed only the handover document in the repository.
+
+### Live verification and closure — 2026-10-07
+- Installed the latest published source revision `49145f2808896641a81b7b4e709d4cec05515297` as a self-contained build. Full build and 7592/7592 automated tests passed; package completeness and installed hashes were checked. The existing profile was preserved and `SingleInstance=True` was read back.
+- Actual app: the current tree loaded (54 model nodes), the main window and tree were visible, minimize/restore passed, and a second launch left one instance. Touching the connection file produced one unchanged-content skip and zero reloads. A harmless XML content change produced exactly one successful reload over 70 s, without a recurring loop. The original bytes were restored and settings stayed unchanged.
+- Battery sample after the manual connection was closed: 18/18 discharging samples over 171.89 s, 192 mWh lost (4.02 W for the whole laptop), discharge-rate mean 5.54 W, application CPU 0.0068%. Baseline looping-process CPU was 7.71%. Brightness differed (80% before, 56% afterwards), so total power differences are not a controlled attribution to the fix. The earlier five-minute sample included a short RDP session and was kept separate.
+- A fresh battery report was generated. The laptop subsequently went offline when the maintainer left; the final raw sample and battery-report XML remain there, while their received numeric summary is documented. No long-term battery endurance or post-fix SRUM share was measured.
+- The maintainer also confirmed #211's real workflow: Alt+click → fullscreen in a window → work → close → return to the tab. This is human acceptance of that path, distinct from automated test results.
+- Closing evidence: https://github.com/robertpopa22/mRemoteNG/issues/210#issuecomment-6036871604. The app was left available for normal use. The old build's post-cleanup process remnant was recorded; shutdown of the new build was not separately retested.
