@@ -28,8 +28,31 @@ namespace mRemoteNG.UI.Forms
             // clipped on the right). Doubled both dimensions to 900x240 (4x total
             // area) and the painter now centers everything with margins so future
             // tagline/version churn doesn't run off the edge.
-            Size = new Size(900, 240);
+            // #208: the canvas and every position below are in 96-DPI units and scaled to the
+            // device DPI. The point-sized fonts already grow with the DPI; at 200% an unscaled
+            // 900x240 canvas made the version, subtitle and tagline lines overlap.
+            Size = CanvasSize(DeviceDpi);
             CenterOnPrimaryScreen();
+        }
+
+        internal const int DesignWidth = 900;
+        internal const int DesignHeight = 240;
+
+        internal static Size CanvasSize(int dpi) =>
+            new((int)Math.Round(DesignWidth * dpi / 96f), (int)Math.Round(DesignHeight * dpi / 96f));
+
+        /// <summary>Top of each text line, in device pixels, for a canvas at <paramref name="dpi"/>.</summary>
+        internal static (float Title, float Version, float Subtitle, float Tagline) LineTops(int dpi)
+        {
+            float s = dpi / 96f;
+            return (24f * s, 130f * s, 165f * s, 200f * s);
+        }
+
+        protected override void OnDpiChanged(DpiChangedEventArgs e)
+        {
+            base.OnDpiChanged(e);
+            Size = CanvasSize(e.DeviceDpiNew);
+            Invalidate();
         }
 
         private void CenterOnPrimaryScreen()
@@ -46,15 +69,18 @@ namespace mRemoteNG.UI.Forms
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
+            float scale = DeviceDpi / 96f;
+            var tops = LineTops(DeviceDpi);
+
             // Background with rounded corners
-            using GraphicsPath path = CreateRoundedRect(new Rectangle(0, 0, Width - 1, Height - 1), 20);
+            using GraphicsPath path = CreateRoundedRect(new Rectangle(0, 0, Width - 1, Height - 1), (int)Math.Round(20 * scale));
             using SolidBrush bgBrush = new(Color.FromArgb(0x37, 0x3C, 0x42));
             using Pen borderPen = new(Color.FromArgb(0x21, 0x1E, 0x1B), 2);
             g.FillPath(bgBrush, path);
             g.DrawPath(borderPen, path);
 
             // Title: "m" in blue + "RemoteNG" in white, centered as a group.
-            Font? brandFont = LoadBrandFont(80f);
+            Font? brandFont = LoadBrandFont(80f * scale); // pixel unit: scaled here, not by GDI+
             Font fallbackFont = new("Segoe UI", 60f, FontStyle.Bold);
             Font titleFont = brandFont ?? fallbackFont;
 
@@ -64,10 +90,10 @@ namespace mRemoteNG.UI.Forms
             SizeF restSize = g.MeasureString(restGlyph, titleFont);
             // Kerning fudge — the custom brand font leaves too much air between
             // the 'm' and the 'R' when measured independently, so trim a touch.
-            const float kern = 16f;
+            float kern = 16f * scale;
             float titleWidth = mSize.Width + restSize.Width - kern;
             float titleX = (Width - titleWidth) / 2f;
-            const float titleY = 24f;
+            float titleY = tops.Title;
 
             using SolidBrush blueBrush = new(Color.FromArgb(0x52, 0x89, 0xF9));
             using SolidBrush whiteBrush = new(Color.FromArgb(0xE8, 0xEB, 0xEE));
@@ -78,19 +104,19 @@ namespace mRemoteNG.UI.Forms
             using Font versionFont = new("Segoe UI", 16f);
             string versionText = $"v. {GeneralAppInfo.ApplicationVersion} — Community Edition";
             SizeF versionSize = g.MeasureString(versionText, versionFont);
-            g.DrawString(versionText, versionFont, whiteBrush, (Width - versionSize.Width) / 2f, 130f);
+            g.DrawString(versionText, versionFont, whiteBrush, (Width - versionSize.Width) / 2f, tops.Version);
 
             // Subtitle
             using Font subtitleFont = new("Segoe UI", 14f, FontStyle.Bold);
             const string subtitle = "Multi-Remote Next Generation Connection Manager";
             SizeF subtitleSize = g.MeasureString(subtitle, subtitleFont);
-            g.DrawString(subtitle, subtitleFont, whiteBrush, (Width - subtitleSize.Width) / 2f, 165f);
+            g.DrawString(subtitle, subtitleFont, whiteBrush, (Width - subtitleSize.Width) / 2f, tops.Subtitle);
 
             // Tagline — AI-assisted badge line, smaller than the subtitle.
             using Font taglineFont = new("Segoe UI", 11f, FontStyle.Italic);
             const string tagline = "AI-assisted open source · 16 protocols · .NET 10";
             SizeF taglineSize = g.MeasureString(tagline, taglineFont);
-            g.DrawString(tagline, taglineFont, whiteBrush, (Width - taglineSize.Width) / 2f, 200f);
+            g.DrawString(tagline, taglineFont, whiteBrush, (Width - taglineSize.Width) / 2f, tops.Tagline);
 
             if (brandFont != null) brandFont.Dispose();
             fallbackFont.Dispose();
