@@ -27,4 +27,9 @@ Issue: https://github.com/robertpopa22/mRemoteNG/issues/210
 2. Residual: FAT/SMB 2 s mtime granularity can miss a write landing in the same 2 s window as a load. The content hash avoids redundant reloads once a change is detected; it does not detect a change hidden by an equal timestamp.
 3. `SingleInstance=True` was applied and read back in the maintainer's portable source settings, with a backup. Propagation to the affected laptop is not confirmed; this does not change application defaults for other users.
 4. Optional follow-ups from the review: mark host-status icons stale while probing is throttled; `PortableSettingsProvider` dirty detection for non-primitive properties.
-5. Nightly/stable release not cut for this change yet.
+5. Nightly for `a5e97098a10d4efb6b87c205b196d704062cb9a7` was published on 2026-10-07 at 12:47 Europe/Bucharest, with x64 ZIP/MSI assets. The maintainer's portable source was updated from build 3727 to Release 3733 using that ZIP: SHA-256 verified, 71/71 declared runtime assemblies present, 24 settings files preserved, program hashes matched, `SingleInstance=True`, and the hidden `--version` smoke check exited 0. Installation on the affected laptop and battery validation are still pending; no stable release was cut.
+
+### Follow-up checkpoint — 2026-10-07
+- The affected laptop remained inaccessible through both registered management routes on the follow-up check. Its old process ID is not assumed to still identify the same instance.
+- When access returns: inspect current processes and live connections, close only the confirmed idle duplicate, verify the installed build and `SingleInstance`, then collect comparable battery samples and a fresh battery report. Stopping an old process alone measures a mitigation; validation of the code fix requires the corrected build to be running.
+- The separately developed fullscreen change was subsequently committed by its own session. This follow-up changed only the handover document in the repository.
