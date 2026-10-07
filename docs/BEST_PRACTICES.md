@@ -17,6 +17,8 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-008](bp/BP-008-our-issues.md) | 1 | 2026-10-03 | An issue we opened, including an auto-filed crash report, stays in the work queue until it is dispositioned. |
 | [BP-009](bp/BP-009-closed-thanks.md) | 1 | 2026-10-04 | A thanks, a confirmation, or a duplicate mark on a closed issue is not a new report. |
 | [BP-010](bp/BP-010-power-aware-background-work.md) | 1 | 2026-10-07 | A change check that does not record what it loaded reloads forever; periodic background work needs one owner and must respect battery and minimized state. |
+| [BP-011](bp/BP-011-close-arrives-cancelled.md) | 1 | 2026-10-07 | `FormClosing` can arrive already cancelled; a handler that tore the app down and left it so kept an invisible process alive. |
+| [BP-012](bp/BP-012-reconnect-after-suspend.md) | 1 | 2026-10-07 | An attempt-counted auto-reconnect survives a client sleep and took a session from the console an hour later. |
 
 ## Retired
 
