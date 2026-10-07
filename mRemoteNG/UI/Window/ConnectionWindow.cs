@@ -1124,7 +1124,8 @@ namespace mRemoteNG.UI.Window
             // DockPanelSuite has removed it from connDock.Contents. Counting it asked the user a
             // second time about a connection they had just confirmed closing.
             int liveTabs = LiveConnectionTabCount();
-            ClosePathDiagnostics.Log($"panel '{Text}' FormClosing: reason {e.CloseReason}, tabs {connDock.Documents.Count()}, live tabs {liveTabs}, app closing {FrmMain.Default.IsClosing}, confirm setting {Settings.Default.ConfirmCloseConnection}");
+            bool cancelOnEntry = e.Cancel;
+            ClosePathDiagnostics.Log($"panel '{Text}' FormClosing: reason {e.CloseReason}, cancel on entry {cancelOnEntry}, tabs {connDock.Documents.Count()}, live tabs {liveTabs}, app closing {FrmMain.Default.IsClosing}, confirm setting {Settings.Default.ConfirmCloseConnection}");
             if (!FrmMain.Default.IsClosing &&
                 (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All & liveTabs > 0 ||
                  Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
@@ -1185,6 +1186,14 @@ namespace mRemoteNG.UI.Window
             finally
             {
                 _panelFormClosingInProgress = false;
+                // #213: during application shutdown the only legitimate veto (the confirmation above)
+                // is never asked, so a Cancel still set here came from control validation in
+                // Form.WmClose. Keeping an empty panel alive would keep the main window alive too.
+                if (e.Cancel && FrmMain.Default.IsClosing && !connDock.Documents.Any())
+                {
+                    ClosePathDiagnostics.Log($"panel '{Text}' FormClosing: overriding a close cancelled by control validation during shutdown");
+                    e.Cancel = false;
+                }
                 ClosePathDiagnostics.Log($"panel '{Text}' FormClosing done after {ClosePathDiagnostics.Since(diagStart)} ms: cancel {e.Cancel}, tabs left {connDock.Documents.Count()}");
             }
         }

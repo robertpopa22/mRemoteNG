@@ -882,6 +882,7 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            bool cancelOnEntry = e.Cancel;
             if (Properties.OptionsAppearancePage.Default.CloseToTray)
             {
                 Runtime.NotificationAreaIcon ??= new NotificationAreaIcon();
@@ -917,7 +918,7 @@ namespace mRemoteNG.UI.Forms
                 }
             }
 
-            ClosePathDiagnostics.Log($"main window FormClosing: reason {e.CloseReason}, windows {Runtime.WindowList?.Count}, open connections {GetOpenConnectionsCount()}");
+            ClosePathDiagnostics.Log($"main window FormClosing: reason {e.CloseReason}, cancel on entry {cancelOnEntry}, windows {Runtime.WindowList?.Count}, open connections {GetOpenConnectionsCount()}");
             QuickConnectHistorySaver.CaptureOpenQuickConnectSessionsForShutdown(_quickConnectToolStrip.QuickConnectComboBox);
 
             // Save dock panel layout while ConnectionWindows are still docked.
@@ -960,6 +961,16 @@ namespace mRemoteNG.UI.Forms
             NativeMethods.RemoveClipboardFormatListener(Handle);
             ClosePathDiagnostics.Time("main window FormClosing: Shutdown.Cleanup", () =>
                 Shutdown.Cleanup(_quickConnectToolStrip, _externalToolsToolStrip, _multiSshToolStrip, msMain, this));
+
+            // #213: WinForms raises WM_CLOSE with Cancel already true when validating the remembered
+            // focused control fails (Form.WmClose: Cancel = !Validate(true)). The application has
+            // saved, hidden itself and torn down by now; honouring that veto only leaves an invisible
+            // process that keeps the single-instance mutex.
+            if (e.Cancel)
+            {
+                ClosePathDiagnostics.Log("main window FormClosing: overriding a close cancelled by control validation");
+                e.Cancel = false;
+            }
 
             ClosePathDiagnostics.Log("main window FormClosing: done; the message loop should now end");
             Debug.Print("[END] - " + Convert.ToString(DateTime.Now, CultureInfo.InvariantCulture));
