@@ -1,0 +1,5 @@
+This copy of mRemoteNG was installed by the Windows installer (MSI).
+
+While this file is present, mRemoteNG keeps its settings, connections and log in the user's
+application data folders (%APPDATA% and %LOCALAPPDATA%), never in the program folder, and reports
+itself as the installed edition. Removing it turns this copy into a portable one. Issue #214.

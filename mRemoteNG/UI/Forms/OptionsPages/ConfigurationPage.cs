@@ -36,9 +36,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblConfigurationRestartRequired.Text =
                 $"{Application.ProductName ?? "mRemoteNG"} must be restarted before configuration directory changes take effect.";
 
-            lblPortableInfo.Text = Runtime.IsPortableEdition
+            lblPortableInfo.Text = Runtime.ShowsAsPortable
                 ? "Portable edition always uses the application folder and does not support a custom configuration directory."
-                : "Leave these values empty to use the default per-user configuration directory.";
+                : Runtime.IsPortableEdition
+                    ? "This installed copy keeps its configuration in your per-user application data folder and does not support a custom configuration directory."
+                    : "Leave these values empty to use the default per-user configuration directory.";
         }
 
         public override void LoadSettings()

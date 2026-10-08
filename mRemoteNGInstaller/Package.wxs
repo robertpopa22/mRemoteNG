@@ -55,6 +55,13 @@
       </RegistryKey>
     </Component>
 
+    <!-- #214: marks this copy as installed. The MSI ships the build compiled as portable; the marker
+         keeps settings in %APPDATA% even when the program folder is writable (elevated run) and makes
+         the application report the installed edition. -->
+    <Component Id="InstalledMarker" Directory="INSTALLFOLDER">
+      <File Id="InstalledMarkerFile" Source="Installer\Resources\mRemoteNG.installed" KeyPath="yes" />
+    </Component>
+
     <!-- Desktop shortcut (optional feature) -->
     <Component Id="DesktopShortcutComp" Directory="DesktopFolder">
       <Shortcut Id="DesktopShortcut" Name="mRemoteNG"
@@ -79,6 +86,7 @@
              ConfigurableDirectory="INSTALLFOLDER" Display="expand" Level="1">
       <ComponentGroupRef Id="AppFiles" />
       <ComponentRef Id="RegistryEntries" />
+      <ComponentRef Id="InstalledMarker" />
     </Feature>
 
     <Feature Id="DesktopShortcutFeature" Title="!(loc.Feature_DesktopShortcut)"

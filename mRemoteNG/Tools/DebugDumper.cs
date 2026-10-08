@@ -54,7 +54,7 @@ namespace mRemoteNG.Tools
             sb.AppendLine(CultureInfo.InvariantCulture, $"64-bit Process: {Environment.Is64BitProcess}");
             sb.AppendLine(CultureInfo.InvariantCulture, $"CLR Version: {Environment.Version}");
             sb.AppendLine(CultureInfo.InvariantCulture, $"Current Culture: {System.Globalization.CultureInfo.CurrentCulture.Name}");
-            sb.AppendLine(CultureInfo.InvariantCulture, $"Portable Edition: {Runtime.IsPortableEdition}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Portable Edition: {Runtime.ShowsAsPortable}");
             
             var entry = archive.CreateEntry("SystemInfo.txt");
             using (var entryStream = entry.Open())

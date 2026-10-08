@@ -48,6 +48,12 @@ namespace mRemoteNG.App
         }
 
         /// <summary>
+        /// The edition shown to people and written in reports. The MSI ships the build compiled as
+        /// portable, so <see cref="IsPortableEdition"/> alone called an installed copy portable (#214).
+        /// </summary>
+        public static bool ShowsAsPortable => IsPortableEdition && !SettingsFileInfo.IsInstalledCopy;
+
+        /// <summary>
         /// Feature flag to enable the credential manager feature
         /// </summary>
         public static bool UseCredentialManager => false;

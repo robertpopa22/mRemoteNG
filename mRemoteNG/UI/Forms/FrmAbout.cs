@@ -68,14 +68,8 @@ namespace mRemoteNG.UI.Forms
             llMaintainerWebsite.Text = "geseidl.ro/en/servicii-it";
         }
 
-        private static string PortableSuffix()
-        {
-#if PORTABLE
-            return $" — {Language.PortableEdition}";
-#else
-            return string.Empty;
-#endif
-        }
+        private static string PortableSuffix() =>
+            Runtime.ShowsAsPortable ? $" — {Language.PortableEdition}" : string.Empty;
 
         private new void ApplyTheme()
         {

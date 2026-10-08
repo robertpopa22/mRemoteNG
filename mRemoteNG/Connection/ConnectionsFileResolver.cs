@@ -88,7 +88,7 @@ namespace mRemoteNG.Connection
             // Portable-edition main: <exedir>\Settings\confCons.xml
             string exeDir = System.IO.Path.GetDirectoryName(
                 Assembly.GetAssembly(typeof(ConnectionInfo))?.Location) ?? string.Empty;
-            if (!string.IsNullOrEmpty(exeDir))
+            if (!string.IsNullOrEmpty(exeDir) && SettingsFileInfo.ProgramFolderSettingsApply)
             {
                 AddIfExists(
                     System.IO.Path.Combine(exeDir, SettingsFileInfo.PortableSettingsFolderName,

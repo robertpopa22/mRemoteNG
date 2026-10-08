@@ -83,7 +83,7 @@ namespace mRemoteNG.App.Diagnostics
             reportBuilder.AppendLine("## Application");
             reportBuilder.AppendLine(CultureInfo.InvariantCulture, $"Product: {GeneralAppInfo.ProductName}");
             reportBuilder.AppendLine(CultureInfo.InvariantCulture, $"Version: {GeneralAppInfo.ApplicationVersion}");
-            reportBuilder.AppendLine(CultureInfo.InvariantCulture, $"Edition: {(Runtime.IsPortableEdition ? "Portable" : "Installed")}");
+            reportBuilder.AppendLine(CultureInfo.InvariantCulture, $"Edition: {(Runtime.ShowsAsPortable ? "Portable" : "Installed")}");
             reportBuilder.AppendLine(CultureInfo.InvariantCulture, $".NET CLR: {Environment.Version}");
             reportBuilder.AppendLine(CultureInfo.InvariantCulture, $"CommandLine: {SanitizeText(string.Join(" ", Environment.GetCommandLineArgs()))}");
             reportBuilder.AppendLine(CultureInfo.InvariantCulture, $"SettingsFile: {SanitizeText(SettingsFileInfo.UserSettingsFilePath)}");

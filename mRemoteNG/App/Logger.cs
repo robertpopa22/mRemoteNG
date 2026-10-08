@@ -7,6 +7,7 @@ using log4net.Appender;
 using log4net.Config;
 using log4net.Repository;
 using log4net.Util;
+using mRemoteNG.App.Info;
 
 namespace mRemoteNG.App
 {
@@ -87,7 +88,8 @@ namespace mRemoteNG.App
         private static string GetLogPathPortableEdition()
         {
             string startupPath = Application.StartupPath;
-            if (IsDirectoryWritable(startupPath))
+            // #214: an installed copy logs per user, even when it runs elevated and could write here.
+            if (!SettingsFileInfo.IsInstalledCopy && IsDirectoryWritable(startupPath))
                 return startupPath;
             // Fallback for read-only or WebDAV drives: write log to %LOCALAPPDATA%
             return GetLogPathNormalEdition();
