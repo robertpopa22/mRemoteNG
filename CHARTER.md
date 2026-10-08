@@ -142,6 +142,25 @@ We are a fork of a living project, and we intend to keep being able to take its 
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
 
+### D11 — 2026-10-08 · A solution is proven separately before it enters the product
+
+Every solution is first built and exercised separately, outside `main` and outside anyone's working
+copy. It reaches the product only once it has been seen working there. The separate test exercises the
+real path a user takes, not only the unit suite. For packaging, installation and settings that means
+an install, an upgrade over the current build, and a check that existing settings and connections are
+still read. "We cannot test that here" is not an answer: the lab in [docs/LAB-GUEST.md](docs/LAB-GUEST.md)
+is complex enough to run the install, the upgrade and the UI path, and it is used for exactly this.
+
+A solution that does not work in the separate test is not integrated. The result is reported on the
+issue with what was tried and what was observed. A partial result is reported as partial.
+
+*Why:* on 2026-10-08 the maintainer decided this for #214. The installer ships the build compiled as
+portable, and a fix moves where an installed copy reads its settings and connections. A change like
+that cannot be judged from source or from a green suite, and getting it wrong empties a user's profile
+on upgrade.
+
+*Reverses if:* the maintainer decides a class of change may go straight to `main`.
+
 ### D10 — 2026-10-02 · The open list is work in progress
 
 An issue stays open only while a fix is in progress or a named remainder is confirmed and not
