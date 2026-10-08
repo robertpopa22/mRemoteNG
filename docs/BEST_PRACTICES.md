@@ -20,6 +20,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-011](bp/BP-011-close-arrives-cancelled.md) | 1 | 2026-10-07 | `FormClosing` can arrive already cancelled; a handler that tore the app down and left it so kept an invisible process alive. |
 | [BP-012](bp/BP-012-reconnect-after-suspend.md) | 1 | 2026-10-07 | An attempt-counted auto-reconnect survives a client sleep and took a session from the console an hour later. |
 | [BP-013](bp/BP-013-edition-by-writability.md) | 1 | 2026-10-08 | Choosing the settings folder by writability gave one installed copy two homes; a migration that keeps the old location live triggers a picker. |
+| [BP-014](bp/BP-014-startup-subscription-context.md) | 1 | 2026-10-08 | A SystemEvents subscription made before the first control left a plain SynchronizationContext on the UI thread; every UI await resumed on the pool. |
 
 ## Retired
 
