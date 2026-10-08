@@ -144,8 +144,9 @@ Newest first. Each entry records what was decided, why, and what would reverse i
 
 ### D11 — 2026-10-08 · A solution is proven separately before it enters the product
 
-Every solution is first built and exercised separately, outside `main` and outside anyone's working
-copy. It reaches the product only once it has been seen working there. The separate test exercises the
+Every solution is first built and exercised separately, in the lab and not on anyone's working
+copy. It is committed to `main`, and so reaches the product, only once it has been seen working
+there. This does not reintroduce feature branches; the candidate build is what travels to the lab. The separate test exercises the
 real path a user takes, not only the unit suite. For packaging, installation and settings that means
 an install, an upgrade over the current build, and a check that existing settings and connections are
 still read. "We cannot test that here" is not an answer: the lab in [docs/LAB-GUEST.md](docs/LAB-GUEST.md)
