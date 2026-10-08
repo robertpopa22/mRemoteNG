@@ -76,11 +76,33 @@ namespace mRemoteNG.App
 
             try
             {
-                SystemEvents.PowerModeChanged += OnPowerModeChanged;
+                WithoutInstallingContext(() => SystemEvents.PowerModeChanged += OnPowerModeChanged);
             }
             catch
             {
                 // Without the notification the 30 s re-read in OnBattery still keeps the value fresh.
+            }
+        }
+
+        /// <summary>
+        /// Runs <paramref name="action"/> and, if the thread had no synchronization context before,
+        /// leaves it without one. Subscribing to <see cref="SystemEvents"/> reads
+        /// AsyncOperationManager.SynchronizationContext, which installs a plain
+        /// <see cref="SynchronizationContext"/> on a thread that has none. Initialize runs on the
+        /// UI thread before the first control exists, so that plain context stayed there for the
+        /// whole session and every UI await resumed on the thread pool (#216).
+        /// </summary>
+        internal static void WithoutInstallingContext(Action action)
+        {
+            SynchronizationContext? before = SynchronizationContext.Current;
+            try
+            {
+                action();
+            }
+            finally
+            {
+                if (before == null && SynchronizationContext.Current != null)
+                    SynchronizationContext.SetSynchronizationContext(null);
             }
         }
 

@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel;
+using System.Threading;
 using mRemoteNG.App;
 using NUnit.Framework;
 
@@ -106,5 +108,39 @@ public class PowerAwarenessTests
 
         Assert.That(PowerAwareness.OnBattery, Is.False);
         Assert.That(PowerAwareness.LowPowerMode, Is.False);
+    }
+
+    // #216: the subscription ran on the UI thread before any control existed, and
+    // AsyncOperationManager left a plain SynchronizationContext there for the whole session.
+    [Test]
+    public void ReadingTheAsyncOperationContextOnABareThreadLeavesItBare()
+    {
+        SynchronizationContext? after = new();
+        var thread = new Thread(() =>
+        {
+            PowerAwareness.WithoutInstallingContext(() => _ = AsyncOperationManager.SynchronizationContext);
+            after = SynchronizationContext.Current;
+        });
+        thread.Start();
+        thread.Join();
+
+        Assert.That(after, Is.Null);
+    }
+
+    [Test]
+    public void AnExistingContextIsKept()
+    {
+        var existing = new SynchronizationContext();
+        SynchronizationContext? after = null;
+        var thread = new Thread(() =>
+        {
+            SynchronizationContext.SetSynchronizationContext(existing);
+            PowerAwareness.WithoutInstallingContext(() => _ = AsyncOperationManager.SynchronizationContext);
+            after = SynchronizationContext.Current;
+        });
+        thread.Start();
+        thread.Join();
+
+        Assert.That(after, Is.SameAs(existing));
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.App.Diagnostics;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Container;
 using mRemoteNG.Tools;
@@ -111,6 +112,10 @@ namespace mRemoteNG.Connection
         {
             if (connectionInfo == null)
                 return;
+
+            ConnectionOpenDiagnostics.LogEntry(connectionInfo.Protocol.ToString(),
+                !string.IsNullOrEmpty(connectionInfo.SSHTunnelConnectionName),
+                connectionInfo.WaitForIPAvailability, force.ToString());
 
             bool windowedFullscreen = force.HasFlag(ConnectionInfo.Force.WindowedFullscreen);
             string windowedFullscreenKey = connectionInfo.ConstantID;
@@ -235,7 +240,7 @@ namespace mRemoteNG.Connection
                     int timeoutSeconds = connectionInfo.WaitForIPTimeout > 0 ? connectionInfo.WaitForIPTimeout : 60;
                     Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                         $"Waiting for '{connectionInfo.Hostname}:{portToCheck}' to become reachable (timeout: {timeoutSeconds}s)...");
-                    bool reachable = await WaitForIPAvailabilityAsync(connectionInfo.Hostname, portToCheck, timeoutSeconds).ConfigureAwait(false);
+                    bool reachable = await WaitForIPAvailabilityAsync(connectionInfo.Hostname, portToCheck, timeoutSeconds);
                     if (!reachable)
                     {
                         Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
@@ -321,7 +326,9 @@ namespace mRemoteNG.Connection
                         BuildConnectionInterfaceController(currentTunnelInfo, protocolSshTunnel, connectionContainer);
                         protocolSshTunnel.InterfaceControl.OriginalInfo = currentTunnelInfo;
 
-                        if (await protocolSshTunnel.InitializeAsync() == false)
+                        bool tunnelInitialized = await protocolSshTunnel.InitializeAsync();
+                        ConnectionOpenDiagnostics.Log("after_tunnel_initialize", connectionContainer);
+                        if (!tunnelInitialized)
                         {
                             protocolSshTunnel.Close();
                             continue;
@@ -335,6 +342,7 @@ namespace mRemoteNG.Connection
 
                         // wait until SSH tunnel connection is ready, by checking if local port can be connected to
                         tunnelStarted = await _tunnelPortValidator.ValidatePortAsync(localSshTunnelPort);
+                        ConnectionOpenDiagnostics.Log("after_tunnel_port_wait", connectionContainer);
 
                         if (tunnelStarted)
                         {
@@ -374,6 +382,7 @@ namespace mRemoteNG.Connection
                 // in case of connection through SSH tunnel the container is already defined and must be use, else it needs to be created here
                 if (connectionContainer == null) connectionContainer = SetConnectionContainer(connectionInfo, connectionForm, switchToConnection);
                 if (connectionContainer == null) return;
+                ConnectionOpenDiagnostics.Log("before_target_control", connectionContainer);
                 BuildConnectionInterfaceController(connectionInfo, newProtocol, connectionContainer);
                 // in case of connection through SSH tunnel the connectionInfo was modified but connectionInfoOriginal in all cases retains the original info
                 // and is stored in interface control for further use

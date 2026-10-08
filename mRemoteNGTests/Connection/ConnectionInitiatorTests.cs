@@ -128,7 +128,7 @@ namespace mRemoteNGTests.Connection
             while ((DateTime.Now - startTime).TotalMilliseconds < timeoutMs)
             {
                 var message = _messageCollector.Messages
-                    .FirstOrDefault(m => m.Class == messageClass);
+                    .FirstOrDefault(m => m.Class == messageClass && !m.Text.StartsWith("[#216-diag]", StringComparison.Ordinal));
                 
                 if (message != null)
                     return message;

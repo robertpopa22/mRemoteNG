@@ -34,6 +34,7 @@ Unhandled exceptions are recorded without `Exception.Message`, `Exception.Data` 
 | `rdp_resources` | Resource snapshot at `close_before` and `close_after`, with the close trigger, disconnect class, and whether Disconnect or Dispose threw. A throw records the numeric HRESULT only |
 | `heartbeat` | CPU plus the same resource snapshot every 60 seconds, including GDI, USER, handle types, and thread modules |
 | `[#198-diag]` | Window DPI, screen DPI, and for the form, menu, dock, tree and config grid: font unit, raw size, and line spacing at the window DPI. A `dpi message` line records the suggested DPI, the suggested rectangle, and whether bounds were applied. No names |
+| `[#216-diag]` | Opening a connection: at entry the protocol, whether it uses an SSH tunnel or waits for the host, the force flags, and the calling method names; after the tunnel starts, after its port answers, and before the target control is built: managed thread, whether that is the UI thread, the synchronization context type, and whether the tab needs Invoke. No names, hosts or ports |
 | `ui_stall` | A background watchdog detects and later confirms recovery from a blocked UI thread |
 | `exception` | Privacy-safe exception signature and method-only frames |
 
