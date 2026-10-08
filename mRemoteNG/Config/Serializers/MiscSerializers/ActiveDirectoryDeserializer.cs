@@ -89,6 +89,11 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             string description = Convert.ToString(directoryEntry.Properties["Description"].Value, CultureInfo.InvariantCulture) ?? string.Empty;
             string hostName = Convert.ToString(directoryEntry.Properties["dNSHostName"].Value, CultureInfo.InvariantCulture) ?? string.Empty;
 
+            parentContainer.AddChild(CreateConnection(displayName, description, hostName));
+        }
+
+        internal static ConnectionInfo CreateConnection(string displayName, string description, string hostName)
+        {
             ConnectionInfo newConnectionInfo = new()
             {
                 Name = displayName,
@@ -98,8 +103,9 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             };
             newConnectionInfo.Inheritance.TurnOnInheritanceCompletely();
             newConnectionInfo.Inheritance.Description = false;
-
-            parentContainer.AddChild(newConnectionInfo);
+            // Hostname became inheritable for folders (#435); each computer keeps its own dNSHostName (#215).
+            newConnectionInfo.Inheritance.Hostname = false;
+            return newConnectionInfo;
         }
     }
 }
