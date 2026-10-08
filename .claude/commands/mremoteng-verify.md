@@ -1,4 +1,8 @@
-# /mremoteng-verify — Quality check of this fork
+# /mremoteng-verify — Health check: build, warnings, tests, CI, Sonar, git state
+
+**Use when:** before a release tag, after a large change, or when you want to know whether the tree and CI are green. Read-only apart from the build output.
+
+**Not for:** fixing anything. It lists failures; the fix happens in `/mremoteng-fix-repo` or by hand.
 
 **Does:** build, test, and read CI for `robertpopa22/mRemoteNG`, then list what failed.
 

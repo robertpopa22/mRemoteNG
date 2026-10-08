@@ -1,73 +1,84 @@
-# /mremoteng-pipeline — Unattended issue pipeline
+# /mremoteng-pipeline — Unattended batch over the upstream backlog: run, status, stop, start
 
-Run the unattended pipeline: sync from GitHub, analyze, triage, report. Issues we opened are in that session, including an auto-submitted crash report with no comments. Do not drop one because the author is us.
+**Use when:** you want the headless orchestrator (`iis_orchestrator.py`, which calls `claude -p` /
+Codex / Gemini as sub-agents) to sweep many issues or analyzer warnings without a human in the loop,
+or you want to see, stop or restart such a run.
 
-This is not the daily path. Interactive work is `/mremoteng-fix-repo`, which includes the status report. `/mremoteng-pipeline-supervise` stops or restarts this pipeline. `/mremoteng-pipeline-edit` edits its script. Do not start this pipeline to answer one open issue.
+**Not for:** answering or fixing a fork issue. That is `/mremoteng-fix-repo` (interactive, with
+counter-opinions, UI check and a confirmation gate before push). Not for a quality check of the
+tree: that is `/mremoteng-verify`.
+
+Difference in one line: `fix-repo` = a human-supervised session on the fork's open issues;
+`pipeline` = an unattended batch, mostly over the ~800 upstream issues and warnings, that commits
+and pushes on its own.
 
 ## Usage
 
-The user may specify arguments after the command:
-- `/mremoteng-pipeline` — **full session**: sync → analyze → orchestrate issues → report
-- `/mremoteng-pipeline quick` — sync + analyze + report only (no AI triage, ~15 min)
-- `/mremoteng-pipeline issues` — full session focused on issues only
-- `/mremoteng-pipeline warnings` — full session focused on warnings only
-- `/mremoteng-pipeline issues --max-issues 10` — limit AI triage to 10 issues
-- `/mremoteng-pipeline warnings --max-files 5` — limit files processed
-- `/mremoteng-pipeline --dry-run` — simulate without changes
+- `/mremoteng-pipeline` — sync → analyze → report → orchestrate issues → report
+- `/mremoteng-pipeline quick` — sync + analyze + report, no AI fixing
+- `/mremoteng-pipeline issues|warnings|all [--max-issues N] [--max-files N] [--dry-run]`
+- `/mremoteng-pipeline status` — read only: is it running, where it is, last errors
+- `/mremoteng-pipeline stop` — stop the supervisor and orchestrator
+- `/mremoteng-pipeline start "<orchestrator args>"` — start under the supervisor, detached
 
-## What to do
+## Run
 
-### Step 1: Sync (MANDATORY — always first)
-```bash
-python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py sync
-```
-Run it and read its own progress. Do not budget 14 minutes; that figure was for a backlog of about 800 issues.
+Issues we opened (including an auto-submitted crash report with no comments) are in scope. Do not
+drop one because the author is us. A `wontfix` announcement stays out.
 
-### Step 2: Analyze
-```bash
-python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py analyze
-```
-Quick — shows categorized issues. Capture the output summary for the user. An open issue we filed is in that summary, including an auto-submitted crash report with no comments. Do not drop it because the author is us. A `wontfix` announcement stays out.
+1. **Guard the working tree.** The orchestrator commits with
+   `git add -- mRemoteNG/ mRemoteNGTests/ mRemoteNGSpecs/`, so any untracked or modified file there
+   that is not the run's work gets swept into its commit. Stash it first
+   (`git stash push -u -m pipeline-hold -- <path>`) and pop it at the end.
+2. `python .project-roadmap/scripts/iis_orchestrator.py sync`
+3. `python .project-roadmap/scripts/iis_orchestrator.py analyze` — keep the summary and the
+   MAINTAINER ACTIONS block.
+4. `python .project-roadmap/scripts/iis_orchestrator.py report --include-all` — note the stats.
+5. Skip in `quick` mode. Dry-run first:
+   `python .project-roadmap/scripts/iis_orchestrator.py issues --dry-run`.
+   If its test-hygiene step reports `PHANTOM` (tests did not run), stop: every fix would be
+   unverified. Fix the runner, then continue.
+6. Real run, in the background:
+   `python .project-roadmap/scripts/iis_orchestrator.py <issues|warnings|all> [args]`.
+   Follow `orchestrator-status.json`; you are notified when it exits.
+7. `report --include-all` again and compare with step 4.
 
-### Step 3: Report (pre-orchestrator snapshot)
-```bash
-python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py report --include-all
-```
-Generates markdown report. Note the stats for comparison later.
+Present: issues synced and waiting-for-us count; triaged / implemented / wontfix / duplicate /
+needs_info / failed; report path; commits (`git log origin/main@{1}..origin/main`); errors;
+duration; delta against step 4.
 
-### Step 4: Orchestrate (AI triage + fix)
-Skip this step if user specified `quick` mode.
-```bash
-python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py <issues|warnings|all> [args]
-```
-Run it in the background and read the status file. Duration follows the number of issues actually selected, not a fixed hour count.
+## Status (read only)
 
 ```powershell
 Get-Content D:\github\mRemoteNG\.project-roadmap\scripts\orchestrator-status.json
+Get-Content D:\github\mRemoteNG\.project-roadmap\scripts\orchestrator.log -Tail 30
+python D:\github\mRemoteNG\.project-roadmap\scripts\orchestrator_supervisor.py --check
+Get-CimInstance Win32_Process -Filter "Name = 'python.exe'" |
+  Where-Object { $_.CommandLine -match "iis_orchestrator|orchestrator_supervisor" } |
+  Select-Object ProcessId, CreationDate, CommandLine
 ```
 
-### Step 5: Final report
-```bash
-python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py report --include-all
+Expect at most one supervisor and one orchestrator. A second one is an orphan; name it. A stale
+`orchestrator.lock` with no process means the last run died. For progress over all issues use
+`iis_orchestrator.py analyze`, not a hand-rolled count.
+
+## Stop
+
+Stop the processes listed above. Remove `.project-roadmap\scripts\orchestrator.lock` only after
+they are gone.
+
+## Start
+
+Only when asked:
+
+```powershell
+python D:\github\mRemoteNG\.project-roadmap\scripts\orchestrator_supervisor.py --orchestrator-args "<args>"
 ```
-Compare with Step 3 stats to show what changed.
 
-### Step 6: Present summary
-Show the user:
-- **Sync**: issues synced, new comments, waiting for us count
-- **Orchestrator**: triaged / implemented / wontfix / duplicate / needs_info / failed
-- **Reports**: link to generated report file
-- **Commits**: any commits made by the orchestrator
-- **Errors**: list of failures
-- **Duration**: total session time (sync + orchestrate)
-- **Delta**: what changed vs pre-orchestrator state
+Run it detached; closing the session does not stop it. Log: `.project-roadmap\scripts\supervisor.log`.
 
-## Important notes
+## Editing the script
 
-- The script uses `claude -p` (headless mode) as sub-agent — it strips CLAUDECODE env vars automatically
-- Each file fix is verified independently (build + test) and reverted on failure
-- Commits are pushed to origin at the end
-- The orchestrator kills stale processes (notepad.exe, testhost.exe) after every step
-- Log file: `.project-roadmap/scripts/orchestrator.log`
-- Status file: `.project-roadmap/scripts/orchestrator-status.json`
-- **JSON DB files are updated during orchestrator run** — each triage decision writes priority, notes, and status to the issue JSON
+When a run exposes a defect in `iis_orchestrator.py`, fix it like any other code: find the symbol
+by name (not a line number from an old note), read the tail of `orchestrator.log`, change only
+what the run proved wrong, show the diff, and do not launch the orchestrator to test it.

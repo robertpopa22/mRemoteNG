@@ -1,8 +1,12 @@
-# /mremoteng-fix-repo — Status, then a disposition for every open issue
+# /mremoteng-fix-repo — Daily path: status, then fix or answer every open fork issue
+
+**Use when:** you work the fork's issues (`robertpopa22/mRemoteNG`) — one number or all of them. This is the daily skill. It includes the status report, so there is no separate status skill.
+
+**Not for:** the unattended batch over the upstream backlog (`/mremoteng-pipeline`), a pure build/test/CI check (`/mremoteng-verify`), or importing work from other forks (`/mremoteng-fork-radar`).
 
 **Does:** one procedure. Print where the fork stands, then give every open issue a disposition, including an issue we opened and a crash report the app filed under our account with no comments. Classify, investigate, review, fix, build, test, check the UI, commit locally, write a lesson when this run learned one, then stop before push and before a public reply. Author == us is not a reason to skip it. An announcement already marked `wontfix` stays out.
 
-`/mremoteng-fix-complete` is this same procedure. Do not keep a second queue and do not stop after the report.
+Do not keep a second queue and do not stop after the report.
 
 **Does not:** set policy ([CHARTER.md](../../CHARTER.md)), hold the lesson text ([docs/bp/](../../docs/bp/) holds it; Step 9 only requires the write), define log fields ([docs/RUNTIME_DIAGNOSTICS.md](../../docs/RUNTIME_DIAGNOSTICS.md)), merge upstream, or name the maintainer's machines, paths, or logs.
 

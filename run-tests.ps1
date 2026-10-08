@@ -47,8 +47,16 @@ if (-not (Test-Path $bashScript)) {
 
 Write-Host "[Run] Delegating to bash runner..." -ForegroundColor Yellow
 $headlessArg = if ($Headless) { "headless" } else { "full" }
-$gitRoot = Split-Path (Split-Path (Get-Command git -ErrorAction Stop).Source -Parent) -Parent
-$bashExe = Join-Path $gitRoot "bin\bash.exe"
+# git.exe may resolve to Git\cmd, Git\bin or Git\mingw64\bin depending on the caller's PATH,
+# so walk up from it until a bin\bash.exe appears. Never fall back to System32\bash.exe (WSL).
+$bashExe = $null
+$probe = Split-Path (Get-Command git -ErrorAction Stop).Source -Parent
+while ($probe -and -not $bashExe) {
+    $candidate = Join-Path $probe "bin\bash.exe"
+    if (Test-Path $candidate) { $bashExe = $candidate }
+    $probe = Split-Path $probe -Parent
+}
+if (-not $bashExe) { $bashExe = Join-Path $env:ProgramFiles "Git\bin\bash.exe" }
 if (-not (Test-Path $bashExe)) {
     Write-Host "[ERROR] Git Bash not found: $bashExe" -ForegroundColor Red
     exit 1

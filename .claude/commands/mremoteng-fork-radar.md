@@ -1,4 +1,8 @@
-# /mremoteng-fork-radar — Mine the upstream fork network for work worth importing
+# /mremoteng-fork-radar — Find fixes in other forks of upstream worth importing
+
+**Use when:** occasionally (monthly is plenty), to scan the ~1600 forks of `mRemoteNG/mRemoteNG` for commits we lack, and to import the ones you approve.
+
+**Not for:** our own issues (`/mremoteng-fix-repo`) or upstream issues (`/mremoteng-pipeline`).
 
 Run the Fork Intelligence pipeline over the ~1600 forks of `mRemoteNG/mRemoteNG`, pre-approve the safe candidates through independent counter-opinions, and present a ranked queue. **Nothing is imported without explicit approval.**
 
