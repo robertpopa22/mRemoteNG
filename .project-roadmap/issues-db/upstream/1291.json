@@ -8,7 +8,7 @@
   ],
   "author": "sparerd",
   "created_at": "2019-01-28T19:28:18Z",
-  "github_updated_at": "2019-01-28T19:28:18Z",
+  "github_updated_at": "2026-10-04T09:43:25Z",
   "body_snippet": "Our variable replacement system is becoming more complex and will be used in more places in the future. Rather than relying just on our documentation to lead users to the correct variable expression, we should provide a UI experience that helps users navigate the available variables.\r\n\r\nWhen editing a text box that supports variables, there should be a way to view the available variables. Ideally, this would also provide hints for what the current value of that variable would be.\r\n\r\n\r\nOne implem...",
   "our_status": "released",
   "priority": null,
@@ -36,15 +36,10 @@
     }
   ],
   "comments": [],
-  "comments_cursor": "2019-01-28T19:28:18Z",
+  "comments_cursor": "2026-10-04T09:43:25Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": true,
-  "last_synced": "2026-02-25T14:05:39Z",
-  "notes": "",
-  "token_usage": {
-    "input_tokens": 4,
-    "output_tokens": 644,
-    "cost_usd": 0.282931
-  }
+  "last_synced": "2026-10-08T17:17:42Z",
+  "notes": ""
 }

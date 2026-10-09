@@ -2,7 +2,7 @@
   "number": 1283,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Object reference not set to an instance of an object",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "Security",
@@ -59,7 +59,7 @@
   ],
   "comments_cursor": "2026-02-26T14:14:01Z",
   "unread_comments": 1,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude-retry): NullReferenceException on upgrade from 1.76.11 to 1.76.13 with SQL DB — ancient version-specific bug (2019), no repro steps for current codebase, likely resolved by .NET 10 migration."

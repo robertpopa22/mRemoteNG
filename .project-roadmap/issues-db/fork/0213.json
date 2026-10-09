@@ -1,0 +1,36 @@
+{
+  "number": 213,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Closing after a long session hides the window but the process never exits (FormClosing arrives already cancelled)",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-07T18:05:07Z",
+  "github_updated_at": "2026-10-07T18:19:31Z",
+  "body_snippet": "## Summary\n\nAfter a long-running session (hours or days, with RDP tabs opened, reconnected and closed, and the laptop sleeping in between), closing mRemoteNG makes the window disappear, but the process never exits. It keeps running invisibly and logging heartbeats until it is killed. With `SingleInstance=True` this also blocks the next start: a new launch finds the mutex held by the invisible process and only tries to activate it, so the application appears not to start.\n\nObserved on 1.84.0 buil...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABaEGArQ",
+      "author": "robertpopa22",
+      "date": "2026-10-07T18:19:31Z",
+      "snippet": "Fix pushed in cd2c03abc (local build 3734).\n\n**What changed.** Once `FrmMain_FormClosing` has passed the confirmation, found no open connections and run the shutdown cleanup, it resets an incoming `Cancel` and logs `overriding a close cancelled by control validation`. A connection panel does the same while the application is closing and no tabs are left. Both handlers now log `cancel on entry`, so the next long-session close shows where the veto came from.\n\n**What was verified.**\n- *Automated te...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-07T18:19:31Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-08T17:17:42Z",
+  "notes": ""
+}

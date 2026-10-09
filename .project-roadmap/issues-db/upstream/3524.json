@@ -3,10 +3,13 @@
   "repo": "mRemoteNG/mRemoteNG",
   "title": "version 1.77 and 1.78",
   "state": "open",
-  "labels": [],
+  "labels": [
+    "In progress",
+    "1.78.*"
+  ],
   "author": "wongcc2012",
   "created_at": "2026-10-01T10:28:32Z",
-  "github_updated_at": "2026-10-02T16:50:39Z",
+  "github_updated_at": "2026-10-05T22:52:34Z",
   "body_snippet": "I know that 1.77.1 (BETA) maybe a little bit out-dated, however the 1.78 update is quite frequent.\nhow can I export the configuration files and the connection files between different version or during updates?",
   "our_status": "new",
   "priority": null,
@@ -50,12 +53,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABZepZ-A",
+      "author": "Neustradamus",
+      "date": "2026-10-05T22:52:34Z",
+      "snippet": "@wongcc2012: Badly 1.77.x is not a stable version.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-02T16:50:39Z",
-  "unread_comments": 4,
+  "comments_cursor": "2026-10-05T22:52:34Z",
+  "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-04T06:27:42Z",
+  "last_synced": "2026-10-08T17:17:42Z",
   "notes": ""
 }

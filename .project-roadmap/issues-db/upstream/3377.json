@@ -2,7 +2,7 @@
   "number": 3377,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Login dialog not activated after starting mRemoteNG",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "UI/UX",
     "Windows",
@@ -22,7 +22,7 @@
   "comments_cursor": "2026-09-11T13:31:50Z",
   "unread_comments": 0,
   "needs_action": false,
-  "waiting_for_us": true,
+  "waiting_for_us": false,
   "last_synced": "2026-09-20T20:37:19Z",
   "notes": ""
 }

@@ -1,0 +1,47 @@
+{
+  "number": 216,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Couldn't create new InterfaceControl",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "vndnua",
+  "created_at": "2026-10-08T13:44:04Z",
+  "github_updated_at": "2026-10-09T05:46:32Z",
+  "body_snippet": "There is a problem with connections that use an SSH tunnel. When I try to connect, I get the following error:\n\n<img width=\"394\" height=\"161\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a3d67e9b-efbf-45a8-86c9-991c9630bbf5\" />\n\nThe error occurs with connections using different protocols (I tested VNC, SSH, HTTP, and WinBox). This error started occurring recently. This issue does not occur in version mRemoteNG-nightly-20261006-v1.84.0-a684a59-x64.zip.\n\nVersion 1.84.0 (Release 3734)...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-09",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABahrlNg",
+      "author": "robertpopa22",
+      "date": "2026-10-09T05:46:32Z",
+      "snippet": "Thank you. The thread numbers in your log were what gave it away: the tunnel's PuTTY lines ran on the UI thread, and the failing control was built on a background thread right after the tunnel came up.\n\nCause, found in the build you named as good versus the current one: a change on October 7 (power-aware background work, #210) subscribes to a Windows power notification while the program is still starting, before any window exists. That subscription leaves a plain .NET synchronization context on ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-09T05:46:32Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-09T05:46:42Z",
+  "notes": "fix shipped cc0f13cee (plain SyncContext from early SystemEvents subscription); [#216-diag] kept; awaiting reporter tunnel test"
+}

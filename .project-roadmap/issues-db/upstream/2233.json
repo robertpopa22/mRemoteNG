@@ -2,7 +2,7 @@
   "number": 2233,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Freeze using Win 10 on Virtualbox",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Cannot Reproduce",
     "Need 2 check"
@@ -73,7 +73,7 @@
   ],
   "comments_cursor": "2026-02-26T14:05:49Z",
   "unread_comments": 2,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (gemini): Investigate and fix the application freeze occurring when mRemoteNG is used on Windows 10 within a VirtualBox environment, which significantly impacts usability for users in this specific environment.\nApproach: Debug the application in a Windows 10 VirtualBox environment to pinpoint the exact cause of the freeze. This will likely involve examining UI rendering loops, threading interactions, and specific API calls made in the affected environment to identify deadlocks, infinite loops, or unhandled exceptions."

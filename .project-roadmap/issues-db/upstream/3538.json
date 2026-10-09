@@ -3,10 +3,15 @@
   "repo": "mRemoteNG/mRemoteNG",
   "title": "New stable release? Latest stable is always 1.76.20 (2019-04-12) with a lot of vulnerabilities",
   "state": "open",
-  "labels": [],
+  "labels": [
+    "In progress",
+    "Feature Request",
+    "Improvement required",
+    "1.78.*"
+  ],
   "author": "Neustradamus",
   "created_at": "2026-10-02T14:45:54Z",
-  "github_updated_at": "2026-10-03T08:00:45Z",
+  "github_updated_at": "2026-10-04T11:03:33Z",
   "body_snippet": "Dear @mRemoteNG team,\n\nAfter several requests, tickets, ...\n\nWhen a new stable version will be released with CVE fixes?\n\nRECALL: Currently, the latest is always 1.76.20 (2019-04-12) with a lot of vulnerabilities.\n\nThanks in advance.",
   "our_status": "new",
   "priority": null,
@@ -23,12 +28,39 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABZFdqrw",
+      "author": "Kvarkas",
+      "date": "2026-10-04T09:13:28Z",
+      "snippet": "> the 1.76 is lack of newer RDP protocols, and lack of inheritance selection. please update asap. I would say v1.77 is better at all.\n\ncurrent version is 1.78.3 (NB)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABZFeGOg",
+      "author": "Kvarkas",
+      "date": "2026-10-04T09:14:31Z",
+      "snippet": "> Dear [@mRemoteNG](https://github.com/mRemoteNG) team,\n> \n> After several requests, tickets, ...\n> \n> When a new stable version will be released with CVE fixes?\n> \n> RECALL: Currently, the latest is always 1.76.20 (2019-04-12) with a lot of vulnerabilities.\n> \n> Thanks in advance.\n\nYes, you are right, current stable (for a day it was released) is still 1.76.20, however comming Release Candidate will be build on 1.78.3, stay tuned",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABZGSRQg",
+      "author": "wongcc2012",
+      "date": "2026-10-04T11:03:33Z",
+      "snippet": "\n> Yes, you are right, current stable (for a day it was released) is still 1.76.20, however comming Release Candidate will be build on 1.78.3, stay tuned\n\n\nthe 1.78.X NB is always changing the configuration path and it is hard to manage, the update is also too frequent during pre-beta / nightly.\nI appreciate if a stable-RC version is available soon\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-03T08:00:45Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-10-04T11:03:33Z",
+  "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-04T06:27:42Z",
+  "last_synced": "2026-10-08T17:17:42Z",
   "notes": ""
 }

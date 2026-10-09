@@ -2,7 +2,7 @@
   "number": 2287,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Console pane is out of position with tab panel",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "UI/UX"
@@ -97,7 +97,7 @@
   ],
   "comments_cursor": "2026-02-26T14:06:34Z",
   "unread_comments": 4,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Console/notification pane misaligns with the tab strip due to incorrect rectangle height calculation in DockPaneStripNG (adds DocumentStripGapTop to height instead of subtracting).\nApproach: Fix TabStripRectangle_Document height formula: change rect.Height + DocumentStripGapTop - DocumentStripGapBottom to rect.Height - DocumentStripGapTop - DocumentStripGapBottom to correctly account for the top gap in the strip height."

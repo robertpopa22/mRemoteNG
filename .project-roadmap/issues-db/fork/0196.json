@@ -2,13 +2,13 @@
   "number": 196,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Entra ID authentication does not show Entra ID login dialog",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "GurliGebis",
   "created_at": "2026-09-23T08:52:32Z",
-  "github_updated_at": "2026-09-29T11:37:10Z",
+  "github_updated_at": "2026-10-07T18:29:40Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nFixes here are developed and verified by an AUTOMATED pipeline (6,400+ automated tests,\ncross-review between independent AI models), and we use mRemoteNG ourselves every day on the\nlatest build. What we cannot do is reproduce YOUR setup — your network, your servers, your\nlocale, the exact state that triggers your bug. That means:\n\n  * your report below is the start of the fix,\n  * and when a fix lands in a...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -94,12 +94,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABaEQM_g",
+      "author": "robertpopa22",
+      "date": "2026-10-07T18:29:39Z",
+      "snippet": "Closing — unanswered.\n\nOn 29 September we published a diagnostic build and asked for the two `RDP authentication setting` lines from one connection attempt. There has been no reply for eight days. Checked so far: the .rdp import now carries `enablerdsaadauth`, and the embedded control accepts `EnableRdsAadAuth` but rejects `RedirectWebAuthn` (0x8000FFFF). Entra web sign-in itself has not been verified, because we have no matching Entra target.\n\nThis close is not a finding that the sign-in works....",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-09-29T11:37:10Z",
+  "comments_cursor": "2026-10-07T18:29:40Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-09-29T11:37:34Z",
+  "last_synced": "2026-10-08T17:17:42Z",
   "notes": "2026-10-02: diagnostic ask of 29 Sep is inside the seven-day window. Close unanswered on 6 Oct if it is still the latest word."
 }

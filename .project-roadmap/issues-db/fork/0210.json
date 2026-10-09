@@ -1,0 +1,36 @@
+{
+  "number": 210,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Infinite connections-reload loop after external file change drains battery; idle power optimizations",
+  "state": "closed",
+  "labels": [
+    "bug"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-07T08:09:01Z",
+  "github_updated_at": "2026-10-07T11:22:56Z",
+  "body_snippet": "## Summary\n\nOn a laptop running on battery, an idle mRemoteNG instance was measured as the largest single energy consumer on the machine (SRUM: 27–30 % of total energy, above the display), sustaining ~7 % CPU with no open connections. Root cause is an infinite connections-reload loop, amplified by several background activities that run regardless of power state. This issue groups the loop fix and the related idle-power optimizations.\n\nMeasured on 1.84.0 (local build 3726), `WatchConnectionFile=T...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABZ9NZtA",
+      "author": "robertpopa22",
+      "date": "2026-10-07T11:22:48Z",
+      "snippet": "Fixed in a5e97098a; available in the nightly containing 49145f280. The same source was installed and exercised on a laptop using a self-contained build with its runtime included.\n\nThe full automated suite passed **7,592/7,592**. In the real app, startup loaded the existing tree, minimize/restore worked, and a second launch left one instance. Touching the connection file without changing its bytes produced a skip and no reload; a harmless XML content change produced exactly one reload over 70 sec...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-07T11:22:56Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-08T17:17:42Z",
+  "notes": ""
+}

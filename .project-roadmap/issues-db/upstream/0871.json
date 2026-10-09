@@ -4,11 +4,12 @@
   "title": "Enhancement - Pick database on logon",
   "state": "open",
   "labels": [
-    "Enhancement"
+    "Enhancement",
+    "In progress"
   ],
   "author": "flyer292",
   "created_at": "2018-01-25T15:18:35Z",
-  "github_updated_at": "2018-01-29T23:08:19Z",
+  "github_updated_at": "2026-10-04T09:37:26Z",
   "body_snippet": "Allow for a database selection screen when you first launch the application\r\n\r\nYou could then have several profiles setup that connect to different databases (same options for each profile, DB Server, Database, userID & password - blank just uses you AD credentials\r\n\r\nAdditional Options\r\nOption 1 - If you need to be connected to different databases at the same time just open several consoles\r\nOption 2 - Ability to connect to several profiles within your single application.  Where it shows Connec...",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -54,10 +55,10 @@
     }
   ],
   "comments": [],
-  "comments_cursor": "2018-01-29T23:08:19Z",
+  "comments_cursor": "2026-10-04T09:37:26Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": true,
-  "last_synced": "2026-02-25T14:05:39Z",
+  "last_synced": "2026-10-08T17:17:42Z",
   "notes": "AI triage (codex): The issue contains only a title with no body or comments, so the enhancement requirements are too vague to implement reliably.\nApproach: Ask for specific logon database-selection behavior (UI location, default choice, persistence rules, and error handling) before implementation planning.\nAI triage (gemini): Feasible enhancement to allow selecting database environment on startup. Can be implemented by adding a new setting and injecting a selection dialog (reusing existing SQL config UI) into the startup sequence.\nApproach: 1. Add `ShowDatabasePickerOnStartup` setting to OptionsDBsPage. 2. Update `SqlServerPage` UI to include a checkbox for this setting. 3. Create a new form `FrmPickDatabase` that hosts an instance of `SqlServerPage` (or similar controls) to allow modifying DB settings. 4. In `Runtime.LoadConnections`, check the new setting and if enabled, show `FrmPickDatabase` before attempting to load connections.\nAI triage (claude): Feature request to allow selecting/switching between multiple SQL database profiles at startup, enabling multi-database workflows\nApproach: Add a database profile manager (list of named DB connection configs) and a profile selection dialog shown at startup when SQL mode is enabled with multiple profiles configured\nAI triage (gemini): The feature is partially implemented (FrmDatabasePicker) but lacks localization, proper AuthType persistence in profiles, and tests.\nApproach: Finalize FrmDatabasePicker, ensure AuthType is correctly saved/loaded in DatabaseProfile and SqlServerPage, add localization, and add tests."
 }

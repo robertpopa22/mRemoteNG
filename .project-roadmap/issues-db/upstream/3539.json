@@ -2,7 +2,7 @@
   "number": 3539,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Key combination sending",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "wongcc2012",
   "created_at": "2026-10-03T08:11:26Z",
@@ -17,8 +17,8 @@
   "comments": [],
   "comments_cursor": "2026-10-03T08:11:26Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-10-04T06:27:42Z",
   "notes": ""
 }

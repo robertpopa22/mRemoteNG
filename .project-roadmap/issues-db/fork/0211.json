@@ -1,0 +1,36 @@
+{
+  "number": 211,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Feature: windowed fullscreen RDP via Alt+click, preserving the host taskbar",
+  "state": "closed",
+  "labels": [
+    "enhancement"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-07T08:12:05Z",
+  "github_updated_at": "2026-10-07T11:26:33Z",
+  "body_snippet": "## Feature\n\nAdd a windowed fullscreen mode for a single RDP session. The remote desktop fills a borderless host window maximized to the current monitor's working area, leaving the local taskbar accessible. No connection tree, menu, toolbar or tab strip should remain visible. With auto-hide disabled on both desktops, the remote taskbar sits immediately above the local taskbar.\n\n## Interaction and acceptance criteria\n\n- Alt+left-click/tap on a connection in the tree opens it in this mode. Shift+En...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABZ9Qrrg",
+      "author": "robertpopa22",
+      "date": "2026-10-07T11:26:18Z",
+      "snippet": "Fixed in 0abf59009 and included in the installed nightly source revision 49145f280.\n\nThe maintainer has confirmed the real workflow: **Alt+click opens windowed fullscreen, the remote session can be used, and closing the host returns to the tab.** This is human acceptance of that path in the current installation.\n\nThe full automated regression suite passed **7,592/7,592**, and the latest self-contained build started successfully on the laptop. Automated verification is separate from the maintaine...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-07T11:26:33Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-08T17:17:42Z",
+  "notes": ""
+}

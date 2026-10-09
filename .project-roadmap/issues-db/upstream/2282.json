@@ -2,7 +2,7 @@
   "number": 2282,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Settings in Russian tranlation not saved",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Translations",
     "1.77.4"
@@ -82,7 +82,7 @@
   ],
   "comments_cursor": "2026-02-26T14:06:31Z",
   "unread_comments": 3,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
   "notes": "AI triage (claude): Settings fail to save/load in Russian locale because numeric parsing (int.TryParse, Convert.ToDouble) uses the current culture instead of InvariantCulture, causing failures when Russian locale formats numbers differently.\nApproach: Add CultureInfo.InvariantCulture to all int.TryParse and numeric conversion calls in XmlExtensions.GetAttributeAsInt() and related deserializer methods to prevent locale-sensitive parsing failures."

@@ -1,0 +1,45 @@
+{
+  "number": 215,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "AD Dynamic Folder: imported connections inherit the folder's blank Hostname instead of dNSHostName",
+  "state": "open",
+  "labels": [],
+  "author": "JScheller88",
+  "created_at": "2026-10-07T21:01:47Z",
+  "github_updated_at": "2026-10-09T05:46:31Z",
+  "body_snippet": "**Steps to reproduce**\n1. Create a Dynamic Folder with Source type **Active Directory**, pointing to an LDAP OU.\n2. Refresh the folder.\n\n**Expected:** Each imported connection's Hostname is the computer's `dNSHostName`.\n\n**Actual:** Display names (`cn`) and descriptions import correctly, but every connection's Hostname is blank, inherited from the parent folder.\n\n**Cause (from reading the code)**\n`ActiveDirectoryDeserializer.DeserializeConnection` sets `Hostname`, then calls `Inheritance.TurnOnI...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-09",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABahrkLw",
+      "author": "robertpopa22",
+      "date": "2026-10-09T05:46:31Z",
+      "snippet": "Thank you for the precise report; your reading of the code was right.\n\nEach imported computer is created with its `dNSHostName` and then set to inherit everything from its folder except the description. That used to be harmless, because the hostname could not be inherited. In February the hostname became inheritable on folders, so the empty hostname of the dynamic folder replaced every computer's address on each refresh.\n\nCommit c031de861 keeps the hostname on each imported computer and leaves e...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-09T05:46:31Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-09T05:46:42Z",
+  "notes": "fix shipped c031de861; awaiting reporter refresh on nightly"
+}

@@ -1,0 +1,34 @@
+{
+  "number": 209,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ComponentModel.Win32Exception: Error creating window handle. (When moving mRemoteNG window between monitors)",
+  "state": "open",
+  "labels": [],
+  "author": "vansanper",
+  "created_at": "2026-10-06T11:08:55Z",
+  "github_updated_at": "2026-10-07T18:35:15Z",
+  "body_snippet": "## Crash Report\n\n### Exception\n**Type:** `System.ComponentModel.Win32Exception`\n**Message:** Error creating window handle.\n\n### Stack Trace\n```\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\n   at void System.Windows.Forms.Control.CreateHandle()\n   at void System.Windows.Forms.ComboBox.CreateHandle()\n   at void System.Windows.Forms.Control.RecreateHandleCore()\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\n   at void System.Windows.Forms.ComboBox.OnFont...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABaEWA1w",
+      "author": "robertpopa22",
+      "date": "2026-10-07T18:35:15Z",
+      "snippet": "Thank you. The diagnostics block in this report named the Quick Connect box as the control left without a window, at 113 USER objects, so not a resource limit.\n\nCommit 745a32bc3 gives that box its window back once the move between monitors has finished, so the toolbar keeps working. It also adds the Win32 error code to this crash report. Why Windows refuses the window during the DPI change is still unproven; that code is what will tell us.\n\nPlease test on the next nightly by moving the window be...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-07T18:35:15Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-08T17:17:42Z",
+  "notes": ""
+}

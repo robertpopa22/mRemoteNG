@@ -2,7 +2,7 @@
   "number": 773,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "FR: Make sorting connections reversible",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Enhancement"
   ],
@@ -66,7 +66,7 @@
   ],
   "comments_cursor": "2026-10-02T08:59:50Z",
   "unread_comments": 2,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-10-02T12:36:14Z",
   "notes": "AI triage (gemini): Users currently lose manual connection ordering when sorting; an undo or toggle is needed to restore the previous state.\nApproach: Implement an 'Undo Sort' feature by caching the child node order of a folder before applying a sort operation, allowing restoration of the manual order."

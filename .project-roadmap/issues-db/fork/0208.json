@@ -1,0 +1,56 @@
+{
+  "number": 208,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "mRemoteNG Spash screen rendering bug (overlapped)",
+  "state": "closed",
+  "labels": [
+    "bug"
+  ],
+  "author": "vansanper",
+  "created_at": "2026-10-06T11:04:59Z",
+  "github_updated_at": "2026-10-08T13:13:06Z",
+  "body_snippet": "**What happens** (and what you expected instead):\nOn startup the Splash Screen with mRemoteNG info is mangled/overlaped/distorted\n\n**Steps to reproduce:**\n\n1.Open mRemoteNG\n2.See splash screen with incorrect display format\n3.\n\n**Version and build** (copy Help → About; include portable or installed, x86/x64/ARM64):\n1.84.0 Release 3716, installed, x64\n(Another bug in About shows portable, but i installed the .msi and the .exe and other files are in C:\\Program Files\\mRemoteNG)\n\n<img width=\"1449\" he...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-09",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABaEV-qw",
+      "author": "robertpopa22",
+      "date": "2026-10-07T18:35:13Z",
+      "snippet": "Thank you for the screenshot. Its size, 903×239 on your 200% monitor, gave the cause away.\n\nThe splash was a fixed 900×240-pixel box with its text lines at fixed pixel positions, while the text itself is sized in points and doubles at 200%. The text grew and the box did not, so the lines ran into each other. In commit 47ef31f11 the box, the line positions and the logo scale with the monitor's DPI.\n\n- *Automated tests:* at 100%, 150% and 200% every line fits above the next one and inside the box,...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABaT5E2A",
+      "author": "vansanper",
+      "date": "2026-10-08T13:13:06Z",
+      "snippet": "Confirmed fixed in the latest nightly:\n\n<img width=\"1812\" height=\"487\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/1b340d97-6a31-4d7f-b564-8ff9a1398fb8\" />\n\nThanks for the fixes, you have our star since we discovered it, keep the good work. 👍 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-08T13:13:06Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-09T05:46:42Z",
+  "notes": "reporter confirmed fixed in nightly 2026-10-08"
+}

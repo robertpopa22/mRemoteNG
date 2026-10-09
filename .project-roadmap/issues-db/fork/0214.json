@@ -1,0 +1,65 @@
+{
+  "number": 214,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "MSI installs the portable-compiled build: installed copies report 'Portable Edition'",
+  "state": "closed",
+  "labels": [
+    "bug"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-07T18:29:03Z",
+  "github_updated_at": "2026-10-09T05:46:35Z",
+  "body_snippet": "## Summary\n\nThe MSI installs a build compiled as the portable edition. An installed copy in `C:\\Program Files\\mRemoteNG` therefore reports itself as portable, in Help → About, in crash reports (`Edition: Portable`) and in the log (`… x64 Portable Edition starting.`). Reported in #208 by an installed 1.84.0 (Release 3716) user.\n\n## Cause (from source)\n\n- `Runtime.IsPortableEdition` is decided at compile time: `#if PORTABLE` (`App/Runtime.cs`).\n- `mRemoteNG.csproj` defines `PORTABLE` for `Release|...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-09",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABaMXHpQ",
+      "author": "robertpopa22",
+      "date": "2026-10-08T05:09:36Z",
+      "snippet": "Maintainer decision, recorded as charter D11: a solution is built and tested separately in the lab before it is committed. It goes into the product only once it has been seen working there.\n\nFor this issue that test is:\n- a clean MSI install;\n- an upgrade from the current installed build, with existing settings and connections in place;\n- a check that those settings and connections are still read, and that Help → About and the log show the right edition.\n\nThe lab already has an installer runner ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABaM4FdQ",
+      "author": "robertpopa22",
+      "date": "2026-10-08T05:50:00Z",
+      "snippet": "Fix pushed in adaec2b33. As charter D11 requires, it was tested in the lab before it was committed.\n\n**What changed.** The installer now puts a small marker file, `mRemoteNG.installed`, beside the executable. A copy that has it:\n- keeps its settings in `%APPDATA%\\mRemoteNG Connection Manager` and its log in `%LOCALAPPDATA%`, even when it runs elevated and could write to `Program Files`;\n- says it is the installed edition in Help → About, the startup log line, and crash reports.\n\nAnyone who ran t...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABahrmUA",
+      "author": "robertpopa22",
+      "date": "2026-10-09T05:46:33Z",
+      "snippet": "Fixed. Commit adaec2b33 is in nightly 20261008. Its lab install-and-upgrade results are in the comment above. A new report of the same label or settings location reopens this issue.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\nQodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organization). Other tools we use ask for more. A star is what keeps those tools available.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-09T05:46:35Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-09T05:46:42Z",
+  "notes": "fixed adaec2b33, in nightly 20261008; closed completed"
+}

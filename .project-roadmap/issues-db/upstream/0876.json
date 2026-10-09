@@ -2,7 +2,7 @@
   "number": 876,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Add Wake-On-Lan",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Enhancement"
   ],
@@ -48,8 +48,8 @@
   ],
   "comments_cursor": "2018-03-24T19:11:42Z",
   "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-02-25T14:05:39Z",
   "notes": "AI triage (gemini): Feature request to add Wake-On-Lan functionality; ConnectionInfo already has MacAddress property but logic and UI command are missing.\nApproach: Create WakeOnLan helper class to send magic packets. Add 'Wake On LAN' menu item to ConnectionContextMenu. Wire up menu click to send packet using ConnectionInfo.MacAddress."
 }
