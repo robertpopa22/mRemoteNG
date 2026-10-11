@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "total_expected": 7523,
+    "total_expected": 7667,
     "min_total_threshold": 5999,
-    "last_updated": "2026-10-03",
+    "last_updated": "2026-10-11",
     "stats": {
       "unique_methods": 1555,
       "static_test_cases": 1743,
       "dynamic_source_methods": 37,
-      "note": "static_test_cases counts [Test] as 1, each [TestCase] as 1. dynamic_source_methods use [TestCaseSource] generating N cases at runtime. total_expected = static + dynamic_runtime_cases, updated after each test run."
+      "note": "Inventory stats are the 2026-10-03 source snapshot. static_test_cases counts [Test] as 1, each [TestCase] as 1. dynamic_source_methods use [TestCaseSource] generating N cases at runtime. total_expected counts measured runner executions across overlapping groups, including isolated checks."
     }
   },
   "runner": {
@@ -15,7 +15,7 @@
       {
         "name": "Connection",
         "filter": "FullyQualifiedName~mRemoteNGTests.Connection",
-        "expected": 1285
+        "expected": 1301
       },
       {
         "name": "Config.Xml",
@@ -25,37 +25,37 @@
       {
         "name": "Config.Other",
         "filter": "FullyQualifiedName~mRemoteNGTests.Config&FullyQualifiedName\\!~Serializers.ConnectionSerializers.Xml",
-        "expected": 926
+        "expected": 949
       },
       {
         "name": "UI",
         "filter": "FullyQualifiedName~mRemoteNGTests.UI&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 456
+        "expected": 463
       },
       {
         "name": "Tools",
         "filter": "FullyQualifiedName~mRemoteNGTests.Tools",
-        "expected": 547
+        "expected": 552
       },
       {
         "name": "Security",
         "filter": "FullyQualifiedName~mRemoteNGTests.Security",
-        "expected": 176
+        "expected": 178
       },
       {
         "name": "Tree+Container+Cred",
         "filter": "FullyQualifiedName~mRemoteNGTests.Tree|FullyQualifiedName~mRemoteNGTests.Container|FullyQualifiedName~mRemoteNGTests.Credential",
-        "expected": 183
+        "expected": 191
       },
       {
         "name": "Remaining",
         "filter": "FullyQualifiedName\\!~mRemoteNGTests.Connection&FullyQualifiedName\\!~mRemoteNGTests.Config&FullyQualifiedName\\!~mRemoteNGTests.UI&FullyQualifiedName\\!~mRemoteNGTests.Tools&FullyQualifiedName\\!~mRemoteNGTests.Security&FullyQualifiedName\\!~mRemoteNGTests.Tree&FullyQualifiedName\\!~mRemoteNGTests.Container&FullyQualifiedName\\!~mRemoteNGTests.Credential&FullyQualifiedName\\!~mRemoteNGTests.IntegrationTests&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 3746
+        "expected": 3834
       },
       {
         "name": "Integration",
         "filter": "FullyQualifiedName~mRemoteNGTests.IntegrationTests",
-        "expected": 49
+        "expected": 44
       }
     ],
     "isolated": [

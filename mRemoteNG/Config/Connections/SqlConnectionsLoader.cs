@@ -97,7 +97,11 @@ namespace mRemoteNG.Config.Connections
             if (string.IsNullOrEmpty(cipherText))
                 return new RootNodeInfo(RootNodeType.Connection).DefaultPassword.ConvertToSecureString();
 
-            PasswordAuthenticator authenticator = new(_cryptographyProvider, cipherText, () => AuthenticationRequestor(""));
+            // Legacy CBC can accept a wrong key's padding. Only the metadata markers
+            // written by SqlDatabaseMetaDataRetriever establish a usable key.
+            PasswordAuthenticator authenticator = new(_cryptographyProvider, cipherText, () => AuthenticationRequestor(""),
+                static plaintext => string.Equals(plaintext, "ThisIsProtected", StringComparison.Ordinal)
+                    || string.Equals(plaintext, "ThisIsNotProtected", StringComparison.Ordinal));
             bool authenticated = authenticator.Authenticate(new RootNodeInfo(RootNodeType.Connection).DefaultPassword.ConvertToSecureString());
 
             return authenticated && authenticator.LastAuthenticatedPassword is { } password

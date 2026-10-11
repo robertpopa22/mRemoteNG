@@ -10,10 +10,12 @@ namespace mRemoteNG.Security.Authentication
         private readonly ICryptographyProvider _cryptographyProvider;
         private readonly string _cipherText;
         private readonly Func<Optional<SecureString>> _authenticationRequestor;
+        private readonly Func<string, bool>? _plaintextValidator;
 
         public PasswordAuthenticator(ICryptographyProvider cryptographyProvider,
                                      string cipherText,
-                                     Func<Optional<SecureString>> authenticationRequestor)
+                                     Func<Optional<SecureString>> authenticationRequestor,
+                                     Func<string, bool>? plaintextValidator = null)
         {
             ArgumentNullException.ThrowIfNull(cryptographyProvider);
             ArgumentNullException.ThrowIfNull(authenticationRequestor);
@@ -22,6 +24,7 @@ namespace mRemoteNG.Security.Authentication
             _cryptographyProvider = cryptographyProvider;
             _cipherText = cipherText;
             _authenticationRequestor = authenticationRequestor;
+            _plaintextValidator = plaintextValidator;
         }
 
         public int MaxAttempts { get; set; } = 3;
@@ -29,30 +32,35 @@ namespace mRemoteNG.Security.Authentication
 
         public bool Authenticate(SecureString password)
         {
-            bool authenticated = false;
+            LastAuthenticatedPassword = null;
             int attempts = 0;
-            while (!authenticated && attempts < MaxAttempts)
+            while (attempts < MaxAttempts)
             {
                 try
                 {
-                    _cryptographyProvider.Decrypt(_cipherText, password);
-                    authenticated = true;
-                    LastAuthenticatedPassword = password;
+                    string plaintext = _cryptographyProvider.Decrypt(_cipherText, password);
+                    if (_plaintextValidator is null || _plaintextValidator(plaintext))
+                    {
+                        LastAuthenticatedPassword = password;
+                        return true;
+                    }
                 }
                 catch
                 {
-                    Optional<SecureString> providedPassword = _authenticationRequestor();
-                    if (!providedPassword.Any())
-                        return false;
-
-                    password = providedPassword.First();
-                    if (password == null || password.Length == 0) break;
+                    // A failed decryption and a rejected plaintext use the same retry path.
                 }
+
+                Optional<SecureString> providedPassword = _authenticationRequestor();
+                if (!providedPassword.Any())
+                    return false;
+
+                password = providedPassword.First();
+                if (password == null || password.Length == 0) break;
 
                 attempts++;
             }
 
-            return authenticated;
+            return false;
         }
     }
 }

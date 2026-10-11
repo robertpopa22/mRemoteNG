@@ -39,6 +39,29 @@ namespace mRemoteNGTests.Security.Authentication
         }
 
         [Test]
+        public void RejectedPlaintextDoesNotRetainAnAuthenticatedPassword()
+        {
+            bool acceptPlaintext = true;
+            var authenticator = new PasswordAuthenticator(_cryptographyProvider, _cipherText,
+                () => Optional<SecureString>.Empty, _ => acceptPlaintext);
+            Assert.That(authenticator.Authenticate(_correctPassword), Is.True);
+            Assert.That(authenticator.LastAuthenticatedPassword, Is.SameAs(_correctPassword));
+
+            acceptPlaintext = false;
+            Assert.That(authenticator.Authenticate(_correctPassword), Is.False);
+            Assert.That(authenticator.LastAuthenticatedPassword, Is.Null);
+        }
+
+        [Test]
+        public void FailedDecryptionClearsAnEarlierAuthenticatedPassword()
+        {
+            var authenticator = new PasswordAuthenticator(_cryptographyProvider, _cipherText, () => Optional<SecureString>.Empty);
+            Assert.That(authenticator.Authenticate(_correctPassword), Is.True);
+            Assert.That(authenticator.Authenticate(_wrongPassword), Is.False);
+            Assert.That(authenticator.LastAuthenticatedPassword, Is.Null);
+        }
+
+        [Test]
         public void AuthenticationRequestorIsCalledWhenInitialPasswordIsWrong()
         {
             var wasCalled = false;

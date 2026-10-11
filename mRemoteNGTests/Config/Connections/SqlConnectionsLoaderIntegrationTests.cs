@@ -24,6 +24,9 @@ namespace mRemoteNGTests.Config.Connections;
 [TestFixture]
 public class SqlConnectionsLoaderIntegrationTests
 {
+    // Synthetic legacy marker encrypted with "sqlpass". The default key "mR3m"
+    // also passes CBC padding for these bytes, but produces invalid plaintext.
+    private const string PaddingCollisionCipherText = "prFr5uheaqzrPbIp+bOjhAiTvlNPrrOGWY/9NVDPx+Q=";
     private IDeserializer<string, IEnumerable<LocalConnectionPropertiesModel>> _localConnectionPropertiesDeserializerMock;
     private IDataProvider<string> _localPropertiesDataProviderMock;
     private IDatabaseConnector _databaseConnectorMock;
@@ -280,6 +283,75 @@ public class SqlConnectionsLoaderIntegrationTests
         var ex = Assert.Throws<InvalidOperationException>(() => loader.Load());
         Assert.That(ex.Message, Is.EqualTo("Could not load SQL connections"));
         mockPasswordRequestor.Received(1).Invoke("");
+        _sqlDataProviderMock.DidNotReceive().Load();
+    }
+
+    [Test]
+    public void Load_WhenWrongKeyPassesLegacyPadding_StillRequestsPasswordAndHonorsCancel()
+    {
+        using var defaultPassword = "mR3m".ConvertToSecureString();
+        Assert.That(_cryptographyProvider.Decrypt(PaddingCollisionCipherText, defaultPassword),
+            Is.Not.EqualTo("ThisIsProtected"));
+        _metaDataRetrieverMock.GetDatabaseMetaData(Arg.Any<IDatabaseConnector>())
+            .Returns(new SqlConnectionListMetaData { Protected = PaddingCollisionCipherText, ConfVersion = new Version(3, 0) });
+        var requestor = Substitute.For<Func<string, Optional<SecureString>>>();
+        requestor.Invoke(Arg.Any<string>()).Returns(Optional<SecureString>.Empty);
+
+        Assert.That(() => CreateLoader(authRequestor: requestor).Load(),
+            Throws.TypeOf<InvalidOperationException>().With.Message.EqualTo("Could not load SQL connections"));
+        requestor.Received(1).Invoke("");
+        _versionVerifierMock.DidNotReceive().VerifyDatabaseVersion(Arg.Any<Version>());
+        _sqlDataProviderMock.DidNotReceive().Load();
+    }
+
+    [Test]
+    public void Load_WhenWrongKeyPassesLegacyPadding_CanRetryWithCorrectPassword()
+    {
+        using var password = "sqlpass".ConvertToSecureString();
+        Assert.That(_cryptographyProvider.Decrypt(PaddingCollisionCipherText, password), Is.EqualTo("ThisIsProtected"));
+        _metaDataRetrieverMock.GetDatabaseMetaData(Arg.Any<IDatabaseConnector>())
+            .Returns(new SqlConnectionListMetaData { Protected = PaddingCollisionCipherText, ConfVersion = new Version(3, 0) });
+        _sqlDataProviderMock.Load().Returns(CreateEncryptedConnectionsDataTable(password,
+            new ConnectionInfoAlias { Name = "Retry", Password = "synthetic-secret" }));
+        int requests = 0;
+        var tree = CreateLoader(authRequestor: _ => { requests++; return password; }).Load();
+
+        Assert.That(requests, Is.EqualTo(1));
+        Assert.That(tree.RootNodes[0].Children[0].Password, Is.EqualTo("synthetic-secret"));
+    }
+
+    [TestCase("ThisIsProtected")]
+    [TestCase("ThisIsNotProtected")]
+    [TestCase("")]
+    public void Load_WithSupportedUnprotectedMetadata_DoesNotPrompt(string marker)
+    {
+        using var password = "mR3m".ConvertToSecureString();
+        _metaDataRetrieverMock.GetDatabaseMetaData(Arg.Any<IDatabaseConnector>())
+            .Returns(new SqlConnectionListMetaData {
+                Protected = marker.Length == 0 ? "" : _cryptographyProvider.Encrypt(marker, password),
+                ConfVersion = new Version(3, 0) });
+        _sqlDataProviderMock.Load().Returns(CreateEncryptedConnectionsDataTable(password,
+            new ConnectionInfoAlias { Name = "Default", Password = "synthetic-secret" }));
+        var requestor = Substitute.For<Func<string, Optional<SecureString>>>();
+
+        var tree = CreateLoader(authRequestor: requestor).Load();
+
+        Assert.That(tree.RootNodes[0].Children[0].Password, Is.EqualTo("synthetic-secret"));
+        requestor.DidNotReceive().Invoke(Arg.Any<string>());
+    }
+
+    [TestCase("thisisprotected")]
+    [TestCase("ThisIsProtected ")]
+    [TestCase("invalid")]
+    public void Load_WithUnexpectedMetadataPlaintext_DoesNotReadConnections(string marker)
+    {
+        using var password = "mR3m".ConvertToSecureString();
+        _metaDataRetrieverMock.GetDatabaseMetaData(Arg.Any<IDatabaseConnector>())
+            .Returns(new SqlConnectionListMetaData {
+                Protected = _cryptographyProvider.Encrypt(marker, password), ConfVersion = new Version(3, 0) });
+
+        Assert.That(() => CreateLoader(authRequestor: _ => Optional<SecureString>.Empty).Load(),
+            Throws.TypeOf<InvalidOperationException>().With.Message.EqualTo("Could not load SQL connections"));
         _sqlDataProviderMock.DidNotReceive().Load();
     }
 
