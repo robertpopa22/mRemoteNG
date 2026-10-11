@@ -96,7 +96,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 7,647 automated tests (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 101 reports from this fork's own users are closed with 5 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate passes on every condition, new-code coverage included (85.7% against the 80% threshold, as of 2026-09-02). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
+**Quality:** 7,667 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 101 reports from this fork's own users are closed with 5 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate passes on every condition, new-code coverage included (85.7% against the 80% threshold, as of 2026-09-02). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -507,20 +507,22 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**7,647 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**7,667 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
+The total counts test executions across the runner's overlapping groups, not unique discovered cases.
+
 | Group | Namespace | Tests |
 |-------|-----------|-------|
-| 1 | Connection | 1,131 |
-| 2 | Config.Xml | 151 |
-| 3 | Config.Other | 889 |
-| 4 | UI | 394 |
-| 5 | Tools | 400 |
-| 6 | Security | 176 |
-| 7 | Tree + Container + Credential | 181 |
-| 8 | Remaining | 3,298 |
+| 1 | Connection | 1,301 |
+| 2 | Config.Xml | 153 |
+| 3 | Config.Other | 949 |
+| 4 | UI | 463 |
+| 5 | Tools | 552 |
+| 6 | Security | 178 |
+| 7 | Tree + Container + Credential | 191 |
+| 8 | Remaining | 3,834 |
 | 9 | Integration | 44 |
 | Isolated | FrmOptions (GDI handle leak) | 2 |
 
@@ -536,7 +538,7 @@ cannot:
 
 | Level | What runs | What only it can catch |
 |-------|-----------|------------------------|
-| **Unit suite** — `run-tests-core.sh` | 6,842 tests, ~4 min | Logic, serialization, parsing, crypto |
+| **Unit suite** — `run-tests-core.sh` | 7,667 test executions, ~6 min (2026-10-11) | Logic, serialization, parsing, crypto |
 | **UI battery** — `run-ui-tests.ps1` | The built `.exe`, driven through UI Automation | Startup, focus, dialogs, persistence across restarts, packaging |
 | **Lab guest** — `lab-run.ps1` ([procedure](docs/LAB-GUEST.md)) | The same battery on a clean, isolated VM | Anything a warm machine already has: trusted certificates, cached host keys, answered prompts, installed runtimes — and anything that needs a real mouse, which an agent session's automation host does not have |
 

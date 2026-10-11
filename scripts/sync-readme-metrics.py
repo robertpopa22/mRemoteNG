@@ -66,7 +66,7 @@ def apply(text, pattern, replacement):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--tests", type=int, required=True, help="passing test count from this run")
+    parser.add_argument("--tests", type=int, required=True, help="passing test execution count from this run")
     parser.add_argument("--warnings", type=int, help="measured analyzer warning count; omit when unmeasured")
     parser.add_argument("--check", action="store_true", help="report drift, change nothing")
     args = parser.parse_args()
@@ -78,8 +78,8 @@ def main():
     warning_text = f"{args.warnings:,} analyzer warnings" if args.warnings is not None else "analyzer checks enabled"
 
     edits = [
-        (r"\*\*Quality:\*\* [\d,]+ automated tests", f"**Quality:** {tests} automated tests"),
-        (r"\*\*[\d,]+ tests\*\*, 9 groups", f"**{tests} tests**, 9 groups"),
+        (r"\*\*Quality:\*\* [\d,]+ automated (?:tests|test executions)", f"**Quality:** {tests} automated test executions"),
+        (r"\*\*[\d,]+ (?:tests|test executions)\*\*, 9 groups", f"**{tests} test executions**, 9 groups"),
         (r"[\d,]+\+ automated tests", f"{args.tests // 100 * 100:,}+ automated tests"),
         (r"an automated test suite \([\d,]+\+ tests\)", f"an automated test suite ({args.tests // 100 * 100:,}+ tests)"),
     ]
@@ -123,7 +123,7 @@ def main():
     about_text, n = apply(
         about_text,
         r'private const string LiveStats = "[^"]*";',
-        f'private const string LiveStats = "{tests} automated tests · {warning_text}'
+        f'private const string LiveStats = "{tests} automated checks · {warning_text}'
         + (f' · {closed} external reports closed";' if closed else '";'))
     if n == 0:
         print("WARN: FrmAbout.cs LiveStats anchor not found — About figures NOT synced.")
