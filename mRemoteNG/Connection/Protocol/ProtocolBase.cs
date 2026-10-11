@@ -222,6 +222,9 @@ namespace mRemoteNG.Connection.Protocol
             return true;
         }
 
+        public virtual System.Threading.Tasks.Task<bool> ConnectAsync() =>
+            System.Threading.Tasks.Task.FromResult(Connect());
+
         public virtual void Disconnect()
         {
             Close();

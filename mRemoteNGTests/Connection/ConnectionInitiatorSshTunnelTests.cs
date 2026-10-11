@@ -186,7 +186,7 @@ namespace mRemoteNGTests.Connection
                 var mockTargetProtocol = Substitute.For<ProtocolBase>();
 
                 mockTunnelProtocol.InitializeAsync().Returns(Task.FromResult(true));
-                mockTunnelProtocol.Connect().Returns(true);
+                mockTunnelProtocol.ConnectAsync().Returns(Task.FromResult(true));
                 mockTunnelProtocol.isRunning().Returns(true);
 
                 int validationCallCount = 0;
@@ -203,7 +203,7 @@ namespace mRemoteNGTests.Connection
                                    .Returns(mockTargetProtocol);
 
                 mockTargetProtocol.InitializeAsync().Returns(Task.FromResult(true));
-                mockTargetProtocol.Connect().Returns(true);
+                mockTargetProtocol.ConnectAsync().Returns(Task.FromResult(true));
 
                 // Act - pass DoNotJump to avoid FrmMain.Default.pnlDock and
                 // provide the ConnectionWindow to bypass PanelAdder.AddPanel
@@ -230,6 +230,8 @@ namespace mRemoteNGTests.Connection
                 // Assert
                 Assert.That(completed, Is.True, "Tunnel port validation should have been called 3 times (2 failures + 1 success)");
                 _ = _mockTunnelPortValidator.Received(3).ValidatePortAsync(Arg.Any<int>());
+                _ = mockTunnelProtocol.Received(3).ConnectAsync();
+                _ = mockTargetProtocol.Received(1).ConnectAsync();
                 _mockProtocolFactory.Received(1).CreateProtocol(Arg.Is<ConnectionInfo>(c => string.Equals(c.Hostname, "localhost", StringComparison.OrdinalIgnoreCase)));
             }
             finally

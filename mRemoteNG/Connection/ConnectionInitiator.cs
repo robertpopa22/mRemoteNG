@@ -334,7 +334,7 @@ namespace mRemoteNG.Connection
                             continue;
                         }
 
-                        if (protocolSshTunnel.Connect() == false)
+                        if (await protocolSshTunnel.ConnectAsync() == false)
                         {
                             protocolSshTunnel.Close();
                             continue;
@@ -399,7 +399,7 @@ namespace mRemoteNG.Connection
                     return;
                 }
 
-                if (newProtocol.Connect() == false)
+                if (await newProtocol.ConnectAsync() == false)
                 {
                     newProtocol.NoteCloseRequested("connect_failed");
                     newProtocol.Close();

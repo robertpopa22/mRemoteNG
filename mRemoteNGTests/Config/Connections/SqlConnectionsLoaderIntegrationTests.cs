@@ -73,7 +73,8 @@ public class SqlConnectionsLoaderIntegrationTests
         return serializer.Serialize(connectionTreeModel);
     }
 
-    private SqlConnectionsLoader CreateLoader(IDatabaseConnector? databaseConnector = null, Func<string, Optional<SecureString>>? authRequestor = null)
+    private SqlConnectionsLoader CreateLoader(IDatabaseConnector? databaseConnector = null, Func<string, Optional<SecureString>>? authRequestor = null,
+        ICryptographyProvider? cryptographyProvider = null)
     {
         return new SqlConnectionsLoader(
             _localConnectionPropertiesDeserializerMock,
@@ -82,7 +83,7 @@ public class SqlConnectionsLoaderIntegrationTests
             _sqlDataProviderMock,
             _metaDataRetrieverMock,
             _versionVerifierMock,
-            _cryptographyProvider,
+            cryptographyProvider ?? _cryptographyProvider,
             authRequestor);
     }
 
@@ -270,12 +271,16 @@ public class SqlConnectionsLoaderIntegrationTests
             .Invoke(Arg.Any<string>())
             .Returns(Optional<SecureString>.Empty);
 
-        var loader = CreateLoader(authRequestor: mockPasswordRequestor);
+        var rejectedCipher = Substitute.For<ICryptographyProvider>();
+        rejectedCipher.Decrypt(Arg.Any<string>(), Arg.Any<SecureString>())
+            .Returns(_ => throw new System.Security.Cryptography.CryptographicException("Synthetic incorrect password"));
+        var loader = CreateLoader(authRequestor: mockPasswordRequestor, cryptographyProvider: rejectedCipher);
 
         // Act & Assert
         var ex = Assert.Throws<InvalidOperationException>(() => loader.Load());
         Assert.That(ex.Message, Is.EqualTo("Could not load SQL connections"));
         mockPasswordRequestor.Received(1).Invoke("");
+        _sqlDataProviderMock.DidNotReceive().Load();
     }
 
     [Test]

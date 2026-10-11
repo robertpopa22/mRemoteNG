@@ -1,12 +1,16 @@
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading.Tasks;
 using ExternalConnectors.OP;
 using NUnit.Framework;
 
 namespace mRemoteNGTests.ExternalConnectors;
 
 [TestFixture]
+[NonParallelizable]
 public class OnePasswordCliTests
 {
 	[Test]
@@ -258,6 +262,109 @@ public class OnePasswordCliTests
 		Assert.That(result.Username, Is.EqualTo("alice"));
 		Assert.That(result.Password, Is.EqualTo("secret123"));
 	}
+
+	[Test]
+	public void RunCommand_DrainsBothStreamsWithoutDeadlocking()
+	{
+		object[] args = [PowerShellPath(), new[] { "-NoProfile", "-Command",
+			"[Console]::Error.Write(('e' * 131072)); [Console]::Out.Write(('o' * 131072))" }, null!, null!];
+		Assert.That(InvokePrivate<int>("RunCommand", args), Is.Zero);
+		Assert.That((string)args[2], Has.Length.EqualTo(131072));
+		Assert.That((string)args[3], Has.Length.EqualTo(131072));
+	}
+
+	[Test]
+	public void RunCommand_TimesOutAndStopsItsOwnChildProcess()
+	{
+		string directory = Path.Combine(Path.GetTempPath(), "mrng-op-timeout-" + Guid.NewGuid().ToString("N"));
+		Directory.CreateDirectory(directory);
+		string pidFile = Path.Combine(directory, "pid.txt");
+		string script = Path.Combine(directory, "wait.ps1");
+		File.WriteAllText(script, "Set-Content -LiteralPath (Join-Path $PSScriptRoot 'pid.txt') -Value $PID\nStart-Sleep -Seconds 120\n");
+		try
+		{
+			object[] args = [PowerShellPath(), new[] { "-NoProfile", "-File", script }, null!, null!];
+			Stopwatch elapsed = Stopwatch.StartNew();
+			var error = Assert.Throws<TargetInvocationException>(() => InvokePrivate<int>("RunCommand", args));
+			Assert.That(error!.InnerException, Is.TypeOf<OnePasswordCliException>());
+			Assert.That(error.InnerException!.Message, Does.Contain("60 seconds"));
+			Assert.That(elapsed.Elapsed.TotalSeconds, Is.InRange(59, 75));
+			Assert.That(File.Exists(pidFile), Is.True, "the child must have started");
+			int childPid = int.Parse(File.ReadAllText(pidFile).Trim(), System.Globalization.CultureInfo.InvariantCulture);
+			try
+			{
+				using var child = Process.GetProcessById(childPid);
+				Assert.That(child.HasExited, Is.True, "timeout must stop only the child it launched");
+			}
+			catch (ArgumentException)
+			{
+				// The process is already gone.
+			}
+		}
+		finally
+		{
+			File.Delete(script);
+			File.Delete(pidFile);
+			Directory.Delete(directory);
+		}
+	}
+
+	[Test]
+	public async Task AsyncReads_AreSerializedAndDoNotCacheTheSecret()
+	{
+		string directory = Path.Combine(Path.GetTempPath(), "mrng-op-serial-" + Guid.NewGuid().ToString("N"));
+		Directory.CreateDirectory(directory);
+		string source = Path.Combine(directory, "op.cs");
+		File.WriteAllText(source, """
+			using System;
+			using System.IO;
+			using System.Threading;
+			class Program {
+			    static void Main() {
+			        string dir = AppDomain.CurrentDomain.BaseDirectory;
+			        using (var held = new FileStream(Path.Combine(dir, "lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None)) {
+			            File.AppendAllText(Path.Combine(dir, "calls"), "read\n");
+			            Thread.Sleep(400);
+			            Console.WriteLine("{\"fields\":[{\"purpose\":\"USERNAME\",\"value\":\"test-user\"},{\"purpose\":\"PASSWORD\",\"value\":\"test-only\"}]}");
+			        }
+			    }
+			}
+			""");
+		string savedPath = Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
+		try
+		{
+			var start = new ProcessStartInfo
+			{
+				FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Microsoft.NET", "Framework64", "v4.0.30319", "csc.exe"),
+				UseShellExecute = false,
+				CreateNoWindow = true
+			};
+			start.ArgumentList.Add("/nologo");
+			start.ArgumentList.Add("/out:" + Path.Combine(directory, "op.exe"));
+			start.ArgumentList.Add(source);
+			using var compiler = Process.Start(start)!;
+			Assert.That(compiler.WaitForExit(30000), Is.True);
+			Assert.That(compiler.ExitCode, Is.Zero);
+			Environment.SetEnvironmentVariable("PATH", directory + Path.PathSeparator + savedPath);
+			var first = OnePasswordCli.ReadPasswordAsync("op://Test/Item");
+			var second = OnePasswordCli.ReadPasswordAsync("op://Test/Item");
+			var results = await Task.WhenAll(first, second);
+			Assert.That(results[0].Username, Is.EqualTo("test-user"));
+			Assert.That(results[1].Password, Is.EqualTo("test-only"));
+			Assert.That(File.ReadAllLines(Path.Combine(directory, "calls")), Has.Length.EqualTo(2),
+				"every read must consult the provider, including repeated references");
+		}
+		finally
+		{
+			Environment.SetEnvironmentVariable("PATH", savedPath);
+			foreach (string file in new[] { "op.exe", "op.cs", "lock", "calls" })
+				File.Delete(Path.Combine(directory, file));
+			Directory.Delete(directory);
+		}
+	}
+
+	private static string PowerShellPath() => Path.Combine(Environment.SystemDirectory,
+		"WindowsPowerShell", "v1.0", "powershell.exe");
 
 	private static T InvokePrivate<T>(string methodName, params object[] args)
 	{

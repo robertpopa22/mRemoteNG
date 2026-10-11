@@ -14,6 +14,24 @@ public static class OnePasswordCli
 {
 	private const string OnePasswordCliExecutable = "op.exe";
 	private const string OpScheme = "op://";
+	private static readonly SemaphoreSlim AsyncReads = new(1, 1);
+
+	public static async Task<(string Username, string Password, string Domain, string PrivateKey)> ReadPasswordAsync(string input)
+	{
+		await AsyncReads.WaitAsync().ConfigureAwait(false);
+		try
+		{
+			return await Task.Run(() =>
+			{
+				ReadPassword(input, out var username, out var password, out var domain, out var privateKey);
+				return (username, password, domain, privateKey);
+			}).ConfigureAwait(false);
+		}
+		finally
+		{
+			AsyncReads.Release();
+		}
+	}
 
 	// 1Password field purpose/label metadata — NOT credentials (S2068 false positive)
 	private const string UserNamePurpose = "USERNAME";
@@ -202,9 +220,17 @@ public static class OnePasswordCli
 		using var process = new Process();
 		process.StartInfo = processStartInfo;
 		process.Start();
-		output = process.StandardOutput.ReadToEnd();
-		error = process.StandardError.ReadToEnd();
-		process.WaitForExit();
+		var outputTask = process.StandardOutput.ReadToEndAsync();
+		var errorTask = process.StandardError.ReadToEndAsync();
+		if (!process.WaitForExit(60000))
+		{
+			process.Kill();
+			process.WaitForExit(2000);
+			throw new OnePasswordCliException("1Password authorization did not complete within 60 seconds.",
+				command + " " + string.Join(' ', arguments));
+		}
+		output = outputTask.GetAwaiter().GetResult();
+		error = errorTask.GetAwaiter().GetResult();
 		return process.ExitCode;
 	}
 }

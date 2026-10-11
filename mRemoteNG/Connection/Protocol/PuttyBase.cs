@@ -661,7 +661,27 @@ namespace mRemoteNG.Connection.Protocol
             return true;
         }
 
-        public override bool Connect()
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        private static async System.Threading.Tasks.Task<(string Username, string Password, string Domain, string PrivateKey)>
+            ReadOnePasswordAsync(string reference, string username, string password, string privateKey)
+        {
+            try
+            {
+                return await ExternalConnectors.OP.OnePasswordCli.ReadPasswordAsync(reference);
+            }
+            catch (ExternalConnectors.OP.OnePasswordCliException ex)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
+                return (username, password, string.Empty, privateKey);
+            }
+        }
+
+        public override bool Connect() => ConnectCoreAsync(false).GetAwaiter().GetResult();
+
+        public override System.Threading.Tasks.Task<bool> ConnectAsync() => ConnectCoreAsync(true);
+
+        private async System.Threading.Tasks.Task<bool> ConnectCoreAsync(bool asyncCredentials)
         {
             string optionalTemporaryPrivateKeyPath = ""; // path to ppk file instead of password. only temporary (extracted from credential vault).
 
@@ -707,7 +727,12 @@ namespace mRemoteNG.Connection.Protocol
                             or ExternalCredentialProvider.PasswordSafe or ExternalCredentialProvider.VaultOpenbao
                             or ExternalCredentialProvider.LAPS)
                         {
-                            ReadExternalCredential(UserViaAPI, ref username, ref password, ref privatekey, ref optionalTemporaryPrivateKeyPath);
+                            if (asyncCredentials && InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword)
+                                (username, password, _, privatekey) = await ReadOnePasswordAsync(UserViaAPI, username, password, privatekey);
+                            else
+                                ReadExternalCredential(UserViaAPI, ref username, ref password, ref privatekey, ref optionalTemporaryPrivateKeyPath);
+                            if (InterfaceControl.IsDisposed)
+                                return false;
                         }
 
                         if (string.IsNullOrEmpty(username))
@@ -725,7 +750,12 @@ namespace mRemoteNG.Connection.Protocol
                                         or ExternalCredentialProvider.ClickstudiosPasswordState or ExternalCredentialProvider.OnePassword
                                         or ExternalCredentialProvider.PasswordSafe)
                                     {
-                                        ReadDefaultExternalCredential(ref username, ref password, ref privatekey);
+                                        if (asyncCredentials && Properties.OptionsCredentialsPage.Default.ExternalCredentialProviderDefault == ExternalCredentialProvider.OnePassword)
+                                            (username, password, _, privatekey) = await ReadOnePasswordAsync(Properties.OptionsCredentialsPage.Default.UserViaAPIDefault, username, password, privatekey);
+                                        else
+                                            ReadDefaultExternalCredential(ref username, ref password, ref privatekey);
+                                        if (InterfaceControl.IsDisposed)
+                                            return false;
                                     }
 
                                     break;

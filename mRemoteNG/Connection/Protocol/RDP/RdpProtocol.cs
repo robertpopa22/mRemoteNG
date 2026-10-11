@@ -334,7 +334,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return false;
                 }
 
-                SetRdpClientProperties();
+                SetRdpClientPropertiesAsync(false).GetAwaiter().GetResult();
                 RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialized",
                     diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
 
@@ -376,7 +376,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return false;
                 }
 
-                SetRdpClientProperties();
+                await SetRdpClientPropertiesAsync(true);
                 RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialized",
                     diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
 
@@ -765,7 +765,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             public static readonly Version RDC100 = new(10, 0, 0);
         }
 
-        private void SetRdpClientProperties()
+        private async System.Threading.Tasks.Task SetRdpClientPropertiesAsync(bool asyncCredentials)
         {
             // Fix for #1005: Gateway Authentication box hidden behind other windows
             try
@@ -796,7 +796,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             _rdpClient.Server = connectionInfo.Hostname;
 
-            SetCredentials();
+            await SetCredentialsAsync(asyncCredentials);
+            if (InterfaceControl.IsDisposed || Control!.IsDisposed)
+                throw new ObjectDisposedException(nameof(InterfaceControl));
             SetResolution();
             SetMultimon();
             _rdpClient.FullScreenTitle = connectionInfo.Name;
@@ -851,7 +853,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
             SetRedirection();
             SetAuthenticationLevel();
             SetLoadBalanceInfo();
-            SetRdGateway();
+            await SetRdGatewayAsync(asyncCredentials);
+            if (InterfaceControl.IsDisposed || Control!.IsDisposed)
+                throw new ObjectDisposedException(nameof(InterfaceControl));
             ViewOnly = Force.HasFlag(ConnectionInfo.Force.ViewOnly);
 
             _rdpClient.ColorDepth = (int)connectionInfo.Colors;
@@ -905,7 +909,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
         }
 
-        private void SetRdGateway()
+        private async System.Threading.Tasks.Task SetRdGatewayAsync(bool asyncCredentials)
         {
             try
             {
@@ -957,7 +961,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             or ExternalCredentialProvider.ClickstudiosPasswordState or ExternalCredentialProvider.OnePassword
                             or ExternalCredentialProvider.PasswordSafe or ExternalCredentialProvider.VaultOpenbao)
                         {
-                            ReadGatewayExternalCredential(ref gwu, ref gwp, ref gwd, ref pkey);
+                            if (asyncCredentials && InterfaceControl.Info.RDGatewayExternalCredentialProvider == ExternalCredentialProvider.OnePassword)
+                                (gwu, gwp, gwd, pkey) = await ReadOnePasswordAsync(connectionInfo.RDGatewayUserViaAPI, gwu, gwp, gwd, pkey);
+                            else
+                                ReadGatewayExternalCredential(ref gwu, ref gwp, ref gwd, ref pkey);
+                            if (InterfaceControl.IsDisposed || Control!.IsDisposed)
+                                return;
                         }
 
 
@@ -1267,7 +1276,23 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
         }
 
-        private void SetCredentials()
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        private static async System.Threading.Tasks.Task<(string Username, string Password, string Domain, string PrivateKey)>
+            ReadOnePasswordAsync(string reference, string username, string password, string domain, string privateKey)
+        {
+            try
+            {
+                return await ExternalConnectors.OP.OnePasswordCli.ReadPasswordAsync(reference);
+            }
+            catch (ExternalConnectors.OP.OnePasswordCliException ex)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
+                return (username, password, domain, privateKey);
+            }
+        }
+
+        private async System.Threading.Tasks.Task SetCredentialsAsync(bool asyncCredentials)
         {
             try
             {
@@ -1289,7 +1314,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     or ExternalCredentialProvider.PasswordSafe or ExternalCredentialProvider.VaultOpenbao
                     or ExternalCredentialProvider.LAPS)
                 {
-                    ReadExternalCredential(userViaApi, ref userName, ref password, ref domain, ref pkey);
+                    if (asyncCredentials && InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword)
+                        (userName, password, domain, pkey) = await ReadOnePasswordAsync(userViaApi, userName, password, domain, pkey);
+                    else
+                        ReadExternalCredential(userViaApi, ref userName, ref password, ref domain, ref pkey);
+                    if (InterfaceControl.IsDisposed || Control!.IsDisposed)
+                        return;
                 }
 
                 // If the username contains a backslash-separated domain prefix (e.g. AzureAD\user@domain.com)
@@ -1313,7 +1343,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                 or ExternalCredentialProvider.ClickstudiosPasswordState or ExternalCredentialProvider.OnePassword
                                 or ExternalCredentialProvider.PasswordSafe)
                             {
-                                ReadDefaultExternalCredential(ref userName, ref password, ref domain, ref pkey);
+                                if (asyncCredentials && Properties.OptionsCredentialsPage.Default.ExternalCredentialProviderDefault == ExternalCredentialProvider.OnePassword)
+                                    (userName, password, domain, pkey) = await ReadOnePasswordAsync(Properties.OptionsCredentialsPage.Default.UserViaAPIDefault, userName, password, domain, pkey);
+                                else
+                                    ReadDefaultExternalCredential(ref userName, ref password, ref domain, ref pkey);
+                                if (InterfaceControl.IsDisposed || Control!.IsDisposed)
+                                    return;
                             }
 
                             if (!string.IsNullOrEmpty(userName))
