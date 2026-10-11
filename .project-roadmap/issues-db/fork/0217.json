@@ -1,0 +1,55 @@
+{
+  "number": 217,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "1Password credential provider freezes mRemoteNG and 1Password until op times out (blocking call on UI thread)",
+  "state": "open",
+  "labels": [],
+  "author": "JScheller88",
+  "created_at": "2026-10-09T16:26:30Z",
+  "github_updated_at": "2026-10-09T16:32:28Z",
+  "body_snippet": "**Summary**\nWhen a connection uses the 1Password credential provider and 1Password has to authorize the CLI for mRemoteNG, both mRemoteNG and 1Password freeze. The 1Password authorization window appears blank and \"Not Responding\". After about 2 minutes `op` fails with:\n\n```\n1Password read failed\nError running op item get: [ERROR] ... error initializing client: authorization timeout\n```\n\nBoth apps then recover.\n\n**Steps to reproduce**\n1. Unlock 1Password, then start mRemoteNG. (Reproduced right a...",
+  "our_status": "triaged",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-11",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-10-11",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABarI__Q",
+      "author": "JScheller88",
+      "date": "2026-10-09T16:32:28Z",
+      "snippet": "The auth pop-up during the issue.\n<img width=\"770\" height=\"605\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/19693575-67c4-40aa-9816-a50d9f8e600e\" />\nThe error after the the apps respond again.\n<img width=\"403\" height=\"151\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d9603477-9a1d-4028-9ca3-af6596a2fdf5\" />\nI have rebooted my machine and the issue persists with no other apps running.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-09T16:32:28Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-11T18:42:58Z",
+  "notes": "Local async fix validated: 7647/7647 full-suite results and 8/8 isolated UI scenarios passed. Human approved protected-path change on 2026-10-11. Actual 1Password desktop prompt and Shift symptom require reporter confirmation. Awaiting approval for push and public reply; no published build yet."
+}

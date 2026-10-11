@@ -21,6 +21,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-012](bp/BP-012-reconnect-after-suspend.md) | 1 | 2026-10-07 | An attempt-counted auto-reconnect survives a client sleep and took a session from the console an hour later. |
 | [BP-013](bp/BP-013-edition-by-writability.md) | 1 | 2026-10-08 | Choosing the settings folder by writability gave one installed copy two homes; a migration that keeps the old location live triggers a picker. |
 | [BP-014](bp/BP-014-startup-subscription-context.md) | 1 | 2026-10-08 | A SystemEvents subscription made before the first control left a plain SynchronizationContext on the UI thread; every UI await resumed on the pool. |
+| [BP-015](bp/BP-015-provider-wait-message-loop.md) | 1 | 2026-10-11 | An async connection entry point still blocked on a credential CLI; a delayed fake provider proved the UI wait and the fix's responsiveness. |
 
 ## Retired
 

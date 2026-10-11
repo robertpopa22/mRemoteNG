@@ -67,6 +67,7 @@ def apply(text, pattern, replacement):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--tests", type=int, required=True, help="passing test count from this run")
+    parser.add_argument("--warnings", type=int, help="measured analyzer warning count; omit when unmeasured")
     parser.add_argument("--check", action="store_true", help="report drift, change nothing")
     args = parser.parse_args()
 
@@ -74,6 +75,7 @@ def main():
         original = fh.read()
     text = original
     tests = f"{args.tests:,}"
+    warning_text = f"{args.warnings:,} analyzer warnings" if args.warnings is not None else "analyzer checks enabled"
 
     edits = [
         (r"\*\*Quality:\*\* [\d,]+ automated tests", f"**Quality:** {tests} automated tests"),
@@ -83,6 +85,8 @@ def main():
     ]
     for pattern, replacement in edits:
         text, _ = apply(text, pattern, replacement)
+    text, _ = apply(text, r"(?:[\d,]+ analyzer warnings|analyzer checks enabled), 5-level code quality pipeline",
+                    warning_text + ", 5-level code quality pipeline")
 
     external, closed, open_count = fork_issue_counts()
     if external:
@@ -92,6 +96,8 @@ def main():
             r"\d+ issues are open",
             f"**{external} issues have been opened by external reporters and {closed} are "
             f"closed**; {open_count} issues are open")
+        text, _ = apply(text, r"\d+ reports from this fork's own users are closed with \d+ open",
+                        f"{closed} reports from this fork's own users are closed with {open_count} open")
 
     gate = sonar_gate_status()
     # Only the *current-state* claim matters. Release History legitimately records that a past PR
@@ -117,8 +123,8 @@ def main():
     about_text, n = apply(
         about_text,
         r'private const string LiveStats = "[^"]*";',
-        f'private const string LiveStats = "{tests} automated tests · 0 analyzer warnings'
-        + (f' · {closed} issues fixed for external reporters";' if closed else '";'))
+        f'private const string LiveStats = "{tests} automated tests · {warning_text}'
+        + (f' · {closed} external reports closed";' if closed else '";'))
     if n == 0:
         print("WARN: FrmAbout.cs LiveStats anchor not found — About figures NOT synced.")
 
