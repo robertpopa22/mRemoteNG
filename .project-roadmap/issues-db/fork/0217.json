@@ -6,7 +6,7 @@
   "labels": [],
   "author": "JScheller88",
   "created_at": "2026-10-09T16:26:30Z",
-  "github_updated_at": "2026-10-09T16:32:28Z",
+  "github_updated_at": "2026-10-11T19:03:05Z",
   "body_snippet": "**Summary**\nWhen a connection uses the 1Password credential provider and 1Password has to authorize the CLI for mRemoteNG, both mRemoteNG and 1Password freeze. The 1Password authorization window appears blank and \"Not Responding\". After about 2 minutes `op` fails with:\n\n```\n1Password read failed\nError running op item get: [ERROR] ... error initializing client: authorization timeout\n```\n\nBoth apps then recover.\n\n**Steps to reproduce**\n1. Unlock 1Password, then start mRemoteNG. (Reproduced right a...",
   "our_status": "triaged",
   "priority": null,
@@ -33,6 +33,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-10-11",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -42,14 +52,23 @@
       "date": "2026-10-09T16:32:28Z",
       "snippet": "The auth pop-up during the issue.\n<img width=\"770\" height=\"605\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/19693575-67c4-40aa-9816-a50d9f8e600e\" />\nThe error after the the apps respond again.\n<img width=\"403\" height=\"151\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d9603477-9a1d-4028-9ca3-af6596a2fdf5\" />\nI have rebooted my machine and the issue persists with no other apps running.\n",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABbFaEyg",
+      "author": "robertpopa22",
+      "date": "2026-10-11T19:03:05Z",
+      "snippet": "Thank you for the precise report, screenshots and reboot check. The CLI read was synchronous inside the connection UI path, even though initialization had an async entry point.\n\nCommit `0b5b5802f` moves the 1Password lookup off the UI thread for RDP, PuTTY, RD Gateway and default credentials. Async reads are serialized, both output streams are drained concurrently, and the owned CLI process is stopped after a 60-second wait. There is no session credential cache.\n\n- **Automated checks:** full bui...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-09T16:32:28Z",
-  "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-10-11T18:42:58Z",
-  "notes": "Local async fix validated: 7647/7647 full-suite results and 8/8 isolated UI scenarios passed. Human approved protected-path change on 2026-10-11. Actual 1Password desktop prompt and Shift symptom require reporter confirmation. Awaiting approval for push and public reply; no published build yet."
+  "comments_cursor": "2026-10-11T19:03:05Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-11T19:05:12Z",
+  "notes": "Source fix published in main and public progress reply posted on 2026-10-11. Full suite 7647/7647 and eight synthetic CLI UI checks passed. GitHub has not started a workflow for head 359ca76cf; the October 8 nightly predates the fix. Issue remains open pending a downloadable build and reporter check of the real 1Password authorization/Shift symptoms."
 }
