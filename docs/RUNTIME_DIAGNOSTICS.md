@@ -29,7 +29,10 @@ Unhandled exceptions are recorded without `Exception.Message`, `Exception.Data` 
 | `connections_load`, `connections_save` | Source category, outcome, node count and elapsed time |
 | `rdp_engine_inventory` | Presence/version of Microsoft MSTSC ActiveX, `mstsc.exe` and FreeRDP |
 | `rdp_capability` | Optional ActiveX feature availability without a recurring stack trace |
-| `rdp_shape` | Applied RDP settings for one connect: resolution, color, redirection, scale, gateway mode, server-auth number. No names, paths, or secrets |
+| `rdp_shape` | Applied RDP settings for one connect: resolution, color, redirection, scale, gateway mode, server-auth number. Also the bandwidth settings read back from the control: `perf_flags` next to `perf_flags_requested`, `net_type` (1 modem … 6 LAN, 7 auto-detect), `bw_detect`, `compress`, `bitmap_persist`, `keepalive_ms`, `audio_quality`, `audio_capture`. No names, paths, or secrets |
+| `rdp_network` | The client's own reading of the link from `OnNetworkStatusChanged`: `quality`, `bandwidth_kbps`, `rtt_ms`. Written on the first sample, on a change of quality level, and otherwise at most every 30 seconds, carrying the minimum and maximum seen since the previous line |
+| `rdp_network_summary` | Once per connection, at disconnect or close: sample count, bandwidth and round-trip minimum, mean and maximum, `quality_seconds` as level:seconds pairs, reconnect attempts, reconnects, and total `outage_ms` |
+| `rdp_reconnect` | Each automatic-reconnection attempt with the numeric disconnect reason and attempt number, and each successful reconnection with how long the session was gone |
 | `rdp_phase` | Anonymous per-session initialization, connect, login and disconnect timings/codes, plus a resource snapshot |
 | `rdp_resources` | Resource snapshot at `close_before` and `close_after`, with the close trigger, disconnect class, and whether Disconnect or Dispose threw. A throw records the numeric HRESULT only |
 | `heartbeat` | CPU plus the same resource snapshot every 60 seconds, including GDI, USER, handle types, and thread modules |
@@ -51,6 +54,16 @@ Run the analyzer locally; it treats log content as data and never executes it:
 ```
 
 Use `-AsJson` for a machine-readable summary. The report contains aggregated timings/counts and does not echo arbitrary log messages or connection labels.
+
+## Tuning for slow or mobile links
+
+The question "which settings are fastest on this link for the least data" is answered from three sources together:
+
+- `rdp_shape` says what the control actually applied.
+- `rdp_network` and `rdp_network_summary` say what the control measured on the link while those settings were in force.
+- `rdp_reconnect` and the `disconnected` phase codes say how often the link dropped and how long each outage lasted.
+
+Compare two configurations by grouping summaries by the shape that preceded them; `scripts/Analyze-RuntimeLog.ps1` prints both under `RdpNetwork`. The bytes actually sent are not visible to the embedded control; measure them outside the application, for example from the VPN's per-peer counters.
 
 ## Remote desktop engine experiments
 

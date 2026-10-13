@@ -223,6 +223,58 @@ namespace mRemoteNG.App
             WriteInfo("rdp_phase", [..fields, ..ResourceFields(ProcessResourceSnapshot.Capture(refreshResources))]);
         }
 
+        /// <summary>
+        /// Link quality as the embedded RDP client measured it: quality level, estimated bandwidth
+        /// and round-trip time, plus the range seen since the previous line. Numbers only.
+        /// </summary>
+        internal static void RdpNetwork(string rdpSession, Connection.Protocol.RDP.RdpNetworkSample sample) =>
+            WriteInfo("rdp_network",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("reason", SafeToken(sample.Reason)),
+                Number("quality", sample.Quality),
+                NullableNumber("previous_quality", sample.PreviousQuality),
+                Number("bandwidth_kbps", sample.BandwidthKbps),
+                Number("rtt_ms", sample.RttMs),
+                Number("window_samples", sample.WindowSamples),
+                Number("window_bw_min_kbps", sample.WindowBandwidthMinKbps),
+                Number("window_bw_max_kbps", sample.WindowBandwidthMaxKbps),
+                Number("window_rtt_min_ms", sample.WindowRttMinMs),
+                Number("window_rtt_max_ms", sample.WindowRttMaxMs));
+
+        /// <summary>
+        /// The whole connection's link record, written once when it ends: sample count, bandwidth
+        /// and round-trip range and mean, seconds spent at each quality level, and the outages that
+        /// automatic reconnection bridged.
+        /// </summary>
+        internal static void RdpNetworkSummary(string rdpSession, string point, Connection.Protocol.RDP.RdpNetworkSummary summary) =>
+            WriteInfo("rdp_network_summary",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("point", SafeToken(point)),
+                Number("samples", summary.Samples),
+                Number("bw_min_kbps", summary.BandwidthMinKbps),
+                Number("bw_avg_kbps", summary.BandwidthAvgKbps),
+                Number("bw_max_kbps", summary.BandwidthMaxKbps),
+                Number("rtt_min_ms", summary.RttMinMs),
+                Number("rtt_avg_ms", summary.RttAvgMs),
+                Number("rtt_max_ms", summary.RttMaxMs),
+                List("quality_seconds", summary.QualitySeconds),
+                Number("reconnect_attempts", summary.ReconnectAttempts),
+                Number("reconnects", summary.Reconnects),
+                Number("outage_ms", summary.OutageMs),
+                Boolean("outage_open", summary.OutageOpen));
+
+        /// <summary>
+        /// One automatic-reconnection step: an attempt (with the numeric disconnect reason and the
+        /// attempt number) or the moment the session came back (with how long it was gone).
+        /// </summary>
+        internal static void RdpReconnect(string rdpSession, string phase, int? reason, int? attempt, long? outageMs) =>
+            WriteInfo("rdp_reconnect",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("phase", SafeToken(phase)),
+                NullableNumber("reason", reason),
+                NullableNumber("attempt", attempt),
+                NullableNumber("outage_ms", outageMs));
+
         internal static void RdpShape(RdpShapeInfo shape) =>
             WriteInfo("rdp_shape", [..ShapeFields(shape), ..ResourceFields(ProcessResourceSnapshot.Capture(refreshExpensive: true))]);
 
@@ -380,7 +432,15 @@ namespace mRemoteNG.App
             Boolean("keep_tabs", shape.KeepTabs),
             Boolean("reconnect_on_disconnect", shape.ReconnectOnDisconnect),
             Number("confirm_close", shape.ConfirmClose),
-            Number("reconnect_max", shape.ReconnectMax)
+            Number("reconnect_max", shape.ReconnectMax),
+            Number("perf_flags_requested", shape.PerfFlagsRequested),
+            Number("net_type", shape.NetworkConnectionType),
+            Field("bw_detect", shape.BandwidthDetection),
+            Number("compress", shape.Compress),
+            Number("bitmap_persist", shape.BitmapPersistence),
+            Number("keepalive_ms", shape.KeepAliveMs),
+            Number("audio_quality", shape.AudioQualityMode),
+            Boolean("audio_capture", shape.AudioCapture)
         ];
 
         internal static void RdpCapability(string capability, bool supported) =>
@@ -668,5 +728,13 @@ namespace mRemoteNG.App
         public bool ReconnectOnDisconnect;
         public int ConfirmClose;
         public int ReconnectMax;
+        public int PerfFlagsRequested = -1;
+        public int NetworkConnectionType = -1;
+        public string BandwidthDetection = "unknown";
+        public int Compress = -1;
+        public int BitmapPersistence = -1;
+        public int KeepAliveMs = -1;
+        public int AudioQualityMode = -1;
+        public bool AudioCapture;
     }
 }

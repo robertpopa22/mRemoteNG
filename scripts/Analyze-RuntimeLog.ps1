@@ -94,6 +94,33 @@ $rdpTimings = @($perfEvents | Where-Object Event -eq 'rdp_phase' | Group-Object 
         Timing = Get-NumberSummary -Values @($_.Group | ForEach-Object { [long]$_.Fields.duration_ms })
     }
 })
+function Get-Field {
+    param($PerfEvent, [string]$Key)
+    if ($PerfEvent.Fields.ContainsKey($Key)) { $PerfEvent.Fields[$Key] } else { 'na' }
+}
+
+$networkSummaries = @($perfEvents | Where-Object Event -eq 'rdp_network_summary')
+$networkLines = @($perfEvents | Where-Object Event -eq 'rdp_network')
+$reconnectEvents = @($perfEvents | Where-Object Event -eq 'rdp_reconnect')
+$disconnectCodes = @($perfEvents | Where-Object { $_.Event -eq 'rdp_phase' -and (Get-Field $_ 'phase') -eq 'disconnected' } |
+    Group-Object { "$((Get-Field $_ 'code'))/$((Get-Field $_ 'extended_code'))" } | Sort-Object Count -Descending | ForEach-Object {
+        [pscustomobject]@{ CodeExtended = $_.Name; Count = $_.Count }
+    })
+$shapeEvents = @($perfEvents | Where-Object Event -eq 'rdp_shape')
+$rdpNetwork = [ordered]@{
+    Summaries = $networkSummaries.Count
+    RttMs = Get-NumberSummary -Values @($networkLines | ForEach-Object { [long](Get-Field $_ 'rtt_ms') })
+    BandwidthKbps = Get-NumberSummary -Values @($networkLines | ForEach-Object { [long](Get-Field $_ 'bandwidth_kbps') })
+    QualityLevels = @($networkLines | Group-Object { (Get-Field $_ 'quality') } | Sort-Object Name | ForEach-Object {
+        [pscustomobject]@{ Quality = $_.Name; Lines = $_.Count }
+    })
+    ReconnectAttempts = @($reconnectEvents | Where-Object { (Get-Field $_ 'phase') -eq 'attempt' }).Count
+    Reconnects = @($reconnectEvents | Where-Object { (Get-Field $_ 'phase') -eq 'reconnected' }).Count
+    OutageMs = Get-NumberSummary -Values @($reconnectEvents | Where-Object { (Get-Field $_ 'phase') -eq 'reconnected' } | ForEach-Object { [long](Get-Field $_ 'outage_ms') })
+    DisconnectCodes = $disconnectCodes
+    AppliedShapes = @($shapeEvents | Group-Object { "net_type=$((Get-Field $_ 'net_type')) bw_detect=$((Get-Field $_ 'bw_detect')) color_depth=$((Get-Field $_ 'color_depth')) perf_flags=$((Get-Field $_ 'perf_flags')) perf_requested=$((Get-Field $_ 'perf_flags_requested')) compress=$((Get-Field $_ 'compress')) bitmap_persist=$((Get-Field $_ 'bitmap_persist'))" } |
+        Sort-Object Count -Descending | ForEach-Object { [pscustomobject]@{ Shape = $_.Name; Count = $_.Count } })
+}
 $heartbeatEvents = @($perfEvents | Where-Object Event -eq 'heartbeat')
 $latestHeartbeat = if ($heartbeatEvents.Count) { $heartbeatEvents[-1].Fields } else { $null }
 $engineInventoryEvent = $perfEvents | Where-Object Event -eq 'rdp_engine_inventory' | Select-Object -Last 1
@@ -111,6 +138,7 @@ $report = [ordered]@{
         Timing = Get-NumberSummary -Values @($saveEvents | ForEach-Object { [long]$_.Fields.duration_ms })
     }
     RdpPhases = $rdpTimings
+    RdpNetwork = $rdpNetwork
     UiStalls = @($perfEvents | Where-Object { $_.Event -eq 'ui_stall' -and $_.Fields.state -eq 'detected' }).Count
     SafeExceptions = @($perfEvents | Where-Object Event -eq 'exception').Count
     LatestHeartbeat = $latestHeartbeat

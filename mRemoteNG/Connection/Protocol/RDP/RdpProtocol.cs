@@ -49,6 +49,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private int _extendedReconnectAttemptsRemaining;
         private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
         private readonly RdpAutoReconnectGate _arcGate = new();
+        private RdpNetworkStats _networkStats = new();
+        private int _requestedPerfFlags = -1;
         private readonly System.Windows.Forms.Timer _arcLivenessTimer;
         private bool _redirectKeys;
         private bool _alertOnIdleDisconnect;
@@ -1773,6 +1775,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 if (connectionInfo.DisableCursorBlinking)
                     pFlags += (int)RDPPerformanceFlags.DisableCursorBlinking;
 
+                _requestedPerfFlags = pFlags;
                 _rdpClient.AdvancedSettings2.PerformanceFlags = pFlags;
             }
             catch (Exception ex)
@@ -1909,6 +1912,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnEnterFullScreenMode += RDPEvent_OnEnterFullScreenMode;
                 _rdpClient.OnLeaveFullScreenMode += RDPEvent_OnLeaveFullscreenMode;
                 _rdpClient.OnLogonError += RDPEvent_OnLogonError;
+                _rdpClient.OnAutoReconnected += RDPEvent_OnAutoReconnected;
+                _rdpClient.OnNetworkStatusChanged += RDPEvent_OnNetworkStatusChanged;
             }
             catch (Exception ex)
             {
@@ -1938,6 +1943,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnEnterFullScreenMode -= RDPEvent_OnEnterFullScreenMode;
                 _rdpClient.OnLeaveFullScreenMode -= RDPEvent_OnLeaveFullscreenMode;
                 _rdpClient.OnLogonError -= RDPEvent_OnLogonError;
+                _rdpClient.OnAutoReconnected -= RDPEvent_OnAutoReconnected;
+                _rdpClient.OnNetworkStatusChanged -= RDPEvent_OnNetworkStatusChanged;
             }
             catch (Exception ex)
             {
@@ -1970,6 +1977,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private AutoReconnectContinueState RDPEvent_OnAutoReconnecting(int disconnectReason, int attemptCount)
         {
+            _networkStats.ReconnectAttempt(Environment.TickCount64);
+            RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "attempt", disconnectReason, attemptCount, null);
+
             if (_arcGate.ShouldContinue(Environment.TickCount64, DateTime.UtcNow))
                 return AutoReconnectContinueState.autoReconnectContinueAutomatic;
 
@@ -1981,6 +1991,50 @@ namespace mRemoteNG.Connection.Protocol.RDP
             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                 $"Automatic reconnection to {connectionInfo.Hostname} stopped: this computer was asleep since the session was last active.");
             return AutoReconnectContinueState.autoReconnectContinueStop;
+        }
+
+        private void RDPEvent_OnAutoReconnected()
+        {
+            long outageMs = _networkStats.Reconnected(Environment.TickCount64);
+            RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "reconnected", null, null, outageMs);
+        }
+
+        /// <summary>
+        /// The client's own reading of the link. This is the only per-session measure of bandwidth
+        /// and latency the embedded control exposes, and the one that says whether a setting change
+        /// made a slow link faster.
+        /// </summary>
+        private void RDPEvent_OnNetworkStatusChanged(uint qualityLevel, int bandwidth, int rtt)
+        {
+            try
+            {
+                RdpNetworkSample? sample = _networkStats.Record(Environment.TickCount64, qualityLevel, bandwidth, rtt);
+                if (sample != null)
+                    RuntimeDiagnostics.RdpNetwork(_diagnosticRdpSession, sample);
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_network", ex);
+            }
+        }
+
+        /// <summary>
+        /// Writes the link record for the connection that just ended and starts a fresh one, so a
+        /// manual reconnect on the same tab gets its own summary.
+        /// </summary>
+        private void WriteNetworkSummary(string point)
+        {
+            try
+            {
+                RdpNetworkSummary? summary = _networkStats.Summary(Environment.TickCount64);
+                _networkStats = new RdpNetworkStats();
+                if (summary != null)
+                    RuntimeDiagnostics.RdpNetworkSummary(_diagnosticRdpSession, point, summary);
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_network_summary", ex);
+            }
         }
 
         private void RDPEvent_OnDisconnected(int discReason)
@@ -1997,6 +2051,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "disconnected",
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
                 discReason, diagnosticExtendedReason, refreshResources: true);
+            WriteNetworkSummary("disconnected");
 
             if (discReason != UI_ERR_NORMAL_DISCONNECT && _extendedReconnectAttemptsRemaining > 0 &&
                 !_arcGate.StoppedAfterResume)
@@ -2455,6 +2510,29 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
                 catch { /* a rejected read still leaves the requested values below */ }
 
+                // What actually governs bandwidth on a slow link, read back from the control rather
+                // than from our settings, because the control can refuse or override a value.
+                int netType = -1, compress = -1, bitmapPersist = -1, keepAlive = -1, audioQuality = -1;
+                string bandwidthDetection = "unknown";
+                try
+                {
+                    compress = Convert.ToInt32(_rdpClient.AdvancedSettings2.Compress, CultureInfo.InvariantCulture);
+                    bitmapPersist = Convert.ToInt32(_rdpClient.AdvancedSettings2.BitmapPersistence, CultureInfo.InvariantCulture);
+                    keepAlive = Convert.ToInt32(_rdpClient.AdvancedSettings2.keepAliveInterval, CultureInfo.InvariantCulture);
+                }
+                catch { /* older control: the fields stay -1 */ }
+                try
+                {
+                    if ((Control as AxHost)?.GetOcx() is MsRdpClient7NotSafeForScripting client7)
+                    {
+                        netType = Convert.ToInt32(client7.AdvancedSettings8.NetworkConnectionType, CultureInfo.InvariantCulture);
+                        if (client7.AdvancedSettings8 is IMsRdpClientAdvancedSettings8 settings8)
+                            bandwidthDetection = settings8.BandwidthDetection ? "true" : "false";
+                        audioQuality = Convert.ToInt32(client7.AdvancedSettings8.AudioQualityMode, CultureInfo.InvariantCulture);
+                    }
+                }
+                catch { /* the fields stay unknown */ }
+
                 var property = typeof(ConnectionInfo).GetProperty("RDP" + "Auth" + "enticationLevel");
                 int serverAuth = -1;
                 object? serverAuthValue = property?.GetValue(connectionInfo);
@@ -2518,7 +2596,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     KeepTabs = mRemoteNG.Properties.OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect,
                     ReconnectOnDisconnect = mRemoteNG.Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect,
                     ConfirmClose = mRemoteNG.Properties.Settings.Default.ConfirmCloseConnection,
-                    ReconnectMax = mRemoteNG.Properties.Settings.Default.RdpReconnectionCount
+                    ReconnectMax = mRemoteNG.Properties.Settings.Default.RdpReconnectionCount,
+                    PerfFlagsRequested = _requestedPerfFlags,
+                    NetworkConnectionType = netType,
+                    BandwidthDetection = bandwidthDetection,
+                    Compress = compress,
+                    BitmapPersistence = bitmapPersist,
+                    KeepAliveMs = keepAlive,
+                    AudioQualityMode = audioQuality,
+                    AudioCapture = connectionInfo.RedirectAudioCapture
                 });
             }
             catch (Exception ex)
@@ -2585,6 +2671,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     catch { /* the control can already be unusable; the close line still records that */ }
                     WriteCloseResources("close_before", refresh: true, wasConnected, hostAlreadyDisposed,
                         beforeW, beforeH, beforeSmart, beforeFull);
+                    WriteNetworkSummary("close");
                     string disconnect = _disconnectRequested ? "disconnect already requested" : "not connected";
                     string disconnectToken = hostAlreadyDisposed
                         ? "host_already_disposed"
