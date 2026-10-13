@@ -50,6 +50,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
         private readonly RdpAutoReconnectGate _arcGate = new();
         private RdpNetworkStats _networkStats = new();
+        private readonly RdpLinkStabilityMonitor _linkMonitor = new();
         private int _requestedPerfFlags = -1;
         private readonly System.Windows.Forms.Timer _arcLivenessTimer;
         private bool _redirectKeys;
@@ -1979,6 +1980,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             _networkStats.ReconnectAttempt(Environment.TickCount64);
             RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "attempt", disconnectReason, attemptCount, null);
+            if (attemptCount <= 1)
+                WriteAdaptDecision(_linkMonitor.Drop(Environment.TickCount64));
 
             if (_arcGate.ShouldContinue(Environment.TickCount64, DateTime.UtcNow))
                 return AutoReconnectContinueState.autoReconnectContinueAutomatic;
@@ -2008,13 +2011,34 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
-                RdpNetworkSample? sample = _networkStats.Record(Environment.TickCount64, qualityLevel, bandwidth, rtt);
+                long now = Environment.TickCount64;
+                RdpNetworkSample? sample = _networkStats.Record(now, qualityLevel, bandwidth, rtt);
                 if (sample != null)
                     RuntimeDiagnostics.RdpNetwork(_diagnosticRdpSession, sample);
+                WriteAdaptDecision(_linkMonitor.Sample(now, rtt));
             }
             catch (Exception ex)
             {
                 RuntimeDiagnostics.SafeException("rdp_network", ex);
+            }
+        }
+
+        /// <summary>
+        /// Shadow mode: the decision is only logged. Nothing is shown to the user until the
+        /// thresholds have been checked against real journeys.
+        /// </summary>
+        private void WriteAdaptDecision(RdpAdaptDecision? decision)
+        {
+            if (decision == null)
+                return;
+            try
+            {
+                RuntimeDiagnostics.RdpAdapt(_diagnosticRdpSession, decision,
+                    Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect);
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_adapt", ex);
             }
         }
 

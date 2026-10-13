@@ -2683,6 +2683,9 @@ Loader: {3}</value>
   <data name="UseExternalCredentialProvider" xml:space="preserve">
     <value>Use External Credential Provider</value>
   </data>
+  <data name="CheckboxRdpNetworkAutoDetect" xml:space="preserve">
+    <value>Let RDP detect the network speed and adapt image quality (recommended on mobile or unstable links)</value>
+  </data>
   <data name="CheckboxNoReconnect" xml:space="preserve">
     <value>Automatically try to reconnect when disconnected from server (RDP &amp;&amp; ICA only)</value>
   </data>

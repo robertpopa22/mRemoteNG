@@ -107,6 +107,31 @@ $disconnectCodes = @($perfEvents | Where-Object { $_.Event -eq 'rdp_phase' -and 
         [pscustomobject]@{ CodeExtended = $_.Name; Count = $_.Count }
     })
 $shapeEvents = @($perfEvents | Where-Object Event -eq 'rdp_shape')
+# Results per network type: each connection summary is attributed to the shape (and so the
+# net_type) its session last applied, so Modem and auto-detect journeys can be compared.
+$lastNetType = @{}
+$byNetType = @{}
+foreach ($perfEvent in $perfEvents) {
+    $session = Get-Field $perfEvent 'rdp_session'
+    if ($perfEvent.Event -eq 'rdp_shape') { $lastNetType[$session] = Get-Field $perfEvent 'net_type'; continue }
+    if ($perfEvent.Event -ne 'rdp_network_summary') { continue }
+    $netType = if ($lastNetType.ContainsKey($session)) { $lastNetType[$session] } else { 'na' }
+    if (-not $byNetType.ContainsKey($netType)) { $byNetType[$netType] = [System.Collections.Generic.List[object]]::new() }
+    $byNetType[$netType].Add($perfEvent)
+}
+$resultsByNetType = @($byNetType.Keys | Sort-Object | ForEach-Object {
+    $group = $byNetType[$_]
+    [pscustomobject]@{
+        NetType = $_
+        Connections = $group.Count
+        RttAvgMs = Get-NumberSummary -Values @($group | ForEach-Object { [long](Get-Field $_ 'rtt_avg_ms') })
+        BandwidthAvgKbps = Get-NumberSummary -Values @($group | ForEach-Object { [long](Get-Field $_ 'bw_avg_kbps') })
+        Reconnects = [long]($group | ForEach-Object { [long](Get-Field $_ 'reconnects') } | Measure-Object -Sum).Sum
+        OutageMsTotal = [long]($group | ForEach-Object { [long](Get-Field $_ 'outage_ms') } | Measure-Object -Sum).Sum
+    }
+})
+$adaptEvents = @($perfEvents | Where-Object Event -eq 'rdp_adapt')
+
 $rdpNetwork = [ordered]@{
     Summaries = $networkSummaries.Count
     RttMs = Get-NumberSummary -Values @($networkLines | ForEach-Object { [long](Get-Field $_ 'rtt_ms') })
@@ -118,6 +143,9 @@ $rdpNetwork = [ordered]@{
     Reconnects = @($reconnectEvents | Where-Object { (Get-Field $_ 'phase') -eq 'reconnected' }).Count
     OutageMs = Get-NumberSummary -Values @($reconnectEvents | Where-Object { (Get-Field $_ 'phase') -eq 'reconnected' } | ForEach-Object { [long](Get-Field $_ 'outage_ms') })
     DisconnectCodes = $disconnectCodes
+    ResultsByNetType = $resultsByNetType
+    AdaptDecisions = @($adaptEvents | Group-Object { "$((Get-Field $_ 'decision')) reason=$((Get-Field $_ 'reason')) auto_detect=$((Get-Field $_ 'auto_detect'))" } |
+        Sort-Object Count -Descending | ForEach-Object { [pscustomobject]@{ Decision = $_.Name; Count = $_.Count } })
     AppliedShapes = @($shapeEvents | Group-Object { "net_type=$((Get-Field $_ 'net_type')) bw_detect=$((Get-Field $_ 'bw_detect')) color_depth=$((Get-Field $_ 'color_depth')) perf_flags=$((Get-Field $_ 'perf_flags')) perf_requested=$((Get-Field $_ 'perf_flags_requested')) compress=$((Get-Field $_ 'compress')) bitmap_persist=$((Get-Field $_ 'bitmap_persist'))" } |
         Sort-Object Count -Descending | ForEach-Object { [pscustomobject]@{ Shape = $_.Name; Count = $_.Count } })
 }

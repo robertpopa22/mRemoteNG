@@ -275,6 +275,22 @@ namespace mRemoteNG.App
                 NullableNumber("attempt", attempt),
                 NullableNumber("outage_ms", outageMs));
 
+        /// <summary>
+        /// What the link-stability monitor decided, with the thresholds it used, so a journey's log
+        /// shows when a lighter configuration would have been offered and when the full one back.
+        /// </summary>
+        internal static void RdpAdapt(string rdpSession, Connection.Protocol.RDP.RdpAdaptDecision decision, bool autoDetect) =>
+            WriteInfo("rdp_adapt",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("decision", SafeToken(decision.Decision)),
+                Field("reason", SafeToken(decision.Reason)),
+                NullableNumber("rtt_median_ms", decision.RttMedianMs),
+                Number("drops_10min", decision.DropsInWindow),
+                Boolean("auto_detect", autoDetect),
+                Number("unstable_rtt_ms", Connection.Protocol.RDP.RdpLinkStabilityMonitor.UnstableRttMs),
+                Number("unstable_drops", Connection.Protocol.RDP.RdpLinkStabilityMonitor.UnstableDrops),
+                Number("stable_rtt_ms", Connection.Protocol.RDP.RdpLinkStabilityMonitor.StableRttMs));
+
         internal static void RdpShape(RdpShapeInfo shape) =>
             WriteInfo("rdp_shape", [..ShapeFields(shape), ..ResourceFields(ProcessResourceSnapshot.Capture(refreshExpensive: true))]);
 

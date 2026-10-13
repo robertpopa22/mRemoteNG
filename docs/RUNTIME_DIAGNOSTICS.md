@@ -33,6 +33,7 @@ Unhandled exceptions are recorded without `Exception.Message`, `Exception.Data` 
 | `rdp_network` | The client's own reading of the link from `OnNetworkStatusChanged`: `quality`, `bandwidth_kbps`, `rtt_ms`. Written on the first sample, on a change of quality level, and otherwise at most every 30 seconds, carrying the minimum and maximum seen since the previous line |
 | `rdp_network_summary` | Once per connection, at disconnect or close: sample count, bandwidth and round-trip minimum, mean and maximum, `quality_seconds` as level:seconds pairs, reconnect attempts, reconnects, and total `outage_ms` |
 | `rdp_reconnect` | Each automatic-reconnection attempt with the numeric disconnect reason and attempt number, and each successful reconnection with how long the session was gone |
+| `rdp_adapt` | Shadow-mode decision of the link-stability monitor: `would_prompt` when the link turns unstable (median round trip of at least 250 ms over two minutes, or two drops within ten minutes), `unstable_suppressed` inside the 30-minute prompt cooldown, `would_offer_restore` after 15 calm minutes. Carries the thresholds and whether auto-detect was on. Nothing is shown to the user yet |
 | `rdp_phase` | Anonymous per-session initialization, connect, login and disconnect timings/codes, plus a resource snapshot |
 | `rdp_resources` | Resource snapshot at `close_before` and `close_after`, with the close trigger, disconnect class, and whether Disconnect or Dispose threw. A throw records the numeric HRESULT only |
 | `heartbeat` | CPU plus the same resource snapshot every 60 seconds, including GDI, USER, handle types, and thread modules |
@@ -63,7 +64,7 @@ The question "which settings are fastest on this link for the least data" is ans
 - `rdp_network` and `rdp_network_summary` say what the control measured on the link while those settings were in force.
 - `rdp_reconnect` and the `disconnected` phase codes say how often the link dropped and how long each outage lasted.
 
-Compare two configurations by grouping summaries by the shape that preceded them; `scripts/Analyze-RuntimeLog.ps1` prints both under `RdpNetwork`. The bytes actually sent are not visible to the embedded control; measure them outside the application, for example from the VPN's per-peer counters.
+Options → Advanced → "Let RDP detect the network speed and adapt image quality" switches the connection type from Modem, the default, to auto-detect with bandwidth detection on. Auto-detect lets the server adapt image quality as the link changes, but the server then chooses the visual effects itself. `scripts/Analyze-RuntimeLog.ps1` reports `ResultsByNetType`, which attributes each connection summary to the `net_type` its session applied, so journeys with each setting can be compared, and `AdaptDecisions`, which counts what the monitor would have asked. The bytes actually sent are not visible to the embedded control; measure them outside the application, for example from the VPN's per-peer counters.
 
 ## Remote desktop engine experiments
 

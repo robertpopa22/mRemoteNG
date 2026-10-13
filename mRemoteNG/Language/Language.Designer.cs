@@ -727,6 +727,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Let RDP detect the network speed and adapt image quality (recommended on mobile or unstable links).
+        /// </summary>
+        internal static string CheckboxRdpNetworkAutoDetect {
+            get {
+                return ResourceManager.GetString("CheckboxRdpNetworkAutoDetect", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Automatically try to reconnect when disconnected from server (RDP &amp;&amp; ICA only).
         /// </summary>
         internal static string CheckboxNoReconnect {

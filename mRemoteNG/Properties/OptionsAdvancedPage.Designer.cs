@@ -154,5 +154,17 @@ namespace mRemoteNG.Properties {
                 this["ShowPuttySavedSessions"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RdpNetworkAutoDetect {
+            get {
+                return ((bool)(this["RdpNetworkAutoDetect"]));
+            }
+            set {
+                this["RdpNetworkAutoDetect"] = value;
+            }
+        }
     }
 }

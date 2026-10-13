@@ -48,6 +48,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkConnectionLogging = new MrngCheckBox();
             chkShowPortScan = new MrngCheckBox();
             chkShowPuttySavedSessions = new MrngCheckBox();
+            chkRdpNetworkAutoDetect = new MrngCheckBox();
             ((System.ComponentModel.ISupportInitialize)numPuttyWaitTime).BeginInit();
             SuspendLayout();
             // 
@@ -222,10 +223,23 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowPuttySavedSessions.Text = "Show PuTTY saved sessions in connection tree";
             chkShowPuttySavedSessions.UseVisualStyleBackColor = true;
             //
+            // chkRdpNetworkAutoDetect
+            //
+            chkRdpNetworkAutoDetect._mice = MrngCheckBox.MouseState.OUT;
+            chkRdpNetworkAutoDetect.AutoSize = true;
+            chkRdpNetworkAutoDetect.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            chkRdpNetworkAutoDetect.Location = new System.Drawing.Point(9, 302);
+            chkRdpNetworkAutoDetect.Name = "chkRdpNetworkAutoDetect";
+            chkRdpNetworkAutoDetect.Size = new System.Drawing.Size(500, 17);
+            chkRdpNetworkAutoDetect.TabIndex = 15;
+            chkRdpNetworkAutoDetect.Text = "Let RDP detect the network speed and adapt image quality (recommended on mobile or unstable links)";
+            chkRdpNetworkAutoDetect.UseVisualStyleBackColor = true;
+            //
             // AdvancedPage
             //
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            Controls.Add(chkRdpNetworkAutoDetect);
             Controls.Add(chkShowPuttySavedSessions);
             Controls.Add(chkShowPortScan);
             Controls.Add(chkConnectionLogging);
@@ -264,5 +278,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngCheckBox chkConnectionLogging;
         internal MrngCheckBox chkShowPortScan;
         internal MrngCheckBox chkShowPuttySavedSessions;
+        internal MrngCheckBox chkRdpNetworkAutoDetect;
     }
 }

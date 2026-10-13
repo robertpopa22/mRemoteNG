@@ -46,6 +46,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnLaunchPutty.Text = Language.ButtonLaunchPutty;
             btnBrowseCustomPuttyPath.Text = Language._Browse;
             chkUseCustomPuttyPath.Text = Language.CheckboxPuttyPath;
+            chkRdpNetworkAutoDetect.Text = Language.CheckboxRdpNetworkAutoDetect;
             ShowDetectedPutty();
         }
 
@@ -67,6 +68,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkConnectionLogging.Checked = Properties.OptionsAdvancedPage.Default.EnableConnectionLogging;
             chkShowPortScan.Checked = Properties.OptionsAdvancedPage.Default.ShowPortScan;
             chkShowPuttySavedSessions.Checked = Properties.OptionsAdvancedPage.Default.ShowPuttySavedSessions;
+            chkRdpNetworkAutoDetect.Checked = Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect;
         }
 
         public override void SaveSettings()
@@ -98,6 +100,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             Properties.OptionsAdvancedPage.Default.EnableConnectionLogging = chkConnectionLogging.Checked;
             Properties.OptionsAdvancedPage.Default.ShowPortScan = chkShowPortScan.Checked;
+            Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect = chkRdpNetworkAutoDetect.Checked;
             if (Properties.OptionsAdvancedPage.Default.ShowPuttySavedSessions != chkShowPuttySavedSessions.Checked)
             {
                 Properties.OptionsAdvancedPage.Default.ShowPuttySavedSessions = chkShowPuttySavedSessions.Checked;
