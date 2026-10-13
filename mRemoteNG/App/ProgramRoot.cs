@@ -259,10 +259,24 @@ namespace mRemoteNG.App
         /// Validates that a resolved assembly path is under the application base directory.
         /// Prevents loading assemblies from arbitrary/untrusted locations.
         /// </summary>
-        private static bool IsUnderAppBase(string path)
+        private static bool IsUnderAppBase(string path) => IsUnderDirectory(path, _appBaseDir);
+
+        /// <summary>
+        /// True when <paramref name="path"/> lies inside <paramref name="directory"/>.
+        ///
+        /// Both sides go through <see cref="Path.GetFullPath(string)"/>, because that call expands
+        /// 8.3 short names: launched as C:\Users\ROBERT~1.POP\...\mRemoteNG.exe, the base directory
+        /// keeps the short form while every candidate came back long, so nothing in Assemblies\
+        /// matched and startup died on the first assembly it needed. The trailing separator is
+        /// added explicitly so a sibling such as "app2" never passes for "app".
+        /// </summary>
+        internal static bool IsUnderDirectory(string path, string directory)
         {
             string fullPath = Path.GetFullPath(path);
-            return fullPath.StartsWith(_appBaseDir, StringComparison.OrdinalIgnoreCase);
+            string fullDirectory = Path.GetFullPath(directory);
+            if (!Path.EndsInDirectorySeparator(fullDirectory))
+                fullDirectory += Path.DirectorySeparatorChar;
+            return fullPath.StartsWith(fullDirectory, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
