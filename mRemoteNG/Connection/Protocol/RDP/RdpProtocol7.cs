@@ -49,8 +49,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 rdpClient.AdvancedSettings8.NetworkConnectionType = (uint)(autoDetect ? RdpNetworkConnectionType.AutoDetect : RdpNetworkConnectionType.Modem);
                 // BandwidthDetection is on IMsRdpClientAdvancedSettings8, which only IMsRdpClient8.AdvancedSettings9
                 // returns; the object behind AdvancedSettings8 does not answer a cast to it.
-                if ((Control as AxHost)?.GetOcx() is MsRdpClient8NotSafeForScripting rdpClient8)
-                    rdpClient8.AdvancedSettings9.BandwidthDetection = autoDetect;
+                AccessBandwidthDetection(autoDetect);
 
                 SetUseRedirectionServerName();
 

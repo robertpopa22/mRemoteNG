@@ -2516,6 +2516,54 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch { }
         }
 
+        private static int _bandwidthDiagLogged;
+
+        /// <summary>
+        /// Reads or writes BandwidthDetection through the IMsRdpClient8 interface (the only one whose
+        /// AdvancedSettings9 returns IMsRdpClientAdvancedSettings8). Logs which client interfaces the
+        /// control answers: once on success, and on every failure.
+        /// </summary>
+        protected bool? AccessBandwidthDetection(bool? write)
+        {
+            object? ocx = (Control as AxHost)?.GetOcx();
+            try
+            {
+                if (ocx is IMsRdpClient8 client8)
+                {
+                    IMsRdpClientAdvancedSettings8 settings = client8.AdvancedSettings9;
+                    if (write.HasValue)
+                        settings.BandwidthDetection = write.Value;
+                    bool value = settings.BandwidthDetection;
+                    if (Interlocked.Exchange(ref _bandwidthDiagLogged, 1) == 0)
+                        Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                            $"[#rdp-bw-diag] ok {DescribeClientInterfaces(ocx)}", true);
+                    return value;
+                }
+
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"[#rdp-bw-diag] no IMsRdpClient8 {DescribeClientInterfaces(ocx)}", true);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"[#rdp-bw-diag] {ex.GetType().Name} {DescribeClientInterfaces(ocx)}", true);
+            }
+
+            return null;
+        }
+
+        private static string DescribeClientInterfaces(object? ocx)
+        {
+            if (ocx == null) return "rcw=null";
+            var sb = new StringBuilder("rcw=").Append(ocx.GetType().FullName).Append(" answers=");
+            if (ocx is IMsRdpClient7) sb.Append("7,");
+            if (ocx is IMsRdpClient8) sb.Append("8,");
+            if (ocx is IMsRdpClient9) sb.Append("9,");
+            if (ocx is IMsRdpClient10) sb.Append("10,");
+            if (ocx is MsRdpClient11NotSafeForScripting) sb.Append("11coclass,");
+            return sb.ToString().TrimEnd(',');
+        }
+
         private void LogAppliedShape()
         {
             try
@@ -2550,12 +2598,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     if ((Control as AxHost)?.GetOcx() is MsRdpClient7NotSafeForScripting client7)
                     {
                         netType = Convert.ToInt32(client7.AdvancedSettings8.NetworkConnectionType, CultureInfo.InvariantCulture);
-                        if (client7 is MsRdpClient8NotSafeForScripting client8)
-                            bandwidthDetection = client8.AdvancedSettings9.BandwidthDetection ? "true" : "false";
                         audioQuality = Convert.ToInt32(client7.AdvancedSettings8.AudioQualityMode, CultureInfo.InvariantCulture);
                     }
                 }
                 catch { /* the fields stay unknown */ }
+                bool? detected = AccessBandwidthDetection(null);
+                if (detected.HasValue)
+                    bandwidthDetection = detected.Value ? "true" : "false";
 
                 var property = typeof(ConnectionInfo).GetProperty("RDP" + "Auth" + "enticationLevel");
                 int serverAuth = -1;
