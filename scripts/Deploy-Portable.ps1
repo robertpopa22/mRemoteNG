@@ -1,3 +1,17 @@
+<#
+.SYNOPSIS
+Deploys a portable mRemoteNG build into a target directory, preserving Settings.
+
+.PARAMETER StopRunningApplication
+Close a running deployed application instead of refusing to deploy. The close has three
+steps: CloseMainWindow, answering the "confirm exit" dialog with Yes through UI Automation;
+WM_CLOSE to every window of the process when there is no main window (hidden to tray);
+Stop-Process at the deadline, logged as a warning. Open sessions are closed.
+Without this switch a running application makes the script throw.
+
+.PARAMETER CloseTimeoutSeconds
+How long to wait for the application to close on its own before it is terminated.
+#>
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)]
@@ -402,6 +416,90 @@ function Get-RunningTargetProcesses {
     })
 }
 
+if (-not ('MRemoteNGDeploy.WindowPoster' -as [type])) {
+    Add-Type -TypeDefinition @'
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+namespace MRemoteNGDeploy
+{
+    public static class WindowPoster
+    {
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumWindows(EnumWindowsProc callback, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+        private const uint WM_CLOSE = 0x0010;
+
+        // Posts WM_CLOSE to every top-level window (visible or hidden) of the process.
+        public static int PostCloseToProcess(int processId)
+        {
+            List<IntPtr> windows = new List<IntPtr>();
+            EnumWindows(delegate (IntPtr hWnd, IntPtr lParam)
+            {
+                uint pid;
+                GetWindowThreadProcessId(hWnd, out pid);
+                if (pid == (uint)processId)
+                {
+                    windows.Add(hWnd);
+                }
+                return true;
+            }, IntPtr.Zero);
+
+            int posted = 0;
+            foreach (IntPtr hWnd in windows)
+            {
+                if (PostMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero))
+                {
+                    posted++;
+                }
+            }
+            return posted;
+        }
+    }
+}
+'@
+}
+
+function Confirm-ExitDialog {
+    param([Parameter(Mandatory)][int]$ProcessId)
+
+    try {
+        Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes -ErrorAction Stop
+        $auto = [System.Windows.Automation.AutomationElement]
+        $pidCondition = New-Object System.Windows.Automation.PropertyCondition($auto::ProcessIdProperty, $ProcessId)
+        $buttonCondition = New-Object System.Windows.Automation.PropertyCondition(
+            $auto::ControlTypeProperty, [System.Windows.Automation.ControlType]::Button)
+        $yesNames = @('Yes', '&Yes', 'Da', '&Da')
+
+        $windows = $auto::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children, $pidCondition)
+        foreach ($window in $windows) {
+            $buttons = $window.FindAll([System.Windows.Automation.TreeScope]::Descendants, $buttonCondition)
+            foreach ($button in $buttons) {
+                if ($yesNames -contains $button.Current.Name) {
+                    $pattern = $null
+                    if ($button.TryGetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern, [ref]$pattern)) {
+                        $pattern.Invoke()
+                        return $true
+                    }
+                }
+            }
+        }
+    }
+    catch {
+        # UI Automation is unavailable or the window vanished mid-scan; the poll retries.
+    }
+    return $false
+}
+
 function Assert-ApplicationStopped {
     param([Parameter(Mandatory)][string]$Target)
 
@@ -414,19 +512,51 @@ function Assert-ApplicationStopped {
         throw "The deployed application is running. Close it before deployment."
     }
 
+    # Step 1: ask each process to close. Step 2: with no main window (hidden to tray),
+    # post WM_CLOSE to every window of the process instead.
     foreach ($process in $running) {
-        $null = $process.CloseMainWindow()
+        $closeRequested = $false
+        try { $closeRequested = $process.CloseMainWindow() } catch { }
+        if ($closeRequested) {
+            Write-Host "close requested for process $($process.Id)"
+        }
+        else {
+            $posted = [MRemoteNGDeploy.WindowPoster]::PostCloseToProcess($process.Id)
+            Write-Host "WM_CLOSE posted to $posted windows of process $($process.Id)"
+        }
     }
 
+    # Answer the confirm-exit dialog with Yes while the processes shut down.
     $deadline = [DateTime]::UtcNow.AddSeconds($CloseTimeoutSeconds)
     do {
         Start-Sleep -Milliseconds 250
         $running = @(Get-RunningTargetProcesses -Target $Target)
+        foreach ($process in $running) {
+            if (Confirm-ExitDialog -ProcessId $process.Id) {
+                Write-Host "confirm-exit dialog answered Yes for process $($process.Id)"
+            }
+        }
     } while ($running.Count -gt 0 -and [DateTime]::UtcNow -lt $deadline)
 
-    if ($running.Count -gt 0) {
-        throw "The deployed application did not close gracefully; no files were changed."
+    if ($running.Count -eq 0) {
+        return
     }
+
+    # Step 3: still alive at the deadline.
+    foreach ($process in $running) {
+        Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+    }
+    Write-Warning "mRemoteNG did not close on its own within $CloseTimeoutSeconds s; terminated."
+    $killDeadline = [DateTime]::UtcNow.AddSeconds(10)
+    do {
+        Start-Sleep -Milliseconds 250
+        $running = @(Get-RunningTargetProcesses -Target $Target)
+    } while ($running.Count -gt 0 -and [DateTime]::UtcNow -lt $killDeadline)
+
+    if ($running.Count -gt 0) {
+        throw "The deployed application could not be terminated; no files were changed."
+    }
+    Write-Host "terminated after timeout"
 }
 
 function Remove-TreeSafely {
