@@ -450,6 +450,7 @@ namespace mRemoteNG.App
             Number("confirm_close", shape.ConfirmClose),
             Number("reconnect_max", shape.ReconnectMax),
             Number("perf_flags_requested", shape.PerfFlagsRequested),
+            Boolean("net_autodetect", shape.NetAutoDetect),
             Number("net_type", shape.NetworkConnectionType),
             Field("bw_detect", shape.BandwidthDetection),
             Number("compress", shape.Compress),
@@ -745,6 +746,7 @@ namespace mRemoteNG.App
         public int ConfirmClose;
         public int ReconnectMax;
         public int PerfFlagsRequested = -1;
+        public bool NetAutoDetect;
         public int NetworkConnectionType = -1;
         public string BandwidthDetection = "unknown";
         public int Compress = -1;

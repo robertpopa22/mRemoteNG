@@ -502,6 +502,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             try
             {
+                // After Initialize and the derived PostInitialize: this is what Connect will use.
+                LogAppliedShape();
                 _rdpClient.Connect();
                 base.Connect();
 
@@ -1408,8 +1410,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetCredentialsFailed, ex);
             }
-
-            LogAppliedShape();
         }
 
         protected override void Resize(object sender, EventArgs e)
@@ -2622,6 +2622,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     ConfirmClose = mRemoteNG.Properties.Settings.Default.ConfirmCloseConnection,
                     ReconnectMax = mRemoteNG.Properties.Settings.Default.RdpReconnectionCount,
                     PerfFlagsRequested = _requestedPerfFlags,
+                    NetAutoDetect = Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect,
                     NetworkConnectionType = netType,
                     BandwidthDetection = bandwidthDetection,
                     Compress = compress,
