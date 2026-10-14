@@ -86,6 +86,13 @@ Unless the user explicitly requests a documentation or orchestrator task, issue-
 5. **Re-run the UI repro from step 2.** It must now pass. This proves the symptom is gone; it does *not* prove the mechanism was right, so it never replaces the root-cause reasoning in step 1 — a guard that hides a symptom passes this happily.
 6. **Repair regressions:** fix any build or test failure caused by the change before finishing.
 
+### Menu paths come from the UI map, never from memory
+
+Before naming a menu, dialog or option in a reply, a document, a commit or a chat answer, look it
+up in [docs/UI-MAP.md](docs/UI-MAP.md) (derived from the designer files) or in the designer source.
+This fork has no Tools → Options: Options... is under **File**. A path that was not looked up is
+not written. When a new option is added, add its row to the UI map in the same commit.
+
 ### FlaUI — driving the real app
 
 The `mcp__flaui__*` tools launch the built executable and drive it as a user does. The automated

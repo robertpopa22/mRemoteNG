@@ -45,7 +45,7 @@ This was a known issue fixed in v1.79.0 (PR #3116). Upgrade to v1.79.0+.
 
 - Verify the SSH server is running on the target: `ssh user@host` from a terminal
 - Check the port number (default SSH is 22, Telnet is 23)
-- If using PuTTY-based protocols, ensure PuTTY is accessible. Check Tools > Options > Advanced > PuTTY path.
+- If using PuTTY-based protocols, ensure PuTTY is accessible. Check File > Options... > Advanced > Custom PuTTY path.
 
 ### PuTTY: Session names show as percent-encoded (e.g., `%BC%AD%B9%F6`)
 
@@ -75,7 +75,7 @@ v1.80.0 enforces minimum password complexity:
 
 ### Changing PBKDF2 iterations
 
-In Tools > Options > Security, you can adjust the KDF iteration count. Higher values increase security but slow down file open/save. The default is 600,000. Changes take effect on the next save.
+In File > Options... > Security, you can adjust the KDF iteration count. Higher values increase security but slow down file open/save. The default is 600,000. Changes take effect on the next save.
 
 ## Build Issues
 
@@ -103,7 +103,7 @@ dotnet test "mRemoteNGTests\bin\x64\Release\mRemoteNGTests.dll" --verbosity norm
 
 - Default: `%AppData%\mRemoteNG\confCons.xml`
 - Portable mode: next to `mRemoteNG.exe`
-- SQL Server: configured in Tools > Options > Connections
+- SQL Server: configured in File > Options... > SQL Server
 
 ### Backing up connections
 
