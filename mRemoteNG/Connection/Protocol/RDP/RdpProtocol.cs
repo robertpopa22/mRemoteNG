@@ -2550,8 +2550,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     if ((Control as AxHost)?.GetOcx() is MsRdpClient7NotSafeForScripting client7)
                     {
                         netType = Convert.ToInt32(client7.AdvancedSettings8.NetworkConnectionType, CultureInfo.InvariantCulture);
-                        if (client7.AdvancedSettings8 is IMsRdpClientAdvancedSettings8 settings8)
-                            bandwidthDetection = settings8.BandwidthDetection ? "true" : "false";
+                        if (client7 is MsRdpClient8NotSafeForScripting client8)
+                            bandwidthDetection = client8.AdvancedSettings9.BandwidthDetection ? "true" : "false";
                         audioQuality = Convert.ToInt32(client7.AdvancedSettings8.AudioQualityMode, CultureInfo.InvariantCulture);
                     }
                 }

@@ -45,16 +45,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 // Modem keeps the user's performance flags authoritative but switches off the
                 // server's bandwidth detection. Auto-detect lets the server adapt image quality to
                 // the link as it changes, at the cost of choosing those visual effects itself.
-                if (Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect)
-                {
-                    rdpClient.AdvancedSettings8.NetworkConnectionType = (int)RdpNetworkConnectionType.AutoDetect;
-                    if (rdpClient.AdvancedSettings8 is IMsRdpClientAdvancedSettings8 settings8)
-                        settings8.BandwidthDetection = true;
-                }
-                else
-                {
-                    rdpClient.AdvancedSettings8.NetworkConnectionType = (int)RdpNetworkConnectionType.Modem;
-                }
+                bool autoDetect = Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect;
+                rdpClient.AdvancedSettings8.NetworkConnectionType = (uint)(autoDetect ? RdpNetworkConnectionType.AutoDetect : RdpNetworkConnectionType.Modem);
+                // BandwidthDetection is on IMsRdpClientAdvancedSettings8, which only IMsRdpClient8.AdvancedSettings9
+                // returns; the object behind AdvancedSettings8 does not answer a cast to it.
+                if ((Control as AxHost)?.GetOcx() is MsRdpClient8NotSafeForScripting rdpClient8)
+                    rdpClient8.AdvancedSettings9.BandwidthDetection = autoDetect;
 
                 SetUseRedirectionServerName();
 
