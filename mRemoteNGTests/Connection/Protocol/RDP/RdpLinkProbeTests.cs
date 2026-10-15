@@ -136,6 +136,48 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             Assert.That(RdpLinkProbePolicy.TimeoutMs(interval), Is.EqualTo(expected));
 
         [Test]
+        public void IcmpThatNeverAnswersFallsBackToTcpAfterThreeHeldBackLosses()
+        {
+            RdpIcmpStep step = default;
+            for (int i = 0; i < RdpLinkProbePolicy.TcpFallbackAfterLosses; i++)
+            {
+                Assert.That(step.SwitchToTcp, Is.False);
+                step = RdpLinkProbePolicy.AfterIcmp(replied: false, step.Answered, step.LossRun, alive: true);
+                Assert.That(step.Report, Is.False, "losses before the first reply are held back");
+            }
+            Assert.That(step.SwitchToTcp, Is.True);
+        }
+
+        [Test]
+        public void HeldBackLossesDoNotCountWhileTheSessionIsDown()
+        {
+            RdpIcmpStep step = default;
+            for (int i = 0; i < 5; i++)
+                step = RdpLinkProbePolicy.AfterIcmp(replied: false, step.Answered, step.LossRun, alive: false);
+            Assert.That(step.SwitchToTcp, Is.False);
+            Assert.That(step.LossRun, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void LossyIcmpStaysIcmp()
+        {
+            RdpIcmpStep step = RdpLinkProbePolicy.AfterIcmp(replied: true, answeredBefore: false, lossRun: 0, alive: true);
+            Assert.That(step.Answered, Is.True);
+            Assert.That(step.Report, Is.True);
+
+            for (int i = 0; i < 10; i++)
+            {
+                step = RdpLinkProbePolicy.AfterIcmp(replied: false, step.Answered, step.LossRun, alive: true);
+                Assert.That(step.SwitchToTcp, Is.False, "an ICMP host that answered once is lossy, not filtered");
+                Assert.That(step.Report, Is.True, "every lost ping after the first reply is a loss sample");
+            }
+            Assert.That(step.LossRun, Is.EqualTo(10));
+
+            step = RdpLinkProbePolicy.AfterIcmp(replied: true, step.Answered, step.LossRun, alive: true);
+            Assert.That(step.LossRun, Is.EqualTo(0));
+        }
+
+        [Test]
         public void TheTargetIsTheSingleEndpointOnTheSessionPort()
         {
             var remotes = new List<IPEndPoint>

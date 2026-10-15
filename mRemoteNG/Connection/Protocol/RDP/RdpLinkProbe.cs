@@ -51,6 +51,25 @@ namespace mRemoteNG.Connection.Protocol.RDP
         internal static int TimeoutMs(int intervalMs) => Math.Min(intervalMs, MaxTimeoutMs);
 
         /// <summary>
+        /// What one ICMP probe result means for the session. Many hosts and networks drop ICMP, so
+        /// until the host has answered once a lost ping says nothing about the link: it is held back
+        /// rather than logged as loss, and three of them while the session is alive mean ICMP is
+        /// filtered, so the session switches to timing a TCP connect to the same endpoint, which the
+        /// RDP path is known to pass. Once ICMP has answered, the session stays on ICMP: a lost ping
+        /// on a lossy link is exactly the loss sample the probe exists to record, and switching to
+        /// TCP would hide it and drop the cadence to one probe a minute.
+        /// </summary>
+        internal static RdpIcmpStep AfterIcmp(bool replied, bool answeredBefore, int lossRun, bool alive)
+        {
+            if (replied)
+                return new RdpIcmpStep(Report: true, SwitchToTcp: false, Answered: true, LossRun: 0);
+            if (answeredBefore)
+                return new RdpIcmpStep(Report: true, SwitchToTcp: false, Answered: true, LossRun: lossRun + 1);
+            int run = alive ? lossRun + 1 : lossRun;
+            return new RdpIcmpStep(Report: false, SwitchToTcp: alive && run >= TcpFallbackAfterLosses, Answered: false, LossRun: run);
+        }
+
+        /// <summary>
         /// Picks the endpoint the control is connected to from the process's established TCP
         /// connections. Returns <c>null</c> unless exactly one remote endpoint fits; when several do
         /// (two tabs on the same port), endpoints another session already probes are set aside.
@@ -65,6 +84,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             return matching.Count == 1 ? matching[0] : null;
         }
     }
+
+    internal readonly record struct RdpIcmpStep(bool Report, bool SwitchToTcp, bool Answered, int LossRun);
 
     internal readonly record struct RdpProbeState(bool Minimized, bool OnBattery, bool ReconnectStopped);
 
@@ -228,26 +249,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 bool report = true;
                 if (used == "icmp")
                 {
-                    if (rtt != null)
-                    {
-                        icmpAnswered = true;
-                        icmpLossRun = 0;
-                    }
-                    else if (!icmpAnswered)
-                    {
-                        // Many hosts and networks drop ICMP. Until the host has answered once, a
-                        // lost ping says nothing about the link, so it is held back rather than
-                        // logged as loss; three of them while the session is alive mean ICMP is
-                        // filtered, and the session switches to timing a TCP connect to the same
-                        // endpoint, which the RDP path is known to pass.
-                        report = false;
-                        if (_alive && ++icmpLossRun >= RdpLinkProbePolicy.TcpFallbackAfterLosses)
-                            method = "tcp";
-                    }
-                    else if (_alive && ++icmpLossRun >= RdpLinkProbePolicy.TcpFallbackAfterLosses)
-                    {
+                    RdpIcmpStep step = RdpLinkProbePolicy.AfterIcmp(rtt != null, icmpAnswered, icmpLossRun, _alive);
+                    icmpAnswered = step.Answered;
+                    icmpLossRun = step.LossRun;
+                    report = step.Report;
+                    if (step.SwitchToTcp)
                         method = "tcp";
-                    }
                 }
 
                 if (report)
