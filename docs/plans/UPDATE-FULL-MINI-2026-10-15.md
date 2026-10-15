@@ -47,6 +47,12 @@
 - Refuză: tree murdar sau `.dirty` în versiune; HEAD care nu e pe `origin/main` (sau nu e tagul `vX.Y.Z` pentru stabil); versiunea deja publicată; semnătura lipsă sau invalidă; MINI cu un fișier din lista „doar FULL"; MINI fără manifestul bazei pe release; tag `vX.Y.Z` care nu se potrivește cu `<Version>` din csproj.
 - Nu scrie nimic în working tree-ul principal. Folosește `MREMOTENG_PORTABLE_CHAIN=1`, ca build-ul să nu facă deploy pe daily driver.
 
+### Implementat (pasul 2): Publicare FULL/MINI (local, fără Actions)
+- `pwsh scripts/Publish-Release.ps1 -Channel full|mini [-Tag nightly|vX.Y.Z] [-BaseFull <ver>] [-DryRun] [-SkipTests] [-OutputDirectory <dir>]`. Nesemnat: nu produce `.sig` (hook `TODO(step 4)` în script). `-BaseFullManifestPath` citește manifestul FULL de bază dintr-un fișier local (probă offline).
+- Construiește dintr-un worktree curat la HEAD în `%TEMP%`; versiunea vine din `mRemoteNG.exe --version`. Ieșire implicită: `%TEMP%\mrng-release\<ver>`.
+- Refuză: tree murdar sau `.dirty`; HEAD în afara `origin/main` (doar avertisment la `-DryRun`); tag stabil diferit de `<Version>` din csproj; versiune deja pe release; MINI fără manifest FULL de bază, cu `major.minor` diferit, cu fișier FULL-only în delta/remove sau cu delta peste 40% din FULL.
+- Probă 2026-10-15 (bfcff4ff79, același commit construit de două ori): FULL 647 fișiere, zip 99.038.469 B. MINI: 34 de fișiere diferă deși commitul e identic (10 de nivel 1: `mRemoteNG.dll/.pdb`, `mRemoteNG.Plugins.dll/.pdb`, `ObjectListView.dll/.pdb`, `ExternalConnectors.dll/.pdb`, `Interop.MSTSCLib.dll`, `AxInterop.MSTSCLib.dll`, plus 24 `Languages\*\mRemoteNG.resources.dll`), 12,35 MB, zip 3,7 MB. Build-ul nu este determinist, iar `Interop.MSTSCLib.dll` regenerat cu alt hash declanșează refuzul MINI. Remediere necesară înainte de MINI real: build determinist sau interop-urile COM luate din FULL-ul de bază (pasul 1 nu a stabilizat sateliții).
+
 ## D. Client
 - Clase noi în `mRemoteNG/App/Update/`: `ReleaseManifest` + `ManifestVerifier` (parse, semnătură, validare căi); `UpdatePlanner` (decide `None`/`Mini`/`Full`); `UpdateDownloader`; `UpdateStager`.
 - `AppUpdater` primește `GetManifestAsync()`. Vechiul `releases/latest` rămâne pentru changelog.
