@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -229,6 +230,49 @@ namespace mRemoteNG.App
                 Field("disc_class", ClassifyDisconnect(primaryCode, extendedCode))
             ];
             WriteInfo("rdp_phase", [..fields, ..ResourceFields(ProcessResourceSnapshot.Capture(refreshResources))]);
+        }
+
+        /// <summary>A step of opening a tab that took at least this long is named in <c>slow_step</c>.</summary>
+        internal const long SlowOpenStepMs = 1000;
+
+        /// <summary>
+        /// One line per RDP tab opened: how long each step took, so a UI stall during an open can
+        /// be pinned to its step. Step names and numbers only.
+        /// </summary>
+        internal static void RdpOpen(string rdpSession, string outcome, bool firstControl, long totalMs,
+            IReadOnlyList<KeyValuePair<string, long>> steps) =>
+            WriteInfo("rdp_open", RdpOpenFields(rdpSession, outcome, firstControl, totalMs, steps));
+
+        /// <summary>The fields of <see cref="RdpOpen"/> as they appear after the event name.</summary>
+        internal static string FormatRdpOpen(string rdpSession, string outcome, bool firstControl, long totalMs,
+            IReadOnlyList<KeyValuePair<string, long>> steps) =>
+            string.Join(" ", RdpOpenFields(rdpSession, outcome, firstControl, totalMs, steps)
+                .Select(field => $"{field.Key}={field.Value}"));
+
+        private static FieldValue[] RdpOpenFields(string rdpSession, string outcome, bool firstControl, long totalMs,
+            IReadOnlyList<KeyValuePair<string, long>> steps)
+        {
+            List<FieldValue> fields =
+            [
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("outcome", SafeToken(outcome)),
+                Boolean("first_control", firstControl),
+                Number("total_ms", totalMs)
+            ];
+            string? slowest = null;
+            long slowestMs = -1;
+            foreach (KeyValuePair<string, long> step in steps)
+            {
+                fields.Add(Number(step.Key + "_ms", step.Value));
+                if (step.Value > slowestMs)
+                {
+                    slowestMs = step.Value;
+                    slowest = step.Key;
+                }
+            }
+            if (slowest != null && slowestMs >= SlowOpenStepMs)
+                fields.Add(Field("slow_step", slowest));
+            return fields.ToArray();
         }
 
         /// <summary>

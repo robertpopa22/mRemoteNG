@@ -65,6 +65,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private uint? _diagnosticExt;
         private int _countedLive;
         private readonly string _diagnosticRdpSession = RuntimeDiagnostics.NewCorrelationId();
+        // Set by the first RDP ActiveX control created in this process: COM registration and type
+        // library load make that one slower, so the open that pays for it says so.
+        private static int s_anyControlCreated;
         private readonly Stopwatch _diagnosticConnectStopwatch = new();
         protected uint DesktopScaleFactor
         {
@@ -304,6 +307,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         #region Public Methods
 
+        /// <summary>Correlation id of this session in the runtime diagnostics.</summary>
+        internal string DiagnosticSession => _diagnosticRdpSession;
+
         protected virtual AxHost CreateActiveXRdpClientControl()
         {
             return new RdpActiveXHosts.Client6();
@@ -317,8 +323,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
             connectionInfo = InterfaceControl.Info;
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Requesting RDP version: {connectionInfo.RdpVersion}. Using: {RdpProtocolVersion}");
             Control = CreateActiveXRdpClientControl();
+            OpenTimer?.Mark("control_new");
             Control.Disposed += OnControlDisposed;
             base.Initialize();
+            OpenTimer?.Mark("host_attach");
 
             try
             {
@@ -359,8 +367,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
             connectionInfo = InterfaceControl.Info;
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Requesting RDP version: {connectionInfo.RdpVersion}. Using: {RdpProtocolVersion}");
             Control = CreateActiveXRdpClientControl();
+            OpenTimer?.Mark("control_new");
             Control.Disposed += OnControlDisposed;
             base.Initialize();
+            OpenTimer?.Mark("host_attach");
 
             try
             {
@@ -407,7 +417,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 // Release stuck modifier keys when the RDP control loses focus (#354).
                 Control!.Leave += RdpControl_Leave;
 
+                if (Interlocked.Exchange(ref s_anyControlCreated, 1) == 0 && OpenTimer != null)
+                    OpenTimer.FirstControl = true;
                 Control!.CreateControl();
+                OpenTimer?.Mark("control_create");
 
                 // ActiveX controls require the message pump to complete creation.
                 // DoEvents() is unavoidable here but introduces re-entrancy risk:
@@ -428,6 +441,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
 
                 _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx()!;
+                OpenTimer?.Mark("control_wait");
 
                 return true;
             }
@@ -458,7 +472,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 // Release stuck modifier keys when the RDP control loses focus (#354).
                 Control!.Leave += RdpControl_Leave;
 
+                if (Interlocked.Exchange(ref s_anyControlCreated, 1) == 0 && OpenTimer != null)
+                    OpenTimer.FirstControl = true;
                 Control!.CreateControl();
+                OpenTimer?.Mark("control_create");
 
                 var deadline = Environment.TickCount64 + 10_000;
                 while (!Control!.Created)
@@ -475,6 +492,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
 
                 _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx()!;
+                OpenTimer?.Mark("control_wait");
 
                 return true;
             }
@@ -505,6 +523,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 // After Initialize and the derived PostInitialize: this is what Connect will use.
                 LogAppliedShape();
+                OpenTimer?.Mark("shape_log");
                 _rdpClient.Connect();
                 base.Connect();
 
@@ -801,9 +820,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             // https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/rdp-files
 
+            OpenTimer?.Mark("ui_parent");
             _rdpClient.Server = connectionInfo.Hostname;
 
             await SetCredentialsAsync(asyncCredentials);
+            OpenTimer?.Mark("credentials");
             if (InterfaceControl.IsDisposed || Control!.IsDisposed)
                 throw new ObjectDisposedException(nameof(InterfaceControl));
             SetResolution();
@@ -857,10 +878,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
             SetUseConsoleSession();
             SetPort();
             RedirectKeys = connectionInfo.RedirectKeys;
+            OpenTimer?.Mark("settings");
             SetRedirection();
+            OpenTimer?.Mark("redirection");
             SetAuthenticationLevel();
             SetLoadBalanceInfo();
             await SetRdGatewayAsync(asyncCredentials);
+            OpenTimer?.Mark("gateway");
             if (InterfaceControl.IsDisposed || Control!.IsDisposed)
                 throw new ObjectDisposedException(nameof(InterfaceControl));
             ViewOnly = Force.HasFlag(ConnectionInfo.Force.ViewOnly);
@@ -868,9 +892,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _rdpClient.ColorDepth = (int)connectionInfo.Colors;
 
             SetPerformanceFlags();
+            OpenTimer?.Mark("perf_flags");
             SetRdpSignature();
 
             _rdpClient.ConnectingText = Language.Connecting;
+            OpenTimer?.Mark("props_rest");
         }
 
         protected object? GetExtendedProperty(string property)

@@ -47,12 +47,16 @@ namespace mRemoteNG.App
             startupLogger.LogStartupData();
             messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   StartupDataLogger: {sw.ElapsedMilliseconds}ms", true);
 
+            sw.Restart();
             CompatibilityChecker.CheckCompatibility(messageCollector);
+            messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   CompatibilityChecker: {sw.ElapsedMilliseconds}ms", true);
 
             // A quarantined ExternalConnectors.dll used to surface as a crash on connect
             // (#175/#191/#192). Only vault and EC2 connections need it now; note it in the log
             // here, and let those connections say so when they are opened.
+            sw.Restart();
             ExternalConnectorsAssembly.LogIfUnavailable(messageCollector);
+            messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   ExternalConnectorsProbe: {sw.ElapsedMilliseconds}ms", true);
 
             // ObjectListView swallows a failure to update a virtual list's row count, which leaves
             // the control reporting a stale count and is the suspected source of the #149 expand
@@ -67,7 +71,9 @@ namespace mRemoteNG.App
             BrightIdeasSoftware.TreeListView.RedrawGuardDiagnostic = report =>
                 messageCollector.AddMessage(MessageClass.WarningMsg, $"[#149-diag] {report}", true);
 
+            sw.Restart();
             ParseCommandLineArgs(messageCollector);
+            messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   CommandLine: {sw.ElapsedMilliseconds}ms", true);
 
             // IE Browser Emulation registry writes are only needed when a WebBrowser control
             // initializes (much later). Run on background thread to avoid blocking startup.
@@ -76,8 +82,10 @@ namespace mRemoteNG.App
             _connectionIconLoader.GetConnectionIcons();
             messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   IconLoader: {sw.ElapsedMilliseconds}ms", true);
 
+            sw.Restart();
             DefaultConnectionInfo.Instance.LoadFrom(Settings.Default, a => "ConDefault" + a);
             DefaultConnectionInheritance.LoadFrom(Settings.Default, a => "InhDefault" + a);
+            messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   ConnectionDefaults: {sw.ElapsedMilliseconds}ms", true);
 
             // Plugin loading involves Assembly.Load + reflection per DLL — defer to background
             // since plugins are not needed until user explicitly uses them.

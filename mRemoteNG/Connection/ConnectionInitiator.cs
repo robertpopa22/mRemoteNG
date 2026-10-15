@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.App.Diagnostics;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Container;
 using mRemoteNG.Tools;
 using mRemoteNG.Messages;
@@ -113,6 +114,7 @@ namespace mRemoteNG.Connection
             if (connectionInfo == null)
                 return;
 
+            OpenStepTimer openTimer = new();
             ConnectionOpenDiagnostics.LogEntry(connectionInfo.Protocol.ToString(),
                 !string.IsNullOrEmpty(connectionInfo.SSHTunnelConnectionName),
                 connectionInfo.WaitForIPAvailability, force.ToString());
@@ -159,7 +161,8 @@ namespace mRemoteNG.Connection
                     && !ExternalConnectorsAssembly.EnsureAvailable(Runtime.MessageCollector))
                     return;
 
-                await OpenConnectionCoreAsync(connectionInfo, force, conForm);
+                openTimer.Mark("entry");
+                await OpenConnectionCoreAsync(connectionInfo, force, conForm, openTimer);
             }
             finally
             {
@@ -176,8 +179,13 @@ namespace mRemoteNG.Connection
 
         private async Task OpenConnectionCoreAsync(ConnectionInfo connectionInfo,
                                                    ConnectionInfo.Force force,
-                                                   ConnectionWindow? conForm)
+                                                   ConnectionWindow? conForm,
+                                                   OpenStepTimer openTimer)
         {
+            // Only an RDP open is reported (rdp_open): the step that blocks the UI thread while a
+            // tab opens is named in the log. Marks are cheap timestamps; nothing else changes.
+            RdpProtocol? timedRdp = null;
+            string openOutcome = "aborted";
             try
             {
                 ConnectionInfo connectionInfoOriginal = connectionInfo;
@@ -251,7 +259,9 @@ namespace mRemoteNG.Connection
                         $"Host '{connectionInfo.Hostname}' is now reachable. Proceeding with connection.");
                 }
 
+                openTimer.Mark("prepare");
                 StartPreConnectionExternalApp(connectionInfo);
+                openTimer.Mark("pre_app");
 
                 bool switchToConnection = !force.HasFlag(ConnectionInfo.Force.DoNotJump);
                 if (switchToConnection)
@@ -259,11 +269,14 @@ namespace mRemoteNG.Connection
                     if (SwitchToOpenConnection(connectionInfo))
                         return;
                 }
+                openTimer.Mark("switch");
 
                 string? connectionPanel = SetConnectionPanel(connectionInfoOriginal, force);
                 if (string.IsNullOrEmpty(connectionPanel)) return;
+                openTimer.Mark("panel");
                 ConnectionWindow? connectionForm = SetConnectionForm(conForm, connectionPanel, switchToConnection);
                 if (connectionForm == null) return;
+                openTimer.Mark("form");
                 Control? connectionContainer = null;
 
                 // Handle connection through SSH tunnel:
@@ -374,14 +387,19 @@ namespace mRemoteNG.Connection
                             string.Format(CultureInfo.InvariantCulture, Language.SshTunnelFailed, connectionInfoOriginal.Name, connectionInfoSshTunnel.Name));
                         return;
                     }
+                    openTimer.Mark("tunnel");
                 }
 
                 ProtocolBase newProtocol = _protocolFactory.CreateProtocol(connectionInfo);
                 SetConnectionFormEventHandlers(newProtocol, connectionForm);
                 SetConnectionEventHandlers(newProtocol);
+                timedRdp = newProtocol as RdpProtocol;
+                newProtocol.OpenTimer = openTimer;
+                openTimer.Mark("protocol");
                 // in case of connection through SSH tunnel the container is already defined and must be use, else it needs to be created here
                 if (connectionContainer == null) connectionContainer = SetConnectionContainer(connectionInfo, connectionForm, switchToConnection);
                 if (connectionContainer == null) return;
+                openTimer.Mark("tab");
                 ConnectionOpenDiagnostics.Log("before_target_control", connectionContainer);
                 BuildConnectionInterfaceController(connectionInfo, newProtocol, connectionContainer);
                 // in case of connection through SSH tunnel the connectionInfo was modified but connectionInfoOriginal in all cases retains the original info
@@ -391,21 +409,29 @@ namespace mRemoteNG.Connection
                 newProtocol.InterfaceControl.SSHTunnelInfo = connectionInfoSshTunnel;
 
                 newProtocol.Force = force;
+                openTimer.Mark("interface_control");
 
                 if (await newProtocol.InitializeAsync() == false)
                 {
+                    openOutcome = "initialize_failed";
                     newProtocol.NoteCloseRequested("initialize_failed");
                     newProtocol.Close();
                     return;
                 }
 
+                // RdpProtocol marks its own steps inside InitializeAsync; what is left here is the
+                // PostInitialize chain of the RDC7+ subclasses.
+                openTimer.Mark("post_init");
+
                 if (await newProtocol.ConnectAsync() == false)
                 {
+                    openOutcome = "connect_failed";
                     newProtocol.NoteCloseRequested("connect_failed");
                     newProtocol.Close();
                     return;
                 }
 
+                openTimer.Mark("connect_call");
                 connectionInfoOriginal.OpenConnections.Add(newProtocol);
                 _activeConnections.Add(useAlternativeAddress ? connectionInfoOriginal.ConstantID : connectionInfo.ConstantID);
                 if (FrmMain.IsCreated)
@@ -414,10 +440,22 @@ namespace mRemoteNG.Connection
                 if (force.HasFlag(ConnectionInfo.Force.WindowedFullscreen) &&
                     newProtocol.InterfaceControl.Parent is ConnectionTab connectionTab)
                     WindowedFullscreenManager.Enter(connectionTab);
+                openTimer.Mark("select");
+                openOutcome = "connect_called";
             }
             catch (Exception ex)
             {
+                openOutcome = "exception";
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionOpenFailed, ex);
+            }
+            finally
+            {
+                if (timedRdp != null)
+                {
+                    timedRdp.OpenTimer = null;
+                    RuntimeDiagnostics.RdpOpen(timedRdp.DiagnosticSession, openOutcome,
+                        openTimer.FirstControl, openTimer.TotalMs, openTimer.Steps);
+                }
             }
         }
 

@@ -183,6 +183,9 @@ namespace mRemoteNG.Connection.Protocol
         {
         }
 
+        /// <summary>Times the steps of the open in progress; null outside an open.</summary>
+        internal App.Diagnostics.OpenStepTimer? OpenTimer { get; set; }
+
         public virtual bool Initialize()
         {
             try
