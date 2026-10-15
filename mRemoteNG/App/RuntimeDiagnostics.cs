@@ -242,6 +242,34 @@ namespace mRemoteNG.App
                 Number("window_rtt_max_ms", sample.WindowRttMaxMs));
 
         /// <summary>
+        /// The application's own measurement of the session's link, over the last probes: loss,
+        /// round-trip range and median, jitter, and the probing method and interval. Numbers only;
+        /// the probed address is never written.
+        /// </summary>
+        internal static void RdpLinkProbe(string rdpSession, Connection.Protocol.RDP.RdpLinkProbeSample sample,
+            string method, int intervalS, bool lowPower) =>
+            WriteInfo("rdp_link_probe",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("method", SafeToken(method)),
+                Field("reason", SafeToken(sample.Reason)),
+                Number("samples", sample.Window.Samples),
+                Number("lost", sample.Window.Lost),
+                Number("loss_pct", sample.Window.LossPct),
+                NullableNumber("rtt_min_ms", sample.Window.RttMinMs),
+                NullableNumber("rtt_med_ms", sample.Window.RttMedianMs),
+                NullableNumber("rtt_max_ms", sample.Window.RttMaxMs),
+                NullableNumber("jitter_ms", sample.Window.JitterMs),
+                Number("interval_s", intervalS),
+                Boolean("low_power", lowPower));
+
+        /// <summary>No established connection of this process matched the session's port, so nothing is probed.</summary>
+        internal static void RdpLinkProbeNoTarget(string rdpSession, int candidates) =>
+            WriteInfo("rdp_link_probe",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("reason", "no_target"),
+                Number("candidates", candidates));
+
+        /// <summary>
         /// The whole connection's link record, written once when it ends: sample count, bandwidth
         /// and round-trip range and mean, seconds spent at each quality level, and the outages that
         /// automatic reconnection bridged.
@@ -261,7 +289,11 @@ namespace mRemoteNG.App
                 Number("reconnect_attempts", summary.ReconnectAttempts),
                 Number("reconnects", summary.Reconnects),
                 Number("outage_ms", summary.OutageMs),
-                Boolean("outage_open", summary.OutageOpen));
+                Boolean("outage_open", summary.OutageOpen),
+                Number("probe_samples", summary.ProbeSamples),
+                NullableNumber("probe_rtt_avg_ms", summary.ProbeRttAvgMs),
+                NullableNumber("probe_loss_pct", summary.ProbeLossPct),
+                NullableNumber("probe_jitter_ms", summary.ProbeJitterMs));
 
         /// <summary>
         /// One automatic-reconnection step: an attempt (with the numeric disconnect reason and the
@@ -279,9 +311,11 @@ namespace mRemoteNG.App
         /// What the link-stability monitor decided, with the thresholds it used, so a journey's log
         /// shows when a lighter configuration would have been offered and when the full one back.
         /// </summary>
-        internal static void RdpAdapt(string rdpSession, Connection.Protocol.RDP.RdpAdaptDecision decision, bool autoDetect) =>
+        internal static void RdpAdapt(string rdpSession, Connection.Protocol.RDP.RdpAdaptDecision decision, bool autoDetect,
+            string method = "control") =>
             WriteInfo("rdp_adapt",
                 Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("method", SafeToken(method)),
                 Field("decision", SafeToken(decision.Decision)),
                 Field("reason", SafeToken(decision.Reason)),
                 NullableNumber("rtt_median_ms", decision.RttMedianMs),

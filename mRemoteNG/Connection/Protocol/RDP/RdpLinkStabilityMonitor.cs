@@ -24,10 +24,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
         internal const long PromptCooldownMs = 1_800_000;
         internal const long StableForMs = 900_000;
         internal const int StableRttMs = 100;
+        internal const int LossWindowProbes = 5;
+        internal const int DegradedLosses = 3;
 
         private readonly System.Threading.Lock _sync = new();
         private readonly Queue<(long At, int RttMs)> _rtt = new();
         private readonly Queue<long> _drops = new();
+        private readonly Queue<bool> _probeLosses = new();
         private bool _unstable;
         private long _lastPromptMs = long.MinValue;
         private long _calmSinceMs = long.MinValue;
@@ -37,14 +40,40 @@ namespace mRemoteNG.Connection.Protocol.RDP
             get { lock (_sync) return _unstable; }
         }
 
-        /// <summary>A round-trip reading from the control.</summary>
-        internal RdpAdaptDecision? Sample(long nowMs, int rttMs)
+        /// <summary>
+        /// A round-trip reading, from the control or, with <paramref name="probe"/>, from an
+        /// answered link probe.
+        /// </summary>
+        internal RdpAdaptDecision? Sample(long nowMs, int rttMs, bool probe = false)
         {
             lock (_sync)
             {
                 _rtt.Enqueue((nowMs, Math.Max(0, rttMs)));
+                if (probe)
+                    RecordProbeOutcome(lost: false);
                 return Evaluate(nowMs);
             }
+        }
+
+        /// <summary>
+        /// A link probe went unanswered. Loss is a degraded reading, not a drop: the session may
+        /// still be up, so <see cref="DegradedLosses"/> lost of the last
+        /// <see cref="LossWindowProbes"/> probes count as an unstable link on their own.
+        /// </summary>
+        internal RdpAdaptDecision? Loss(long nowMs)
+        {
+            lock (_sync)
+            {
+                RecordProbeOutcome(lost: true);
+                return Evaluate(nowMs);
+            }
+        }
+
+        private void RecordProbeOutcome(bool lost)
+        {
+            _probeLosses.Enqueue(lost);
+            while (_probeLosses.Count > LossWindowProbes)
+                _probeLosses.Dequeue();
         }
 
         /// <summary>The link dropped: the control started an automatic reconnection.</summary>
@@ -70,22 +99,23 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             bool slow = rttMedian >= UnstableRttMs;
             bool dropping = drops >= UnstableDrops;
+            bool lossy = _probeLosses.Count(lost => lost) >= DegradedLosses;
 
             if (!_unstable)
             {
-                if (!slow && !dropping)
+                if (!slow && !dropping && !lossy)
                     return null;
 
                 _unstable = true;
                 _calmSinceMs = long.MinValue;
                 if (_lastPromptMs != long.MinValue && nowMs - _lastPromptMs < PromptCooldownMs)
-                    return new RdpAdaptDecision("unstable_suppressed", Reason(slow, dropping), rttMedian, drops);
+                    return new RdpAdaptDecision("unstable_suppressed", Reason(slow, dropping, lossy), rttMedian, drops);
 
                 _lastPromptMs = nowMs;
-                return new RdpAdaptDecision("would_prompt", Reason(slow, dropping), rttMedian, drops);
+                return new RdpAdaptDecision("would_prompt", Reason(slow, dropping, lossy), rttMedian, drops);
             }
 
-            bool calm = drops == 0 && rttMedian is int median && median < StableRttMs;
+            bool calm = drops == 0 && !lossy && rttMedian is int median && median < StableRttMs;
             if (!calm)
             {
                 _calmSinceMs = long.MinValue;
@@ -121,8 +151,14 @@ namespace mRemoteNG.Connection.Protocol.RDP
             return sorted[sorted.Length / 2];
         }
 
-        private static string Reason(bool slow, bool dropping) =>
-            slow && dropping ? "rtt_and_drops" : slow ? "rtt" : "drops";
+        private static string Reason(bool slow, bool dropping, bool lossy)
+        {
+            var parts = new List<string>(3);
+            if (slow) parts.Add("rtt");
+            if (dropping) parts.Add("drops");
+            if (lossy) parts.Add("loss");
+            return string.Join("_and_", parts);
+        }
     }
 
     internal sealed record RdpAdaptDecision(string Decision, string Reason, int? RttMedianMs, int DropsInWindow);

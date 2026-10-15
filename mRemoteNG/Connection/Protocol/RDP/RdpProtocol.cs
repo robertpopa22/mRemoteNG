@@ -51,6 +51,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private readonly RdpAutoReconnectGate _arcGate = new();
         private RdpNetworkStats _networkStats = new();
         private readonly RdpLinkStabilityMonitor _linkMonitor = new();
+        private RdpLinkProbe? _linkProbe;
         private int _requestedPerfFlags = -1;
         private readonly System.Windows.Forms.Timer _arcLivenessTimer;
         private bool _redirectKeys;
@@ -536,6 +537,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             if (Interlocked.Exchange(ref _closeStarted, 1) != 0) return;
             NoteCloseRequested("protocol_close");
+            StopLinkProbe();
             void PrepareClose()
             {
                 if (_rdpClient == null || Control?.IsDisposed != false) return;
@@ -1982,6 +1984,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "attempt", disconnectReason, attemptCount, null);
             if (attemptCount <= 1)
                 WriteAdaptDecision(_linkMonitor.Drop(Environment.TickCount64));
+            _linkProbe?.MarkDrop(Environment.TickCount64);
 
             if (_arcGate.ShouldContinue(Environment.TickCount64, DateTime.UtcNow))
                 return AutoReconnectContinueState.autoReconnectContinueAutomatic;
@@ -2000,6 +2003,63 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             long outageMs = _networkStats.Reconnected(Environment.TickCount64);
             RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "reconnected", null, null, outageMs);
+            _linkProbe?.Reconnected();
+        }
+
+        /// <summary>
+        /// Starts the application's own link probe once the session is up. The control's
+        /// <c>OnNetworkStatusChanged</c> is event-driven and stays silent for hours under the Modem
+        /// connection type, so on a travel link it yields no samples; the probe is the travel source.
+        /// </summary>
+        private void StartLinkProbe()
+        {
+            try
+            {
+                // Through a gateway the control's TCP connection goes to the gateway, not the host.
+                int[] ports = connectionInfo.RDGatewayUsageMethod != RDGatewayUsageMethod.Never
+                    ? [connectionInfo.Port, 443]
+                    : [connectionInfo.Port];
+                _linkProbe ??= new RdpLinkProbe(
+                    () => new RdpProbeState(PowerAwareness.IsMinimized, PowerAwareness.OnBattery, _arcGate.StoppedAfterResume),
+                    OnLinkProbeResult,
+                    candidates => RuntimeDiagnostics.RdpLinkProbeNoTarget(_diagnosticRdpSession, candidates));
+                _linkProbe.Start(ports);
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_link_probe", ex);
+            }
+        }
+
+        private void StopLinkProbe()
+        {
+            try
+            {
+                _linkProbe?.Stop();
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_link_probe", ex);
+            }
+        }
+
+        /// <summary>Runs on a thread-pool thread; the stats and the monitor lock internally.</summary>
+        private void OnLinkProbeResult(RdpProbeResult result)
+        {
+            try
+            {
+                RdpLinkProbeSample? sample = _networkStats.RecordProbe(result.AtMs, result.RttMs);
+                if (sample != null)
+                    RuntimeDiagnostics.RdpLinkProbe(_diagnosticRdpSession, sample, result.Method,
+                        result.IntervalMs / 1000, result.LowPower);
+                WriteAdaptDecision(result.RttMs is int rtt
+                    ? _linkMonitor.Sample(result.AtMs, rtt, probe: true)
+                    : _linkMonitor.Loss(result.AtMs), result.Method);
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_link_probe", ex);
+            }
         }
 
         /// <summary>
@@ -2027,14 +2087,14 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// Shadow mode: the decision is only logged. Nothing is shown to the user until the
         /// thresholds have been checked against real journeys.
         /// </summary>
-        private void WriteAdaptDecision(RdpAdaptDecision? decision)
+        private void WriteAdaptDecision(RdpAdaptDecision? decision, string method = "control")
         {
             if (decision == null)
                 return;
             try
             {
                 RuntimeDiagnostics.RdpAdapt(_diagnosticRdpSession, decision,
-                    Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect);
+                    Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect, method);
             }
             catch (Exception ex)
             {
@@ -2076,6 +2136,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
                 discReason, diagnosticExtendedReason, refreshResources: true);
             WriteNetworkSummary("disconnected");
+            _linkProbe?.MarkDrop(Environment.TickCount64);
 
             if (discReason != UI_ERR_NORMAL_DISCONNECT && _extendedReconnectAttemptsRemaining > 0 &&
                 !_arcGate.StoppedAfterResume)
@@ -2188,6 +2249,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "login_complete",
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
                 refreshResources: true);
+            StartLinkProbe();
             if (WindowedFullscreenSizingActive)
             {
                 try
@@ -2745,6 +2807,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     catch { /* the control can already be unusable; the close line still records that */ }
                     WriteCloseResources("close_before", refresh: true, wasConnected, hostAlreadyDisposed,
                         beforeW, beforeH, beforeSmart, beforeFull);
+                    StopLinkProbe();
                     WriteNetworkSummary("close");
                     string disconnect = _disconnectRequested ? "disconnect already requested" : "not connected";
                     string disconnectToken = hostAlreadyDisposed

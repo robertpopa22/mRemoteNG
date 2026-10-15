@@ -19,6 +19,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
     internal sealed class RdpNetworkStats
     {
         internal const long ThrottleMs = 30_000;
+        internal const int ProbeWindowSize = 20;
+        internal const long ProbeWindowMs = 300_000;
 
         private readonly System.Threading.Lock _sync = new();
         private readonly Dictionary<uint, long> _msPerQuality = new();
@@ -45,6 +47,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private int _attempts;
         private long _outageMs;
         private long? _outageStartMs;
+
+        private readonly Queue<(long At, int? RttMs)> _probeWindow = new();
+        private long _probeSamples;
+        private long _probeLost;
+        private long _probeRttSum;
+        private long _probeRttCount;
+        private long _probeJitterSum;
+        private long _probeJitterCount;
+        private int? _probeLastRtt;
+        private long _probeLastEmitMs = long.MinValue;
+        private int _probeLossBand;
 
         /// <summary>
         /// Records one network sample. Returns a line to write, or <c>null</c> when the sample is
@@ -100,6 +113,87 @@ namespace mRemoteNG.Connection.Protocol.RDP
         }
 
         /// <summary>
+        /// Records one result of the application's own link probe; <paramref name="rttMs"/> is
+        /// <c>null</c> for a lost probe. Returns a line to write on the first probe, when the loss
+        /// band of the window changes (none, under half, half or more), or once per
+        /// <see cref="ThrottleMs"/>; otherwise <c>null</c>. The window is the last
+        /// <see cref="ProbeWindowSize"/> probes, no older than <see cref="ProbeWindowMs"/>.
+        /// </summary>
+        internal RdpLinkProbeSample? RecordProbe(long nowMs, int? rttMs)
+        {
+            lock (_sync)
+            {
+                if (rttMs is int value)
+                {
+                    value = Math.Max(0, value);
+                    rttMs = value;
+                    _probeRttSum += value;
+                    _probeRttCount++;
+                    if (_probeLastRtt is int previous)
+                    {
+                        _probeJitterSum += Math.Abs(value - previous);
+                        _probeJitterCount++;
+                    }
+                    _probeLastRtt = value;
+                }
+                else
+                {
+                    _probeLost++;
+                }
+                _probeSamples++;
+
+                _probeWindow.Enqueue((nowMs, rttMs));
+                while (_probeWindow.Count > ProbeWindowSize)
+                    _probeWindow.Dequeue();
+                while (_probeWindow.Count > 1 && nowMs - _probeWindow.Peek().At > ProbeWindowMs)
+                    _probeWindow.Dequeue();
+
+                RdpProbeWindow window = ComputeProbeWindow(_probeWindow.Select(p => p.RttMs));
+                int band = window.LossPct == 0 ? 0 : window.LossPct < 50 ? 1 : 2;
+                bool first = _probeLastEmitMs == long.MinValue;
+                bool bandChanged = !first && band != _probeLossBand;
+                _probeLossBand = band;
+                if (!first && !bandChanged && nowMs - _probeLastEmitMs < ThrottleMs)
+                    return null;
+
+                _probeLastEmitMs = nowMs;
+                return new RdpLinkProbeSample(first ? "first" : bandChanged ? "loss_change" : "interval", window);
+            }
+        }
+
+        /// <summary>
+        /// Loss, round-trip range and median, and jitter (the mean absolute difference between
+        /// consecutive answered probes) over a run of probe results, oldest first.
+        /// </summary>
+        internal static RdpProbeWindow ComputeProbeWindow(IEnumerable<int?> results)
+        {
+            int samples = 0, lost = 0;
+            var rtts = new List<int>();
+            foreach (int? result in results)
+            {
+                samples++;
+                if (result is int rtt) rtts.Add(rtt);
+                else lost++;
+            }
+
+            int lossPct = samples == 0 ? 0 : (int)Math.Round(lost * 100.0 / samples, MidpointRounding.AwayFromZero);
+            if (rtts.Count == 0)
+                return new RdpProbeWindow(samples, lost, lossPct, null, null, null, null);
+
+            int? jitter = null;
+            if (rtts.Count > 1)
+            {
+                long diffs = 0;
+                for (int i = 1; i < rtts.Count; i++)
+                    diffs += Math.Abs(rtts[i] - rtts[i - 1]);
+                jitter = (int)Math.Round((double)diffs / (rtts.Count - 1), MidpointRounding.AwayFromZero);
+            }
+
+            int[] sorted = rtts.OrderBy(r => r).ToArray();
+            return new RdpProbeWindow(samples, lost, lossPct, sorted[0], sorted[sorted.Length / 2], sorted[^1], jitter);
+        }
+
+        /// <summary>
         /// The client is trying to reconnect. The outage starts at the first attempt and lasts
         /// until <see cref="Reconnected"/>.
         /// </summary>
@@ -133,7 +227,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             lock (_sync)
             {
-                if (_samples == 0 && _attempts == 0)
+                if (_samples == 0 && _attempts == 0 && _probeSamples == 0)
                     return null;
 
                 var perQuality = new Dictionary<uint, long>(_msPerQuality);
@@ -157,7 +251,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     _attempts,
                     _reconnects,
                     _outageMs + openOutage,
-                    _outageStartMs.HasValue);
+                    _outageStartMs.HasValue,
+                    _probeSamples,
+                    _probeRttCount == 0 ? null : (int)(_probeRttSum / _probeRttCount),
+                    _probeSamples == 0 ? null : (int)Math.Round(_probeLost * 100.0 / _probeSamples, MidpointRounding.AwayFromZero),
+                    _probeJitterCount == 0 ? null : (int)Math.Round((double)_probeJitterSum / _probeJitterCount, MidpointRounding.AwayFromZero));
             }
         }
 
@@ -203,5 +301,20 @@ namespace mRemoteNG.Connection.Protocol.RDP
         int ReconnectAttempts,
         int Reconnects,
         long OutageMs,
-        bool OutageOpen);
+        bool OutageOpen,
+        long ProbeSamples = 0,
+        int? ProbeRttAvgMs = null,
+        int? ProbeLossPct = null,
+        int? ProbeJitterMs = null);
+
+    internal sealed record RdpProbeWindow(
+        int Samples,
+        int Lost,
+        int LossPct,
+        int? RttMinMs,
+        int? RttMedianMs,
+        int? RttMaxMs,
+        int? JitterMs);
+
+    internal sealed record RdpLinkProbeSample(string Reason, RdpProbeWindow Window);
 }
