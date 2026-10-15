@@ -234,15 +234,19 @@ namespace mRemoteNG.App
         {
             // reconnect=true marks a login (or connect) the control reached again on its own, after
             // ARC or a silent reconnection; absent on the first one so older lines read unchanged.
+            // disc_class reads a disconnect reason, so only a disconnect carries one. A logon_state
+            // line carries the OnLogonError code, which is a logon state (NLA, credential UI, ...),
+            // not a disconnect reason: it is written as logon_code so it cannot be read as one.
+            bool logonState = phase == "logon_state";
             FieldValue[] fields =
             [
                 Field("rdp_session", SafeCorrelationId(rdpSession)),
                 Field("phase", SafeToken(phase)),
                 Number("duration_ms", durationMs),
                 Field("version", SafeVersion(version)),
-                NullableNumber("code", primaryCode),
+                NullableNumber(logonState ? "logon_code" : "code", primaryCode),
                 NullableNumber("extended_code", extendedCode),
-                Field("disc_class", ClassifyDisconnect(primaryCode, extendedCode))
+                Field("disc_class", phase == "disconnected" ? ClassifyDisconnect(primaryCode, extendedCode) : "na")
             ];
             return reconnect ? [..fields, Boolean("reconnect", true)] : fields;
         }

@@ -100,5 +100,27 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             Assert.That(again, Does.EndWith(" reconnect=true"));
             Assert.That(again, Does.Contain(" duration_ms=3964 "));
         }
+
+        [Test]
+        public void ALogonStateIsNotClassifiedAsADisconnect()
+        {
+            // Laptop log 2026-10-15: "phase=logon_state ... disc_class=other" read as a disconnect.
+            string line = RuntimeDiagnostics.FormatRdpPhase("0123456789ab", "logon_state", 4984, "10.0", -5);
+
+            Assert.That(line, Does.Contain(" logon_code=-5 "));
+            Assert.That(line, Does.Not.Contain(" code="));
+            Assert.That(line, Does.Contain(" disc_class=na"));
+        }
+
+        [Test]
+        public void OnlyADisconnectCarriesADisconnectClass()
+        {
+            string disconnected = RuntimeDiagnostics.FormatRdpPhase("0123456789ab", "disconnected", 10, "10.0", 2308, 0);
+            string fatal = RuntimeDiagnostics.FormatRdpPhase("0123456789ab", "fatal_error", 10, "10.0", 2308);
+
+            Assert.That(disconnected, Does.Contain(" disc_class=socket_closed"));
+            Assert.That(fatal, Does.Contain(" code=2308 "));
+            Assert.That(fatal, Does.Contain(" disc_class=na"));
+        }
     }
 }
