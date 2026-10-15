@@ -65,9 +65,14 @@ any_crashed=false
 groups_with_zero=0
 overall_start=$(date +%s)
 
+# Kill only the testhosts launched from THIS checkout's test output folder.
+# A machine-wide `taskkill /IM testhost.exe` also kills the suite of any other
+# worktree running at the same time, which then reports
+# "Test host process crashed" for whichever group was in flight.
 cleanup_env() {
-    taskkill //F //IM testhost.exe >/dev/null 2>&1 || true
-    taskkill //F //IM testhost.x86.exe >/dev/null 2>&1 || true
+    local ps_kill='Get-CimInstance Win32_Process | Where-Object { $_.Name -like "testhost*" -and $_.ExecutablePath -and $_.ExecutablePath.StartsWith($env:MRNG_TESTHOST_DIR + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }'
+    MRNG_TESTHOST_DIR="$(cygpath -w "$REPO_ROOT/mRemoteNGTests/bin")" \
+        powershell.exe -NoProfile -NonInteractive -Command "$ps_kill" >/dev/null 2>&1 || true
     rm -rf "$REPO_ROOT/TestResults" 2>/dev/null || true
     rm -f "$REPO_ROOT/mRemoteNGTests/bin/x64/Release/testhost.runtimeconfig.json" 2>/dev/null || true
 }
