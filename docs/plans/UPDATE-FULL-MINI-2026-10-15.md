@@ -6,8 +6,8 @@
 > WinRM/Tailscale eșuate pe 14.10, OneDrive cloud-only pe laptop, zip-ul self-contained de 99 MB livrat manual
 > prin release-ul `nightly`.
 >
-> Design produs de un agent Opus pe 2026-10-15, read-only, cu fapte verificate în sursă. Status: propus,
-> neimplementat. Pașii 1–3 din §H aduc valoare în zile; 4–7 trec întâi prin lab (D11).
+> Design produs de un agent Opus pe 2026-10-15, read-only, cu fapte verificate în sursă. Status: pașii 1-3
+> implementați (§C), 4-7 propuși. Pașii 1–3 din §H aduc valoare în zile; 4–7 trec întâi prin lab (D11).
 
 ## Ce există azi (verificat în sursă)
 - `build.ps1` (l. 80-85) calculează `LocalBuildNumber = minute de la 2019-09-02 / 1000`. Valoarea crește o dată la circa 16,7 ore, deci se repetă pentru toate commiturile din aceeași zi. `mRemoteNG.csproj` (l. 720-727) setează `InformationalVersion = "$(LocalBuildVersion) (Local build N) $(Platform)"` și `IncludeSourceRevisionInInformationalVersion=false`.
@@ -67,6 +67,17 @@
 - Probă 2026-10-15 (bfcff4ff79, același commit construit de două ori): FULL 647 fișiere, zip 99.038.469 B. MINI: 34 de fișiere diferă deși commitul e identic (10 de nivel 1: `mRemoteNG.dll/.pdb`, `mRemoteNG.Plugins.dll/.pdb`, `ObjectListView.dll/.pdb`, `ExternalConnectors.dll/.pdb`, `Interop.MSTSCLib.dll`, `AxInterop.MSTSCLib.dll`, plus 24 `Languages\*\mRemoteNG.resources.dll`), 12,35 MB, zip 3,7 MB. Build-ul nu este determinist, iar `Interop.MSTSCLib.dll` regenerat cu alt hash declanșează refuzul MINI. Remediat ulterior prin build determinist (§B, Determinism).
 - Probă după determinism (2026-10-15): `-Channel full -DryRun -SkipTests` și apoi `-Channel mini -DryRun -SkipTests -BaseFullManifestPath <manifestul FULL>` pe același commit. Cele două build-uri au rulat în directoare `%TEMP%\mrng-build-*` diferite. FULL: 647 de fișiere, zip 99.042.764 B. MINI: **delta 0 (0 B), remove 0**, zip 32.428 B, care conține numai manifestul. Scriptul cădea pe delta gol (`Measure-Object ... .Sum` sub StrictMode); am corectat. Un MINI gol este încă acceptat; un refuz „nimic de publicat” rămâne de decis.
 
+### Implementat (pasul 3): aplicarea manuală a unui MINI
+- `pwsh scripts/Deploy-Portable.ps1 -Mini <zip> -TargetDirectory <copie portabilă> [-StopRunningApplication]`, set de parametri nou lângă `-SourceDirectory`. Fără rețea.
+- Refuză, fără nicio modificare: copie MSI (`mRemoteNG.installed`); țintă fără `mRemoteNG.exe` sau fără `Settings\confCons.xml`; manifest invalid (schema, `channel`, `rid`, versiune, căi nesigure, `delta` nepotrivit cu `files` sau cu zip-ul, intrări în plus în zip); bază locală diferită: orice fișier din `files` care nu e în `delta` trebuie să existe local cu aceeași mărime și același sha256, altfel „base differs; FULL required” cu primele 20 de căi.
+- Construiește programul complet în `_staging\<ver>\tree\`: hardlink spre fișierele locale nemodificate (copie, cu avertisment, dacă hardlink-ul eșuează), fișierele din `delta` extrase din zip cu garda zip-slip, fără `remove`. Verifică arborele contra `files` (mărime + sha256, fără fișiere în plus). Abia apoi închide aplicația (`-StopRunningApplication`) și face schimbul prin aceeași funcție de rename și rollback ca deploy-ul complet (`Install-StagedProgram`, extrasă din blocul existent, nu duplicată). `_staging` se adaugă la numele neatinse, alături de `Settings`, `_rollback`, `_deploy-state`. `program-manifest.json` primește `channel`, `version`, `commit`, `baseFull`, `package`.
+- **Constatare în lab:** la prima pornire, o copie portabilă mută `<exe>\Themes` în `Settings\Themes` (`SettingsFileInfo.MigratePortableSettings`, `Directory.Move`). Programul nu mai corespunde FULL-ului din care a fost extras. Scriptul caută un `Themes\<fișier>` lipsă în `Settings\Themes`, cere hash-ul din manifest și îl copiază înapoi, fără hardlink, fiindcă acea copie e a utilizatorului. Updater-ul C# (pasul 6) are nevoie de aceeași regulă, sau aplicația trebuie să copieze în loc să mute.
+- **Probă în lab, 2026-10-15** (`mRNG-Lab-WinSrv2025`, foldere de unică folosință, pwsh 7 portabil copiat pe guest, dovezi în `lab-artifacts/_evidence/2026-10-15-mini-apply.md`, ignorat de git). FULL `1.84.0+f3f5fb5ac0`: 647 de fișiere, zip 99.043.353 B. MINI `1.84.0+f84136e874` (un singur rând de comentariu schimbat): **delta 9 fișiere, 10.236.792 B, zip 3.034.108 B**, nu 1-3 cum estima §B. `ExternalConnectors.dll` și `mRemoteNG.Plugins.dll` poartă `ProductVersion 1.0.0+<sha complet>` (Source Link adaugă commitul în afara `mRemoteNG.csproj`), iar `ObjectListView.dll` diferă și el, probabil prin datele Source Link din PDB. Orice commit livrează deci cele patru assembly-uri managed și PDB-urile lor; remedierea rămâne de făcut.
+  1. FULL extras, Settings seed (20 de conexiuni), pornire: `process_start ... build_id=f3f5fb5ac0 edition=portable`, `connections_load nodes=20 outcome=success`.
+  2. MINI peste bază: 4 teme preluate din `Settings\Themes`, 638 de fișiere verificate, arbore asamblat din 634 de hardlink-uri + 9 din pachet + 4 copiate, aplicare în 3,5 s, hash-urile Settings identice înainte și după, `_rollback\program-<stamp>` cu 643 de fișiere, `_staging` șters. Pornire: `build_id=f84136e874`, 20 de conexiuni.
+  3. Bază diferită (un octet schimbat în `AWSSDK.Core.dll`, care nu e în delta): „MINI refused: base differs; FULL required ... 1 local file(s) do not match it ... sha256 AWSSDK.Core.dll”. Hash-ul întregului arbore e identic înainte și după, fără `_staging` și fără `_rollback`.
+  4. Un octet schimbat în `mRemoteNG.dll` din zip, aceeași mărime: „MINI refused: the assembled program does not match the manifest; nothing was changed ... sha256 mRemoteNG.dll”. Arborele e identic înainte și după, iar `_staging` e șters.
+
 ## D. Client
 - Clase noi în `mRemoteNG/App/Update/`: `ReleaseManifest` + `ManifestVerifier` (parse, semnătură, validare căi); `UpdatePlanner` (decide `None`/`Mini`/`Full`); `UpdateDownloader`; `UpdateStager`.
 - `AppUpdater` primește `GetManifestAsync()`. Vechiul `releases/latest` rămâne pentru changelog.
@@ -106,7 +117,7 @@ Script `lab-update.ps1`, după modelul `lab-msi.ps1`, pe guest-ul izolat. Server
 |---|---|---|---|---|
 | 1 | Identitate versiune + fix parser + `process_start build_id` + satelite stabile | `mRemoteNG.csproj`, `GeneralAppInfo.cs`, `frmMain.cs`, `FrmAbout.cs`, `RuntimeDiagnostics.cs`, test | ~80 | Sonnet (verificare satelite: Opus) |
 | 2 | `Publish-Release.ps1` FULL + MINI nesemnat, manifest, zip, `-DryRun` | `scripts/` | ~300 | Sonnet |
-| 3 | Aplicare manuală MINI prin `Deploy-Portable.ps1 -Mini <zip>`, care construiește arborele din baza locală și refolosește algoritmul dovedit | `scripts/Deploy-Portable.ps1` | ~120 | Opus |
+| 3 | Aplicare manuală MINI prin `Deploy-Portable.ps1 -Mini <zip>`, care construiește arborele din baza locală și refolosește algoritmul dovedit. **Implementat, probat în lab 2026-10-15** (§C) | `scripts/Deploy-Portable.ps1` | ~120 | Opus |
 | 4 | Semnare Ed25519 (script + `ManifestVerifier`) + tripwire paths, **review uman** | `Security/`, `security-tripwire.sh` | ~200 | Opus |
 | 5 | Planner + downloader (Range, backoff, putere) + bara de stare + opțiunea | `App/Update/`, `UpdatesPage`, `Properties` | ~450 | Opus planner/downloader, Sonnet UI |
 | 6 | Updater NativeAOT + jurnal + probă de pornire + rollback, **review uman** | `mRemoteNG.Update/` (proiect nou, `.sln` modificat de om) | ~500 | Opus |

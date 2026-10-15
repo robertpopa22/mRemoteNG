@@ -56,6 +56,25 @@ Pruning old rollback copies happens only after a verified deployment and never
 undoes it: a copy that cannot be removed is reported as a warning and retried on
 the next run.
 
+## Applying a MINI package
+
+A MINI zip from `scripts/Publish-Release.ps1 -Channel mini` carries only the files that
+changed against one published FULL. Apply it over a portable copy of that FULL:
+
+```powershell
+pwsh ./scripts/Deploy-Portable.ps1 -Mini <mRemoteNG-mini-...-x64.zip> -TargetDirectory <install-dir>/mRemoteNG-latest
+```
+
+The deployer reads `manifest.json` from the zip and refuses, without changing anything, when
+the target is an MSI copy (`mRemoteNG.installed`), has no `Settings/confCons.xml`, or does
+not hold the base FULL: every file the MINI does not carry must be present locally with the
+manifest's size and SHA-256 ("base differs; FULL required", with the first 20 paths). It then
+builds the complete new program in `<target>/_staging/<version>/tree` from hard links to the
+unchanged local files plus the files in the zip, checks every path against the manifest
+(zip-slip guard) and every file by size and SHA-256, and only then closes the application
+(with `-StopRunningApplication`) and swaps the program in with the same rename and rollback
+path described above. No network is used. A portable copy moves its program `Themes` folder into `Settings/Themes` on first start; a theme file missing from the program folder is taken from there when its SHA-256 matches the manifest, and copied, not linked.
+
 ## Star the project
 
 If this project helps you, please [star the repository](https://github.com/robertpopa22/mRemoteNG).

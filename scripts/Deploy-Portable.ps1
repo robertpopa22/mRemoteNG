@@ -2,24 +2,68 @@
 .SYNOPSIS
 Deploys a portable mRemoteNG build into a target directory, preserving Settings.
 
+.DESCRIPTION
+Two ways in, one swap. With -SourceDirectory the whole program is copied from a build output.
+With -Mini a MINI package (scripts/Publish-Release.ps1 -Channel mini) is applied over the FULL it
+was computed against: the complete new program is assembled in <target>\_staging\<version>\tree
+from hard links to the unchanged local files plus the files carried in the package, verified
+against the package manifest, and only then swapped in. Both paths use the same rename-based
+swap: every top-level program item goes to <target>\_rollback\program-<stamp>, the new items are
+moved in, and any failure puts the previous program back and proves it by hash. Settings,
+_rollback, _deploy-state and _staging are never moved, replaced or hashed as program files.
+Design: docs/plans/UPDATE-FULL-MINI-2026-10-15.md (E).
+
+.PARAMETER SourceDirectory
+A portable build output (for example mRemoteNG\bin\x64\Release\publish). The whole program in the
+target is replaced by it.
+
+.PARAMETER Mini
+A MINI zip: manifest.json at its root (schema 1, channel mini) plus the files listed in its
+"delta". "files" is the complete program after the update, "remove" the files it drops. No
+network is used. The MINI is refused, and nothing in the target changes, when:
+the target holds mRemoteNG.installed (an MSI copy) or is not a portable copy with
+Settings\confCons.xml; any file in "files" that is not in "delta" is missing locally or differs
+by sha256 or size ("base differs; FULL required", with the first 20 paths); the manifest or a
+path in it is malformed or escapes the target; a delta file in the zip does not match its hash
+or size; or the assembled tree does not match "files" exactly.
+Local program files that are in neither "files" nor "remove" are not carried over; they are
+listed and kept in the rollback folder.
+
+.PARAMETER TargetDirectory
+The portable copy to deploy into. With -Mini it must already exist.
+
+.PARAMETER LegacyProfileDirectory
+-SourceDirectory only: a legacy %APPDATA% profile to migrate when the target has no Settings yet.
+
 .PARAMETER StopRunningApplication
 Close a running deployed application instead of refusing to deploy. The close has three
 steps: CloseMainWindow, answering the "confirm exit" dialog with Yes through UI Automation;
 WM_CLOSE to every window of the process when there is no main window (hidden to tray);
 Stop-Process at the deadline, logged as a warning. Open sessions are closed.
-Without this switch a running application makes the script throw.
+Without this switch a running application makes the script throw. With -Mini the application
+is only closed after the package and the local base have been verified.
 
 .PARAMETER CloseTimeoutSeconds
 How long to wait for the application to close on its own before it is terminated.
+
+.EXAMPLE
+pwsh -File scripts\Deploy-Portable.ps1 -SourceDirectory mRemoteNG\bin\x64\Release\publish -TargetDirectory D:\prod\mRemoteNG
+
+.EXAMPLE
+pwsh -File scripts\Deploy-Portable.ps1 -Mini mRemoteNG-mini-1.84.0-a1b2c3d4e5-x64.zip -TargetDirectory D:\prod\mRemoteNG -StopRunningApplication
 #>
-[CmdletBinding()]
+[CmdletBinding(DefaultParameterSetName = 'Source')]
 param(
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ParameterSetName = 'Source')]
     [string]$SourceDirectory,
+
+    [Parameter(Mandatory, ParameterSetName = 'Mini')]
+    [string]$Mini,
 
     [Parameter(Mandatory)]
     [string]$TargetDirectory,
 
+    [Parameter(ParameterSetName = 'Source')]
     [string]$LegacyProfileDirectory,
 
     # Where replaced program versions are kept. Defaults to <target>\_rollback. Point it
@@ -41,7 +85,7 @@ $ErrorActionPreference = 'Stop'
 
 # Top-level names in the target that are not part of the program and are never moved,
 # replaced or hashed as program files.
-$script:NonProgramNames = @('Settings', '_rollback', '_deploy-state')
+$script:NonProgramNames = @('Settings', '_rollback', '_deploy-state', '_staging')
 
 if (-not ('MRemoteNGDeploy.ReparsePoint' -as [type])) {
     Add-Type -TypeDefinition @'
@@ -742,13 +786,459 @@ function Remove-OldBackups {
     }
 }
 
-$source = Get-CanonicalPath -Path $SourceDirectory
-$target = Get-CanonicalPath -Path $TargetDirectory
-$legacy = if ([string]::IsNullOrWhiteSpace($LegacyProfileDirectory)) {
-    $null
-} else {
-    Get-CanonicalPath -Path $LegacyProfileDirectory
+if (-not ('MRemoteNGDeploy.HardLink' -as [type])) {
+    Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+
+namespace MRemoteNGDeploy
+{
+    public static class HardLink
+    {
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern bool CreateHardLinkW(string newFileName, string existingFileName, IntPtr securityAttributes);
+
+        // Returns 0 on success, otherwise the Win32 error code.
+        public static int Create(string newFileName, string existingFileName)
+        {
+            return CreateHardLinkW(newFileName, existingFileName, IntPtr.Zero) ? 0 : Marshal.GetLastWin32Error();
+        }
+    }
 }
+'@
+}
+
+# The swap shared by both deployment paths. Every top-level program item of the target is renamed
+# into <BackupRoot>\program-<stamp>, the staged items are moved in, the result and the Settings
+# profile are proven by hash and _deploy-state\program-manifest.json is written. On any failure
+# the previous program is put back and proven by hash before the error is rethrown.
+# Returns the Settings hash map taken after the swap.
+function Install-StagedProgram {
+    param(
+        [Parameter(Mandatory)][string]$Target,
+        [Parameter(Mandatory)][string]$Stage,
+        [Parameter(Mandatory)][string]$BackupRoot,
+        [Parameter(Mandatory)][AllowEmptyCollection()]$ExpectedHashes,
+        [Parameter(Mandatory)][AllowEmptyCollection()]$ProfileBefore,
+        [Collections.IDictionary]$ManifestInfo = [ordered]@{},
+        # Move the staged items in by rename only. Valid only when the stage is on the target's volume.
+        [switch]$RenameOnly
+    )
+
+    $settingsDirectory = Join-Path $Target 'Settings'
+    $stamp = [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmssfff')
+    $backup = Join-Path $BackupRoot "program-$stamp"
+    $discard = Join-Path $BackupRoot "discard-$stamp"
+    $stateDirectory = Join-Path $Target '_deploy-state'
+    $manifestPath = Join-Path $stateDirectory 'program-manifest.json'
+    $installedTopLevelNames = [Collections.Generic.List[string]]::new()
+    $previousProgram = $null
+
+    try {
+        # Taken before anything in the target moves: a rollback is proven against this map.
+        $previousProgram = Get-ProgramHashMap -Root $Target
+        $previousItems = @(Get-ChildItem -LiteralPath $Target -Force | Where-Object { Test-ProgramItem -Item $_ })
+
+        New-Item -ItemType Directory -Path $backup -Force | Out-Null
+        foreach ($item in $previousItems) {
+            Assert-NotLink -Path $item.FullName -Message 'Refusing to move a target link or unsupported reparse point'
+            Move-ByRename -Path $item.FullName -Destination (Join-Path $backup $item.Name)
+        }
+
+        foreach ($item in @(Get-ChildItem -LiteralPath $Stage -Force)) {
+            $installedTopLevelNames.Add($item.Name)
+            if ($RenameOnly) {
+                Move-ByRename -Path $item.FullName -Destination (Join-Path $Target $item.Name)
+            } else {
+                Move-Item -LiteralPath $item.FullName -Destination $Target
+            }
+        }
+
+        $deployedHashes = Get-ProgramHashMap -Root $Target
+        Assert-HashMapsEqual -Expected $ExpectedHashes -Actual $deployedHashes -Description 'Deployed program'
+
+        $profileAfter = Get-FileHashMap -Root $settingsDirectory
+        Assert-HashMapsEqual -Expected $ProfileBefore -Actual $profileAfter -Description 'Portable profile'
+
+        New-Item -ItemType Directory -Path $stateDirectory -Force | Out-Null
+        $programManifest = [ordered]@{
+            schema = 1
+            deployedUtc = [DateTime]::UtcNow.ToString('o')
+        }
+        foreach ($key in $ManifestInfo.Keys) {
+            $programManifest[$key] = $ManifestInfo[$key]
+        }
+        $programManifest['sourceFileCount'] = $deployedHashes.Count
+        $programManifest['files'] = @($deployedHashes.Keys | ForEach-Object {
+            [ordered]@{ path = $_; sha256 = $deployedHashes[$_] }
+        })
+        $programManifest | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $manifestPath -Encoding utf8
+    }
+    catch {
+        $deployError = $_
+        if ($null -ne $previousProgram) {
+            try {
+                Restore-PreviousProgram -Target $Target -Backup $backup -Discard $discard `
+                    -InstalledNames $installedTopLevelNames.ToArray() -ExpectedHashes $previousProgram
+            }
+            catch {
+                Write-Host "DEPLOYMENT FAILED AND ROLLBACK FAILED: $Target needs manual repair." -ForegroundColor Red
+                throw "Deployment failed: $($deployError.Exception.Message) Rollback failed: $($_.Exception.Message)"
+            }
+            Write-Host "Deployment failed; the previous program was restored and verified by hash." -ForegroundColor Yellow
+        }
+        throw $deployError
+    }
+
+    return $profileAfter
+}
+
+# --- MINI packages (docs/plans/UPDATE-FULL-MINI-2026-10-15.md, B and E) ---
+
+$script:ReservedNamePattern = '^(CON|PRN|AUX|NUL|CONIN\$|CONOUT\$|COM[0-9]|LPT[0-9])(\..*)?$'
+
+# A package path is relative, uses '\', has no empty, '.' or '..' segment, no drive or stream
+# colon, no trailing dot or space and no reserved device name.
+function Assert-PackagePath {
+    param(
+        [AllowNull()][AllowEmptyString()][string]$Path,
+        [Parameter(Mandatory)][string]$Description
+    )
+
+    $unsafe = [string]::IsNullOrWhiteSpace($Path) -or $Path.Contains('/') -or $Path.Contains(':') -or
+        $Path.StartsWith('\') -or $Path.IndexOfAny([IO.Path]::GetInvalidPathChars()) -ge 0
+    if (-not $unsafe) {
+        foreach ($segment in $Path.Split('\')) {
+            if ($segment -in @('', '.', '..') -or $segment -ne $segment.TrimEnd('.', ' ') -or
+                $segment -match $script:ReservedNamePattern) {
+                $unsafe = $true
+                break
+            }
+        }
+    }
+    if ($unsafe) {
+        throw "MINI refused: $Description has an unsafe path '$Path'."
+    }
+}
+
+# Resolves a package path under a root and proves the result stays under it (zip-slip guard).
+function Get-PathUnder {
+    param(
+        [Parameter(Mandatory)][string]$Root,
+        [Parameter(Mandatory)][string]$RelativePath
+    )
+
+    $full = [IO.Path]::GetFullPath([IO.Path]::Combine($Root, $RelativePath))
+    if (-not (Test-PathInside -Candidate $full -Parent $Root) -or
+        $full.Equals($Root, [StringComparison]::OrdinalIgnoreCase)) {
+        throw "MINI refused: '$RelativePath' resolves outside $Root."
+    }
+    return $full
+}
+
+function Get-ManifestValue {
+    param(
+        [Parameter(Mandatory)]$Object,
+        [Parameter(Mandatory)][string]$Name,
+        [Parameter(Mandatory)][string]$Description
+    )
+
+    $property = $Object.PSObject.Properties[$Name]
+    if ($null -eq $property) {
+        throw "MINI refused: $Description has no '$Name'."
+    }
+    return $property.Value
+}
+
+function ConvertTo-PackageFile {
+    param(
+        [Parameter(Mandatory)]$Item,
+        [Parameter(Mandatory)][string]$Description
+    )
+
+    $path = [string](Get-ManifestValue -Object $Item -Name 'path' -Description $Description)
+    Assert-PackagePath -Path $path -Description $Description
+    $sha256 = [string](Get-ManifestValue -Object $Item -Name 'sha256' -Description "$Description '$path'")
+    if ($sha256 -notmatch '^[0-9a-fA-F]{64}$') {
+        throw "MINI refused: $Description '$path' has no valid sha256."
+    }
+    $size = [long](Get-ManifestValue -Object $Item -Name 'size' -Description "$Description '$path'")
+    if ($size -lt 0) {
+        throw "MINI refused: $Description '$path' has a negative size."
+    }
+    return [pscustomobject]@{ Path = $path; Sha256 = $sha256.ToUpperInvariant(); Size = $size }
+}
+
+# Reads and validates manifest.json from an open MINI zip. Every zip entry other than the manifest
+# must be a delta file, every delta file must be in the zip with the manifest's size, and every
+# delta file must appear in "files" with the same hash and size.
+function Read-MiniPackage {
+    param([Parameter(Mandatory)][IO.Compression.ZipArchive]$Zip)
+
+    $entries = [Collections.Generic.Dictionary[string, IO.Compression.ZipArchiveEntry]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($entry in $Zip.Entries) {
+        if ($entry.FullName.EndsWith('/') -and $entry.Length -eq 0) {
+            continue
+        }
+        $name = $entry.FullName.Replace('/', '\')
+        if ($entries.ContainsKey($name)) {
+            throw "MINI refused: the zip holds '$name' twice."
+        }
+        $entries[$name] = $entry
+    }
+    if (-not $entries.ContainsKey('manifest.json')) {
+        throw 'MINI refused: the zip has no manifest.json at its root.'
+    }
+    $reader = [IO.StreamReader]::new($entries['manifest.json'].Open(), [Text.UTF8Encoding]::new($false))
+    try {
+        $manifestText = $reader.ReadToEnd()
+    }
+    finally {
+        $reader.Dispose()
+    }
+    [void]$entries.Remove('manifest.json')
+    try {
+        $manifest = $manifestText | ConvertFrom-Json
+    }
+    catch {
+        throw "MINI refused: manifest.json is not valid JSON: $($_.Exception.Message)"
+    }
+
+    $schema = Get-ManifestValue -Object $manifest -Name 'schema' -Description 'the manifest'
+    $channel = [string](Get-ManifestValue -Object $manifest -Name 'channel' -Description 'the manifest')
+    $rid = [string](Get-ManifestValue -Object $manifest -Name 'rid' -Description 'the manifest')
+    $version = [string](Get-ManifestValue -Object $manifest -Name 'version' -Description 'the manifest')
+    $baseFull = [string](Get-ManifestValue -Object $manifest -Name 'baseFull' -Description 'the manifest')
+    $commit = [string](Get-ManifestValue -Object $manifest -Name 'commit' -Description 'the manifest')
+    if ("$schema" -ne '1') { throw "MINI refused: manifest schema '$schema' is not supported." }
+    if ($channel -ne 'mini') { throw "MINI refused: the package is channel '$channel', not 'mini'." }
+    if ($rid -ne 'win-x64') { throw "MINI refused: the package is for '$rid', not 'win-x64'." }
+    if ($version -notmatch '^\d+\.\d+\.\d+\+[0-9a-f]+$') { throw "MINI refused: version '$version' is malformed." }
+    if ($baseFull -notmatch '^\d+\.\d+\.\d+\+[0-9a-f]+$') { throw "MINI refused: baseFull '$baseFull' is malformed." }
+
+    $files = [Collections.Generic.Dictionary[string, object]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($item in @(Get-ManifestValue -Object $manifest -Name 'files' -Description 'the manifest')) {
+        $file = ConvertTo-PackageFile -Item $item -Description 'files'
+        if ($files.ContainsKey($file.Path)) {
+            throw "MINI refused: 'files' lists '$($file.Path)' twice."
+        }
+        $top = $file.Path.Split('\')[0]
+        if ($top -in $script:NonProgramNames -or (-not $file.Path.Contains('\') -and $top -like '*.log')) {
+            throw "MINI refused: '$($file.Path)' is not a program file and is never written by a deployment."
+        }
+        $files[$file.Path] = $file
+    }
+    if (-not $files.ContainsKey('mRemoteNG.exe')) {
+        throw "MINI refused: 'files' has no mRemoteNG.exe."
+    }
+
+    $delta = [Collections.Generic.Dictionary[string, object]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($item in @(Get-ManifestValue -Object $manifest -Name 'delta' -Description 'the manifest')) {
+        $file = ConvertTo-PackageFile -Item $item -Description 'delta'
+        if ($delta.ContainsKey($file.Path)) {
+            throw "MINI refused: 'delta' lists '$($file.Path)' twice."
+        }
+        if (-not $files.ContainsKey($file.Path) -or
+            $files[$file.Path].Sha256 -ne $file.Sha256 -or $files[$file.Path].Size -ne $file.Size) {
+            throw "MINI refused: delta '$($file.Path)' does not match its entry in 'files'."
+        }
+        if (-not $entries.ContainsKey($file.Path)) {
+            throw "MINI refused: delta '$($file.Path)' is not in the zip."
+        }
+        if ($entries[$file.Path].Length -ne $file.Size) {
+            throw ("MINI refused: delta '{0}' is {1} bytes in the zip, the manifest says {2}." -f
+                $file.Path, $entries[$file.Path].Length, $file.Size)
+        }
+        $delta[$file.Path] = $file
+    }
+    foreach ($name in $entries.Keys) {
+        if (-not $delta.ContainsKey($name)) {
+            throw "MINI refused: the zip carries '$name', which is not in 'delta'."
+        }
+    }
+
+    $remove = [Collections.Generic.List[string]]::new()
+    foreach ($item in @(Get-ManifestValue -Object $manifest -Name 'remove' -Description 'the manifest')) {
+        $path = [string]$item
+        Assert-PackagePath -Path $path -Description 'remove'
+        if ($files.ContainsKey($path)) {
+            throw "MINI refused: '$path' is both in 'files' and in 'remove'."
+        }
+        $remove.Add($path)
+    }
+
+    return [pscustomobject]@{
+        Version  = $version
+        Commit   = $commit
+        BaseFull = $baseFull
+        Files    = $files
+        Delta    = $delta
+        Remove   = $remove
+        Entries  = $entries
+    }
+}
+
+# Where the unchanged copy of a base file is found. Normally in the program folder. A portable copy
+# moves <exe>\Themes into Settings\Themes on its first start when Settings\Themes does not exist yet
+# (SettingsFileInfo.MigratePortableSettings), so a program theme file missing from Themes is looked
+# up there; it must still match the manifest by hash, and it is copied, never linked, because the
+# Settings copy belongs to the user.
+function Get-BaseFileSource {
+    param(
+        [Parameter(Mandatory)][string]$Target,
+        [Parameter(Mandatory)][string]$RelativePath
+    )
+
+    $programPath = Get-PathUnder -Root $Target -RelativePath $RelativePath
+    if ([IO.File]::Exists($programPath)) {
+        return [pscustomobject]@{ Path = $programPath; Relocated = $false }
+    }
+    if ($RelativePath -match '^Themes\\[^\\]+$') {
+        $settingsPath = Get-PathUnder -Root $Target -RelativePath ('Settings\' + $RelativePath)
+        if ([IO.File]::Exists($settingsPath)) {
+            return [pscustomobject]@{ Path = $settingsPath; Relocated = $true }
+        }
+    }
+    return $null
+}
+
+# The local base must be the FULL the MINI was computed against: every file the MINI does not carry
+# is taken from the target as it is, so each must be there with the manifest's size and sha256.
+function Assert-MiniBase {
+    param(
+        [Parameter(Mandatory)][string]$Target,
+        [Parameter(Mandatory)]$Package
+    )
+
+    $mismatches = [Collections.Generic.List[string]]::new()
+    $relocated = 0
+    foreach ($file in $Package.Files.Values) {
+        if ($Package.Delta.ContainsKey($file.Path)) {
+            continue
+        }
+        $baseSource = Get-BaseFileSource -Target $Target -RelativePath $file.Path
+        if ($null -eq $baseSource) {
+            $mismatches.Add("missing  $($file.Path)")
+            continue
+        }
+        $localPath = $baseSource.Path
+        if ($baseSource.Relocated) {
+            $relocated++
+        }
+        $length = ([IO.FileInfo]::new($localPath)).Length
+        if ($length -ne $file.Size) {
+            $mismatches.Add("size     $($file.Path) ($length bytes, expected $($file.Size))")
+            continue
+        }
+        $hash = (Get-FileHash -LiteralPath $localPath -Algorithm SHA256).Hash
+        if (-not $hash.Equals($file.Sha256, [StringComparison]::OrdinalIgnoreCase)) {
+            $mismatches.Add("sha256   $($file.Path)")
+        }
+    }
+
+    if ($mismatches.Count -gt 0) {
+        throw (("MINI refused: base differs; FULL required. MINI {0} is built on FULL {1}; {2} local file(s) " +
+            "do not match it (first 20):`n  {3}") -f $Package.Version, $Package.BaseFull, $mismatches.Count,
+            (($mismatches | Select-Object -First 20) -join "`n  "))
+    }
+    if ($relocated -gt 0) {
+        Write-Host "$relocated program theme file(s) found in Settings\Themes, where the application moved them; they will be copied back"
+    }
+}
+
+# Relative paths of every program file in the target (no hashing).
+function Get-ProgramFileList {
+    param([Parameter(Mandatory)][string]$Root)
+
+    foreach ($programItem in @(Get-ChildItem -LiteralPath $Root -Force | Where-Object { Test-ProgramItem -Item $_ })) {
+        $programFiles = if ($programItem.PSIsContainer) {
+            @(Get-ChildItem -LiteralPath $programItem.FullName -File -Force -Recurse)
+        } else {
+            @($programItem)
+        }
+        foreach ($file in $programFiles) {
+            [IO.Path]::GetRelativePath($Root, $file.FullName)
+        }
+    }
+}
+
+# Assembles the complete new program: hard links to the unchanged local files, the delta files
+# extracted from the zip. Files in "remove" and local extras are simply not linked.
+function New-MiniTree {
+    param(
+        [Parameter(Mandatory)][string]$Target,
+        [Parameter(Mandatory)][string]$Tree,
+        [Parameter(Mandatory)]$Package
+    )
+
+    [void][IO.Directory]::CreateDirectory($Tree)
+    $copied = [Collections.Generic.List[string]]::new()
+    $linked = 0
+    $relocatedCopies = 0
+    foreach ($file in $Package.Files.Values) {
+        $destination = Get-PathUnder -Root $Tree -RelativePath $file.Path
+        [void][IO.Directory]::CreateDirectory((Split-Path -Parent $destination))
+        if ($Package.Delta.ContainsKey($file.Path)) {
+            [IO.Compression.ZipFileExtensions]::ExtractToFile($Package.Entries[$file.Path], $destination, $false)
+            continue
+        }
+        $baseSource = Get-BaseFileSource -Target $Target -RelativePath $file.Path
+        $existing = $baseSource.Path
+        if ($baseSource.Relocated) {
+            Copy-Item -LiteralPath $existing -Destination $destination
+            $relocatedCopies++
+            continue
+        }
+        $errorCode = [MRemoteNGDeploy.HardLink]::Create($destination, $existing)
+        if ($errorCode -eq 0) {
+            $linked++
+        } else {
+            Copy-Item -LiteralPath $existing -Destination $destination
+            $copied.Add("$($file.Path) (Win32 error $errorCode)")
+        }
+    }
+    Write-Host ("Assembled {0}: {1} hard-linked, {2} from the package, {3} copied from Settings\Themes, {4} copied after a failed hard link" -f
+        $Tree, $linked, $Package.Delta.Count, $relocatedCopies, $copied.Count)
+    if ($copied.Count -gt 0) {
+        Write-Warning ("A hard link could not be created for {0} file(s); they were copied instead: {1}" -f
+            $copied.Count, (($copied | Select-Object -First 10) -join ', '))
+    }
+}
+
+# The assembled tree must be exactly "files": the same set of paths, each with its size and sha256.
+function Assert-MiniTree {
+    param(
+        [Parameter(Mandatory)][string]$Tree,
+        [Parameter(Mandatory)]$Package
+    )
+
+    $treeHashes = Get-FileHashMap -Root $Tree
+    $problems = [Collections.Generic.List[string]]::new()
+    foreach ($file in $Package.Files.Values) {
+        if (-not $treeHashes.Contains($file.Path)) {
+            $problems.Add("missing  $($file.Path)")
+            continue
+        }
+        $length = ([IO.FileInfo]::new((Join-Path $Tree $file.Path))).Length
+        if ($length -ne $file.Size) {
+            $problems.Add("size     $($file.Path) ($length bytes, expected $($file.Size))")
+        } elseif (-not $treeHashes[$file.Path].Equals($file.Sha256, [StringComparison]::OrdinalIgnoreCase)) {
+            $problems.Add("sha256   $($file.Path)")
+        }
+    }
+    foreach ($path in $treeHashes.Keys) {
+        if (-not $Package.Files.ContainsKey($path)) {
+            $problems.Add("extra    $path")
+        }
+    }
+    if ($problems.Count -gt 0) {
+        throw (("MINI refused: the assembled program does not match the manifest; nothing was changed. " +
+            "{0} problem(s) (first 20):`n  {1}") -f $problems.Count, (($problems | Select-Object -First 20) -join "`n  "))
+    }
+}
+
+
+$target = Get-CanonicalPath -Path $TargetDirectory
 $defaultBackupRoot = Join-Path $target '_rollback'
 $backupRoot = if ([string]::IsNullOrWhiteSpace($RollbackDirectory)) {
     $defaultBackupRoot
@@ -756,21 +1246,10 @@ $backupRoot = if ([string]::IsNullOrWhiteSpace($RollbackDirectory)) {
     Get-CanonicalPath -Path $RollbackDirectory
 }
 
-Assert-NotRootPath -Path $source
 Assert-NotRootPath -Path $target
 Assert-NotRootPath -Path $backupRoot
-Assert-NoLinkAncestors -Path $source
 Assert-NoLinkAncestors -Path $target
 Assert-NoLinkAncestors -Path $backupRoot
-if (-not (Test-Path -LiteralPath $source -PathType Container)) {
-    throw "Portable build output does not exist: $source"
-}
-if (Test-PathsOverlap -First $source -Second $target) {
-    throw "Source and target directories must not overlap."
-}
-if ($legacy -and (Test-PathsOverlap -First $target -Second $legacy)) {
-    throw "Legacy profile and target directories must not overlap."
-}
 if ((Test-PathInside -Candidate $backupRoot -Parent $target) -and
     -not (Test-PathInside -Candidate $backupRoot -Parent $defaultBackupRoot)) {
     throw "A rollback directory inside the target must be its _rollback folder."
@@ -778,113 +1257,181 @@ if ((Test-PathInside -Candidate $backupRoot -Parent $target) -and
 if (Test-PathInside -Candidate $target -Parent $backupRoot) {
     throw "The target must not be inside the rollback directory."
 }
-if ((Test-PathsOverlap -First $backupRoot -Second $source) -or
-    ($legacy -and (Test-PathsOverlap -First $backupRoot -Second $legacy))) {
-    throw "The rollback directory must not overlap the source or the legacy profile."
-}
 if (-not [IO.Path]::GetPathRoot($backupRoot).Equals([IO.Path]::GetPathRoot($target), [StringComparison]::OrdinalIgnoreCase)) {
     throw "The rollback directory must be on the same volume as the target."
 }
 
-Assert-NoLinks -Path $source -Recurse
-if ($legacy) {
-    Assert-NoLinkAncestors -Path $legacy
-    Assert-NoLinks -Path $legacy -Recurse
-}
-
-foreach ($requiredFile in @('mRemoteNG.exe', 'mRemoteNG.deps.json', 'mRemoteNG.runtimeconfig.json')) {
-    $requiredPath = Join-Path $source $requiredFile
-    if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf) -or
-        (Get-Item -LiteralPath $requiredPath).Length -eq 0) {
-        throw "Portable build output is incomplete: $requiredFile is missing or empty."
+if ($PSCmdlet.ParameterSetName -eq 'Mini') {
+    $miniPath = Get-CanonicalPath -Path $Mini
+    if (-not (Test-Path -LiteralPath $miniPath -PathType Leaf)) {
+        throw "MINI package does not exist: $miniPath"
     }
-}
-
-$targetParent = Split-Path -Parent $target
-New-Item -ItemType Directory -Path $targetParent -Force | Out-Null
-Assert-NoLinks -Path $targetParent
-New-Item -ItemType Directory -Path $target -Force | Out-Null
-Assert-NoLinks -Path $target
-New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
-Assert-NoLinks -Path $backupRoot
-
-Assert-ApplicationStopped -Target $target
-Initialize-PortableProfile -Target $target -LegacyRoot $legacy
-
-$settingsDirectory = Join-Path $target 'Settings'
-$profileBefore = Get-FileHashMap -Root $settingsDirectory
-if ($profileBefore.Count -eq 0) {
-    throw "The portable Settings profile is empty; refusing to deploy."
-}
-
-$stamp = [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmssfff')
-$stage = Join-Path ([IO.Path]::GetTempPath()) ("mRemoteNG-portable-stage-" + [Guid]::NewGuid().ToString('N'))
-$backup = Join-Path $backupRoot "program-$stamp"
-$discard = Join-Path $backupRoot "discard-$stamp"
-$stateDirectory = Join-Path $target '_deploy-state'
-$manifestPath = Join-Path $stateDirectory 'program-manifest.json'
-$installedTopLevelNames = [Collections.Generic.List[string]]::new()
-$previousProgram = $null
-
-try {
-    Copy-ProgramTree -Source $source -Destination $stage
-    $sourceHashes = Get-ProgramHashMap -Root $source
-    $stageHashes = Get-FileHashMap -Root $stage
-    Assert-HashMapsEqual -Expected $sourceHashes -Actual $stageHashes -Description 'Staged program'
-
-    # Taken before anything in the target moves: a rollback is proven against this map.
-    $previousProgram = Get-ProgramHashMap -Root $target
-    $previousItems = @(Get-ChildItem -LiteralPath $target -Force | Where-Object { Test-ProgramItem -Item $_ })
-
-    New-Item -ItemType Directory -Path $backup -Force | Out-Null
-    foreach ($item in $previousItems) {
-        Assert-NotLink -Path $item.FullName -Message 'Refusing to move a target link or unsupported reparse point'
-        Move-ByRename -Path $item.FullName -Destination (Join-Path $backup $item.Name)
+    if (Test-PathInside -Candidate $miniPath -Parent $target) {
+        throw "The MINI package must not be inside the target directory."
+    }
+    if (-not (Test-Path -LiteralPath (Join-Path $target 'mRemoteNG.exe') -PathType Leaf)) {
+        throw "MINI refused: $target holds no mRemoteNG.exe; a MINI applies only over an existing portable copy."
+    }
+    if (Test-Path -LiteralPath (Join-Path $target 'mRemoteNG.installed')) {
+        throw "MINI refused: $target is an MSI-installed copy (mRemoteNG.installed); update it with the installer."
+    }
+    if (-not (Test-Path -LiteralPath (Join-Path $target 'Settings\confCons.xml') -PathType Leaf)) {
+        throw "MINI refused: $target is not a portable copy with a profile (no Settings\confCons.xml)."
     }
 
-    foreach ($item in @(Get-ChildItem -LiteralPath $stage -Force)) {
-        $installedTopLevelNames.Add($item.Name)
-        Move-Item -LiteralPath $item.FullName -Destination $target
-    }
-
-    $deployedHashes = Get-ProgramHashMap -Root $target
-    Assert-HashMapsEqual -Expected $sourceHashes -Actual $deployedHashes -Description 'Deployed program'
-
-    $profileAfter = Get-FileHashMap -Root $settingsDirectory
-    Assert-HashMapsEqual -Expected $profileBefore -Actual $profileAfter -Description 'Portable profile'
-
-    New-Item -ItemType Directory -Path $stateDirectory -Force | Out-Null
-    [ordered]@{
-        schema = 1
-        deployedUtc = [DateTime]::UtcNow.ToString('o')
-        sourceFileCount = $sourceHashes.Count
-        files = @($sourceHashes.Keys | ForEach-Object {
-            [ordered]@{ path = $_; sha256 = $sourceHashes[$_] }
-        })
-    } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $manifestPath -Encoding utf8
-}
-catch {
-    $deployError = $_
-    if ($null -ne $previousProgram) {
+    Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
+    $stagingRoot = Join-Path $target '_staging'
+    $stagingVersion = $null
+    try {
+        $zip = [IO.Compression.ZipFile]::OpenRead($miniPath)
         try {
-            Restore-PreviousProgram -Target $target -Backup $backup -Discard $discard `
-                -InstalledNames $installedTopLevelNames.ToArray() -ExpectedHashes $previousProgram
+            $package = Read-MiniPackage -Zip $zip
+            $deltaBytes = 0L
+            foreach ($file in $package.Delta.Values) {
+                $deltaBytes += $file.Size
+            }
+            Write-Host ("MINI {0} over base FULL {1}: {2} files, {3} in the package ({4:N0} bytes), {5} removed" -f
+                $package.Version, $package.BaseFull, $package.Files.Count, $package.Delta.Count, $deltaBytes,
+                $package.Remove.Count)
+
+            Assert-NoLinks -Path $target -Recurse
+            Assert-MiniBase -Target $target -Package $package
+            Write-Host "Local base matches: $($package.Files.Count - $package.Delta.Count) unchanged files verified by size and sha256"
+
+            $dropped = @(Get-ProgramFileList -Root $target | Where-Object {
+                -not $package.Files.ContainsKey($_) -and $_ -notin $package.Remove
+            })
+            if ($dropped.Count -gt 0) {
+                Write-Warning ("{0} local program file(s) are not part of {1} and will stay only in the rollback folder: {2}" -f
+                    $dropped.Count, $package.Version, (($dropped | Select-Object -First 10) -join ', '))
+            }
+
+            if (Test-Path -LiteralPath $stagingRoot) {
+                Assert-NoLinks -Path $stagingRoot
+            }
+            $stagingVersion = Join-Path $stagingRoot ($package.Version.Replace('+', '-'))
+            if (Test-Path -LiteralPath $stagingVersion) {
+                Remove-TreeSafely -Path $stagingVersion -AllowedParent $stagingRoot
+            }
+            $tree = Join-Path $stagingVersion 'tree'
+            New-MiniTree -Target $target -Tree $tree -Package $package
+            Assert-MiniTree -Tree $tree -Package $package
+            Write-Host "Assembled program verified: $($package.Files.Count) files match the manifest by size and sha256"
         }
-        catch {
-            Write-Host "DEPLOYMENT FAILED AND ROLLBACK FAILED: $target needs manual repair." -ForegroundColor Red
-            throw "Deployment failed: $($deployError.Exception.Message) Rollback failed: $($_.Exception.Message)"
+        finally {
+            $zip.Dispose()
         }
-        Write-Host "Deployment failed; the previous program was restored and verified by hash." -ForegroundColor Yellow
+
+        Assert-ApplicationStopped -Target $target
+        New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
+        Assert-NoLinks -Path $backupRoot
+        Initialize-PortableProfile -Target $target
+
+        $profileBefore = Get-FileHashMap -Root (Join-Path $target 'Settings')
+        if ($profileBefore.Count -eq 0) {
+            throw "The portable Settings profile is empty; refusing to deploy."
+        }
+
+        $expectedHashes = [ordered]@{}
+        foreach ($file in $package.Files.Values) {
+            $expectedHashes[$file.Path] = $file.Sha256
+        }
+        $profileAfter = Install-StagedProgram -Target $target -Stage $tree -BackupRoot $backupRoot `
+            -ExpectedHashes $expectedHashes -ProfileBefore $profileBefore -RenameOnly -ManifestInfo ([ordered]@{
+                channel = 'mini'
+                version = $package.Version
+                commit = $package.Commit
+                baseFull = $package.BaseFull
+                package = [IO.Path]::GetFileName($miniPath)
+            })
     }
-    throw $deployError
-}
-finally {
-    if (Test-Path -LiteralPath $stage) {
-        try {
-            Remove-TreeSafely -Path $stage -AllowedParent (Get-CanonicalPath -Path ([IO.Path]::GetTempPath()))
+    finally {
+        if ($stagingVersion -and (Test-Path -LiteralPath $stagingVersion)) {
+            try {
+                Remove-TreeSafely -Path $stagingVersion -AllowedParent $stagingRoot
+            }
+            catch {
+                Write-Warning "Could not remove the staging directory ${stagingVersion}: $($_.Exception.Message)"
+            }
         }
-        catch {
-            Write-Warning "Could not remove the staging directory ${stage}: $($_.Exception.Message)"
+        if ((Test-Path -LiteralPath $stagingRoot) -and
+            -not (Get-ChildItem -LiteralPath $stagingRoot -Force | Select-Object -First 1)) {
+            [IO.Directory]::Delete($stagingRoot, $false)
+        }
+    }
+}
+else {
+    $source = Get-CanonicalPath -Path $SourceDirectory
+    $legacy = if ([string]::IsNullOrWhiteSpace($LegacyProfileDirectory)) {
+        $null
+    } else {
+        Get-CanonicalPath -Path $LegacyProfileDirectory
+    }
+
+    Assert-NotRootPath -Path $source
+    Assert-NoLinkAncestors -Path $source
+    if (-not (Test-Path -LiteralPath $source -PathType Container)) {
+        throw "Portable build output does not exist: $source"
+    }
+    if (Test-PathsOverlap -First $source -Second $target) {
+        throw "Source and target directories must not overlap."
+    }
+    if ($legacy -and (Test-PathsOverlap -First $target -Second $legacy)) {
+        throw "Legacy profile and target directories must not overlap."
+    }
+    if ((Test-PathsOverlap -First $backupRoot -Second $source) -or
+        ($legacy -and (Test-PathsOverlap -First $backupRoot -Second $legacy))) {
+        throw "The rollback directory must not overlap the source or the legacy profile."
+    }
+
+    Assert-NoLinks -Path $source -Recurse
+    if ($legacy) {
+        Assert-NoLinkAncestors -Path $legacy
+        Assert-NoLinks -Path $legacy -Recurse
+    }
+
+    foreach ($requiredFile in @('mRemoteNG.exe', 'mRemoteNG.deps.json', 'mRemoteNG.runtimeconfig.json')) {
+        $requiredPath = Join-Path $source $requiredFile
+        if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf) -or
+            (Get-Item -LiteralPath $requiredPath).Length -eq 0) {
+            throw "Portable build output is incomplete: $requiredFile is missing or empty."
+        }
+    }
+
+    $targetParent = Split-Path -Parent $target
+    New-Item -ItemType Directory -Path $targetParent -Force | Out-Null
+    Assert-NoLinks -Path $targetParent
+    New-Item -ItemType Directory -Path $target -Force | Out-Null
+    Assert-NoLinks -Path $target
+    New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
+    Assert-NoLinks -Path $backupRoot
+
+    Assert-ApplicationStopped -Target $target
+    Initialize-PortableProfile -Target $target -LegacyRoot $legacy
+
+    $profileBefore = Get-FileHashMap -Root (Join-Path $target 'Settings')
+    if ($profileBefore.Count -eq 0) {
+        throw "The portable Settings profile is empty; refusing to deploy."
+    }
+
+    $stage = Join-Path ([IO.Path]::GetTempPath()) ("mRemoteNG-portable-stage-" + [Guid]::NewGuid().ToString('N'))
+    try {
+        Copy-ProgramTree -Source $source -Destination $stage
+        $sourceHashes = Get-ProgramHashMap -Root $source
+        $stageHashes = Get-FileHashMap -Root $stage
+        Assert-HashMapsEqual -Expected $sourceHashes -Actual $stageHashes -Description 'Staged program'
+
+        $profileAfter = Install-StagedProgram -Target $target -Stage $stage -BackupRoot $backupRoot `
+            -ExpectedHashes $sourceHashes -ProfileBefore $profileBefore
+    }
+    finally {
+        if (Test-Path -LiteralPath $stage) {
+            try {
+                Remove-TreeSafely -Path $stage -AllowedParent (Get-CanonicalPath -Path ([IO.Path]::GetTempPath()))
+            }
+            catch {
+                Write-Warning "Could not remove the staging directory ${stage}: $($_.Exception.Message)"
+            }
         }
     }
 }
