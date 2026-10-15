@@ -68,7 +68,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         // Set by the first RDP ActiveX control created in this process: COM registration and type
         // library load make that one slower, so the open that pays for it says so.
         private static int s_anyControlCreated;
-        private readonly Stopwatch _diagnosticConnectStopwatch = new();
+        private readonly RdpPhaseClock _phaseClock = new();
         protected uint DesktopScaleFactor
         {
             get
@@ -515,7 +515,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             loginComplete = false;
             SetEventHandlers();
-            _diagnosticConnectStopwatch.Restart();
+            _phaseClock.Connect();
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connect_requested", 0,
                 RdpVersion?.ToString());
 
@@ -532,7 +532,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch (Exception ex)
             {
                 RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connect_failed",
-                    _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString());
+                    _phaseClock.ElapsedMs, RdpVersion?.ToString());
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionOpenFailed, ex);
             }
 
@@ -1937,6 +1937,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnFatalError += RDPEvent_OnFatalError;
                 _rdpClient.OnDisconnected += RDPEvent_OnDisconnected;
                 _rdpClient.OnAutoReconnecting += RDPEvent_OnAutoReconnecting;
+                _rdpClient.OnAutoReconnecting2 += RDPEvent_OnAutoReconnecting2;
                 _rdpClient.OnIdleTimeoutNotification += RDPEvent_OnIdleTimeoutNotification;
                 _rdpClient.OnEnterFullScreenMode += RDPEvent_OnEnterFullScreenMode;
                 _rdpClient.OnLeaveFullScreenMode += RDPEvent_OnLeaveFullscreenMode;
@@ -1968,6 +1969,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnFatalError -= RDPEvent_OnFatalError;
                 _rdpClient.OnDisconnected -= RDPEvent_OnDisconnected;
                 _rdpClient.OnAutoReconnecting -= RDPEvent_OnAutoReconnecting;
+                _rdpClient.OnAutoReconnecting2 -= RDPEvent_OnAutoReconnecting2;
                 _rdpClient.OnIdleTimeoutNotification -= RDPEvent_OnIdleTimeoutNotification;
                 _rdpClient.OnEnterFullScreenMode -= RDPEvent_OnEnterFullScreenMode;
                 _rdpClient.OnLeaveFullScreenMode -= RDPEvent_OnLeaveFullscreenMode;
@@ -1998,7 +2000,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnFatalError(int errorCode)
         {
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "fatal_error",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(), errorCode,
+                _phaseClock.ElapsedMs, RdpVersion?.ToString(), errorCode,
                 refreshResources: true);
             string errorMsg = RdpErrorCodes.GetError(errorCode, connectionInfo.Hostname);
             Event_ErrorOccured(this, errorMsg, errorCode);
@@ -2006,11 +2008,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private AutoReconnectContinueState RDPEvent_OnAutoReconnecting(int disconnectReason, int attemptCount)
         {
-            _networkStats.ReconnectAttempt(Environment.TickCount64);
-            RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "attempt", disconnectReason, attemptCount, null);
-            if (attemptCount <= 1)
-                WriteAdaptDecision(_linkMonitor.Drop(Environment.TickCount64));
-            _linkProbe?.MarkDrop(Environment.TickCount64);
+            NoteAutoReconnecting(disconnectReason, attemptCount);
 
             if (_arcGate.ShouldContinue(Environment.TickCount64, DateTime.UtcNow))
                 return AutoReconnectContinueState.autoReconnectContinueAutomatic;
@@ -2018,11 +2016,33 @@ namespace mRemoteNG.Connection.Protocol.RDP
             // #212: the client was suspended since the session was last alive. Resuming the
             // session now could take it from whoever is using it, so the user decides.
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "auto_reconnect_stopped_after_resume",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
+                _phaseClock.ElapsedMs, RdpVersion?.ToString(),
                 disconnectReason, (uint)attemptCount);
             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                 $"Automatic reconnection to {connectionInfo.Hostname} stopped: this computer was asleep since the session was last active.");
             return AutoReconnectContinueState.autoReconnectContinueStop;
+        }
+
+        /// <summary>
+        /// The RDC 7+ form of the ARC announcement (DISPID 34). It was not subscribed, so an ARC the
+        /// control announced only this way left no <c>rdp_reconnect</c> line, no drop for the link
+        /// monitor and a login time measured from the original connect. Only the older
+        /// <c>OnAutoReconnecting</c> (DISPID 17) can stop ARC, so the #212 gate stays there and this
+        /// one only records the attempt; when both are raised the attempt is recorded once.
+        /// </summary>
+        private void RDPEvent_OnAutoReconnecting2(int disconnectReason, bool networkAvailable, int attemptCount, int maxAttemptCount) =>
+            NoteAutoReconnecting(disconnectReason, attemptCount);
+
+        private void NoteAutoReconnecting(int disconnectReason, int attemptCount)
+        {
+            if (!_phaseClock.AutoReconnecting(attemptCount, out bool outageStarted))
+                return;
+            long now = Environment.TickCount64;
+            _networkStats.ReconnectAttempt(now);
+            RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "attempt", disconnectReason, attemptCount, null);
+            if (outageStarted)
+                WriteAdaptDecision(_linkMonitor.Drop(now));
+            _linkProbe?.MarkDrop(now);
         }
 
         private void RDPEvent_OnAutoReconnected()
@@ -2159,7 +2179,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _diagnosticDisc = discReason;
             _diagnosticExt = diagnosticExtendedReason;
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "disconnected",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
+                _phaseClock.ElapsedMs, RdpVersion?.ToString(),
                 discReason, diagnosticExtendedReason, refreshResources: true);
             WriteNetworkSummary("disconnected");
             _linkProbe?.MarkDrop(Environment.TickCount64);
@@ -2241,8 +2261,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             if (Interlocked.Exchange(ref _countedLive, 1) == 0)
                 ProcessResourceSnapshot.RdpOpened();
+            _phaseClock.Connected();
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connected",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
+                _phaseClock.ElapsedMs, RdpVersion?.ToString(),
                 refreshResources: true);
             _arcGate.Reset(Environment.TickCount64, DateTime.UtcNow);
             _arcLivenessTimer.Start();
@@ -2272,9 +2293,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnLoginComplete()
         {
             loginComplete = true;
+            long loginMs = _phaseClock.ElapsedMs;
+            bool reconnect = _phaseClock.LoginComplete();
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "login_complete",
-                _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
-                refreshResources: true);
+                loginMs, RdpVersion?.ToString(),
+                refreshResources: true, reconnect: reconnect);
             StartLinkProbe();
             if (WindowedFullscreenSizingActive)
             {
@@ -2452,7 +2475,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             try
             {
                 RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "logon_state",
-                    _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(), lError);
+                    _phaseClock.ElapsedMs, RdpVersion?.ToString(), lError);
                 // Transient NLA/credential UI state transitions — not actual errors.
                 // These fire during normal authentication when the user interacts with
                 // the Windows credential dialog. Closing for these causes #1653 (crash
@@ -2737,7 +2760,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 RuntimeDiagnostics.RdpResources(point, _diagnosticRdpSession, refresh, CloseTriggerForDiagnostics,
                     _diagnosticDisc, _diagnosticExt, wasConnected, loginComplete, hostDisposedFirst,
-                    _diagnosticConnectStopwatch.ElapsedMilliseconds, desktopW, desktopH, smartSize, fullScreen,
+                    _phaseClock.ElapsedMs, desktopW, desktopH, smartSize, fullScreen,
                     disconnect, disconnectHresult, dispose, disposeHresult);
             }
             catch (Exception ex)

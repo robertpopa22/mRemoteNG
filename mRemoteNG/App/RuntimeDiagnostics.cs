@@ -217,8 +217,23 @@ namespace mRemoteNG.App
                 Field("outcome", SafeOutcome(outcome)));
 
         internal static void RdpPhase(string rdpSession, string phase, long durationMs, string? version = null,
-            int? primaryCode = null, uint? extendedCode = null, bool refreshResources = false)
+            int? primaryCode = null, uint? extendedCode = null, bool refreshResources = false, bool reconnect = false)
         {
+            WriteInfo("rdp_phase", [..RdpPhaseFields(rdpSession, phase, durationMs, version, primaryCode, extendedCode, reconnect),
+                ..ResourceFields(ProcessResourceSnapshot.Capture(refreshResources))]);
+        }
+
+        /// <summary>The fields of <see cref="RdpPhase"/> before the resource snapshot, as written.</summary>
+        internal static string FormatRdpPhase(string rdpSession, string phase, long durationMs, string? version = null,
+            int? primaryCode = null, uint? extendedCode = null, bool reconnect = false) =>
+            string.Join(" ", RdpPhaseFields(rdpSession, phase, durationMs, version, primaryCode, extendedCode, reconnect)
+                .Select(field => $"{field.Key}={field.Value}"));
+
+        private static FieldValue[] RdpPhaseFields(string rdpSession, string phase, long durationMs, string? version,
+            int? primaryCode, uint? extendedCode, bool reconnect)
+        {
+            // reconnect=true marks a login (or connect) the control reached again on its own, after
+            // ARC or a silent reconnection; absent on the first one so older lines read unchanged.
             FieldValue[] fields =
             [
                 Field("rdp_session", SafeCorrelationId(rdpSession)),
@@ -229,7 +244,7 @@ namespace mRemoteNG.App
                 NullableNumber("extended_code", extendedCode),
                 Field("disc_class", ClassifyDisconnect(primaryCode, extendedCode))
             ];
-            WriteInfo("rdp_phase", [..fields, ..ResourceFields(ProcessResourceSnapshot.Capture(refreshResources))]);
+            return reconnect ? [..fields, Boolean("reconnect", true)] : fields;
         }
 
         /// <summary>A step of opening a tab that took at least this long is named in <c>slow_step</c>.</summary>
