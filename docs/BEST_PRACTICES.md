@@ -24,6 +24,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-015](bp/BP-015-provider-wait-message-loop.md) | 1 | 2026-10-11 | An async connection entry point still blocked on a credential CLI; a delayed fake provider proved the UI wait and the fix's responsiveness. |
 | [BP-016](bp/BP-016-legacy-password-marker.md) | 1 | 2026-10-11 | A wrong legacy CBC key can pass padding; SQL metadata authentication must validate the decrypted marker before reading connections. |
 | [BP-017](bp/BP-017-short-path-containment.md) | 1 | 2026-10-14 | `GetFullPath` expands 8.3 names; comparing it with the unexpanded base directory rejected every assembly when the app was launched from a short path. |
+| [BP-018](bp/BP-018-com-property-rejected-not-cast.md) | 1 | 2026-10-15 | Three attempts assumed a failing COM cast when the control rejected the property itself; one step-plus-HRESULT diagnostic in the lab settled it. |
 
 ## Retired
 
