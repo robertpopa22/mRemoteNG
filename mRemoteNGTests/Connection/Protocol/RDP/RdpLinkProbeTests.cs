@@ -205,6 +205,52 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
         }
 
         [Test]
+        public void TheEndpointThatAppearedOnConnectIsThisSessionsTarget()
+        {
+            // Laptop log 2026-10-15: three tabs on 3389 to different hosts; the second tab's probe
+            // saw two unclaimed candidates and gave up with reason=no_target.
+            var first = new IPEndPoint(IPAddress.Parse("192.0.2.10"), 3389);
+            var second = new IPEndPoint(IPAddress.Parse("192.0.2.11"), 3389);
+            var third = new IPEndPoint(IPAddress.Parse("192.0.2.12"), 3389);
+            var unrelated = new IPEndPoint(IPAddress.Parse("192.0.2.50"), 443);
+
+            IPEndPoint[] appeared = RdpLinkProbePolicy.AppearedEndpoints(
+                [first, unrelated], [first, second, unrelated], RdpPort);
+            Assert.That(appeared, Is.EqualTo(new[] { second }));
+
+            Assert.That(RdpLinkProbePolicy.SelectTarget([first, second, third], RdpPort, [], out int candidates, appeared),
+                Is.EqualTo(second));
+            Assert.That(candidates, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AnAmbiguousDiffFallsBackToClaimsAndCountsCandidates()
+        {
+            var first = new IPEndPoint(IPAddress.Parse("192.0.2.10"), 3389);
+            var second = new IPEndPoint(IPAddress.Parse("192.0.2.11"), 3389);
+            var third = new IPEndPoint(IPAddress.Parse("192.0.2.12"), 3389);
+
+            // Another tab connected inside this session's window: two new endpoints.
+            IPEndPoint[] appeared = RdpLinkProbePolicy.AppearedEndpoints([first], [first, second, third], RdpPort);
+            Assert.That(appeared, Has.Length.EqualTo(2));
+
+            Assert.That(RdpLinkProbePolicy.SelectTarget([first, second, third], RdpPort, [], out int ambiguous, appeared), Is.Null);
+            Assert.That(ambiguous, Is.EqualTo(2));
+            Assert.That(RdpLinkProbePolicy.SelectTarget([first, second, third], RdpPort, [third], out _, appeared), Is.EqualTo(second));
+        }
+
+        [Test]
+        public void AnAppearedEndpointThatIsGoneFallsBackToTheWholeMatch()
+        {
+            var first = new IPEndPoint(IPAddress.Parse("192.0.2.10"), 3389);
+            var reconnected = new IPEndPoint(IPAddress.Parse("192.0.2.20"), 3389);
+            IPEndPoint[] appeared = [new IPEndPoint(IPAddress.Parse("192.0.2.11"), 3389)];
+
+            Assert.That(RdpLinkProbePolicy.SelectTarget([first, reconnected], RdpPort, [first], out _, appeared),
+                Is.EqualTo(reconnected));
+        }
+
+        [Test]
         public void NoMatchingConnectionMeansNoTarget()
         {
             IPEndPoint? target = RdpLinkProbePolicy.SelectTarget(

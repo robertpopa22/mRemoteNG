@@ -524,6 +524,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 // After Initialize and the derived PostInitialize: this is what Connect will use.
                 LogAppliedShape();
                 OpenTimer?.Mark("shape_log");
+                SnapshotLinkProbeTarget();
                 _rdpClient.Connect();
                 base.Connect();
 
@@ -2061,15 +2062,51 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
-                // Through a gateway the control's TCP connection goes to the gateway, not the host.
-                int[] ports = connectionInfo.RDGatewayUsageMethod != RDGatewayUsageMethod.Never
-                    ? [connectionInfo.Port, 443]
-                    : [connectionInfo.Port];
-                _linkProbe ??= new RdpLinkProbe(
-                    () => new RdpProbeState(PowerAwareness.IsMinimized, PowerAwareness.OnBattery, _arcGate.StoppedAfterResume),
-                    OnLinkProbeResult,
-                    candidates => RuntimeDiagnostics.RdpLinkProbeNoTarget(_diagnosticRdpSession, candidates));
-                _linkProbe.Start(ports);
+                EnsureLinkProbe().Start(LinkProbePorts());
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_link_probe", ex);
+            }
+        }
+
+        private RdpLinkProbe EnsureLinkProbe() =>
+            _linkProbe ??= new RdpLinkProbe(
+                () => new RdpProbeState(PowerAwareness.IsMinimized, PowerAwareness.OnBattery, _arcGate.StoppedAfterResume),
+                OnLinkProbeResult,
+                candidates => RuntimeDiagnostics.RdpLinkProbeNoTarget(_diagnosticRdpSession, candidates));
+
+        /// <summary>
+        /// The ports the control's TCP connection can go to. Through a gateway the connection goes
+        /// to the gateway, not the host. A port that is not set means the RDP default.
+        /// </summary>
+        private int[] LinkProbePorts()
+        {
+            int port = connectionInfo.Port > 0 ? connectionInfo.Port : (int)Defaults.Port;
+            return connectionInfo.RDGatewayUsageMethod != RDGatewayUsageMethod.Never ? [port, 443] : [port];
+        }
+
+        /// <summary>
+        /// Snapshot of the process's endpoints before Connect, so the endpoint this session opens can
+        /// be found among other tabs' on the same port. Diagnostics only: a failure changes nothing.
+        /// </summary>
+        private void SnapshotLinkProbeTarget()
+        {
+            try
+            {
+                EnsureLinkProbe().SnapshotBeforeConnect();
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_link_probe", ex);
+            }
+        }
+
+        private void MarkLinkProbeConnected()
+        {
+            try
+            {
+                _linkProbe?.MarkConnected(LinkProbePorts());
             }
             catch (Exception ex)
             {
@@ -2265,6 +2302,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connected",
                 _phaseClock.ElapsedMs, RdpVersion?.ToString(),
                 refreshResources: true);
+            MarkLinkProbeConnected();
             _arcGate.Reset(Environment.TickCount64, DateTime.UtcNow);
             _arcLivenessTimer.Start();
             try

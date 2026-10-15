@@ -71,17 +71,43 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         /// <summary>
         /// Picks the endpoint the control is connected to from the process's established TCP
-        /// connections. Returns <c>null</c> unless exactly one remote endpoint fits; when several do
-        /// (two tabs on the same port), endpoints another session already probes are set aside.
+        /// connections. Returns <c>null</c> unless exactly one remote endpoint fits.
+        /// <para>
+        /// <paramref name="appeared"/> are the endpoints on the session's ports that were not there
+        /// before its <c>Connect</c> and were there at its <c>OnConnected</c>
+        /// (<see cref="AppearedEndpoints"/>): with several tabs on the same port they name this
+        /// session's own connection, so the match is narrowed to them first. When that leaves
+        /// nothing (the session reconnected to a different address) the whole match is used.
+        /// When several still fit, endpoints other sessions already probe or own are set aside.
+        /// </para>
         /// </summary>
         internal static IPEndPoint? SelectTarget(IEnumerable<IPEndPoint> remotes, IReadOnlyCollection<int> ports,
-            IReadOnlyCollection<IPEndPoint> claimedByOthers, out int candidates)
+            IReadOnlyCollection<IPEndPoint> claimedByOthers, out int candidates,
+            IReadOnlyCollection<IPEndPoint>? appeared = null)
         {
             List<IPEndPoint> matching = remotes.Where(r => ports.Contains(r.Port)).Distinct().ToList();
+            if (appeared is { Count: > 0 } && matching.Count > 1)
+            {
+                List<IPEndPoint> own = matching.Where(appeared.Contains).ToList();
+                if (own.Count > 0)
+                    matching = own;
+            }
             if (matching.Count > 1)
                 matching = matching.Where(r => !claimedByOthers.Contains(r)).ToList();
             candidates = matching.Count;
             return matching.Count == 1 ? matching[0] : null;
+        }
+
+        /// <summary>
+        /// The endpoints on <paramref name="ports"/> that exist in <paramref name="after"/> and did
+        /// not exist in <paramref name="before"/>: the connection a session opened between the two
+        /// snapshots. No name is resolved; only the process's own TCP table is compared.
+        /// </summary>
+        internal static IPEndPoint[] AppearedEndpoints(IEnumerable<IPEndPoint> before, IEnumerable<IPEndPoint> after,
+            IReadOnlyCollection<int> ports)
+        {
+            var existing = new HashSet<IPEndPoint>(before);
+            return after.Where(r => ports.Contains(r.Port) && !existing.Contains(r)).Distinct().ToArray();
         }
     }
 
@@ -104,6 +130,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
     internal sealed class RdpLinkProbe : IDisposable
     {
         private static readonly ConcurrentDictionary<RdpLinkProbe, IPEndPoint> Claimed = new();
+        // A session whose connect produced exactly one new endpoint owns it, even before its probe runs.
+        private static readonly ConcurrentDictionary<RdpLinkProbe, IPEndPoint> Attributed = new();
 
         private readonly Func<RdpProbeState> _state;
         private readonly Action<RdpProbeResult> _onResult;
@@ -112,12 +140,38 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private CancellationTokenSource? _cts;
         private volatile bool _alive;
         private long _lastDropMs = long.MinValue;
+        private volatile HashSet<IPEndPoint>? _beforeConnect;
+        private volatile IPEndPoint[] _appeared = [];
 
         internal RdpLinkProbe(Func<RdpProbeState> state, Action<RdpProbeResult> onResult, Action<int> onNoTarget)
         {
             _state = state;
             _onResult = onResult;
             _onNoTarget = onNoTarget;
+        }
+
+        /// <summary>
+        /// The control is about to connect: remember which endpoints the process already has, so the
+        /// one this session opens can be told apart from the other tabs' (see <see cref="MarkConnected"/>).
+        /// </summary>
+        internal void SnapshotBeforeConnect() =>
+            _beforeConnect = new HashSet<IPEndPoint>(TcpConnectionTable.EstablishedRemotes(Environment.ProcessId));
+
+        /// <summary>The control connected: the endpoints that appeared since the snapshot are this session's.</summary>
+        internal void MarkConnected(IReadOnlyCollection<int> ports)
+        {
+            HashSet<IPEndPoint>? before = _beforeConnect;
+            if (before == null)
+                return;
+            IPEndPoint[] appeared = RdpLinkProbePolicy.AppearedEndpoints(
+                before, TcpConnectionTable.EstablishedRemotes(Environment.ProcessId), ports);
+            if (appeared.Length == 0)
+                return; // nothing new (another tab already holds the same endpoint): keep what we had
+            _appeared = appeared;
+            if (appeared.Length == 1)
+                Attributed[this] = appeared[0];
+            else
+                Attributed.TryRemove(this, out _);
         }
 
         /// <summary>The session logged in. Starts the probe loop unless it is already running.</summary>
@@ -145,6 +199,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         internal void Stop()
         {
+            Attributed.TryRemove(this, out _);
             CancellationTokenSource? cts;
             lock (_sync)
             {
@@ -203,9 +258,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
             long start = Environment.TickCount64;
             while (true)
             {
-                IPEndPoint[] others = Claimed.Where(c => !ReferenceEquals(c.Key, this)).Select(c => c.Value).ToArray();
+                IPEndPoint[] others = Claimed.Concat(Attributed)
+                    .Where(c => !ReferenceEquals(c.Key, this)).Select(c => c.Value).Distinct().ToArray();
                 IPEndPoint? target = RdpLinkProbePolicy.SelectTarget(
-                    TcpConnectionTable.EstablishedRemotes(pid), ports, others, out candidates);
+                    TcpConnectionTable.EstablishedRemotes(pid), ports, others, out candidates, _appeared);
                 if (target != null)
                     return target;
                 if (Environment.TickCount64 - start >= RdpLinkProbePolicy.TargetWaitMs)
