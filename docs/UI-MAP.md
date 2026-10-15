@@ -223,7 +223,7 @@ create/delete a theme (delete disabled for base themes).
 | `chkUseCustomPuttyPath`+`txtCustomPuttyPath`+Browse | Custom PuTTY path | `OAD.UseCustomPuttyPath`/`CustomPuttyPath` |
 | `btnLaunchPutty` | Launch PuTTY session config UI | enabled only if resolved PuTTY path exists |
 | `numUVNCSCPort` | UltraVNC SC listening port | `OAD.UVNCSCPort` |
-| `chkRdpNetworkAutoDetect` | Let RDP detect the network speed and adapt image quality (recommended on mobile or unstable links) | `OAD.RdpNetworkAutoDetect` (default off; logged as `net_type=7` in `rdp_shape`, off = `net_type=1`) |
+| `chkRdpNetworkAutoDetect` | Let RDP detect the network speed and adapt image quality (recommended on mobile or unstable links) | `OAD.RdpNetworkAutoDetect` (default off; sets NetworkConnectionType 7 (AutoDetect) instead of 1 (Modem); logged as `net_type` in `rdp_shape`) |
 | `chkConnectionLogging` / `chkShowPortScan` / `chkShowPuttySavedSessions` | Enable connection logging / Show Port Scan / Show PuTTY saved sessions | `OAD.EnableConnectionLogging` / `ShowPortScan` / `ShowPuttySavedSessions` |
 
 #### 2.12 Backup

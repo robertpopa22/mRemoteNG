@@ -42,14 +42,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 rdpClient.AdvancedSettings8.AudioQualityMode = (uint)connectionInfo.SoundQuality;
                 rdpClient.AdvancedSettings8.AudioCaptureRedirectionMode = connectionInfo.RedirectAudioCapture;
-                // Modem keeps the user's performance flags authoritative but switches off the
-                // server's bandwidth detection. Auto-detect lets the server adapt image quality to
-                // the link as it changes, at the cost of choosing those visual effects itself.
+                // The connection type is the only switch (the control rejects BandwidthDetection).
+                // Modem keeps the user's performance flags authoritative and measures nothing.
+                // AutoDetect makes the control measure the link and adapt image quality, at the
+                // cost of the server choosing those visual effects itself.
                 bool autoDetect = Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect;
                 rdpClient.AdvancedSettings8.NetworkConnectionType = (uint)(autoDetect ? RdpNetworkConnectionType.AutoDetect : RdpNetworkConnectionType.Modem);
-                // BandwidthDetection is on IMsRdpClientAdvancedSettings8, which only IMsRdpClient8.AdvancedSettings9
-                // returns; the object behind AdvancedSettings8 does not answer a cast to it.
-                AccessBandwidthDetection(autoDetect);
 
                 SetUseRedirectionServerName();
 

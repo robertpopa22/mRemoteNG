@@ -2239,7 +2239,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
             // by the previous session. AltGr = Left-Ctrl + Right-Alt, so a stuck Ctrl
             // from the disconnected session prevents AltGr from working after reconnect (#1461).
             ReleaseLocalModifierKeys();
-            RetryBandwidthDetection("connected");
 
             Event_Connected(this);
         }
@@ -2251,7 +2250,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _diagnosticConnectStopwatch.ElapsedMilliseconds, RdpVersion?.ToString(),
                 refreshResources: true);
             StartLinkProbe();
-            RetryBandwidthDetection("login_complete");
             if (WindowedFullscreenSizingActive)
             {
                 try
@@ -2580,83 +2578,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch { }
         }
 
-        private static int _bandwidthDiagLogged;
-
-        /// <summary>
-        /// Reads or writes BandwidthDetection through the IMsRdpClient8 interface (the only one whose
-        /// AdvancedSettings9 returns IMsRdpClientAdvancedSettings8). Logs which client interfaces the
-        /// control answers: once on success, and on every failure. <paramref name="when"/> names the
-        /// connection phase; outside the pre-connect path every outcome is logged, so one run shows
-        /// whether the control accepts the property before Connect, after OnConnected, or after
-        /// OnLoginComplete.
-        /// </summary>
-        protected bool? AccessBandwidthDetection(bool? write, string? when = null)
-        {
-            object? ocx = (Control as AxHost)?.GetOcx();
-            string phase = when == null ? string.Empty : $"when={when} ";
-            string step = "cast";
-            try
-            {
-                if (ocx is IMsRdpClient8 client8)
-                {
-                    step = "settings";
-                    IMsRdpClientAdvancedSettings8 settings = client8.AdvancedSettings9;
-                    if (write.HasValue)
-                    {
-                        step = "set";
-                        settings.BandwidthDetection = write.Value;
-                    }
-                    step = "get";
-                    bool value = settings.BandwidthDetection;
-                    if (when != null || Interlocked.Exchange(ref _bandwidthDiagLogged, 1) == 0)
-                        Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
-                            $"[#rdp-bw-diag] {phase}ok wrote={(write.HasValue ? write.Value.ToString() : "none")} read={value} {DescribeClientInterfaces(ocx)}", true);
-                    return value;
-                }
-
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                    $"[#rdp-bw-diag] {phase}no IMsRdpClient8 {DescribeClientInterfaces(ocx)}", true);
-            }
-            catch (COMException ex)
-            {
-                // Logged raw, not interpreted. Common values for reference only (winerror.h):
-                // E_NOTIMPL 0x80004001, E_FAIL 0x80004005, E_UNEXPECTED 0x8000FFFF,
-                // DISP_E_MEMBERNOTFOUND 0x80020003, RPC_E_WRONG_THREAD 0x8001010E.
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                    $"[#rdp-bw-diag] {phase}COMException step={step} hr=0x{ex.HResult:X8} code=0x{ex.ErrorCode:X8} {DescribeClientInterfaces(ocx)}", true);
-            }
-            catch (Exception ex)
-            {
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                    $"[#rdp-bw-diag] {phase}{ex.GetType().Name} step={step} hr=0x{ex.HResult:X8} {DescribeClientInterfaces(ocx)}", true);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Repeats the BandwidthDetection write once per phase after Connect. Diagnostic: the lab
-        /// shows the pre-connect read and write both throw on RDC11 (#rdp-bw-diag), and the
-        /// documentation does not say whether the property is settable only before Connect.
-        /// </summary>
-        private void RetryBandwidthDetection(string when)
-        {
-            if (RdpVersion == null || RdpVersion < Versions.RDC70) return;
-            AccessBandwidthDetection(Properties.OptionsAdvancedPage.Default.RdpNetworkAutoDetect, when);
-        }
-
-        private static string DescribeClientInterfaces(object? ocx)
-        {
-            if (ocx == null) return "rcw=null";
-            var sb = new StringBuilder("rcw=").Append(ocx.GetType().FullName).Append(" answers=");
-            if (ocx is IMsRdpClient7) sb.Append("7,");
-            if (ocx is IMsRdpClient8) sb.Append("8,");
-            if (ocx is IMsRdpClient9) sb.Append("9,");
-            if (ocx is IMsRdpClient10) sb.Append("10,");
-            if (ocx is MsRdpClient11NotSafeForScripting) sb.Append("11coclass,");
-            return sb.ToString().TrimEnd(',');
-        }
-
         private void LogAppliedShape()
         {
             try
@@ -2695,9 +2616,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     }
                 }
                 catch { /* the fields stay unknown */ }
-                bool? detected = AccessBandwidthDetection(null);
-                if (detected.HasValue)
-                    bandwidthDetection = detected.Value ? "true" : "false";
+                // IMsRdpClientAdvancedSettings8.BandwidthDetection is rejected by the RDC11 control
+                // (get before Connect 0x8345000A; set after OnConnected/OnLoginComplete E_FAIL
+                // 0x80004005; lab 2026-10-15). NetworkConnectionType is the only switch.
+                bandwidthDetection = "unsupported";
 
                 var property = typeof(ConnectionInfo).GetProperty("RDP" + "Auth" + "enticationLevel");
                 int serverAuth = -1;
