@@ -336,6 +336,9 @@ namespace mRemoteNG.App
         /// Names the disconnect without repeating the control's display string.
         /// Extended 12 is a user logoff and extended 2 is an API logoff; both make
         /// <c>GetErrorDescription</c> return "An internal error has occurred."
+        /// The network classes follow the documented OnDisconnected reason table:
+        /// 0x104 (260) DNS name lookup failure, 0x108 (264) connection timed out,
+        /// 0x204 (516) WinSock socket connect failure, 0x904 (2308) socket closed.
         /// </summary>
         internal static string ClassifyDisconnect(int? code, uint? extended)
         {
@@ -349,6 +352,10 @@ namespace mRemoteNG.App
                 1 => "local_disconnect",
                 2 => "remote_user",
                 3 => "remote_server",
+                0x104 => "dns",
+                0x108 => "timeout",
+                0x204 => "tcp_connect",
+                0x904 => "socket_closed",
                 0xB08 => "normal",
                 _ => "other"
             };

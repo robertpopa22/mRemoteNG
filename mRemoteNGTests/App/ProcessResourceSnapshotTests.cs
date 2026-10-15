@@ -44,6 +44,11 @@ public class ProcessResourceSnapshotTests
     [TestCase(2, 0u, "remote_user")]
     [TestCase(3, 0u, "remote_server")]
     [TestCase(0xB08, 0u, "normal")]
+    [TestCase(260, 0u, "dns")]
+    [TestCase(264, 0u, "timeout")]
+    [TestCase(516, 0u, "tcp_connect")]
+    [TestCase(2308, 7u, "socket_closed")]
+    [TestCase(2308, 0u, "socket_closed")]
     public void DisconnectClassComesFromTheExtendedReasonFirst(int code, uint extended, string expected) =>
         Assert.That(RuntimeDiagnostics.ClassifyDisconnect(code, extended), Is.EqualTo(expected));
 }
