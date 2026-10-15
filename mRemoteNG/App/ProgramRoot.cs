@@ -335,6 +335,7 @@ namespace mRemoteNG.App
         private static void StartApplication(string[]? args = null)
         {
             CatchAllUnhandledExceptions();
+            StartupLoadTrace.Start();
             RuntimeDiagnostics.Initialize();
 
             // Fix #2062: ensure DockPanelSuite computes drag indicators correctly

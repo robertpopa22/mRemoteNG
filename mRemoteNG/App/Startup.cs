@@ -38,8 +38,18 @@ namespace mRemoteNG.App
             _connectionIconLoader = new ConnectionIconLoader(GeneralAppInfo.HomePath + "\\Icons\\");
         }
 
-        public void InitializeProgram(MessageCollector messageCollector)
+        /// <param name="messageCollector">Receives the startup log lines.</param>
+        /// <param name="callerTimestamp">
+        /// <see cref="Stopwatch.GetTimestamp"/> taken by the caller just before the call, or 0. The
+        /// time between it and this method's first statement is the runtime preparing the method:
+        /// compiling it and loading every assembly its body references.
+        /// </param>
+        public void InitializeProgram(MessageCollector messageCollector, long callerTimestamp = 0)
         {
+            if (callerTimestamp != 0)
+                messageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"[Startup]   MethodEntry: {StartupLoadTrace.ElapsedMs(callerTimestamp, Stopwatch.GetTimestamp())}ms (compiling InitializeProgram and the assembly loads it needs)", true);
+
             Debug.Print("---------------------------" + Environment.NewLine + "[START] - " + Convert.ToString(DateTime.Now, CultureInfo.InvariantCulture));
             var sw = Stopwatch.StartNew();
 
@@ -62,6 +72,8 @@ namespace mRemoteNG.App
             // the control reporting a stale count and is the suspected source of the #149 expand
             // crash. It cannot log on its own -- it has no dependency on this application -- so
             // give it somewhere to report. Silent unless a resize actually fails.
+            // Timed because it is the first use of ObjectListView, which loads that assembly.
+            sw.Restart();
             BrightIdeasSoftware.VirtualObjectListView.SizeChangeDiagnostic = report =>
                 messageCollector.AddMessage(MessageClass.WarningMsg, $"[#149-diag] {report}", true);
 
@@ -70,6 +82,7 @@ namespace mRemoteNG.App
             // GetItemCount() is reporting. SizeChangeDiagnostic above cannot see that case at all.
             BrightIdeasSoftware.TreeListView.RedrawGuardDiagnostic = report =>
                 messageCollector.AddMessage(MessageClass.WarningMsg, $"[#149-diag] {report}", true);
+            messageCollector.AddMessage(MessageClass.InformationMsg, $"[Startup]   ListViewDiagnostics: {sw.ElapsedMilliseconds}ms", true);
 
             sw.Restart();
             ParseCommandLineArgs(messageCollector);

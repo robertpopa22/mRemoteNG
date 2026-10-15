@@ -275,9 +275,10 @@ namespace mRemoteNG.UI.Forms
             // Post early phase timing now that messageCollector is ready
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] SettingsLoad: {settingsMs}ms");
             RuntimeDiagnostics.StartupPhase("settings_load", settingsMs);
+            StartupLoadTrace.LogProgramFiles(messageCollector);
 
             phaseSw.Restart();
-            Startup.Instance.InitializeProgram(messageCollector);
+            Startup.Instance.InitializeProgram(messageCollector, Stopwatch.GetTimestamp());
             Debug.Print($"[Startup] InitializeProgram: {phaseSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] InitializeProgram: {phaseSw.ElapsedMilliseconds}ms");
             RuntimeDiagnostics.StartupPhase("initialize_program", phaseSw.ElapsedMilliseconds);
@@ -378,6 +379,7 @@ namespace mRemoteNG.UI.Forms
             Debug.Print($"[Startup] Total FrmMain_Load: {totalSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] Total: {totalSw.ElapsedMilliseconds}ms");
             RuntimeDiagnostics.StartupPhase("total", totalSw.ElapsedMilliseconds);
+            StartupLoadTrace.Finish(messageCollector);
             RuntimeDiagnostics.PulseUi();
             RuntimeDiagnostics.StartUiWatchdog();
             _runtimeDiagnosticsPulseStarted = true;
