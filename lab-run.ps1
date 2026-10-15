@@ -112,6 +112,19 @@ try {
         [Environment]::SetEnvironmentVariable('MRNG_BATTERY_FILTER', $filter, 'Machine')
         Remove-Item 'C:\mRNG-Lab\_results\done.txt' -ErrorAction SilentlyContinue
         Remove-Item 'C:\mRNG-Lab\_results\ui-acceptance.trx' -ErrorAction SilentlyContinue
+
+        # A roaming or local profile left by an earlier installed run makes the connections-file
+        # chooser appear next to the seeded portable file and blocks every scenario. A portable run
+        # must see only its own Settings, so remove the profile folders of the account that runs it.
+        foreach ($base in @([Environment]::GetFolderPath('ApplicationData'),
+                            [Environment]::GetFolderPath('LocalApplicationData'))) {
+            $profileDir = Join-Path $base 'mRemoteNG Connection Manager'
+            if (Test-Path $profileDir) {
+                Remove-Item $profileDir -Recurse -Force
+                Write-Output "removed stale profile folder $profileDir"
+            }
+        }
+
         Start-ScheduledTask -TaskName 'mRNG-UI-Battery'
     } -ArgumentList $Filter
 
