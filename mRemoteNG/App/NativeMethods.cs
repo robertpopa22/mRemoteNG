@@ -86,6 +86,9 @@ namespace mRemoteNG.App
         [DllImport("user32.dll")]
         internal static extern IntPtr GetFocus();
 
+        [DllImport("user32.dll")]
+        internal static extern int GetMessageTime();
+
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, [MarshalAs(UnmanagedType.Bool)] bool fAttach);

@@ -291,6 +291,46 @@ namespace mRemoteNG.App
         }
 
         /// <summary>
+        /// One line per open started from a click in the connection tree: how long from the mouse
+        /// message to <c>OpenConnection</c>, split into steps. Numbers and step names only.
+        /// </summary>
+        internal static void TreeClick(string protocol, int clicks, long totalMs,
+            IReadOnlyList<KeyValuePair<string, long>> steps, long saveBackgroundMs) =>
+            WriteInfo("tree_click", TreeClickFields(protocol, clicks, totalMs, steps, saveBackgroundMs));
+
+        /// <summary>The fields of <see cref="TreeClick"/> as they appear after the event name.</summary>
+        internal static string FormatTreeClick(string protocol, int clicks, long totalMs,
+            IReadOnlyList<KeyValuePair<string, long>> steps, long saveBackgroundMs) =>
+            string.Join(" ", TreeClickFields(protocol, clicks, totalMs, steps, saveBackgroundMs)
+                .Select(field => $"{field.Key}={field.Value}"));
+
+        private static FieldValue[] TreeClickFields(string protocol, int clicks, long totalMs,
+            IReadOnlyList<KeyValuePair<string, long>> steps, long saveBackgroundMs)
+        {
+            List<FieldValue> fields =
+            [
+                Field("protocol", SafeToken(protocol)),
+                Number("clicks", clicks),
+                Number("total_ms", totalMs)
+            ];
+            string? slowest = null;
+            long slowestMs = -1;
+            foreach (KeyValuePair<string, long> step in steps)
+            {
+                fields.Add(Number(step.Key + "_ms", step.Value));
+                if (step.Value > slowestMs)
+                {
+                    slowestMs = step.Value;
+                    slowest = step.Key;
+                }
+            }
+            fields.Add(Number("save_bg_ms", saveBackgroundMs));
+            if (slowest != null && slowestMs >= SlowOpenStepMs)
+                fields.Add(Field("slow_step", slowest));
+            return fields.ToArray();
+        }
+
+        /// <summary>
         /// Link quality as the embedded RDP client measured it: quality level, estimated bandwidth
         /// and round-trip time, plus the range seen since the previous line. Numbers only.
         /// </summary>

@@ -944,6 +944,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         private void TvConnections_AfterSelect(object sender, EventArgs e)
         {
+            long selectStart = System.Diagnostics.Stopwatch.GetTimestamp();
+            long configLoadMs = 0;
             try
             {
                 var nodes = GetSelectedNodes();
@@ -971,11 +973,18 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
                 DevLog.Write($"SelectedNodes={nodes.Count}, First={nodes.FirstOrDefault()?.Name}");
                 _slowClickRenameHandler?.CancelIfDifferentNode(nodes.FirstOrDefault());
+                long configStart = System.Diagnostics.Stopwatch.GetTimestamp();
                 AppWindows.ConfigForm.SelectedTreeNodes = nodes;
+                configLoadMs = (long)System.Diagnostics.Stopwatch.GetElapsedTime(configStart).TotalMilliseconds;
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("tvConnections_AfterSelect (UI.Window.ConnectionTreeWindow) failed", ex);
+            }
+            finally
+            {
+                long totalMs = (long)System.Diagnostics.Stopwatch.GetElapsedTime(selectStart).TotalMilliseconds;
+                App.Diagnostics.TreeClickTrace.Selected(Math.Max(0, totalMs - configLoadMs), configLoadMs);
             }
         }
 
@@ -984,6 +993,9 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         private void OnMouse_Down(object sender, MouseEventArgs e)
         {
+            // The second press of a double-click must not restart the trace of the first.
+            if (e.Clicks < 2)
+                App.Diagnostics.TreeClickTrace.MouseDown(App.Diagnostics.TreeClickTrace.CurrentQueueWaitMs());
             _clickModifiers = ModifierKeys;
             if ((_clickModifiers & Keys.Alt) != 0)
                 _slowClickRenameHandler?.Cancel();
@@ -1007,7 +1019,15 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             // ReSharper disable once NotAccessedVariable
             OLVListItem listItem = GetItemAt(mouseEventArgs.X, mouseEventArgs.Y, out _);
             if (listItem?.RowObject is not ConnectionInfo clickedNode) return;
-            DispatchConnectionClick(clickedNode, mouseEventArgs.Clicks, _clickModifiers);
+            App.Diagnostics.TreeClickTrace.Dispatched(mouseEventArgs.Clicks, App.Diagnostics.TreeClickTrace.CurrentQueueWaitMs());
+            try
+            {
+                DispatchConnectionClick(clickedNode, mouseEventArgs.Clicks, _clickModifiers);
+            }
+            finally
+            {
+                App.Diagnostics.TreeClickTrace.DispatchEnded();
+            }
         }
 
         private void OnMouse_SingleClick(object sender, MouseEventArgs mouseEventArgs)
@@ -1017,7 +1037,15 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             // ReSharper disable once NotAccessedVariable
             OLVListItem listItem = GetItemAt(mouseEventArgs.X, mouseEventArgs.Y, out _);
             if (listItem?.RowObject is not ConnectionInfo clickedNode) return;
-            DispatchConnectionClick(clickedNode, mouseEventArgs.Clicks, _clickModifiers);
+            App.Diagnostics.TreeClickTrace.Dispatched(mouseEventArgs.Clicks, App.Diagnostics.TreeClickTrace.CurrentQueueWaitMs());
+            try
+            {
+                DispatchConnectionClick(clickedNode, mouseEventArgs.Clicks, _clickModifiers);
+            }
+            finally
+            {
+                App.Diagnostics.TreeClickTrace.DispatchEnded();
+            }
         }
 
         internal void DispatchConnectionClick(ConnectionInfo clickedNode, int clicks, Keys modifiers)

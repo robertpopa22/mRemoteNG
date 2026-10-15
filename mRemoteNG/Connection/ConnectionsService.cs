@@ -690,6 +690,7 @@ namespace mRemoteNG.Connection
                 RuntimeDiagnostics.ConnectionSave(useDatabase,
                     !string.IsNullOrEmpty(propertyNameTrigger), diagnosticsNodeCount,
                     diagnosticsStopwatch.ElapsedMilliseconds, diagnosticsSuccess ? "success" : "failed");
+                App.Diagnostics.TreeClickTrace.SaveRan(diagnosticsStopwatch.ElapsedMilliseconds);
             }
         }
 

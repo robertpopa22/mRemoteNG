@@ -114,6 +114,7 @@ namespace mRemoteNG.Connection
             if (connectionInfo == null)
                 return;
 
+            TreeClickTrace.ReachedOpenConnection(connectionInfo.Protocol.ToString());
             OpenStepTimer openTimer = new();
             ConnectionOpenDiagnostics.LogEntry(connectionInfo.Protocol.ToString(),
                 !string.IsNullOrEmpty(connectionInfo.SSHTunnelConnectionName),
