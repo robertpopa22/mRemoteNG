@@ -300,7 +300,8 @@ try {
                 $more = if ($blocked.Count -gt 5) { " (+$($blocked.Count - 5) more)" } else { '' }
                 Fail "MINI refused: FULL-only file(s) changed: $(($blocked | Select-Object -First 5) -join ', ')$more"
             }
-            $deltaBytes = [long](($delta | Measure-Object size -Sum).Sum)
+            # Not Measure-Object: on an empty delta (unchanged commit) it has no Sum under StrictMode.
+            $deltaBytes = 0L; foreach ($d in $delta) { $deltaBytes += [long]$d.size }
             $baseTotal = [long](($baseManifest.files | Measure-Object size -Sum).Sum)
             if ($baseTotal -gt 0 -and $deltaBytes -gt $MiniMaxDeltaFraction * $baseTotal) {
                 Fail ('MINI refused: delta {0:N0} bytes is over {1:P0} of base FULL ({2:N0}); publish a FULL' -f $deltaBytes, $MiniMaxDeltaFraction, $baseTotal)

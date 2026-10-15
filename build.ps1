@@ -78,7 +78,16 @@ if (-not $isCI) {
     }
     $localNumericVersion = $Matches.numeric
     $buildEpoch = [DateTime]'2019-09-02'
-    $localBuildNumber = [int](([DateTime]::UtcNow - $buildEpoch).TotalMinutes / 1000)
+    # The build number comes from the HEAD commit time, not the clock: two builds of the same
+    # commit must produce the same FileVersion, or every MINI package would carry mRemoteNG.dll
+    # and mRemoteNG.exe again. The commit (+ .dirty) in InformationalVersion is the identity.
+    $buildStamp = [DateTime]::UtcNow
+    $commitTime = & git -C $PSScriptRoot log -1 --format=%ct HEAD 2>$null
+    if ($LASTEXITCODE -eq 0 -and "$commitTime" -match '^\d+$') {
+        $buildStamp = [DateTimeOffset]::FromUnixTimeSeconds([long]$commitTime).UtcDateTime
+    }
+    $global:LASTEXITCODE = 0
+    $localBuildNumber = [int](($buildStamp - $buildEpoch).TotalMinutes / 1000)
     $localVersionArgs = @(
         "-p:LocalBuildVersion=$localVersion",
         "-p:LocalBuildNumericVersion=$localNumericVersion",
@@ -151,7 +160,9 @@ Get-ChildItem $outDir -Directory -ErrorAction SilentlyContinue | Where-Object {
         if (-not (Test-Path $dest)) { New-Item $dest -ItemType Directory -Force | Out-Null }
         $resDlls | ForEach-Object {
             $target = Join-Path $dest $_.Name
-            if (-not (Test-Path $target)) { Move-Item $_.FullName $target } else { Remove-Item $_.FullName }
+            # This build's satellite wins: keeping an existing one left a previous build's file in
+            # place on incremental builds (seen 2026-10-15: stale AL.exe satellites after a rebuild).
+            Move-Item -LiteralPath $_.FullName -Destination $target -Force
         }
         $moved++
     }

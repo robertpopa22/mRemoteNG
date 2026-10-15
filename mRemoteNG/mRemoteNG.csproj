@@ -221,6 +221,7 @@
       <EmbedInteropTypes>false</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <Import Project="DeterministicComInterop.targets" />
   <ItemGroup>
     <PackageReference Include="Ben.Demystifier" />
     <PackageReference Include="BouncyCastle.Cryptography" />
@@ -732,12 +733,32 @@
     <Satellite_FileVersion>$(LocalBuildNumericVersion).0</Satellite_FileVersion>
     <Satellite_ProductVersion>$(LocalBuildNumericVersion)</Satellite_ProductVersion>
   </PropertyGroup>
+  <!-- The Satellite_* properties above are read only by AL.exe. Directory.Build.props switches
+       satellites to the compiler (GenerateSatelliteAssembliesForCore, deterministic), which instead
+       copies every version attribute from mRemoteNG.dll, commit included. Replace those three. -->
+  <Target Name="MrngPinSatelliteVersion" AfterTargets="_GetAssemblyInfoFromTemplateFile" Condition="'$(LocalBuildVersion)' != ''">
+    <ItemGroup>
+      <SatelliteAssemblyAttribute Remove="System.Reflection.AssemblyVersionAttribute;System.Reflection.AssemblyFileVersionAttribute;System.Reflection.AssemblyInformationalVersionAttribute" />
+      <SatelliteAssemblyAttribute Include="System.Reflection.AssemblyVersionAttribute">
+        <_Parameter1>$(Satellite_Version)</_Parameter1>
+      </SatelliteAssemblyAttribute>
+      <SatelliteAssemblyAttribute Include="System.Reflection.AssemblyFileVersionAttribute">
+        <_Parameter1>$(Satellite_FileVersion)</_Parameter1>
+      </SatelliteAssemblyAttribute>
+      <SatelliteAssemblyAttribute Include="System.Reflection.AssemblyInformationalVersionAttribute">
+        <_Parameter1>$(Satellite_ProductVersion)</_Parameter1>
+      </SatelliteAssemblyAttribute>
+    </ItemGroup>
+  </Target>
   <ItemGroup Condition="'$(LocalBuildVersion)' != ''">
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <!-- Build identity: the build number repeats within ~16.7 h, so two different
        binaries can both be "3743". The commit (+ .dirty when tracked files differ)
-       is the identity users and logs see. FileVersion/AssemblyVersion stay as is. -->
+       is the identity users and logs see. FileVersion/AssemblyVersion stay as is.
+       No wall-clock value goes into the assembly: it would make two builds of the same
+       commit differ and every MINI package carry mRemoteNG.dll. The build time lives
+       only in the release manifest (buildUtc). -->
   <Target Name="MrngBuildIdentity" BeforeTargets="GetAssemblyVersion;GenerateAssemblyInfo" Condition="'$(LocalBuildVersion)' != ''">
     <Exec Command="git rev-parse --short=10 HEAD" ConsoleToMSBuild="true" StandardOutputImportance="low" StandardErrorImportance="low" IgnoreExitCode="true" ContinueOnError="true" WorkingDirectory="$(MSBuildProjectDirectory)">
       <Output TaskParameter="ConsoleOutput" PropertyName="MrngCommitRaw" />
@@ -750,13 +771,11 @@
       <MrngCommit Condition="'$(MrngCommitExit)' == '0' and '$(MrngCommitRaw)' != ''">$(MrngCommitRaw.Trim())</MrngCommit>
       <MrngCommit Condition="'$(MrngCommit)' == ''">nogit</MrngCommit>
       <MrngDirty Condition="'$(MrngCommit)' != 'nogit' and '$(MrngStatusRaw.Trim())' != ''">.dirty</MrngDirty>
-      <MrngBuildUtc>$([System.DateTime]::UtcNow.ToString("o"))</MrngBuildUtc>
       <InformationalVersion>$(LocalBuildVersion)+$(MrngCommit)$(MrngDirty) (Local build $(LocalBuildNumber)) $(Platform)</InformationalVersion>
     </PropertyGroup>
     <ItemGroup>
       <AssemblyMetadata Include="CommitSha" Value="$(MrngCommit)" />
       <AssemblyMetadata Include="Dirty" Value="$(MrngDirty)" />
-      <AssemblyMetadata Include="BuildUtc" Value="$(MrngBuildUtc)" />
     </ItemGroup>
   </Target>
   <Target Name="PublishAfterBuild" AfterTargets="Build" Condition="'$(Configuration)' == 'Release Self-Contained' and '$(SkipAutoPublish)' != 'true'">

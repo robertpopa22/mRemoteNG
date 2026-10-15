@@ -37,7 +37,6 @@ namespace mRemoteNG.App.Info
         public const string UrlForkUserGuide = "https://github.com/robertpopa22/mRemoteNG/blob/main/docs/USER-GUIDE.md";
         public static readonly string ApplicationVersion = Application.ProductVersion;
         public static readonly string BuildId = ResolveBuildId(Assembly.GetExecutingAssembly(), ApplicationVersion);
-        public static readonly string BuildUtc = ReadMetadata(Assembly.GetExecutingAssembly(), "BuildUtc") ?? string.Empty;
         public static readonly string ProductName = Application.ProductName ?? string.Empty;
         public static readonly string Copyright = (Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(AssemblyCopyrightAttribute), false) as AssemblyCopyrightAttribute)?.Copyright ?? string.Empty;
         public static readonly string HomePath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty;

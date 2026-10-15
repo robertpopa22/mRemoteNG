@@ -1,0 +1,144 @@
+<Project>
+  <!--
+    Deterministic COM interop wrappers.
+
+    ResolveComReference regenerates Interop.MSTSCLib.dll (tlbimp) and AxInterop.MSTSCLib.dll
+    (aximp) on every clean build. Neither tool has a deterministic mode: two builds of the same
+    commit differ in exactly two fields, the PE TimeDateStamp and the module MVID (17 bytes;
+    measured 2026-10-15), and nothing else. That alone would push both files, which are on the
+    FULL-only list, into every MINI delta and so refuse every MINI package.
+
+    This target rewrites those two fields the way the C# compiler does in deterministic mode:
+    both are derived from a SHA-256 of the file with the two fields zeroed. Same type library in,
+    same bytes out; a different type library (new mstscax) still yields a different MVID.
+    Nothing references a wrapper's MVID: mRemoteNG.dll binds to it by name and version.
+    The wrappers are not strong-named; a signed wrapper is left untouched (patching would break
+    the signature).
+  -->
+  <UsingTask TaskName="MrngNormalizeInteropAssembly" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Files ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Class" Language="cs"><![CDATA[
+using System;
+using System.IO;
+using System.Security.Cryptography;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
+
+public class MrngNormalizeInteropAssembly : Task
+{
+    [Required] public ITaskItem[] Files { get; set; }
+
+    public override bool Execute()
+    {
+        foreach (ITaskItem item in Files)
+        {
+            string path = item.GetMetadata("FullPath");
+            if (!File.Exists(path) || !path.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)) continue;
+            try { Normalize(path); }
+            catch (Exception ex) { Log.LogError("Cannot normalize COM interop wrapper {0}: {1}", path, ex.Message); }
+        }
+        return !Log.HasLoggedErrors;
+    }
+
+    private static int I32(byte[] b, int o) { return BitConverter.ToInt32(b, o); }
+    private static int U16(byte[] b, int o) { return BitConverter.ToUInt16(b, o); }
+
+    private void Normalize(string path)
+    {
+        byte[] b = File.ReadAllBytes(path);
+        int pe = I32(b, 0x3C);
+        if (I32(b, pe) != 0x00004550) throw new InvalidDataException("not a PE file");
+        int timeStampOffset = pe + 8;
+        int sectionCount = U16(b, pe + 6);
+        int optSize = U16(b, pe + 20);
+        int opt = pe + 24;
+        int magic = U16(b, opt);
+        int dataDirs = opt + (magic == 0x20B ? 112 : 96);
+        int cliRva = I32(b, dataDirs + 14 * 8);
+        if (cliRva == 0) throw new InvalidDataException("no CLI header");
+        int sections = opt + optSize;
+
+        Func<int, int> rvaToOffset = rva =>
+        {
+            for (int i = 0; i < sectionCount; i++)
+            {
+                int s = sections + i * 40;
+                int va = I32(b, s + 12), vsize = Math.Max(I32(b, s + 8), I32(b, s + 16)), raw = I32(b, s + 20);
+                if (rva >= va && rva < va + vsize) return rva - va + raw;
+            }
+            throw new InvalidDataException("RVA outside any section");
+        };
+
+        int cli = rvaToOffset(cliRva);
+        int cliFlags = I32(b, cli + 16);
+        if ((cliFlags & 0x8) != 0)
+        {
+            Log.LogMessage(MessageImportance.Normal, "{0} is strong-name signed; left as generated.", path);
+            return;
+        }
+        int md = rvaToOffset(I32(b, cli + 8));
+        if (I32(b, md) != 0x424A5342) throw new InvalidDataException("bad metadata signature");
+        int versionLength = I32(b, md + 12);
+        int p = md + 16 + versionLength + 2;
+        int streamCount = U16(b, p); p += 2;
+        int guidHeap = -1, tables = -1;
+        for (int i = 0; i < streamCount; i++)
+        {
+            int offset = I32(b, p), nameStart = p + 8, n = nameStart;
+            while (b[n] != 0) n++;
+            string name = System.Text.Encoding.ASCII.GetString(b, nameStart, n - nameStart);
+            if (name == "#GUID") guidHeap = md + offset;
+            if (name == "#~" || name == "#-") tables = md + offset;
+            p = nameStart + ((n - nameStart + 4) & ~3);
+        }
+        if (guidHeap < 0 || tables < 0) throw new InvalidDataException("missing #GUID or #~ stream");
+        int heapSizes = b[tables + 6];
+        long valid = BitConverter.ToInt64(b, tables + 8);
+        if ((valid & 1) == 0) throw new InvalidDataException("no Module table");
+        int presentTables = 0;
+        for (int t = 0; t < 64; t++) if ((valid & (1L << t)) != 0) presentTables++;
+        int moduleRow = tables + 24 + presentTables * 4;
+        int stringIndexSize = (heapSizes & 1) != 0 ? 4 : 2;
+        int mvidIndexOffset = moduleRow + 2 + stringIndexSize;
+        int mvidIndex = (heapSizes & 2) != 0 ? I32(b, mvidIndexOffset) : U16(b, mvidIndexOffset);
+        if (mvidIndex < 1) throw new InvalidDataException("module has no MVID");
+        int mvidOffset = guidHeap + (mvidIndex - 1) * 16;
+
+        byte[] before = (byte[])b.Clone();
+        Array.Clear(b, timeStampOffset, 4);
+        Array.Clear(b, mvidOffset, 16);
+        byte[] hash;
+        using (SHA256 sha = SHA256.Create()) hash = sha.ComputeHash(b);
+
+        // Same layout as the compiler's deterministic MVID/stamp: a version-4 style GUID and a
+        // timestamp with the high bit set, so it is never mistaken for a real build time.
+        byte[] mvid = new byte[16];
+        Array.Copy(hash, 0, mvid, 0, 16);
+        mvid[7] = (byte)((mvid[7] & 0x0F) | 0x40);
+        mvid[8] = (byte)((mvid[8] & 0x3F) | 0x80);
+        Array.Copy(mvid, 0, b, mvidOffset, 16);
+        b[timeStampOffset] = hash[16];
+        b[timeStampOffset + 1] = hash[17];
+        b[timeStampOffset + 2] = hash[18];
+        b[timeStampOffset + 3] = (byte)(hash[19] | 0x80);
+
+        bool changed = false;
+        for (int i = 0; i < b.Length && !changed; i++) changed = b[i] != before[i];
+        if (changed)
+        {
+            File.WriteAllBytes(path, b);
+            Log.LogMessage(MessageImportance.Normal, "Normalized COM interop wrapper {0}", path);
+        }
+    }
+}
+]]></Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="MrngNormalizeComInterop" AfterTargets="ResolveComReferences" Condition="'@(ComReferenceWrappers)' != ''">
+    <MrngNormalizeInteropAssembly Files="@(ComReferenceWrappers)" />
+  </Target>
+</Project>

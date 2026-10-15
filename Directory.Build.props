@@ -16,6 +16,28 @@
     <AnalysisLevel>latest-recommended</AnalysisLevel>
   </PropertyGroup>
 
+  <!-- Reproducible output: the same commit must produce the same bytes, whichever folder
+       (worktree, temp build tree, CI runner) it is built in. MINI update packages are a
+       hash diff against a published FULL, so any churn here ships files that did not change.
+       - Deterministic: compiler output depends only on its inputs (SDK default; stated here
+         because ObjectListView used to turn it off).
+       - ContinuousIntegrationBuild + PathMap: the checkout path does not enter the PDB path
+         in the DLL's debug directory or the source paths inside the PDB. Source Link maps the
+         repository root to /_/; the explicit PathMap is the same mapping for builds where
+         Source Link finds no git repository. Debug builds keep real paths for debugging; test
+         projects (not shipped) keep them too, because tests find repository files through
+         [CallerFilePath].
+       - GenerateSatelliteAssembliesForCore: VS (.NET Framework) MSBuild otherwise builds the
+         satellite resource assemblies with AL.exe, which stamps a time and a random MVID. -->
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <GenerateSatelliteAssembliesForCore>true</GenerateSatelliteAssembliesForCore>
+  </PropertyGroup>
+  <PropertyGroup Condition="!$(Configuration.StartsWith('Debug')) and !$(MSBuildProjectName.EndsWith('Tests')) and !$(MSBuildProjectName.EndsWith('Specs'))">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <PathMap>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)'))=/_/</PathMap>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Roslynator.Analyzers">
       <PrivateAssets>all</PrivateAssets>
