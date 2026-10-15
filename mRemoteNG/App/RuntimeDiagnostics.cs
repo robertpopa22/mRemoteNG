@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using log4net;
 using mRemoteNG.App.Diagnostics;
+using mRemoteNG.App.Info;
 
 namespace mRemoteNG.App
 {
@@ -83,6 +84,8 @@ namespace mRemoteNG.App
                     Number("logical_processors", Environment.ProcessorCount)).Prepend(
                     Field("arch", Environment.Is64BitProcess ? "x64" : "x86")).Prepend(
                     Field("runtime", SafeVersion(Environment.Version.ToString()))).Prepend(
+                    Field("edition", Runtime.ShowsAsPortable ? "portable" : "installed")).Prepend(
+                    Field("build_id", GeneralAppInfo.BuildId)).Prepend(
                     Field("version", SafeVersion(Assembly.GetExecutingAssembly().GetName().Version?.ToString()))).ToArray());
 
             LogRemoteDesktopEngineInventory();

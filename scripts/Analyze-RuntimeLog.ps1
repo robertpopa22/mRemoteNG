@@ -149,6 +149,8 @@ $rdpNetwork = [ordered]@{
     AppliedShapes = @($shapeEvents | Group-Object { "net_type=$((Get-Field $_ 'net_type')) bw_detect=$((Get-Field $_ 'bw_detect')) color_depth=$((Get-Field $_ 'color_depth')) perf_flags=$((Get-Field $_ 'perf_flags')) perf_requested=$((Get-Field $_ 'perf_flags_requested')) compress=$((Get-Field $_ 'compress')) bitmap_persist=$((Get-Field $_ 'bitmap_persist'))" } |
         Sort-Object Count -Descending | ForEach-Object { [pscustomobject]@{ Shape = $_.Name; Count = $_.Count } })
 }
+$builds = @($perfEvents | Where-Object Event -eq 'process_start' | Group-Object { "$((Get-Field $_ 'version')) build_id=$((Get-Field $_ 'build_id')) edition=$((Get-Field $_ 'edition'))" } |
+    ForEach-Object { [ordered]@{ Build = $_.Name; Starts = $_.Count } })
 $heartbeatEvents = @($perfEvents | Where-Object Event -eq 'heartbeat')
 $latestHeartbeat = if ($heartbeatEvents.Count) { $heartbeatEvents[-1].Fields } else { $null }
 $engineInventoryEvent = $perfEvents | Where-Object Event -eq 'rdp_engine_inventory' | Select-Object -Last 1
@@ -158,6 +160,7 @@ $report = [ordered]@{
     SizeKiB = [Math]::Round((Get-Item -LiteralPath $LogPath).Length / 1KB, 1)
     Lines = $lines.Count
     AppSessions = $appSessions.Count
+    Builds = $builds
     Severity = [ordered]@{ Warnings = $warningCount; Errors = $errorCount }
     Startup = $startup
     ConnectionSaves = [ordered]@{

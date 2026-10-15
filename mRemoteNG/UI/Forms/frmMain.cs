@@ -1923,8 +1923,7 @@ namespace mRemoteNG.UI.Forms
                 return;
             }
 
-            string version = Application.ProductVersion ?? "";
-            StringBuilder titleBuilder = new($"{Application.ProductName} v{version}");
+            StringBuilder titleBuilder = new($"{Application.ProductName} v{GeneralAppInfo.DisplayVersion}");
 
             if (Runtime.IsDevMode)
             {

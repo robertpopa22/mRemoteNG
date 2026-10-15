@@ -24,7 +24,7 @@ Unhandled exceptions are recorded without `Exception.Message`, `Exception.Data` 
 | Event | Purpose |
 | --- | --- |
 | `process_environment` | OS build, product, display version, remote-desktop session, and GDI/USER quotas |
-| `process_start`, `process_stop` | Version, process lifetime, and a resource snapshot |
+| `process_start`, `process_stop` | Assembly `version`, `build_id` (`<commit>[.dirty]`, or `nogit`), `edition` (`portable`/`installed`), process lifetime, and a resource snapshot. `build_id` is the identity of the binary; the build number repeats within a day |
 | `startup_phase` | Settings, initialization, panel layout, connection load and total startup time |
 | `connections_load`, `connections_save` | Source category, outcome, node count and elapsed time |
 | `rdp_engine_inventory` | Presence/version of Microsoft MSTSC ActiveX, `mstsc.exe` and FreeRDP |

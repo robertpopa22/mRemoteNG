@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
@@ -35,6 +36,8 @@ namespace mRemoteNG.App.Info
         // The F1 manual is the upstream one and documents none of this fork's additions.
         public const string UrlForkUserGuide = "https://github.com/robertpopa22/mRemoteNG/blob/main/docs/USER-GUIDE.md";
         public static readonly string ApplicationVersion = Application.ProductVersion;
+        public static readonly string BuildId = ResolveBuildId(Assembly.GetExecutingAssembly(), ApplicationVersion);
+        public static readonly string BuildUtc = ReadMetadata(Assembly.GetExecutingAssembly(), "BuildUtc") ?? string.Empty;
         public static readonly string ProductName = Application.ProductName ?? string.Empty;
         public static readonly string Copyright = (Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(AssemblyCopyrightAttribute), false) as AssemblyCopyrightAttribute)?.Copyright ?? string.Empty;
         public static readonly string HomePath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty;
@@ -68,13 +71,53 @@ namespace mRemoteNG.App.Info
 
         public static string PuttyPath => puttyPath;
 
-        public static Version GetApplicationVersion()
+        /// <summary>Version core of a product-version string, without the "+commit" suffix or trailing text.</summary>
+        public static string GetBaseVersion(string productVersion)
         {
-            string cleanedVersion = ApplicationVersion.Split(' ')[0].Replace("(", "", StringComparison.Ordinal).Replace(")", "", StringComparison.Ordinal).Replace("Build", "", StringComparison.Ordinal);
-            cleanedVersion = cleanedVersion + "." + ApplicationVersion.Split(' ')[^1].Replace(")", "", StringComparison.Ordinal);
+            string first = productVersion.Trim().Split(' ')[0];
+            int plus = first.IndexOf('+', StringComparison.Ordinal);
+            return plus >= 0 ? first[..plus] : first;
+        }
+
+        /// <summary>"1.84.0+a1b2c3d4e5[.dirty]" for titles and reports.</summary>
+        public static string DisplayVersion => $"{GetBaseVersion(ApplicationVersion)}+{BuildId}";
+
+        public static Version GetApplicationVersion() => ParseApplicationVersion(ApplicationVersion);
+
+        public static Version ParseApplicationVersion(string productVersion)
+        {
+            string cleanedVersion = GetBaseVersion(productVersion);
+            Match build = Regex.Match(productVersion, @"\bbuild\s+(\d+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            if (build.Success)
+                cleanedVersion = cleanedVersion + "." + build.Groups[1].Value;
 
             _ = System.Version.TryParse(cleanedVersion, out Version? parsedVersion);
             return parsedVersion ?? new Version(0, 0);
+        }
+
+        private static string? ReadMetadata(Assembly assembly, string key)
+        {
+            foreach (AssemblyMetadataAttribute attribute in assembly.GetCustomAttributes<AssemblyMetadataAttribute>())
+            {
+                if (string.Equals(attribute.Key, key, StringComparison.Ordinal))
+                    return attribute.Value;
+            }
+
+            return null;
+        }
+
+        private static string ResolveBuildId(Assembly assembly, string productVersion)
+        {
+            string? sha = ReadMetadata(assembly, "CommitSha");
+            if (string.IsNullOrWhiteSpace(sha))
+            {
+                // Builds without the metadata (CI) may still carry "+sha" in the product version.
+                string first = productVersion.Trim().Split(' ')[0];
+                int plus = first.IndexOf('+', StringComparison.Ordinal);
+                return plus >= 0 && plus < first.Length - 1 ? first[(plus + 1)..] : "nogit";
+            }
+
+            return sha + (ReadMetadata(assembly, "Dirty") ?? string.Empty);
         }
     }
 }

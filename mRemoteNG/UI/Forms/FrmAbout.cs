@@ -45,7 +45,7 @@ namespace mRemoteNG.UI.Forms
             var puttyVersionStr = (puttyVersion.Major > 0 || puttyVersion.Minor > 0)
                 ? $" | PuTTY {puttyVersion.Major}.{puttyVersion.Minor}"
                 : string.Empty;
-            lblVersion.Text = $@"Version {GeneralAppInfo.ApplicationVersion}{puttyVersionStr} — .NET 10, 16 protocols{PortableSuffix()}";
+            lblVersion.Text = $@"Version {GeneralAppInfo.ApplicationVersion} [build {GeneralAppInfo.BuildId}]{puttyVersionStr} — .NET 10, 16 protocols{PortableSuffix()}";
             lblStats.Text = LiveStats;
             lblStory.Text =
                 "This fork is maintained by an AI-assisted pipeline at Geseidl IT Solutions: every " +

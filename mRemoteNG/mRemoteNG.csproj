@@ -725,9 +725,40 @@
     <InformationalVersion>$(LocalBuildVersion) (Local build $(LocalBuildNumber)) $(Platform)</InformationalVersion>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
+  <!-- Pin satellite assemblies to the stable release version. Left alone they inherit the
+       build number/commit from mRemoteNG.dll, so every commit would change all of them. -->
+  <PropertyGroup Condition="'$(LocalBuildVersion)' != ''">
+    <Satellite_Version>$(LocalBuildNumericVersion).0</Satellite_Version>
+    <Satellite_FileVersion>$(LocalBuildNumericVersion).0</Satellite_FileVersion>
+    <Satellite_ProductVersion>$(LocalBuildNumericVersion)</Satellite_ProductVersion>
+  </PropertyGroup>
   <ItemGroup Condition="'$(LocalBuildVersion)' != ''">
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <!-- Build identity: the build number repeats within ~16.7 h, so two different
+       binaries can both be "3743". The commit (+ .dirty when tracked files differ)
+       is the identity users and logs see. FileVersion/AssemblyVersion stay as is. -->
+  <Target Name="MrngBuildIdentity" BeforeTargets="GetAssemblyVersion;GenerateAssemblyInfo" Condition="'$(LocalBuildVersion)' != ''">
+    <Exec Command="git rev-parse --short=10 HEAD" ConsoleToMSBuild="true" StandardOutputImportance="low" StandardErrorImportance="low" IgnoreExitCode="true" ContinueOnError="true" WorkingDirectory="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="ConsoleOutput" PropertyName="MrngCommitRaw" />
+      <Output TaskParameter="ExitCode" PropertyName="MrngCommitExit" />
+    </Exec>
+    <Exec Command="git status --porcelain --untracked-files=no" ConsoleToMSBuild="true" StandardOutputImportance="low" StandardErrorImportance="low" IgnoreExitCode="true" ContinueOnError="true" WorkingDirectory="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="ConsoleOutput" PropertyName="MrngStatusRaw" />
+    </Exec>
+    <PropertyGroup>
+      <MrngCommit Condition="'$(MrngCommitExit)' == '0' and '$(MrngCommitRaw)' != ''">$(MrngCommitRaw.Trim())</MrngCommit>
+      <MrngCommit Condition="'$(MrngCommit)' == ''">nogit</MrngCommit>
+      <MrngDirty Condition="'$(MrngCommit)' != 'nogit' and '$(MrngStatusRaw.Trim())' != ''">.dirty</MrngDirty>
+      <MrngBuildUtc>$([System.DateTime]::UtcNow.ToString("o"))</MrngBuildUtc>
+      <InformationalVersion>$(LocalBuildVersion)+$(MrngCommit)$(MrngDirty) (Local build $(LocalBuildNumber)) $(Platform)</InformationalVersion>
+    </PropertyGroup>
+    <ItemGroup>
+      <AssemblyMetadata Include="CommitSha" Value="$(MrngCommit)" />
+      <AssemblyMetadata Include="Dirty" Value="$(MrngDirty)" />
+      <AssemblyMetadata Include="BuildUtc" Value="$(MrngBuildUtc)" />
+    </ItemGroup>
+  </Target>
   <Target Name="PublishAfterBuild" AfterTargets="Build" Condition="'$(Configuration)' == 'Release Self-Contained' and '$(SkipAutoPublish)' != 'true'">
     <Message Text="Publishing self-contained portable application for $(Platform)..." Importance="high" />
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="Publish" Properties="Configuration=$(Configuration);Platform=$(Platform);RuntimeIdentifier=$(RuntimeIdentifier);NoBuild=true" />

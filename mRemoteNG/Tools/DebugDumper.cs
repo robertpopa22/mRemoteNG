@@ -49,6 +49,7 @@ namespace mRemoteNG.Tools
         {
             var sb = new StringBuilder();
             sb.AppendLine(CultureInfo.InvariantCulture, $"mRemoteNG Version: {GeneralAppInfo.ApplicationVersion}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"mRemoteNG Build: {GeneralAppInfo.BuildId}");
             sb.AppendLine(CultureInfo.InvariantCulture, $"OS Version: {Environment.OSVersion}");
             sb.AppendLine(CultureInfo.InvariantCulture, $"64-bit OS: {Environment.Is64BitOperatingSystem}");
             sb.AppendLine(CultureInfo.InvariantCulture, $"64-bit Process: {Environment.Is64BitProcess}");

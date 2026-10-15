@@ -98,6 +98,7 @@ namespace mRemoteNG.UI.Forms
             StringBuilder environment = new StringBuilder()
                 .AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}")
                 .AppendLine(CultureInfo.InvariantCulture, $"{GeneralAppInfo.ProductName} Version: {GeneralAppInfo.ApplicationVersion}")
+                .AppendLine(CultureInfo.InvariantCulture, $"Build: {GeneralAppInfo.BuildId} ({GeneralAppInfo.BuildUtc})")
                 .AppendLine("Edition: " + (Runtime.ShowsAsPortable ? "Portable" : "MSI"))
                 .AppendLine(WindowHandleDiagnostics.RuntimeLine())
                 .AppendLine("Cmd line args: " + string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
