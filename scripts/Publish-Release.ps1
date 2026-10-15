@@ -223,9 +223,15 @@ try {
     $worktreeAdded = $true
 
     $env:MREMOTENG_PORTABLE_CHAIN = '1'
-    Write-Host 'Building self-contained x64 ...' -ForegroundColor Cyan
     Push-Location $buildTree
     try {
+        if (-not $SkipTests) {
+            # The self-contained publish does not build the test project; build framework-dependent first, test, then package.
+            Write-Host 'Building framework-dependent (test project) ...' -ForegroundColor Cyan
+            Invoke-Native 'build.ps1' { pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buildTree 'build.ps1') }
+            Invoke-Native 'run-tests.ps1' { pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buildTree 'run-tests.ps1') -Headless -NoBuild }
+        }
+        Write-Host 'Building self-contained x64 ...' -ForegroundColor Cyan
         Invoke-Native 'build.ps1 -SelfContained' { pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buildTree 'build.ps1') -SelfContained }
         $publish = Join-Path $buildTree 'mRemoteNG\bin\x64\Release\publish'
         if (-not (Test-Path (Join-Path $publish 'mRemoteNG.exe'))) { Fail "Build produced no $publish\mRemoteNG.exe" }
@@ -233,9 +239,6 @@ try {
         $verify = Join-Path $buildTree 'scripts\verify-shipped-assemblies.ps1'
         if (Test-Path $verify) {
             Invoke-Native 'verify-shipped-assemblies.ps1' { pwsh -NoProfile -ExecutionPolicy Bypass -File $verify -Path $publish }
-        }
-        if (-not $SkipTests) {
-            Invoke-Native 'run-tests.ps1' { pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buildTree 'run-tests.ps1') -Headless -NoBuild }
         }
 
         # Version identity from the binary itself.
