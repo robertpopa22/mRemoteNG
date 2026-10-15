@@ -191,8 +191,13 @@ namespace mRemoteNG.App
 
         internal static string NewCorrelationId() => Guid.NewGuid().ToString("N")[..12];
 
-        internal static void StartupPhase(string phase, long durationMs) =>
+        private static volatile string _lastStartupPhase = "none";
+
+        internal static void StartupPhase(string phase, long durationMs)
+        {
+            _lastStartupPhase = SafeToken(phase);
             WriteInfo("startup_phase", Field("phase", SafeToken(phase)), Number("duration_ms", durationMs));
+        }
 
         internal static void ConnectionLoad(bool database, bool import, int nodeCount, long durationMs, string outcome) =>
             WriteInfo("connections_load",
@@ -587,7 +592,8 @@ namespace mRemoteNG.App
                 if (Interlocked.Exchange(ref _uiStallReported, 1) == 0)
                 {
                     Interlocked.Exchange(ref _uiStallStartedTicks, now);
-                    WriteWarn("ui_stall", Field("state", "detected"), Number("lag_ms", lagMs));
+                    WriteWarn("ui_stall", Field("state", "detected"), Number("lag_ms", lagMs),
+                        Field("phase", _lastStartupPhase == "total" ? "running" : _lastStartupPhase));
                 }
                 return;
             }
