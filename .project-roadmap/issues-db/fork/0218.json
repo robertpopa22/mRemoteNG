@@ -1,0 +1,49 @@
+{
+  "number": 218,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ComponentModel.Win32Exception: Error creating window handle.",
+  "state": "open",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-15T09:42:04Z",
+  "github_updated_at": "2026-10-15T10:48:19Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Error creating window handle.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void System.Windows.Forms.Co...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-16",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABcPg_JA",
+      "author": "JonathanBasys",
+      "date": "2026-10-15T10:48:18Z",
+      "snippet": "Happened once, nothing particular but to my surprise the app opened like normal after it and I could use it without any issue. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-15T10:48:19Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-16T04:55:23Z",
+  "notes": "same stack as #209; reporter on 1.83.0 (3659), fix 745a32bc3 in nightlies since 2026-10-07; close fixed, reopen on a post-fix report"
+}

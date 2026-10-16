@@ -96,7 +96,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 7,667 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 101 reports from this fork's own users are closed with 5 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate passes on every condition, new-code coverage included (85.7% against the 80% threshold, as of 2026-09-02). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
+**Quality:** 7,821 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 101 reports from this fork's own users are closed with 6 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate passes on every condition, new-code coverage included (85.7% against the 80% threshold, as of 2026-09-02). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -263,7 +263,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (checked 2026-10-11).** Since the fork started accepting reports directly,
-**106 issues have been opened by external reporters and 101 are closed**; 5 issues are open,
+**107 issues have been opened by external reporters and 101 are closed**; 6 issues are open,
 including investigations and fixes awaiting reporter confirmation. An older upstream tracker snapshot
 lists 873 issues followed and 841 open upstream.
 
@@ -376,6 +376,7 @@ which is the most useful thing that can happen to a row in this table.*
 | 5 | **MSBuild output path vs. `dotnet test`** | Workaround | MSBuild outputs to `bin/x64/Release/`; `dotnet test --no-build` against the csproj looks in `bin/Release/`. Coverage cannot be collected through the standard `dotnet test --collect` path; the `dotnet-coverage` workaround functions but adds a tool dependency |
 | 6 | **Upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) still open** | Waiting, understandably | 765 files, ~64K insertions. A diff that size is genuinely hard to review responsibly, and the upstream maintainers built this project — their caution is reasonable. The lesson is on our side: future contributions go upstream as smaller, focused PRs |
 | 7 | **Reporter confirmation is the bottleneck** | Structural | Of the fork's closed external issues, a large share were closed on code and test evidence without the reporter ever replying. Those fixes are probably right, but "probably" is the honest word. There is no way around this other than making it easy and worthwhile to reply — which is what the transparency work is for |
+| 8 | **Unsigned binaries: Smart App Control blocks every build, Defender cloud-checks every new one** ([#219](https://github.com/robertpopa22/mRemoteNG/issues/219)) | Blocked on signing, no code fix | No binary this fork publishes carries an Authenticode signature (SignPath Foundation declined on 2026-03-05; status in [docs/CODE_SIGNING_POLICY.md](docs/CODE_SIGNING_POLICY.md)). Smart App Control runs an app only if it is signed by a publicly trusted certificate or has positive cloud reputation; a fresh unsigned build has neither, so on Windows 11 with Smart App Control on, mRemoteNG is blocked (reported on ARM64 v1.84.0). Self-signed certificates do not satisfy it. The same missing signature makes Defender cloud-check every new build on first start (up to 10 s on a slow link, measured 2026-10-15). Closes only when releases are signed with a publicly trusted certificate |
 
 ### 6.5. Gen 5 — Adversarial Verification and Bounded Autonomy (current)
 
@@ -507,7 +508,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**7,667 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**7,821 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 

@@ -1,0 +1,35 @@
+{
+  "number": 219,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Smart App Control blocks the execution of mRemoteNG",
+  "state": "open",
+  "labels": [],
+  "author": "dewidh",
+  "created_at": "2026-10-15T22:19:55Z",
+  "github_updated_at": "2026-10-15T22:19:55Z",
+  "body_snippet": "First of all, thank you for your work maintaining this application.\n\nI use a laptop with a Snapdragon X Elite cpu with Windows 11 ARM, I downloaded the ARM version, I trid both he Self Contained and the Framework Dependant, the first time it executed right, but when I tried the second time I receive a message from the Smart App Control blocking the application, and I can not use it. I would prefer to not turn off Smart App Control for security reasons.\n\nThank you,\nDewidh\n\n<img width=\"546\" height...",
+  "our_status": "triaged",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-16",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-10-15T22:19:55Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-16T04:55:24Z",
+  "notes": "Smart App Control blocks unsigned ARM64 v1.84.0; no code fix; known limitation README 6.4 row 8; open until signed builds"
+}
