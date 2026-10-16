@@ -8,7 +8,7 @@
   ],
   "author": "vansanper",
   "created_at": "2026-09-24T14:59:06Z",
-  "github_updated_at": "2026-10-02T06:58:30Z",
+  "github_updated_at": "2026-10-16T04:57:39Z",
   "body_snippet": "**What happens** (and what you expected instead):\n-mRemote displays messages clipped with controls overlaped=> messages showing all the content correctly\n-mRemote displays messages windows are fixed with no option to resize to view all the text correctly=> messages resizable by mouse drag on the edges\n-mRemote displays some controls with the font size much bigger than others (In file Menu, Connections Panel, Config Panel, Connections tabs), vs the detailed Display panel with its connect with a m...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -122,12 +122,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABcgzpFA",
+      "author": "robertpopa22",
+      "date": "2026-10-16T04:57:39Z",
+      "snippet": "A note on timing: our last reply asked you to retest on the next nightly, but no nightly was produced after 2026-10-08 (the fork's CI is paused). That was our gap, not yours.\n\nA current build is now on the nightly release page: https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly (self-contained x64 ZIP; extract and run; it keeps your Settings folder). It contains the change from our previous comment. Help → About now shows the exact commit as `1.84.0+<commit>`, so you can tell builds ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-02T06:58:30Z",
+  "comments_cursor": "2026-10-16T04:57:39Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-04T06:31:59Z",
+  "last_synced": "2026-10-16T04:57:49Z",
   "notes": "2026-10-04: retest ask of 2026-10-02 is inside seven days, through 2026-10-09. Nightly 20261004 at fdcb7a099 contains 2eb2e5ca6. Stays open."
 }

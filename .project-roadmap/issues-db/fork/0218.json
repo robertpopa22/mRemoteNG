@@ -2,7 +2,7 @@
   "number": 218,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: Error creating window handle.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-10-15T09:42:04Z",
-  "github_updated_at": "2026-10-15T10:48:19Z",
+  "github_updated_at": "2026-10-16T04:57:33Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Error creating window handle.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void System.Windows.Forms.Co...",
   "our_status": "released",
   "priority": null,
@@ -38,12 +38,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABcgzj4A",
+      "author": "robertpopa22",
+      "date": "2026-10-16T04:57:32Z",
+      "snippet": "Thank you for sending this, and for adding that it happened once and the app kept working afterwards. That detail matches what we know about this crash.\n\nThis report came from 1.83.0 (Release 3659). The same stack, `ComboBox.OnFontChanged` during `WmDpiChangedBeforeParent` while moving between monitors with different scaling, is tracked in #209. Commit 745a32bc3 (2026-10-07) is in every nightly built since; the current one is on the nightly release page below. It is not in the 1.84.0 stable rele...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-15T10:48:19Z",
+  "comments_cursor": "2026-10-16T04:57:33Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-10-16T04:55:23Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-10-16T04:57:49Z",
   "notes": "same stack as #209; reporter on 1.83.0 (3659), fix 745a32bc3 in nightlies since 2026-10-07; close fixed, reopen on a post-fix report"
 }

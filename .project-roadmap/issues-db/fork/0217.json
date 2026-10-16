@@ -6,7 +6,7 @@
   "labels": [],
   "author": "JScheller88",
   "created_at": "2026-10-09T16:26:30Z",
-  "github_updated_at": "2026-10-11T19:03:05Z",
+  "github_updated_at": "2026-10-16T04:57:43Z",
   "body_snippet": "**Summary**\nWhen a connection uses the 1Password credential provider and 1Password has to authorize the CLI for mRemoteNG, both mRemoteNG and 1Password freeze. The 1Password authorization window appears blank and \"Not Responding\". After about 2 minutes `op` fails with:\n\n```\n1Password read failed\nError running op item get: [ERROR] ... error initializing client: authorization timeout\n```\n\nBoth apps then recover.\n\n**Steps to reproduce**\n1. Unlock 1Password, then start mRemoteNG. (Reproduced right a...",
   "our_status": "triaged",
   "priority": null,
@@ -63,12 +63,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABcgzr7Q",
+      "author": "robertpopa22",
+      "date": "2026-10-16T04:57:43Z",
+      "snippet": "A note on timing: our last reply asked you to retest on the next nightly, but no nightly was produced after 2026-10-08 (the fork's CI is paused). That was our gap, not yours.\n\nA current build is now on the nightly release page: https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly (self-contained x64 ZIP; extract and run; it keeps your Settings folder). It contains the change from our previous comment. Help → About now shows the exact commit as `1.84.0+<commit>`, so you can tell builds ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-11T19:03:05Z",
+  "comments_cursor": "2026-10-16T04:57:43Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-11T19:05:12Z",
+  "last_synced": "2026-10-16T04:57:49Z",
   "notes": "Source fix published in main and public progress reply posted on 2026-10-11. Full suite 7647/7647 and eight synthetic CLI UI checks passed. GitHub has not started a workflow for head 359ca76cf; the October 8 nightly predates the fix. Issue remains open pending a downloadable build and reporter check of the real 1Password authorization/Shift symptoms."
 }

@@ -6,7 +6,7 @@
   "labels": [],
   "author": "JScheller88",
   "created_at": "2026-10-07T21:01:47Z",
-  "github_updated_at": "2026-10-09T05:46:31Z",
+  "github_updated_at": "2026-10-16T04:57:40Z",
   "body_snippet": "**Steps to reproduce**\n1. Create a Dynamic Folder with Source type **Active Directory**, pointing to an LDAP OU.\n2. Refresh the folder.\n\n**Expected:** Each imported connection's Hostname is the computer's `dNSHostName`.\n\n**Actual:** Display names (`cn`) and descriptions import correctly, but every connection's Hostname is blank, inherited from the parent folder.\n\n**Cause (from reading the code)**\n`ActiveDirectoryDeserializer.DeserializeConnection` sets `Hostname`, then calls `Inheritance.TurnOnI...",
   "our_status": "testing",
   "priority": null,
@@ -34,12 +34,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABcgzqBA",
+      "author": "robertpopa22",
+      "date": "2026-10-16T04:57:40Z",
+      "snippet": "A note on timing: our last reply asked you to retest on the next nightly, but no nightly was produced after 2026-10-08 (the fork's CI is paused). That was our gap, not yours.\n\nA current build is now on the nightly release page: https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly (self-contained x64 ZIP; extract and run; it keeps your Settings folder). It contains the change from our previous comment. Help → About now shows the exact commit as `1.84.0+<commit>`, so you can tell builds ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-09T05:46:31Z",
+  "comments_cursor": "2026-10-16T04:57:40Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-09T05:46:42Z",
+  "last_synced": "2026-10-16T04:57:49Z",
   "notes": "fix shipped c031de861; awaiting reporter refresh on nightly"
 }

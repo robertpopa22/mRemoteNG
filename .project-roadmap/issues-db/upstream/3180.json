@@ -12,7 +12,7 @@
   ],
   "author": "lujiaxing",
   "created_at": "2026-02-26T02:31:38Z",
-  "github_updated_at": "2026-02-27T12:11:39Z",
+  "github_updated_at": "2026-10-13T16:55:20Z",
   "body_snippet": "After I removed a user profile (exported from legacy version), The application crashed on startup:\n\nException at 0x00007FFAB6A0313C (in mRemoteNG.exe): 0xC0000005: Access violation reading location 0x0000000000000000.\n\nLog:\n```\n2026-02-26 10:06:01,148 [2] INFO  - mRemoteNG Connection Manager 1.78.2 (Nightly Build 3228) x64 starting.\n2026-02-26 10:06:01,151 [2] INFO  - Command Line: B:\\mRemoteNG\\mRemoteNG.dll\n2026-02-26 10:06:01,201 [2] INFO  - Microsoft Windows 10 企业版  64-bit\n2026-02-26 10:06:01...",
   "our_status": "released",
   "priority": "P2-bug",
@@ -54,12 +54,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABbiknxw",
+      "author": "lujiaxing",
+      "date": "2026-10-13T10:05:42Z",
+      "snippet": "Any new progress?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABbpx2oQ",
+      "author": "robertpopa22",
+      "date": "2026-10-13T16:55:09Z",
+      "snippet": "Thanks for following up, and first a correction: our February comment pointed at commit `1d5c8fba` as the fix, but that commit only changed a test configuration file. It never touched the startup path, so that comment was wrong. Sorry for the confusion.\n\nToday we retried your steps on the current fork release, v1.84.0 (the public `mRemoteNG-v1.84.0-x64.zip`, checksum matched). This is what we saw on our own machine:\n\n- **No settings at all** (the same as deleting the `%APPDATA%\\mRemoteNG Connect...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-27T12:11:39Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-10-13T16:55:20Z",
+  "unread_comments": 1,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-10-16T04:52:42Z",
   "notes": "AI triage (claude): Issue has no body or comments — no reproduction steps, no error details, no environment info provided.\nApproach: Request reproduction steps, OS version, .NET version, and any error messages or logs"
 }

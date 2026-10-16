@@ -8,7 +8,7 @@
   ],
   "author": "vndnua",
   "created_at": "2026-10-08T13:44:04Z",
-  "github_updated_at": "2026-10-09T05:46:32Z",
+  "github_updated_at": "2026-10-16T04:57:41Z",
   "body_snippet": "There is a problem with connections that use an SSH tunnel. When I try to connect, I get the following error:\n\n<img width=\"394\" height=\"161\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a3d67e9b-efbf-45a8-86c9-991c9630bbf5\" />\n\nThe error occurs with connections using different protocols (I tested VNC, SSH, HTTP, and WinBox). This error started occurring recently. This issue does not occur in version mRemoteNG-nightly-20261006-v1.84.0-a684a59-x64.zip.\n\nVersion 1.84.0 (Release 3734)...",
   "our_status": "testing",
   "priority": null,
@@ -36,12 +36,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABcgzq6A",
+      "author": "robertpopa22",
+      "date": "2026-10-16T04:57:41Z",
+      "snippet": "A note on timing: our last reply asked you to retest on the next nightly, but no nightly was produced after 2026-10-08 (the fork's CI is paused). That was our gap, not yours.\n\nA current build is now on the nightly release page: https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly (self-contained x64 ZIP; extract and run; it keeps your Settings folder). It contains the change from our previous comment. Help → About now shows the exact commit as `1.84.0+<commit>`, so you can tell builds ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-09T05:46:32Z",
+  "comments_cursor": "2026-10-16T04:57:41Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-09T05:46:42Z",
+  "last_synced": "2026-10-16T04:57:49Z",
   "notes": "fix shipped cc0f13cee (plain SyncContext from early SystemEvents subscription); [#216-diag] kept; awaiting reporter tunnel test"
 }
