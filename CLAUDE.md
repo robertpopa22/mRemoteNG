@@ -411,8 +411,8 @@ For the complete evidence trail of the AI-assisted modernization process
 | Tests | 7,321 passed, 0 failures (incl. live SQL Server, ODBC, MariaDB integration) |
 | UI battery | FlaUI acceptance scenarios run inside an isolated Hyper-V lab guest (`lab-run.ps1`) |
 | Startup time | ≤1s with 200 connections (optimized from ~10-30s) |
-| CI status | All workflows GREEN |
-| SonarCloud | Quality Gate PASSED (A/A/A) |
+| CI status | Actions paused since 2026-10-08 (no runs start); packages published locally with `scripts/Publish-Release.ps1` |
+| SonarCloud | Last scan 2026-10-08: A/A/A but gate FAILED on new-code coverage; no scan since (Actions paused, see README §6.4 row 9) |
 | Release model | **2 live releases**: rolling `nightly` (overwritten each push to `main`) + stable `vX.Y.Z` tags (`releases/latest`). Old dated `-NB-` prereleases removed. |
 | Update check | In-app checks GitHub `releases/latest` (latest stable) and opens the release page — no Stable/Preview/Nightly channels, no `mremoteng.org` feeds |
 | MSI installer | WiX 6 SDK — auto-generated in nightly + release CI ([#24](https://github.com/robertpopa22/mRemoteNG/issues/24)) |
