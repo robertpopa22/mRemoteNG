@@ -183,5 +183,75 @@ namespace mRemoteNGTests.Tools
                 Assert.That(text, Does.Contain("Loader: -"));
             });
         }
+
+        private static (FieldInfo available, FieldInfo failure) Fields() =>
+        (
+            typeof(ExternalConnectorsAssembly).GetField("_available", BindingFlags.NonPublic | BindingFlags.Static)!,
+            typeof(ExternalConnectorsAssembly).GetField("_failure", BindingFlags.NonPublic | BindingFlags.Static)!
+        );
+
+        private static void WithUnavailableAssembly(string failure, Action body)
+        {
+            (FieldInfo available, FieldInfo failureField) = Fields();
+            object? oldAvailable = available.GetValue(null);
+            object? oldFailure = failureField.GetValue(null);
+            try
+            {
+                available.SetValue(null, false);
+                failureField.SetValue(null, failure);
+                body();
+            }
+            finally
+            {
+                available.SetValue(null, oldAvailable);
+                failureField.SetValue(null, oldFailure);
+            }
+        }
+
+        [Test]
+        public void EnsureAvailable_ReportsAnErrorWhenTheAssemblyIsMissing()
+        {
+            MessageCollector collector = new();
+
+            WithUnavailableAssembly("could not load", () =>
+            {
+                Assert.That(ExternalConnectorsAssembly.EnsureAvailable(collector), Is.False);
+            });
+
+            var messages = System.Linq.Enumerable.ToList(collector.Messages);
+            Assert.That(messages, Has.Count.EqualTo(1));
+            Assert.That(messages[0].Class, Is.EqualTo(MessageClass.ErrorMsg));
+            Assert.That(messages[0].Text, Does.Contain(ExternalConnectorsAssembly.Name));
+        }
+
+        [Test]
+        public void LogIfUnavailable_WritesAWarningOnlyToTheLog()
+        {
+            MessageCollector collector = new();
+
+            WithUnavailableAssembly("could not load", () => ExternalConnectorsAssembly.LogIfUnavailable(collector));
+
+            var messages = System.Linq.Enumerable.ToList(collector.Messages);
+            Assert.That(messages, Has.Count.EqualTo(1));
+            Assert.That(messages[0].Class, Is.EqualTo(MessageClass.WarningMsg));
+            Assert.That(messages[0].OnlyLog, Is.True);
+        }
+
+        [Test]
+        public void LogIfUnavailable_IsSilentWhenTheAssemblyLoads()
+        {
+            MessageCollector collector = new();
+
+            ExternalConnectorsAssembly.LogIfUnavailable(collector);
+
+            Assert.That(collector.Messages, Is.Empty);
+        }
+
+        [Test]
+        public void EnsureAvailable_RejectsANullCollector()
+        {
+            Assert.Throws<ArgumentNullException>(() => ExternalConnectorsAssembly.EnsureAvailable(null!));
+            Assert.Throws<ArgumentNullException>(() => ExternalConnectorsAssembly.LogIfUnavailable(null!));
+        }
     }
 }

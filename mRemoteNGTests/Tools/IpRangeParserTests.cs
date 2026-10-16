@@ -111,5 +111,31 @@ namespace mRemoteNGTests.Tools
             List<int> ports = [80];
             Assert.DoesNotThrow(() => _ = new PortScanner(start, end, ports));
         }
+
+        [Test]
+        public void ARangeWhoseEndsAreTheSameAddressIsAcceptedAsOneAddress()
+        {
+            bool parsed = IpRangeParser.TryParse("10.0.0.5 - 10.0.0.5", out IPAddress? start, out IPAddress? end, out string error);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(parsed, Is.True, error);
+                Assert.That(start, Is.EqualTo(end));
+            });
+        }
+
+        [Test]
+        public void ACidrWithAnUnparsableAddressIsRejectedWithAReason()
+        {
+            bool parsed = IpRangeParser.TryParse("not-an-ip/24", out IPAddress? start, out IPAddress? end, out string error);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(parsed, Is.False);
+                Assert.That(start, Is.Null);
+                Assert.That(end, Is.Null);
+                Assert.That(error, Is.Not.Empty);
+            });
+        }
     }
 }

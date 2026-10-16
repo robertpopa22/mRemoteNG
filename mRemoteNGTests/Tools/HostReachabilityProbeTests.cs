@@ -100,5 +100,20 @@ namespace mRemoteNGTests.Tools
 
             Assert.That(reachable, Is.False);
         }
+
+        [Test]
+        public async Task AnEchoThatCannotBeSentCountsAsNoAnswer()
+        {
+            // The echo step is private; reach it directly with a name the resolver rejects, so the
+            // failure arrives as an exception from the ping rather than as a status.
+            var method = typeof(HostReachabilityProbe).GetMethod("AnswersEchoAsync",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+            using CancellationTokenSource cancelled = new();
+            cancelled.Cancel();
+
+            var task = (Task<bool>)method.Invoke(null, new object[] { "no such host.invalid", 200, cancelled.Token })!;
+
+            Assert.That(await task, Is.False);
+        }
     }
 }

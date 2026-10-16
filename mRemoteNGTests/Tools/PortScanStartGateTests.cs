@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Reflection;
 using mRemoteNG.Tools;
@@ -66,4 +67,20 @@ public class PortScanStartGateTests
     private static object? CancellationOf(PortScanner? scanner) =>
         typeof(PortScanner).GetField("_cancellation", BindingFlags.Instance | BindingFlags.NonPublic)!
             .GetValue(scanner);
+
+    [Test]
+    public void TheSilentSinkTheGatePassesAcceptsEveryKindOfMessageWithoutThrowing()
+    {
+        var type = typeof(PortScanStartGate).GetNestedType("SilentSink", BindingFlags.NonPublic)!;
+        var sink = (mRemoteNG.Messages.IOperationMessageSink)type
+            .GetField("Instance", BindingFlags.Public | BindingFlags.Static)!.GetValue(null)!;
+
+        Assert.DoesNotThrow(() =>
+        {
+            sink.Information("i");
+            sink.Warning("w", true);
+            sink.Error("e");
+            sink.Exception("x", new InvalidOperationException("boom"), true);
+        });
+    }
 }

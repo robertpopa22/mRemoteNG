@@ -149,4 +149,76 @@ public class HostStatusMonitorPowerTests
             listener.Stop();
         }
     }
+
+    [Test]
+    public void TheModelPassedToTheConstructorIsExposed()
+    {
+        var (monitor, _, listener, _, _) = CreateMonitor(initialLowPower: false);
+        try
+        {
+            using (monitor)
+                Assert.That(monitor.Model, Is.Not.Null);
+        }
+        finally { listener.Stop(); }
+    }
+
+    [Test]
+    public void StartThenStopBeforeTheFirstScanEndsCleanlyAndIsRepeatable()
+    {
+        var (monitor, _, listener, _, _) = CreateMonitor(initialLowPower: false);
+        try
+        {
+            using (monitor)
+            {
+                monitor.Start();
+                monitor.Start();   // restarts: Stop() is called first
+                Assert.DoesNotThrow(monitor.Stop);
+                Assert.DoesNotThrow(monitor.Stop);
+            }
+        }
+        finally { listener.Stop(); }
+    }
+
+    [Test]
+    public async Task TheBackgroundLoopRunsAScanAfterItsSettleDelay()
+    {
+        var (monitor, connection, listener, _, _) = CreateMonitor(initialLowPower: false);
+        try
+        {
+            using (monitor)
+            {
+                monitor.CheckIntervalSeconds = 1;
+                monitor.Start();
+
+                // The loop waits 5 s for the UI to settle before the first pass.
+                DateTime deadline = DateTime.UtcNow.AddSeconds(15);
+                while (connection.HostReachabilityStatus == HostReachabilityStatus.Unknown && DateTime.UtcNow < deadline)
+                    await Task.Delay(100);
+
+                Assert.That(connection.HostReachabilityStatus, Is.EqualTo(HostReachabilityStatus.Reachable));
+            }
+        }
+        finally { listener.Stop(); }
+    }
+
+    [Test]
+    public async Task StoppingDuringTheStaggerDelayEndsThePassWithoutThrowing()
+    {
+        var (monitor, connection, listener, _, _) = CreateMonitor(initialLowPower: false);
+        try
+        {
+            using (monitor)
+            {
+                monitor.StaggerDelayMilliseconds = 30_000;
+                using CancellationTokenSource cts = new();
+                cts.CancelAfter(500);
+
+                bool ran = await monitor.RunCycleAsync(cts.Token);
+
+                Assert.That(ran, Is.True);
+                Assert.That(connection.HostReachabilityStatus, Is.EqualTo(HostReachabilityStatus.Reachable));
+            }
+        }
+        finally { listener.Stop(); }
+    }
 }

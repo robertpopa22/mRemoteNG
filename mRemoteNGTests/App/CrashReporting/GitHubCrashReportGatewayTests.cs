@@ -124,5 +124,13 @@ namespace mRemoteNGTests.App.CrashReporting
                 return response;
             }
         }
+
+        [Test]
+        public void TheProductionConstructorBuildsAGatewayThatCanBeDisposed()
+        {
+            GitHubCrashReportGateway gateway = new("owner", "repo", "secret", "mRemoteNG/1.0");
+
+            Assert.DoesNotThrow(gateway.Dispose);
+        }
     }
 }

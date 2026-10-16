@@ -280,4 +280,55 @@ public class ConnectionsServiceDirtyTrackingTests
         Assert.That(backups.Length, Is.LessThanOrEqualTo(keep),
             $"cache backups must be pruned to BackupFileKeepCount ({keep})");
     }
+
+    [Test]
+    public void ATimerCallbackFromASupersededDebounceTakesNothing()
+    {
+        ConnectionsService service = NewServiceWithModel(out _);
+        MethodInfo take = typeof(ConnectionsService).GetMethod(
+            "TryTakeDebouncedSave", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        object?[] args = [int.MinValue, "Name", null];
+
+        bool taken = (bool)take.Invoke(service, args)!;
+
+        Assert.That(taken, Is.False);
+        Assert.That(args[2], Is.EqualTo(""));
+    }
+
+    [Test]
+    public void ADebouncedSaveWithNoLoadedFileIsANoOp()
+    {
+        var service = new ConnectionsService(mRemoteNG.Config.Putty.PuttySessionsManager.Instance);
+        MethodInfo run = typeof(ConnectionsService).GetMethod(
+            "RunDebouncedSave", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+        Assert.DoesNotThrow(() => run.Invoke(service, ["Name"]));
+    }
+
+    [Test]
+    public void AStaleDebounceTimerFiresWithoutSaving()
+    {
+        ConnectionsService service = NewServiceWithModel(out _);
+        string file = Path.Combine(Path.GetTempPath(), $"mrng-stale-{Guid.NewGuid():N}.xml");
+        try
+        {
+            typeof(ConnectionsService).GetProperty(nameof(ConnectionsService.ConnectionFileName))!
+                .SetValue(service, file);
+            service.IsConnectionsFileLoaded = true;
+            service.SaveConnectionsAsync();
+
+            // A newer request supersedes the one the armed timer was created for.
+            FieldInfo generation = typeof(ConnectionsService).GetField(
+                "_debounceGeneration", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            generation.SetValue(service, (int)generation.GetValue(service)! + 1);
+
+            Thread.Sleep(2600);   // the debounce is 2 s
+
+            Assert.That(File.Exists(file), Is.False, "the stale callback must not write");
+        }
+        finally
+        {
+            if (File.Exists(file)) File.Delete(file);
+        }
+    }
 }

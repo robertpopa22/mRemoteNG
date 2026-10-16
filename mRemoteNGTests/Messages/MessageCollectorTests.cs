@@ -69,5 +69,31 @@ namespace mRemoteNGTests.Messages
             Assert.That(notificationCount, Is.EqualTo(1));
         }
 
+        [Test]
+        public void TheListIsTrimmedToTheCapKeepingTheNewestMessages()
+        {
+            for (int i = 0; i < 10_005; i++)
+                _messageCollector.AddMessage(MessageClass.InformationMsg, "m" + i, true);
+
+            var all = System.Linq.Enumerable.ToList(_messageCollector.Messages);
+            Assert.That(all, Has.Count.EqualTo(10_000));
+            Assert.That(all[0].Text, Is.EqualTo("m5"));
+            Assert.That(all[^1].Text, Is.EqualTo("m10004"));
+        }
+
+        [Test]
+        public void ANonListBackingStoreIsTrimmedOneAtATime()
+        {
+            var field = typeof(MessageCollector).GetField("_messageList",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var store = new System.Collections.ObjectModel.Collection<IMessage>();
+            field.SetValue(_messageCollector, store);
+
+            for (int i = 0; i < 10_003; i++)
+                _messageCollector.AddMessage(MessageClass.InformationMsg, "m" + i, true);
+
+            Assert.That(store, Has.Count.EqualTo(10_000));
+            Assert.That(store[0].Text, Is.EqualTo("m3"));
+        }
     }
 }

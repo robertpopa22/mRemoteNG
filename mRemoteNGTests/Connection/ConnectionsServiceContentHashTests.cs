@@ -71,4 +71,20 @@ public class ConnectionsServiceContentHashTests
 
         Assert.That(loadedEvents, Is.EqualTo(2), "user-initiated loads keep their previous behavior");
     }
+
+    [Test]
+    public void AFileLockedAgainstReadingHasNoHash()
+    {
+        using var _ = FileTestHelpers.DisposableTempFile(out var filePath, ".xml");
+        File.WriteAllText(filePath, Resources.confCons_v2_6);
+        var hash = typeof(ConnectionsService).GetMethod(
+            "TryComputeFileContentHash", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!;
+
+        using (new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+        {
+            Assert.That(hash.Invoke(null, [filePath]), Is.Null);
+        }
+
+        Assert.That(hash.Invoke(null, [filePath]), Is.Not.Null.And.Not.Empty);
+    }
 }
