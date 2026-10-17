@@ -288,9 +288,14 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/Publish-Release.ps1 -Chann
   uncommitted work, do not stash it for the length of a publish: create a detached worktree of
   `HEAD` under `%TEMP%` (`git worktree add --detach <dir> HEAD`), run the script there, then
   `git worktree remove` it.
-- Afterwards read the release back (`gh release view nightly --repo robertpopa22/mRemoteNG`) and
-  check that its title and body name the pushed commit. A release whose name still carries an old
-  commit is a failed publish, whatever the script printed.
+- The script uploads the zip and manifests and moves `manifest-latest.json`. It does not rewrite
+  the release title or body. Read the body (`gh release view nightly --json body`), replace the
+  current-build line, the "Latest, recommended" row and the SHA-256 with the new version (hash the
+  local zip in `%TEMP%\mrng-release\<ver>\`), and apply it with
+  `gh release edit nightly --title "Nightly Build — <ver> (self-contained x64)" --notes-file <file>`.
+- Read the release back and check that the title, the body and `manifest-latest.json` name the
+  pushed commit. A release whose name still carries an old commit is a failed publish, whatever the
+  script printed (seen 2026-10-17: the assets were new, the title still named the 8 October build).
 - Skip this step only when no product change was committed in this run (documentation, issue DB).
 Set `testing` only when a user-visible fix is in a build the reporter can run and the reply asks
 them to retest. A diagnostic change that leaves the issue open does not change the status.
