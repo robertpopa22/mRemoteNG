@@ -196,7 +196,7 @@ function Update-NightlyReleaseText([string]$Version, [string]$FileVersion, [stri
     $json = & gh release view nightly --repo $Repo --json body 2>&1
     if ($LASTEXITCODE -ne 0) { Fail "gh release view nightly failed: $($json | Select-Object -First 1)" }
     $sha = (Get-FileHash -LiteralPath $ZipPath -Algorithm SHA256).Hash.ToLowerInvariant()
-    $sizeMb = [long][math]::Round((Get-Item -LiteralPath $ZipPath).Length / 1MB)
+    $sizeMb = [long][math]::Round((Get-Item -LiteralPath $ZipPath).Length / 1e6)
     $body = Get-NightlyReleaseBody ([string](($json | ConvertFrom-Json).body)) $Version $FileVersion (Split-Path -Leaf $ZipPath) $sizeMb $sha
 
     New-Item -ItemType Directory -Force -Path $Workspace | Out-Null
