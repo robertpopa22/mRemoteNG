@@ -24,6 +24,37 @@ public class LoggerConfigPathTests
         });
     }
 
+    /// <summary>
+    /// Pressing OK in Options re-pointed the log to the stored LogFilePath even while "log to the
+    /// application directory" was on. A portable copy carrying a path from another machine then
+    /// wrote the rest of the session elsewhere, and its shutdown lines never reached the log the
+    /// startup had opened.
+    /// </summary>
+    [Test]
+    public void TheApplicationDirectoryWinsOverAStoredPathWhileItIsOn()
+    {
+        var settings = mRemoteNG.Properties.OptionsNotificationsPage.Default;
+        bool toAppDir = settings.LogToApplicationDirectory;
+        string stored = settings.LogFilePath;
+        try
+        {
+            settings.LogToApplicationDirectory = true;
+            settings.LogFilePath = Path.Combine(Path.GetTempPath(), "another-copy", "mRemoteNG.log");
+            Assert.That(Logger.ConfiguredLogPath, Is.EqualTo(Logger.DefaultLogPath));
+
+            settings.LogToApplicationDirectory = false;
+            Assert.That(Logger.ConfiguredLogPath, Is.EqualTo(settings.LogFilePath));
+
+            settings.LogFilePath = "  ";
+            Assert.That(Logger.ConfiguredLogPath, Is.EqualTo(Logger.DefaultLogPath), "an empty chosen path falls back to the default");
+        }
+        finally
+        {
+            settings.LogToApplicationDirectory = toAppDir;
+            settings.LogFilePath = stored;
+        }
+    }
+
     [Test]
     public void TheConfigPathDoesNotFollowACurrentDirectoryChange()
     {

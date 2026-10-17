@@ -130,7 +130,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         {
             Properties.OptionsNotificationsPage.Default.LogToApplicationDirectory = chkLogToCurrentDir.Checked;
             Properties.OptionsNotificationsPage.Default.LogFilePath = textBoxLogPath.Text;
-            Logger.Instance.SetLogPath(Properties.OptionsNotificationsPage.Default.LogFilePath);
+            Logger.Instance.SetLogPath(Logger.ConfiguredLogPath);
             Properties.OptionsNotificationsPage.Default.TextLogMessageWriterWriteDebugMsgs = chkLogDebugMsgs.Checked;
             Properties.OptionsNotificationsPage.Default.TextLogMessageWriterWriteInfoMsgs = chkLogInfoMsgs.Checked;
             Properties.OptionsNotificationsPage.Default.TextLogMessageWriterWriteWarningMsgs = chkLogWarningMsgs.Checked;

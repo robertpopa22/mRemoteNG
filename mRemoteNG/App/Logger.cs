@@ -45,7 +45,24 @@ namespace mRemoteNG.App
                 Properties.OptionsNotificationsPage.Default.LogFilePath = BuildLogFilePath();
             }
 
-            SetLogPath(Properties.OptionsNotificationsPage.Default.LogToApplicationDirectory ? DefaultLogPath : Properties.OptionsNotificationsPage.Default.LogFilePath);
+            SetLogPath(ConfiguredLogPath);
+        }
+
+        /// <summary>
+        /// The file the settings ask for: the default beside the program while "log to the
+        /// application directory" is on, otherwise the chosen path. Every caller that re-points the
+        /// appender uses this, so pressing OK in Options cannot move the log somewhere startup
+        /// would not have put it (a stored path from another copy or machine did exactly that).
+        /// </summary>
+        public static string ConfiguredLogPath
+        {
+            get
+            {
+                string chosen = Properties.OptionsNotificationsPage.Default.LogFilePath;
+                return Properties.OptionsNotificationsPage.Default.LogToApplicationDirectory || string.IsNullOrWhiteSpace(chosen)
+                    ? DefaultLogPath
+                    : chosen;
+            }
         }
 
         public void SetLogPath(string path)
@@ -58,8 +75,7 @@ namespace mRemoteNG.App
 
             foreach (IAppender appender in appenders)
             {
-                RollingFileAppender fileAppender = (RollingFileAppender)appender;
-                if (fileAppender is not { Name: "LogFileAppender" }) continue;
+                if (appender is not RollingFileAppender { Name: "LogFileAppender" } fileAppender) continue;
                 fileAppender.File = path;
                 fileAppender.ActivateOptions();
             }
