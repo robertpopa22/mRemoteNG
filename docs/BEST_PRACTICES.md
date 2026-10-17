@@ -27,6 +27,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-018](bp/BP-018-com-property-rejected-not-cast.md) | 1 | 2026-10-15 | Three attempts assumed a failing COM cast when the control rejected the property itself; one step-plus-HRESULT diagnostic in the lab settled it. |
 | [BP-019](bp/BP-019-no-build-no-retest.md) | 1 | 2026-10-16 | Five issues waited eight days for "the next nightly" while CI was paused; a retest request names an existing build or says none exists. |
 | [BP-020](bp/BP-020-save-gate-stales-runtime-state.md) | 1 | 2026-10-17 | Skipping unchanged saves left the `Connected` flags stale, and startup reopened closed tabs; a save gate lists every value that save writes. |
+| [BP-021](bp/BP-021-log-ends-is-not-process-ends.md) | 1 | 2026-10-17 | Two logs that looked like vanished processes came from the app moving its own log on Options OK; check the last lines, WER/System log and the mutex before calling it a hang. |
 
 ## Retired
 
