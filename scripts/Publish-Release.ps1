@@ -164,8 +164,58 @@ function Save-ReleaseAsset([string]$ReleaseTag, [string]$AssetName, [string]$Dir
     $p
 }
 
+# The upload alone left the release title and body naming an older build (2026-10-17): reporters
+# read the text, not the asset list. Rewrites the three places that name the latest FULL and reads
+# the result back. Body lines it does not find are a failure, not a skip.
+function Get-NightlyReleaseBody([string]$Body, [string]$Version, [string]$FileVersion, [string]$ZipName, [long]$SizeMb, [string]$Sha) {
+    $commit = $Version.Split('+')[1]
+    $nl = if ($Body.Contains("`r`n")) { "`r`n" } else { "`n" }
+    $current = '(?m)^\*\*Current build:\*\* .*$'
+    $latestRow = '(?m)^\| \*\*`mRemoteNG-full-(?<old>[^`]+)-x64\.zip`\*\* \(\d+ MB\) \| \*\*Latest, recommended\.\*\*.*$'
+    $previousRow = '(?m)^\| `mRemoteNG-full-[^`]+-x64\.zip` \(\d+ MB\) \| Previous FULL[^\r\n]*\r?\n'
+    $shaLine = '(?m)^SHA-256 of the latest FULL: `[0-9a-f]{64}`'
+    foreach ($p in @($current, $latestRow, $shaLine)) {
+        if ($Body -notmatch $p) { Fail "Release body has no line matching $p; edit the release text by hand" }
+    }
+
+    $old = [regex]::Match($Body, $latestRow).Groups['old'].Value
+    $row = "| **``$ZipName``** ($SizeMb MB) | **Latest, recommended.** Full portable build of the current version. Extract into a fresh folder and run. |"
+    if ($old -ne $FileVersion) {
+        $Body = [regex]::Replace($Body, $previousRow, '')
+        $row += "$nl| ``mRemoteNG-full-$old-x64.zip`` ($SizeMb MB) | Previous FULL. |"
+    }
+    $Body = [regex]::Replace($Body, $current, "**Current build:** ``$Version`` ([commit $commit](https://github.com/$Repo/commit/$commit))")
+    $Body = [regex]::Replace($Body, $latestRow, $row.Replace('$', '$$'))
+    [regex]::Replace($Body, $shaLine, "SHA-256 of the latest FULL: ``$Sha``")
+}
+
+# The upload alone left the release title and body naming an older build (2026-10-17): reporters
+# read the text, not the asset list. Rewrites the lines that name the latest FULL and reads the
+# result back. A body line it does not find is a failure, not a skip.
+function Update-NightlyReleaseText([string]$Version, [string]$FileVersion, [string]$ZipPath, [string]$Workspace) {
+    $json = & gh release view nightly --repo $Repo --json body 2>&1
+    if ($LASTEXITCODE -ne 0) { Fail "gh release view nightly failed: $($json | Select-Object -First 1)" }
+    $sha = (Get-FileHash -LiteralPath $ZipPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $sizeMb = [long][math]::Round((Get-Item -LiteralPath $ZipPath).Length / 1MB)
+    $body = Get-NightlyReleaseBody ([string](($json | ConvertFrom-Json).body)) $Version $FileVersion (Split-Path -Leaf $ZipPath) $sizeMb $sha
+
+    New-Item -ItemType Directory -Force -Path $Workspace | Out-Null
+    $notes = Join-Path $Workspace 'nightly-notes.md'
+    Write-Utf8NoBom $notes $body
+    $title = "Nightly Build — $Version (self-contained x64)"
+    Invoke-Native 'gh release edit' { gh release edit nightly --repo $Repo --title $title --notes-file $notes }
+
+    $back = & gh release view nightly --repo $Repo --json name,body 2>&1
+    if ($LASTEXITCODE -ne 0) { Fail 'gh release view nightly (read-back) failed' }
+    $back = $back | ConvertFrom-Json
+    if ($back.name -ne $title -or -not ([string]$back.body).Contains("``$Version``") -or -not ([string]$back.body).Contains($sha)) {
+        Fail "Release text read-back does not name $Version and its SHA-256"
+    }
+    Write-Host "Release text updated: $title" -ForegroundColor Green
+}
+
 $script:failed = $false
-$repoRoot = (& git -C $PSScriptRoot rev-parse --show-toplevel).Trim() -replace '/', '\'
+$repoRoot =(& git -C $PSScriptRoot rev-parse --show-toplevel).Trim() -replace '/', '\'
 if ($LASTEXITCODE -ne 0) { Write-Error 'REFUSED: not inside a git checkout'; exit 1 }
 $buildTree = Join-Path ([System.IO.Path]::GetTempPath()) ('mrng-build-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
 $scratch = Join-Path ([System.IO.Path]::GetTempPath()) ('mrng-scratch-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
@@ -349,6 +399,8 @@ try {
             Fail "Read-back of $manifestName differs from the local manifest"
         }
         Write-Host "Uploaded and verified read-back: $manifestName" -ForegroundColor Green
+        if ($Tag -eq 'nightly' -and $Channel -eq 'full') { Update-NightlyReleaseText $version $fileVer $zipPath (Join-Path $scratch 'notes') }
+        elseif ($Tag -eq 'nightly') { Write-Warning 'MINI upload: the release text still names the previous build; add the MINI to the chain row by hand.' }
     }
 }
 catch {

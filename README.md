@@ -96,7 +96,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 7,821 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 101 reports from this fork's own users are closed with 6 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
+**Quality:** 7,877 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 103 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -263,7 +263,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (checked 2026-10-11).** Since the fork started accepting reports directly,
-**107 issues have been opened by external reporters and 101 are closed**; 6 issues are open,
+**107 issues have been opened by external reporters and 103 are closed**; 4 issues are open,
 including investigations and fixes awaiting reporter confirmation. An older upstream tracker snapshot
 lists 873 issues followed and 841 open upstream.
 
@@ -509,7 +509,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**7,821 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**7,877 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
@@ -632,7 +632,9 @@ Submit code via pull request. See the [Wiki](https://github.com/mRemoteNG/mRemot
 
 ## Recent work
 
-Since the v1.84.0 tag (25 September 2026). None of this is a new stable release. The downloadable nightly of 3 October 2026 is commit [`3d1fe2252`](https://github.com/robertpopa22/mRemoteNG/commit/3d1fe2252a3dc7a49aab4da4fc1868aabb5827f2) (`mRemoteNG-nightly-20261003-v1.84.0-3d1fe22-x64` ZIP and MSI), unsigned, and framework-dependent (it needs the .NET 10 desktop runtime).
+Since the v1.84.0 tag (25 September 2026). None of this is a new stable release. The downloadable nightly of 17 October 2026 is `1.84.0+f3500a0e74` (`mRemoteNG-full-1.84.0-f3500a0e74-x64.zip`), unsigned and self-contained x64. It is published by hand while GitHub Actions is paused, so there is no newer MSI: the last installer is the framework-dependent CI build of 8 October.
+
+**Reopening the previous session ([#172](https://github.com/robertpopa22/mRemoteNG/issues/172)).** In 1.84.0 a tab closed during the session came back on the next start unless the connections had been saved. The autosave stopped rewriting the connections file when nothing was edited, and the file's "connected" marks went stale; the startup path reopened them next to the tabs the saved layout restored. The layout, written on every exit, now decides; a marked connection is reopened only if the layout named it and did not open it. A lab scenario reproduced it before the change (two tabs after the restart, one expected) and passed after it. The reporter confirmed it on the 17 October nightly, the same day.
 
 **Dependencies.** `main` is on the .NET 10.0.12 line ([`b19c9d35f`](https://github.com/robertpopa22/mRemoteNG/commit/b19c9d35f)). Direct packages moved to their then-current stable releases, including NUnit 5, Reqnroll 3.3.4 (SpecFlow is gone), FlaUI 5, WiX 7, SqlClient 7.1.1, and MySql.Data 26.7.0. The unused `Renci.SshNet.Async` package was removed. Certificate checks, credential storage, and authentication behavior were not changed. The suite recorded for that move was 7414 passed.
 
