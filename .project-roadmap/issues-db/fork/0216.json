@@ -8,9 +8,9 @@
   ],
   "author": "vndnua",
   "created_at": "2026-10-08T13:44:04Z",
-  "github_updated_at": "2026-10-16T04:57:41Z",
+  "github_updated_at": "2026-10-16T05:59:16Z",
   "body_snippet": "There is a problem with connections that use an SSH tunnel. When I try to connect, I get the following error:\n\n<img width=\"394\" height=\"161\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a3d67e9b-efbf-45a8-86c9-991c9630bbf5\" />\n\nThe error occurs with connections using different protocols (I tested VNC, SSH, HTTP, and WinBox). This error started occurring recently. This issue does not occur in version mRemoteNG-nightly-20261006-v1.84.0-a684a59-x64.zip.\n\nVersion 1.84.0 (Release 3734)...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,16 @@
       "date": "2026-10-09",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-10-17",
+      "type": "released",
+      "description": "Status changed to released",
       "pr": null,
       "branch": null,
       "release": null,
@@ -45,12 +55,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABchgSaw",
+      "author": "vndnua",
+      "date": "2026-10-16T05:59:16Z",
+      "snippet": "I tested the current version. The problem no longer occurs. \nThank you!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-16T04:57:41Z",
-  "unread_comments": 0,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-10-16T04:57:49Z",
-  "notes": "fix shipped cc0f13cee (plain SyncContext from early SystemEvents subscription); [#216-diag] kept; awaiting reporter tunnel test"
+  "comments_cursor": "2026-10-16T05:59:16Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-10-17T07:32:30Z",
+  "notes": "reporter confirmed fixed on current nightly 2026-10-16; close as fixed"
 }
