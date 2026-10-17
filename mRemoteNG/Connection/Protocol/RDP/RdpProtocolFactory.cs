@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Versioning;
+using mRemoteNG.App;
 
 namespace mRemoteNG.Connection.Protocol.RDP
 {
@@ -39,8 +41,16 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             foreach (RdpVersion version in versions)
             {
+                // Each probe creates and destroys a whole ActiveX control. On one laptop the first
+                // probe of a process took 13.7 s (rdp_open protocol_ms, first_control=true) while
+                // later opens took about 0.5 s. Whether that is the DLL load or the COM activation
+                // is what this line separates.
+                bool moduleLoaded = NativeMethods.GetModuleHandle("mstscax.dll") != IntPtr.Zero;
+                Stopwatch probe = Stopwatch.StartNew();
                 RdpProtocol rdp = Build(version);
-                if (rdp.RdpVersionSupported())
+                bool supported = rdp.RdpVersionSupported();
+                RuntimeDiagnostics.RdpProbe(version.ToString(), supported, probe.ElapsedMilliseconds, moduleLoaded);
+                if (supported)
                     return rdp;
             }
 

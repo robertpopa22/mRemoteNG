@@ -612,6 +612,10 @@ namespace mRemoteNG.App
             Boolean("audio_capture", shape.AudioCapture)
         ];
 
+        internal static void RdpProbe(string version, bool supported, long durationMs, bool moduleLoadedBefore) =>
+            WriteInfo("rdp_probe", Field("version", SafeToken(version)), Boolean("supported", supported),
+                Number("duration_ms", durationMs), Boolean("module_loaded_before", moduleLoadedBefore));
+
         internal static void RdpCapability(string capability, bool supported) =>
             WriteInfo("rdp_capability", Field("name", SafeToken(capability)), Boolean("supported", supported));
 
