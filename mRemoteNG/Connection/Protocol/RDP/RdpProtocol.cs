@@ -2508,24 +2508,36 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
         }
 
+        /// <summary>
+        /// OnLogonError codes that report what Winlogon is doing, not a failed logon. Closing the
+        /// tab on them disconnects the control while the remote side waits for an answer.
+        /// <para>
+        /// -2 the logon continues; -3 Winlogon ends silently (OnDisconnected follows); -4, -5, -6
+        /// and -7 the Reconnect, Session Contention, No Permissions and Disconnect Refused dialogs
+        /// are showing (IMsTscAxEvents::OnLogonError). -8 is 0xFFFFFFF8, LOGON_MSG_SESSION_BUSY_OPTIONS
+        /// in MS-RDPBCGR 2.2.10.1.1.4.1.1: the "Session is Busy" dialog. Closing on -8 left a user
+        /// unable to reconnect after the server dropped a long session: each attempt connected and
+        /// was closed two seconds later.
+        /// </para>
+        /// <para>
+        /// -1 is ERROR_CODE_ACCESS_DENIED in the documentation. It stays here because closing on
+        /// the credential dialog's "More choices" crashed (upstream #1653) and the code that crash
+        /// raised was not recorded; changing it needs that evidence.
+        /// </para>
+        /// </summary>
+        internal static bool IsLogonStateNotification(int lError) =>
+            lError is -1 or -2 or -3 or -4 or -5 or -6 or -7 or -8;
+
         private void RDPEvent_OnLogonError(int lError)
         {
             try
             {
                 RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "logon_state",
                     _phaseClock.ElapsedMs, RdpVersion?.ToString(), lError);
-                // Transient NLA/credential UI state transitions — not actual errors.
-                // These fire during normal authentication when the user interacts with
-                // the Windows credential dialog. Closing for these causes #1653 (crash
-                // when user clicks "More choices").
-                // -1 = NTLM_CHALLENGE_SENT_TO_CLIENT
-                // -2 = MORE_CHOICES_REQUESTED  ← "More choices" click fires this
-                // -3 = CREDUI_SUCCESS_NOMAPPED
-                // -5 = NTLMv2_CHALLENGE_SENT_TO_CLIENT
-                if (lError == -1 || lError == -2 || lError == -3 || lError == -5)
+                if (IsLogonStateNotification(lError))
                 {
                     Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                        $"RDP credential UI state transition: {lError}", true);
+                        $"RDP logon state, session left open: {lError}", true);
                     return;
                 }
 
