@@ -2483,6 +2483,7 @@ namespace mRemoteNG.UI.Window
 
         private readonly List<string> _pendingConnectionIds = new();
         private readonly List<string> _layoutOpenedConnectionIds = new();
+        private readonly List<string> _layoutListedConnectionIds = new();
 
         /// <summary>
         /// Connection IDs this panel actually reopened from the saved dock layout — recorded when
@@ -2503,6 +2504,20 @@ namespace mRemoteNG.UI.Window
         /// </para>
         /// </summary>
         internal IReadOnlyList<string> OpenedFromLayoutConnectionIds => _layoutOpenedConnectionIds;
+
+        /// <summary>
+        /// True when this panel was restored from a persist string that carried the connection-id
+        /// field, even an empty one. That field is written on exit with the tabs open at that
+        /// moment, so it is the close-time set (#172). A layout saved before the field existed
+        /// leaves this false.
+        /// </summary>
+        internal bool LayoutListedConnections { get; private set; }
+
+        /// <summary>
+        /// The connection ids the saved layout named for this panel, whether or not they were
+        /// opened. Kept after the pending list is consumed.
+        /// </summary>
+        internal IReadOnlyList<string> ListedFromLayoutConnectionIds => _layoutListedConnectionIds;
 
         /// <summary>
         /// Opens the tabs the saved layout recorded, now, if that has not happened yet. Called by
@@ -2544,11 +2559,15 @@ namespace mRemoteNG.UI.Window
             return $"{typeof(ConnectionWindow)};{titleEncoded};{joinedIds}";
         }
 
-        public void LoadConnections(IEnumerable<string> ids)
+        public void LoadConnections(IEnumerable<string> ids, bool listedByLayout = false)
         {
             _pendingConnectionIds.Clear();
             _pendingConnectionIds.AddRange(ids);
             _layoutOpenedConnectionIds.Clear();
+            LayoutListedConnections = listedByLayout;
+            _layoutListedConnectionIds.Clear();
+            if (listedByLayout)
+                _layoutListedConnectionIds.AddRange(_pendingConnectionIds);
 
             if (Runtime.ConnectionsService.IsConnectionsFileLoaded)
             {

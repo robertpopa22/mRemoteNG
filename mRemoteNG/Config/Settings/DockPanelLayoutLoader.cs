@@ -162,7 +162,9 @@ namespace mRemoteNG.Config.Settings
                         }
                     }
 
-                    if (parts.Length > 2 && !string.IsNullOrEmpty(parts[2]))
+                    // A third field, even empty, is the list of tabs open when the layout was saved.
+                    bool listedByLayout = parts.Length > 2;
+                    if (listedByLayout && !string.IsNullOrEmpty(parts[2]))
                     {
                         connectionIds.AddRange(parts[2].Split(','));
                     }
@@ -170,7 +172,7 @@ namespace mRemoteNG.Config.Settings
                     var cw = mRemoteNG.UI.Panels.PanelAdder.AddPanel(title, false);
                     if (cw != null)
                     {
-                        cw.LoadConnections(connectionIds);
+                        cw.LoadConnections(connectionIds, listedByLayout);
                         return cw;
                     }
                 }

@@ -93,6 +93,65 @@ namespace mRemoteNGTests.Tree
             _connectionInitiator.ReceivedWithAnyArgs(2).OpenConnection(new ConnectionInfo());
         }
 
+        /// <summary>
+        /// #172 on 1.84.0: a tab closed during the session stays flagged PleaseConnect, because
+        /// opening or closing a tab never saves the connections file. The layout saved on exit
+        /// lists what was really open, so a flag outside that list must not be reopened.
+        /// </summary>
+        [Test]
+        public void StaleFlagsOutsideTheSavedLayoutListAreNotReopened()
+        {
+            RootNodeInfo root = BuildTree();
+            _connectionTree.GetRootConnectionNode().Returns(root);
+            ConnectionInfo[] flagged = root.Children.Where(child => child.PleaseConnect).ToArray();
+            string openAtExit = flagged[0].ConstantID;
+            _previousSessionOpener = new PreviousSessionOpener(
+                _connectionInitiator,
+                () => Array.Empty<ConnectionInfo>(),
+                () => [openAtExit],
+                () => [openAtExit]);
+
+            _previousSessionOpener.Execute(_connectionTree);
+
+            _connectionInitiator.DidNotReceiveWithAnyArgs().OpenConnection(new ConnectionInfo());
+        }
+
+        [Test]
+        public void AnEmptySavedLayoutListReopensNothing()
+        {
+            _previousSessionOpener = new PreviousSessionOpener(
+                _connectionInitiator,
+                () => Array.Empty<ConnectionInfo>(),
+                Array.Empty<string>,
+                Array.Empty<string>);
+
+            _previousSessionOpener.Execute(_connectionTree);
+
+            _connectionInitiator.DidNotReceiveWithAnyArgs().OpenConnection(new ConnectionInfo());
+        }
+
+        /// <summary>
+        /// The layout named a connection and its panel did not open it: this path must still do so,
+        /// or the tab is lost (the second round of #172).
+        /// </summary>
+        [Test]
+        public void ALayoutListedConnectionThePanelDidNotOpenIsReopened()
+        {
+            RootNodeInfo root = BuildTree();
+            _connectionTree.GetRootConnectionNode().Returns(root);
+            ConnectionInfo listed = root.Children.First(child => child.PleaseConnect);
+            _previousSessionOpener = new PreviousSessionOpener(
+                _connectionInitiator,
+                () => Array.Empty<ConnectionInfo>(),
+                Array.Empty<string>,
+                () => [listed.ConstantID]);
+
+            _previousSessionOpener.Execute(_connectionTree);
+
+            _connectionInitiator.Received(1).OpenConnection(listed);
+            _connectionInitiator.ReceivedWithAnyArgs(1).OpenConnection(new ConnectionInfo());
+        }
+
         [Test]
         public void ExceptionThrownWhenConstructorGivenNullArg()
         {
