@@ -2,7 +2,7 @@
   "number": 220,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.ComponentModel.Win32Exception: Error al crear identificador de ventana.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-10-16T07:30:07Z",
-  "github_updated_at": "2026-10-16T07:30:07Z",
+  "github_updated_at": "2026-10-17T09:03:18Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Error al crear identificador de ventana.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.ComboBox.CreateHandle()\r\n   at void System.Windows.Forms.Control.RecreateHandleCore()\r\n   at void System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at void System.Windo...",
   "our_status": "released",
   "priority": null,
@@ -29,11 +29,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-10-16T07:30:07Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABc3XQGA",
+      "author": "robertpopa22",
+      "date": "2026-10-17T09:03:17Z",
+      "snippet": "This report came from 1.84.0 (Release 3716), the stable release of 2026-09-25. Its stack, `ComboBox.OnFontChanged` during `WmDpiChangedBeforeParent`, is the one tracked in #209, and the window it names is the same: the Quick Connect box, at 51 USER objects, so not a handle quota problem.\n\nCommit 745a32bc3 (2026-10-07) is in the current nightly, not in 1.84.0. After a DPI change it gives the Quick Connect box its window back, and the crash report now carries the `Win32 error:` code that says why ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-17T09:03:18Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-10-17T07:32:30Z",
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-17T15:19:10Z",
   "notes": "same stack as #209/#218 from 1.84.0 stable 3716; 745a32bc3 in nightly; close as fixed with #209"
 }

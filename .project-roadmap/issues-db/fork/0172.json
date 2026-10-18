@@ -2,13 +2,13 @@
   "number": 172,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Last opened sessions are not re-opened on next startup",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "meyergru",
   "created_at": "2026-08-22T16:06:37Z",
-  "github_updated_at": "2026-10-16T14:54:35Z",
+  "github_updated_at": "2026-10-17T13:18:27Z",
   "body_snippet": "**What happens** (and what you expected instead):\n\nI switched from a beta to the most current version 1.83.0 Release 3661 and found that the open connections from the last start are not carried over to a re-invocation as I was used to before.\n\nInstead, mRemoteNG always starts with no open tabs.\n\n**Steps to reproduce:**\n\n1. Open a few connections\n2. Close the program\n3. Start the program again - no open tabs.\n\n**Version** (Help → About, or the nightly filename):\n\nversion 1.83.0 Release 3661\n\n**En...",
   "our_status": "released",
   "priority": null,
@@ -174,16 +174,52 @@
       "id": "IC_kwDORKxwDc8AAAABcqH_4A",
       "author": "meyergru",
       "date": "2026-10-16T14:54:34Z",
-      "snippet": "I have to reopen this issue again. With 1.84, the behavior is now that the open connections are not saved per default.\n\nThat is, if I forget to actually save the connections, the old configuration is reused.\n\nBefore, closing mRemoteNG persisted the open connections avtice when closed.\n",
+      "snippet": "I have to reopen this issue again. With 1.84, the behavior is now that the open connections are not saved per default.\n\nThat is, if I forget to actually save the connections, the old configuration is reused.\n\nBefore, closing mRemoteNG persisted the open connections that were active when closed.\n",
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABc3XNWg",
+      "author": "robertpopa22",
+      "date": "2026-10-17T09:03:13Z",
+      "snippet": "Thank you for coming back to this and describing it so exactly: \"if I forget to save, the old configuration is reused\" pointed straight at the cause.\n\nYou are right, and it is a regression in 1.84.0. Two things reopen the previous session. The saved panel layout records the tabs that are open when you close mRemoteNG, every time. The connections file also marks each connection as connected or not, but only when the connections file itself is saved. In 1.84.0 we stopped the timer from rewriting t...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABc4JilQ",
+      "author": "robertpopa22",
+      "date": "2026-10-17T10:36:55Z",
+      "snippet": "The change from our previous comment is now in a downloadable build: https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly\n\nDownload `mRemoteNG-full-1.84.0-f3500a0e74-x64.zip` (self-contained x64). Extract it into a fresh folder, or over your existing self-contained portable folder; your `Settings\\` folder is kept. Help → About shows `1.84.0+f3500a0e74`, so you can confirm it is this build.\n\nTo try it: with \"Reconnect to previously opened sessions on startup\" on, open a few connections,...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABc4NtNg",
+      "author": "meyergru",
+      "date": "2026-10-17T10:43:55Z",
+      "snippet": "Yep, the nightly build works (albeit only the \"small\" versions, not the \".msi\". Thank you.\n\nBTW: I already starred mRemoteNG!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABc5icuw",
+      "author": "robertpopa22",
+      "date": "2026-10-17T13:18:12Z",
+      "snippet": "Thank you for testing it within minutes of the build going up, and for the star.\n\nYou are right about the MSI. While GitHub Actions is paused on this fork, builds are published by hand as the self-contained ZIP only; the MSI on the release page is the last CI build, from 8 October, and does not contain this fix. An installer comes back with the next CI build or stable release.\n\nClosed as fixed, as you left it.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\n...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-16T14:54:35Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-10-17T13:18:27Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-10-17T13:18:13Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-10-17T15:19:10Z",
   "notes": "reporter confirmed on nightly 1.84.0+f3500a0e74 and closed 2026-10-17"
 }
