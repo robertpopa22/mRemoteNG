@@ -47,6 +47,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
             return !recentResume;
         }
 
+        /// <summary>
+        /// For an ARC attempt that was already allowed and is still in flight, or has just
+        /// completed (OnAutoReconnected). Returns false when the process was frozen since: the
+        /// control can finish an attempt that began before a sleep without announcing another one,
+        /// so <see cref="ShouldContinue"/> alone never sees it (field trace 2026-10-16: attempt 1
+        /// at 08:06, process frozen, reconnected at 10:23 with no further attempt).
+        /// </summary>
+        public bool InFlightAttemptMayStand(long ticksMs, DateTime utcNow) => ShouldContinue(ticksMs, utcNow);
+
         /// <summary>The session is connected; start a fresh observation window.</summary>
         public void Reset(long ticksMs, DateTime utcNow)
         {

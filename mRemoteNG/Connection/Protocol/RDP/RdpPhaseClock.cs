@@ -36,6 +36,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         internal long ElapsedMs => Math.Max(0, _nowMs() - _startMs);
 
+        /// <summary>An ARC attempt was announced and the session has not logged in again since.</summary>
+        internal bool AutoReconnectInProgress => _inArc;
+
         internal void Connect()
         {
             _startMs = _nowMs();

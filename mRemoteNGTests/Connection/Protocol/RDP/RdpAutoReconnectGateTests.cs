@@ -95,5 +95,55 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             Assert.That(gate.StoppedAfterResume, Is.False);
             Assert.That(gate.ShouldContinue(3_710_000, T0.AddHours(1).AddMinutes(2).AddSeconds(10)), Is.True);
         }
+        /// <summary>
+        /// Field trace 2026-10-16: attempt 1 at 08:06, the laptop slept, and the control completed
+        /// that same attempt at 10:23 without announcing another one.
+        /// </summary>
+        [Test]
+        public void AnAttemptThatCompletesAfterASleepMayNotStand()
+        {
+            var gate = ConnectedAt(1_000, T0);
+            gate.Touch(31_000, T0.AddSeconds(30));
+            Assert.That(gate.ShouldContinue(40_000, T0.AddSeconds(39)), Is.True, "the attempt before the sleep is allowed");
+
+            // Modern Standby: the tick count kept running here; the wall clock moved 2 h 17 min.
+            Assert.That(gate.InFlightAttemptMayStand(8_264_000, T0.AddSeconds(39).AddMinutes(137)), Is.False);
+            Assert.That(gate.StoppedAfterResume, Is.True);
+        }
+
+        [Test]
+        public void AnAttemptThatCompletesAfterAHibernateWithAFrozenTickCountMayNotStand()
+        {
+            var gate = ConnectedAt(1_000, T0);
+            Assert.That(gate.ShouldContinue(40_000, T0.AddSeconds(39)), Is.True);
+
+            // Tick count frozen across the sleep, wall clock resynchronised an hour later.
+            Assert.That(gate.InFlightAttemptMayStand(41_000, T0.AddHours(1)), Is.False);
+        }
+
+        [Test]
+        public void AnAttemptThatCompletesWhileAwakeStands()
+        {
+            var gate = ConnectedAt(1_000, T0);
+            Assert.That(gate.ShouldContinue(40_000, T0.AddSeconds(39)), Is.True);
+            gate.Touch(70_000, T0.AddSeconds(69));
+            gate.Touch(100_000, T0.AddSeconds(99));
+
+            Assert.That(gate.InFlightAttemptMayStand(115_000, T0.AddSeconds(114)), Is.True);
+            Assert.That(gate.StoppedAfterResume, Is.False);
+        }
+
+        [Test]
+        public void AnInFlightAttemptCheckedOnTheFirstTickAfterResumeIsStopped()
+        {
+            var gate = ConnectedAt(1_000, T0);
+            Assert.That(gate.ShouldContinue(40_000, T0.AddSeconds(39)), Is.True);
+
+            // The liveness tick that fires right after resume, before the control finishes.
+            Assert.That(gate.InFlightAttemptMayStand(3_640_000, T0.AddHours(1)), Is.False);
+            // The completion that follows a moment later is stopped too.
+            Assert.That(gate.InFlightAttemptMayStand(3_645_000, T0.AddHours(1).AddSeconds(5)), Is.False);
+        }
+
     }
 }

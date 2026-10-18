@@ -300,7 +300,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _extendedReconnectTimer = new System.Windows.Forms.Timer { Interval = 2000 };
             _extendedReconnectTimer.Tick += ExtendedReconnectTimer_Tick;
             _arcLivenessTimer = new System.Windows.Forms.Timer { Interval = (int)RdpAutoReconnectGate.TouchInterval.TotalMilliseconds };
-            _arcLivenessTimer.Tick += (_, _) => _arcGate.Touch(Environment.TickCount64, DateTime.UtcNow);
+            _arcLivenessTimer.Tick += ArcLivenessTimer_Tick;
         }
 
         #endregion
@@ -2051,6 +2051,38 @@ namespace mRemoteNG.Connection.Protocol.RDP
             long outageMs = _networkStats.Reconnected(Environment.TickCount64);
             RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "reconnected", null, null, outageMs);
             _linkProbe?.Reconnected();
+
+            // #212: an attempt that began before a sleep can complete after resume with no further
+            // OnAutoReconnecting. By now the remote session is attached again; disconnecting at once
+            // limits how long it is held, it cannot undo the takeover.
+            if (_arcGate.StoppedAfterResume || !_arcGate.InFlightAttemptMayStand(Environment.TickCount64, DateTime.UtcNow))
+                StopAutoReconnectAfterResume("completed");
+        }
+
+        private void ArcLivenessTimer_Tick(object? sender, EventArgs e)
+        {
+            long now = Environment.TickCount64;
+            DateTime utcNow = DateTime.UtcNow;
+
+            // #212: the first tick after a resume, while an attempt is still in flight, stops it
+            // before the control completes it.
+            if (_phaseClock.AutoReconnectInProgress && !_arcGate.StoppedAfterResume)
+            {
+                if (!_arcGate.InFlightAttemptMayStand(now, utcNow))
+                    StopAutoReconnectAfterResume("in_flight");
+                return;
+            }
+
+            _arcGate.Touch(now, utcNow);
+        }
+
+        private void StopAutoReconnectAfterResume(string point)
+        {
+            RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "auto_reconnect_stopped_after_resume_" + point,
+                _phaseClock.ElapsedMs, RdpVersion?.ToString());
+            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                $"Automatic reconnection to {connectionInfo.Hostname} stopped: this computer was asleep since the session was last active.");
+            Disconnect();
         }
 
         /// <summary>
@@ -2270,7 +2302,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
             try { finalExtendedReason = (uint)_rdpClient.ExtendedDisconnectReason; }
             catch { finalExtendedReason = 0; }
             bool deliberateLogoff = finalExtendedReason is 2 or 12;
-            if (discReason != UI_ERR_NORMAL_DISCONNECT && !deliberateLogoff &&
+            // #212: a reconnection stopped after a resume must not come back through the
+            // reconnect-on-disconnect panel either; its timer reconnects as soon as the host answers.
+            if (discReason != UI_ERR_NORMAL_DISCONNECT && !deliberateLogoff && !_arcGate.StoppedAfterResume &&
                 Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect)
             {
                 ReconnectGroup = new ReconnectGroup();
@@ -2303,7 +2337,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _phaseClock.ElapsedMs, RdpVersion?.ToString(),
                 refreshResources: true);
             MarkLinkProbeConnected();
-            _arcGate.Reset(Environment.TickCount64, DateTime.UtcNow);
+            // Not while an automatic reconnection is in flight: resetting there would erase the
+            // freeze the gate has to see when that attempt completes (#212). A user's own Connect
+            // clears the in-flight state first, so it still starts a fresh window.
+            if (!_phaseClock.AutoReconnectInProgress)
+                _arcGate.Reset(Environment.TickCount64, DateTime.UtcNow);
             _arcLivenessTimer.Start();
             try
             {
