@@ -205,12 +205,17 @@ function Update-NightlyReleaseText([string]$Version, [string]$FileVersion, [stri
     $title = "Nightly Build — $Version (self-contained x64)"
     Invoke-Native 'gh release edit' { gh release edit nightly --repo $Repo --title $title --notes-file $notes }
 
-    $back = & gh release view nightly --repo $Repo --json name,body 2>&1
-    if ($LASTEXITCODE -ne 0) { Fail 'gh release view nightly (read-back) failed' }
-    $back = $back | ConvertFrom-Json
-    if ($back.name -ne $title -or -not ([string]$back.body).Contains("``$Version``") -or -not ([string]$back.body).Contains($sha)) {
-        Fail "Release text read-back does not name $Version and its SHA-256"
+    # GitHub can serve the previous text for a few seconds after an edit (seen 2026-10-18: the
+    # immediate read-back failed while the release itself was correct), so retry before failing.
+    $ok = $false
+    for ($try = 1; $try -le 6 -and -not $ok; $try++) {
+        if ($try -gt 1) { Start-Sleep -Seconds 5 }
+        $back = & gh release view nightly --repo $Repo --json name,body 2>&1
+        if ($LASTEXITCODE -ne 0) { continue }
+        $back = $back | ConvertFrom-Json
+        $ok = $back.name -eq $title -and ([string]$back.body).Contains("``$Version``") -and ([string]$back.body).Contains($sha)
     }
+    if (-not $ok) { Fail "Release text read-back does not name $Version and its SHA-256" }
     Write-Host "Release text updated: $title" -ForegroundColor Green
 }
 
