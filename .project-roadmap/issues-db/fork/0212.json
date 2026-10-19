@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-10-07T13:25:41Z",
-  "github_updated_at": "2026-10-07T13:37:15Z",
+  "github_updated_at": "2026-10-18T14:49:21Z",
   "body_snippet": "## Summary\n\nAn RDP tab left open on a laptop that goes to sleep or hibernates can silently reconnect **an hour later** when the lid is opened, before the user has even unlocked the laptop. If the same user meanwhile sat down at the remote machine's console, the reconnect takes the session away from the console. On a Windows client SKU (one interactive session) this happened while the console was being unlocked, the two attaches raced, and Winlogon reported \"failed to connect the user session\" (e...",
   "our_status": "triaged",
   "priority": null,
@@ -36,12 +36,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABdJsfDA",
+      "author": "robertpopa22",
+      "date": "2026-10-18T14:49:20Z",
+      "snippet": "A field log from the affected laptop showed a path the first fix (fcc32b64e) does not cover.\n\n**What the log shows (16 October, build 1.84.0.3745).** At 08:06:12 the session dropped (reason 2308) and the control announced reconnection attempt 1. Then the process wrote nothing at all, not even its regular heartbeat, for 2 h 17 min: the laptop was asleep. At 10:23:16 the session was reconnected, and 13 s later the logon completed. No second attempt was announced in between. The first fix only chec...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-07T13:37:15Z",
+  "comments_cursor": "2026-10-18T14:49:21Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-18T14:49:21Z",
+  "last_synced": "2026-10-19T02:32:05Z",
   "notes": "2nd fix 4951b73a4 (ARC completing after resume); in nightly 1.84.0+4951b73a48; open until a post-sleep log shows auto_reconnect_stopped_after_resume_*"
 }

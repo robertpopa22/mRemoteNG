@@ -96,7 +96,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 7,877 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 103 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
+**Quality:** 7,923 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 103 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -509,7 +509,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**7,877 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**7,923 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 

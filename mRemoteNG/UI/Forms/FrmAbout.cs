@@ -29,7 +29,7 @@ namespace mRemoteNG.UI.Forms
 
         // The live figures below are rewritten mechanically by scripts/sync-readme-metrics.py
         // (the same pass that keeps README.md honest) - do not hand-edit the numbers.
-        private const string LiveStats = "7,877 automated checks · analyzer checks enabled · 103 external reports closed";
+        private const string LiveStats = "7,923 automated checks · analyzer checks enabled · 103 external reports closed";
 
         private void ApplyLanguage()
         {
