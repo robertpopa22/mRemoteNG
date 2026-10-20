@@ -22,6 +22,10 @@
     Where zip and manifest are written. Default %TEMP%\mrng-release\<ver>.
 .PARAMETER SkipTests
     Skip run-tests.ps1.
+.PARAMETER ProgramOutput
+    Also keep the complete published program (the exact files the manifest hashes) in this new or
+    empty directory. A MINI carries only the changed files; a deployment that sends the MINI still
+    needs the whole program it produces, and the build tree is deleted at the end.
 #>
 [CmdletBinding()]
 param(
@@ -31,7 +35,8 @@ param(
     [string]$BaseFullManifestPath,
     [switch]$DryRun,
     [string]$OutputDirectory,
-    [switch]$SkipTests
+    [switch]$SkipTests,
+    [string]$ProgramOutput
 )
 
 Set-StrictMode -Version Latest
@@ -316,6 +321,18 @@ try {
 
         Write-Host 'Hashing package files ...' -ForegroundColor Cyan
         $entries = Get-PackageEntries $publish
+        if ($ProgramOutput) {
+            if ((Test-Path -LiteralPath $ProgramOutput) -and @(Get-ChildItem -LiteralPath $ProgramOutput -Force).Count -gt 0) {
+                Fail "ProgramOutput is not empty: $ProgramOutput"
+            }
+            New-Item -ItemType Directory -Force -Path $ProgramOutput | Out-Null
+            foreach ($e in $entries) {
+                $dest = Join-Path $ProgramOutput $e.path
+                New-Item -ItemType Directory -Force -Path (Split-Path -Parent $dest) | Out-Null
+                Copy-Item -LiteralPath (Join-Path $publish $e.path) -Destination $dest
+            }
+            Write-Host "program : $($entries.Count) files kept in $ProgramOutput" -ForegroundColor Cyan
+        }
         $allFiles = @(ConvertTo-ManifestFiles $entries)
 
         $zipName = "mRemoteNG-$Channel-$fileVer-x64.zip"
