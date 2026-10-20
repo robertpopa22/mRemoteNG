@@ -30,6 +30,35 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
         }
 
         [Test]
+        public void FitZoomEnlargesASmallerSessionToTheTighterSide()
+        {
+            // Lab, 2026-10-20: 480x288 in 668x500 is limited by the width.
+            Assert.That(RdpProtocol8.FitZoom(new Size(668, 500), new Size(480, 288)), Is.EqualTo(139u));
+        }
+
+        [Test]
+        public void FitZoomBringsAnAdaptedSessionBackToItsPanel()
+        {
+            Size panel = new(1610, 1019);
+            Size session = RdpProtocol8.AdaptedSize(panel, 125, 100);
+            Assert.That(RdpProtocol8.FitZoom(panel, session), Is.EqualTo(125u));
+        }
+
+        [TestCase(1610, 1019, 1610, 1019)]
+        [TestCase(1000, 700, 1288, 815)]
+        [TestCase(0, 0, 640, 480)]
+        public void FitZoomDoesNotZoomASessionThatAlreadyFills(int sw, int sh, int w, int h)
+        {
+            Assert.That(RdpProtocol8.FitZoom(new Size(sw, sh), new Size(w, h)), Is.EqualTo(100u));
+        }
+
+        [Test]
+        public void FitZoomStopsAtTheControlsMaximum()
+        {
+            Assert.That(RdpProtocol8.FitZoom(new Size(3000, 2000), new Size(200, 200)), Is.EqualTo(300u));
+        }
+
+        [Test]
         public void ContentSizeSubtractsTheFramePadding()
         {
             Size size = RdpProtocol8.ContentSize(new Rectangle(0, 0, 200, 100), new Padding(8));

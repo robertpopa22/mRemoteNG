@@ -168,6 +168,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return;
                 }
 
+                // The control refuses SmartSizing and a zoom at the same time; whoever turns
+                // SmartSizing on (fullscreen, windowed fullscreen, a restore) gets it unzoomed.
+                if (value && _zoomLevel != 100)
+                    TrySetZoom(100);
+
                 try
                 {
                     _rdpClient.AdvancedSettings2.SmartSizing = value;
@@ -188,6 +193,49 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         MessageClass.WarningMsg,
                         false);
                 }
+            }
+        }
+
+        private uint _zoomLevel = 100;
+
+        /// <summary>The control's own zoom, in percent; 100 is unzoomed.</summary>
+        protected uint ZoomLevel => _zoomLevel;
+
+        internal const uint MaxZoom = 300;
+
+        /// <summary>
+        /// After an automatic reconnection the control's zoom is not known to match the cached
+        /// value, so the next request writes it whatever it is.
+        /// </summary>
+        protected void ForgetZoom() => _zoomLevel = 0;
+
+        /// <summary>
+        /// Enlarges the session picture by <paramref name="zoom"/> percent. Lab trace (2026-10-20):
+        /// SmartSizing only ever shrinks a session to its surface; a session smaller than the
+        /// surface stays at its own size, centred. The control's zoom enlarges it, and is accepted
+        /// for any percentage, but only while SmartSizing is off (0x80070032 otherwise), so this
+        /// turns SmartSizing off first.
+        /// </summary>
+        protected bool TrySetZoom(uint zoom)
+        {
+            zoom = Math.Clamp(zoom, 100u, MaxZoom);
+            if (_rdpClient == null || zoom == _zoomLevel)
+                return _rdpClient != null;
+            try
+            {
+                if (zoom > 100 && _rdpClient.AdvancedSettings2.SmartSizing)
+                    _rdpClient.AdvancedSettings2.SmartSizing = false;
+                object value = zoom;
+                // ReSharper disable once UseIndexedProperty
+                ((IMsRdpExtendedSettings)_rdpClient).set_Property("ZoomLevel", ref value);
+                _zoomLevel = zoom;
+                return true;
+            }
+            catch (Exception ex) when (ex is COMException or InvalidComObjectException)
+            {
+                Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg,
+                    $"The RDP control refused zoom {zoom} % (HRESULT 0x{ex.HResult:X8}).", true);
+                return false;
             }
         }
 
@@ -605,7 +653,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
         }
 
-        public void ToggleSmartSize()
+        public virtual void ToggleSmartSize()
         {
             try
             {
@@ -2071,6 +2119,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             long outageMs = _networkStats.Reconnected(Environment.TickCount64);
             RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "reconnected", null, null, outageMs);
             _linkProbe?.Reconnected();
+            if (_zoomLevel != 100)
+                ForgetZoom();
 
             // #212: an attempt that began before a sleep can complete after resume with no further
             // OnAutoReconnecting. By now the remote session is attached again; disconnecting at once
@@ -2411,6 +2461,20 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         "Windowed fullscreen sizing after RDP login failed.", ex, MessageClass.WarningMsg, false);
                 }
             }
+
+            try
+            {
+                OnLoginCompleteSizing();
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_smartsize", ex);
+            }
+        }
+
+        /// <summary>Runs once the remote desktop is up; the session size is final from here on.</summary>
+        protected virtual void OnLoginCompleteSizing()
+        {
         }
 
         private void RDPEvent_OnEnterFullScreenMode()
