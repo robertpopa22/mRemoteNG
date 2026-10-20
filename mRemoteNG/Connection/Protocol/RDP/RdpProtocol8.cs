@@ -44,6 +44,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private bool _zoomedInsteadOfSmartSize;
         private bool _adaptiveUpdateRefused;
         private bool _smartSizeOffByUser;
+        private System.Windows.Forms.Timer? _adaptiveRetryTimer;
+        private int _adaptiveRetries;
+        internal const int AdaptiveRetryMs = 2000;
+        internal const int AdaptiveMaxRetries = 15;
         private Size _adaptiveTarget;
         private bool _adaptiveDisabled;
 
@@ -326,6 +330,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 if (_adaptiveUpdateRefused)
                     return;
                 _adaptiveTarget = reduced ? target : Size.Empty;
+                _adaptiveRetries = 0;
                 // The smaller session is zoomed back to the panel. Fullscreen keeps the SmartSizing
                 // that fills the screen (#1402), which already reset the zoom.
                 if (Fullscreen)
@@ -708,12 +713,54 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// </summary>
         protected override void OnLoginCompleteSizing()
         {
+            // Field, 2026-10-20: after an automatic reconnection the session came back at another
+            // size while the control kept the 125 % zoom of the reduced one, so it overflowed the
+            // panel with scroll bars. Unzoom first; the level is applied again below.
             if (ZoomLevel != 100)
+            {
                 ForgetZoom();
+                TrySetZoom(100);
+                if (_zoomedInsteadOfSmartSize)
+                {
+                    _zoomedInsteadOfSmartSize = false;
+                    if (ConfiguredSmartSize() && !_smartSizeOffByUser)
+                        SmartSize = true;
+                }
+            }
+            _adaptiveTarget = Size.Empty;
             _appliedRemoteScale = 0;
+            _adaptiveRetries = 0;
             UpscaleFixedSession();
             if (AdaptiveResolutionEnabled && _adaptive is { Level: > 0 })
                 ScheduleDebouncedResize();
+        }
+
+        /// <summary>
+        /// The control answers "not ready" for a while after an automatic reconnection, also after
+        /// it has raised OnLoginComplete (field, 2026-10-20: refused 0.1 s after logon). The step is
+        /// asked again every two seconds, a bounded number of times; the next decision or logon
+        /// asks again after that.
+        /// </summary>
+        private void ScheduleAdaptiveRetry()
+        {
+            if (_adaptiveRetries >= AdaptiveMaxRetries)
+                return;
+            _adaptiveRetries++;
+            if (_adaptiveRetryTimer == null)
+            {
+                _adaptiveRetryTimer = new System.Windows.Forms.Timer { Interval = AdaptiveRetryMs };
+                _adaptiveRetryTimer.Tick += AdaptiveRetryTimer_Tick;
+            }
+            _adaptiveRetryTimer.Stop();
+            _adaptiveRetryTimer.Start();
+        }
+
+        private void AdaptiveRetryTimer_Tick(object? sender, EventArgs e)
+        {
+            _adaptiveRetryTimer?.Stop();
+            if (Control == null || Control.IsDisposed || InterfaceControl == null || InterfaceControl.IsDisposed)
+                return;
+            DoResizeClient();
         }
 
         /// <summary>
@@ -839,7 +886,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
             RuntimeDiagnostics.RdpResolutionApplied(DiagnosticSession, notReady ? "deferred" : "failed", DesktopScaleFactor,
                 _appliedRemoteScale, desktopScale, (int)width, (int)height, ex.HResult);
             if (notReady)
+            {
+                ScheduleAdaptiveRetry();
                 return;
+            }
             _adaptiveDisabled = true;
             ScheduleDebouncedResize();
         }
@@ -875,6 +925,14 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _windowedFullscreenSettleTimer?.Stop();
             _windowedFullscreenSettleTimer?.Dispose();
             _windowedFullscreenSettleTimer = null;
+
+            if (_adaptiveRetryTimer != null)
+            {
+                _adaptiveRetryTimer.Stop();
+                _adaptiveRetryTimer.Tick -= AdaptiveRetryTimer_Tick;
+                _adaptiveRetryTimer.Dispose();
+                _adaptiveRetryTimer = null;
+            }
             _windowedFullscreenRetryPending = false;
 
         }
