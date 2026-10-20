@@ -61,6 +61,16 @@ namespace mRemoteNG.UI.Forms
 
         public static bool IsCreated => s_default.IsValueCreated;
 
+        /// <summary>
+        /// True once the main window has started closing or is gone. Startup can still be on the
+        /// stack then: a restored RDP tab connects inside FrmMain_Load, IMsRdpClient.Connect pumps
+        /// messages, and a WM_CLOSE that arrives meanwhile runs the whole shutdown (save included)
+        /// nested inside that call. Code that unwinds afterwards checks this and stops instead of
+        /// treating the disposed controls as a broken connections file. Never creates the form.
+        /// </summary>
+        public static bool IsShuttingDown =>
+            IsCreated && (Default.IsClosing || Default.IsDisposed || Default.Disposing);
+
         private static FrmMain InitializeOnSta()
         {
             // Enforce STA to avoid OLE/WinForms threading violations
@@ -256,6 +266,27 @@ namespace mRemoteNG.UI.Forms
 
         #region Startup & Shutdown
 
+        /// <summary>
+        /// Application.Run shows the main form through here, and Form.SetVisibleCore raises Load
+        /// from inside this call. When the window is closed while Load is still running (see
+        /// <see cref="IsShuttingDown"/>), the form is disposed by the time Load returns; for a
+        /// maximized or topmost window WinForms then focuses its active control, which needs the
+        /// handle of the disposed form, and the ObjectDisposedException escaped Application.Run
+        /// as a fatal crash after a clean shutdown. There is nothing left to show, so only that
+        /// case is absorbed.
+        /// </summary>
+        protected override void SetVisibleCore(bool value)
+        {
+            try
+            {
+                base.SetVisibleCore(value);
+            }
+            catch (ObjectDisposedException ex) when (value && IsDisposed)
+            {
+                ClosePathDiagnostics.Log($"main window SetVisibleCore: closed during Load, nothing left to show ({ex.ObjectName})");
+            }
+        }
+
         private void FrmMain_Load(object sender, EventArgs e)
         {
             var totalSw = Stopwatch.StartNew();
@@ -330,6 +361,17 @@ namespace mRemoteNG.UI.Forms
             Debug.Print($"[Startup] LoadConnections: {phaseSw.ElapsedMilliseconds}ms");
             messageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"[Startup] LoadConnections: {phaseSw.ElapsedMilliseconds}ms");
             RuntimeDiagnostics.StartupPhase("load_connections", phaseSw.ElapsedMilliseconds);
+
+            // The window was closed while the restored connections were opening, and shutdown has
+            // already saved and torn everything down. The rest of startup would only touch the
+            // disposed form, start timers and hotkeys, and launch start-up tools for an
+            // application that is gone.
+            if (IsShuttingDown)
+            {
+                ClosePathDiagnostics.Log($"main window Load: closed during startup (disposed {IsDisposed}); the rest of startup is skipped");
+                return;
+            }
+
             _autoLockTimer.Start();
 
             // Initialize panel binding for Connections and Config panels

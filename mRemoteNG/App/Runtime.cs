@@ -182,6 +182,20 @@ namespace mRemoteNG.App
 
                 }
 
+                // The main window was closed while this load was still on the stack: a restored
+                // connection connects inside the ConnectionsLoaded handlers and pumps messages,
+                // so the whole shutdown, save included, ran nested in it. What failed here is the
+                // UI that shutdown disposed, not the connections file. Every branch below would
+                // treat it as a broken file: recovery dialogs, a new empty file, a retry or an
+                // Exit, all on a form that no longer exists. Record it and stop.
+                if (FrmMain.IsShuttingDown)
+                {
+                    MessageCollector.AddExceptionStackTrace(
+                        "Connections finished loading after the main window was closed; startup stopped, the connections file was not touched",
+                        ex, MessageClass.InformationMsg);
+                    return;
+                }
+
                 if (Properties.OptionsDBsPage.Default.UseSQLServer)
                 {
                     MessageCollector.AddExceptionMessage(Language.LoadFromSqlFailed, ex);

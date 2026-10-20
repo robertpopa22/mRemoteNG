@@ -35,6 +35,7 @@ namespace mRemoteNG.Connection
         private readonly List<string> _activeConnections = [];
         private readonly IProtocolFactory _protocolFactory;
         private readonly ITunnelPortValidator _tunnelPortValidator;
+        private readonly Func<bool> _isApplicationShuttingDown;
         private static readonly ConcurrentDictionary<string, byte> WindowedFullscreenConnectionsInFlight =
             new(StringComparer.Ordinal);
 
@@ -43,10 +44,12 @@ namespace mRemoteNG.Connection
         public event Action<string, string> ConnectionOpened;
         public event Action<string, string> ConnectionClosed;
 
-        public ConnectionInitiator(IProtocolFactory? protocolFactory = null, ITunnelPortValidator? tunnelPortValidator = null)
+        public ConnectionInitiator(IProtocolFactory? protocolFactory = null, ITunnelPortValidator? tunnelPortValidator = null,
+                                   Func<bool>? isApplicationShuttingDown = null)
         {
             _protocolFactory = protocolFactory ?? new ProtocolFactory();
             _tunnelPortValidator = tunnelPortValidator ?? new TunnelPortValidator();
+            _isApplicationShuttingDown = isApplicationShuttingDown ?? (() => FrmMain.IsShuttingDown);
         }
 
         public bool SwitchToOpenConnection(ConnectionInfo connectionInfo)
@@ -113,6 +116,16 @@ namespace mRemoteNG.Connection
         {
             if (connectionInfo == null)
                 return;
+
+            // Startup restores several tabs in one loop. When the window is closed while one of
+            // them connects, shutdown runs nested in that connect, and the loop then went on to
+            // build tabs for the next ones in a main window that no longer exists.
+            if (_isApplicationShuttingDown())
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"Connection '{connectionInfo.Name}' not opened: the main window is closing.");
+                return;
+            }
 
             TreeClickTrace.ReachedOpenConnection(connectionInfo.Protocol.ToString());
             OpenStepTimer openTimer = new();

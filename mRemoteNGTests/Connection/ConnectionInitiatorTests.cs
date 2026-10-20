@@ -4,6 +4,7 @@ using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Messages;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace mRemoteNGTests.Connection
@@ -117,6 +118,29 @@ namespace mRemoteNGTests.Connection
 
             Assert.That(hostnameErrors, Is.Empty, 
                 "Should not have hostname error when hostname is provided");
+        }
+
+        [Test]
+        public void OpenConnection_WhileApplicationIsShuttingDown_OpensNothing()
+        {
+            // Startup restores tabs in a loop; when the window was closed during one connect,
+            // the next ones must not be built in a main window that is already gone.
+            IProtocolFactory protocolFactory = Substitute.For<IProtocolFactory>();
+            var initiator = new ConnectionInitiator(protocolFactory, isApplicationShuttingDown: () => true);
+            var connectionInfo = new ConnectionInfo
+            {
+                Name = "Restored",
+                Hostname = "192.0.2.10",
+                Protocol = ProtocolType.RDP
+            };
+
+            initiator.OpenConnection(connectionInfo);
+
+            IMessage message = WaitForMessage(MessageClass.InformationMsg, timeoutMs: 1000);
+            Assert.That(message, Is.Not.Null);
+            Assert.That(message.Text, Does.Contain("not opened: the main window is closing"));
+            protocolFactory.DidNotReceiveWithAnyArgs().CreateProtocol(null!);
+            Assert.That(initiator.ActiveConnections, Is.Empty);
         }
 
         /// <summary>

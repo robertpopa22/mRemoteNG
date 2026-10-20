@@ -18,6 +18,11 @@ namespace mRemoteNG.App.Initialization
 
             Runtime.LoadConnections();
 
+            // Closed while the restored connections were opening: shutdown has run, nothing more
+            // is loaded. The saved list of additional files is left as it is.
+            if (UI.Forms.FrmMain.IsShuttingDown)
+                return;
+
             // Restore additional connection files from previous session (#2331)
             Runtime.ConnectionsService.LoadAdditionalConnectionFiles();
         }
