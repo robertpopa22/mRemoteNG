@@ -213,7 +213,8 @@ function Update-NightlyReleaseText([string]$Version, [string]$FileVersion, [stri
         $back = & gh release view nightly --repo $Repo --json name,body 2>&1
         if ($LASTEXITCODE -ne 0) { continue }
         $back = $back | ConvertFrom-Json
-        $ok = $back.name -eq $title -and ([string]$back.body).Contains("``$Version``") -and ([string]$back.body).Contains($sha)
+        # Compare on the version, not the whole title: the title carries an em dash, which the console decoding of gh output can garble.
+        $ok = ([string]$back.name).Contains($Version) -and ([string]$back.body).Contains("``$Version``") -and ([string]$back.body).Contains($sha)
     }
     if (-not $ok) { Fail "Release text read-back does not name $Version and its SHA-256" }
     Write-Host "Release text updated: $title" -ForegroundColor Green
