@@ -2190,7 +2190,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 RdpNetworkSample? sample = _networkStats.Record(now, qualityLevel, bandwidth, rtt);
                 if (sample != null)
                     RuntimeDiagnostics.RdpNetwork(_diagnosticRdpSession, sample);
-                WriteAdaptDecision(_linkMonitor.Sample(now, rtt));
+                // An unmeasured placeholder (56 kbps / 150 ms) is not a round trip for the stability
+                // monitor either; it would count as a slow link that never existed.
+                if (RdpNetworkStats.IsMeasuredRtt(bandwidth, rtt))
+                    WriteAdaptDecision(_linkMonitor.Sample(now, rtt));
             }
             catch (Exception ex)
             {

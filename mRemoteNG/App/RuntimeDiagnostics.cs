@@ -390,6 +390,8 @@ namespace mRemoteNG.App
                 Field("rdp_session", SafeCorrelationId(rdpSession)),
                 Field("point", SafeToken(point)),
                 Number("samples", summary.Samples),
+                Number("bw_samples", summary.BandwidthSamples),
+                Number("rtt_samples", summary.RttSamples),
                 Number("bw_min_kbps", summary.BandwidthMinKbps),
                 Number("bw_avg_kbps", summary.BandwidthAvgKbps),
                 Number("bw_max_kbps", summary.BandwidthMaxKbps),

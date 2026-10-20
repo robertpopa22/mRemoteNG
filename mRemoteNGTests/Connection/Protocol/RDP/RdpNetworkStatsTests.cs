@@ -54,6 +54,70 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             Assert.That(line.Quality, Is.EqualTo(2u));
         }
 
+        /// <summary>
+        /// Field log: every session opened with 56 kbps / 150 ms before the control measured
+        /// anything, and 56 kbps came back on later quality changes next to real round trips. Those
+        /// made bw_min read 56 kbps on a link that measured 5 to 13 Mbps.
+        /// </summary>
+        [Test]
+        public void UnmeasuredPlaceholdersStayOutOfTheSummary()
+        {
+            var stats = new RdpNetworkStats();
+            stats.Record(0, 3, 56, 150);          // nothing measured yet
+            stats.Record(10_000, 4, 56, 95);      // round trip measured, bandwidth not
+            stats.Record(40_000, 4, 5_000, 105);
+            stats.Record(80_000, 4, 0, 0);        // nothing measured
+            stats.Record(120_000, 4, 13_000, 115);
+
+            RdpNetworkSummary? summary = stats.Summary(150_000);
+
+            Assert.That(summary, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(summary!.Samples, Is.EqualTo(5));
+                Assert.That(summary.BandwidthSamples, Is.EqualTo(2));
+                Assert.That(summary.RttSamples, Is.EqualTo(3));
+                Assert.That(summary.BandwidthMinKbps, Is.EqualTo(5_000));
+                Assert.That(summary.BandwidthAvgKbps, Is.EqualTo(9_000));
+                Assert.That(summary.BandwidthMaxKbps, Is.EqualTo(13_000));
+                Assert.That(summary.RttMinMs, Is.EqualTo(95));
+                Assert.That(summary.RttAvgMs, Is.EqualTo(105));
+                Assert.That(summary.RttMaxMs, Is.EqualTo(115));
+            });
+        }
+
+        [Test]
+        public void OnlyPlaceholdersGiveZeroesNotFakeReadings()
+        {
+            var stats = new RdpNetworkStats();
+            stats.Record(0, 3, 56, 150);
+
+            RdpNetworkSummary? summary = stats.Summary(10_000);
+
+            Assert.That(summary, Is.Not.Null);
+            Assert.That(summary!.BandwidthMinKbps, Is.Zero);
+            Assert.That(summary.BandwidthAvgKbps, Is.Zero);
+            Assert.That(summary.RttAvgMs, Is.Zero);
+            Assert.That(summary.BandwidthSamples, Is.Zero);
+        }
+
+        [TestCase(56, 150, false)]
+        [TestCase(56, 95, true)]
+        [TestCase(0, 0, false)]
+        [TestCase(5_000, 150, true)]
+        [TestCase(5_000, 0, true)]   // sub-millisecond LAN
+        [TestCase(0, 1, true)]
+        [TestCase(0, 150, false)]
+        public void MeasuredRoundTrip(int bandwidthKbps, int rttMs, bool measured) =>
+            Assert.That(RdpNetworkStats.IsMeasuredRtt(bandwidthKbps, rttMs), Is.EqualTo(measured));
+
+        [TestCase(0, false)]
+        [TestCase(56, false)]
+        [TestCase(57, true)]
+        [TestCase(5_000, true)]
+        public void MeasuredBandwidth(int bandwidthKbps, bool measured) =>
+            Assert.That(RdpNetworkStats.IsMeasuredBandwidth(bandwidthKbps), Is.EqualTo(measured));
+
         [Test]
         public void SummaryCoversTheWholeConnection()
         {

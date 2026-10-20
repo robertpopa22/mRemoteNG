@@ -26,6 +26,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private readonly Dictionary<uint, long> _msPerQuality = new();
 
         private long _samples;
+        private long _bandwidthSamples;
+        private long _rttSamples;
         private long _bandwidthSum;
         private long _rttSum;
         private int _bandwidthMin = int.MaxValue;
@@ -60,8 +62,25 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private int _probeLossBand;
 
         /// <summary>
+        /// The bandwidth the control reports before it has measured anything. In field logs every
+        /// session opened with 56 kbps (often next to 150 ms) and kept reporting 56 on later quality
+        /// changes with real round trips of 4 to 219 ms, also on a LAN that then measured several
+        /// Mbps; 0 is reported the same way. Neither is a reading of the link.
+        /// </summary>
+        internal static bool IsMeasuredBandwidth(int bandwidthKbps) => bandwidthKbps is not (0 or 56);
+
+        /// <summary>
+        /// A round trip the control actually measured. Next to an unmeasured bandwidth, 0 ms and the
+        /// 150 ms default are placeholders; next to a measured one, 0 ms is a real sub-millisecond LAN
+        /// reading and must still reach the stability monitor, or a calm LAN would never read calm.
+        /// </summary>
+        internal static bool IsMeasuredRtt(int bandwidthKbps, int rttMs) =>
+            IsMeasuredBandwidth(bandwidthKbps) ? rttMs >= 0 : rttMs > 0 && rttMs != 150;
+
+        /// <summary>
         /// Records one network sample. Returns a line to write, or <c>null</c> when the sample is
-        /// folded into the next line.
+        /// folded into the next line. The line carries the control's values as reported; the
+        /// connection summary counts only measured ones.
         /// </summary>
         internal RdpNetworkSample? Record(long nowMs, uint quality, int bandwidthKbps, int rttMs)
         {
@@ -71,12 +90,20 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 rttMs = Math.Max(0, rttMs);
 
                 _samples++;
-                _bandwidthSum += bandwidthKbps;
-                _rttSum += rttMs;
-                _bandwidthMin = Math.Min(_bandwidthMin, bandwidthKbps);
-                _bandwidthMax = Math.Max(_bandwidthMax, bandwidthKbps);
-                _rttMin = Math.Min(_rttMin, rttMs);
-                _rttMax = Math.Max(_rttMax, rttMs);
+                if (IsMeasuredBandwidth(bandwidthKbps))
+                {
+                    _bandwidthSamples++;
+                    _bandwidthSum += bandwidthKbps;
+                    _bandwidthMin = Math.Min(_bandwidthMin, bandwidthKbps);
+                    _bandwidthMax = Math.Max(_bandwidthMax, bandwidthKbps);
+                }
+                if (IsMeasuredRtt(bandwidthKbps, rttMs))
+                {
+                    _rttSamples++;
+                    _rttSum += rttMs;
+                    _rttMin = Math.Min(_rttMin, rttMs);
+                    _rttMax = Math.Max(_rttMax, rttMs);
+                }
 
                 _windowSamples++;
                 _windowBandwidthMin = Math.Min(_windowBandwidthMin, bandwidthKbps);
@@ -241,11 +268,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 return new RdpNetworkSummary(
                     _samples,
-                    _samples == 0 ? 0 : _bandwidthMin,
-                    _samples == 0 ? 0 : (int)(_bandwidthSum / _samples),
+                    _bandwidthSamples == 0 ? 0 : _bandwidthMin,
+                    _bandwidthSamples == 0 ? 0 : (int)(_bandwidthSum / _bandwidthSamples),
                     _bandwidthMax,
-                    _samples == 0 ? 0 : _rttMin,
-                    _samples == 0 ? 0 : (int)(_rttSum / _samples),
+                    _rttSamples == 0 ? 0 : _rttMin,
+                    _rttSamples == 0 ? 0 : (int)(_rttSum / _rttSamples),
                     _rttMax,
                     FormatQualityTime(perQuality),
                     _attempts,
@@ -255,7 +282,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     _probeSamples,
                     _probeRttCount == 0 ? null : (int)(_probeRttSum / _probeRttCount),
                     _probeSamples == 0 ? null : (int)Math.Round(_probeLost * 100.0 / _probeSamples, MidpointRounding.AwayFromZero),
-                    _probeJitterCount == 0 ? null : (int)Math.Round((double)_probeJitterSum / _probeJitterCount, MidpointRounding.AwayFromZero));
+                    _probeJitterCount == 0 ? null : (int)Math.Round((double)_probeJitterSum / _probeJitterCount, MidpointRounding.AwayFromZero),
+                    _bandwidthSamples,
+                    _rttSamples);
             }
         }
 
@@ -305,7 +334,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
         long ProbeSamples = 0,
         int? ProbeRttAvgMs = null,
         int? ProbeLossPct = null,
-        int? ProbeJitterMs = null);
+        int? ProbeJitterMs = null,
+        long BandwidthSamples = 0,
+        long RttSamples = 0);
 
     internal sealed record RdpProbeWindow(
         int Samples,
