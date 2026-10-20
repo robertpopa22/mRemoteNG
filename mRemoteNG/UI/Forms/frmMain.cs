@@ -206,6 +206,8 @@ namespace mRemoteNG.UI.Forms
 
         public bool IsClosing { get; private set; }
 
+        private bool _mainWindowClosingInProgress;
+
         public bool AreWeUsingSqlServerForSavingConnections
         {
             get => _usingSqlServer;
@@ -943,6 +945,31 @@ namespace mRemoteNG.UI.Forms
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Closing the tabs pumps messages (an RDP close marshals to the UI thread, the confirm
+            // dialog runs a modal loop), so a second WM_CLOSE can arrive while this handler is still
+            // running. That nested close used to run the whole shutdown and dispose the form; the
+            // outer one then resumed on a disposed form and threw on Handle. The close already in
+            // progress finishes the job, so the nested one stands down.
+            if (_mainWindowClosingInProgress)
+            {
+                ClosePathDiagnostics.Log($"main window FormClosing: reason {e.CloseReason} arrived while a close is in progress; left to that close");
+                e.Cancel = true;
+                return;
+            }
+
+            _mainWindowClosingInProgress = true;
+            try
+            {
+                CloseMainWindow(e);
+            }
+            finally
+            {
+                _mainWindowClosingInProgress = false;
+            }
+        }
+
+        private void CloseMainWindow(FormClosingEventArgs e)
         {
             bool cancelOnEntry = e.Cancel;
             if (Properties.OptionsAppearancePage.Default.CloseToTray)
