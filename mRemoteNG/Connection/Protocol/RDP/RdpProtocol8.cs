@@ -49,6 +49,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         internal const int AdaptiveRetryMs = 2000;
         internal const int AdaptiveMaxRetries = 15;
         private Size _adaptiveTarget;
+        private Size _remoteDesktopSize;
         private bool _adaptiveDisabled;
 
         public RdpProtocol8()
@@ -331,12 +332,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return;
                 _adaptiveTarget = reduced ? target : Size.Empty;
                 _adaptiveRetries = 0;
-                // The smaller session is zoomed back to the panel. Fullscreen keeps the SmartSizing
-                // that fills the screen (#1402), which already reset the zoom.
+                // The zoom follows the size the remote desktop reports, not this request: on the
+                // failing link that triggers a step down the request may never reach the server.
+                // Fullscreen keeps the SmartSizing that fills the screen (#1402).
                 if (Fullscreen)
                     _zoomedInsteadOfSmartSize = false;
                 else
-                    ApplyUpscale(target, reduced ? "adaptive" : "panel");
+                    SyncZoomToRemote(reduced ? "adaptive" : "panel");
                 NoteAppliedRemoteScale(baseScale, sessionScale, target);
 
                 EnsureSmartSizing();
@@ -698,12 +700,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// Leaving fullscreen restores the SmartSizing state from before it, which resets the zoom
         /// when that state was on; a reduced or fixed smaller session needs its zoom back.
         /// </summary>
-        protected override void OnLeftFullscreen()
+        protected override void OnLeftFullscreen() => SyncZoomToRemote("fullscreen_exit");
+
+        protected override void OnRemoteDesktopSize(Size size)
         {
-            if (_adaptiveTarget != Size.Empty && AdaptiveRemoteScale(DesktopScaleFactor) < DesktopScaleFactor)
-                ApplyUpscale(_adaptiveTarget, "adaptive");
-            else
-                UpscaleFixedSession();
+            _remoteDesktopSize = size;
+            SyncZoomToRemote("remote");
         }
 
         /// <summary>
@@ -728,6 +730,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
             }
             _adaptiveTarget = Size.Empty;
+            _remoteDesktopSize = Size.Empty;
             _appliedRemoteScale = 0;
             _adaptiveRetries = 0;
             UpscaleFixedSession();
@@ -770,18 +773,33 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// zoomed instead. Fit-to-panel sessions take their size from the panel and go through
         /// <see cref="DoResizeClient"/>; fullscreen and windowed fullscreen fill the screen.
         /// </summary>
-        private void UpscaleFixedSession()
+        private void UpscaleFixedSession() => SyncZoomToRemote("fixed");
+
+        /// <summary>
+        /// The one place the zoom is decided, from the size the remote desktop has (its last
+        /// OnRemoteDesktopSizeChange, or the control's desktop size before the first one). A
+        /// session smaller than the panel is zoomed only where scaling it to the panel is asked for:
+        /// a fixed resolution with SmartSizing, or a fit-to-panel session with adaptive resolution
+        /// on. Everywhere else the zoom is taken off, so a zoom can never outlive the size it was
+        /// computed for.
+        /// </summary>
+        private void SyncZoomToRemote(string reason)
         {
             if (!loginComplete || connectionInfo == null || Control == null || Control.IsDisposed)
                 return;
-            if (Fullscreen || WindowedFullscreenSizingActive || !ConfiguredSmartSize() || _smartSizeOffByUser)
+            if (Fullscreen || WindowedFullscreenSizingActive)
                 return;
-            if (connectionInfo.Resolution is RDPResolutions.FitToWindow or RDPResolutions.Fullscreen)
+            Size actual = _remoteDesktopSize.IsEmpty ? WindowedFullscreenDesktopSize : _remoteDesktopSize;
+            if (actual.Width <= 0 || actual.Height <= 0)
                 return;
-            Size session = WindowedFullscreenDesktopSize;
-            if (session.Width <= 0 || session.Height <= 0)
-                return;
-            ApplyUpscale(session, "fixed");
+            bool fixedResolution = connectionInfo.Resolution is not (RDPResolutions.FitToWindow or RDPResolutions.Fullscreen);
+            bool mayZoom = fixedResolution
+                ? ConfiguredSmartSize() && !_smartSizeOffByUser
+                : AdaptiveResolutionEnabled && SupportsDynamicResize;
+            if (mayZoom)
+                ApplyUpscale(actual, reason);
+            else if (_zoomedInsteadOfSmartSize || ZoomLevel != 100)
+                ApplyUpscale(Control.ClientSize, reason);
         }
 
         /// <summary>
@@ -804,7 +822,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 TrySetZoom(100);
                 _zoomedInsteadOfSmartSize = false;
-                if (ConfiguredSmartSize())
+                if (ConfiguredSmartSize() && !_smartSizeOffByUser)
                     SmartSize = true;
             }
             if (ZoomLevel != before)
@@ -882,7 +900,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         protected void AdaptiveUpdateFailed(uint width, uint height, uint desktopScale, Exception ex)
         {
             _adaptiveUpdateRefused = true;
-            bool notReady = ex is System.Runtime.InteropServices.COMException && ex.HResult == unchecked((int)0x8000FFFF);
+            bool notReady = ex.HResult == unchecked((int)0x8000FFFF);
             RuntimeDiagnostics.RdpResolutionApplied(DiagnosticSession, notReady ? "deferred" : "failed", DesktopScaleFactor,
                 _appliedRemoteScale, desktopScale, (int)width, (int)height, ex.HResult);
             if (notReady)

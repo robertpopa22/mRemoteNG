@@ -1993,6 +1993,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnLogonError += RDPEvent_OnLogonError;
                 _rdpClient.OnAutoReconnected += RDPEvent_OnAutoReconnected;
                 _rdpClient.OnNetworkStatusChanged += RDPEvent_OnNetworkStatusChanged;
+                _rdpClient.OnRemoteDesktopSizeChange += RDPEvent_OnRemoteDesktopSizeChange;
             }
             catch (Exception ex)
             {
@@ -2025,6 +2026,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnLogonError -= RDPEvent_OnLogonError;
                 _rdpClient.OnAutoReconnected -= RDPEvent_OnAutoReconnected;
                 _rdpClient.OnNetworkStatusChanged -= RDPEvent_OnNetworkStatusChanged;
+                _rdpClient.OnRemoteDesktopSizeChange -= RDPEvent_OnRemoteDesktopSizeChange;
             }
             catch (Exception ex)
             {
@@ -2101,6 +2103,28 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// One answered (round trip) or lost (null) link probe. Runs on a thread-pool thread.
         /// </summary>
         protected virtual void OnLinkQuality(long atMs, int? rttMs)
+        {
+        }
+
+        /// <summary>
+        /// The size the remote desktop actually has. A requested size can be accepted by the control
+        /// and never reach the server on a failing link (field, 2026-10-20), so this, not the
+        /// request, is what the picture is scaled for.
+        /// </summary>
+        private void RDPEvent_OnRemoteDesktopSizeChange(int width, int height)
+        {
+            try
+            {
+                DevLog.Write($"remote desktop size {width}x{height}");
+                OnRemoteDesktopSize(new Size(width, height));
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_remote_size", ex);
+            }
+        }
+
+        protected virtual void OnRemoteDesktopSize(Size size)
         {
         }
 

@@ -231,7 +231,7 @@ namespace mRemoteNGSpecs.Fixtures
                 UiWait.Until(() => LogContains("event=rdp_resolution") && LogContains("phase=decision"),
                              "the adaptive controller to decide a step down", TimeSpan.FromSeconds(240));
                 _ = Netsh($"advfirewall firewall delete rule name={IcmpBlockRule}");
-                UiWait.Until(() => LogContains("[rdp-zoom] adaptive"),
+                UiWait.Until(() => LogContains("-> 125 % for session"),
                              "the step down to be applied and zoomed back over the panel", TimeSpan.FromSeconds(180));
                 Thread.Sleep(TimeSpan.FromSeconds(4));
                 string shot = Path.Combine(_evidenceDir, "stepped-down.png");
