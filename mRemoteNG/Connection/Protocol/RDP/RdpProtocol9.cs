@@ -48,7 +48,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected override bool SupportsDynamicResize => true;
 
-        protected override void UpdateSessionDisplaySettings(uint width, uint height)
+        protected override void UpdateSessionDisplaySettings(uint width, uint height, uint desktopScale)
         {
             try
             {
@@ -57,7 +57,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     if (WindowedFullscreenSizingActive)
                         Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                             $"phase=windowed_fullscreen_dynamic_call requested={width}x{height}");
-                    RdpClient9.UpdateSessionDisplaySettings(width, height, width, height, Orientation, DesktopScaleFactor, DeviceScaleFactor);
+                    uint deviceScale = desktopScale == DesktopScaleFactor ? DeviceScaleFactor : DeviceScaleFor(desktopScale);
+                    RdpClient9.UpdateSessionDisplaySettings(width, height, width, height, Orientation, desktopScale, deviceScale);
                     ClearWindowedFullscreenDynamicRetry();
                     if (WindowedFullscreenSizingActive)
                     {
@@ -68,11 +69,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
                 else
                 {
-                    base.UpdateSessionDisplaySettings(width, height);
+                    base.UpdateSessionDisplaySettings(width, height, desktopScale);
                 }
             }
             catch (Exception ex)
             {
+                if (desktopScale != DesktopScaleFactor)
+                {
+                    AdaptiveUpdateFailed(width, height, desktopScale, ex);
+                    return;
+                }
+
                 if (WindowedFullscreenSizingActive && loginComplete &&
                     ex is COMException && ex.HResult == unchecked((int)0x8000FFFF))
                 {
@@ -88,7 +95,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     WindowedFullscreenSizingActive ? MessageClass.InformationMsg : MessageClass.DebugMsg,
                     $"phase=windowed_fullscreen_dynamic_error requested={width}x{height} " +
                     $"type={ex.GetType().Name} hresult=0x{ex.HResult:X8} message={ex.Message}");
-                base.UpdateSessionDisplaySettings(width, height);
+                base.UpdateSessionDisplaySettings(width, height, desktopScale);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -36,6 +37,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private Size _windowedFullscreenTarget;
         private int _windowedFullscreenSettleAttempts;
         private bool _windowedFullscreenRetryPending;
+        private RdpAdaptiveResolution? _adaptive;
+        private IReadOnlyList<uint> _adaptiveLadder = [];
+        private uint _adaptiveBaseScale;
+        private uint _appliedRemoteScale;
+        private bool _adaptiveSmartSizeForced;
+        private bool _adaptiveDisabled;
 
         public RdpProtocol8()
         {
@@ -138,6 +145,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     }
 
                     EnsureSmartSizing();
+                    if (_adaptiveSmartSizeForced)
+                        SmartSize = true;
                 }
             }
 
@@ -294,8 +303,26 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return;
                 }
 
-                DevLog.Write($"Calling UpdateSessionDisplaySettings({decision.Size.Width}, {decision.Size.Height})");
-                UpdateSessionDisplaySettings((uint)decision.Size.Width, (uint)decision.Size.Height);
+                uint baseScale = DesktopScaleFactor;
+                uint remoteScale = AdaptiveRemoteScale(baseScale);
+                Size target = AdaptedSize(decision.Size, baseScale, remoteScale);
+                bool reduced = target != decision.Size;
+                if (reduced && !SmartSize)
+                {
+                    // The smaller session is stretched back to the panel; without SmartSizing it
+                    // would sit in a corner at its own size.
+                    SmartSize = true;
+                    _adaptiveSmartSizeForced = true;
+                }
+
+                uint sessionScale = reduced ? remoteScale : baseScale;
+                DevLog.Write($"Calling UpdateSessionDisplaySettings({target.Width}, {target.Height}, scale {sessionScale})");
+                UpdateSessionDisplaySettings((uint)target.Width, (uint)target.Height, sessionScale);
+                // Fullscreen keeps SmartSizing on to fill the screen (#1402); the forced state is
+                // given back when the session returns to the panel size outside fullscreen.
+                if (!reduced && !Fullscreen)
+                    RestoreAdaptiveSmartSize();
+                NoteAppliedRemoteScale(baseScale, sessionScale, target);
 
                 EnsureSmartSizing();
                 DevLog.Write($"Session display update done. SmartSize={SmartSize}");
@@ -322,6 +349,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _hasPendingResize = false;
             _resizeGeneration++;
             base.BeginWindowedFullscreenSizing();
+            // Windowed fullscreen always runs at the full size.
+            _appliedRemoteScale = 0;
         }
 
         internal override void UpdateWindowedFullscreenSizing()
@@ -371,6 +400,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 base.EndWindowedFullscreenSizing(smartSizeBefore);
             }
+
+            // The full size was written back above; a reduced level comes back on the next pass.
+            _appliedRemoteScale = 0;
+            if (AdaptiveRemoteScale(DesktopScaleFactor) < DesktopScaleFactor)
+                ScheduleDebouncedResize();
         }
 
         internal static SessionResizeDecision DecideWindowedFullscreenResize(bool supportsDynamicResize,
@@ -441,21 +475,25 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             if (connectionInfo == null) return;
 
+            if (ConfiguredSmartSize() && !SmartSize)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                    $"EnsureSmartSizing - Re-applying SmartSizing for '{connectionInfo.Hostname}' after restore");
+                SmartSize = true;
+            }
+        }
+
+        private bool ConfiguredSmartSize()
+        {
+            if (connectionInfo == null) return false;
+
             var sizingMode = connectionInfo.RDPSizingMode;
             if (connectionInfo.Resolution == RDPResolutions.SmartSize)
                 sizingMode = RDPSizingMode.SmartSize;
             else if (connectionInfo.Resolution == RDPResolutions.SmartSizeAspect)
                 sizingMode = RDPSizingMode.SmartSizeAspect;
 
-            bool shouldBeSmartSized = sizingMode == RDPSizingMode.SmartSize ||
-                                     sizingMode == RDPSizingMode.SmartSizeAspect;
-
-            if (shouldBeSmartSized && !SmartSize)
-            {
-                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
-                    $"EnsureSmartSizing - Re-applying SmartSizing for '{connectionInfo.Hostname}' after restore");
-                SmartSize = true;
-            }
+            return sizingMode == RDPSizingMode.SmartSize || sizingMode == RDPSizingMode.SmartSizeAspect;
         }
 
         /// <summary>
@@ -513,7 +551,14 @@ namespace mRemoteNG.Connection.Protocol.RDP
             return settled.Width > 0 && settled.Height > 0 && settled != applied;
         }
 
-        protected virtual void UpdateSessionDisplaySettings(uint width, uint height)
+        protected void UpdateSessionDisplaySettings(uint width, uint height) =>
+            UpdateSessionDisplaySettings(width, height, DesktopScaleFactor);
+
+        /// <param name="desktopScale">
+        /// The remote desktop scale. It differs from <see cref="RdpProtocol.DesktopScaleFactor"/>
+        /// only while adaptive resolution renders the session smaller than the panel.
+        /// </param>
+        protected virtual void UpdateSessionDisplaySettings(uint width, uint height, uint desktopScale)
         {
             if (WindowedFullscreenSizingActive)
             {
@@ -528,6 +573,147 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 RdpClient8.Reconnect(width, height);
             }
         }
+
+        #region Adaptive resolution
+
+        protected override void OnLinkQuality(long atMs, int? rttMs) =>
+            PostAdaptive(c => rttMs is int rtt ? c.Sample(atMs, rtt) : c.Loss(atMs));
+
+        protected override void OnLinkDrop(long atMs) => PostAdaptive(c => c.Drop(atMs));
+
+        /// <summary>
+        /// Probe results arrive on a thread-pool thread; the controller, the DPI read and the resize
+        /// all run on the UI thread, so nothing here needs a lock of its own.
+        /// </summary>
+        private void PostAdaptive(Func<RdpAdaptiveResolution, RdpAdaptiveResolutionDecision?> feed)
+        {
+            Control? host = InterfaceControl;
+            if (host == null || host.IsDisposed || !host.IsHandleCreated)
+                return;
+            try
+            {
+                host.BeginInvoke(() => FeedAdaptive(feed));
+            }
+            catch (Exception ex) when (ex is InvalidOperationException or ObjectDisposedException)
+            {
+                // The tab closed between the check and the post.
+            }
+        }
+
+        private void FeedAdaptive(Func<RdpAdaptiveResolution, RdpAdaptiveResolutionDecision?> feed)
+        {
+            try
+            {
+                if (!loginComplete || InterfaceControl == null || InterfaceControl.IsDisposed)
+                    return;
+
+                uint baseScale = DesktopScaleFactor;
+                if (_adaptive == null || _adaptiveBaseScale != baseScale)
+                {
+                    _adaptiveBaseScale = baseScale;
+                    _adaptiveLadder = RdpAdaptiveResolution.RemoteScaleLadder(baseScale);
+                    _adaptive = new RdpAdaptiveResolution(_adaptiveLadder.Count);
+                }
+
+                RdpAdaptiveResolutionDecision? decision = feed(_adaptive);
+                if (decision == null)
+                    return;
+
+                bool enabled = AdaptiveResolutionEnabled;
+                RuntimeDiagnostics.RdpResolutionDecision(DiagnosticSession, decision, baseScale,
+                    _adaptiveLadder[decision.FromLevel], _adaptiveLadder[decision.ToLevel], enabled);
+                // Fullscreen or a fixed resolution keeps the base scale; nothing to re-lay out then.
+                uint applied = _appliedRemoteScale == 0 ? baseScale : _appliedRemoteScale;
+                if (enabled && AdaptiveRemoteScale(baseScale) != applied)
+                    DoResizeClient();
+            }
+            catch (Exception ex)
+            {
+                RuntimeDiagnostics.SafeException("rdp_resolution", ex);
+            }
+        }
+
+        /// <summary>
+        /// Leaving fullscreen restores the SmartSizing state from before it, which is off when the
+        /// session stepped down while it was fullscreen; a reduced session needs it on.
+        /// </summary>
+        protected override void OnLeftFullscreen()
+        {
+            if (AdaptiveRemoteScale(DesktopScaleFactor) >= DesktopScaleFactor || SmartSize)
+                return;
+            SmartSize = true;
+            _adaptiveSmartSizeForced = true;
+        }
+
+        /// <summary>The device scale RDP accepts (100, 140, 180) nearest a desktop scale.</summary>
+        internal static uint DeviceScaleFor(uint desktopScale) =>
+            desktopScale <= 120 ? 100u : desktopScale <= 160 ? 140u : 180u;
+
+        private bool AdaptiveResolutionEnabled =>
+            Properties.OptionsAdvancedPage.Default.RdpAdaptiveResolution && !_adaptiveDisabled;
+
+        /// <summary>
+        /// The remote scale for the current level, or the base scale whenever the level must not
+        /// apply: the feature is off, the session cannot resize in place, it is fullscreen, or the
+        /// connection asked for a fixed or client-scaled resolution.
+        /// </summary>
+        private uint AdaptiveRemoteScale(uint baseScale)
+        {
+            if (!AdaptiveResolutionEnabled || _adaptive == null || _adaptiveBaseScale != baseScale)
+                return baseScale;
+            if (!SupportsDynamicResize || Fullscreen || WindowedFullscreenSizingActive)
+                return baseScale;
+            if (InterfaceControl?.Info.Resolution != RDPResolutions.FitToWindow)
+                return baseScale;
+            return _adaptiveLadder[_adaptive.Level];
+        }
+
+        internal const int MinAdaptedSide = 200;
+
+        /// <summary>
+        /// The session size that, stretched back to <paramref name="panel"/>, shows the remote
+        /// desktop at the size the base scale would. Sides are even. A result below the smallest
+        /// side the protocol accepts leaves the panel size unchanged.
+        /// </summary>
+        internal static Size AdaptedSize(Size panel, uint baseScale, uint remoteScale)
+        {
+            if (remoteScale >= baseScale || baseScale == 0)
+                return panel;
+            int width = (int)((long)panel.Width * remoteScale / baseScale) & ~1;
+            int height = (int)((long)panel.Height * remoteScale / baseScale) & ~1;
+            return width < MinAdaptedSide || height < MinAdaptedSide ? panel : new Size(width, height);
+        }
+
+        private void RestoreAdaptiveSmartSize()
+        {
+            if (!_adaptiveSmartSizeForced)
+                return;
+            _adaptiveSmartSizeForced = false;
+            SmartSize = ConfiguredSmartSize();
+        }
+
+        private void NoteAppliedRemoteScale(uint baseScale, uint remoteScale, Size target)
+        {
+            uint previous = _appliedRemoteScale == 0 ? baseScale : _appliedRemoteScale;
+            _appliedRemoteScale = remoteScale;
+            if (previous != remoteScale)
+                RuntimeDiagnostics.RdpResolutionApplied(DiagnosticSession, "applied", baseScale, previous,
+                    remoteScale, target.Width, target.Height, null);
+        }
+
+        /// <summary>
+        /// A control that refuses the smaller size is not asked again for this session, and the
+        /// session goes back to the panel size; the legacy fallback would reconnect instead.
+        /// </summary>
+        protected void AdaptiveUpdateFailed(uint width, uint height, uint desktopScale, Exception ex)
+        {
+            _adaptiveDisabled = true;
+            RuntimeDiagnostics.RdpResolutionApplied(DiagnosticSession, "failed", DesktopScaleFactor,
+                _appliedRemoteScale, desktopScale, (int)width, (int)height, ex.HResult);
+            ScheduleDebouncedResize();
+        }
+
+        #endregion
 
         public override void Close()
         {

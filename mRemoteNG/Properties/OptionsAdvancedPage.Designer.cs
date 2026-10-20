@@ -166,5 +166,17 @@ namespace mRemoteNG.Properties {
                 this["RdpNetworkAutoDetect"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RdpAdaptiveResolution {
+            get {
+                return ((bool)(this["RdpAdaptiveResolution"]));
+            }
+            set {
+                this["RdpAdaptiveResolution"] = value;
+            }
+        }
     }
 }

@@ -11,6 +11,25 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
     public class RdpSessionResizeDecisionTests
     {
         [Test]
+        public void AdaptedSizeKeepsThePanelAtTheBaseScale()
+        {
+            Assert.That(RdpProtocol8.AdaptedSize(new Size(1610, 1019), 125, 125), Is.EqualTo(new Size(1610, 1019)));
+        }
+
+        [Test]
+        public void AdaptedSizeShrinksByTheScaleRatioToEvenSides()
+        {
+            // 125 % panel rendered at remote 100 %: four fifths, stretched back by SmartSizing.
+            Assert.That(RdpProtocol8.AdaptedSize(new Size(1610, 1019), 125, 100), Is.EqualTo(new Size(1288, 814)));
+        }
+
+        [Test]
+        public void AdaptedSizeLeavesASmallPanelAlone()
+        {
+            Assert.That(RdpProtocol8.AdaptedSize(new Size(240, 180), 150, 100), Is.EqualTo(new Size(240, 180)));
+        }
+
+        [Test]
         public void ContentSizeSubtractsTheFramePadding()
         {
             Size size = RdpProtocol8.ContentSize(new Rectangle(0, 0, 200, 100), new Padding(8));

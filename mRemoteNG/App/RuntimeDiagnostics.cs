@@ -438,6 +438,39 @@ namespace mRemoteNG.App
                 Number("unstable_drops", Connection.Protocol.RDP.RdpLinkStabilityMonitor.UnstableDrops),
                 Number("stable_rtt_ms", Connection.Protocol.RDP.RdpLinkStabilityMonitor.StableRttMs));
 
+        /// <summary>
+        /// What the adaptive-resolution controller decided. With the feature off the decision is
+        /// still written, so a journey shows when the session would have been rendered smaller.
+        /// </summary>
+        internal static void RdpResolutionDecision(string rdpSession,
+            Connection.Protocol.RDP.RdpAdaptiveResolutionDecision decision, uint baseScale, uint fromScale,
+            uint toScale, bool enabled) =>
+            WriteInfo("rdp_resolution",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("phase", "decision"),
+                Field("reason", SafeToken(decision.Reason)),
+                Number("from_level", decision.FromLevel),
+                Number("to_level", decision.ToLevel),
+                Number("base_scale", baseScale),
+                Number("from_scale", fromScale),
+                Number("to_scale", toScale),
+                NullableNumber("rtt_median_ms", decision.RttMedianMs),
+                NullableNumber("rtt_max_ms", decision.RttMaxMs),
+                Boolean("enabled", enabled));
+
+        /// <summary>A remote scale the session was actually switched to, or the switch the control refused.</summary>
+        internal static void RdpResolutionApplied(string rdpSession, string phase, uint baseScale, uint fromScale,
+            uint toScale, int width, int height, int? hresult) =>
+            WriteInfo("rdp_resolution",
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("phase", SafeToken(phase)),
+                Number("base_scale", baseScale),
+                Number("from_scale", fromScale),
+                Number("to_scale", toScale),
+                Number("width", width),
+                Number("height", height),
+                Field("hresult", hresult is int hr ? "0x" + unchecked((uint)hr).ToString("X8", CultureInfo.InvariantCulture) : "na"));
+
         internal static void RdpShape(RdpShapeInfo shape) =>
             WriteInfo("rdp_shape", [..ShapeFields(shape), ..ResourceFields(ProcessResourceSnapshot.Capture(refreshExpensive: true))]);
 

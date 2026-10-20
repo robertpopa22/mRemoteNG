@@ -2042,8 +2042,28 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _networkStats.ReconnectAttempt(now);
             RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "attempt", disconnectReason, attemptCount, null);
             if (outageStarted)
+            {
                 WriteAdaptDecision(_linkMonitor.Drop(now));
+                OnLinkDrop(now);
+            }
             _linkProbe?.MarkDrop(now);
+        }
+
+        /// <summary>
+        /// One answered (round trip) or lost (null) link probe. Runs on a thread-pool thread.
+        /// </summary>
+        protected virtual void OnLinkQuality(long atMs, int? rttMs)
+        {
+        }
+
+        /// <summary>Runs after leaving fullscreen restored the SmartSizing state from before it.</summary>
+        protected virtual void OnLeftFullscreen()
+        {
+        }
+
+        /// <summary>The control started an automatic reconnection after the link dropped.</summary>
+        protected virtual void OnLinkDrop(long atMs)
+        {
         }
 
         private void RDPEvent_OnAutoReconnected()
@@ -2170,6 +2190,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 WriteAdaptDecision(result.RttMs is int rtt
                     ? _linkMonitor.Sample(result.AtMs, rtt, probe: true)
                     : _linkMonitor.Loss(result.AtMs), result.Method);
+                OnLinkQuality(result.AtMs, result.RttMs);
             }
             catch (Exception ex)
             {
@@ -2487,6 +2508,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 Fullscreen = false;
                 // Restore SmartSize to the state it was in before entering fullscreen (#1402).
                 SmartSize = _smartSizeBeforeFullscreen;
+                OnLeftFullscreen();
             }
             catch (Exception ex)
             {
