@@ -6,7 +6,7 @@
 
 <blockquote>
 
-**This fork is alive.** We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, automated tests, and builds for x64, x86, and ARM64.
+**This fork is alive.** We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by automated tests and builds for x64, x86, and ARM64. GitHub Actions is paused on this fork since 8 October 2026; until it runs again, every nightly is built and fully tested locally before it is published.
 
 Full transparency: this project uses automated development and verification, directed by a human maintainer. **We also run mRemoteNG daily on the latest build.** Each fix reply names the tests and UI checks actually performed, their limits, and the exact published build to try. Our lab and daily use cannot reproduce every network, server, locale or display setup; your retest establishes whether the reported symptom is resolved in yours.
 
@@ -63,7 +63,7 @@ Two live releases, always:
 | Release | Version | Description |
 |---------|---------|-------------|
 | **[Stable](https://github.com/robertpopa22/mRemoteNG/releases/latest)** | v1.84.0 | Latest tagged release — all platforms. **Recommended.** |
-| **[Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)** | rolling | Rebuilt and overwritten on every push to `main`. Latest changes, fully tested. |
+| **[Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)** | rolling | Latest changes from `main`, full test suite passed. Published by hand while GitHub Actions is paused: a FULL package, and small MINI updates between FULLs. |
 | **[Legacy](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.76.20)** | v1.76.20 | Last .NET Framework 4.x release. |
 
 ### Download matrix — Stable v1.84.0
@@ -74,13 +74,15 @@ Two live releases, always:
 | Self-contained (~108-150 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.84.0/mRemoteNG-v1.84.0-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.84.0/mRemoteNG-v1.84.0-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.84.0/mRemoteNG-v1.84.0-arm64-selfcontained.zip) |
 | MSI installer (x64) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.84.0/mRemoteNG-v1.84.0-x64.msi) | — | — |
 
-Nightly builds (ZIP + MSI, x64) live on the [nightly release](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly), refreshed every push.
+Nightly packages (self-contained x64) live on the [nightly release](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly). While GitHub Actions is paused they are built and uploaded by hand after the full test suite passes, so not every push gets one. The last nightly MSI is the CI build of 8 October 2026.
 
 **Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0). **Self-contained** includes the .NET runtime — no prerequisites. **MSI** installs to Program Files with desktop & Start Menu shortcuts. The package is per-machine and needs administrator rights. An elevated install honors INSTALLFOLDER and writes the files into that folder.
 
 ### How releases work
 
 mRemoteNG ships entirely from GitHub Releases with a deliberately small, predictable model: **one rolling `nightly`** (everything on `main`, overwritten on each push) and **immutable `vX.Y.Z` stable tags** — the newest of which is exactly what the app's built-in *Check for updates* reports (`releases/latest`). We chose this over the old multi-channel, self-hosted update-feed setup because it is simpler and fully GitHub-native: no update server to run, no per-channel text files to keep in sync, and a single obvious source of truth for both users and the app. Fewer moving parts, less to break, easier to trust.
+
+**FULL and MINI packages.** A nightly comes in two sizes. A **FULL** zip is the whole self-contained program (647 files, about 99 MB). A **MINI** zip carries only the files that changed since a named FULL, usually about 3 MB, plus a manifest that lists every file of the resulting program with its SHA-256. `scripts\Deploy-Portable.ps1 -Mini <zip> -TargetDirectory <folder>` applies it to a portable folder that holds that FULL: it checks every unchanged file against the manifest, assembles the new program beside the old one, swaps it in by rename, and keeps the previous program for rollback. If anything does not match, it changes nothing and says a FULL is needed. Builds are deterministic, so the same commit always produces the same bytes and a MINI only carries real changes. The app's own update check still only tells you a new version exists; it does not download or install packages yet, and the manifests are not signed yet.
 
 ---
 
@@ -94,9 +96,11 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Performance:** Startup optimized to **under 1 second** with 200 connections (down from 10-30s). WMI queries, plugin loading, and IE emulation deferred to background threads. XML deserialization uses O(1) dictionary lookups instead of O(n) attribute scans.
 
+**On the road:** each RDP session measures its own link (round trip, jitter, losses) to the endpoint it is connected to, every 15 seconds, and writes it to the log. An experimental **adaptive resolution** mode, off by default, renders the session smaller while the link is struggling and zooms it back over the panel, so text and windows keep their size on screen; it returns to full resolution after five calm minutes. A fixed-resolution session smaller than its panel is now zoomed to fill the panel instead of sitting in a grey frame. Details are in [Recent work](#recent-work).
+
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 7,923 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 103 reports from this fork's own users are closed with 4 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
+**Quality:** 4,039 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 104 reports from this fork's own users are closed with 3 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -263,7 +267,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (checked 2026-10-11).** Since the fork started accepting reports directly,
-**107 issues have been opened by external reporters and 103 are closed**; 4 issues are open,
+**107 issues have been opened by external reporters and 104 are closed**; 3 issues are open,
 including investigations and fixes awaiting reporter confirmation. An older upstream tracker snapshot
 lists 873 issues followed and 841 open upstream.
 
@@ -509,7 +513,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**7,923 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**4,039 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
@@ -632,7 +636,28 @@ Submit code via pull request. See the [Wiki](https://github.com/mRemoteNG/mRemot
 
 ## Recent work
 
-Since the v1.84.0 tag (25 September 2026). None of this is a new stable release. The downloadable nightly of 17 October 2026 is `1.84.0+f3500a0e74` (`mRemoteNG-full-1.84.0-f3500a0e74-x64.zip`), unsigned and self-contained x64. It is published by hand while GitHub Actions is paused, so there is no newer MSI: the last installer is the framework-dependent CI build of 8 October.
+### Status (21 October 2026)
+
+| | |
+|---|---|
+| Commits since v1.84.0 (25 September 2026) | 200, of which 176 in October |
+| Fork commits on top of upstream since 7 February 2026 | 2,063 |
+| Nightly builds published by hand since CI paused (8 October 2026) | 16 versions: 9 FULL packages and 8 MINI packages |
+| Automated tests | 4,039 distinct tests, 0 failures. Each test now runs once; the earlier figure of about 8,000 counted many tests twice, because two runner groups overlapped (fixed 21 October). |
+| Fork issues, all reporters including automatic crash reports | 159 closed, 4 open |
+
+The numbers come from `git` and the GitHub API on that date.
+
+Since the v1.84.0 tag (25 September 2026). None of this is a new stable release. The current nightly is `1.84.0+bddf3df33c` (21 October 2026), published as the MINI `mRemoteNG-mini-1.84.0-bddf3df33c-x64.zip` on top of the FULL `mRemoteNG-full-1.84.0-f47f564e92-x64.zip`. Both are unsigned and self-contained x64. They are published by hand while GitHub Actions is paused, so there is no newer MSI: the last installer is the framework-dependent CI build of 8 October.
+
+**Small updates (MINI packages).** A nightly no longer has to be a 99 MB download. Between FULL packages, each nightly is published as a MINI with only the changed files (9 files, about 3 MB zipped, for a typical change), and the FULL it builds on is named in its manifest. Applying it is a single `scripts\Deploy-Portable.ps1 -Mini` call that proves every file it keeps by SHA-256 before it swaps anything, and leaves the old program in place if a single file differs. Getting there needed deterministic builds: before that, two builds of the same commit differed in 34 files (paths baked into the assemblies and PDBs, satellite assemblies, COM interop wrappers), and now differ in none. On 20 October 2026, over a relayed mobile connection, a FULL update of a laptop took 12 minutes 30 seconds and a MINI of the next build 32 seconds, both measured from the start of the transfer to the restarted app. Not done yet: the app does not download or apply MINI packages itself, and the manifests are not signed.
+
+**Faster on a mobile link.** This came from using the fork on a laptop on a motorway with tunnels and a border crossing, over a relayed VPN path.
+
+- *Link measurement.* Every RDP session now measures the link to the endpoint it actually uses (ICMP, or a timed TCP connect when ICMP never answers) every 15 seconds, and logs round trip, jitter and losses as `rdp_link_probe`. On that journey the median round trip stayed at 106–148 ms; tunnels showed up as round-trip peaks of 0.5–1.6 s rather than as lost packets, because a relayed path retransmits instead of dropping. A 141-second outage at the border ended in an automatic reconnection with no action from the user.
+- *Adaptive resolution* (experimental, off by default; `<setting name="RdpAdaptiveResolution">True</setting>` in `Settings\mRemoteNG.settings` while the app is closed). When the link degrades (repeated peaks of 500 ms or more, lost probes, an automatic reconnection, or a slow median), a fit-to-window session is rendered smaller and zoomed back over the panel, the way video streaming lowers its bitrate. The remote desktop scale drops by the same ratio, so what you see keeps its size: on a 125 % screen the session runs at four fifths of the panel with the remote desktop at 100 %, which is 36 % fewer pixels to send. After five calm minutes it returns to full resolution. Every decision is logged as `rdp_resolution`, also with the feature off, so a journey shows when it would have switched. How much traffic this saves on a given link has not been measured yet; the 36 % is the pixel count, not a measured bandwidth.
+- *Zoom instead of SmartSizing.* The embedded RDP control's SmartSizing only ever shrinks a session; a session smaller than its panel stayed at its own size in a grey frame. The control's own zoom enlarges it. A connection with its own resolution and SmartSizing now gets the largest zoom that fits, recomputed when the panel changes size, and adaptive resolution uses the same zoom.
+- *Two bugs found on the road and fixed the same night.* The zoom was first set for the size the app had *requested*; on a failing link the server never applied that request, and the picture was zoomed over a full-size session, with scroll bars. The zoom now follows the size the remote desktop *reports*. After an automatic reconnection an earlier zoom could also stay on; it is now taken off at every logon, and a step the control is not ready for is retried every two seconds. Both cases are covered by lab scenarios that measure the control's output window against the panel. The lesson is [BP-023](docs/bp/BP-023-zoom-follows-reported-size.md).
 
 **Reopening the previous session ([#172](https://github.com/robertpopa22/mRemoteNG/issues/172)).** In 1.84.0 a tab closed during the session came back on the next start unless the connections had been saved. The autosave stopped rewriting the connections file when nothing was edited, and the file's "connected" marks went stale; the startup path reopened them next to the tabs the saved layout restored. The layout, written on every exit, now decides; a marked connection is reopened only if the layout named it and did not open it. A lab scenario reproduced it before the change (two tabs after the restart, one expected) and passed after it. The reporter confirmed it on the 17 October nightly, the same day.
 
