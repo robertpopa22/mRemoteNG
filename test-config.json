@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "total_expected": 7667,
-    "min_total_threshold": 5999,
-    "last_updated": "2026-10-11",
+    "total_expected": 4039,
+    "min_total_threshold": 3150,
+    "last_updated": "2026-10-21",
     "stats": {
       "unique_methods": 1555,
       "static_test_cases": 1743,
       "dynamic_source_methods": 37,
-      "note": "Inventory stats are the 2026-10-03 source snapshot. static_test_cases counts [Test] as 1, each [TestCase] as 1. dynamic_source_methods use [TestCaseSource] generating N cases at runtime. total_expected counts measured runner executions across overlapping groups, including isolated checks."
+      "note": "Inventory stats are the 2026-10-03 source snapshot. static_test_cases counts [Test] as 1, each [TestCase] as 1. dynamic_source_methods use [TestCaseSource] generating N cases at runtime. total_expected counts measured runner executions: the groups partition the DLL (each test runs in exactly one group) plus the two isolated checks. Negate a filter with !~ or !=, never with a backslash: vstest then matches nothing and the NUnit adapter runs the whole DLL."
     }
   },
   "runner": {
@@ -15,7 +15,7 @@
       {
         "name": "Connection",
         "filter": "FullyQualifiedName~mRemoteNGTests.Connection",
-        "expected": 1301
+        "expected": 1423
       },
       {
         "name": "Config.Xml",
@@ -24,18 +24,18 @@
       },
       {
         "name": "Config.Other",
-        "filter": "FullyQualifiedName~mRemoteNGTests.Config&FullyQualifiedName\\!~Serializers.ConnectionSerializers.Xml",
-        "expected": 949
+        "filter": "FullyQualifiedName~mRemoteNGTests.Config&FullyQualifiedName!~Serializers.ConnectionSerializers.Xml",
+        "expected": 796
       },
       {
         "name": "UI",
         "filter": "FullyQualifiedName~mRemoteNGTests.UI&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 463
+        "expected": 468
       },
       {
         "name": "Tools",
         "filter": "FullyQualifiedName~mRemoteNGTests.Tools",
-        "expected": 552
+        "expected": 564
       },
       {
         "name": "Security",
@@ -45,17 +45,17 @@
       {
         "name": "Tree+Container+Cred",
         "filter": "FullyQualifiedName~mRemoteNGTests.Tree|FullyQualifiedName~mRemoteNGTests.Container|FullyQualifiedName~mRemoteNGTests.Credential",
-        "expected": 191
+        "expected": 194
       },
       {
         "name": "Remaining",
-        "filter": "FullyQualifiedName\\!~mRemoteNGTests.Connection&FullyQualifiedName\\!~mRemoteNGTests.Config&FullyQualifiedName\\!~mRemoteNGTests.UI&FullyQualifiedName\\!~mRemoteNGTests.Tools&FullyQualifiedName\\!~mRemoteNGTests.Security&FullyQualifiedName\\!~mRemoteNGTests.Tree&FullyQualifiedName\\!~mRemoteNGTests.Container&FullyQualifiedName\\!~mRemoteNGTests.Credential&FullyQualifiedName\\!~mRemoteNGTests.IntegrationTests&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 3834
+        "filter": "FullyQualifiedName!~mRemoteNGTests.Connection&FullyQualifiedName!~mRemoteNGTests.Config&FullyQualifiedName!~mRemoteNGTests.UI&FullyQualifiedName!~mRemoteNGTests.Tools&FullyQualifiedName!~mRemoteNGTests.Security&FullyQualifiedName!~mRemoteNGTests.Tree&FullyQualifiedName!~mRemoteNGTests.Container&FullyQualifiedName!~mRemoteNGTests.Credential&FullyQualifiedName!~mRemoteNGTests.IntegrationTests&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
+        "expected": 212
       },
       {
         "name": "Integration",
         "filter": "FullyQualifiedName~mRemoteNGTests.IntegrationTests",
-        "expected": 44
+        "expected": 49
       }
     ],
     "isolated": [
