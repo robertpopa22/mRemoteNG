@@ -16,7 +16,8 @@ public class SuiteUiExceptionModeTests
     private const int WmThrow = 0x0400 + 0x2A5; // WM_USER + arbitrary
 
     [DllImport("user32.dll")]
-    private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
     private sealed class ThrowingControl : Control
     {
@@ -34,12 +35,15 @@ public class SuiteUiExceptionModeTests
                     "set before any window exists, so no window procedure exception can open a dialog");
 
     [Test]
-    public void AnExceptionInAWindowProcedureReachesTheCodeThatSentTheMessage()
+    public void AnExceptionInAWindowProcedureReachesTheCodeThatPumpedTheMessage()
     {
         using ThrowingControl control = new();
-        IntPtr handle = control.Handle;
+        Assert.That(PostMessage(control.Handle, WmThrow, IntPtr.Zero, IntPtr.Zero), Is.True);
 
-        Assert.That(() => SendMessage(handle, WmThrow, IntPtr.Zero, IntPtr.Zero),
+        // Posted and dispatched by this thread's own pump. A sent message is not used: when Windows
+        // delivers it through a kernel callback the exception cannot unwind back to the sender and
+        // ends the test host instead, which is the intended outcome on a real failure but not here.
+        Assert.That(Application.DoEvents,
                     Throws.InvalidOperationException.With.Message.EqualTo("thrown from a window procedure"));
     }
 

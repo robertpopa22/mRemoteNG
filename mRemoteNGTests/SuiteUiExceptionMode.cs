@@ -38,7 +38,14 @@ public sealed class SuiteUiExceptionMode
     internal static bool ThrowsFromWindowProcedures { get; private set; }
 
     [OneTimeSetUp]
-    public void ThrowFromWindowProcedures()
+    public void PrepareTheUiThreads()
+    {
+        // In this order: the mode can only be set while no window exists, and the main window is one.
+        ThrowFromWindowProcedures();
+        SuiteMainWindow.Start();
+    }
+
+    private static void ThrowFromWindowProcedures()
     {
         try
         {
@@ -70,8 +77,10 @@ public sealed class SuiteUiExceptionMode
     /// </summary>
     internal static void WatchCurrentThread() => Application.ThreadException += Record;
 
-    private static void Record(object sender, ThreadExceptionEventArgs e) =>
-        s_caught.Enqueue($"[thread {Environment.CurrentManagedThreadId} '{Thread.CurrentThread.Name}'] {e.Exception}");
+    private static void Record(object sender, ThreadExceptionEventArgs e) => Record(e.Exception);
+
+    internal static void Record(Exception exception) =>
+        s_caught.Enqueue($"[thread {Environment.CurrentManagedThreadId} '{Thread.CurrentThread.Name}'] {exception}");
 
     internal static List<string> Drain()
     {
