@@ -8,7 +8,7 @@
   ],
   "author": "vansanper",
   "created_at": "2026-10-06T11:04:59Z",
-  "github_updated_at": "2026-10-08T13:13:06Z",
+  "github_updated_at": "2026-10-21T06:56:04Z",
   "body_snippet": "**What happens** (and what you expected instead):\nOn startup the Splash Screen with mRemoteNG info is mangled/overlaped/distorted\n\n**Steps to reproduce:**\n\n1.Open mRemoteNG\n2.See splash screen with incorrect display format\n3.\n\n**Version and build** (copy Help → About; include portable or installed, x86/x64/ARM64):\n1.84.0 Release 3716, installed, x64\n(Another bug in About shows portable, but i installed the .msi and the .exe and other files are in C:\\Program Files\\mRemoteNG)\n\n<img width=\"1449\" he...",
   "our_status": "released",
   "priority": null,
@@ -19,6 +19,16 @@
     {
       "seq": 1,
       "date": "2026-10-09",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-10-21",
       "type": "released",
       "description": "Status changed to released",
       "pr": null,
@@ -45,12 +55,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABeBtV8g",
+      "author": "robertpopa22",
+      "date": "2026-10-21T06:56:04Z",
+      "snippet": "**fixed** — thank you for the confirmation and the screenshot, and for the star.\n\nYour screenshot was the check we could not do ourselves: we have no 200% display here. The MSI-says-Portable observation you made along the way is tracked as #214.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\nQodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organization). Other tools we use ask fo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-08T13:13:06Z",
+  "comments_cursor": "2026-10-21T06:56:04Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-10-09T05:46:42Z",
-  "notes": "reporter confirmed fixed in nightly 2026-10-08"
+  "waiting_for_us": false,
+  "last_synced": "2026-10-21T06:56:32Z",
+  "notes": "reporter confirmed fixed on nightly; thanked 2026-10-21"
 }

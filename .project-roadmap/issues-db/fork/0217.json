@@ -2,13 +2,13 @@
   "number": 217,
   "repo": "robertpopa22/mRemoteNG",
   "title": "1Password credential provider freezes mRemoteNG and 1Password until op times out (blocking call on UI thread)",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "JScheller88",
   "created_at": "2026-10-09T16:26:30Z",
-  "github_updated_at": "2026-10-16T04:57:43Z",
+  "github_updated_at": "2026-10-21T06:56:05Z",
   "body_snippet": "**Summary**\nWhen a connection uses the 1Password credential provider and 1Password has to authorize the CLI for mRemoteNG, both mRemoteNG and 1Password freeze. The 1Password authorization window appears blank and \"Not Responding\". After about 2 minutes `op` fails with:\n\n```\n1Password read failed\nError running op item get: [ERROR] ... error initializing client: authorization timeout\n```\n\nBoth apps then recover.\n\n**Steps to reproduce**\n1. Unlock 1Password, then start mRemoteNG. (Reproduced right a...",
-  "our_status": "triaged",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -43,6 +43,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-10-21",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -72,12 +82,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABdh3MxQ",
+      "author": "JScheller88",
+      "date": "2026-10-19T20:29:26Z",
+      "snippet": "This issue doesn't seem to be reproducible in the nightly build.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABeBtXQQ",
+      "author": "robertpopa22",
+      "date": "2026-10-21T06:56:05Z",
+      "snippet": "**fixed** — thank you for going back to it on the nightly and telling us.\n\nYour retest is the only end-to-end check this change has had: we could not run 1Password's provider against your vault here. If the freeze comes back on a later build, comment here and the issue reopens.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\nQodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organiz...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-16T04:57:43Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-10-21T06:56:05Z",
+  "unread_comments": 1,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-10-16T04:57:49Z",
-  "notes": "Source fix published in main and public progress reply posted on 2026-10-11. Full suite 7647/7647 and eight synthetic CLI UI checks passed. GitHub has not started a workflow for head 359ca76cf; the October 8 nightly predates the fix. Issue remains open pending a downloadable build and reporter check of the real 1Password authorization/Shift symptoms."
+  "last_synced": "2026-10-21T06:56:32Z",
+  "notes": "reporter: not reproducible on nightly; fixed, thanked 2026-10-21"
 }

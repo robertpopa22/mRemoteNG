@@ -2,20 +2,31 @@
   "number": 213,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Closing after a long session hides the window but the process never exits (FormClosing arrives already cancelled)",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "robertpopa22",
   "created_at": "2026-10-07T18:05:07Z",
-  "github_updated_at": "2026-10-07T18:19:31Z",
+  "github_updated_at": "2026-10-21T06:56:10Z",
   "body_snippet": "## Summary\n\nAfter a long-running session (hours or days, with RDP tabs opened, reconnected and closed, and the laptop sleeping in between), closing mRemoteNG makes the window disappear, but the process never exits. It keeps running invisibly and logging heartbeats until it is killed. With `SingleInstance=True` this also blocks the next start: a new launch finds the mutex held by the invisible process and only tries to activate it, so the application appears not to start.\n\nObserved on 1.84.0 buil...",
-  "our_status": "new",
+  "our_status": "wontfix",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-21",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDORKxwDc8AAAABaEGArQ",
@@ -25,12 +36,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABeBtcCw",
+      "author": "robertpopa22",
+      "date": "2026-10-21T06:56:09Z",
+      "snippet": "**not reproduced** — closing.\n\nThe change from cd2c03abc is in every build since 2026-10-07. The closes we have logged since then went the normal way: `cancel on entry False` for the window and the panel, then `process_stop` a fraction of a second later. That includes a close after 87 minutes of use with RDP tabs, on a laptop that had slept and changed networks in between (2026-10-20); the application then left in under half a second. The vetoed path this issue is about, `cancel on entry True` f...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-07T18:19:31Z",
+  "comments_cursor": "2026-10-21T06:56:10Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-08T17:17:42Z",
-  "notes": ""
+  "last_synced": "2026-10-21T06:56:32Z",
+  "notes": "not reproduced: closes since cd2c03abc logged cancel on entry False; closed not planned 2026-10-21, reopen on recurrence"
 }

@@ -1,0 +1,49 @@
+{
+  "number": 221,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ArgumentOutOfRangeException: startIndex ('92') must be less than '57'. (Parameter 'startIndex')\r\nActual value...",
+  "state": "closed",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-10-19T11:35:46Z",
+  "github_updated_at": "2026-10-21T06:56:07Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentOutOfRangeException`\r\n**Message:** startIndex ('92') must be less than '57'. (Parameter 'startIndex')\r\nActual value was 92.\r\n\r\n### Stack Trace\r\n```\r\n   at void ArgumentOutOfRangeException.ThrowGreaterEqual<T>(T value, T other, string paramName)\r\n   at void System.Windows.Forms.ListView.RedrawItems(int startIndex, int endIndex, bool invalidateOnly)\r\n   at void BrightIdeasSoftware.TreeListView.Expand(object model)\r\n   at void BrightIdeasS...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-10-21",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABeBtYuA",
+      "author": "robertpopa22",
+      "date": "2026-10-21T06:56:06Z",
+      "snippet": "**fixed** — in 1.83.0 and every build after it.\n\nThis report came from 1.82.0 (released 2026-07-02). The same stack, `TreeListView.Expand` → `ListView.RedrawItems` throwing because the row index (here 92) is past the end of a shorter list (57 rows), was reported as #149. Since 1.83.0, `Expand` checks the index against the row count before that redraw. When the two disagree it skips the repaint hint instead of throwing: the expansion itself has already been applied, so nothing is lost. The curren...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-10-21T06:56:07Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-10-21T06:56:32Z",
+  "notes": "auto crash from 1.82.0; #149 guard in TreeListView.Expand since 1.83.0; closed fixed 2026-10-21"
+}
