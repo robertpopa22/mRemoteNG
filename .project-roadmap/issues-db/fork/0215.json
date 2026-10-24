@@ -2,13 +2,13 @@
   "number": 215,
   "repo": "robertpopa22/mRemoteNG",
   "title": "AD Dynamic Folder: imported connections inherit the folder's blank Hostname instead of dNSHostName",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "JScheller88",
   "created_at": "2026-10-07T21:01:47Z",
-  "github_updated_at": "2026-10-16T04:57:40Z",
+  "github_updated_at": "2026-10-24T05:57:48Z",
   "body_snippet": "**Steps to reproduce**\n1. Create a Dynamic Folder with Source type **Active Directory**, pointing to an LDAP OU.\n2. Refresh the folder.\n\n**Expected:** Each imported connection's Hostname is the computer's `dNSHostName`.\n\n**Actual:** Display names (`cn`) and descriptions import correctly, but every connection's Hostname is blank, inherited from the parent folder.\n\n**Cause (from reading the code)**\n`ActiveDirectoryDeserializer.DeserializeConnection` sets `Hostname`, then calls `Inheritance.TurnOnI...",
-  "our_status": "testing",
+  "our_status": "wontfix",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -19,6 +19,16 @@
       "date": "2026-10-09",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-10-24",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
       "pr": null,
       "branch": null,
       "release": null,
@@ -43,12 +53,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABfFCvZg",
+      "author": "robertpopa22",
+      "date": "2026-10-24T05:57:47Z",
+      "snippet": "**unanswered** — closing.\n\nOn 16 October we asked for a retest on the nightly, and that request has had no answer for eight days. Closing here is only how this fork keeps its open list honest; it is not a verdict on your report, which named the cause correctly.\n\nThe fix is still there. c031de861 keeps each imported computer's `dNSHostName` instead of inheriting the folder's empty hostname, and the current nightly, `1.84.0+bddf3df33c` (https://github.com/robertpopa22/mRemoteNG/releases/tag/nightl...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-16T04:57:40Z",
+  "comments_cursor": "2026-10-24T05:57:48Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-16T04:57:49Z",
-  "notes": "fix shipped c031de861; awaiting reporter refresh on nightly"
+  "last_synced": "2026-10-24T05:58:12Z",
+  "notes": "unanswered: retest ask of 2026-10-16 silent 8 days; fix c031de861 in nightly 1.84.0+bddf3df33c; closed not planned 2026-10-24, reopens on reply"
 }

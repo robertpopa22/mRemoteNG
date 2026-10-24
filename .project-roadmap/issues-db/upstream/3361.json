@@ -10,7 +10,7 @@
   ],
   "author": "CERT-PL-CNA",
   "created_at": "2026-06-26T10:05:33Z",
-  "github_updated_at": "2026-09-09T20:13:09Z",
+  "github_updated_at": "2026-10-22T08:36:25Z",
   "body_snippet": "Hello,\n\na potential security vulnerability has been identified in this repository and reported to us, CERT.PL.\n\nWe could not find a security policy or reporting guidelines in this project. Could you please advise on a secure way to share the details privately?\n\nIf there is no response within a reasonable timeframe (30 days), the vulnerability may be disclosed according to responsible disclosure practices.\n\nThank you!",
   "our_status": "new",
   "priority": null,
@@ -54,12 +54,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABea7GEg",
+      "author": "CERT-PL-CNA",
+      "date": "2026-10-22T08:36:24Z",
+      "snippet": "Hello\nWe haven't changed the server configuration since the last time we received a message from you. Please try again. \nYou can also send us a message directly at cvd@cert.pl\nRegards",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-09-09T20:13:09Z",
-  "unread_comments": 4,
+  "comments_cursor": "2026-10-22T08:36:25Z",
+  "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-20T20:37:19Z",
+  "last_synced": "2026-10-24T05:49:54Z",
   "notes": ""
 }

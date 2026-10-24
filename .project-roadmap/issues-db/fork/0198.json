@@ -2,15 +2,15 @@
   "number": 198,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Items and text display is clipped / wrongly show in diferent monitors resolutions",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "vansanper",
   "created_at": "2026-09-24T14:59:06Z",
-  "github_updated_at": "2026-10-16T04:57:39Z",
+  "github_updated_at": "2026-10-24T05:57:46Z",
   "body_snippet": "**What happens** (and what you expected instead):\n-mRemote displays messages clipped with controls overlaped=> messages showing all the content correctly\n-mRemote displays messages windows are fixed with no option to resize to view all the text correctly=> messages resizable by mouse drag on the edges\n-mRemote displays some controls with the font size much bigger than others (In file Menu, Connections Panel, Config Panel, Connections tabs), vs the detailed Display panel with its connect with a m...",
-  "our_status": "testing",
+  "our_status": "wontfix",
   "priority": "P2-bug",
   "target_release": "nightly",
   "our_branch": null,
@@ -53,6 +53,16 @@
       "date": "2026-10-04",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-10-24",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
       "pr": null,
       "branch": null,
       "release": null,
@@ -131,12 +141,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABfFCuPg",
+      "author": "robertpopa22",
+      "date": "2026-10-24T05:57:45Z",
+      "snippet": "**unanswered** — closing.\n\nOn 16 October we asked for a retest on the nightly, and that request has had no answer for eight days. Closing here is only how this fork keeps its open list honest; it is not a verdict on your report.\n\nThe change is still there. 2eb2e5ca6 rebuilds the menu and toolbar fonts when the window lands on a monitor with a different DPI, and the current nightly, `1.84.0+bddf3df33c` (https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly), contains it. We have not seen...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-16T04:57:39Z",
+  "comments_cursor": "2026-10-24T05:57:46Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-16T04:57:49Z",
-  "notes": "2026-10-04: retest ask of 2026-10-02 is inside seven days, through 2026-10-09. Nightly 20261004 at fdcb7a099 contains 2eb2e5ca6. Stays open."
+  "last_synced": "2026-10-24T05:58:12Z",
+  "notes": "unanswered: retest ask of 2026-10-16 silent 8 days; fix 2eb2e5ca6 in nightly 1.84.0+bddf3df33c; closed not planned 2026-10-24, reopens on reply"
 }

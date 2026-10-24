@@ -11,7 +11,7 @@
   ],
   "author": "Neustradamus",
   "created_at": "2026-10-02T14:45:54Z",
-  "github_updated_at": "2026-10-04T11:03:33Z",
+  "github_updated_at": "2026-10-23T18:12:12Z",
   "body_snippet": "Dear @mRemoteNG team,\n\nAfter several requests, tickets, ...\n\nWhen a new stable version will be released with CVE fixes?\n\nRECALL: Currently, the latest is always 1.76.20 (2019-04-12) with a lot of vulnerabilities.\n\nThanks in advance.",
   "our_status": "new",
   "priority": null,
@@ -55,12 +55,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABe8dOBg",
+      "author": "cremenescu",
+      "date": "2026-10-23T18:12:11Z",
+      "snippet": "To help with the release candidate, I went through the test suite on `v1.78.2-dev` (e3b0108e). On a GitHub Windows runner, 247 of its 2362 tests fail. Most of them come down to a few causes, some of them bugs users would hit, so I opened a PR for each:\n\n- #3597: the CSV export writes `RedirectDiskDrivesCustomRedirectPorts` as a single header column (a separator missing since 2023). An exported CSV imports with every later column shifted, and since `PluginData` is parsed as JSON the import fails ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-04T11:03:33Z",
-  "unread_comments": 4,
+  "comments_cursor": "2026-10-23T18:12:12Z",
+  "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-08T17:17:42Z",
+  "last_synced": "2026-10-24T05:49:54Z",
   "notes": ""
 }

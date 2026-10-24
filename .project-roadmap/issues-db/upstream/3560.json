@@ -2,7 +2,7 @@
   "number": 3560,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Regression: SSH connections fail with \"Invalid executable path\" in Nightly Builds after NB3228",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "aldweb",
   "created_at": "2026-10-11T12:04:28Z",
@@ -17,8 +17,8 @@
   "comments": [],
   "comments_cursor": "2026-10-11T12:04:28Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-10-11T17:49:02Z",
   "notes": ""
 }

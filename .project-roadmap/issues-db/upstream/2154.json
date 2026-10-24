@@ -2,7 +2,7 @@
   "number": 2154,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Duplicate field names - Nightly 1.77.2",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "i10n",
