@@ -75,6 +75,57 @@ namespace mRemoteNGTests.Config.Settings
             Assert.That(File.Exists(_settingsFile), Is.True);
         }
 
+        // 1.84.0 had no FollowOsTheme. Its profiles store ThemeName, and must keep that manual theme.
+        [Test]
+        public void ProfileFromAnOlderBuildKeepsTheManualTheme()
+        {
+            WriteLocalSettings("<setting name=\"ThemeName\">darculaNG</setting>");
+
+            SettingsPropertyValueCollection values = ReadThemeSettings();
+
+            Assert.That(values["FollowOsTheme"].SerializedValue, Is.EqualTo(bool.FalseString));
+            Assert.That(values["ThemeName"].SerializedValue, Is.EqualTo("darculaNG"));
+        }
+
+        [Test]
+        public void NewProfileFollowsTheWindowsTheme()
+        {
+            SettingsPropertyValueCollection values = ReadThemeSettings();
+
+            Assert.That(values["FollowOsTheme"].SerializedValue, Is.EqualTo(bool.TrueString));
+        }
+
+        [Test]
+        public void StoredFollowOsThemeWins()
+        {
+            WriteLocalSettings("<setting name=\"ThemeName\">darculaNG</setting><setting name=\"FollowOsTheme\">True</setting>");
+
+            SettingsPropertyValueCollection values = ReadThemeSettings();
+
+            Assert.That(values["FollowOsTheme"].SerializedValue, Is.EqualTo(bool.TrueString));
+        }
+
+        private void WriteLocalSettings(string settings) =>
+            File.WriteAllText(_settingsFile,
+                $"<?xml version=\"1.0\" encoding=\"utf-8\"?><settings><localSettings>{settings}</localSettings></settings>");
+
+        private SettingsPropertyValueCollection ReadThemeSettings()
+        {
+            var provider = new PortableSettingsProvider { FilePathOverride = _settingsFile };
+            var properties = new SettingsPropertyCollection
+            {
+                new SettingsProperty("ThemeName")
+                {
+                    PropertyType = typeof(string), SerializeAs = SettingsSerializeAs.String, DefaultValue = "vs2015lightNG"
+                },
+                new SettingsProperty("FollowOsTheme")
+                {
+                    PropertyType = typeof(bool), SerializeAs = SettingsSerializeAs.String, DefaultValue = "True"
+                }
+            };
+            return provider.GetPropertyValues(new SettingsContext(), properties);
+        }
+
         private static SettingsPropertyValueCollection Collection(string value, bool dirty)
         {
             var property = new SettingsProperty("TestSetting")

@@ -18,10 +18,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         #region Private Fields
 
         private readonly ThemeManager _themeManager;
-        private readonly bool _oriActiveTheming;
-        private readonly bool _originalFollowOs;
-        private readonly string _originalManualThemeName;
+        private bool _oriActiveTheming;
+        private bool _originalFollowOs;
+        private string _originalManualThemeName = "";
         private ThemeInfo? _oriActiveTheme;
+        // A live preview changed the theme settings since they were last loaded or saved.
+        private bool _previewPending;
         private readonly List<ThemeInfo> modifiedThemes = [];
         private MrngCheckBox? chkFollowOsTheme;
         private readonly Label _paletteHint = new()
@@ -40,9 +42,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             AddFollowOsCheckbox();
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.AppearanceEditor_16x);
             _themeManager = ThemeManager.getInstance();
-            _originalFollowOs = Properties.OptionsThemePage.Default.FollowOsTheme;
-            _originalManualThemeName = Properties.OptionsThemePage.Default.ThemeName;
-            _oriActiveTheming = _themeManager.ThemingActive;
+            CaptureCommittedState();
             if (!_themeManager.ThemingActive) return;
             _themeManager.ThemeChanged += ApplyTheme;
             Disposed += (_, _) => _themeManager.ThemeChanged -= ApplyTheme;
@@ -88,8 +88,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // ReSharper disable once CoVariantArrayConversion
             cboTheme.Items.AddRange(_themeManager.LoadThemes().OrderBy(x => x.Name, StringComparer.Ordinal).ToArray());
             cboTheme.SelectedItem = _themeManager.ActiveTheme;
-            // Store the original active theme for reverting
-            _oriActiveTheme = _themeManager.ActiveTheme;
+            // Store the original state for reverting, unless a preview is still pending
+            if (!_previewPending)
+                CaptureCommittedState();
             if (chkFollowOsTheme != null)
             {
                 _followOsChanging = true;
@@ -138,12 +139,29 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             }
 
             Properties.OptionsThemePage.Default.Save();
+            _previewPending = false;
+            CaptureCommittedState();
+        }
+
+        private void CaptureCommittedState()
+        {
+            _originalFollowOs = Properties.OptionsThemePage.Default.FollowOsTheme;
+            _originalManualThemeName = Properties.OptionsThemePage.Default.ThemeName ?? "";
+            _oriActiveTheming = _themeManager.ThemingActive;
+            _oriActiveTheme = _themeManager.ActiveTheme;
         }
 
         public override void RevertSettings()
         {
             base.RevertSettings();
-            _themeManager.ThemingActive = _oriActiveTheming;
+            // Clear the modified themes list without saving
+            modifiedThemes.Clear();
+            if (!_previewPending)
+                return;
+            _previewPending = false;
+
+            if (_themeManager.ThemingActive != _oriActiveTheming)
+                _themeManager.ThemingActive = _oriActiveTheming;
             Properties.OptionsThemePage.Default.FollowOsTheme = _originalFollowOs;
             if (chkFollowOsTheme != null)
             {
@@ -153,19 +171,19 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 cboTheme.Enabled = !_originalFollowOs;
             }
 
-            // Clear the modified themes list without saving
-            modifiedThemes.Clear();
-
-            // Restore the original theme selection
-            if (_oriActiveTheme != null)
-            {
-                _themeManager.ActiveTheme = _oriActiveTheme;
-                // Reload the theme list to reflect the original state
-                cboTheme.Items.Clear();
-                cboTheme.Items.AddRange(_themeManager.LoadThemes().OrderBy(x => x.Name, StringComparer.Ordinal).ToArray());
-                cboTheme.SelectedItem = _oriActiveTheme;
-                cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
-            }
+            // Restore the original theme: the current Windows theme when following it, else the
+            // theme that was active, unless it was deleted meanwhile
+            ThemeInfo[] themes = _themeManager.LoadThemes().OrderBy(x => x.Name, StringComparer.Ordinal).ToArray();
+            if (_originalFollowOs)
+                _themeManager.ApplyOperatingSystemTheme();
+            else if (_oriActiveTheme != null &&
+                     themes.FirstOrDefault(t => string.Equals(t.Name, _oriActiveTheme.Name, StringComparison.Ordinal)) is { } original)
+                _themeManager.ActiveTheme = original;
+            // Reload the theme list to reflect the original state
+            cboTheme.Items.Clear();
+            cboTheme.Items.AddRange(themes);
+            cboTheme.SelectedItem = _themeManager.ActiveTheme;
+            cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
             Properties.OptionsThemePage.Default.ThemeName = _originalManualThemeName;
         }
 
@@ -190,6 +208,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             {
                 if (_followOsChanging || chkFollowOsTheme == null)
                     return;
+                _previewPending = true;
                 Properties.OptionsThemePage.Default.FollowOsTheme = chkFollowOsTheme.Checked;
                 cboTheme.Enabled = !chkFollowOsTheme.Checked;
                 if (chkFollowOsTheme.Checked)
@@ -213,6 +232,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private void cboTheme_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            // The page calls this itself with sender == this; only the combo box event is a user choice
+            if (ReferenceEquals(sender, cboTheme))
+                _previewPending = true;
             btnThemeNew.Enabled = false;
             btnThemeDelete.Enabled = false;
 
@@ -291,6 +313,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 if (dr != DialogResult.OK) return;
                 if (frmInputBox.returnValue != null && _themeManager.isThemeNameOk(frmInputBox.returnValue))
                 {
+                    _previewPending = true;
                     ThemeInfo? addedTheme = _themeManager.addTheme(_themeManager.ActiveTheme, frmInputBox.returnValue);
                     if (addedTheme != null)
                         _themeManager.ActiveTheme = addedTheme;
@@ -313,6 +336,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             if (res != DialogResult.Yes) return;
             if (modifiedThemes.Contains(_themeManager.ActiveTheme))
                 modifiedThemes.Remove(_themeManager.ActiveTheme);
+            _previewPending = true;
             _themeManager.deleteTheme(_themeManager.ActiveTheme);
             LoadSettings();
         }

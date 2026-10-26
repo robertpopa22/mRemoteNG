@@ -149,12 +149,21 @@ namespace mRemoteNG.Config.Settings.Providers
                                                                           SettingsPropertyCollection collection)
         {
             SettingsPropertyValueCollection values = new();
+            bool classAlreadyStored = false;
+            foreach (SettingsProperty property in collection)
+            {
+                if (FindSettingNode(property) != null)
+                {
+                    classAlreadyStored = true;
+                    break;
+                }
+            }
 
             foreach (SettingsProperty property in collection)
             {
                 values.Add(new SettingsPropertyValue(property)
                 {
-                    SerializedValue = GetValue(property)
+                    SerializedValue = GetValue(property, classAlreadyStored)
                 });
             }
 
@@ -183,15 +192,36 @@ namespace mRemoteNG.Config.Settings.Providers
             }
         }
 
-        private string GetValue(SettingsProperty property)
+        private string GetValue(SettingsProperty property, bool classAlreadyStored)
+        {
+            XmlNode? settingNode = FindSettingNode(property);
+
+            if (settingNode != null)
+                return settingNode.InnerText;
+
+            // Save writes every property of a settings class, so a stored sibling without this
+            // property means an older build wrote the profile; it keeps that build's behaviour.
+            if (classAlreadyStored && DefaultsForOlderProfiles.TryGetValue(property.Name, out string? olderDefault))
+                return olderDefault;
+
+            return property.DefaultValue?.ToString() ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Settings added with a default that would change how an existing profile behaves.
+        /// The value applies only when the profile already stores other settings of the same class.
+        /// </summary>
+        private static readonly System.Collections.Generic.Dictionary<string, string> DefaultsForOlderProfiles =
+            new(StringComparer.Ordinal)
+            {
+                // New profiles follow the Windows app theme; a profile from 1.84.0 keeps its manual theme.
+                ["FollowOsTheme"] = bool.FalseString,
+            };
+
+        private XmlNode? FindSettingNode(SettingsProperty property)
         {
             XmlNode targetNode = IsGlobal(property) ? _globalSettingsNode : _localSettingsNode;
-            XmlNode? settingNode = targetNode.SelectSingleNode($"setting[@name='{property.Name}']");
-
-            if (settingNode == null)
-                return property.DefaultValue?.ToString() ?? string.Empty;
-
-            return settingNode.InnerText;
+            return targetNode.SelectSingleNode($"setting[@name='{property.Name}']");
         }
 
         private static bool IsGlobal(SettingsProperty property)

@@ -477,7 +477,11 @@ namespace mRemoteNG.UI.Forms
             try
             {
                 foreach (OptionsPage page in _optionPages)
+                {
+                    // Undo live previews (the theme page applies them before Save) first
+                    page.RevertSettings();
                     page.LoadSettings();
+                }
             }
             finally
             {
