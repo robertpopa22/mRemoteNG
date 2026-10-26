@@ -6,7 +6,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public partial class FrmConnectWithCredentials : Form
+    public partial class FrmConnectWithCredentials : ResponsiveForm
     {
         public string Username { get { return txtUsername.Text; } }
         public string Password { get { return txtPassword.Text; } }

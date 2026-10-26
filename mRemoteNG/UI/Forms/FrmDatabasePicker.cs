@@ -5,7 +5,7 @@ using mRemoteNG.Resources.Language;
 
 namespace mRemoteNG.UI.Forms
 {
-    public partial class FrmDatabasePicker : Form
+    public partial class FrmDatabasePicker : ResponsiveForm
     {
         public DatabaseProfile? SelectedProfile { get; private set; }
 

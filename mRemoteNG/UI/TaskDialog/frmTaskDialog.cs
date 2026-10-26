@@ -474,6 +474,7 @@ namespace mRemoteNG.UI.TaskDialog
                 if (!btn.Visible) continue;
                 int textWidth = TextRenderer.MeasureText(btn.Text, btn.Font).Width + LogicalToDeviceUnits(16);
                 btn.Width = Math.Max(minWidth, textWidth);
+                btn.Height = Math.Max(LogicalToDeviceUnits(23), btn.GetPreferredSize(Size.Empty).Height);
                 totalNeeded += btn.Width;
                 visibleCount++;
             }

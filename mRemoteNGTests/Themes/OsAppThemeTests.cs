@@ -13,7 +13,7 @@ public class OsAppThemeTests
         {
             Assert.That(OsAppTheme.PrefersLight(null), Is.True);
             Assert.That(OsAppTheme.PrefersLight(1), Is.True);
-            Assert.That(OsAppTheme.ThemeName(prefersLight: true), Is.EqualTo(OsAppTheme.LightThemeName));
+            Assert.That(OsAppTheme.ThemeName(prefersLight: true), Is.EqualTo("vs2015lightNG"));
         });
     }
 
@@ -23,7 +23,7 @@ public class OsAppThemeTests
         Assert.Multiple(() =>
         {
             Assert.That(OsAppTheme.PrefersLight(0), Is.False);
-            Assert.That(OsAppTheme.ThemeName(prefersLight: false), Is.EqualTo(OsAppTheme.DarkThemeName));
+            Assert.That(OsAppTheme.ThemeName(prefersLight: false), Is.EqualTo("vs2015darkNG"));
         });
     }
 

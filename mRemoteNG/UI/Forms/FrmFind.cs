@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace mRemoteNG.UI.Forms
 {
-    public class FrmFind : Form
+    public class FrmFind : ResponsiveForm
     {
         private RichTextBox _rtbOutput;
         private Panel _pnlSearch;

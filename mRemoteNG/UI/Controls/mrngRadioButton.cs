@@ -16,6 +16,10 @@ namespace mRemoteNG.UI.Controls
         private readonly Rectangle _circleSmall;
         private readonly int _textXCoord;
 
+        public override Size GetPreferredSize(Size proposedSize) => ThemeManager.getInstance().ActiveAndExtended
+            ? WrappedControlText.Preferred(this, proposedSize, base.GetPreferredSize(proposedSize), _textXCoord)
+            : base.GetPreferredSize(proposedSize);
+
         // Constructor
         public MrngRadioButton()
         {
@@ -126,7 +130,7 @@ namespace mRemoteNG.UI.Controls
 
             Rectangle textRect = new(_textXCoord, Padding.Top, Width - 16, Height);
             TextRenderer.DrawText(e.Graphics, Text, Font, textRect, fore, parentBack,
-                                  TextFormatFlags.PathEllipsis);
+                                  TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
 
             g.FillEllipse(new SolidBrush(centerBack), _circle);
             g.FillEllipse(new SolidBrush(center), _circleSmall);

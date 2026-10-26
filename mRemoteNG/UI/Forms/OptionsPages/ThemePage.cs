@@ -20,9 +20,15 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private readonly ThemeManager _themeManager;
         private readonly bool _oriActiveTheming;
         private readonly bool _originalFollowOs;
+        private readonly string _originalManualThemeName;
         private ThemeInfo? _oriActiveTheme;
         private readonly List<ThemeInfo> modifiedThemes = [];
         private MrngCheckBox? chkFollowOsTheme;
+        private readonly Label _paletteHint = new()
+        {
+            AutoSize = true, Dock = DockStyle.Top, Padding = new Padding(8),
+            Text = "This theme has no editable colors. Choose an NG theme to customize the palette."
+        };
         private bool _followOsChanging;
 
         #endregion
@@ -30,13 +36,16 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         public ThemePage()
         {
             InitializeComponent();
+            tlpMain.Controls.Add(_paletteHint, 0, 1);
             AddFollowOsCheckbox();
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.AppearanceEditor_16x);
             _themeManager = ThemeManager.getInstance();
             _originalFollowOs = Properties.OptionsThemePage.Default.FollowOsTheme;
+            _originalManualThemeName = Properties.OptionsThemePage.Default.ThemeName;
             _oriActiveTheming = _themeManager.ThemingActive;
             if (!_themeManager.ThemingActive) return;
             _themeManager.ThemeChanged += ApplyTheme;
+            Disposed += (_, _) => _themeManager.ThemeChanged -= ApplyTheme;
         }
 
         public override string PageName
@@ -61,6 +70,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             if (!_themeManager.ThemingActive)
                 return;
             base.ApplyTheme();
+            if (Properties.OptionsThemePage.Default.FollowOsTheme && cboTheme.Items.Count > 0)
+            {
+                cboTheme.SelectedItem = _themeManager.ActiveTheme;
+                cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
+            }
         }
 
         public override void LoadSettings()
@@ -108,7 +122,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 Properties.OptionsThemePage.Default.FollowOsTheme = chkFollowOsTheme.Checked;
 
             // Apply the selected theme live without requiring a restart
-            if (cboTheme.SelectedItem != null)
+            if (cboTheme.SelectedItem != null && !Properties.OptionsThemePage.Default.FollowOsTheme)
             {
                 ThemeInfo selectedTheme = (ThemeInfo)cboTheme.SelectedItem;
                 if (!Properties.OptionsThemePage.Default.ThemeName.Equals(selectedTheme.Name, StringComparison.Ordinal))
@@ -152,6 +166,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 cboTheme.SelectedItem = _oriActiveTheme;
                 cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
             }
+            Properties.OptionsThemePage.Default.ThemeName = _originalManualThemeName;
         }
 
         private void AddFollowOsCheckbox()
@@ -164,10 +179,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 Text = "Match the Windows app theme"
             };
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
+            tableLayoutPanel1.RowStyles[0].SizeType = SizeType.AutoSize;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             tableLayoutPanel1.Controls.Add(chkFollowOsTheme, 0, 1);
             tableLayoutPanel1.SetColumnSpan(chkFollowOsTheme, 3);
-            tlpMain.RowStyles[0] = new RowStyle(SizeType.Absolute, 56F);
+            tlpMain.RowStyles[0] = new RowStyle(SizeType.AutoSize);
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             chkFollowOsTheme.CheckedChanged += (_, _) =>
             {
                 if (_followOsChanging || chkFollowOsTheme == null)
@@ -184,6 +202,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     if (savedTheme != null)
                         _themeManager.ActiveTheme = savedTheme;
                 }
+                cboTheme.SelectedItem = _themeManager.ActiveTheme;
+                cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
             };
         }
 
@@ -200,6 +220,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             listPalette.CellClick -= ListPalette_CellClick;
             listPalette.Enabled = false;
             listPalette.Visible = false;
+            _paletteHint.Visible = true;
 
             if (!_themeManager.ThemingActive) return;
 
@@ -214,11 +235,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 ColorMeList(selectedTheme);
                 listPalette.Enabled = true;
                 listPalette.Visible = true;
+                _paletteHint.Visible = false;
                 listPalette.CellClick += ListPalette_CellClick;
             }
 
             // Apply selected theme as live preview
-            if (selectedTheme != null)
+            if (selectedTheme != null && !Properties.OptionsThemePage.Default.FollowOsTheme)
                 _themeManager.ActiveTheme = selectedTheme;
 
             if (selectedTheme != null && selectedTheme.IsThemeBase) return;

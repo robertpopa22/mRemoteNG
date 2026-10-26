@@ -170,6 +170,7 @@ namespace mRemoteNGSpecs.Drivers
 
             foreach (string dir in System.IO.Directory.GetDirectories(root))
             {
+                if (string.Equals(Path.GetFileName(dir), "_evidence", StringComparison.Ordinal)) continue;
                 try
                 {
                     if (DateTime.UtcNow - System.IO.Directory.GetCreationTimeUtc(dir) > olderThan)

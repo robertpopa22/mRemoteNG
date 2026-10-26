@@ -9,7 +9,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public class FrmConnectWithOptions : Form
+    public class FrmConnectWithOptions : ResponsiveForm
     {
         private PropertyGrid _propertyGrid = null!;
         private Button _btnConnect = null!;

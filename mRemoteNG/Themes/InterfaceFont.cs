@@ -73,6 +73,28 @@ namespace mRemoteNG.Themes
         public static void Apply(Control root, Font font)
         {
             ApplyControl(root, font);
+            LayoutChildren(root);
+            if (root is UI.TaskDialog.frmTaskDialog dialog)
+                dialog.LayoutToContent();
+            if (root.IsHandleCreated)
+                root.BeginInvoke((Action)(() =>
+                {
+                    if (root.IsDisposed) return;
+                    LayoutChildren(root);
+                    if (root is UI.TaskDialog.frmTaskDialog taskDialog) taskDialog.LayoutToContent();
+                    if (root is UI.ResponsiveForm || root is UI.Window.BaseWindow and not UI.Window.ConnectionWindow)
+                        UI.AdaptiveLayout.FitWorkingArea((Form)root);
+                }));
+        }
+
+        private static void LayoutChildren(Control control)
+        {
+            foreach (Control child in control.Controls)
+                LayoutChildren(child);
+            if (UI.AdaptiveLayout.IsPreparedInput(control))
+                control.MinimumSize = new Size(control.MinimumSize.Width,
+                    Math.Max(control.Height, control.GetPreferredSize(Size.Empty).Height));
+            control.PerformLayout();
         }
 
         public static void ApplyToOpenForms()
@@ -90,10 +112,14 @@ namespace mRemoteNG.Themes
 
         private static void ApplyControl(Control control, Font font)
         {
-            if (!Same(control.Font, font))
+            bool arrow = control.Parent is NumericUpDown && control is Button { Text: "▲" or "▼" };
+            bool symbol = string.Equals(control.Font.FontFamily.Name, "Marlett", StringComparison.OrdinalIgnoreCase);
+            if (!arrow && !symbol && !Same(control.Font, font))
                 control.Font = (Font)font.Clone();
             if (control.ContextMenuStrip != null)
                 ApplyStrip(control.ContextMenuStrip, font);
+            // PropertyGrid owns the fonts and row metrics of its internal view.
+            if (control is PropertyGrid) return;
             foreach (Control child in control.Controls)
                 ApplyControl(child, font);
         }

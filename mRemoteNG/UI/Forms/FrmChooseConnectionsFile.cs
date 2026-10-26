@@ -16,7 +16,7 @@ namespace mRemoteNG.UI.Forms
     /// which one to load, with "newest by mtime" pre-selected.
     /// </summary>
     [SupportedOSPlatform("windows")]
-    public sealed class FrmChooseConnectionsFile : Form
+    public sealed class FrmChooseConnectionsFile : ResponsiveForm
     {
         private readonly ListView _list = new();
         private readonly CheckBox _rememberBox = new();

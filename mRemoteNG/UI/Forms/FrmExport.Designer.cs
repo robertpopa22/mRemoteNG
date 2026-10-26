@@ -5,7 +5,7 @@ using mRemoteNG.UI.Controls;
 
 namespace mRemoteNG.UI.Forms
 {
-	public partial class FrmExport : Form
+	public partial class FrmExport : ResponsiveForm
 	{
         #region  Windows Form Designer generated code
 			

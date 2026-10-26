@@ -1,4 +1,4 @@
-﻿#region  Usings
+#region  Usings
 using mRemoteNG.App;
 using mRemoteNG.UI.Forms.OptionsPages;
 using System;
@@ -16,7 +16,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public partial class FrmOptions : Form
+    public partial class FrmOptions : ResponsiveForm
     {
         private readonly List<OptionsPage> _optionPages = [];
         private string _pageName;
@@ -63,6 +63,18 @@ namespace mRemoteNG.UI.Forms
             ];
 
             InitOptionsPagesToListView();
+            lstOptionPages.FontChanged += (_, _) => FitPageNavigation();
+            SizeChanged += (_, _) => FitPageNavigation();
+            FitPageNavigation();
+        }
+
+        private void FitPageNavigation()
+        {
+            int padding = 40 * DeviceDpi / 96;
+            int wanted = _optionPages.Select(page => TextRenderer.MeasureText(page.PageName, lstOptionPages.Font).Width)
+                .DefaultIfEmpty(120).Max() + padding;
+            lstOptionPages.Width = Math.Min(wanted, Math.Max(120 * DeviceDpi / 96, ClientSize.Width / 3));
+            lstOptionPages.RowHeight = Math.Max(25 * DeviceDpi / 96, lstOptionPages.Font.Height + 8 * DeviceDpi / 96);
         }
 
         /// <summary>
@@ -293,6 +305,10 @@ namespace mRemoteNG.UI.Forms
             page.ApplyLanguage();
             page.LoadRegistrySettings();
             page.LoadSettings();
+            using var font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
+                Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
+            InterfaceFont.Apply(page, font);
+            AdaptiveLayout.Prepare(page);
             _optionPages.Add(page);
             lstOptionPages.AddObject(page);
             

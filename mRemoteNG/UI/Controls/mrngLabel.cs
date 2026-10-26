@@ -37,8 +37,9 @@ namespace mRemoteNG.UI.Controls
         {
             _textFormatFlags = TextFormatFlags.TextBoxControl;
 
-            // in default labels, wordwrap is enabled when autosize is false
-            if (AutoSize == false)
+            // MaximumSize also makes an autosized label wrap. Paint with the same
+            // constraint that WinForms uses when measuring its preferred height.
+            if (!AutoSize || MaximumSize.Width > 0)
                 _textFormatFlags |= TextFormatFlags.WordBreak;
 
             switch (TextAlign)
@@ -86,6 +87,7 @@ namespace mRemoteNG.UI.Controls
             // let's use the defaults - this looks terrible in my testing....
             //e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             //e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+            BuildTextFormatFlags();
             if (Enabled)
             {
                 TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, ForeColor, _textFormatFlags);

@@ -738,6 +738,7 @@ namespace mRemoteNG.UI.Forms
         protected override void OnDpiChanged(DpiChangedEventArgs e)
         {
             base.OnDpiChanged(e);
+            InterfaceFont.ApplyToOpenForms();
             LogDpiState("dpi change", e.DeviceDpiOld, e.DeviceDpiNew);
             if (FitChromeFonts())
                 LogDpiState("dpi change after fit", e.DeviceDpiNew, e.DeviceDpiNew);

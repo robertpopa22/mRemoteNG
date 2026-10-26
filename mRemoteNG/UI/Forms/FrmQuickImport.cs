@@ -9,7 +9,7 @@ using mRemoteNG.Container;
 
 namespace mRemoteNG.UI.Forms
 {
-    public partial class FrmQuickImport : Form
+    public partial class FrmQuickImport : ResponsiveForm
     {
         public FrmQuickImport()
         {

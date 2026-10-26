@@ -17,7 +17,7 @@ namespace mRemoteNG.UI.Forms
     /// Double-clicking a tile initiates the connection.
     /// </summary>
     [SupportedOSPlatform("windows")]
-    public class FrmGroupThumbnail : Form
+    public class FrmGroupThumbnail : ResponsiveForm
     {
         private readonly ContainerInfo _container;
         private readonly FlowLayoutPanel _flowPanel;
@@ -47,16 +47,22 @@ namespace mRemoteNG.UI.Forms
                 BackColor = SystemColors.Window
             };
 
-            var pnlBottom = new Panel
+            var pnlBottom = new TableLayoutPanel
             {
-                Height = 36,
+                AutoSize = true,
+                ColumnCount = 3,
+                RowCount = 1,
+                Padding = new Padding(4),
                 Dock = DockStyle.Bottom,
                 BackColor = SystemColors.Control
             };
+            pnlBottom.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            pnlBottom.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            pnlBottom.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
 
             _lblStatus = new Label
             {
-                AutoSize = false,
+                AutoSize = true,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft,
                 Padding = new Padding(8, 0, 0, 0)
@@ -82,12 +88,11 @@ namespace mRemoteNG.UI.Forms
             };
             btnClose.Click += (s, e) => Close();
 
-            pnlBottom.Controls.AddRange(new Control[] { _lblStatus, btnRefresh, btnClose });
-            pnlBottom.Layout += (s, e) =>
-            {
-                btnClose.Left = pnlBottom.Width - btnClose.Width - 8;
-                btnRefresh.Left = btnClose.Left - btnRefresh.Width - 4;
-            };
+            btnRefresh.AutoSize = true;
+            btnClose.AutoSize = true;
+            pnlBottom.Controls.Add(_lblStatus, 0, 0);
+            pnlBottom.Controls.Add(btnRefresh, 1, 0);
+            pnlBottom.Controls.Add(btnClose, 2, 0);
 
             Controls.Add(_flowPanel);
             Controls.Add(pnlBottom);
@@ -233,10 +238,32 @@ namespace mRemoteNG.UI.Forms
                     BackColor = Color.Transparent
                 };
 
-                Controls.AddRange(new Control[] { _statusBar, _icon, _lblName, _lblHost, _lblStatus });
+                AutoSize = true;
+                AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                MinimumSize = new Size(width, height);
+                MaximumSize = new Size(width, 0);
+                var content = new TableLayoutPanel { Dock = DockStyle.Top, AutoSize = true, ColumnCount = 1, RowCount = 4, Padding = new Padding(4, 8, 4, 4) };
+                _icon.Anchor = AnchorStyles.Top;
+                content.Controls.Add(_icon, 0, 0);
+                Label[] captions = [_lblName, _lblHost, _lblStatus];
+                for (int index = 0; index < captions.Length; index++)
+                {
+                    captions[index].AutoSize = true;
+                    captions[index].Dock = DockStyle.Fill;
+                    captions[index].MaximumSize = new Size(width - 18, 0);
+                    content.Controls.Add(captions[index], 0, index + 1);
+                }
+                Controls.Add(content);
+                Controls.Add(_statusBar);
 
                 // Attach events to all child controls so hover/click works anywhere on the tile
                 foreach (Control ctrl in Controls)
+                {
+                    ctrl.DoubleClick += OnTileDoubleClick;
+                    ctrl.MouseEnter += OnChildMouseEnter;
+                    ctrl.MouseLeave += OnChildMouseLeave;
+                }
+                foreach (Control ctrl in content.Controls)
                 {
                     ctrl.DoubleClick += OnTileDoubleClick;
                     ctrl.MouseEnter += OnChildMouseEnter;

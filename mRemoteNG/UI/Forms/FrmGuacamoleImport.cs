@@ -11,7 +11,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public class FrmGuacamoleImport : Form
+    public class FrmGuacamoleImport : ResponsiveForm
     {
         private ContainerInfo _destinationContainer;
         private ComboBox cmbType;

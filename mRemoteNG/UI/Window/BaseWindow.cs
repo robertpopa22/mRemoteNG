@@ -10,6 +10,31 @@ namespace mRemoteNG.UI.Window
     [SupportedOSPlatform("windows")]
     public class BaseWindow : DockContent
     {
+        protected override void OnLoad(System.EventArgs e)
+        {
+            base.OnLoad(e);
+            if (this is not ConnectionWindow)
+            {
+                using var font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
+                    Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
+                InterfaceFont.Apply(this, font);
+                AdaptiveLayout.Prepare(this);
+                AdaptiveLayout.FitWorkingArea(this);
+            }
+        }
+
+        protected override void OnDpiChanged(DpiChangedEventArgs e)
+        {
+            base.OnDpiChanged(e);
+            if (this is not ConnectionWindow)
+            {
+                using var font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
+                    Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
+                InterfaceFont.Apply(this, font);
+                AdaptiveLayout.FitWorkingArea(this);
+            }
+        }
+
         #region Private Variables
 
         //private WindowType _WindowType;

@@ -4,7 +4,7 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.UI.Forms
 {
 	public
-	partial class FrmPassword : System.Windows.Forms.Form
+	partial class FrmPassword : ResponsiveForm
 	{
 
 		//Form overrides dispose to clean up the component list.

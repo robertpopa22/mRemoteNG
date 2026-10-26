@@ -4,7 +4,7 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.UI.Forms
 {
 	
-    public partial class FrmChoosePanel : System.Windows.Forms.Form
+    public partial class FrmChoosePanel : ResponsiveForm
 	{
 		//Form overrides dispose to clean up the component list.
 		[System.Diagnostics.DebuggerNonUserCode()]protected override void Dispose(bool disposing)

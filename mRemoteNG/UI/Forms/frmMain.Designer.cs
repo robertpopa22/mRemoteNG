@@ -90,7 +90,10 @@ namespace mRemoteNG.UI.Forms
             this.msMain.Size = new System.Drawing.Size(212, 25);
             this.msMain.AccessibleName = "Main Menu";
             this.msMain.AccessibleDescription = "Main menu bar with File, Sessions, View, Connections, Tools, and Help menus";
-            this.msMain.Stretch = false;
+            this.msMain.Stretch = true;
+            this.msMain.CanOverflow = true;
+            foreach (System.Windows.Forms.ToolStripItem item in this.msMain.Items)
+                item.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
             this.msMain.TabIndex = 0;
             this.msMain.Text = "Main Toolbar";
             // 

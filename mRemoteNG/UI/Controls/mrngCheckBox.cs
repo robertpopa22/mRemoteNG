@@ -18,6 +18,10 @@ namespace mRemoteNG.UI.Controls
     {
         private ThemeManager? _themeManager;
 
+        public override Size GetPreferredSize(Size proposedSize) => ThemeManager.getInstance().ActiveAndExtended
+            ? WrappedControlText.Preferred(this, proposedSize, base.GetPreferredSize(proposedSize), 11 * DeviceDpi / 96 + 2)
+            : base.GetPreferredSize(proposedSize);
+
         public MrngCheckBox()
         {
             InitializeComponent();
@@ -165,7 +169,7 @@ namespace mRemoteNG.UI.Controls
             int textX = boxRect.Right + 2;
             Rectangle textRect = new(textX, 0, Math.Max(1, ClientSize.Width - textX), ClientSize.Height);
             TextRenderer.DrawText(pevent.Graphics, Text, Font, textRect, fore, parentBack,
-                                  TextFormatFlags.VerticalCenter | TextFormatFlags.PathEllipsis);
+                                  TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
         }
 
         private void InitializeComponent()

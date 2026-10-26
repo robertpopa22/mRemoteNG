@@ -6,7 +6,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public sealed partial class FrmInputBox : Form
+    public sealed partial class FrmInputBox : ResponsiveForm
     {
         internal string? returnValue;
 

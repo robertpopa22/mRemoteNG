@@ -149,6 +149,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // BackColor follows theme
             lblSectionName.Dock = System.Windows.Forms.DockStyle.Top;
+            lblSectionName.AutoSize = true;
             lblSectionName.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 204);
             // ForeColor follows theme
             lblSectionName.Location = new System.Drawing.Point(0, 0);
@@ -171,6 +172,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlServerBlock.Controls.Add(label1);
             pnlServerBlock.Controls.Add(picboxLogo);
             pnlServerBlock.Location = new System.Drawing.Point(15, 120);
+            pnlServerBlock.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlServerBlock.AutoSize = true;
+            pnlServerBlock.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             pnlServerBlock.Name = "pnlServerBlock";
             pnlServerBlock.Size = new System.Drawing.Size(600, 620);
             pnlServerBlock.TabIndex = 27;
@@ -1250,6 +1254,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkUseSQLServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
             chkUseSQLServer.Location = new System.Drawing.Point(15, 89);
             chkUseSQLServer.Name = "chkUseSQLServer";
+            chkUseSQLServer.Dock = System.Windows.Forms.DockStyle.Top;
             chkUseSQLServer.Size = new System.Drawing.Size(240, 25);
             chkUseSQLServer.TabIndex = 34;
             chkUseSQLServer.Text = "Enable SQL Server Integration:";
@@ -1260,8 +1265,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            Controls.Add(chkUseSQLServer);
             Controls.Add(pnlServerBlock);
+            Controls.Add(chkUseSQLServer);
             Controls.Add(lblSectionName);
             Controls.Add(lblRegistrySettingsUsedInfo);
             Margin = new System.Windows.Forms.Padding(4);

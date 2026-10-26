@@ -14,6 +14,10 @@ namespace mRemoteNG.UI.Controls
     {
         private ThemeManager? _themeManager;
 
+        public override Size GetPreferredSize(Size proposedSize) => ThemeManager.getInstance().ActiveAndExtended
+            ? WrappedControlText.Preferred(this, proposedSize, base.GetPreferredSize(proposedSize), 0)
+            : base.GetPreferredSize(proposedSize);
+
         /// <summary>
         /// Store the mouse state, required for coloring the component according to the mouse state
         /// </summary>
@@ -143,7 +147,7 @@ namespace mRemoteNG.UI.Controls
             }
 
             TextRenderer.DrawText(pevent.Graphics, Text, Font, ClientRectangle, fore,
-                                  TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                                  TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
         }
 
         private void InitializeComponent()

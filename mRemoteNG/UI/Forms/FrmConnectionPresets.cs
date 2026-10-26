@@ -10,7 +10,7 @@ using mRemoteNG.Connection;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public class FrmConnectionPresets : Form
+    public class FrmConnectionPresets : ResponsiveForm
     {
         private readonly ConnectionPresetService _presetService;
         private readonly IReadOnlyList<ConnectionInfo> _selectedConnections;
@@ -102,15 +102,32 @@ namespace mRemoteNG.UI.Forms
             AcceptButton = _applyPresetButton;
             CancelButton = _closeButton;
 
-            Controls.Add(presetsLabel);
-            Controls.Add(_presetListBox);
-            Controls.Add(presetNameLabel);
-            Controls.Add(_presetNameTextBox);
-            Controls.Add(_savePresetButton);
-            Controls.Add(_applyPresetButton);
-            Controls.Add(_deletePresetButton);
-            Controls.Add(_statusLabel);
-            Controls.Add(_closeButton);
+            var layout = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 7, Padding = new Padding(12) };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45));
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55));
+            for (int row = 0; row < 7; row++)
+                layout.RowStyles.Add(new RowStyle(row == 5 ? SizeType.Percent : SizeType.AutoSize, row == 5 ? 100 : 0));
+            layout.Controls.Add(presetsLabel, 0, 0);
+            layout.Controls.Add(presetNameLabel, 1, 0);
+            _presetListBox.Dock = DockStyle.Fill;
+            layout.Controls.Add(_presetListBox, 0, 1);
+            layout.SetRowSpan(_presetListBox, 5);
+            _presetNameTextBox.Dock = DockStyle.Fill;
+            layout.Controls.Add(_presetNameTextBox, 1, 1);
+            Button[] actions = [_savePresetButton, _applyPresetButton, _deletePresetButton];
+            for (int index = 0; index < actions.Length; index++)
+            {
+                actions[index].AutoSize = true;
+                actions[index].Dock = DockStyle.Top;
+                layout.Controls.Add(actions[index], 1, index + 2);
+            }
+            _statusLabel.AutoSize = true;
+            _statusLabel.Dock = DockStyle.Fill;
+            layout.Controls.Add(_statusLabel, 0, 6);
+            _closeButton.AutoSize = true;
+            _closeButton.Anchor = AnchorStyles.Right;
+            layout.Controls.Add(_closeButton, 1, 6);
+            Controls.Add(layout);
         }
 
         private void LoadPresetNames(string? selectedPresetName = null)

@@ -7,7 +7,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public partial class FrmDynamicFolderConfig : Form
+    public partial class FrmDynamicFolderConfig : ResponsiveForm
     {
         private ContainerInfo _container;
 

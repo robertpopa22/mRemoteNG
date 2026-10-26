@@ -5,7 +5,7 @@ using mRemoteNG.Resources.Language;
 
 namespace mRemoteNG.UI.Forms
 {
-    public partial class FrmPickDatabase : Form
+    public partial class FrmPickDatabase : ResponsiveForm
     {
         private SqlServerPage _sqlServerPage;
 

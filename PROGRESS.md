@@ -1,6 +1,15 @@
 # PROGRESS — handover
 
-Current status: #210 and #211 are closed with recorded test conclusions. The latest published source revision was installed and tested on the affected laptop; the notes below retain the earlier handover history.
+Current status: responsive native layouts and the Windows app-theme default are implemented and validated in local build 3740. #210 and #211 are closed; their earlier handover history is retained below.
+
+## Responsive layouts and Windows theme default — 2026-10-12
+
+- Standalone input forms resize and scroll; Options pages and tool panes share adaptive rows. Captions and action rows wrap. NG controls measure wrapped text consistently with painting. Session viewports retain their protocol sizing. The main menu exposes overflow items at large fonts.
+- New profiles follow Windows with the NG light/dark palettes. Existing explicit manual choices are retained, including the saved choice while following Windows and after Cancel.
+- Full MSBuild build and self-contained x64 portable package completed. Final `run-tests-core.sh`: 7,678/7,678 executions, 0 crashes, 373 s; 22 targeted layout/font/theme/dialog checks passed.
+- Exact portable package in the isolated Windows lab: 11/11 GUI scenarios at 192 DPI, 7/7 gallery/navigation scenarios at 144 DPI, 11/11 GUI scenarios at 96 DPI. The temporary guest DPI settings were restored. The inventory records 54 product form/page types: 49 isolated class captures and five real-executable dispositions. Navigation covers all 13 Options pages at 1000×720 and 800×600 with 8.25/14/24 point fonts, Windows light/dark and a manual theme. SQL tabs, prompt accept/cancel and scroll regressions are included.
+- Screenshots were inspected alongside geometry and text-height checks. Class previews use synthetic data; their About/splash version comes from the testhost. Windows Open/Save/Font/Color dialogs were captured and cancelled; their system-owned layout is not changed by this work.
+- Limits: no live move between monitors with different DPI, complete translation/accessibility audit, or external protocol/database acceptance is claimed. Narrow screens and large fonts require scrolling. Documentation: [docs/UI-LAYOUT.md](docs/UI-LAYOUT.md). No stable release or downloadable nightly is asserted by these local results.
 
 ## Issue #210 — reload loop + idle power optimizations (2026-10-07)
 

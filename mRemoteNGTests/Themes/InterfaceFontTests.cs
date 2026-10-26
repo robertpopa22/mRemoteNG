@@ -8,6 +8,27 @@ namespace mRemoteNGTests.Themes;
 public class InterfaceFontTests
 {
     [Test]
+    public void NumericArrowGlyphsKeepTheirSmallFont()
+    {
+        using var number = new NumericUpDown();
+        var arrow = new Button { Text = "▲", Font = new Font("Segoe UI", 5) };
+        number.Controls.Add(arrow);
+        var symbol = new Button { Text = "0", Font = new Font("Marlett", 8.5f) };
+        number.Controls.Add(symbol);
+        using var chosen = InterfaceFont.Create("Segoe UI", 14, FontStyle.Regular);
+
+        InterfaceFont.Apply(number, chosen);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(number.Font.SizeInPoints, Is.EqualTo(14));
+            Assert.That(arrow.Font.SizeInPoints, Is.EqualTo(5));
+            Assert.That(symbol.Font.FontFamily.Name, Is.EqualTo("Marlett"));
+            Assert.That(symbol.Font.SizeInPoints, Is.EqualTo(8.5));
+        });
+    }
+
+    [Test]
     public void SizeAndEffectsStayInsideTheChooserLimits()
     {
         using Font small = InterfaceFont.Create("Segoe UI", 4f, FontStyle.Bold | FontStyle.Underline);

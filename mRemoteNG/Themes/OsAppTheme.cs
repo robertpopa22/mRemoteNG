@@ -11,8 +11,8 @@ namespace mRemoteNG.Themes
     [SupportedOSPlatform("windows")]
     internal static class OsAppTheme
     {
-        public const string LightThemeName = "vs2015Light";
-        public const string DarkThemeName = "vs2015Dark";
+        public const string LightThemeName = "vs2015lightNG";
+        public const string DarkThemeName = "vs2015darkNG";
 
         public static bool PrefersLight(int? appsUseLightTheme) =>
             appsUseLightTheme is null or not 0;

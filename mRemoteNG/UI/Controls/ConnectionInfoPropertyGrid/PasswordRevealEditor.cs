@@ -32,7 +32,7 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
                 : value;
         }
 
-        private sealed class PasswordRevealDialog : Form
+        private sealed class PasswordRevealDialog : ResponsiveForm
         {
             private readonly TextBox _passwordTextBox;
 

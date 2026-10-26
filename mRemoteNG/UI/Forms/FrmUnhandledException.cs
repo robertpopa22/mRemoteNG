@@ -18,7 +18,7 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public partial class FrmUnhandledException : Form
+    public partial class FrmUnhandledException : ResponsiveForm
     {
         private readonly bool _isFatal;
         private readonly Exception? _exception;

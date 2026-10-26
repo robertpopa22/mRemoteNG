@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- New settings follow the Windows app theme: NG light or NG dark. Existing manual preferences and the saved manual theme are retained.
+- Input dialogs, docked tools and Options pages reflow with the interface font and window size. Captions and action rows wrap; scrolling keeps content accessible on smaller screens. Theme controls and SQL options no longer depend on fixed header or panel heights.
 - Themed numeric up/down arrows follow the control's device DPI once. At 96 DPI the arrow stays 16 pixels wide. At a higher DPI it grows by that single factor, including after a DPI change, a second layout, and an options-page scale.
 
 ## [1.84.0] - 2026-09-25

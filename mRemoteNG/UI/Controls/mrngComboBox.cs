@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.Themes;
@@ -36,6 +37,7 @@ namespace mRemoteNG.UI.Controls
             BackColor = activePalette.getColor("ComboBox_Background");
             ForeColor = activePalette.getColor("ComboBox_Foreground");
             DrawMode = DrawMode.OwnerDrawFixed;
+            FitItemHeight();
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.UserPaint, true);
             DrawItem += NG_DrawItem;
@@ -63,6 +65,27 @@ namespace mRemoteNG.UI.Controls
                 Invalidate();
             };
             Invalidate();
+        }
+
+        private void FitItemHeight()
+        {
+            if (DrawMode != DrawMode.OwnerDrawFixed || !IsHandleCreated) return;
+            using Graphics graphics = CreateGraphics();
+            ItemHeight = TextRenderer.MeasureText(graphics, "Ag", Font, Size.Empty,
+                TextFormatFlags.SingleLine).Height + 4 * DeviceDpi / 96;
+            Height = PreferredHeight;
+        }
+
+        protected override void OnFontChanged(EventArgs e)
+        {
+            base.OnFontChanged(e);
+            FitItemHeight();
+        }
+
+        protected override void OnDpiChangedAfterParent(EventArgs e)
+        {
+            base.OnDpiChangedAfterParent(e);
+            FitItemHeight();
         }
 
         private void NG_DrawItem(object? sender, DrawItemEventArgs e)
@@ -162,17 +185,20 @@ namespace mRemoteNG.UI.Controls
             }
 
             //Button
+            int edge = Math.Max(1, 2 * DeviceDpi / 96);
+            int buttonWidth = 18 * DeviceDpi / 96;
             using (SolidBrush b = new(ButtBack))
             {
-                e.Graphics.FillRectangle(b, Width - 18, 2, 16, Height - 4);
+                e.Graphics.FillRectangle(b, Width - buttonWidth, edge, buttonWidth - edge, Height - 2 * edge);
             }
 
             //Arrow
-            using (SolidBrush arrowBrush = new(ButtFore))
-                e.Graphics.DrawString("\u25BC", Font, arrowBrush, Width - 17, Height / 2 - 5);
+            TextRenderer.DrawText(e.Graphics, "\u25BC", Font,
+                new Rectangle(Width - buttonWidth, edge, buttonWidth, Height - 2 * edge), ButtFore,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine);
 
             //Text
-            Rectangle textRect = new(2, 2, Width - 20, Height - 4);
+            Rectangle textRect = new(edge, edge, Math.Max(0, Width - buttonWidth - edge), Math.Max(0, Height - 2 * edge));
             TextRenderer.DrawText(e.Graphics, Text, Font, textRect, Fore, Back,
                                   TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
         }

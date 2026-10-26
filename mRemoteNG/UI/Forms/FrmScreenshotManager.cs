@@ -9,7 +9,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public class FrmScreenshotManager : Form
+    public class FrmScreenshotManager : ResponsiveForm
     {
         private readonly ListView _listView;
         private readonly Button _btnDelete;
@@ -42,7 +42,8 @@ namespace mRemoteNG.UI.Forms
             _listView.Columns.Add("Size", 70);
             _listView.SelectedIndexChanged += (s, e) => UpdateButtonStates();
 
-            var pnlButtons = new Panel { Height = 44, Dock = DockStyle.Bottom };
+            var pnlButtons = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Dock = DockStyle.Bottom, FlowDirection = FlowDirection.RightToLeft, WrapContents = true, Padding = new Padding(6) };
 
             _btnDelete = new Button { Text = "Delete", Width = 80, Height = 28, Top = 8, Left = 8 };
             _btnDelete.Click += BtnDelete_Click;
@@ -63,8 +64,12 @@ namespace mRemoteNG.UI.Forms
             };
             _btnClose.Click += (s, e) => Close();
 
-            pnlButtons.Controls.AddRange(new Control[] { _btnDelete, _btnDeleteAll, _btnOpenFolder, _btnClose });
-            pnlButtons.Layout += (s, e) => _btnClose.Left = pnlButtons.Width - _btnClose.Width - 8;
+            foreach (Button button in new[] { _btnClose, _btnOpenFolder, _btnDeleteAll, _btnDelete })
+            {
+                button.AutoSize = true;
+                button.Anchor = AnchorStyles.None;
+                pnlButtons.Controls.Add(button);
+            }
 
             Controls.Add(_listView);
             Controls.Add(pnlButtons);

@@ -65,6 +65,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             _btnResetResolver.Click += (_, _) => ResetConnectionsFilePicker();
             Controls.Add(_btnResetResolver);
             _btnResetResolver.BringToFront();
+            SizeChanged += (_, _) => _btnResetResolver.MaximumSize = new Size(Math.Max(80, ClientSize.Width - 12), 0);
+            _btnResetResolver.MaximumSize = new Size(Math.Max(80, ClientSize.Width - 12), 0);
         }
 
         private static void ResetConnectionsFilePicker()

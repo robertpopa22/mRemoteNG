@@ -104,6 +104,7 @@ namespace mRemoteNG.UI.Window
 
                 _optionsForm.TopLevel = false;
                 _optionsForm.FormBorderStyle = FormBorderStyle.None;
+                _optionsForm.MinimumSize = System.Drawing.Size.Empty;
                 _optionsForm.Dock = DockStyle.Fill;
                 _optionsForm.CloseRequested += OnOptionsFormCloseRequested;
                 Controls.Add(_optionsForm);

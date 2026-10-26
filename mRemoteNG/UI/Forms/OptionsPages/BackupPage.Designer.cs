@@ -88,10 +88,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // tableLayoutPanelBackupFile
             // 
             tableLayoutPanelBackupFile.ColumnCount = 4;
-            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            tableLayoutPanelBackupFile.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
             tableLayoutPanelBackupFile.Controls.Add(lblBackupType, 1, 2);
             tableLayoutPanelBackupFile.Controls.Add(lblBackupEnable, 1, 1);
             tableLayoutPanelBackupFile.Controls.Add(lblMakeBackup, 1, 3);
