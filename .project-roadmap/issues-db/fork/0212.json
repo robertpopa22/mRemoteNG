@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-10-07T13:25:41Z",
-  "github_updated_at": "2026-10-18T14:49:21Z",
+  "github_updated_at": "2026-10-27T07:19:19Z",
   "body_snippet": "## Summary\n\nAn RDP tab left open on a laptop that goes to sleep or hibernates can silently reconnect **an hour later** when the lid is opened, before the user has even unlocked the laptop. If the same user meanwhile sat down at the remote machine's console, the reconnect takes the session away from the console. On a Windows client SKU (one interactive session) this happened while the console was being unlocked, the two attaches raced, and Winlogon reported \"failed to connect the user session\" (e...",
   "our_status": "triaged",
   "priority": null,
@@ -28,6 +28,16 @@
     },
     {
       "seq": 2,
+      "date": "2026-10-27",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
       "date": "2026-10-27",
       "type": "triaged",
       "description": "Status changed to triaged",
@@ -55,12 +65,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABf58MRw",
+      "author": "robertpopa22",
+      "date": "2026-10-27T07:19:19Z",
+      "snippet": "Field result for 4951b73a4, and why the first check never fired.\n\n**What the log shows (20, 21 and 23 October, a build with both changes).** Three times the laptop was asleep for 17 to 30 minutes, with no heartbeat at all. Each time the session dropped right after resume. The control announced reconnection attempt 1, reconnected after 3.4 to 10.3 seconds, and about 60 ms later the new check disconnected it (`auto_reconnect_stopped_after_resume_completed`). Each tab then closed. So the second cha...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-18T14:49:21Z",
+  "comments_cursor": "2026-10-27T07:19:19Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-27T07:03:16Z",
-  "notes": "2026-10-27: 53NB log 3 sleeps, all stopped only at _completed (3.4-10.3 s attach); lab: control raises only OnAutoReconnecting2 (DISPID 34), never DISPID 17 -> announce gate dead; diag 23190860f; fix budget used, behavioural fix needs human decision"
+  "last_synced": "2026-10-27T07:19:33Z",
+  "notes": "2026-10-27: diag 23190860f in nightly 1.84.0+556037249f; update posted; behavioural fix (gate in OnAutoReconnecting2) awaits maintainer decision"
 }
