@@ -8,9 +8,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-10-07T13:25:41Z",
-  "github_updated_at": "2026-10-27T07:19:19Z",
+  "github_updated_at": "2026-10-27T11:32:28Z",
   "body_snippet": "## Summary\n\nAn RDP tab left open on a laptop that goes to sleep or hibernates can silently reconnect **an hour later** when the lid is opened, before the user has even unlocked the laptop. If the same user meanwhile sat down at the remote machine's console, the reconnect takes the session away from the console. On a Windows client SKU (one interactive session) this happened while the console was being unlocked, the two attaches raced, and Winlogon reported \"failed to connect the user session\" (e...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -55,6 +55,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-10-27",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -84,12 +94,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABf-d2rg",
+      "author": "robertpopa22",
+      "date": "2026-10-27T11:32:28Z",
+      "snippet": "Third change for this issue, after the diagnostic from this morning. 4de5a1735 stops a reconnection after sleep at the moment it is announced.\n\n**What the diagnostic showed in the lab.** The client VM's network was dropped under a live session to a Windows target. The control raised only `OnAutoReconnecting2`, never the event the first check sat in. A second finding was worse: when the client asked for a disconnect during the reconnection, the control did not stop. It announced another attempt a...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-10-27T07:19:19Z",
+  "comments_cursor": "2026-10-27T11:32:28Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-10-27T11:21:26Z",
-  "notes": "2026-10-27: fix 4de5a1735 (OnAutoReconnecting2 gate + Close; lab: Disconnect during ARC does not end it). Lab pass awake+clock-jump. Local, awaiting push/nightly approval; open until real-sleep log shows _announced"
+  "last_synced": "2026-10-27T11:32:48Z",
+  "notes": "2026-10-27: fix 4de5a1735 in nightly 1.84.0+7a43a3cf29, reply posted; awaiting laptop log after real sleep with _announced and no reconnected"
 }
