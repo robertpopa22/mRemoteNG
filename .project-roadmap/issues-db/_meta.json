@@ -5,14 +5,14 @@
     "upstream": "mRemoteNG/mRemoteNG",
     "fork": "robertpopa22/mRemoteNG"
   },
-  "last_sync": "2026-10-26T06:53:29Z",
+  "last_sync": "2026-10-27T06:36:13Z",
   "last_sync_stats": {
     "repos_synced": [
       "mRemoteNG/mRemoteNG",
       "robertpopa22/mRemoteNG"
     ],
-    "issues_new": 1,
-    "issues_updated": 819,
+    "issues_new": 0,
+    "issues_updated": 816,
     "issues_error": 0,
     "comments_new": 0,
     "needs_action": 0,
