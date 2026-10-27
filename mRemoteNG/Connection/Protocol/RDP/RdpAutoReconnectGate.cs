@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace mRemoteNG.Connection.Protocol.RDP
 {
@@ -55,6 +56,22 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// at 08:06, process frozen, reconnected at 10:23 with no further attempt).
         /// </summary>
         public bool InFlightAttemptMayStand(long ticksMs, DateTime utcNow) => ShouldContinue(ticksMs, utcNow);
+
+        /// <summary>
+        /// What <see cref="ShouldContinue"/> would answer now, without recording anything. For the
+        /// [#212-diag] lines only, so that logging an event cannot change what the gate decides.
+        /// </summary>
+        public bool WouldStop(long ticksMs, DateTime utcNow) =>
+            (_lastTicksMs is long t && ticksMs - t > MaxGap.TotalMilliseconds)
+            || (_lastUtc is DateTime u && (utcNow - u).Duration() > MaxGap)
+            || (_resumeDetectedAtTicksMs is long r && ticksMs - r <= MaxGap.TotalMilliseconds);
+
+        /// <summary>Milliseconds since the last observation on each clock and since the noted resume; "na" when unknown.</summary>
+        public string Describe(long ticksMs, DateTime utcNow) =>
+            string.Create(CultureInfo.InvariantCulture,
+                $"since_tick_ms={(_lastTicksMs is long t ? (ticksMs - t).ToString(CultureInfo.InvariantCulture) : "na")} " +
+                $"since_utc_ms={(_lastUtc is DateTime u ? ((long)(utcNow - u).TotalMilliseconds).ToString(CultureInfo.InvariantCulture) : "na")} " +
+                $"since_resume_ms={(_resumeDetectedAtTicksMs is long r ? (ticksMs - r).ToString(CultureInfo.InvariantCulture) : "na")}");
 
         /// <summary>The session is connected; start a fresh observation window.</summary>
         public void Reset(long ticksMs, DateTime utcNow)

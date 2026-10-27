@@ -2059,6 +2059,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private AutoReconnectContinueState RDPEvent_OnAutoReconnecting(int disconnectReason, int attemptCount)
         {
+            ArcDiag($"OnAutoReconnecting (DISPID 17) reason={disconnectReason} attempt={attemptCount}");
             NoteAutoReconnecting(disconnectReason, attemptCount);
 
             if (_arcGate.ShouldContinue(Environment.TickCount64, DateTime.UtcNow))
@@ -2081,8 +2082,35 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// <c>OnAutoReconnecting</c> (DISPID 17) can stop ARC, so the #212 gate stays there and this
         /// one only records the attempt; when both are raised the attempt is recorded once.
         /// </summary>
-        private void RDPEvent_OnAutoReconnecting2(int disconnectReason, bool networkAvailable, int attemptCount, int maxAttemptCount) =>
+        private void RDPEvent_OnAutoReconnecting2(int disconnectReason, bool networkAvailable, int attemptCount, int maxAttemptCount)
+        {
+            ArcDiag($"OnAutoReconnecting2 (DISPID 34) reason={disconnectReason} attempt={attemptCount}/{maxAttemptCount} network={networkAvailable}");
             NoteAutoReconnecting(disconnectReason, attemptCount);
+        }
+
+        /// <summary>
+        /// Temporary instrumentation (#212). Both fixes are used up and the field log never shows the
+        /// announce-time stop: after three sleeps every reconnection completed and was only cut off at
+        /// OnAutoReconnected. One line per ARC event, with what the gate would answer at that moment,
+        /// shows whether DISPID 17 is raised at all on this control and which check sees the resume
+        /// first. Log-only; it reads the gate without recording anything. Remove once settled.
+        /// </summary>
+        private void ArcDiag(string step)
+        {
+            try
+            {
+                long now = Environment.TickCount64;
+                DateTime utcNow = DateTime.UtcNow;
+                Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                    string.Create(CultureInfo.InvariantCulture,
+                        $"[#212-diag] rdp_session={_diagnosticRdpSession} {step} gate_would_stop={_arcGate.WouldStop(now, utcNow)} stopped={_arcGate.StoppedAfterResume} in_flight={_phaseClock.AutoReconnectInProgress} {_arcGate.Describe(now, utcNow)}"),
+                    true);
+            }
+            catch (Exception)
+            {
+                // Instrumentation must never change what it is measuring.
+            }
+        }
 
         private void NoteAutoReconnecting(int disconnectReason, int attemptCount)
         {
@@ -2146,6 +2174,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             if (_zoomLevel != 100)
                 ForgetZoom();
 
+            ArcDiag("OnAutoReconnected");
             // #212: an attempt that began before a sleep can complete after resume with no further
             // OnAutoReconnecting. By now the remote session is attached again; disconnecting at once
             // limits how long it is held, it cannot undo the takeover.
@@ -2157,6 +2186,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             long now = Environment.TickCount64;
             DateTime utcNow = DateTime.UtcNow;
+            if (!_arcGate.StoppedAfterResume && _arcGate.WouldStop(now, utcNow))
+                ArcDiag("liveness tick sees a resume");
 
             // #212: the first tick after a resume, while an attempt is still in flight, stops it
             // before the control completes it.

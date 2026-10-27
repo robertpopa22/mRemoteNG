@@ -145,5 +145,27 @@ namespace mRemoteNGTests.Connection.Protocol.RDP
             Assert.That(gate.InFlightAttemptMayStand(3_645_000, T0.AddHours(1).AddSeconds(5)), Is.False);
         }
 
+        // [#212-diag] reads the gate on every ARC event; reading must not change the decision.
+        [Test]
+        public void WouldStopAfterSleepRecordsNothing()
+        {
+            var gate = ConnectedAt(1_000, T0);
+
+            Assert.That(gate.WouldStop(3_601_000, T0.AddHours(1)), Is.True);
+            Assert.That(gate.StoppedAfterResume, Is.False);
+            Assert.That(gate.Describe(3_601_000, T0.AddHours(1)),
+                Is.EqualTo("since_tick_ms=3600000 since_utc_ms=3600000 since_resume_ms=na"));
+            Assert.That(gate.ShouldContinue(3_601_000, T0.AddHours(1)), Is.False);
+        }
+
+        [Test]
+        public void WouldStopWhileAwakeIsFalse()
+        {
+            var gate = ConnectedAt(1_000, T0);
+            gate.Touch(31_000, T0.AddSeconds(30));
+
+            Assert.That(gate.WouldStop(40_000, T0.AddSeconds(39)), Is.False);
+            Assert.That(gate.ShouldContinue(40_000, T0.AddSeconds(39)), Is.True);
+        }
     }
 }
