@@ -30,6 +30,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-021](bp/BP-021-log-ends-is-not-process-ends.md) | 1 | 2026-10-17 | Two logs that looked like vanished processes came from the app moving its own log on Options OK; check the last lines, WER/System log and the mutex before calling it a hang. |
 | [BP-022](bp/BP-022-close-nested-in-startup.md) | 1 | 2026-10-20 | A WM_CLOSE handled inside the restored RDP tab's `Connect` ran the whole shutdown nested in startup; code resuming after a message pump checks `FrmMain.IsShuttingDown` and stops. |
 | [BP-023](bp/BP-023-zoom-follows-reported-size.md) | 1 | 2026-10-21 | SmartSizing never enlarges a smaller session; zoom it with `ZoomLevel`, and only for the size the remote desktop reports, never for a requested size that a failing link may lose. |
+| [BP-024](bp/BP-024-subscribed-is-not-raised.md) | 1 | 2026-10-27 | A subscribed ActiveX event may never be raised by the control; prove in the lab that its handler runs before a guard depends on it, and read a stop that never appears in the field as that warning. |
 
 ## Retired
 
