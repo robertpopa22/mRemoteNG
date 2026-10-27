@@ -47,6 +47,68 @@ namespace mRemoteNGSpecs.Fixtures
         [Test]
         public void ALinkDropNamesTheArcEventsItRaises()
         {
+            ConnectToTarget();
+            string names = UpAdapters();
+            try
+            {
+                PowerShell($"Disable-NetAdapter -Name {names} -Confirm:$false");
+                UiWait.Until(() => LogContains("phase=attempt"), "the control to announce an automatic reconnection", TimeSpan.FromSeconds(90));
+                Thread.Sleep(TimeSpan.FromSeconds(10));
+            }
+            finally
+            {
+                PowerShell($"Enable-NetAdapter -Name {names} -Confirm:$false");
+            }
+
+            bool reconnected = UiWait.Happened(() => LogContains("phase=reconnected"), TimeSpan.FromSeconds(180));
+            string lines = ArcLines("arc-events.txt");
+
+            Assert.That(lines, Does.Contain("[#212-diag]"), "no ARC event reached the handlers");
+            Assert.That(reconnected, Is.True, "a drop while awake did not reconnect");
+            Assert.That(lines, Does.Not.Contain("auto_reconnect_stopped"), "a drop while awake was stopped as if after a sleep");
+        }
+
+        /// <summary>
+        /// The stop itself. A paused VM does not reproduce a laptop's clocks, but the gate also reads
+        /// the wall clock: with time synchronisation stopped, the guest's clock is moved ten minutes
+        /// ahead while the network is down, which is what a resume looks like to it. The announced
+        /// attempt must be stopped, the session must not come back, and the process must survive closing
+        /// the session while the control is reconnecting.
+        /// </summary>
+        [Test]
+        public void AnAttemptAfterAClockJumpIsStoppedAndNotReattached()
+        {
+            ConnectToTarget();
+            string names = UpAdapters();
+            PowerShell("Stop-Service vmictimesync,w32time -Force -ErrorAction SilentlyContinue");
+            try
+            {
+                PowerShell($"Set-Date -Adjust ([TimeSpan]::FromMinutes(10)) | Out-Null; Disable-NetAdapter -Name {names} -Confirm:$false");
+                UiWait.Until(() => LogContains("phase=attempt"), "the control to announce an automatic reconnection", TimeSpan.FromSeconds(90));
+                UiWait.Until(() => LogContains("auto_reconnect_stopped_after_resume"), "the announced attempt to be stopped", TimeSpan.FromSeconds(30));
+            }
+            finally
+            {
+                PowerShell($"Set-Date -Adjust ([TimeSpan]::FromMinutes(-10)) | Out-Null; Enable-NetAdapter -Name {names} -Confirm:$false; " +
+                           "Start-Service w32time,vmictimesync -ErrorAction SilentlyContinue");
+            }
+
+            // Long enough for a reconnection that was not really stopped to complete on a live link.
+            Thread.Sleep(TimeSpan.FromSeconds(60));
+            string lines = ArcLines("arc-stop-events.txt");
+
+            Assert.That(lines, Does.Contain("auto_reconnect_stopped_after_resume_announced"),
+                        "the stop did not come from the announcement");
+            Assert.That(lines, Does.Not.Contain("phase=reconnected"), "the stopped session was attached again");
+            Assert.That(Deployment.ReadAppLog() ?? string.Empty, Does.Not.Contain("RDP Disconnect failed"),
+                        "stopping the reconnection showed a disconnect error");
+            Assert.That(Deployment.ReadAppLog() ?? string.Empty, Does.Not.Contain("fatal=true"),
+                        "the disconnect during the reconnection crashed the process");
+            Assert.That(Driver.Application.HasExited, Is.False, "the application exited");
+        }
+
+        private void ConnectToTarget()
+        {
             try
             {
                 using System.Net.Sockets.TcpClient probe = new();
@@ -65,37 +127,26 @@ namespace mRemoteNGSpecs.Fixtures
             UiWait.Until(() => LogContains("phase=login_complete"), "the RDP logon to complete", TimeSpan.FromSeconds(90));
             AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
             Thread.Sleep(TimeSpan.FromSeconds(5));
+        }
 
+        private static string UpAdapters()
+        {
             string adapters = PowerShell("(Get-NetAdapter | Where-Object Status -eq 'Up' | Select-Object -ExpandProperty Name) -join '|'").Trim();
             TestContext.Out.WriteLine($"adapters taken down: {adapters}");
             Assert.That(adapters, Is.Not.Empty, "no adapter is up in the guest");
-            string names = string.Join(",", adapters.Split('|').Select(n => $"'{n}'"));
-            try
-            {
-                PowerShell($"Disable-NetAdapter -Name {names} -Confirm:$false");
-                UiWait.Until(() => LogContains("phase=attempt"), "the control to announce an automatic reconnection", TimeSpan.FromSeconds(90));
-                Thread.Sleep(TimeSpan.FromSeconds(10));
-            }
-            finally
-            {
-                PowerShell($"Enable-NetAdapter -Name {names} -Confirm:$false");
-            }
+            return string.Join(",", adapters.Split('|').Select(n => $"'{n}'"));
+        }
 
-            Stopwatch waited = Stopwatch.StartNew();
-            bool reconnected;
-            while (!(reconnected = LogContains("phase=reconnected")) && waited.Elapsed < TimeSpan.FromSeconds(180))
-                Thread.Sleep(1000);
+        private string ArcLines(string evidenceFile)
+        {
             string log = Deployment.ReadAppLog() ?? string.Empty;
             string lines = string.Join(Environment.NewLine,
                 log.Split('\n').Where(l => l.Contains("[#212-diag]", StringComparison.Ordinal)
                                            || l.Contains("event=rdp_reconnect", StringComparison.Ordinal)
                                            || l.Contains("auto_reconnect_stopped", StringComparison.Ordinal)));
-            File.WriteAllText(Path.Combine(_evidenceDir, "arc-events.txt"), lines);
+            File.WriteAllText(Path.Combine(_evidenceDir, evidenceFile), lines);
             TestContext.Out.WriteLine(lines);
-
-            Assert.That(lines, Does.Contain("[#212-diag]"), "no ARC event reached the handlers");
-            Assert.That(reconnected, Is.True, "a drop while awake did not reconnect");
-            Assert.That(lines, Does.Not.Contain("auto_reconnect_stopped"), "a drop while awake was stopped as if after a sleep");
+            return lines;
         }
 
         private AutomationElement Row(string name)

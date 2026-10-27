@@ -2079,13 +2079,42 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// The RDC 7+ form of the ARC announcement (DISPID 34). It was not subscribed, so an ARC the
         /// control announced only this way left no <c>rdp_reconnect</c> line, no drop for the link
         /// monitor and a login time measured from the original connect. Only the older
-        /// <c>OnAutoReconnecting</c> (DISPID 17) can stop ARC, so the #212 gate stays there and this
-        /// one only records the attempt; when both are raised the attempt is recorded once.
+        /// <c>OnAutoReconnecting</c> (DISPID 17) can answer "stop", but RDC 10.0.26100 does not raise
+        /// it, so the #212 gate also runs here and stops the attempt by closing the session. When both are
+        /// raised the attempt is recorded once.
         /// </summary>
         private void RDPEvent_OnAutoReconnecting2(int disconnectReason, bool networkAvailable, int attemptCount, int maxAttemptCount)
         {
             ArcDiag($"OnAutoReconnecting2 (DISPID 34) reason={disconnectReason} attempt={attemptCount}/{maxAttemptCount} network={networkAvailable}");
             NoteAutoReconnecting(disconnectReason, attemptCount);
+
+            // #212: RDC 10.0.26100 raises only this event, never OnAutoReconnecting (lab, 2026-10-27),
+            // so the stop when an attempt is announced has to be made here too. This event has no
+            // answer to give the control: close the session once the event has returned, rather than
+            // destroying the control from inside its own event.
+            if (_arcGate.StoppedAfterResume || _arcGate.ShouldContinue(Environment.TickCount64, DateTime.UtcNow))
+                return;
+            Control? control = Control;
+            try
+            {
+                if (control is { IsHandleCreated: true, IsDisposed: false })
+                {
+                    control.BeginInvoke((Action)StopAnnouncedAttemptAfterResume);
+                    return;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                // The handle went away between the check and the call: the tab is closing anyway.
+                return;
+            }
+            StopAnnouncedAttemptAfterResume();
+        }
+
+        private void StopAnnouncedAttemptAfterResume()
+        {
+            if (Volatile.Read(ref _closeStarted) != 0 || Control?.IsDisposed != false) return;
+            StopAutoReconnectAfterResume("announced");
         }
 
         /// <summary>
@@ -2203,11 +2232,16 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void StopAutoReconnectAfterResume(string point)
         {
+            if (Volatile.Read(ref _closeStarted) != 0) return;
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "auto_reconnect_stopped_after_resume_" + point,
                 _phaseClock.ElapsedMs, RdpVersion?.ToString());
             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                 $"Automatic reconnection to {connectionInfo.Hostname} stopped: this computer was asleep since the session was last active.");
-            Disconnect();
+            // Close, not Disconnect: in the lab a Disconnect during the reconnection did not end it.
+            // The control announced another attempt (reason 1) and attached the session again 4.5 s
+            // later, and a second Disconnect then failed with 0x80004005. Closing destroys the
+            // control, and the reconnection with it.
+            Close();
         }
 
         /// <summary>
