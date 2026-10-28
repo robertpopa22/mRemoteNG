@@ -69,6 +69,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         // library load make that one slower, so the open that pays for it says so.
         private static int s_anyControlCreated;
         private readonly RdpPhaseClock _phaseClock = new();
+        private RdpInputDiagnostics? _inputDiagnostics;
         protected uint DesktopScaleFactor
         {
             get
@@ -335,6 +336,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 {
                     Application.RemoveMessageFilter(this);
                 }
+                _inputDiagnostics?.Record(RdpInputReason.ControlState);
             }
         }
 
@@ -374,6 +376,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             OpenTimer?.Mark("control_new");
             Control.Disposed += OnControlDisposed;
             base.Initialize();
+            AttachInputDiagnostics();
             OpenTimer?.Mark("host_attach");
 
             try
@@ -395,6 +398,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
 
                 SetRdpClientPropertiesAsync(false).GetAwaiter().GetResult();
+                _inputDiagnostics?.SetPhase(RdpInputPhase.Initialized);
                 RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialized",
                     diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
 
@@ -418,6 +422,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             OpenTimer?.Mark("control_new");
             Control.Disposed += OnControlDisposed;
             base.Initialize();
+            AttachInputDiagnostics();
             OpenTimer?.Mark("host_attach");
 
             try
@@ -439,6 +444,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
 
                 await SetRdpClientPropertiesAsync(true);
+                _inputDiagnostics?.SetPhase(RdpInputPhase.Initialized);
                 RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "initialized",
                     diagnosticsStopwatch.ElapsedMilliseconds, RdpVersion.ToString());
 
@@ -562,6 +568,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         public override bool Connect()
         {
             loginComplete = false;
+            _inputDiagnostics?.SetPhase(RdpInputPhase.Connecting);
             SetEventHandlers();
             _phaseClock.Connect();
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "connect_requested", 0,
@@ -608,6 +615,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             StopLinkProbe();
             void PrepareClose()
             {
+                _inputDiagnostics?.SetPhase(RdpInputPhase.Closing);
                 if (_rdpClient == null || Control?.IsDisposed != false) return;
                 RemoveEventHandlers();
                 if (_rdpClient.Connected == 1)
@@ -773,6 +781,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public override void Focus()
         {
+            _inputDiagnostics?.Record(RdpInputReason.FocusRequested);
             try
             {
                 if (Control is { ContainsFocus: false })
@@ -783,6 +792,26 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpFocusFailed, ex);
+            }
+            finally
+            {
+                _inputDiagnostics?.Record(RdpInputReason.FocusReturned);
+            }
+        }
+
+        private void AttachInputDiagnostics()
+        {
+            try
+            {
+                _inputDiagnostics?.Dispose();
+                _inputDiagnostics = null;
+                _inputDiagnostics = new RdpInputDiagnostics(Control!, _diagnosticRdpSession,
+                    () => (_viewOnly, _redirectKeys, Properties.OptionsStartupExitPage.Default.DisableRefocus));
+            }
+            catch (Exception ex)
+            {
+                try { RuntimeDiagnostics.SafeException("rdp_input", ex); }
+                catch { /* Diagnostics must not prevent an RDP connection opening. */ }
             }
         }
 
@@ -2059,6 +2088,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private AutoReconnectContinueState RDPEvent_OnAutoReconnecting(int disconnectReason, int attemptCount)
         {
+            _inputDiagnostics?.SetPhase(RdpInputPhase.Reconnecting);
             ArcDiag($"OnAutoReconnecting (DISPID 17) reason={disconnectReason} attempt={attemptCount}");
             NoteAutoReconnecting(disconnectReason, attemptCount);
 
@@ -2085,6 +2115,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         /// </summary>
         private void RDPEvent_OnAutoReconnecting2(int disconnectReason, bool networkAvailable, int attemptCount, int maxAttemptCount)
         {
+            _inputDiagnostics?.SetPhase(RdpInputPhase.Reconnecting);
             ArcDiag($"OnAutoReconnecting2 (DISPID 34) reason={disconnectReason} attempt={attemptCount}/{maxAttemptCount} network={networkAvailable}");
             NoteAutoReconnecting(disconnectReason, attemptCount);
 
@@ -2197,6 +2228,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnAutoReconnected()
         {
+            _inputDiagnostics?.SetPhase(RdpInputPhase.Connected);
             long outageMs = _networkStats.Reconnected(Environment.TickCount64);
             RuntimeDiagnostics.RdpReconnect(_diagnosticRdpSession, "reconnected", null, null, outageMs);
             _linkProbe?.Reconnected();
@@ -2401,6 +2433,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnDisconnected(int discReason)
         {
+            _inputDiagnostics?.SetPhase(RdpInputPhase.Disconnected);
             const int UI_ERR_NORMAL_DISCONNECT = 0xB08;
             const int UI_ERR_NLA_NOT_ENABLED = 0xB09;
             const int UI_ERR_CONNECT_FAILED_DOWN = 0x1807;
@@ -2493,6 +2526,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnConnected()
         {
+            _inputDiagnostics?.SetPhase(RdpInputPhase.Connected);
             if (Interlocked.Exchange(ref _countedLive, 1) == 0)
                 ProcessResourceSnapshot.RdpOpened();
             _phaseClock.Connected();
@@ -2532,6 +2566,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnLoginComplete()
         {
             loginComplete = true;
+            _inputDiagnostics?.SetPhase(RdpInputPhase.LoggedIn);
             long loginMs = _phaseClock.ElapsedMs;
             bool reconnect = _phaseClock.LoginComplete();
             RuntimeDiagnostics.RdpPhase(_diagnosticRdpSession, "login_complete",
@@ -2568,6 +2603,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnEnterFullScreenMode()
         {
+            _inputDiagnostics?.Record(RdpInputReason.Fullscreen);
             try
             {
                 // Fix for #1294: RDP session on wrong monitor's taskbar
@@ -2656,6 +2692,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnLeaveFullscreenMode()
         {
+            _inputDiagnostics?.Record(RdpInputReason.Fullscreen);
             try
             {
                 Fullscreen = false;
@@ -3039,6 +3076,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
+                _inputDiagnostics?.Dispose();
+                _inputDiagnostics = null;
                 if (Control != null)
                 {
                     Control.Disposed -= OnControlDisposed;

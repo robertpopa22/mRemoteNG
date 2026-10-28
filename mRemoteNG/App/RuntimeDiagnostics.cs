@@ -11,6 +11,7 @@ using System.Threading;
 using log4net;
 using mRemoteNG.App.Diagnostics;
 using mRemoteNG.App.Info;
+using mRemoteNG.Connection.Protocol.RDP;
 
 namespace mRemoteNG.App
 {
@@ -191,6 +192,57 @@ namespace mRemoteNG.App
         }
 
         internal static string NewCorrelationId() => Guid.NewGuid().ToString("N")[..12];
+
+        internal static void RdpInput(string rdpSession, RdpInputSample sample) =>
+            WriteInfo("rdp_input", RdpInputFields(rdpSession, sample));
+
+        internal static string FormatRdpInput(string rdpSession, RdpInputSample sample) =>
+            string.Join(" ", RdpInputFields(rdpSession, sample).Select(field => $"{field.Key}={field.Value}"));
+
+        private static FieldValue[] RdpInputFields(string rdpSession, RdpInputSample sample)
+        {
+            RdpInputSnapshot state = sample.State;
+            return
+            [
+                Field("rdp_session", SafeCorrelationId(rdpSession)),
+                Field("reason", sample.Reason switch
+                {
+                    RdpInputReason.Lifecycle => "lifecycle", RdpInputReason.ManagedFocus => "managed_focus",
+                    RdpInputReason.ManagedBlur => "managed_blur", RdpInputReason.ControlState => "control_state",
+                    RdpInputReason.FocusRequested => "focus_requested", RdpInputReason.FocusReturned => "focus_returned",
+                    RdpInputReason.Sample => "sample", RdpInputReason.Fullscreen => "fullscreen", _ => "unknown"
+                }),
+                Field("phase", state.Phase switch
+                {
+                    RdpInputPhase.Initialized => "initialized", RdpInputPhase.Connecting => "connecting",
+                    RdpInputPhase.Connected => "connected", RdpInputPhase.LoggedIn => "logged_in",
+                    RdpInputPhase.Reconnecting => "reconnecting", RdpInputPhase.Disconnected => "disconnected",
+                    RdpInputPhase.Closing => "closing", _ => "unknown"
+                }),
+                Number("elapsed_ms", Math.Max(0, sample.ElapsedMs)),
+                Number("suppressed", Math.Max(0, sample.Suppressed)),
+                Field("thread_focus", state.ThreadFocus switch
+                {
+                    RdpInputFocus.Unavailable => "unavailable", RdpInputFocus.None => "none",
+                    RdpInputFocus.Host => "host", RdpInputFocus.NativeChild => "native_child",
+                    RdpInputFocus.Other => "other", _ => "unknown"
+                }),
+                Field("foreground", state.Foreground switch
+                {
+                    RdpInputForeground.None => "none", RdpInputForeground.Application => "application",
+                    RdpInputForeground.Other => "other", RdpInputForeground.Unavailable => "unavailable", _ => "unknown"
+                }),
+                Field("thread_activation", state.ThreadActivation switch
+                {
+                    RdpInputActivation.Unavailable => "unavailable", RdpInputActivation.None => "none",
+                    RdpInputActivation.HostRoot => "host_root", RdpInputActivation.Other => "other", _ => "unknown"
+                }),
+                Boolean("control_ready", state.Ready), Boolean("visible", state.Visible), Boolean("enabled", state.Enabled),
+                Boolean("managed_focused", state.ManagedFocused), Boolean("managed_contains_focus", state.ManagedContainsFocus),
+                Boolean("current_tab", state.CurrentTab), Boolean("view_only", state.ViewOnly),
+                Boolean("redirect_keys", state.RedirectKeys), Boolean("refocus_disabled", state.RefocusDisabled)
+            ];
+        }
 
         private static volatile string _lastStartupPhase = "none";
 
