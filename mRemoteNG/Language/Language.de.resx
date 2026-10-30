@@ -414,7 +414,7 @@ Starte mit neuer Datei.</value>
     <value>Verbinden (mit Optionen)</value>
   </data>
   <data name="ConnenctionClosedByUser" xml:space="preserve">
-    <value>Verbindung zu {0} mit {1} wurde vom Benutzer {2} getrennt.  (Description: " &amp; Prot.InterfaceControl.Info.Description &amp; "; User Field: " &amp; Prot.InterfaceControl.Info.UserField &amp; ")"</value>
+    <value>Verbindung zu {0} mit {1} wurde vom Benutzer {2} getrennt.</value>
   </data>
   <data name="ConnenctionCloseEvent" xml:space="preserve">
     <value>Ereignis Verbindung beenden</value>
