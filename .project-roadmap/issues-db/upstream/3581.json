@@ -6,7 +6,7 @@
   "labels": [],
   "author": "SmearODeer",
   "created_at": "2026-10-19T23:19:47Z",
-  "github_updated_at": "2026-10-19T23:19:47Z",
+  "github_updated_at": "2026-10-28T22:41:42Z",
   "body_snippet": "## Problem\nOpening an existing connections file in a newer build can make it unusable in the version the user normally runs, with no warning, and the rolling backups can delete the last copy that still worked.\n\nThis happened during testing:\n1. A production `%APPDATA%\\mRemoteNG\\confCons.xml` (written by 1.76.20, `ConfVersion=\"2.6\"`) was opened in a `v1.78.2-dev` build to get a copy of the server list.\n2. The dev build saved straight back into that file in format 2.9, with no prompt. Folder expand...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,30 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-10-19T23:19:47Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABgiorWg",
+      "author": "cremenescu",
+      "date": "2026-10-28T19:38:25Z",
+      "snippet": "I'm working on a PR for the first point: on the first start, copy the files of `%APPDATA%\\mRemoteNG` that the new folder does not have yet, without touching the old folder, so 1.76 keeps its own copy. A second PR carries the options over (#1359). Details in #3538; I'll link both here.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABgmQQrA",
+      "author": "cremenescu",
+      "date": "2026-10-28T22:41:42Z",
+      "snippet": "The PR for the first point is #3617. The options are carried over in #3616.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-28T22:41:42Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-21T06:45:43Z",
+  "last_synced": "2026-10-30T03:47:52Z",
   "notes": ""
 }

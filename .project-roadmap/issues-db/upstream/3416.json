@@ -8,7 +8,7 @@
   ],
   "author": "obtim",
   "created_at": "2026-08-09T18:14:19Z",
-  "github_updated_at": "2026-10-02T14:44:39Z",
+  "github_updated_at": "2026-10-28T22:53:00Z",
   "body_snippet": "# Security Audit — mRemoteNG 1.78.2-NB (3405)\n\n- **Tag:** `20260222-v1.78.2-NB-(3405)` · **Commit:** `ff3da2c` · **TFM:** `net10.0`\n- **Method:** static source review (762 `.cs`). No runtime/build. No PoC included.\n- **Baseline:** CVE-2023-30367 (CVSS 7.5, CWE-312/316) — checked for regression.\n\nSeverity: **HIGH** = credential compromise realistic · **MEDIUM** = weakens crypto/needs conditions · **LOW/INFO** = hardening.\n\n---\n\n## Summary table\n\n| ID | Severity | Issue | Location |\n|----|--------...",
   "our_status": "new",
   "priority": null,
@@ -34,12 +34,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABgmdMMQ",
+      "author": "cremenescu",
+      "date": "2026-10-28T22:53:00Z",
+      "snippet": "I went through the list on the current `v1.78.2-dev` (25ef453a). Everything in it is still in the code, but some of it is a design decision rather than a bug, and some fixes cost more than they look:\n\n- **H-1 (`mR3m`)**: it is the key of a connections file without a master password of its own, which is what lets such a file open on any machine and for any user, from a share for instance. A master password is the way out today; changing the default is a product decision more than a fix.\n- **H-2 (...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-02T14:44:39Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-10-28T22:53:00Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-04T06:27:42Z",
+  "last_synced": "2026-10-30T03:47:52Z",
   "notes": ""
 }

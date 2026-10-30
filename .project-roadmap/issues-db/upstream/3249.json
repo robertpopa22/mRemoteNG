@@ -11,7 +11,7 @@
   ],
   "author": "julesbobb",
   "created_at": "2026-04-01T14:28:39Z",
-  "github_updated_at": "2026-05-06T09:53:31Z",
+  "github_updated_at": "2026-10-28T18:28:46Z",
   "body_snippet": "## Description\n\nAfter saving empty or invalid SQL Server database credentials via the Options page, the application enters a permanent crash loop — failing to start on every subsequent launch and requiring manual config file intervention to recover.\n\n## Steps to Reproduce\n\n1. Open **Tools → Options → Connections** (DB settings section)\n2. Enable the SQL Server option and leave the server/credentials fields empty (or enter invalid values)\n3. Save and close the Options dialog\n4. Observe the SQL co...",
   "our_status": "new",
   "priority": null,
@@ -19,11 +19,30 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-05-06T09:53:31Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABgfiZBA",
+      "author": "SmearODeer",
+      "date": "2026-10-28T17:08:25Z",
+      "snippet": "I'd like to fix this, but the right behavior is a design choice, so I'm checking with you first.\n\n**What I found (v1.78.2-dev, e3b0108e):**\n- `SqlServerPage.SaveSettings()` has no validation. SQL Server can be switched on and saved with an empty server or database name, and nothing requires **Test Connection**.\n- In `Runtime.LoadConnections()` the SQL failure dialog's **Exit** (`default:`) changes nothing, so every start fails the same way, as reported.\n- **Open Connection File** (`case 1`) does...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABghML8A",
+      "author": "Kvarkas",
+      "date": "2026-10-28T18:28:46Z",
+      "snippet": "hello, thanks for such. \n\nI may think correct logic will be as follow:\nif user dont do any changes, we dont resave them (was fix a time ago, to avoid saving data whats is already exist)\nif user do change - on exit it should ask to save changes (I expecting that happened to other option pages)\n\nidealy i want to reorganise this a bit but not yet have time, perhaps you would like to work on this bit if you familiar with mysql (or other dbs) \nSo we need a repository (kind of) \"providers\" where user ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-28T18:28:46Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-05-25T14:28:55Z",
+  "last_synced": "2026-10-30T03:47:52Z",
   "notes": ""
 }

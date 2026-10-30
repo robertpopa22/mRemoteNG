@@ -11,7 +11,7 @@
   ],
   "author": "Neustradamus",
   "created_at": "2026-10-02T14:45:54Z",
-  "github_updated_at": "2026-10-23T18:12:12Z",
+  "github_updated_at": "2026-10-28T22:41:41Z",
   "body_snippet": "Dear @mRemoteNG team,\n\nAfter several requests, tickets, ...\n\nWhen a new stable version will be released with CVE fixes?\n\nRECALL: Currently, the latest is always 1.76.20 (2019-04-12) with a lot of vulnerabilities.\n\nThanks in advance.",
   "our_status": "new",
   "priority": null,
@@ -64,12 +64,39 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABghpp-A",
+      "author": "Kvarkas",
+      "date": "2026-10-28T18:51:19Z",
+      "snippet": "thanks for such, much apreaciated! ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABgiopSA",
+      "author": "cremenescu",
+      "date": "2026-10-28T19:38:23Z",
+      "snippet": "Following up on the settings: I checked it on a Windows 10 machine with 1.76.20 (MSI) and two framework-dependent nightlies, 3702 and 3725, unpacked into the same folder the way an installed update would be.\n\n- Going from 3702 to 3725, only `Properties.Settings` came across; the values in `OptionsThemePage`, `OptionsCredentialsPage` and `OptionsTabsPanelsPage` went back to their defaults (#1359).\n- 1.76.20 keeps its options in `%LOCALAPPDATA%\\mRemoteNG\\mRemoteNG.exe_Url_<hash>\\1.76.20.24615\\user...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABgmQOtw",
+      "author": "cremenescu",
+      "date": "2026-10-28T22:41:41Z",
+      "snippet": "The two PRs are up: #3616 carries every settings class over to a new version and imports the options of 1.76 (#1359), and #3617 copies the 1.76 data folder across on the first start (#3581). Both were tried on Windows 10 with 1.76.20 and the `-FD` nightlies; the details are in each PR.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-23T18:12:12Z",
-  "unread_comments": 5,
+  "comments_cursor": "2026-10-28T22:41:41Z",
+  "unread_comments": 8,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-24T05:49:54Z",
+  "last_synced": "2026-10-30T03:47:52Z",
   "notes": ""
 }
