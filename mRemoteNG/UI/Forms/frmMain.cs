@@ -737,16 +737,22 @@ namespace mRemoteNG.UI.Forms
         /// </summary>
         protected override void OnDpiChanged(DpiChangedEventArgs e)
         {
-            base.OnDpiChanged(e);
-            InterfaceFont.ApplyToOpenForms();
-            LogDpiState("dpi change", e.DeviceDpiOld, e.DeviceDpiNew);
-            if (FitChromeFonts())
-                LogDpiState("dpi change after fit", e.DeviceDpiNew, e.DeviceDpiNew);
-
-            // #209: a combo box whose window Windows refused to recreate during the DPI change is
-            // given one back after the whole change has been delivered.
-            if (IsHandleCreated)
-                BeginInvoke(RecreateLostWindows);
+            try
+            {
+                base.OnDpiChanged(e);
+                InterfaceFont.ApplyToOpenForms();
+                LogDpiState("dpi change", e.DeviceDpiOld, e.DeviceDpiNew);
+                if (FitChromeFonts())
+                    LogDpiState("dpi change after fit", e.DeviceDpiNew, e.DeviceDpiNew);
+            }
+            finally
+            {
+                // #209: a combo box whose window Windows refused to recreate during the DPI change is
+                // given one back after the whole change has been delivered. #224: queued even when
+                // the font work above throws, which would otherwise skip the repair.
+                if (!IsDisposed && !Disposing && IsHandleCreated)
+                    BeginInvoke(RecreateLostWindows);
+            }
         }
 
         private void RecreateLostWindows()
