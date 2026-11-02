@@ -6,7 +6,7 @@
   "labels": [],
   "author": "herigson",
   "created_at": "2026-10-29T13:04:13Z",
-  "github_updated_at": "2026-10-29T13:04:23Z",
+  "github_updated_at": "2026-10-30T06:54:47Z",
   "body_snippet": "## Summary\nWhen a connection uses the 1Password external credential provider and 1Password needs to authorize the CLI, both mRemoteNG and 1Password freeze. The 1Password authorization window appears blank and \"Not Responding\". After about 2 minutes `op` fails and both apps recover:\n\n> 1Password read failed\n> Error running op item get: [ERROR] ... error initializing client: authorization timeout\n\nThe only workaround I found is to quit 1Password from the tray and reopen it, then connect again. Aft...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-10-29T13:04:23Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABhG91Vg",
+      "author": "cremenescu",
+      "date": "2026-10-30T06:54:47Z",
+      "snippet": "I checked this against the current `v1.78.2-dev` (25ef453a), and it holds there too:\n\n- `OnePasswordCli.RunCommand` starts `op`, then calls `ReadToEnd()` on stdout, `ReadToEnd()` on stderr and `WaitForExit()`, with no timeout.\n- It is called synchronously from `RdpProtocol.SetCredentials()`, `RdpProtocol.SetRdGateway()` and `PuttyBase.Connect()`, all on the UI thread, so mRemoteNG stops answering window messages until `op` returns. If 1Password's authorization prompt waits on the calling app, as...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-10-30T06:54:47Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-30T03:47:52Z",
+  "last_synced": "2026-11-02T16:11:15Z",
   "notes": ""
 }

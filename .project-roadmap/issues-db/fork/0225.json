@@ -1,0 +1,45 @@
+{
+  "number": 225,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[v1.84.0 (Release 3716) x64 STABLE] External Tools: RDP (mstsc.exe) Integration does not work at all",
+  "state": "closed",
+  "labels": [],
+  "author": "judaspriest",
+  "created_at": "2026-11-02T14:56:04Z",
+  "github_updated_at": "2026-11-02T18:16:55Z",
+  "body_snippet": "Hello @robertpopa22 \n\nI created an External Tool, which was pinned to the \"symbol bar\" - it's an RDP Connection to a Windows Server 2019, which shall be opened with mstsc.exe and integrated inside the mRemoteNG Panel. Unfortunately, this connection runs in full screen mode outside of mRemoteNG...\n\nOS (Client) = Windows 11 25H2\nMSTSC.exe = 10.0.26100.9711\n\nOS (Server) = Windows Server 2019\n\nExternal Tool looks like this:\n\nName: TestVM\nFile Name: C:\\Windows\\System32\\mstsc.exe\nParameter: /v:servern...",
+  "our_status": "wontfix",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-02",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABiHuLPw",
+      "author": "robertpopa22",
+      "date": "2026-11-02T18:16:54Z",
+      "snippet": "Thank you for the tool definition and the log. The line \"Internal Program Title: Remote desktop connection\" is what showed us which window was docked.\n\n**What we tried in our lab.** This was a Windows Server 2025 virtual machine, not your Windows 11 25H2 or mstsc 10.0.26100.9711. The target was a lab Windows server, not Server 2019. We used an external tool with your settings: `C:\\Windows\\System32\\mstsc.exe`, `/v:<lab server>`, \"Try integration\" on, pressed from the toolbar. Over the next 40 s w...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-11-02T18:16:55Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-11-02T18:17:04Z",
+  "notes": "closed not a defect 2026-11-02: mstsc session window separate top-level; lab docked only progress dialog"
+}

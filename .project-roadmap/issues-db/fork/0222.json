@@ -2,13 +2,13 @@
   "number": 222,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[v1.84.0 (Release 3716) x64 STABLE] External Tools: Integration does not work reliable",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "judaspriest",
   "created_at": "2026-10-27T08:04:41Z",
-  "github_updated_at": "2026-10-27T08:10:56Z",
+  "github_updated_at": "2026-11-02T18:16:50Z",
   "body_snippet": "Hello :-)\n\nThis issue continues to show up more often than it should.\n\nI created an External Tool, which was pinned to the \"symbol bar\" - it's a link to a VMWare vCenter, which shall be opened with MS Edge Browser and integrated inside the mRemoteNG Panel.\n\nOS = Windows 11 25H2\nMS Edge = 156.0.4314.50\n\n\nExternal Tool looks like this:\n\nName: vCenter\nFile Name: C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\nParameter: https://servername.domain.local/ui/ --edge-kiosk-type=fullscreen\nW...",
-  "our_status": "needs_info",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -23,13 +23,51 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-02",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-10-27T08:10:56Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABhW9QVQ",
+      "author": "robertpopa22",
+      "date": "2026-10-30T21:16:24Z",
+      "snippet": "Thank you for the exact tool definition, the Edge version and the log lines. The order of those lines is what explains it.\n\n**What your log shows.** \"Connection closed\" arrives before the warning. That means the `msedge.exe` that mRemoteNG started had already exited while mRemoteNG was still looking for its window. Edge does that when an Edge with the same profile is already running: the new process hands the address to the running browser and exits. The page opens in your existing Edge window, ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABiCvp0Q",
+      "author": "judaspriest",
+      "date": "2026-11-02T14:23:08Z",
+      "snippet": "You're amazing! It works!\n\nBy adding --user-data-dir=%LOCALAPPDATA%\\mRemoteNG\\Edge-vCenter --no-first-run before the hostname, the integration works perfectly fine for MS Edge links 👍 \n\nI want to thank you for your ongoing good work! We are heavily using mRemoteNG with a 10 MB connection file containing 2500 entries. SSH, RDP, HTTPS, many self written powershell scripts, ... - so we really appreciate your help!\n\nYou can close the ticket now! 🥇 \n\nP.S. To keep things clean and separated, I will op...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABiHuD6Q",
+      "author": "robertpopa22",
+      "date": "2026-11-02T18:16:49Z",
+      "snippet": "Thank you for testing it the same day and for writing down the exact parameter order that worked. That makes the answer reusable for the next person who docks Edge.\n\nClosing as **fixed**, as you suggested. In summary:\n- Docking Edge depends on Edge itself. When Edge with the same profile is already running, the started `msedge.exe` hands the page to that browser and exits, so mRemoteNG has nothing to dock. `--user-data-dir=...` gives the tool its own profile, and then it docks. That is a configu...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-11-02T18:16:50Z",
+  "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-10-30T21:16:25Z",
-  "notes": "Edge single-instance hand-off; --user-data-dir workaround docks in lab 3/3; de.resx VB tail fixed 15e7679df; nightly 1.84.0+71c01ebeef; asked reporter to retry"
+  "waiting_for_us": false,
+  "last_synced": "2026-11-02T18:17:04Z",
+  "notes": "closed fixed 2026-11-02: reporter confirmed --user-data-dir; i18n fix in nightly"
 }

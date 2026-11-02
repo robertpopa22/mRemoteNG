@@ -10,7 +10,7 @@
   ],
   "author": "Alessio71",
   "created_at": "2025-12-11T22:41:50Z",
-  "github_updated_at": "2026-02-26T14:21:19Z",
+  "github_updated_at": "2026-11-02T17:57:56Z",
   "body_snippet": "1.78.2.3228\n\nWith external tool, if password contains a comma, the comma acts as a divider and the variable get split.\nIf I have a password 123456789, the comma is just omitted, if I have a password 1234,56789 the external tool receives two strings, divided in two, one 1234 and the other 56789\nTo test it, create a .cmd file that echoes the %Password% 1234,56789\n```\n@echo off\necho \"%1%\"\necho \"%2%\"\npause\n```\nand pass %Password% to it, the `echo \"%2%\"` should give a `\"\" ` result if working normally...",
   "our_status": "released",
   "priority": "P2-bug",
@@ -186,12 +186,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABiHVuuA",
+      "author": "SmearODeer",
+      "date": "2026-11-02T17:57:56Z",
+      "snippet": "@Kvarkas I have a fix ready for this issue. While working on it, I found a related security problem in the same code, so on Oct 28 I emailed you the details and the patch privately, to the address on your commits. The subject starts with \"mRemoteNG: private report\". Could you check whether it arrived? It may be in spam. I won't open the PR until you've looked, or I'll open it whenever you prefer.\n\nIt would also help to turn on private vulnerability reporting (Settings > Code security), so report...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:21:19Z",
-  "unread_comments": 11,
+  "comments_cursor": "2026-11-02T17:57:56Z",
+  "unread_comments": 12,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-11-02T18:17:04Z",
   "notes": "ITERATION EXAMPLE: Fix applied (PR #3109) -> user tested -> still broken for .cmd batch files -> re-opened. Batch .cmd files handle commas differently than direct process invocation. Need to wrap password in double-quotes when passing to .cmd scripts, or use ProcessStartInfo with ArgumentList instead of Arguments string."
 }
