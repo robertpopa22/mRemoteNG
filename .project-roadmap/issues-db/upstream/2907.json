@@ -12,7 +12,7 @@
   ],
   "author": "igor2x",
   "created_at": "2025-10-16T15:04:20Z",
-  "github_updated_at": "2026-02-17T22:35:03Z",
+  "github_updated_at": "2026-11-02T22:35:51Z",
   "body_snippet": "On mRemoteNG 1.78.2 NB 3220:\n\n1. File | Options and just click on OK button at the bottom.\n2. Double click to open SSH session.\n3. Close down connection and Yes button to confirm.\n4. File | Options and problem appears. No options are displayed, only blank sheet.\n5. Closing down empty Options and General panel and mRemoteNG freezes for some time.\n6. Double click to open SSH session and close down the session.\n7. File | Options and nothing happens.\n\nPlenty of bugs... it looks AI is writing a lot o...",
   "our_status": "released",
   "priority": null,
@@ -47,12 +47,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABiM7n8A",
+      "author": "SmearODeer",
+      "date": "2026-11-02T22:35:51Z",
+      "snippet": "Opening and closing Options repeatedly, including with an SSH session opened and closed in between, did not freeze in our testing on the current v1.78.2-dev build.\n\nCould you retest with **1.78.2 NB 3725** or newer? If it still happens, please post the exact steps and the log.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-17T22:35:03Z",
-  "unread_comments": 3,
+  "comments_cursor": "2026-11-02T22:35:51Z",
+  "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-21T06:14:50Z",
+  "last_synced": "2026-11-03T07:07:18Z",
   "notes": ""
 }

@@ -12,7 +12,7 @@
   ],
   "author": "lujiaxing",
   "created_at": "2026-02-26T02:31:38Z",
-  "github_updated_at": "2026-10-13T16:55:20Z",
+  "github_updated_at": "2026-11-02T22:35:53Z",
   "body_snippet": "After I removed a user profile (exported from legacy version), The application crashed on startup:\n\nException at 0x00007FFAB6A0313C (in mRemoteNG.exe): 0xC0000005: Access violation reading location 0x0000000000000000.\n\nLog:\n```\n2026-02-26 10:06:01,148 [2] INFO  - mRemoteNG Connection Manager 1.78.2 (Nightly Build 3228) x64 starting.\n2026-02-26 10:06:01,151 [2] INFO  - Command Line: B:\\mRemoteNG\\mRemoteNG.dll\n2026-02-26 10:06:01,201 [2] INFO  - Microsoft Windows 10 企业版  64-bit\n2026-02-26 10:06:01...",
   "our_status": "released",
   "priority": "P2-bug",
@@ -72,12 +72,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABiM7pZA",
+      "author": "SmearODeer",
+      "date": "2026-11-02T22:35:52Z",
+      "snippet": "Could you retest with **1.78.2 NB 3725** or newer?\n\nIf the main window is still missing or mRemoteNG still crashes at startup, please post:\n- the log\n- your monitor setup (number of screens, scaling)\n- whether it starts normally after renaming the `user.config` file under `%LOCALAPPDATA%\\Profi-KOM_Ltd\\` (this resets the saved window position and settings)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-13T16:55:20Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-11-02T22:35:53Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-10-16T04:52:42Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-11-03T07:07:18Z",
   "notes": "AI triage (claude): Issue has no body or comments — no reproduction steps, no error details, no environment info provided.\nApproach: Request reproduction steps, OS version, .NET version, and any error messages or logs"
 }

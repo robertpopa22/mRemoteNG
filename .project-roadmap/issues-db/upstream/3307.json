@@ -11,7 +11,7 @@
   ],
   "author": "D3vil787",
   "created_at": "2026-05-13T08:54:54Z",
-  "github_updated_at": "2026-05-13T10:22:35Z",
+  "github_updated_at": "2026-11-02T22:21:22Z",
   "body_snippet": "```\nСообщение исключения\n\"Cannot access a disposed object.\nObject name: 'ConnectionWindow'.\"\n\nТрассировка стека\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n--- End of stack trace from previous location ---\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args,...",
   "our_status": "new",
   "priority": null,
@@ -19,11 +19,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-05-13T10:22:35Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABiMqVzA",
+      "author": "SmearODeer",
+      "date": "2026-11-02T22:21:22Z",
+      "snippet": "This looks like the same crash as #2706 and #3069: `ConnectionWindow.Prot_Event_Closed` called `Invoke` on a panel that was already disposed, from the background thread in `ProtocolBase.CloseBG`.\n\nThat code was changed in 763fffff (2026-09-16): it now returns when the panel is disposed or has no handle, and uses `BeginInvoke` instead of `Invoke`. The change is included in **1.78.2 NB 3725** (2026-10-02) and later.\n\nCould you retest with NB 3725 or newer? If the crash is gone, this issue can be c...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-02T22:21:22Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-05-25T14:28:55Z",
+  "last_synced": "2026-11-03T07:07:18Z",
   "notes": ""
 }

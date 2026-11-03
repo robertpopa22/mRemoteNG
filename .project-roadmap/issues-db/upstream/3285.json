@@ -13,7 +13,7 @@
   ],
   "author": "femarschall",
   "created_at": "2026-04-24T15:01:46Z",
-  "github_updated_at": "2026-05-26T15:55:32Z",
+  "github_updated_at": "2026-11-02T22:35:54Z",
   "body_snippet": "I've already installed this version on other computers and it worked fine.\n\nOn my main PC I deleted the old application and appdata folders but I cannot see the application window when I launch it:\n\n<img width=\"1918\" height=\"1072\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/e2305cce-3654-4b1b-9f07-8bda653a0281\" />\n\nThe \"move\" window also does not work:\n\n<img width=\"385\" height=\"217\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/4531ec90-9d1f-417e-b3d4-6971d0b528ad\" ...",
   "our_status": "new",
   "priority": null,
@@ -39,12 +39,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABiM7rig",
+      "author": "SmearODeer",
+      "date": "2026-11-02T22:35:54Z",
+      "snippet": "Could you retest with **1.78.2 NB 3725** or newer?\n\nIf the main window is still not visible, please post:\n- the log\n- your monitor setup (number of screens, scaling)\n- whether it appears after renaming the `user.config` file under `%LOCALAPPDATA%\\Profi-KOM_Ltd\\` (this resets the saved window position and settings)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-05-26T15:55:32Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-11-02T22:35:54Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-05T12:25:32Z",
+  "last_synced": "2026-11-03T07:07:18Z",
   "notes": ""
 }

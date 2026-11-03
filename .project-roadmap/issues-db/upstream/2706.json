@@ -13,7 +13,7 @@
   ],
   "author": "Inf-Sub",
   "created_at": "2025-06-21T19:57:20Z",
-  "github_updated_at": "2026-02-26T14:20:26Z",
+  "github_updated_at": "2026-11-02T22:21:19Z",
   "body_snippet": "```\nOS: Microsoft Windows NT 10.0.26100.0\nmRemoteNG Connection Manager Version: 1.78.2 (Nightly Build 2932) (and earlier: 1.77.1, 1.77.3)\nEdition: MSI\n```\n\n```\nCannot access a disposed object.\nObject name: 'ConnectionWindow'.\n```\n\n```\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\n--- End of stack trace from previous location ---\n   at System.Windows....",
   "our_status": "duplicate",
   "priority": null,
@@ -59,12 +59,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABiMqSTg",
+      "author": "SmearODeer",
+      "date": "2026-11-02T22:21:19Z",
+      "snippet": "This looks like the same crash as #3069 and #3307: `ConnectionWindow.Prot_Event_Closed` called `Invoke` on a panel that was already disposed, from the background thread in `ProtocolBase.CloseBG`.\n\nThat code was changed in 763fffff (2026-09-16): it now returns when the panel is disposed or has no handle, and uses `BeginInvoke` instead of `Invoke`. The change is included in **1.78.2 NB 3725** (2026-10-02) and later.\n\nCould you retest with NB 3725 or newer? If the crash is gone, this issue can be c...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:20:26Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-11-02T22:21:19Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-11-03T07:07:18Z",
   "notes": "Manual triage: Duplicate of #1656/#3062/#3069 - disposed ConnectionWindow crash on tab close. Already fixed in v1.79.0 PR #3106 with comprehensive dispose guards."
 }
