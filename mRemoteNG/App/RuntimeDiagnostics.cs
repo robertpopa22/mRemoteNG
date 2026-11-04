@@ -40,6 +40,7 @@ namespace mRemoteNG.App
         private static long _uiStallStartedTicks;
         private static int _uiStallReported;
         private static int _initialized;
+        private static int _stopped;
         private static bool _heartbeatLowPower;
         private static int _heartbeatPeriodMs;
         private static DateTime _heartbeatNextDueUtc;
@@ -167,8 +168,13 @@ namespace mRemoteNG.App
         internal static void PulseUi() =>
             Interlocked.Exchange(ref _lastUiPulseTicks, Stopwatch.GetTimestamp());
 
-        internal static void Shutdown()
+        /// <param name="reason">
+        /// <c>exit</c> when the message loop ended; <c>session_end</c> when Windows is logging off or
+        /// restarting, which ends the process before code after <c>Application.Run</c> can run.
+        /// </param>
+        internal static void Shutdown(string reason = "exit")
         {
+            if (Interlocked.Exchange(ref _stopped, 1) != 0) return;
             PowerAwareness.Changed -= OnPowerStateChanged;
             lock (StateLock)
             {
@@ -187,7 +193,9 @@ namespace mRemoteNG.App
                 exitSample = [];
             }
 
-            WriteInfo("process_stop", exitSample.Prepend(Number("uptime_ms", Uptime.ElapsedMilliseconds)).ToArray());
+            WriteInfo("process_stop", exitSample
+                .Prepend(Field("reason", reason))
+                .Prepend(Number("uptime_ms", Uptime.ElapsedMilliseconds)).ToArray());
             LogManager.Flush(2_000);
         }
 

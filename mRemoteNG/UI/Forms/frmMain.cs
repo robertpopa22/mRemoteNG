@@ -1069,6 +1069,11 @@ namespace mRemoteNG.UI.Forms
             }
 
             ClosePathDiagnostics.Log("main window FormClosing: done; the message loop should now end");
+
+            // A logoff or restart ends the process after the session-end messages, so the
+            // process_stop written after Application.Run never appears (2026-11-04 real-use log).
+            if (e.CloseReason == CloseReason.WindowsShutDown)
+                RuntimeDiagnostics.Shutdown("session_end");
             Debug.Print("[END] - " + Convert.ToString(DateTime.Now, CultureInfo.InvariantCulture));
         }
 
