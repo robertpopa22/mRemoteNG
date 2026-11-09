@@ -687,6 +687,31 @@ namespace mRemoteNG.UI.Window
             return activeControl;
         }
 
+        /// <summary>
+        /// Gives the previously active tab and control back once the caller has set up the opened
+        /// tab, not before. The caller creates the protocol's control right after this returns,
+        /// synchronously, and WinForms does not create a control whose tab is hidden: an RDP tab
+        /// opened in the background then waited ten seconds and failed with "RDP ActiveX control
+        /// creation timed out" (#228, the second tab restored from the saved layout). Posting the
+        /// restore lets that creation run while the tab is still the active one.
+        /// </summary>
+        private void RestoreFocusSnapshotAfterSetup(FocusSnapshot? snapshot, ConnectionTab openedTab)
+        {
+            if (snapshot == null) return;
+
+            if (IsHandleCreated && !IsDisposed)
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    if (!IsDisposed) RestoreFocusSnapshot(snapshot, openedTab);
+                }));
+            }
+            else
+            {
+                RestoreFocusSnapshot(snapshot, openedTab);
+            }
+        }
+
         private void RestoreFocusSnapshot(FocusSnapshot? snapshot, ConnectionTab openedTab)
         {
             if (snapshot == null) return;
@@ -842,7 +867,7 @@ namespace mRemoteNG.UI.Window
                 }
                 else
                 {
-                    RestoreFocusSnapshot(focusSnapshot, conTab);
+                    RestoreFocusSnapshotAfterSetup(focusSnapshot, conTab);
                 }
 
                 return conTab;
@@ -867,6 +892,13 @@ namespace mRemoteNG.UI.Window
                 {
                     reusableTab.DockHandler.Activate();
                     reusableTab.Focus();
+                }
+                else
+                {
+                    // Same as a new tab: a hidden tab never gets its protocol control (#228).
+                    FocusSnapshot focusSnapshot = CaptureFocusSnapshot();
+                    reusableTab.DockHandler.Activate();
+                    RestoreFocusSnapshotAfterSetup(focusSnapshot, reusableTab);
                 }
 
                 return reusableTab;
