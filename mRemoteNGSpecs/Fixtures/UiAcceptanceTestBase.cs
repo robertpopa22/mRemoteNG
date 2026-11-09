@@ -324,9 +324,9 @@ namespace mRemoteNGSpecs.Fixtures
         /// a value proves nothing about whether it survives — #134 and #117 were both cases where
         /// the in-memory state was right and the saved state was not.
         /// </summary>
-        protected void RestartApplication()
+        protected void RestartApplication(bool clickCloseButton = false)
         {
-            bool exited = CloseApplicationAndWaitForExit();
+            bool exited = CloseApplicationAndWaitForExit(clickCloseButton: clickCloseButton);
             Assert.That(exited, Is.True, "the application did not exit, so it never wrote its settings");
 
             Driver.Dispose();

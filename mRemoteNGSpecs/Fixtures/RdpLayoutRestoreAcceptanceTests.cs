@@ -50,8 +50,9 @@ namespace mRemoteNGSpecs.Fixtures
             Deployment.WriteSettings(new Dictionary<string, string>(StringComparer.Ordinal)
             {
                 ["OpenConsFromLastSession"] = "True",
-                ["ConfirmCloseConnection"] = "0",
+                ["ConfirmCloseConnection"] = "1", // ConfirmCloseEnum.Never: the restart closes live sessions
                 ["KeepTabsOpenAfterDisconnect"] = "True",
+                ["CheckForUpdatesAsked"] = "True",
             });
         }
 
@@ -114,7 +115,16 @@ namespace mRemoteNGSpecs.Fixtures
             UiWait.Until(() => RdpTabCount() >= 2, "both RDP tabs on the first start", TimeSpan.FromSeconds(30));
             AssertNoCrash("first start");
 
-            RestartApplication();
+            // The second session's certificate prompt can arrive ~30 s after start; a close sent
+            // while it is up is swallowed by that modal. Settle both sessions first.
+            DateTime settle = DateTime.UtcNow.AddSeconds(60);
+            while (DateTime.UtcNow < settle &&
+                   Count(CurrentProcessLog(), @"event=rdp_phase [^\r\n]*phase=connected ") < 2)
+                AnswerExpectedPrompts(TimeSpan.FromSeconds(2));
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(2));
+
+            // A live RDP session takes Alt+F4 into the remote desktop, so close from the title bar.
+            RestartApplication(clickCloseButton: true);
 
             string second = WaitForBothControls("restart (layout path)");
             Assert.That(second, Does.Not.Contain(TimeoutText),
