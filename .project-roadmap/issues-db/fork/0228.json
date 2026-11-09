@@ -8,7 +8,7 @@
   ],
   "author": "vansanper",
   "created_at": "2026-11-06T09:15:13Z",
-  "github_updated_at": "2026-11-09T13:31:54Z",
+  "github_updated_at": "2026-11-09T18:06:02Z",
   "body_snippet": "**What happens** (and what you expected instead):\n\nAfter restarting the app (and when it is auto-started at logon), mRemoteNG reopens the previously open sessions. The first RDP tab connects fine. The second RDP tab never gets its ActiveX control and a modal error dialog appears: `RDP ActiveX control creation timed out after 10 seconds.` (screenshot attached). The tab stays stuck in \"initializing\" (log: `initialize_failed`, duration 326640 ms) until I click OK on the dialog, which then closes it...",
   "our_status": "testing",
   "priority": null,
@@ -35,6 +35,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-11-09",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -46,12 +56,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABkjDhyQ",
+      "author": "robertpopa22",
+      "date": "2026-11-09T18:06:02Z",
+      "snippet": "A follow-up to the earlier reply: the lab check that could not run this morning has now run.\n\nThe scenario starts mRemoteNG with two RDP connections to our lab's Linux target, lets both connect, closes the app with the title-bar button, and starts it again so both tabs come back from the saved layout. It then reads the app's own log.\n\n- On the code before the change, the first start was fine: two tabs, both RDP controls created. After the restart, the first tab got its control. The second tab lo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-11-09T13:31:54Z",
+  "comments_cursor": "2026-11-09T18:06:02Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-11-09T13:32:10Z",
-  "notes": "fix 09e9c0f1c in nightly 1.84.0+a982dd6773; retest asked; lab scenario not yet run"
+  "last_synced": "2026-11-09T18:06:08Z",
+  "notes": "lab scenario: pre-fix FAIL (2nd tab 10 s timeout), post-fix PASS (3033ff417); awaiting reporter on nightly 1.84.0+a982dd6773"
 }

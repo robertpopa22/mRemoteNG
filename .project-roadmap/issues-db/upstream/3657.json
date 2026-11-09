@@ -1,0 +1,34 @@
+{
+  "number": 3657,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Proposal: unlock the user profile with Windows Hello (fingerprint, face or PIN)",
+  "state": "open",
+  "labels": [],
+  "author": "SmearODeer",
+  "created_at": "2026-11-09T17:05:07Z",
+  "github_updated_at": "2026-11-09T17:08:10Z",
+  "body_snippet": "## Proposal: unlock the user profile with Windows Hello (fingerprint, face or PIN)\n\n@Kvarkas, before writing any code I'd like to check that this fits where you're taking user profiles (#3522 / #3523).\n\n### Idea\nPeople who use a profile type the profile password at every start. Where Windows Hello is set up, mRemoteNG could offer fingerprint, face or Hello PIN instead, the same way password managers do. The typed password always stays available as a fallback.\n\n### How it would work\n1. **Setup:**...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABkhy_QA",
+      "author": "Kvarkas",
+      "date": "2026-11-09T17:08:10Z",
+      "snippet": "Yes, fully aprove such, still recovering a bit slow on reviewing, will try get to speed th8s week",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-09T17:08:10Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-09T18:06:08Z",
+  "notes": ""
+}
