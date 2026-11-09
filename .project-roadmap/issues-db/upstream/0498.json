@@ -9,9 +9,9 @@
     "Ready",
     "UI/UX"
   ],
-  "author": "Xechorizo",
+  "author": "xechor",
   "created_at": "2017-04-10T20:40:04Z",
-  "github_updated_at": "2026-02-26T14:08:42Z",
+  "github_updated_at": "2026-11-09T13:39:43Z",
   "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nMay be related to #321.\r\n\r\nPlease add the ability to insert custom resolutions, or add a wider range of resolutions (eg 2560x1080).\r\n\r\nOther solutions allow for this, and it would help make mRemoteNG more competitive. We're currently using mRemoteNG instead of others because \"Redirect > Key Combinations\" is available, but we trade this for custom resolutions in doing so.",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -50,7 +50,7 @@
     },
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI5MzA5MDEzNQ==",
-      "author": "Xechorizo",
+      "author": "xechor",
       "date": "2017-04-10T21:53:23Z",
       "snippet": "Apologies if this has been addressed already; I see MR-985 is closed as a duplicate of MR-938, which adds 1600x900. I'm unable to type a custom resolution in to Appearance > Resolution. Is there another way to set this, or a way to add custom entries to the dropdown menu? I can also pursue the subreddit, if best to do so there.",
       "is_ours": false,
@@ -83,12 +83,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABkdK5hw",
+      "author": "Cyber5imon",
+      "date": "2026-11-09T13:39:42Z",
+      "snippet": "This existed in 1.77.3 but has been removed in 1.78.2. Why?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:08:42Z",
-  "unread_comments": 4,
+  "comments_cursor": "2026-11-09T13:39:43Z",
+  "unread_comments": 5,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-11-09T16:40:16Z",
   "notes": "AI triage: Users cannot type custom RDP resolutions in the dropdown, limiting them to preset values which don't cover all monitor configurations\nApproach: Convert the Resolution dropdown from a fixed enum/list to a ComboBox that accepts custom WxH input, validate the format, and persist user-defined resolutions alongside the built-in presets"
 }
