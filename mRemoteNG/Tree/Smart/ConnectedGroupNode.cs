@@ -2,7 +2,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Versioning;
 using mRemoteNG.App;
-using mRemoteNG.Config.Connections;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
 using mRemoteNG.Tree;
@@ -18,31 +17,34 @@ namespace mRemoteNG.Tree.Smart
             IsExpanded = true;
         }
 
+        private ConnectionTreeModel? _model;
+
+        // Each load builds a new tree and a new node for it (ConnectionTreeWindow), so this node
+        // listens to its own model only. It used to subscribe to ConnectionsService.ConnectionsLoaded
+        // as well and never unsubscribe: every later load then reached every earlier node, each of
+        // which subscribed to the new model and kept its own old tree alive. A session with frequent
+        // SQL sync reloads accumulated one full tree per reload until a 32-bit process ran out of
+        // memory inside this node's RefreshList (#227).
         public void Initialize()
         {
             var model = Runtime.ConnectionsService.ConnectionTreeModel;
             if (model != null)
             {
+                _model = model;
                 // Subscribe to property changes to detect connection status changes
                 model.PropertyChanged += OnModelPropertyChanged;
-                
+
                 // Initial population
                 RefreshList();
             }
-            
-            // Also listen if model changes (ConnectionsLoaded event in Runtime?)
-            Runtime.ConnectionsService.ConnectionsLoaded += OnConnectionsLoaded;
         }
 
-        private void OnConnectionsLoaded(object? sender, ConnectionsLoadedEventArgs e)
+        /// <summary>Stops listening, so a replaced tree does not keep reaching this node.</summary>
+        public void Detach()
         {
-             // Re-subscribe if model changed
-             if (e.NewConnectionTreeModel != null)
-             {
-                 e.NewConnectionTreeModel.PropertyChanged -= OnModelPropertyChanged; // Safety
-                 e.NewConnectionTreeModel.PropertyChanged += OnModelPropertyChanged;
-                 RefreshList();
-             }
+            if (_model != null)
+                _model.PropertyChanged -= OnModelPropertyChanged;
+            _model = null;
         }
 
         private void OnModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

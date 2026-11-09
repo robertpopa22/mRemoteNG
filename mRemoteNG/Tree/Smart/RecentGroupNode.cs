@@ -24,6 +24,15 @@ namespace mRemoteNG.Tree.Smart
             RefreshList();
         }
 
+        /// <summary>
+        /// Stops listening to the recent list. The service lives for the whole process, so a node
+        /// of a replaced tree that stays subscribed keeps that whole tree alive (#227).
+        /// </summary>
+        public void Detach()
+        {
+            RecentConnectionsService.Instance.RecentConnectionsChanged -= OnRecentConnectionsChanged;
+        }
+
         private void OnRecentConnectionsChanged(object? sender, EventArgs e)
         {
             // Must invoke on UI thread if needed? 

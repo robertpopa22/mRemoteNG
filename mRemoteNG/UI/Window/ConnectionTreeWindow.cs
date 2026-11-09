@@ -35,6 +35,8 @@ namespace mRemoteNG.UI.Window
         private bool _suppressSelectionPreview;
         private ToolStripLabel? _syncStatusLabel;
         private RemoteConnectionsSyncronizer? _subscribedSyncronizer;
+        private mRemoteNG.Tree.Smart.ConnectedGroupNode? _connectedNode;
+        private mRemoteNG.Tree.Smart.RecentGroupNode? _recentNode;
 
         public ConnectionInfo SelectedNode => ConnectionTree.SelectedNode;
 
@@ -362,6 +364,11 @@ namespace mRemoteNG.UI.Window
             var model = connectionsLoadedEventArgs.NewConnectionTreeModel;
             if (model != null)
             {
+                // The nodes of the tree this load replaces must stop listening, or the
+                // process-lifetime events they hold keep every earlier tree alive (#227).
+                _connectedNode?.Detach();
+                _recentNode?.Detach();
+
                 var smartRoot = new mRemoteNG.Tree.Smart.SmartGroupRoot();
 
                 var connected = new mRemoteNG.Tree.Smart.ConnectedGroupNode();
@@ -374,6 +381,8 @@ namespace mRemoteNG.UI.Window
 
                 connected.Initialize();
                 recent.Initialize();
+                _connectedNode = connected;
+                _recentNode = recent;
             }
 
             ConnectionTree.ConnectionTreeModel = connectionsLoadedEventArgs.NewConnectionTreeModel;
