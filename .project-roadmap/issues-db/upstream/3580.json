@@ -6,7 +6,7 @@
   "labels": [],
   "author": "SmearODeer",
   "created_at": "2026-10-19T23:19:03Z",
-  "github_updated_at": "2026-11-03T08:54:11Z",
+  "github_updated_at": "2026-11-06T13:34:55Z",
   "body_snippet": "## Summary\nOn `v1.78.2-dev`, every startup shows a **\"Profile password\"** prompt. If the user types a password, which is the natural response to a password prompt, mRemoteNG silently switches to a new, empty SQLite profile database, and their connections file is never loaded. The Connections tree comes up empty, and any connection created from then on is saved to the profile database rather than to the file.\n\nThe prompt was added in #3523 (\"[WIP] Add functionality for user profiles\"). There is n...",
   "our_status": "new",
   "priority": null,
@@ -23,12 +23,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABjoVrlA",
+      "author": "sassy-lily",
+      "date": "2026-11-06T13:34:55Z",
+      "snippet": "I have this problem too with build 3725.\n\nEvery time I start the application (I'm using the assets attached to the release) the application keeps asking me for a password and a password confirmation.\n\nIt doesn't matter if I cancel the pop-up or confirm it with an empty password, the next time the application starts the pop-up is back.\n\nI did not try to enter a password as I have no idea why it's asking me for a password and what the consequences are in entering one.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-11-03T08:54:11Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-11-06T13:34:55Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-04T09:20:33Z",
+  "last_synced": "2026-11-09T12:40:06Z",
   "notes": ""
 }

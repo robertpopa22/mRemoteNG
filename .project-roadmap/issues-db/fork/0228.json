@@ -1,0 +1,57 @@
+{
+  "number": 228,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Error Session restore at startup: 2nd RDP tab fails with \"RDP ActiveX control creation timed out after 10 seconds.\" (1.84.0 build 3752)",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "vansanper",
+  "created_at": "2026-11-06T09:15:13Z",
+  "github_updated_at": "2026-11-09T13:31:54Z",
+  "body_snippet": "**What happens** (and what you expected instead):\n\nAfter restarting the app (and when it is auto-started at logon), mRemoteNG reopens the previously open sessions. The first RDP tab connects fine. The second RDP tab never gets its ActiveX control and a modal error dialog appears: `RDP ActiveX control creation timed out after 10 seconds.` (screenshot attached). The tab stays stuck in \"initializing\" (log: `initialize_failed`, duration 326640 ms) until I click OK on the dialog, which then closes it...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-09",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-09",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABkdBDBg",
+      "author": "robertpopa22",
+      "date": "2026-11-09T13:31:54Z",
+      "snippet": "Thank you for this report. The two timestamps you lined up, `before_target_control` at 10:02:11.798 and the timeout at 10:02:21.807, pointed straight at the cause. So did the observation that the first tab was already connected while the second one waited.\n\nThe cause is not the first tab's connect. Tabs restored from the saved layout are opened in the background. The new tab was shown and then hidden again at once, because the tab that was active before was given back. Only then was its RDP cont...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-11-09T13:31:54Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-11-09T13:32:10Z",
+  "notes": "fix 09e9c0f1c in nightly 1.84.0+a982dd6773; retest asked; lab scenario not yet run"
+}

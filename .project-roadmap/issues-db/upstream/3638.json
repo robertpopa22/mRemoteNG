@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bartuszekj",
   "created_at": "2026-11-04T00:24:13Z",
-  "github_updated_at": "2026-11-04T00:24:13Z",
+  "github_updated_at": "2026-11-06T13:31:20Z",
   "body_snippet": "I just upgraded from v1.78.2-NB-3228 to v1.78.2-NB-3702, and now I have a persistent General tab that is a parent to all remote desktop connections that cannot be hidden or collapsed and takes up valuable real estate:\n\n<img width=\"265\" height=\"220\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/4ca48d77-c360-48b8-a30c-5071eb01c28e\" />\n\nIn Options -> Tabs & panels, all settings are unchecked, including \"Create an empty panel when mRemoteNG starts\" and \"Always show panel tabs\".\n\n<img ...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-11-04T00:24:13Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABjoRgEQ",
+      "author": "sassy-lily",
+      "date": "2026-11-06T13:31:20Z",
+      "snippet": "I'll chime in too. The problem has existed for some time and still exists in build 3725 (the latest one as of now). There seems to be no way to disable the panel.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-06T13:31:20Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-04T09:20:33Z",
+  "last_synced": "2026-11-09T12:40:06Z",
   "notes": ""
 }

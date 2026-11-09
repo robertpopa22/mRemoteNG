@@ -9,7 +9,7 @@
   ],
   "author": "pgfiore",
   "created_at": "2022-09-20T07:27:18Z",
-  "github_updated_at": "2026-02-26T14:06:37Z",
+  "github_updated_at": "2026-11-04T14:45:16Z",
   "body_snippet": "Hi there\r\nI've moved to the latest from a way earlier release. Now I'm facing a small bore and I wonder whether win11 21H2 is involved or not.\r\n\r\nSaid that I'm a strong supporter of keyboard ALT-TAB to move between windows. Since using 1.77.3, the mRemoteNG window brings to the top, but it does not \"get the focus\". So, I must click onto it before starting typing.\r\n\r\nPlease, any suggestions are welcome.\r\npf",
   "our_status": "released",
   "priority": "P2-bug",
@@ -96,12 +96,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABi2UkGg",
+      "author": "lieszkol",
+      "date": "2026-11-04T14:45:16Z",
+      "snippet": "The double-press happens because the embedded PuTTYNG.exe is a separate window from the mRemoteNG frame, so Alt+Tab hops session → frame → app. Here’s an AutoHotkey v1 workaround that treats mRemoteNG + its embedded terminals as one group (plus AttachThreadInput to make the switch land in a single press): https://gist.github.com/lieszkol/cf4c85c8a2de636ac5f47a5d6b10576b",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:06:37Z",
-  "unread_comments": 5,
+  "comments_cursor": "2026-11-04T14:45:16Z",
+  "unread_comments": 6,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-11-09T12:40:06Z",
   "notes": "AI triage (gemini): The issue likely stems from incomplete or incorrect handling of window activation messages (e.g., WM_ACTIVATE, WM_ACTIVATEAPP) within the main application window or connection windows when the application loses and regains focus via Alt-Tab, leading to remote session input not being correctly routed or the application itself not being the active window. This directly impacts user experience and productivity.\nApproach: Investigate FrmMain.cs and ConnectionWindow.cs for WndProc overrides or event handlers (Activated, Deactivated, Enter, Leave) that manage application and control focus. Specifically, look for how WM_ACTIVATE or WM_ACTIVATEAPP messages are handled, or if they are being missed. It might involve ensuring the correct child window or ActiveX control receives focus when the main application window is activated. Potentially, the issue could be related to how the embedded protocol controls regain focus after the parent application is deactivated and reactivated."
 }

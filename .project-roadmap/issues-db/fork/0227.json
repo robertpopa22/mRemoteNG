@@ -1,0 +1,59 @@
+{
+  "number": 227,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.OutOfMemoryException: Exception of type 'System.OutOfMemoryException' was thrown.",
+  "state": "closed",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-11-04T14:34:13Z",
+  "github_updated_at": "2026-11-09T13:31:57Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.OutOfMemoryException`\r\n**Message:** Exception of type 'System.OutOfMemoryException' was thrown.\r\n\r\n### Stack Trace\r\n```\r\n   at IReadOnlyList<ConnectionInfo> mRemoteNG.Tree.ConnectionTreeModel.GetRecursiveChildList() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/Tree/ConnectionTreeModel.cs:line 73\r\n   at void mRemoteNG.Tree.Smart.ConnectedGroupNode.RefreshList() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/Tree/Smart/ConnectedGroupNode.cs:line 77\r\n   at void m...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-09",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-09",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABkdBFBg",
+      "author": "robertpopa22",
+      "date": "2026-11-09T13:31:56Z",
+      "snippet": "This crash came from 1.84.0 stable, 32-bit, during a multi-user sync reload from the SQL database. The stack runs through the handler of the \"Connected\" smart group. That handler can only run on a group node from a tree that a previous reload had already replaced.\n\nEach reload builds a new tree with new \"Connected\" and \"Recent\" groups. The old groups stayed subscribed to events that live as long as the program does. Through them, every replaced tree stayed in memory, and every reload walked all ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-11-09T13:31:57Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-11-09T13:32:10Z",
+  "notes": "closed fixed; leak fix b66a9629a in nightly 1.84.0+a982dd6773"
+}
