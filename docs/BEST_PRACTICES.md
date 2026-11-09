@@ -32,6 +32,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-023](bp/BP-023-zoom-follows-reported-size.md) | 1 | 2026-10-21 | SmartSizing never enlarges a smaller session; zoom it with `ZoomLevel`, and only for the size the remote desktop reports, never for a requested size that a failing link may lose. |
 | [BP-024](bp/BP-024-subscribed-is-not-raised.md) | 1 | 2026-10-27 | A subscribed ActiveX event may never be raised by the control; prove in the lab that its handler runs before a guard depends on it, and read a stop that never appears in the field as that warning. |
 | [BP-025](bp/BP-025-close-ends-arc.md) | 1 | 2026-10-27 | `Disconnect()` does not end an RDP automatic reconnection that has started (the control attaches the session again); close the session, after the control's event has returned. |
+| [BP-026](bp/BP-026-stale-handler-frame.md) | 1 | 2026-11-09 | A crash inside a handler that only an object of a replaced tree or window can run is a leak report; find the process-lifetime event that keeps it, unsubscribe on replace, and count subscribers in a test. |
 
 ## Retired
 
