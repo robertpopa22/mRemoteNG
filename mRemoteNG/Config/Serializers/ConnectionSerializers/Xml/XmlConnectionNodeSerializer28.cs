@@ -193,7 +193,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("RDGatewayUseConnectionCredentials", connectionInfo.RDGatewayUseConnectionCredentials));
             element.Add(new XAttribute("RDGatewayExternalCredentialProvider", connectionInfo.RDGatewayExternalCredentialProvider));
             element.Add(new XAttribute("RDGatewayUserViaAPI", connectionInfo.RDGatewayUserViaAPI ?? string.Empty));
-            element.Add(new XAttribute("RDGatewayAccessToken", connectionInfo.RDGatewayAccessToken ?? string.Empty));
+            // A gateway access token is a credential: encrypted like the gateway password, and left out
+            // with it. An empty token stays empty, so files without one pay no key derivation for it.
+            element.Add(_saveFilter.SavePassword && !string.IsNullOrEmpty(connectionInfo.RDGatewayAccessToken)
+                ? new XAttribute("RDGatewayAccessToken", _cryptographyProvider.Encrypt(connectionInfo.RDGatewayAccessToken, _encryptionKey))
+                : new XAttribute("RDGatewayAccessToken", ""));
 
             element.Add(_saveFilter.SaveUsername
                 ? new XAttribute("RDGatewayUsername", connectionInfo.RDGatewayUsername ?? string.Empty)

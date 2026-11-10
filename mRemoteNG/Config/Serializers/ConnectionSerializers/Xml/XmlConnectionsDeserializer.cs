@@ -38,6 +38,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
         private BlockCipherModes _cipherMode;
         private int _kdfIterations;
         private readonly List<(Action<string> Setter, string CipherText)> _pendingDecrypts = [];
+        private readonly List<(Action<string> Setter, string StoredText)> _pendingPlainOrEncrypted = [];
 
         public Func<Optional<SecureString>>? AuthenticationRequestor { get; set; } = authenticationRequestor;
 
@@ -104,11 +105,13 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
                 phaseSw.Restart();
                 _pendingDecrypts.Clear();
+                _pendingPlainOrEncrypted.Clear();
                 AddNodesFromXmlRecursive(rootXmlElement, _rootNodeInfo);
                 long nodesMs = phaseSw.ElapsedMilliseconds;
 
                 phaseSw.Restart();
                 ProcessPendingDecrypts();
+                ProcessPendingPlainOrEncrypted();
                 long batchDecryptMs = phaseSw.ElapsedMilliseconds;
 
                 // Safety net: refuse to hand back an empty tree when the source input
@@ -654,7 +657,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Inheritance.UseRedirectionServerName = a.GetAttrBool("InheritUseRedirectionServerName");
                     connectionInfo.RDGatewayExternalCredentialProvider = a.GetAttrEnum("RDGatewayExternalCredentialProvider", ExternalCredentialProvider.None);
                     connectionInfo.RDGatewayUserViaAPI = a.GetAttr("RDGatewayUserViaAPI");
-                    connectionInfo.RDGatewayAccessToken = a.GetAttr("RDGatewayAccessToken");
+                    DeferDecryptOrKeepPlain(v => connectionInfo.RDGatewayAccessToken = v, a, "RDGatewayAccessToken");
                     connectionInfo.Inheritance.RDGatewayExternalCredentialProvider = a.GetAttrBool("InheritRDGatewayExternalCredentialProvider");
                     connectionInfo.Inheritance.RDGatewayUserViaAPI = a.GetAttrBool("InheritRDGatewayUserViaAPI");
                 }
@@ -747,6 +750,40 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             }
 
             return connectionInfo;
+        }
+
+        /// <summary>
+        /// Values that earlier versions of this fork wrote in plain text and this version encrypts.
+        /// Each one is decrypted on its own, so a plain value cannot fail the batch that carries the
+        /// passwords; one that is not ciphertext is kept as it was and is encrypted on the next save.
+        /// </summary>
+        private void ProcessPendingPlainOrEncrypted()
+        {
+            foreach ((Action<string> setter, string stored) in _pendingPlainOrEncrypted)
+            {
+                string value;
+                try
+                {
+                    value = _decryptor.DecryptBatch([stored])[0];
+                }
+                catch (Exception)
+                {
+                    // Not ciphertext: base64 that does not parse, a payload too short for the cipher,
+                    // or one whose tag does not verify (EncryptionException). The file key itself was
+                    // already proven by the protected check, so this is a value written in plain text.
+                    value = stored;
+                }
+
+                setter(value);
+            }
+        }
+
+        private void DeferDecryptOrKeepPlain(Action<string> setter, Dictionary<string, string> attrs, string attributeName)
+        {
+            string stored = attrs.GetAttr(attributeName);
+            if (string.IsNullOrEmpty(stored))
+                return;
+            _pendingPlainOrEncrypted.Add((setter, stored));
         }
 
         private void DeferDecrypt(Action<string> setter, Dictionary<string, string> attrs, string attributeName)
