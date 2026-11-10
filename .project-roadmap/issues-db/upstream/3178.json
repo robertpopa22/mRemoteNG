@@ -6,7 +6,7 @@
   "labels": [],
   "author": "krwudtke",
   "created_at": "2026-02-25T20:50:30Z",
-  "github_updated_at": "2026-02-27T19:11:18Z",
+  "github_updated_at": "2026-11-10T11:09:06Z",
   "body_snippet": "The option to \"Reconnect to previously opened sessions on startup\" isn't working on the latest NB (3405).\nIt used to work and is really a must have option, at least for me. If the app is closed with sessions open, when reopened, no sessions reconnect.",
   "our_status": "released",
   "priority": "P2-bug",
@@ -63,12 +63,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABkz7RvA",
+      "author": "cremenescu",
+      "date": "2026-11-10T10:46:14Z",
+      "snippet": "I looked at why this stopped working. Reopening relies on the `Connected` attribute that is written into the connection file when it is saved at exit, and in 1.78 that save almost never captures the open connections:\n\n- Saving at exit now depends on \"Save connections\" (`SaveConnectionsFrequency`). Its default value is unassigned and only becomes \"after every edit\" once Options > Connections has been opened; in both cases nothing is saved at exit, so `Connected` keeps whatever the last save wrote...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABk0V1Qw",
+      "author": "cremenescu",
+      "date": "2026-11-10T11:09:06Z",
+      "snippet": "A correction to my comment above: the first point is wrong. With the default settings, opening or closing a connection tab already saves the connection file, and the tabs closed at exit are not saved, so `Connected` does match the tabs that were open. The \"on exit\" case in the second point is real, but the Options window no longer offers that setting, so few people can reach it.\n\nWhat does turn the reopening off is Options > Advanced > \"Automatically try to reconnect when disconnected from serve...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-27T19:11:18Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-11-10T11:09:06Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-11-10T21:21:15Z",
   "notes": "AI triage (claude): Reconnect on startup is a known feature that regressed in NB 3405, likely caused by changes to session persistence or startup initialization logic.\nApproach: Trace startup sequence to find where previously-open connections are loaded and re-connected; compare behavior between NB 3404 and 3405 to identify the regression."
 }

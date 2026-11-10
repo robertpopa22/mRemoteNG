@@ -6,7 +6,7 @@
   "labels": [],
   "author": "sibusiso-dhludhlu",
   "created_at": "2026-10-24T18:57:32Z",
-  "github_updated_at": "2026-10-24T18:57:32Z",
+  "github_updated_at": "2026-11-10T12:09:59Z",
   "body_snippet": "MRemoteng HTTPS not autofilling defined  username or password",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-10-24T18:57:32Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABk1c6Hg",
+      "author": "cremenescu",
+      "date": "2026-11-10T12:09:59Z",
+      "snippet": "The HTTP and HTTPS protocols don't use the connection's Username and Password, and 1.76 didn't either: the code that would have sent them as an `Authorization: Basic` header was already commented out there. So this is a missing feature rather than a regression.\n\nWhat could be added is answering the site's own sign-in prompt (HTTP Basic authentication) with those credentials, through WebView2's `BasicAuthenticationRequested` event. Filling in a login form on a web page can't be done reliably in g...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-10T12:09:59Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-26T06:53:29Z",
+  "last_synced": "2026-11-10T21:21:15Z",
   "notes": ""
 }

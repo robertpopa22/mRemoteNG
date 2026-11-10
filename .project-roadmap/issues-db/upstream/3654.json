@@ -6,7 +6,7 @@
   "labels": [],
   "author": "DijitalRotan",
   "created_at": "2026-11-09T14:46:51Z",
-  "github_updated_at": "2026-11-09T14:46:51Z",
+  "github_updated_at": "2026-11-10T10:07:37Z",
   "body_snippet": "<img width=\"1173\" height=\"834\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a8093fde-854b-408c-b3c5-276b6346c331\" />\n\n```\nÖzel Durum İletisi\n\"Invalid Value: The value of DockAreas conflicts with current DockState.\"\n\nYığın İzleme\n   at WeifenLuo.WinFormsUI.Docking.DockContentHandler.set_DockAreas(DockAreas value)\n   at mRemoteNG.UI.Tabs.ConnectionTab.RestoreDockAreasAfterMinimize()\n   at mRemoteNG.UI.Tabs.ConnectionTab.OnFormClosing(FormClosingEventArgs e)\n   at System.Windows.Form...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-11-09T14:46:51Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABkzNNFQ",
+      "author": "cremenescu",
+      "date": "2026-11-10T10:07:37Z",
+      "snippet": "This is the same crash as #3548. It was fixed by #3551 on October 7, after Nightly Build 3725 (October 2), the version in your report. The fix will be in the next nightly build. Until then, the crash happens when closing a connection tab that was minimized to the bottom of the window.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-10T10:07:37Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-09T16:40:16Z",
+  "last_synced": "2026-11-10T21:21:15Z",
   "notes": ""
 }

@@ -6,7 +6,7 @@
   "labels": [],
   "author": "lucacobbe",
   "created_at": "2026-10-21T12:35:41Z",
-  "github_updated_at": "2026-10-21T12:35:41Z",
+  "github_updated_at": "2026-11-10T10:23:27Z",
   "body_snippet": "```\nException Message\n\"Cannot access a disposed object.\nObject name: 'ConnectionWindow'.\"\n\nStack trace\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n   at System.Windows.Forms.Control.Invoke(Action method)\n   at mRemoteNG.Connection.Protocol.ProtocolBase.CloseBG()\n   at System.Threading.Thread.StartCallback()\n\nEnvironment\nOS: Microsoft Windows NT 10.0.26300.0\nmRemoteNG Connection Manager Version: 1.78.2 (Nightly Build 3702...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-10-21T12:35:41Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABkzgOpg",
+      "author": "cremenescu",
+      "date": "2026-11-10T10:23:27Z",
+      "snippet": "This is the same crash as #3307: `ProtocolBase.CloseBG` called back into a connection panel that was already disposed. It was fixed in 763fffff, which is included in Nightly Build 3725 (October 2); your report is from Nightly Build 3702.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-10T10:23:27Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-24T05:49:54Z",
+  "last_synced": "2026-11-10T21:21:15Z",
   "notes": ""
 }
