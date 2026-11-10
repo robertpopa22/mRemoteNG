@@ -181,6 +181,25 @@ namespace mRemoteNG.Connection.Protocol
             return PuttyProcess?.HasExited == false;
         }
 
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, byte> PasswordOnCommandLineWarned =
+            new(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// Logs, once per executable per session, that the password goes on PuTTY's command line,
+        /// where other local processes can read it. The password itself is never logged.
+        /// </summary>
+        internal static bool WarnPasswordOnCommandLine(string puttyPath, Version puttyVersion)
+        {
+            if (!PasswordOnCommandLineWarned.TryAdd(puttyPath, 0))
+                return false;
+
+            Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg,
+                $"PuTTY at '{puttyPath}' reports version {puttyVersion}, older than 0.81, so it has no -pwfile. " +
+                "The saved password is passed with -pw on its command line, where other local processes can read it. " +
+                "Use PuTTY 0.81 or later, or the bundled PuTTYNG, to keep it off the command line.", true);
+            return true;
+        }
+
         public static void CreatePipe(object oData)
         {
             string data = (string)oData;
@@ -800,6 +819,10 @@ namespace mRemoteNG.Connection.Protocol
                                                         }
                                                         else
                                                         {
+                                                            // Kept for clients without -pwfile (KiTTY, PuTTY before 0.81, an
+                                                            // exe without a version resource), which would otherwise lose
+                                                            // automatic logon. The exposure is logged rather than silent.
+                                                            WarnPasswordOnCommandLine(PuttyPath ?? string.Empty, puttyVersion);
                                                             arguments.Add("-pw", password);
                                                         }
                                                         // NOTE: -batch is a plink.exe (command-line) option, NOT a
