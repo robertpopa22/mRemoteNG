@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using mRemoteNG.Messages;
 using mRemoteNG.UI.Controls;
 using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.TaskDialog;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 
@@ -401,7 +402,12 @@ namespace mRemoteNG.UI.Window
                                         txtLocalFile.Text, txtRemoteFile.Text);
 
                 // Connect creates the protocol objects and makes the initial connection.
-                st.Connect();
+                if (!ConnectVerifyingHostKey(st))
+                {
+                    st.Disconnect();
+                    st.Dispose();
+                    return;
+                }
 
                 switch (Protocol)
                 {
@@ -425,6 +431,67 @@ namespace mRemoteNG.UI.Window
                 st?.Disconnect();
                 st?.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Connects, and when the server's host key is not trusted yet asks the user once whether
+        /// to trust it. A key refused on the retry as well is not offered a second time.
+        /// </summary>
+        private bool ConnectVerifyingHostKey(SecureTransfer transfer)
+        {
+            SshHostKeyOffer offer;
+            try
+            {
+                transfer.Connect();
+                return true;
+            }
+            catch (Exception) when (transfer.RejectedHostKey is { } rejected)
+            {
+                offer = rejected;
+            }
+
+            if (!ConfirmHostKey(offer, transfer.HostKeys.FilePath))
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                    string.Format(CultureInfo.CurrentCulture, Language.SshHostKeyNotTrusted, Describe(offer)));
+                return false;
+            }
+
+            transfer.HostKeys.Trust(offer);
+            try
+            {
+                transfer.Connect();
+                return true;
+            }
+            catch (Exception) when (transfer.RejectedHostKey is { } again)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,
+                    string.Format(CultureInfo.CurrentCulture, Language.SshHostKeyNotTrusted, Describe(again)));
+                return false;
+            }
+        }
+
+        private static string Describe(SshHostKeyOffer offer) =>
+            offer.Port == 22 ? offer.Host : $"{offer.Host}:{offer.Port}";
+
+        private bool ConfirmHostKey(SshHostKeyOffer offer, string storePath)
+        {
+            bool changed = offer.Status == SshHostKeyStatus.Changed;
+            string instruction = string.Format(CultureInfo.CurrentCulture,
+                changed ? Language.SshHostKeyChangedInstruction : Language.SshHostKeyUnknownInstruction,
+                Describe(offer));
+            string content = changed
+                ? string.Format(CultureInfo.CurrentCulture, Language.SshHostKeyChangedContent,
+                                offer.TrustedKeyType, offer.TrustedFingerprintSha256, offer.KeyType, offer.FingerprintSha256)
+                : string.Format(CultureInfo.CurrentCulture, Language.SshHostKeyUnknownContent,
+                                offer.KeyType, offer.FingerprintSha256);
+
+            // "Do not connect" is the first command and the focused one, so Enter refuses.
+            DialogResult result = CTaskDialog.ShowTaskDialogBox(this, Language.SshHostKeyTitle, instruction, content,
+                "", string.Format(CultureInfo.CurrentCulture, Language.SshHostKeyStoreFooter, storePath), "", "",
+                $"{Language.SshHostKeyDoNotConnect}|{Language.SshHostKeyTrustAndConnect}",
+                ETaskDialogButtons.None, changed ? ESysIcons.Error : ESysIcons.Warning, ESysIcons.Information, 0);
+            return result == DialogResult.OK && CTaskDialog.CommandButtonResult == 1;
         }
 
         private void AsyncCallback(IAsyncResult ar)

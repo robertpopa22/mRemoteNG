@@ -7142,6 +7142,87 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSH host key verification.
+        /// </summary>
+        internal static string SshHostKeyTitle {
+            get {
+                return ResourceManager.GetString("SshHostKeyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The authenticity of {0} cannot be established..
+        /// </summary>
+        internal static string SshHostKeyUnknownInstruction {
+            get {
+                return ResourceManager.GetString("SshHostKeyUnknownInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mRemoteNG has not connected to this server before. The server offers this {0} key:.
+        /// </summary>
+        internal static string SshHostKeyUnknownContent {
+            get {
+                return ResourceManager.GetString("SshHostKeyUnknownContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WARNING: the SSH host key of {0} has changed..
+        /// </summary>
+        internal static string SshHostKeyChangedInstruction {
+            get {
+                return ResourceManager.GetString("SshHostKeyChangedInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Someone could be intercepting this connection, or the server's key was replaced, for example after a reinstall..
+        /// </summary>
+        internal static string SshHostKeyChangedContent {
+            get {
+                return ResourceManager.GetString("SshHostKeyChangedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not connect.
+        /// </summary>
+        internal static string SshHostKeyDoNotConnect {
+            get {
+                return ResourceManager.GetString("SshHostKeyDoNotConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trust this key and connect.
+        /// </summary>
+        internal static string SshHostKeyTrustAndConnect {
+            get {
+                return ResourceManager.GetString("SshHostKeyTrustAndConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection to {0} refused: its SSH host key is not trusted..
+        /// </summary>
+        internal static string SshHostKeyNotTrusted {
+            get {
+                return ResourceManager.GetString("SshHostKeyNotTrusted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trusted keys are kept in {0}.
+        /// </summary>
+        internal static string SshHostKeyStoreFooter {
+            get {
+                return ResourceManager.GetString("SshHostKeyStoreFooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SSH transfer failed..
         /// </summary>
         internal static string SshTransferFailed {

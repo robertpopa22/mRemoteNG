@@ -315,6 +315,9 @@ Docked panel, two group boxes. **Connection**: Host/Port (`txtHost`/`txtPort`, d
 / User/Password (`txtUser`/`txtPassword`) / Protocol (`radProtSFTP`/`radProtSCP`). **Files**:
 Local file (`txtLocalFile`) / Remote file (`txtRemoteFile`) / **Browse** (local picker) /
 **Transfer** (`btnTransfer`).
+An untrusted server key opens the task dialog **SSH host key verification** with the SHA256
+fingerprint and two commands, **Do not connect** (focused) and **Trust this key and connect**.
+Trusted keys live in `ssh_known_hosts` (OpenSSH format) in the settings folder.
 
 ### 4.3 External Tools (`ExternalToolsWindow`)
 Docked panel: a `ListView` of tools (columns: Display Name, Filename, Arguments, Working

@@ -66,19 +66,52 @@ namespace mRemoteNG.Tools
             DstFile = dest.Trim('"');
         }
 
+        /// <summary>
+        /// The keys the user trusts. SSH.NET accepts any host key unless the HostKeyReceived
+        /// handler refuses it, so without this check a server in the middle would receive the
+        /// password in clear.
+        /// </summary>
+        internal SshHostKeyStore HostKeys
+        {
+            get => _hostKeys ??= new SshHostKeyStore(
+                Path.Combine(App.Info.SettingsFileInfo.SettingsPath, SshHostKeyStore.FileName));
+            set => _hostKeys = value;
+        }
+
+        private SshHostKeyStore? _hostKeys;
+
+        /// <summary>The key refused by the last Connect, or null when it was trusted.</summary>
+        public SshHostKeyOffer? RejectedHostKey { get; private set; }
+
         public void Connect()
         {
+            RejectedHostKey = null;
+
             if (Protocol == SSHTransferProtocol.SCP)
             {
+                ScpClt?.Dispose();
                 ScpClt = CreateScpClient();
+                ScpClt.HostKeyReceived += OnHostKeyReceived;
                 ScpClt.Connect();
             }
 
             if (Protocol == SSHTransferProtocol.SFTP)
             {
+                SftpClt?.Dispose();
                 SftpClt = new SftpClient(Host, Port, User, Password);
+                SftpClt.HostKeyReceived += OnHostKeyReceived;
                 SftpClt.Connect();
             }
+        }
+
+        internal void OnHostKeyReceived(object? sender, Renci.SshNet.Common.HostKeyEventArgs e)
+        {
+            // Refuse first: CanTrust starts as true, so anything that throws below must not
+            // leave the key accepted.
+            e.CanTrust = false;
+            SshHostKeyOffer offer = HostKeys.Check(Host, Port, SshHostKeyStore.KeyTypeOf(e.HostKey) ?? e.HostKeyName, e.HostKey);
+            e.CanTrust = offer.Status == SshHostKeyStatus.Trusted;
+            RejectedHostKey = e.CanTrust ? null : offer;
         }
 
         public void Disconnect()

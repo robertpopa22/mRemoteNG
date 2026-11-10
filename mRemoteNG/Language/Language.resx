@@ -1884,6 +1884,42 @@ If you run into such an error, please create a new connection file!</value>
   <data name="SshBackgroundTransferFailed" xml:space="preserve">
     <value>SSH background transfer failed!</value>
   </data>
+  <data name="SshHostKeyTitle" xml:space="preserve">
+    <value>SSH host key verification</value>
+  </data>
+  <data name="SshHostKeyUnknownInstruction" xml:space="preserve">
+    <value>The authenticity of {0} cannot be established.</value>
+  </data>
+  <data name="SshHostKeyUnknownContent" xml:space="preserve">
+    <value>mRemoteNG has not connected to this server before. The server offers this {0} key:
+
+SHA256:{1}
+
+Compare it with the fingerprint the server's administrator gives you (on the server: ssh-keygen -lf /etc/ssh/ssh_host_*_key.pub). Trust the key only if both are the same.</value>
+  </data>
+  <data name="SshHostKeyChangedInstruction" xml:space="preserve">
+    <value>WARNING: the SSH host key of {0} has changed.</value>
+  </data>
+  <data name="SshHostKeyChangedContent" xml:space="preserve">
+    <value>Someone could be intercepting this connection, or the server's key was replaced, for example after a reinstall.
+
+Trusted key: {0} SHA256:{1}
+Key offered now: {2} SHA256:{3}
+
+Connect only if the server's administrator confirms the new key.</value>
+  </data>
+  <data name="SshHostKeyDoNotConnect" xml:space="preserve">
+    <value>Do not connect</value>
+  </data>
+  <data name="SshHostKeyTrustAndConnect" xml:space="preserve">
+    <value>Trust this key and connect</value>
+  </data>
+  <data name="SshHostKeyNotTrusted" xml:space="preserve">
+    <value>Connection to {0} refused: its SSH host key is not trusted.</value>
+  </data>
+  <data name="SshHostKeyStoreFooter" xml:space="preserve">
+    <value>Trusted keys are kept in {0}</value>
+  </data>
   <data name="SshTransferFailed" xml:space="preserve">
     <value>SSH transfer failed.</value>
   </data>
