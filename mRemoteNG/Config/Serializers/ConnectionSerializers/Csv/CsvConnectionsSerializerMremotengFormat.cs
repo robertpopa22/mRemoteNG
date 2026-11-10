@@ -26,7 +26,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             ArgumentNullException.ThrowIfNull(saveFilter);
             ArgumentNullException.ThrowIfNull(credentialRepositoryList);
 
-            _saveFilter = saveFilter;
+            _saveFilter = saveFilter.RestrictForExport();
             _credentialRepositoryList = credentialRepositoryList;
         }
 
@@ -192,8 +192,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.VNCProxyType))
               .Append(FormatForCsv(con.VNCProxyIP))
               .Append(FormatForCsv(con.VNCProxyPort))
-              .Append(FormatForCsv(con.VNCProxyUsername))
-              .Append(FormatForCsv(con.VNCProxyPassword))
+              .Append(FormatForCsv(_saveFilter.SaveUsername ? con.VNCProxyUsername : ""))
+              .Append(FormatForCsv(_saveFilter.SavePassword ? con.VNCProxyPassword : ""))
               .Append(FormatForCsv(con.VNCColors))
               .Append(FormatForCsv(con.VNCSmartSizeMode))
               .Append(FormatForCsv(con.VNCViewOnly))
@@ -201,8 +201,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.RDGatewayUsageMethod))
               .Append(FormatForCsv(con.RDGatewayHostname))
               .Append(FormatForCsv(con.RDGatewayUseConnectionCredentials))
-              .Append(FormatForCsv(con.RDGatewayUsername))
-              .Append(FormatForCsv(con.RDGatewayPassword))
+              .Append(FormatForCsv(_saveFilter.SaveUsername ? con.RDGatewayUsername : ""))
+              .Append(FormatForCsv(_saveFilter.SavePassword ? con.RDGatewayPassword : ""))
               .Append(FormatForCsv(con.RDGatewayDomain))
               .Append(FormatForCsv(con.RDGatewayExternalCredentialProvider))
               .Append(FormatForCsv(con.RDGatewayUserViaAPI))

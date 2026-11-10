@@ -133,6 +133,45 @@ public class CsvConnectionsSerializerMremotengFormatTests
         Assert.That(lineWithFolder3, Does.Contain(serializationTarget.Password));
     }
 
+    [Test]
+    public void RestrictedFilterRedactsMainAndAuxiliaryCredentials()
+    {
+        var filter = new SaveFilter(allowPasswords: false, allowUsernames: false)
+        {
+            SavePassword = true,
+            SaveUsername = true
+        };
+        var serializer = new CsvConnectionsSerializerMremotengFormat(filter, _credentialRepositoryList);
+        var connection = BuildConnectionInfo();
+        connection.VNCProxyUsername = "synthetic-proxy-user";
+        connection.VNCProxyPassword = "synthetic-proxy-secret";
+        connection.RDGatewayUsername = "synthetic-gateway-user";
+        connection.RDGatewayPassword = "synthetic-gateway-secret";
+
+        var csv = serializer.Serialize(connection);
+
+        foreach (var secret in new[] { Username, Password, connection.VNCProxyUsername,
+                     connection.VNCProxyPassword, connection.RDGatewayUsername, connection.RDGatewayPassword })
+            Assert.That(csv, Does.Not.Contain(secret));
+    }
+
+    [Test]
+    public void UncheckedPasswordsLeaveGatewayAndProxyPasswordsOutButKeepTheColumns()
+    {
+        var full = new CsvConnectionsSerializerMremotengFormat(new SaveFilter(), _credentialRepositoryList);
+        var noPasswords = new CsvConnectionsSerializerMremotengFormat(new SaveFilter { SavePassword = false }, _credentialRepositoryList);
+        var connection = BuildConnectionInfo();
+        connection.VNCProxyPassword = "synthetic-proxy-secret";
+        connection.RDGatewayPassword = "synthetic-gateway-secret";
+
+        string csv = noPasswords.Serialize(connection);
+        string[] lines = csv.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries);
+
+        Assert.That(csv, Does.Not.Contain("synthetic-proxy-secret").And.Not.Contain("synthetic-gateway-secret"));
+        Assert.That(full.Serialize(connection), Does.Contain("synthetic-gateway-secret"));
+        Assert.That(lines[1].Split(';').Length, Is.EqualTo(lines[0].Split(';').Length), "header and row disagree");
+    }
+
     private static ConnectionInfo BuildConnectionInfo()
     {
         return new ConnectionInfo
