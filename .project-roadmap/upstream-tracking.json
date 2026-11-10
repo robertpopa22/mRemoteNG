@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Tracks upstream (mRemoteNG/mRemoteNG) commits and PRs — what we analyzed, applied, or skipped",
     "upstream_branch": "v1.78.2-dev",
-    "last_checked": "2026-03-20",
+    "last_checked": "2026-11-10",
     "statuses": ["pending", "applied", "skip", "already-have", "monitor"]
   },
   "commits": [
@@ -19,24 +19,24 @@
       "date": "2026-03-08",
       "author": "Kvarkas",
       "message": "resize fix for DPI",
-      "status": "pending",
-      "reason": "Potentially relevant to #69 RDP resize issues"
+      "status": "already-have",
+      "reason": "ConfigWindow.cs:129 already docks the property grid (DockStyle.Fill)"
     },
     {
       "sha": "d743d95eb",
       "date": "2026-03-08",
       "author": "Kvarkas",
       "message": "lib update",
-      "status": "pending",
-      "reason": "Check which libs were updated"
+      "status": "skip",
+      "reason": "Fork is on NUnit 5.0.0; AssemblyInfo churn not applicable"
     },
     {
       "sha": "7011b30b4",
       "date": "2026-03-08",
       "author": "Kvarkas",
       "message": "DPI fix for menu",
-      "status": "pending",
-      "reason": "DPI fix — may help with menu rendering issues"
+      "status": "already-have",
+      "reason": "TaskDialog DPI layout reworked in #198 (35507078f, 63fe644b1): LogicalToDeviceUnits/DeviceDpi, no DisplayProperties"
     },
     {
       "sha": "cea9210f1",
@@ -85,24 +85,24 @@
       "date": "2026-03-06",
       "author": "copilot-swe-agent[bot]",
       "message": "Fix small fonts and cursor mismatch at 125% display scaling by enabling PerMonitorV2 DPI mode",
-      "status": "pending",
-      "reason": "DPI fix — we already have PerMonitorV2 but check for differences"
+      "status": "already-have",
+      "reason": "ProgramRoot.cs:52 already calls SetHighDpiMode(PerMonitorV2)"
     },
     {
       "sha": "153fa485d",
       "date": "2026-03-03",
       "author": "copilot-swe-agent[bot]",
       "message": "Fix Audio Capture bug: read InheritRedirectAudioCapture instead of RedirectAudioCapture for inheritance flag",
-      "status": "pending",
-      "reason": "Bug fix — audio capture inheritance was reading wrong property"
+      "status": "already-have",
+      "reason": "XmlConnectionsDeserializer.cs:455 already reads InheritRedirectAudioCapture"
     },
     {
       "sha": "77d4af5ea",
       "date": "2026-03-13",
       "author": "Jörgen Hedkvist",
       "message": "Update Swedish translation",
-      "status": "pending",
-      "reason": "i18n — low priority, easy to cherry-pick"
+      "status": "already-have",
+      "reason": "Fork sv-SE resx has the translation; only ReleaseChannel* keys differ, removed from the fork with the update channels (#136)"
     },
     {
       "sha": "11226d788",
@@ -126,8 +126,8 @@
       "number": 3220,
       "title": "Fix VNC connections broken by missing cursor resource in VncSharpCore 1.2.1",
       "author": "Copilot",
-      "status": "pending",
-      "reason": "VNC bug fix — needs analysis"
+      "status": "already-have",
+      "reason": "Connection.Protocol.VNC.cs:885-904 already completes VNC init via reflection when vnccursor.cur is missing"
     },
     {
       "number": 3221,
