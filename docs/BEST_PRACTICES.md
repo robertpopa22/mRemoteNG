@@ -33,6 +33,7 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-024](bp/BP-024-subscribed-is-not-raised.md) | 1 | 2026-10-27 | A subscribed ActiveX event may never be raised by the control; prove in the lab that its handler runs before a guard depends on it, and read a stop that never appears in the field as that warning. |
 | [BP-025](bp/BP-025-close-ends-arc.md) | 1 | 2026-10-27 | `Disconnect()` does not end an RDP automatic reconnection that has started (the control attaches the session again); close the session, after the control's event has returned. |
 | [BP-026](bp/BP-026-stale-handler-frame.md) | 1 | 2026-11-09 | A crash inside a handler that only an object of a replaced tree or window can run is a leak report; find the process-lifetime event that keeps it, unsubscribe on replace, and count subscribers in a test. |
+| [BP-027](bp/BP-027-diagnostic-not-in-running-build.md) | 1 | 2026-11-10 | An issue waited thirteen days for a recurrence while a copy in use predated the diagnostic; compare `build_id` with the diagnostic's commit before waiting. |
 
 ## Retired
 
