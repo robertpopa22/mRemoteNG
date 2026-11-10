@@ -99,5 +99,58 @@ namespace mRemoteNGTests.Tree
             var rootNode = new RootNodeInfo(rootNodeType);
             Assert.That(rootNode.GetTreeNodeType(), Is.EqualTo(expectedTreeNodeType));
         }
+
+        // The connection file is saved when the tree raises PropertyChanged (SaveConnectionsOnEdit,
+        // and the dirty flag the exit save reads). Without these notifications turning on password
+        // protection never reached disk: the file stayed under the public default key while the UI
+        // said it was protected (upstream #3418 / #3592).
+        [TestCase(nameof(RootNodeInfo.Password))]
+        [TestCase(nameof(RootNodeInfo.PasswordString))]
+        [TestCase(nameof(RootNodeInfo.AutoLockOnMinimize))]
+        [TestCase(nameof(RootNodeInfo.TotpEnabled))]
+        [TestCase(nameof(RootNodeInfo.TotpSecret))]
+        public void ChangingASecuritySettingOfTheRootReachesTheTreeModel(string property)
+        {
+            var model = new ConnectionTreeModel();
+            model.AddRootNode(_rootNodeInfo);
+            var changed = new System.Collections.Generic.List<string>();
+            model.PropertyChanged += (_, args) => changed.Add(args.PropertyName);
+
+            switch (property)
+            {
+                case nameof(RootNodeInfo.Password): _rootNodeInfo.Password = true; break;
+                case nameof(RootNodeInfo.PasswordString): _rootNodeInfo.PasswordString = "a-new-master-password"; break;
+                case nameof(RootNodeInfo.AutoLockOnMinimize): _rootNodeInfo.AutoLockOnMinimize = true; break;
+                case nameof(RootNodeInfo.TotpEnabled): _rootNodeInfo.TotpEnabled = true; break;
+                case nameof(RootNodeInfo.TotpSecret): _rootNodeInfo.TotpSecret = "JBSWY3DPEHPK3PXP"; break;
+            }
+
+            Assert.That(changed, Does.Contain(property));
+        }
+
+        [Test]
+        public void ClearingPasswordStringRaisesPropertyChanged()
+        {
+            _rootNodeInfo.PasswordString = "a-new-master-password";
+            var changed = new System.Collections.Generic.List<string>();
+            _rootNodeInfo.PropertyChanged += (_, args) => changed.Add(args.PropertyName);
+
+            _rootNodeInfo.PasswordString = "";
+
+            Assert.That(changed, Does.Contain(nameof(RootNodeInfo.PasswordString)).And.Contain(nameof(RootNodeInfo.Password)));
+            Assert.That(_rootNodeInfo.Password, Is.False);
+        }
+
+        [Test]
+        public void SettingAnUnchangedValueRaisesNothing()
+        {
+            _rootNodeInfo.PasswordString = "same";
+            var changed = new System.Collections.Generic.List<string>();
+            _rootNodeInfo.PropertyChanged += (_, args) => changed.Add(args.PropertyName);
+
+            _rootNodeInfo.PasswordString = "same";
+
+            Assert.That(changed, Is.Empty);
+        }
     }
 }

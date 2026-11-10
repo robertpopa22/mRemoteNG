@@ -16,6 +16,10 @@ namespace mRemoteNG.Tree.Root
     {
         private string _name = Language.Connections;
         private string _customPassword = "";
+        private bool _password;
+        private bool _autoLockOnMinimize;
+        private bool _totpEnabled;
+        private string _totpSecret = "";
 
         public RootNodeInfo(RootNodeType rootType, string uniqueId) : base(uniqueId)
         {
@@ -56,24 +60,44 @@ namespace mRemoteNG.Tree.Root
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.PasswordProtect)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionPasswordProtect)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
-        public new bool Password { get; set; }
+        // These raise PropertyChanged like every other persisted property. As plain auto-properties
+        // they did not, so turning on password protection (or TOTP) marked nothing dirty and
+        // queued no save: the file stayed under the public default key while the UI said it was
+        // protected (upstream #3418 / #3592, the same mechanism as the #148 root rename).
+        public new bool Password
+        {
+            get => _password;
+            set => SetField(ref _password, value, nameof(Password));
+        }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous)),
          Browsable(true),
          DisplayName("Auto lock on minimize"),
          Description("Require master password when restoring the app after minimize."),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
-        public bool AutoLockOnMinimize { get; set; }
+        public bool AutoLockOnMinimize
+        {
+            get => _autoLockOnMinimize;
+            set => SetField(ref _autoLockOnMinimize, value, nameof(AutoLockOnMinimize));
+        }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous)),
          Browsable(true),
          DisplayName("Two-Factor Authentication (TOTP)"),
          Description("Require a TOTP code from an authenticator app in addition to the master password."),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
-        public bool TotpEnabled { get; set; }
+        public bool TotpEnabled
+        {
+            get => _totpEnabled;
+            set => SetField(ref _totpEnabled, value, nameof(TotpEnabled));
+        }
 
         [Browsable(false)]
-        public string TotpSecret { get; set; } = "";
+        public string TotpSecret
+        {
+            get => _totpSecret;
+            set => SetField(ref _totpSecret, value, nameof(TotpSecret));
+        }
 
         [Browsable(false)]
         public string PasswordString
@@ -81,7 +105,7 @@ namespace mRemoteNG.Tree.Root
             get => (Password && !string.IsNullOrEmpty(_customPassword)) ? _customPassword : DefaultPassword;
             set
             {
-                _customPassword = value;
+                SetField(ref _customPassword, value, nameof(PasswordString));
                 Password = !string.IsNullOrEmpty(value) && _customPassword != DefaultPassword;
             }
         }
