@@ -3,7 +3,13 @@
     "description": "Tracks upstream (mRemoteNG/mRemoteNG) commits and PRs — what we analyzed, applied, or skipped",
     "upstream_branch": "v1.78.2-dev",
     "last_checked": "2026-11-10",
-    "statuses": ["pending", "applied", "skip", "already-have", "monitor"]
+    "statuses": [
+      "pending",
+      "applied",
+      "skip",
+      "already-have",
+      "monitor"
+    ]
   },
   "commits": [
     {
@@ -119,6 +125,38 @@
       "message": "fixing tests",
       "status": "skip",
       "reason": "Test infrastructure, upstream-specific"
+    },
+    {
+      "sha": "c6b577dc8",
+      "date": "2026-03-31",
+      "author": "upstream",
+      "message": "Fix: Gateway access token not saved in connection file and missing inheritance setting",
+      "status": "applied",
+      "reason": "Ported as 02e512a43: token encrypted behind SavePassword, empty not encrypted, plain values from older fork files still load"
+    },
+    {
+      "sha": "85bc50522",
+      "date": "2026-10-27",
+      "author": "upstream",
+      "message": "Enforce credential export limits and redact auxiliary CSV credentials (#3613)",
+      "status": "applied",
+      "reason": "Ported as 244930703"
+    },
+    {
+      "sha": "e7cda4160",
+      "date": "2026-10-23",
+      "author": "eran132",
+      "message": "fix: raise PropertyChanged for root node password and name (#3592)",
+      "status": "applied",
+      "reason": "Ported and extended (AutoLock, TOTP) as c1a2dfb9f"
+    },
+    {
+      "sha": "ab2a77869",
+      "date": "2023-10-09",
+      "author": "tecxx",
+      "message": "-pwfile instead of -pw for PuTTY (#2496)",
+      "status": "skip",
+      "reason": "Fork keeps -pw for clients below 0.81 (KiTTY, old PuTTY) and logs the exposure once per exe, a27db936c (maintainer decision 2026-11-10)"
     }
   ],
   "prs": [
