@@ -216,9 +216,24 @@ namespace mRemoteNG.Connection.Protocol.PowerShell
 
         /// <summary>
         /// Escapes a value for embedding in a PowerShell single-quoted string literal.
-        /// Single quotes are escaped by doubling them, preventing injection via crafted values.
+        ///
+        /// PowerShell ends a single-quoted string at the ASCII apostrophe and also at the typographic
+        /// single quotes U+2018, U+2019, U+201A and U+201B. Doubling only the ASCII one left a
+        /// password or host name containing ’ able to close the literal and run the rest as code.
+        /// Each of the five is doubled, which PowerShell reads back as that one character.
         /// </summary>
-        private static string EscapePsString(string value) => value.Replace("'", "''", StringComparison.Ordinal);
+        internal static string EscapePsString(string value)
+        {
+            System.Text.StringBuilder sb = new(value.Length + 8);
+            foreach (char c in value)
+            {
+                if (c is '\'' or '‘' or '’' or '‚' or '‛')
+                    sb.Append(c);
+                sb.Append(c);
+            }
+
+            return sb.ToString();
+        }
 
         #endregion
 
