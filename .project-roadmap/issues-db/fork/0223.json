@@ -23,6 +23,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-10",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [],
@@ -30,6 +40,6 @@
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-03T07:15:45Z",
-  "notes": "2026-11-03: open; rdp_input diag running on 053NB since 10-29, no typing failure yet"
+  "last_synced": "2026-11-10T07:11:12Z",
+  "notes": "2026-11-10: open; 053NB/047NB unreachable for log pull, 051WS no session since 11-04; no new rdp_input evidence"
 }
