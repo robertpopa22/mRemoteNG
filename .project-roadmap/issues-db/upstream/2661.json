@@ -2,7 +2,7 @@
   "number": 2661,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "[Feature request]  WebAuthn redirection",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Need 2 check",
     "1.78.*"
@@ -127,8 +127,8 @@
   ],
   "comments_cursor": "2026-06-04T08:54:42Z",
   "unread_comments": 7,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-07-05T12:25:32Z",
   "notes": "AI triage (claude): Valid RDP WebAuthn/FIDO2 redirection feature request requiring two new boolean RDP file properties (redirectwebauthn:i:1, enablerdsaadauth:i:1) to be exposed in the RDP connection settings UI.\nApproach: Add RedirectWebAuthn and EnableRdsAadAuth boolean properties to RDP connection options, wire them through ConnectionInfo serialization, and expose in the RDP protocol settings panel."
 }

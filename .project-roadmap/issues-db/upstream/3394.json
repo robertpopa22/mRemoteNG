@@ -6,7 +6,7 @@
   "labels": [],
   "author": "ThierryCorteville",
   "created_at": "2026-07-22T06:18:40Z",
-  "github_updated_at": "2026-07-22T06:18:40Z",
+  "github_updated_at": "2026-11-11T10:06:48Z",
   "body_snippet": "it looks like the pin option for the panels is totally ignored and the panels are ignoring the choosen setting of pinned / unpinned \n\n\nit makes working with the latest version (1.78.2 NB 3405) impossible ",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,21 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-07-22T06:18:40Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABlOR3hw",
+      "author": "cremenescu",
+      "date": "2026-11-11T10:06:48Z",
+      "snippet": "@ThierryCorteville, NB 3405 had a bug where clicks landed away from the cursor at display scaling above 100% (#3261, fixed by #3446 in NB 3694), which could keep the pin button from getting the click. Could you try the latest nightly, NB 3782? If the panels still won't stay pinned, please mention your display scaling and whether they are unpinned again after a restart.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-11T10:06:48Z",
+  "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-09-02T12:58:40Z",
+  "last_synced": "2026-11-11T13:58:12Z",
   "notes": ""
 }
