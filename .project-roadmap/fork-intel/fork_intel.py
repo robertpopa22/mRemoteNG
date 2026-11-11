@@ -923,10 +923,12 @@ AGENT_ARGS = {
 }
 
 
-GROK_MODEL = "grok-4.6"
+# No model name is pinned here: unset = Grok Build's own default (its newest model).
+# Optional override through the environment, e.g. FORK_INTEL_GROK_MODEL=<model>.
+GROK_MODEL = os.environ.get("FORK_INTEL_GROK_MODEL", "").strip() or None
 
 
-def grok_run(prompt, timeout=600, model=GROK_MODEL):
+def grok_run(prompt, timeout=600, model=None):
     """Ask Grok through the official Grok Build CLI.
 
     Grok used to have no CLI and this went out as a REST call with curl. It has one
@@ -954,9 +956,10 @@ def grok_run(prompt, timeout=600, model=GROK_MODEL):
         handle.write(prompt)
         prompt_path = handle.name
     try:
+        model = model or GROK_MODEL
         proc = subprocess.run(
             [exe, "--prompt-file", prompt_path, "--output-format", "json",
-             "--model", model, "--no-subagents"],
+             *(["--model", model] if model else []), "--no-subagents"],
             capture_output=True, text=True, timeout=timeout,
             encoding="utf-8", errors="replace", env=env)
     except (subprocess.TimeoutExpired, OSError) as exc:
