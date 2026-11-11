@@ -983,7 +983,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
                     if (tableField?.GetValue(null) is Dictionary<int, int> table)
                     {
                         const int VK_CAPITAL = 0x14;     // Windows virtual key code for Caps Lock
-                        const int XK_Caps_Lock = 0xFF20; // X11 keysym for Caps Lock
+                        // 0xFFE5 is XK_Caps_Lock in X11's keysymdef.h. 0xFF20 is XK_Multi_key (compose).
+                        const int XK_Caps_Lock = 0xFFE5;
                         table.TryAdd(VK_CAPITAL, XK_Caps_Lock);
                     }
                 }
