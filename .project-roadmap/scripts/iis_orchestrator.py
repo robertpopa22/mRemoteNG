@@ -217,42 +217,43 @@ AGENT_CONFIG = {
     "warning_fix":          "codex",    # _fix_single_file()
     "warning_fix_parallel": "codex",    # _claude_fix_file_only()
 }
-AGENT_CHAIN = ["codex"]   # Codex Spark primary, regular Codex fallback built-in
-AGENT_FALLBACK_ENABLED = True           # enable fallback to regular Codex when Spark fails
+AGENT_CHAIN = ["codex"]   # Codex primary; optional second-level model via IIS_CODEX_MODEL_FALLBACK
+AGENT_FALLBACK_ENABLED = True           # enable fallback when the Codex primary fails
 
 # ── DUAL-MODEL STRATEGY (all agents) ─────────────────────────────────────
 # Each agent uses a fast/cheap model for triage and a powerful model for implementation.
 # This applies uniformly to Gemini, Codex, and Claude.
 
-# Gemini models (verified: gemini -m <name>)
-GEMINI_MODEL = "gemini-3-pro-preview"   # powerful — implementation, analysis
-GEMINI_MODEL_FLASH = "gemini-2.5-flash" # fast — triage
-GEMINI_MODEL_BY_TASK = {
-    "triage":               GEMINI_MODEL_FLASH,
-    "pre_analysis":         GEMINI_MODEL_FLASH,
-    "implement":            GEMINI_MODEL,
-    "test_fix":             GEMINI_MODEL,
-    "warning_fix":          GEMINI_MODEL,
-    "warning_fix_parallel": GEMINI_MODEL,
-    "test_hygiene":         GEMINI_MODEL,
-    "analysis":             GEMINI_MODEL,
-}
+# Model names are NOT written here: pinned names go stale as providers ship new models.
+# Unset (default) = no -m/--model is passed and each CLI's own configuration picks the model.
+# Optional overrides, read at start-up: environment variables below or --codex-model/--gemini-model.
+def _env_model(name):
+    """Model override from the environment; unset or empty means "let the CLI config decide"."""
+    value = os.environ.get(name, "").strip()
+    return value or None
 
-# Codex models (verified: codex exec -m <name>)
-CODEX_MODEL = "gpt-5.3-codex-spark"    # fast primary — all tasks
-CODEX_MODEL_FALLBACK = "gpt-5.3-codex" # powerful fallback — when spark fails
-CODEX_MODEL_FAST = CODEX_MODEL          # alias
+
+# Gemini: IIS_GEMINI_MODEL (implementation, analysis), IIS_GEMINI_MODEL_FLASH (triage; falls back
+# to IIS_GEMINI_MODEL).
+GEMINI_MODEL = _env_model("IIS_GEMINI_MODEL")
+GEMINI_MODEL_FLASH = _env_model("IIS_GEMINI_MODEL_FLASH")
+GEMINI_FAST_TASKS = frozenset({"triage", "pre_analysis"})
+
+
+def gemini_model_for(task_type):
+    """Gemini model for a task, resolved at call time so CLI overrides apply; None = CLI default."""
+    if task_type in GEMINI_FAST_TASKS:
+        return GEMINI_MODEL_FLASH or GEMINI_MODEL
+    return GEMINI_MODEL
+
+
+# Codex: IIS_CODEX_MODEL (primary, all tasks) and IIS_CODEX_MODEL_FALLBACK (second level, used
+# only when set and different from the primary, e.g. a deeper model after the primary fails).
+CODEX_MODEL = _env_model("IIS_CODEX_MODEL")
+CODEX_MODEL_FALLBACK = _env_model("IIS_CODEX_MODEL_FALLBACK")
 CODEX_REASONING = "xhigh"               # reasoning effort for all tasks
-CODEX_MODEL_BY_TASK = {
-    "triage":               CODEX_MODEL,
-    "pre_analysis":         CODEX_MODEL,
-    "implement":            CODEX_MODEL,
-    "test_fix":             CODEX_MODEL,
-    "warning_fix":          CODEX_MODEL,
-    "warning_fix_parallel": CODEX_MODEL,
-    "test_hygiene":         CODEX_MODEL,
-    "analysis":             CODEX_MODEL,
-}
+# Optional per-task model overrides; tasks not listed use CODEX_MODEL at call time.
+CODEX_MODEL_BY_TASK = {}
 # Codex reasoning effort per task — all xhigh
 CODEX_REASONING_BY_TASK = {
     "triage":               "xhigh",
@@ -265,9 +266,10 @@ CODEX_REASONING_BY_TASK = {
     "analysis":             "xhigh",
 }
 
-# Claude models (verified: claude -p --model <name>)
-CLAUDE_MODEL_SONNET = "claude-sonnet-4-6"  # fast, cheap — triage & code writing
-CLAUDE_MODEL_OPUS = "claude-opus-4-6"      # deep analysis — complex issues, fallback
+# Claude: tier aliases resolved by the Claude CLI to the newest model of that tier; override with
+# IIS_CLAUDE_MODEL_FAST / IIS_CLAUDE_MODEL_DEEP.
+CLAUDE_MODEL_SONNET = _env_model("IIS_CLAUDE_MODEL_FAST") or "sonnet"  # fast — triage & code writing
+CLAUDE_MODEL_OPUS = _env_model("IIS_CLAUDE_MODEL_DEEP") or "opus"      # deep analysis, fallback
 CLAUDE_MODEL_BY_TASK = {
     "triage":               CLAUDE_MODEL_SONNET,
     "pre_analysis":         CLAUDE_MODEL_OPUS,    # Opus for smart routing decisions
@@ -1632,11 +1634,11 @@ def git_commit(message):
             return None
         co_authors = []
         if "codex" in _session_agents_used:
-            co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL}) <noreply@openai.com>")
+            co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL or 'default model'}) <noreply@openai.com>")
         if "claude" in _session_agents_used:
             co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
         if "gemini" in _session_agents_used:
-            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL}) <noreply@google.com>")
+            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL or 'default model'}) <noreply@google.com>")
         co_author_str = "\n".join(co_authors) if co_authors else "Co-Authored-By: AI Agent <noreply@example.com>"
         # Add token cost summary if available for this issue
         token_line = ""
@@ -1760,11 +1762,11 @@ def git_squash_last(n, message):
     try:
         co_authors = []
         if "codex" in _session_agents_used:
-            co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL}) <noreply@openai.com>")
+            co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL or 'default model'}) <noreply@openai.com>")
         if "claude" in _session_agents_used:
             co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
         if "gemini" in _session_agents_used:
-            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL}) <noreply@google.com>")
+            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL or 'default model'}) <noreply@google.com>")
         co_author_str = "\n".join(co_authors) if co_authors else "Co-Authored-By: AI Agent <noreply@example.com>"
         full_msg = f"{message}\n\n{co_author_str}"
         _run(["git", "reset", "--soft", f"HEAD~{n}"])
@@ -1827,7 +1829,7 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
                retries=CLAUDE_RETRIES, model=None):
     """Call claude -p (headless) with retry.  Returns stdout string.
     Uses CLAUDE_ENV to strip CLAUDECODE nesting guard.
-    model: override Claude model (e.g. claude-sonnet-4-6 or claude-opus-4-6).
+    model: override Claude model or tier alias (e.g. sonnet or opus).
     Always uses --output-format json internally for token tracking,
     extracts .result as the text response."""
     cmd = ["claude", "-p", prompt, "--max-turns", str(max_turns),
@@ -1886,7 +1888,9 @@ def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
     """Call gemini -p (headless) with retry.  Returns stdout string.
     Uses -y for auto-approve, -m for model selection."""
     use_model = model or GEMINI_MODEL
-    cmd = [GEMINI_CMD, "-p", prompt, "-y", "-m", use_model]
+    cmd = [GEMINI_CMD, "-p", prompt, "-y"]
+    if use_model:
+        cmd += ["-m", use_model]
     if json_output:
         cmd += ["-o", "json"]
 
@@ -1993,7 +1997,7 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES,
                     "--color", "never",
                     "--ephemeral",
                     "--dangerously-bypass-approvals-and-sandbox",
-                    "-m", use_model,
+                    *(["-m", use_model] if use_model else []),
                     "-c", f'model_reasoning_effort="{use_reasoning}"',
                     "-C", str(REPO_ROOT),
                     "-o", output_file,
@@ -2005,7 +2009,7 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES,
                     "--color", "never",
                     "--ephemeral",
                     "--dangerously-bypass-approvals-and-sandbox",
-                    "-m", use_model,
+                    *(["-m", use_model] if use_model else []),
                     "-c", f'model_reasoning_effort="{use_reasoning}"',
                     "-C", str(REPO_ROOT),
                     "-o", output_file,
@@ -2142,16 +2146,16 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
         if agent == "codex":
             codex_model = CODEX_MODEL_BY_TASK.get(task_type, CODEX_MODEL) if task_type else None
             codex_reasoning = CODEX_REASONING_BY_TASK.get(task_type, CODEX_REASONING) if task_type else None
-            _model_tag = codex_model or CODEX_MODEL
+            _model_tag = codex_model or CODEX_MODEL or "codex-config-default"
             log.info("    [CODEX] model=%s reasoning=%s task=%s",
                      _model_tag, codex_reasoning or CODEX_REASONING, task_type or "default")
             return codex_run(prompt, timeout=timeout, retries=min(retries, CODEX_RETRIES),
                              model=codex_model, reasoning=codex_reasoning)
 
         if agent == "gemini":
-            gemini_model = GEMINI_MODEL_BY_TASK.get(task_type, GEMINI_MODEL) if task_type else GEMINI_MODEL
-            # Check per-model rate limit (e.g. gemini-3-pro-preview may be limited while flash works)
-            model_rate_key = f"gemini:{gemini_model}"
+            gemini_model = gemini_model_for(task_type)
+            # Check per-model rate limit (e.g. the pro model may be limited while flash works)
+            model_rate_key = f"gemini:{gemini_model or 'default'}"
             is_model_limited, model_available = _is_agent_rate_limited(model_rate_key)
             if is_model_limited:
                 log.info("    [RATE] Skipping %s model %s (rate-limited until %s)",
@@ -2382,9 +2386,9 @@ Reply with ONLY a JSON object:
 
         log.warning("    [CHAIN] %s failed triage for #%d — trying next agent", agent, num)
 
-    # ── CODEX REGULAR FALLBACK: when Spark fails, retry with gpt-5.3-codex (deeper reasoning) ──
-    if "codex" in AGENT_CHAIN and CODEX_MODEL != CODEX_MODEL_FALLBACK:
-        log.info("    [CHAIN] Spark failed — retrying triage #%d with regular Codex (%s)", num, CODEX_MODEL_FALLBACK)
+    # ── CODEX FALLBACK: when the primary fails, retry with IIS_CODEX_MODEL_FALLBACK (if configured) ──
+    if "codex" in AGENT_CHAIN and CODEX_MODEL_FALLBACK and CODEX_MODEL != CODEX_MODEL_FALLBACK:
+        log.info("    [CHAIN] Codex primary failed — retrying triage #%d with fallback model (%s)", num, CODEX_MODEL_FALLBACK)
         fallback_timeout = int(_estimate_timeout("codex", "triage", issue_key=issue_key,
                                                  chain_escalation=chain_esc) * 1.5)
         t0 = time.time()
@@ -3055,13 +3059,13 @@ Do ONLY the fix. Nothing else."""
 
         log.warning("  [CHAIN] %s failed for #%d — passing to next agent", agent, num)
 
-    # ── CODEX REGULAR FALLBACK: when Spark fails, retry with gpt-5.3-codex (deeper reasoning) ──
-    if "codex" in AGENT_CHAIN and CODEX_MODEL != CODEX_MODEL_FALLBACK:
+    # ── CODEX FALLBACK: when the primary fails, retry with IIS_CODEX_MODEL_FALLBACK (if configured) ──
+    if "codex" in AGENT_CHAIN and CODEX_MODEL_FALLBACK and CODEX_MODEL != CODEX_MODEL_FALLBACK:
         elapsed_total = time.time() - issue_start_time
         if elapsed_total > ISSUE_TOTAL_TIME_CAP:
             log.error("  [CHAIN] Time cap exceeded before Codex-regular fallback for #%d", num)
         else:
-            log.info("  [CHAIN] Spark failed — retrying #%d with regular Codex (%s xhigh)", num, CODEX_MODEL_FALLBACK)
+            log.info("  [CHAIN] Codex primary failed — retrying #%d with fallback model (%s xhigh)", num, CODEX_MODEL_FALLBACK)
             fallback_timeout = int(_estimate_timeout("codex", "implement",
                                                       issue_key=issue_key,
                                                       chain_escalation=chain_esc) * 1.5)
@@ -3512,7 +3516,7 @@ def _count_available_agents():
         else:
             # For gemini, check if at least Flash model is available
             if agent == "gemini":
-                flash_key = f"gemini:{GEMINI_MODEL_FLASH}"
+                flash_key = f"gemini:{gemini_model_for('triage') or 'default'}"
                 flash_limited, _ = _is_agent_rate_limited(flash_key)
                 if not flash_limited:
                     available.append(agent)
@@ -6311,9 +6315,9 @@ def main():
                         choices=["codex", "claude", "gemini"],
                         help="Override agent for ALL tasks (ignores AGENT_CONFIG)")
     parser.add_argument("--gemini-model", default=None,
-                        help="Override Gemini model (default: gemini-3-pro-preview)")
+                        help="Override Gemini model (default: IIS_GEMINI_MODEL, else the Gemini CLI config)")
     parser.add_argument("--codex-model", default=None,
-                        help="Override Codex model (default: gpt-5.3-codex)")
+                        help="Override Codex model (default: IIS_CODEX_MODEL, else the Codex CLI config)")
     # ── IIS sync args ──
     parser.add_argument("--repos", default="both",
                         choices=["both", "upstream", "fork"],
