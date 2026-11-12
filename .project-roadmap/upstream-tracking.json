@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Tracks upstream (mRemoteNG/mRemoteNG) commits and PRs — what we analyzed, applied, or skipped",
     "upstream_branch": "v1.78.2-dev",
-    "last_checked": "2026-11-10",
+    "last_checked": "2026-11-12",
     "statuses": [
       "pending",
       "applied",
@@ -157,6 +157,206 @@
       "message": "-pwfile instead of -pw for PuTTY (#2496)",
       "status": "skip",
       "reason": "Fork keeps -pw for clients below 0.81 (KiTTY, old PuTTY) and logs the exposure once per exe, a27db936c (maintainer decision 2026-11-10)"
+    },
+    {
+      "sha": "02c3bbee6",
+      "date": "2026-11-10",
+      "author": "Razvan Cremenescu",
+      "message": "Restore the language lines lost in a merge so v1.78.2-dev builds again",
+      "status": "skip",
+      "reason": "Upstream build repair for AskProfilePasswordAtStartup/ShowPassword; the fork has neither string nor the code that uses them"
+    },
+    {
+      "sha": "c3a46deaf",
+      "date": "2026-11-10",
+      "author": "WalterX12",
+      "message": "fix: avoid NullReferenceException on first run when loading default panel layout",
+      "status": "already-have",
+      "reason": "FrmMain.cs sets Runtime.WindowList before uiLoader.LoadPanelsFromXml()"
+    },
+    {
+      "sha": "e150d2083",
+      "date": "2026-11-10",
+      "author": "WalterX12",
+      "message": "feat: add Windows DPAPI as connections-file encryption option",
+      "status": "pending",
+      "reason": "Feature in cryptography and key handling (tripwire path): needs a maintainer decision and human security review before any port. Review together with b8d7cdf42"
+    },
+    {
+      "sha": "b8d7cdf42",
+      "date": "2026-11-10",
+      "author": "Petr Komarek",
+      "message": "fix: address PR review findings for DPAPI connections-file encryption",
+      "status": "pending",
+      "reason": "Follow-up to e150d2083 (decryptor, confCons schema 2.9, export path); same decision"
+    },
+    {
+      "sha": "0538ab9ff",
+      "date": "2026-11-10",
+      "author": "Razvan Cremenescu",
+      "message": "Stop the automatic reconnect option from turning off reopening the previous sessions (#3178)",
+      "status": "pending",
+      "reason": "Same defect in the fork, three places: ConnectionTreeWindow.SetTreePostSetupActions, ConnectionWindow.ProcessPendingConnections (fork-only layout restore gate, #120) and StartupArgumentsInterpreter.ParseNoReconnectArg, which writes the saved option. Port recommended; the upstream diff does not cover the ConnectionWindow gate"
+    },
+    {
+      "sha": "9f1df5184",
+      "date": "2026-11-10",
+      "author": "Paul",
+      "message": "Address Copilot review on WebAuthn redirection",
+      "status": "skip",
+      "reason": "Follow-up to upstream's PluginDlls implementation in RdpProtocol8; the fork sets RedirectWebAuthn as an extended property in RdpProtocol.cs and has no PluginDlls code"
+    },
+    {
+      "sha": "120f93fae",
+      "date": "2026-11-10",
+      "author": "Kvarkas",
+      "message": "lib updates/upgrades",
+      "status": "skip",
+      "reason": "Moves packages to 11.0.0 ahead of upstream's .NET 11 migration (f6fc68cd9); the fork targets net10.0 and takes package updates through Dependabot"
+    },
+    {
+      "sha": "d07261722",
+      "date": "2026-11-10",
+      "author": "renovate[bot]",
+      "message": "Update dependency ReportGenerator to 5.6.0",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "7c81532d0",
+      "date": "2026-11-10",
+      "author": "renovate[bot]",
+      "message": "Update dotnet monorepo to 10.0.15",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "b9e967510",
+      "date": "2026-11-11",
+      "author": "Razvan Cremenescu",
+      "message": "Save the connection file after inheritance changes (#3570)",
+      "status": "pending",
+      "reason": "The fork has no notification either: ContainerInfo.ApplyInheritancePropertiesToChildren, ConnectionInfoPropertyGrid.UpdateInheritanceNode and the context-menu SaveTo raise no PropertyChanged. Port candidate; reproduce in the lab first (change inheritance, restart, read the value)"
+    },
+    {
+      "sha": "ef692b493",
+      "date": "2026-11-11",
+      "author": "Kvarkas",
+      "message": "fix for Floating-host resize is skipped when the main window is minimized",
+      "status": "skip",
+      "reason": "Repairs upstream's HostResizeEnd for floating connection panels; the fork has no HostResizeEnd"
+    },
+    {
+      "sha": "42279f2c2",
+      "date": "2026-11-11",
+      "author": "Kvarkas",
+      "message": "fix: validate DPAPI root protection marker",
+      "status": "pending",
+      "reason": "Follow-up to e150d2083; same maintainer decision and human security review"
+    },
+    {
+      "sha": "19d6429cb",
+      "date": "2026-11-11",
+      "author": "Kvarkas",
+      "message": "fix passwords validations",
+      "status": "skip",
+      "reason": "Follow-up to upstream's password strength meter (#3656); the fork has no PasswordStrengthMeter"
+    },
+    {
+      "sha": "dd87c8374",
+      "date": "2026-11-11",
+      "author": "Kvarkas",
+      "message": "Fix password strength worker error handling",
+      "status": "skip",
+      "reason": "Follow-up to upstream's password strength meter (#3656); the fork has no PasswordStrengthMeter"
+    },
+    {
+      "sha": "35a042fd1",
+      "date": "2026-11-11",
+      "author": "Kvarkas",
+      "message": "fix for publish script",
+      "status": "skip",
+      "reason": "Upstream csproj publish targets for satellite assemblies; the fork publishes with scripts/Publish-Release.ps1 and its own targets"
+    },
+    {
+      "sha": "f6fc68cd9",
+      "date": "2026-11-11",
+      "author": "Kvarkas",
+      "message": "migration to .net 11",
+      "status": "monitor",
+      "reason": "Upstream now targets net11.0-windows; the fork targets net10.0. Moving is a maintainer decision (runtime prerequisite for every user, self-contained size, lab images)"
+    },
+    {
+      "sha": "9a9dbcbb3",
+      "date": "2026-11-11",
+      "author": "renovate[bot]",
+      "message": "Update dotnet monorepo to v11",
+      "status": "skip",
+      "reason": "Part of upstream's .NET 11 move, see f6fc68cd9"
+    },
+    {
+      "sha": "4cdfe78de",
+      "date": "2026-11-11",
+      "author": "renovate[bot]",
+      "message": "Update vstest monorepo to 18.12.0",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "a4948c239",
+      "date": "2026-11-11",
+      "author": "renovate[bot]",
+      "message": "Update dependency AWSSDK.EC2 to 4.0.133",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "d67a54309",
+      "date": "2026-11-11",
+      "author": "renovate[bot]",
+      "message": "Update dependency OpenTelemetry.PersistentStorage.FileSystem to 1.2.0",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "e96ae8333",
+      "date": "2026-11-11",
+      "author": "renovate[bot]",
+      "message": "Update opentelemetry-dotnet monorepo to 1.21.0",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "7968d6324",
+      "date": "2026-11-11",
+      "author": "renovate[bot]",
+      "message": "Update mstest monorepo to 2.5.3",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "709c4691d",
+      "date": "2026-11-11",
+      "author": "renovate[bot]",
+      "message": "Update dependency Microsoft.Data.SqlClient.SNI to 7.1.2",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "ea77f0761",
+      "date": "2026-11-10",
+      "author": "renovate[bot]",
+      "message": "Update dependency Microsoft.VisualStudio.TextTemplating.VSHost to v18",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
+    },
+    {
+      "sha": "8645eea70",
+      "date": "2026-11-10",
+      "author": "renovate[bot]",
+      "message": "Update dependency envdte to v18",
+      "status": "skip",
+      "reason": "Dependency bump; the fork takes package updates through Dependabot"
     }
   ],
   "prs": [
