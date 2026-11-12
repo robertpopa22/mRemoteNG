@@ -245,7 +245,17 @@ namespace mRemoteNG.UI.Menu
                 if (choice == DialogResult.Yes)
                 {
                     // Load the file already selected above — do NOT show another dialog
-                    Runtime.ConnectionsService.LoadConnections(false, false, loadDialog.FileName);
+                    try
+                    {
+                        Runtime.ConnectionsService.LoadConnections(false, false, loadDialog.FileName);
+                    }
+                    catch (NotSupportedException ex)
+                    {
+                        // The deserializer has already shown the "Incompatible connection file format"
+                        // dialog and the connections in memory were not replaced. The startup load
+                        // goes through Runtime.LoadConnections, which has its own handling.
+                        Runtime.MessageCollector.AddExceptionMessage(Language.LoadFromXmlFailed, ex);
+                    }
                 }
                 else if (choice == DialogResult.No)
                 {

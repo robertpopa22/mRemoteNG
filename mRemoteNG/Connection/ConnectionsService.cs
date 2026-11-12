@@ -333,6 +333,21 @@ namespace mRemoteNG.Connection
         }
 
         /// <summary>
+        /// The XML deserializer clears <see cref="IsConnectionsFileLoaded"/> when a load fails. When the
+        /// file that failed is a different file from the one in memory, the tree in memory is still
+        /// the loaded one, and a cleared flag would make every later save of it a silent no-op.
+        /// A failed reload of the same file keeps the flag cleared, so a file this version cannot
+        /// read is not overwritten. Always returns false: it runs as an exception filter.
+        /// </summary>
+        private bool RestoreLoadedStateAfterRefusedFile(bool wasLoadedBefore, ConnectionTreeModel? previousModel, string failedFileName)
+        {
+            if (wasLoadedBefore && previousModel != null &&
+                !string.Equals(failedFileName, ConnectionFileName, StringComparison.OrdinalIgnoreCase))
+                IsConnectionsFileLoaded = true;
+            return false;
+        }
+
+        /// <summary>
         /// Load connections from a source. <see cref="connectionFileName"/> is ignored if
         /// <see cref="useDatabase"/> is true.
         /// </summary>
@@ -424,6 +439,7 @@ namespace mRemoteNG.Connection
             }
 
             ConnectionTreeModel newConnectionTreeModel = null!;
+            bool wasLoadedBefore = IsConnectionsFileLoaded;
             try
             {
                 newConnectionTreeModel = connectionLoader.Load();
@@ -434,6 +450,11 @@ namespace mRemoteNG.Connection
                     _lastLoadedContentHash = null;
                     _lastLoadedContentPath = null;
                 }
+            }
+            catch (Exception) when (!useDatabase && RestoreLoadedStateAfterRefusedFile(wasLoadedBefore, oldConnectionTreeModel, connectionFileName))
+            {
+                // Never entered: the filter only puts the loaded flag back and returns false.
+                throw;
             }
             catch (Exception ex) when (useDatabase)
             {

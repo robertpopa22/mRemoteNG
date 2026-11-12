@@ -42,6 +42,26 @@ public class XmlConnectionsDeserializerTests
         Assert.That(loaded, Is.Null);
     }
 
+    [Test]
+    public void AFileSavedInFormat29IsLoaded()
+    {
+        // Upstream saves ConfVersion 2.9 (2.8 plus TerminalBackend, Color, RedirectWebAuthn).
+        // The file was refused as "Incompatible connection file format" (#231).
+        string confCons = Resources.confCons_v2_6.Replace("ConfVersion=\"2.6\"", "ConfVersion=\"2.9\"", StringComparison.Ordinal);
+        Assert.That(confCons, Is.Not.EqualTo(Resources.confCons_v2_6), "the fixture no longer carries ConfVersion 2.6");
+
+        Setup(confCons, "mR3m");
+
+        Assert.That(_connectionTreeModel.RootNodes[0].Children.Count, Is.EqualTo(3));
+    }
+
+    [Test]
+    public void TheHighestLoadableFormatIsOneAboveTheSavedFormat()
+    {
+        Assert.That(XmlConnectionsDeserializer.MaxSupportedConfVersion, Is.EqualTo(2.9));
+        Assert.That(XmlConnectionsDeserializer.SavedConfVersion, Is.EqualTo(2.8));
+    }
+
     [TestCaseSource(typeof(XmlConnectionsDeserializerFixtureData),
         nameof(XmlConnectionsDeserializerFixtureData.FixtureParams))]
     public void DeserializingCreatesRootNode(Datagram testData)

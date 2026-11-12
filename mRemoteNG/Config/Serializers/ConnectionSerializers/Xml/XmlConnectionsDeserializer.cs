@@ -31,7 +31,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
         private double _confVersion;
         private XmlConnectionsDecryptor _decryptor = null!;
         private readonly string ConnectionFileName = connectionFileName;
-        private const double MaxSupportedConfVersion = 2.8;
+        // Upstream saves 2.9: 2.8 plus TerminalBackend, Color and RedirectWebAuthn with their inherit
+        // flags. This fork reads Color and RedirectWebAuthn at any version, has no TerminalBackend,
+        // and still saves 2.8. Versions above 2.9 are refused.
+        internal const double MaxSupportedConfVersion = 2.9;
+        internal const double SavedConfVersion = 2.8;
         private readonly RootNodeInfo _rootNodeInfo = new(RootNodeType.Connection);
         private ConnectionTreeModel _connectionTreeModel = null!;
         private BlockCipherEngines _cipherEngine;
@@ -187,6 +191,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 _confVersion = Convert.ToDouble(_xmlDocument.DocumentElement.Attributes["ConfVersion"]?.Value.Replace(",", ".", StringComparison.Ordinal), CultureInfo.InvariantCulture);
             else
                 Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.OldConffile);
+
+            if (_confVersion > SavedConfVersion && _confVersion <= MaxSupportedConfVersion)
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                    string.Format(CultureInfo.InvariantCulture,
+                        "'{0}' was saved in connection file format {1}. This version saves format {2}: the TerminalBackend setting of a connection is not kept when the file is saved here.",
+                        ConnectionFileName, _confVersion, SavedConfVersion));
 
             if (!(_confVersion > MaxSupportedConfVersion)) return;
             ShowIncompatibleVersionDialogBox();
