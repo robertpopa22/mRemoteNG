@@ -1,0 +1,37 @@
+{
+  "number": 232,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Putty window is not embedded",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "jblion",
+  "created_at": "2026-11-12T20:15:43Z",
+  "github_updated_at": "2026-11-12T20:22:32Z",
+  "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
+  "our_status": "triaged",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-12",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-11-12T20:22:32Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-12T21:07:08Z",
+  "notes": "2026-11-12: regular PuTTY title bar visible at 192 DPI, fixed 96-DPI offsets; change staged, blocked by security tripwire (PuttyBase.cs), needs human MRNG_SECURITY_REVIEWED; not reproduced here"
+}

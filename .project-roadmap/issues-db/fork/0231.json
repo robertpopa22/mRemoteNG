@@ -1,0 +1,49 @@
+{
+  "number": 231,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.NotSupportedException: Incompatible connection file format (file format version 2,9).",
+  "state": "open",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-11-12T19:47:47Z",
+  "github_updated_at": "2026-11-12T20:01:06Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NotSupportedException`\r\n**Message:** Incompatible connection file format (file format version 2,9).\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.Config.Serializers.ConnectionSerializers.Xml.XmlConnectionsDeserializer.ValidateConnectionFileVersion() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs:line 185\r\n   at ConnectionTreeModel mRemoteNG.Config.Serializers.ConnectionSerializer...",
+  "our_status": "triaged",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-12",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABl14Xbw",
+      "author": "jblion",
+      "date": "2026-11-12T20:01:06Z",
+      "snippet": "Workaround: I modified the version manually.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-12T20:01:06Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-12T21:07:08Z",
+  "notes": "2026-11-12: upstream writes ConfVersion 2.9, fork capped at 2.8; fix 139ed48a6 local, not pushed; reporter jblion (comment), report filed by app under our account"
+}
