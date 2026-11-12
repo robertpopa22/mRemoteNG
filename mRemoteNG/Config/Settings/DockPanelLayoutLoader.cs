@@ -5,6 +5,7 @@ using mRemoteNG.UI.Window;
 using System;
 using System.Collections.Generic; // Added for Dictionary
 using System.IO;
+using System.Xml;
 using mRemoteNG.Messages;
 using WeifenLuo.WinFormsUI.Docking;
 using System.Runtime.Versioning;
@@ -93,6 +94,79 @@ namespace mRemoteNG.Config.Settings
             _mainForm.pnlDock.LoadFromXml(filePath, GetContentFromPersistString);
         }
 
+        /// <summary>
+        /// Loads a layout the user chose from the View menu. A file that is not a dock layout is
+        /// refused before any panel is closed. A file that fails later, when the panels are
+        /// already closed, ends on the default layout. Returns false in both cases.
+        /// </summary>
+        public bool TryLoadLayout(string filePath)
+        {
+            if (!IsDockLayoutFile(filePath, out string reason))
+            {
+                _messageCollector.AddMessage(MessageClass.ErrorMsg,
+                    $"'{filePath}' is not a panel layout file ({reason}). The current layout was kept.");
+                return false;
+            }
+
+            try
+            {
+                LoadLayout(filePath);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _messageCollector.AddExceptionMessage($"Loading the panel layout from '{filePath}' failed. Resetting to the default layout.", ex);
+                try
+                {
+                    while (_mainForm.pnlDock.Contents.Count > 0)
+                    {
+                        DockContent dc = (DockContent)_mainForm.pnlDock.Contents[0];
+                        dc.Close();
+                    }
+
+                    _mainForm.SetDefaultLayout();
+                }
+                catch (Exception resetEx)
+                {
+                    _messageCollector.AddExceptionMessage("Failed to reset the layout to defaults after a failed load.", resetEx);
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// True when the file is XML whose root element is the one DockPanel Suite writes.
+        /// Reads the root element only and changes nothing.
+        /// </summary>
+        public static bool IsDockLayoutFile(string filePath, out string reason)
+        {
+            reason = string.Empty;
+            try
+            {
+                XmlReaderSettings settings = new()
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null,
+                    IgnoreComments = true,
+                    IgnoreProcessingInstructions = true,
+                    IgnoreWhitespace = true
+                };
+                using XmlReader reader = XmlReader.Create(filePath, settings);
+                reader.MoveToContent();
+                if (reader.NodeType == XmlNodeType.Element && string.Equals(reader.Name, "DockPanel", StringComparison.Ordinal))
+                    return true;
+
+                reason = $"root element is '{reader.Name}', expected 'DockPanel'";
+                return false;
+            }
+            catch (Exception ex) when (ex is XmlException or IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
+            {
+                reason = ex.Message;
+                return false;
+            }
+        }
+
         public void LoadLayoutByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -103,7 +177,7 @@ namespace mRemoteNG.Config.Settings
 
             if (File.Exists(filePath))
             {
-                LoadLayout(filePath);
+                TryLoadLayout(filePath);
             }
             else
             {

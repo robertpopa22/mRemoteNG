@@ -384,7 +384,7 @@ namespace mRemoteNG.UI.Menu
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var loader = new DockPanelLayoutLoader(MainForm, Runtime.MessageCollector);
-                loader.LoadLayout(openFileDialog.FileName);
+                loader.TryLoadLayout(openFileDialog.FileName);
             }
         }
 
