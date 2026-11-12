@@ -2109,6 +2109,7 @@ namespace mRemoteNG.UI.Controls
                 return;
 
             DefaultConnectionInheritance.SaveTo(_connectionTree.SelectedNode.Inheritance);
+            _connectionTree.SelectedNode.RaiseInheritanceChanged();
         }
 
         private void OnOptionsClicked(object sender, EventArgs e)

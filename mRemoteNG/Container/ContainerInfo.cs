@@ -382,6 +382,10 @@ namespace mRemoteNG.Container
             {
                 child.Inheritance = Inheritance.Clone(child);
             }
+
+            // One notification for the whole subtree, so the change is saved once rather than once per child.
+            if (children.Count > 0)
+                RaiseInheritanceChanged();
         }
 
         protected virtual void SubscribeToChildEvents(ConnectionInfo child)

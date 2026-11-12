@@ -68,6 +68,17 @@ namespace mRemoteNG.Connection
                 : value;
         }
 
+        /// <summary>
+        /// Tells the listeners of <see cref="AbstractConnectionRecord.PropertyChanged"/>, such as the
+        /// save after every edit and the unsaved-changes flag, that the inheritance settings of this
+        /// connection changed. <see cref="ConnectionInfoInheritance"/> raises no events of its own, so
+        /// whoever changes those settings calls this once the change is done (upstream #3570).
+        /// </summary>
+        public void RaiseInheritanceChanged()
+        {
+            RaisePropertyChangedEvent(this, new PropertyChangedEventArgs(nameof(Inheritance)));
+        }
+
         [Browsable(false)] public ProtocolList OpenConnections { get; protected set; } = null!;
 
         [Browsable(false)]
