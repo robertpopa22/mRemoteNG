@@ -195,8 +195,8 @@
       "date": "2026-11-10",
       "author": "Razvan Cremenescu",
       "message": "Stop the automatic reconnect option from turning off reopening the previous sessions (#3178)",
-      "status": "pending",
-      "reason": "Same defect in the fork, three places: ConnectionTreeWindow.SetTreePostSetupActions, ConnectionWindow.ProcessPendingConnections (fork-only layout restore gate, #120) and StartupArgumentsInterpreter.ParseNoReconnectArg, which writes the saved option. Port recommended; the upstream diff does not cover the ConnectionWindow gate"
+      "status": "applied",
+      "reason": "Ported and extended as 69d9bdb4c: the fork-only layout gate in ConnectionWindow.ProcessPendingConnections reads the run-only switch too"
     },
     {
       "sha": "9f1df5184",
@@ -235,8 +235,8 @@
       "date": "2026-11-11",
       "author": "Razvan Cremenescu",
       "message": "Save the connection file after inheritance changes (#3570)",
-      "status": "pending",
-      "reason": "The fork has no notification either: ContainerInfo.ApplyInheritancePropertiesToChildren, ConnectionInfoPropertyGrid.UpdateInheritanceNode and the context-menu SaveTo raise no PropertyChanged. Port candidate; reproduce in the lab first (change inheritance, restart, read the value)"
+      "status": "applied",
+      "reason": "Ported and extended as 1c8b157c7: one notification per selected node in the Config panel, and the fork unsaved-changes flag sees it"
     },
     {
       "sha": "ef692b493",
