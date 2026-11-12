@@ -45,6 +45,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-11-12",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -71,6 +81,6 @@
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-11-09T18:06:08Z",
-  "notes": "lab scenario: pre-fix FAIL (2nd tab 10 s timeout), post-fix PASS (3033ff417); awaiting reporter on nightly 1.84.0+a982dd6773"
+  "last_synced": "2026-11-12T08:00:05Z",
+  "notes": "2026-11-12: retest ask of 2026-11-09 is 3 days old, reply stands; unanswered close due after 2026-11-16 if silent (fix 09e9c0f1c, nightly 1.84.0+a982dd6773 or later)"
 }
