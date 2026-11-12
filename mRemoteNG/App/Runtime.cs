@@ -71,6 +71,12 @@ namespace mRemoteNG.App
 
         public static ConnectionInitiator ConnectionInitiator { get; set; } = new ConnectionInitiator();
 
+        /// <summary>
+        /// Set by the /noreconnect (/norc) command line switch: the previously opened sessions are not
+        /// reopened at this start. It is not saved, so the switch applies only to the run it was given to.
+        /// </summary>
+        public static bool NoReconnectToPreviousSessions { get; set; }
+
         public static ConnectionsService ConnectionsService { get; } = new ConnectionsService(PuttySessionsManager.Instance);
         public static mRemoteNG.Container.DynamicFolderManager DynamicFolderManager { get; } = new mRemoteNG.Container.DynamicFolderManager();
 

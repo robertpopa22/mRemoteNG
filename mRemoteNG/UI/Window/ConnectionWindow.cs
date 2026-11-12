@@ -2634,8 +2634,11 @@ namespace mRemoteNG.UI.Window
             // user has that option off, restore the panel but do not auto-reconnect the tabs
             // — otherwise every previously-open session reconnects on startup regardless of
             // the setting (and a screenful of RDP tabs can hit the ActiveX creation timeout). (#120)
+            // The second condition is the /noreconnect (/norc) switch of this run, not
+            // OptionsAdvancedPage.NoReconnect: that one is the automatic reconnect checkbox for a
+            // dropped session (upstream #3178).
             if (!Properties.OptionsStartupExitPage.Default.OpenConsFromLastSession ||
-                Properties.OptionsAdvancedPage.Default.NoReconnect)
+                Runtime.NoReconnectToPreviousSessions)
             {
                 _pendingConnectionIds.Clear();
                 _layoutOpenedConnectionIds.Clear();

@@ -1,6 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using mRemoteNG.App;
+using mRemoteNG.Properties;
+using mRemoteNG.Tree;
+using mRemoteNG.UI.Controls.ConnectionTree;
 using mRemoteNG.UI.Window;
 using NUnit.Framework;
 using WeifenLuo.WinFormsUI.Docking;
@@ -74,6 +80,62 @@ namespace mRemoteNGTests.UI.Window
             Assert.That(connectionTreeWindow.ConnectionTree.MultiSelect, Is.True);
             connectionTreeWindow.Close();
         });
+
+        [Test]
+        public void PreviousSessionsAreReopenedWhenAutomaticReconnectIsUnticked()
+        {
+            // OptionsAdvancedPage.NoReconnect is the "Automatically try to reconnect when disconnected
+            // from server" checkbox, saved inverted; it used to turn off reopening the previous
+            // sessions (upstream #3178).
+            List<IConnectionTreeDelegate> actions = PostSetupActions(reopenPreviousSessions: true, savedNoReconnect: true, noReconnectSwitch: false);
+
+            Assert.That(actions, Has.Some.InstanceOf<PreviousSessionOpener>());
+        }
+
+        [Test]
+        public void NoReconnectSwitchSkipsThePreviousSessions()
+        {
+            List<IConnectionTreeDelegate> actions = PostSetupActions(reopenPreviousSessions: true, savedNoReconnect: false, noReconnectSwitch: true);
+
+            Assert.That(actions, Has.None.InstanceOf<PreviousSessionOpener>());
+        }
+
+        [Test]
+        public void PreviousSessionsStayClosedWhenReconnectAtStartupIsOff()
+        {
+            List<IConnectionTreeDelegate> actions = PostSetupActions(reopenPreviousSessions: false, savedNoReconnect: false, noReconnectSwitch: false);
+
+            Assert.That(actions, Has.None.InstanceOf<PreviousSessionOpener>());
+        }
+
+        private static List<IConnectionTreeDelegate> PostSetupActions(bool reopenPreviousSessions, bool savedNoReconnect, bool noReconnectSwitch)
+        {
+            bool originalReopenPreviousSessions = OptionsStartupExitPage.Default.OpenConsFromLastSession;
+            bool originalNoReconnect = OptionsAdvancedPage.Default.NoReconnect;
+            bool originalNoReconnectSwitch = Runtime.NoReconnectToPreviousSessions;
+            List<IConnectionTreeDelegate> actions = [];
+            try
+            {
+                OptionsStartupExitPage.Default.OpenConsFromLastSession = reopenPreviousSessions;
+                OptionsAdvancedPage.Default.NoReconnect = savedNoReconnect;
+                Runtime.NoReconnectToPreviousSessions = noReconnectSwitch;
+
+                RunWithMessagePump(() =>
+                {
+                    var connectionTreeWindow = new ConnectionTreeWindow(new DockContent());
+                    actions = connectionTreeWindow.ConnectionTree.PostSetupActions.ToList();
+                    connectionTreeWindow.Close();
+                });
+            }
+            finally
+            {
+                OptionsStartupExitPage.Default.OpenConsFromLastSession = originalReopenPreviousSessions;
+                OptionsAdvancedPage.Default.NoReconnect = originalNoReconnect;
+                Runtime.NoReconnectToPreviousSessions = originalNoReconnectSwitch;
+            }
+
+            return actions;
+        }
 
         [Test]
         public void ClearButtonVisibilityTests() => RunWithMessagePump(() =>

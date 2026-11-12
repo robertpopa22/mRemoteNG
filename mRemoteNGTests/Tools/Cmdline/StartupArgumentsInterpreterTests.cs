@@ -190,6 +190,35 @@ public class StartupArgumentsInterpreterTests
 
     #endregion
 
+    #region /noreconnect
+
+    [TestCase("/noreconnect")]
+    [TestCase("/norc")]
+    public void ParseArguments_NoReconnect_SkipsPreviousSessionsWithoutChangingTheSavedOption(string argument)
+    {
+        bool originalSavedOption = mRemoteNG.Properties.OptionsAdvancedPage.Default.NoReconnect;
+        bool originalSwitch = mRemoteNG.App.Runtime.NoReconnectToPreviousSessions;
+        try
+        {
+            mRemoteNG.Properties.OptionsAdvancedPage.Default.NoReconnect = false;
+            mRemoteNG.App.Runtime.NoReconnectToPreviousSessions = false;
+
+            CreateSut().ParseArguments(["mRemoteNG.exe", argument]);
+
+            Assert.That(mRemoteNG.App.Runtime.NoReconnectToPreviousSessions, Is.True);
+            // The saved option is the "Automatically try to reconnect when disconnected from
+            // server" checkbox (upstream #3178).
+            Assert.That(mRemoteNG.Properties.OptionsAdvancedPage.Default.NoReconnect, Is.False);
+        }
+        finally
+        {
+            mRemoteNG.Properties.OptionsAdvancedPage.Default.NoReconnect = originalSavedOption;
+            mRemoteNG.App.Runtime.NoReconnectToPreviousSessions = originalSwitch;
+        }
+    }
+
+    #endregion
+
     private static StartupArgumentsInterpreter CreateSut()
     {
         return new StartupArgumentsInterpreter(new MessageCollector());

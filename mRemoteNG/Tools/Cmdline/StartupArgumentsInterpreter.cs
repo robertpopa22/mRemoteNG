@@ -130,7 +130,10 @@ namespace mRemoteNG.Tools.Cmdline
             if (args["noreconnect"] == null && args["norc"] == null) return;
             _messageCollector.AddMessage(MessageClass.DebugMsg,
                                          "Cmdline arg: Disabling reconnection to previously connected hosts");
-            Properties.OptionsAdvancedPage.Default.NoReconnect = true;
+            // Not OptionsAdvancedPage.NoReconnect: that saved option is the "Automatically try to
+            // reconnect when disconnected from server" checkbox. Writing it here cleared that
+            // checkbox and kept the sessions closed at every later start (upstream #3178).
+            App.Runtime.NoReconnectToPreviousSessions = true;
         }
 
         private void ParseCustomConnectionPathArg(CmdArgumentsInterpreter args)
