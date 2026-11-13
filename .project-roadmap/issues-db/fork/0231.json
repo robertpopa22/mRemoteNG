@@ -10,9 +10,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-11-12T19:47:47Z",
-  "github_updated_at": "2026-11-12T20:01:06Z",
+  "github_updated_at": "2026-11-13T07:56:16Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NotSupportedException`\r\n**Message:** Incompatible connection file format (file format version 2,9).\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.Config.Serializers.ConnectionSerializers.Xml.XmlConnectionsDeserializer.ValidateConnectionFileVersion() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs:line 185\r\n   at ConnectionTreeModel mRemoteNG.Config.Serializers.ConnectionSerializer...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,16 @@
       "date": "2026-11-12",
       "type": "triaged",
       "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-13",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -38,12 +48,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABmCMIJA",
+      "author": "robertpopa22",
+      "date": "2026-11-13T07:56:16Z",
+      "snippet": "Thank you for adding the workaround: \"the file loads once the version is edited\" is what showed this was only a version limit, not a real format difference.\n\nThe file was last saved by an upstream mRemoteNG build, which writes `ConfVersion=\"2.9\"` since October. This fork accepted 2.8 at most and refused the file. Nightly `1.84.0+f7ff789c90` (https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) accepts 2.9.\n\nWhat 2.9 adds over 2.8 is three settings per connection: TerminalBackend, Colo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-11-12T20:01:06Z",
+  "comments_cursor": "2026-11-13T07:56:16Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-11-12T21:07:08Z",
-  "notes": "2026-11-12: upstream writes ConfVersion 2.9, fork capped at 2.8; fix 139ed48a6 local, not pushed; reporter jblion (comment), report filed by app under our account"
+  "waiting_for_us": false,
+  "last_synced": "2026-11-13T07:56:22Z",
+  "notes": "fix shipped 139ed48a6 in nightly 1.84.0+f7ff789c90; awaiting reporter confirm"
 }
