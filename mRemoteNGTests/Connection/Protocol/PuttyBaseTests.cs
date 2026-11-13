@@ -17,6 +17,51 @@ namespace mRemoteNGTests.Connection.Protocol
     {
         private const string FallbackTabText = "SSH2: Connection Name";
 
+        [Test]
+        public void EmbeddedBounds_WithoutAMeasurement_At96Dpi_AreTheFormerFixedOffsets()
+        {
+            System.Drawing.Rectangle bounds = PuttyBase.EmbeddedBoundsHidingChrome(new System.Drawing.Rectangle(0, 0, 800, 600), null, 96);
+
+            Assert.That(bounds, Is.EqualTo(new System.Drawing.Rectangle(-8, -30, 816, 638)));
+        }
+
+        [Test]
+        public void EmbeddedBounds_WithoutAMeasurement_At192Dpi_ScaleTheChrome()
+        {
+            // The fixed 30 px left half of a 60 px title bar inside the tab (#232).
+            System.Drawing.Rectangle bounds = PuttyBase.EmbeddedBoundsHidingChrome(new System.Drawing.Rectangle(0, 0, 800, 600), null, 192);
+
+            Assert.That(bounds, Is.EqualTo(new System.Drawing.Rectangle(-16, -60, 832, 676)));
+        }
+
+        [Test]
+        public void EmbeddedBounds_UseTheMeasuredChrome()
+        {
+            System.Drawing.Rectangle bounds = PuttyBase.EmbeddedBoundsHidingChrome(
+                new System.Drawing.Rectangle(0, 0, 800, 600), new Padding(14, 62, 14, 14), 192);
+
+            Assert.That(bounds, Is.EqualTo(new System.Drawing.Rectangle(-14, -62, 828, 676)));
+        }
+
+        [TestCase(-5, 30, 8, 8)]
+        [TestCase(8, 5000, 8, 8)]
+        [TestCase(8, 30, 8, -1)]
+        public void EmbeddedBounds_IgnoreAMeasurementThatIsNotBelievable(int left, int top, int right, int bottom)
+        {
+            System.Drawing.Rectangle bounds = PuttyBase.EmbeddedBoundsHidingChrome(
+                new System.Drawing.Rectangle(0, 0, 800, 600), new Padding(left, top, right, bottom), 96);
+
+            Assert.That(bounds, Is.EqualTo(new System.Drawing.Rectangle(-8, -30, 816, 638)));
+        }
+
+        [Test]
+        public void EmbeddedBounds_ABorderlessWindowFillsTheTarget()
+        {
+            System.Drawing.Rectangle target = new(0, 0, 800, 600);
+
+            Assert.That(PuttyBase.EmbeddedBoundsHidingChrome(target, Padding.Empty, 192), Is.EqualTo(target));
+        }
+
         private TestablePuttyBase _puttyProtocol = null!;
         private ConnectionTab _connectionTab = null!;
         private InterfaceControl _interfaceControl = null!;

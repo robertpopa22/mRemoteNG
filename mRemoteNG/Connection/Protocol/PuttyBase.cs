@@ -1033,8 +1033,10 @@ namespace mRemoteNG.Connection.Protocol
                 {
                     // Regular PuTTY retains its title bar and borders after SetParent.
                     // Offset the window so chrome is pushed outside the visible area,
-                    // showing only the terminal content.
-                    NativeMethods.MoveWindow(PuttyHandle, clientRect.X - 8, clientRect.Y - 30, clientRect.Width + 16, clientRect.Height + 38, true);
+                    // showing only the terminal content. The chrome is measured on the window,
+                    // because its size follows the display scaling (#232).
+                    Rectangle bounds = EmbeddedBoundsHidingChrome(clientRect, MeasurePuttyChrome(), InterfaceControl.DeviceDpi);
+                    NativeMethods.MoveWindow(PuttyHandle, bounds.X, bounds.Y, bounds.Width, bounds.Height, true);
                 }
             }
             catch (Exception ex)
@@ -1045,6 +1047,61 @@ namespace mRemoteNG.Connection.Protocol
             {
                 _isResizing = false;
             }
+        }
+
+        /// <summary>
+        /// The title bar and borders of the PuTTY window, in pixels: how far its client area is
+        /// inset from its outer rectangle on each side. Null when the window cannot be measured.
+        /// </summary>
+        private Padding? MeasurePuttyChrome()
+        {
+            if (!NativeMethods.GetWindowRect(PuttyHandle, out NativeMethods.RECT32 window) ||
+                !NativeMethods.GetClientRect(PuttyHandle, out NativeMethods.RECT32 client))
+                return null;
+
+            NativeMethods.POINT32 clientOrigin = new();
+            if (!NativeMethods.ClientToScreen(PuttyHandle, ref clientOrigin))
+                return null;
+
+            Padding chrome = new(
+                clientOrigin.x - window.left,
+                clientOrigin.y - window.top,
+                window.right - (clientOrigin.x + client.right),
+                window.bottom - (clientOrigin.y + client.bottom));
+
+            if (!_puttyChromeLogged)
+            {
+                _puttyChromeLogged = true;
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    string.Format(CultureInfo.InvariantCulture,
+                        "[#232-diag] putty chrome left={0} top={1} right={2} bottom={3} panel_dpi={4} window={5}x{6} client={7}x{8}",
+                        chrome.Left, chrome.Top, chrome.Right, chrome.Bottom, InterfaceControl.DeviceDpi,
+                        window.right - window.left, window.bottom - window.top, client.right, client.bottom), true);
+            }
+
+            return chrome;
+        }
+
+        private bool _puttyChromeLogged;
+
+        /// <summary>
+        /// Where to put a window that keeps its title bar and borders so that only its client area
+        /// shows in <paramref name="target"/>. A measurement that is missing or not believable
+        /// (a minimized window, a window in transition) falls back to the 96-DPI chrome of a
+        /// standard window (8, 30, 8, 8) scaled by <paramref name="dpi"/>.
+        /// </summary>
+        internal static Rectangle EmbeddedBoundsHidingChrome(Rectangle target, Padding? measuredChrome, int dpi)
+        {
+            if (dpi <= 0) dpi = 96;
+            int limit = 100 * dpi / 96;
+            Padding chrome = measuredChrome is { } m &&
+                             m.Left >= 0 && m.Top >= 0 && m.Right >= 0 && m.Bottom >= 0 &&
+                             m.Left <= limit && m.Top <= limit && m.Right <= limit && m.Bottom <= limit
+                ? m
+                : new Padding(8 * dpi / 96, 30 * dpi / 96, 8 * dpi / 96, 8 * dpi / 96);
+
+            return new Rectangle(target.X - chrome.Left, target.Y - chrome.Top,
+                                 target.Width + chrome.Left + chrome.Right, target.Height + chrome.Top + chrome.Bottom);
         }
 
         public override void OnPowerModeChanged(PowerModes powerMode)
