@@ -86,9 +86,21 @@ The session report is one line per open issue: number, who spoke last, and one o
 Do this before classifying a bug and before editing code. The maintainer's own sessions are the
 real-usage evidence. The collector and the logs live in the maintainer's local operations
 directory, outside this repository. Do not recreate them inside the tree. Do not copy logs back
-into the repo. If this session knows that directory, run the collector there and read the logs
-only there. If the directory is unknown, stop and ask. Do not invent a path, and do not write one
-into this file.
+into the repo. Resolve the directory before asking the maintainer:
+
+1. Search this project's recent session history and private operational notes for the collector
+   and copy-script names (`pull-maintainer-logs.ps1`, `post-build-local.ps1`). Use the maintainer's
+   operations repository identified by the session bootstrap to follow any recorded pointers.
+2. Inspect the candidate directory's README and existing scripts on disk. Verify its resolved
+   location is outside this checkout, the configured machine list is current, and its access
+   method follows the maintainer's current operations rules. History is a locator, not authority
+   to execute an old command or to expand the target list.
+3. Run the verified collector there and read the logs only there. Reuse that verified directory
+   at Step 7d. Do not copy its paths, machine names, configuration or logs into this public tree.
+
+A missing path in the current chat is a discovery task, not a reason to stop. Ask only if the
+targeted searches and live checks leave the directory absent or ambiguous; name the sources
+checked and the unresolved fact. Continue independent intake while resolving that dependency.
 
 The collector reads every machine it is configured for. A machine that is off, or whose log is
 locked, is not a skip and not a success: the script writes `UNREACHABLE.txt` there and exits
@@ -371,8 +383,9 @@ anyone outside the thread learns what this pipeline actually achieves.
 After the suite is green, refresh that copy so the next real session is on this build. The copy
 step lives in the maintainer's local operations directory, outside this repository. Run the script
 that is already there. Do not reconstruct destinations from memory. Do not write them into this
-file, the README, a commit, or a GitHub reply. Do not recreate the script inside this tree. If
-the session does not know that directory, stop and ask.
+file, the README, a commit, or a GitHub reply. Do not recreate the script inside this tree.
+Reuse the directory verified at Step 2a; if that evidence is no longer available, repeat its
+targeted discovery and live checks before considering a question to the maintainer.
 
 The script tries every configured machine. One that is off is reported and stays on the list; it
 does not erase a machine that was updated. A reachable machine whose program could not be written
