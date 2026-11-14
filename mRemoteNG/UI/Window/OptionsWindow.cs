@@ -2,6 +2,7 @@ using System;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.App.Diagnostics;
 using mRemoteNG.Themes;
 using mRemoteNG.UI.Forms;
 using WeifenLuo.WinFormsUI.Docking;
@@ -37,6 +38,7 @@ namespace mRemoteNG.UI.Window
 
         private void Options_Load(object sender, EventArgs e)
         {
+            using var load = new OptionsLoadSpan(OptionsLoadStage.WindowLoad);
             // On reopen of a previously initialized window, nothing to do —
             // FrmOptions is a child control and auto-shows with its parent
             if (_isInitialized && _optionsForm != null && !_optionsForm.IsDisposed)
@@ -57,11 +59,13 @@ namespace mRemoteNG.UI.Window
             if (_isFontOverrideApplied)
                 return;
 
+            int parent = OptionsLoadSpan.CurrentId;
             BeginInvoke((MethodInvoker)(() =>
             {
                 if (IsDisposed || _isFontOverrideApplied)
                     return;
 
+                using var font = new OptionsLoadSpan(OptionsLoadStage.WindowFont, parent: parent);
                 FontOverrider.FontOverride(this);
                 _isFontOverrideApplied = true;
             }));
@@ -81,6 +85,7 @@ namespace mRemoteNG.UI.Window
 
         private void LoadOptionsForm()
         {
+            using var embed = new OptionsLoadSpan(OptionsLoadStage.EmbedForm);
             // Check if FrmMain.OptionsForm is disposed (source of truth)
             if (FrmMain.OptionsForm != null && FrmMain.OptionsForm.IsDisposed)
                 FrmMain.RecreateOptionsForm();
@@ -111,7 +116,8 @@ namespace mRemoteNG.UI.Window
             }
 
             if (!_optionsForm.Visible)
-                _optionsForm.Show();
+                using (new OptionsLoadSpan(OptionsLoadStage.FormShow))
+                    _optionsForm.Show();
         }
 
         /// <summary>

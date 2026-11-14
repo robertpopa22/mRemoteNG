@@ -909,6 +909,11 @@ namespace mRemoteNG.App
             new(SafeToken(key), "\"" + value.Replace("\"", "'", StringComparison.Ordinal)
                 .Replace("\r", " ", StringComparison.Ordinal).Replace("\n", " ", StringComparison.Ordinal) + "\"");
 
+        internal static void RecordOptionsLoad(int id, int parent, OptionsLoadStage stage, string page, string phase, long elapsedMs) =>
+            WriteInfo("options_load", Number("span", id), Number("parent", parent),
+                new FieldValue("stage", stage.ToString()), new FieldValue("page", page),
+                new FieldValue("phase", phase), Number("elapsed_ms", elapsedMs));
+
         private static void WriteInfo(string eventName, params FieldValue[] fields) => Write(DiagnosticLevel.Info, eventName, fields);
         private static void WriteWarn(string eventName, params FieldValue[] fields) => Write(DiagnosticLevel.Warning, eventName, fields);
         private static void WriteError(string eventName, params FieldValue[] fields) => Write(DiagnosticLevel.Error, eventName, fields);

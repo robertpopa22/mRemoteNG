@@ -70,6 +70,22 @@ focus transition occurred: native transitions can fall between samples and recor
 
 ## Analysis
 
+`options_load` brackets synchronous Options work before it starts (`phase=begin`) and when
+its scope exits (`phase=leave`, `elapsed_ms`). `span` and `parent` link nested operations within
+the process; deferred font callbacks retain the parent that scheduled them. `stage` is a fixed
+operation token and `page` is a whitelisted class name, never a caption, path or setting value.
+`FormCreate` and `PageCreate` identify cold construction; `Refresh` / `Reload` distinguish warm
+opens and Cancel reloads. Per-page language, registry, settings, layout and registration have
+separate spans. These records diagnose #232; they are not a performance fix.
+
+A begin without a matching leave locates an operation that had not returned at the last recorded
+instant. Compare the same process/session and subsequent crash or shutdown records: a truncated
+log or process termination is not proof of a hang. A leave is also emitted during exception
+unwinding, so it does not mean success. `DockShow` returning and the font callbacks completing do
+not prove the first paint or remote-session responsiveness. The default appender flushes each
+record; disabled logging or a custom buffering appender can lose the final begin. Measurements
+include synchronous logging overhead, and the extra writes may matter on a slow log destination.
+
 Run the analyzer locally; it treats log content as data and never executes it:
 
 ```powershell

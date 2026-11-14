@@ -78,15 +78,22 @@ namespace mRemoteNG.App
                         _adimportForm.Show(dockPanel);
                         break;
                     case WindowType.Options:
+                    {
+                        using var open = new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.Open);
                         if (OptionsFormWindow == null || OptionsFormWindow.IsDisposed)
-                            OptionsFormWindow = new OptionsWindow();
-                        OptionsFormWindow.SetActivatedPage(Language.StartupExit);
+                            using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.WindowCreate))
+                                OptionsFormWindow = new OptionsWindow();
+                        using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.SelectPage))
+                            OptionsFormWindow.SetActivatedPage(Language.StartupExit);
                         // Reload controls from stored settings before every show so that any
                         // edits left over from a previous hide (Tab-X without Apply/OK) are
                         // discarded.  Safe on first call — no-op until FrmOptions is embedded.
-                        OptionsFormWindow.RefreshSettings();
-                        OptionsFormWindow.Show(dockPanel);
+                        using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.Refresh))
+                            OptionsFormWindow.RefreshSettings();
+                        using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.DockShow))
+                            OptionsFormWindow.Show(dockPanel);
                         break;
+                    }
                     case WindowType.SSHTransfer:
                         if (SshtransferForm == null || SshtransferForm.IsDisposed)
                             SshtransferForm = new SSHTransferWindow();

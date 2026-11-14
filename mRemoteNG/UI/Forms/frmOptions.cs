@@ -1,5 +1,6 @@
 #region  Usings
 using mRemoteNG.App;
+using mRemoteNG.App.Diagnostics;
 using mRemoteNG.UI.Forms.OptionsPages;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace mRemoteNG.UI.Forms
 
         private FrmOptions(string pageName)
         {
+            using var construct = new OptionsLoadSpan(OptionsLoadStage.FormCreate);
             Cursor.Current = Cursors.WaitCursor;
             InitializeComponent();
             Icon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.Settings_16x);
@@ -107,6 +109,7 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmOptions_Load(object sender, EventArgs e)
         {
+            using var load = new OptionsLoadSpan(OptionsLoadStage.FormLoad);
             Logger.Instance.Log?.Debug($"[FrmOptions_Load] START - IsInitialized: {_isInitialized}, Visible: {this.Visible}, Handle: {this.Handle}");
 
             // Only initialize once to prevent multiple event subscriptions and page reloading
@@ -142,6 +145,7 @@ namespace mRemoteNG.UI.Forms
                 return;
             }
 
+            int parent = OptionsLoadSpan.CurrentId;
             BeginInvoke((MethodInvoker)(() =>
             {
                 if (IsDisposed || _isFontOverrideApplied)
@@ -149,6 +153,7 @@ namespace mRemoteNG.UI.Forms
                     return;
                 }
 
+                using var font = new OptionsLoadSpan(OptionsLoadStage.FormFont, parent: parent);
                 FontOverrider.FontOverride(this);
                 _isFontOverrideApplied = true;
             }));
@@ -208,6 +213,7 @@ namespace mRemoteNG.UI.Forms
         {
             OptionsPage? page = null;
 
+            using (new OptionsLoadSpan(OptionsLoadStage.PageCreate, pageName))
             switch (pageName)
             {
                 case "StartupExitPage":
@@ -302,13 +308,19 @@ namespace mRemoteNG.UI.Forms
             }
 
             if (page == null) return;
-            page.ApplyLanguage();
-            page.LoadRegistrySettings();
-            page.LoadSettings();
+            using (new OptionsLoadSpan(OptionsLoadStage.PageLanguage, pageName))
+                page.ApplyLanguage();
+            using (new OptionsLoadSpan(OptionsLoadStage.PageRegistry, pageName))
+                page.LoadRegistrySettings();
+            using (new OptionsLoadSpan(OptionsLoadStage.PageSettings, pageName))
+                page.LoadSettings();
+            using var layout = new OptionsLoadSpan(OptionsLoadStage.PageLayout, pageName);
             using var font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
                 Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
             InterfaceFont.Apply(page, font);
             AdaptiveLayout.Prepare(page);
+            layout.Dispose();
+            using var register = new OptionsLoadSpan(OptionsLoadStage.PageRegister, pageName);
             _optionPages.Add(page);
             lstOptionPages.AddObject(page);
             
@@ -471,6 +483,7 @@ namespace mRemoteNG.UI.Forms
         /// </summary>
         internal void ReloadAllSettings()
         {
+            using var reload = new OptionsLoadSpan(OptionsLoadStage.Reload);
             // Suppress HasChanges tracking while we programmatically restore control values
             var wasLoading = _isLoading;
             _isLoading = true;
@@ -479,8 +492,10 @@ namespace mRemoteNG.UI.Forms
                 foreach (OptionsPage page in _optionPages)
                 {
                     // Undo live previews (the theme page applies them before Save) first
-                    page.RevertSettings();
-                    page.LoadSettings();
+                    using (new OptionsLoadSpan(OptionsLoadStage.PageRevert, page.GetType().Name))
+                        page.RevertSettings();
+                    using (new OptionsLoadSpan(OptionsLoadStage.PageSettings, page.GetType().Name))
+                        page.LoadSettings();
                 }
             }
             finally
