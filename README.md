@@ -100,7 +100,7 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Quality:** 4,125 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 108 reports from this fork's own users are closed with 3 open. SonarCloud rates reliability, security and maintainability A with 1.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
+**Quality:** 4,125 automated test executions (0 failures), analyzer checks enabled, 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 upstream issues triaged (712 released, March 2026 snapshot); 108 reports from this fork's own users are closed with 3 open. SonarCloud rates reliability, security and maintainability A with 0.0% duplication on new code and 100% of security hotspots reviewed; the Quality Gate is RED on one condition, new-code coverage, since the last analysis on 2026-10-08, and no analysis has run since because the fork's CI is paused (see §6.4 row 9). It was red on that one condition after the 2026-08-31 batch, whose new lines were largely Win32/ActiveX interop teardown paths that only execute against live sessions; the tests written since cover them headless. The number here says whatever the dashboard says.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -297,11 +297,7 @@ unguarded dereference in a log message.
 
 **SonarCloud bugs fixed (beta.6):** S2259 (null reference ×6), S2583 (dead branch), S4275 (getter/setter mismatch ×2), S1751 (no-op loop ×2), S3903 (missing namespace ×2), S3456 (redundant ToCharArray ×3), S2674 (unchecked Read), MA0037 (stray semicolon ×4). All ObjectListView issues (25) dismissed as won't fix — vendored dependency outside our control.
 
-**SonarCloud on fork (last analysis 2026-10-08, commit c0aba2cc7): ratings A/A/A; Quality Gate FAILED on new-code coverage; no analysis since, the CI that runs the scanner is paused.** Earlier text of this paragraph (2026-09-02) said the gate passed on every
-condition**, including new-code coverage at 85.7% against the 80% threshold — it had been red at
-58.8% after the 2026-08-31 batch of interop teardown paths, and the tests written since cleared it.
-Duplication 1.0% on new code, 100% of security hotspots reviewed. The gate had been green
-since 2026-08-15:
+**SonarCloud on fork (last analysis 2026-10-08, commit c0aba2cc7): ratings A/A/A; Quality Gate FAILED on new-code coverage (63.0%, below the 80% threshold); no analysis since, the CI that runs the scanner is paused.** That analysis reports 0.0% duplication on new code and 100% of security hotspots reviewed. These results do not validate the current commit. Earlier text (2026-09-02) reported a passing gate with 85.7% new-code coverage after tests covered the interop teardown paths responsible for the preceding 58.8% result.
 
 Getting there was not a matter of adjusting thresholds. The gate went red on the security rating
 with six open findings, and each was examined on its merits: the private key a credential vault
