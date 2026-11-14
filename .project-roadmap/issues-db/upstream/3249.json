@@ -2,7 +2,7 @@
   "number": 3249,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "[Bug] App permanently fails to start after saving invalid SQL Server settings",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "Need 2 check",
@@ -59,8 +59,8 @@
   ],
   "comments_cursor": "2026-11-02T21:38:52Z",
   "unread_comments": 4,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-11-03T07:07:18Z",
   "notes": ""
 }

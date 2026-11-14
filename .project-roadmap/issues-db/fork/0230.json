@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-11-12T14:58:25Z",
-  "github_updated_at": "2026-11-12T14:58:25Z",
+  "github_updated_at": "2026-11-13T07:56:20Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentException`\r\n**Message:** The XML file format is invalid.\r\n\r\n### Stack Trace\r\n```\r\n   at void WeifenLuo.WinFormsUI.Docking.DockPanel+Persistor.LoadFromXml(DockPanel dockPanel, Stream stream, DeserializeDockContent deserializeContent, bool closeStream) x 2\r\n   at void WeifenLuo.WinFormsUI.Docking.DockPanel.LoadFromXml(string fileName, DeserializeDockContent deserializeContent)\r\n   at void mRemoteNG.Config.Settings.DockPanelLayoutLoader.Lo...",
   "our_status": "released",
   "priority": null,
@@ -39,11 +39,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-11-12T14:58:25Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABmCMK4A",
+      "author": "robertpopa22",
+      "date": "2026-11-13T07:56:19Z",
+      "snippet": "fixed in nightly `1.84.0+f7ff789c90` (https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).\n\nView → load layout → \"Load from file...\" accepted any XML file. A file that is not a panel layout closed all panels and then failed with \"The XML file format is invalid.\", so the window stayed empty. The file is now checked first: one that is not a panel layout is refused with a message in the Notifications panel and the current layout is kept.\n\nChecked: automated tests for the file check. Not...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-11-13T07:56:20Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-11-13T07:56:21Z",
+  "last_synced": "2026-11-14T11:14:39Z",
   "notes": "fixed in nightly 1.84.0+f7ff789c90 (39259278a); closed as fixed 2026-11-13"
 }

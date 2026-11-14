@@ -8,7 +8,7 @@
   ],
   "author": "jblion",
   "created_at": "2026-11-12T20:15:43Z",
-  "github_updated_at": "2026-11-13T07:56:18Z",
+  "github_updated_at": "2026-11-13T17:35:38Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
   "our_status": "testing",
   "priority": null,
@@ -35,6 +35,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-11-14",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -46,12 +56,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABmOY0qA",
+      "author": "jblion",
+      "date": "2026-11-13T17:29:32Z",
+      "snippet": "Hi, \n\nI did not setup a specific putty filepath.\nI have a 4K 65\" screen. I look at it from a 2m distance. \nThat's why I scale up at 200%.\nHere is the log with the version f7ff789c90 \n\n```\n2026-11-13T18:27:39.698+01:00 mono_ms=64 pid=21540 app_session=b2914cea6d57 [2] INFO  - [Perf] event=process_environment os_major=10 os_minor=0 os_build=26300 os_ubr=9974 os_product=Windows_10_Pro os_display=26H2 os_install=Client gdi_quota=10000 user_quota=10000\n2026-11-13T18:27:39.760+01:00 mono_ms=127 pid=21...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-11-13T07:56:18Z",
-  "unread_comments": 0,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-11-13T07:56:22Z",
-  "notes": "first premise attempt 0184f9b5f in nightly 1.84.0+f7ff789c90, not reproduced; asked for [#232-diag] line, PuTTY path and version"
+  "comments_cursor": "2026-11-13T17:35:38Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-14T11:38:18Z",
+  "notes": "2026-11-14: reporter confirms title-bar symptom fixed but reports Options freeze. Local diagnostic-only change; cause unproven. Automated UI at 96 DPI: first Open 3854 ms, warm Open 246 ms; most cold work in page layout. Not reporter French/200% environment. Grok and Gemini agree no behavioral fix justified. Awaiting publication approval and an affected-session trace; do not close."
 }

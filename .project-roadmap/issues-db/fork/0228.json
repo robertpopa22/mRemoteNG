@@ -82,5 +82,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-11-12T08:00:05Z",
-  "notes": "2026-11-12: retest ask of 2026-11-09 is 3 days old, reply stands; unanswered close due after 2026-11-16 if silent (fix 09e9c0f1c, nightly 1.84.0+a982dd6773 or later)"
+  "notes": "2026-11-14: retest ask of 2026-11-09 is 5 days old, reply stands; unanswered close due after 2026-11-16 if silent (fix 09e9c0f1c, nightly 1.84.0+a982dd6773 or later). Automated RDP layout-restore UI check passed today; reporter environment still unconfirmed."
 }

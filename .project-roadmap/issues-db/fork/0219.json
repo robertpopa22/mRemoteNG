@@ -71,5 +71,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-11-12T08:00:04Z",
-  "notes": "2026-11-12: reply stands; open on signing (README 6.4 row 8)"
+  "notes": "2026-11-14: reply stands; open on signing (README 6.4 row 8). Windows ARM Smart App Control environment unavailable; the x64 lab cannot certify this scenario. No security policy or signing change."
 }

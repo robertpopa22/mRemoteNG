@@ -11,7 +11,7 @@
   ],
   "author": "Neustradamus",
   "created_at": "2026-10-02T14:45:54Z",
-  "github_updated_at": "2026-10-28T22:41:41Z",
+  "github_updated_at": "2026-11-13T16:46:16Z",
   "body_snippet": "Dear @mRemoteNG team,\n\nAfter several requests, tickets, ...\n\nWhen a new stable version will be released with CVE fixes?\n\nRECALL: Currently, the latest is always 1.76.20 (2019-04-12) with a lot of vulnerabilities.\n\nThanks in advance.",
   "our_status": "new",
   "priority": null,
@@ -91,12 +91,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABmNcaHQ",
+      "author": "cremenescu",
+      "date": "2026-11-13T16:46:16Z",
+      "snippet": "Where the open pull requests on v1.78.2-dev stand, to make planning the RC a little easier.\n\n**Ready to merge**\n- #3684 first: v1.78.2-dev hasn't built since 32ff6924, so until it's in, the CI of every other PR fails at the build.\n- Then mine, in any order: #3685, #3686, #3687, #3688, #3689, #3690, #3691, #3693, #3694. The first seven together with #3684 merge without code conflicts, only CHANGELOG.md conflicts, and with all eight applied the whole suite passes, 2854 tests, on a Windows runner. ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-10-28T22:41:41Z",
-  "unread_comments": 8,
+  "comments_cursor": "2026-11-13T16:46:16Z",
+  "unread_comments": 9,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-10-30T03:47:52Z",
+  "last_synced": "2026-11-14T11:14:39Z",
   "notes": ""
 }
