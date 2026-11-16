@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Config;
@@ -59,14 +60,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 Padding = new Padding(8, 4, 8, 4),
                 Margin = new Padding(6, 12, 6, 6),
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
             };
-            _btnResetResolver.Location = new Point(6, Math.Max(chkShowHostStatus.Bottom + 16, 420));
+            _btnResetResolver.Location = new Point(6, pnlOptions.Controls.Cast<Control>().Max(control => control.Bottom) + 16);
             _btnResetResolver.Click += (_, _) => ResetConnectionsFilePicker();
-            Controls.Add(_btnResetResolver);
-            _btnResetResolver.BringToFront();
-            SizeChanged += (_, _) => _btnResetResolver.MaximumSize = new Size(Math.Max(80, ClientSize.Width - 12), 0);
-            _btnResetResolver.MaximumSize = new Size(Math.Max(80, ClientSize.Width - 12), 0);
+            pnlOptions.Controls.Add(_btnResetResolver);
         }
 
         private static void ResetConnectionsFilePicker()
