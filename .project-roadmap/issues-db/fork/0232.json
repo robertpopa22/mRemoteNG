@@ -8,9 +8,9 @@
   ],
   "author": "jblion",
   "created_at": "2026-11-12T20:15:43Z",
-  "github_updated_at": "2026-11-14T12:10:28Z",
+  "github_updated_at": "2026-11-15T00:05:48Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
-  "our_status": "testing",
+  "our_status": "triaged",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -55,6 +55,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-11-16",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -84,12 +94,21 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABmnUF4A",
+      "author": "jblion",
+      "date": "2026-11-15T00:05:48Z",
+      "snippet": "First \"Options\" opening takes ages.\nSecond is almost instant.\n\nHere are the logs: \n\n```\n2026-11-15T01:03:48.919+01:00 mono_ms=64 pid=9644 app_session=fb1ba38eba44 [2] INFO  - [Perf] event=process_environment os_major=10 os_minor=0 os_build=26300 os_ubr=9974 os_product=Windows_10_Pro os_display=26H2 os_install=Client gdi_quota=10000 user_quota=10000\n2026-11-15T01:03:48.985+01:00 mono_ms=130 pid=9644 app_session=fb1ba38eba44 [2] INFO  - [Perf] event=process_start version=1.84.0.3788 build_id=5babd...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-11-14T12:10:28Z",
-  "unread_comments": 0,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-11-14T12:12:10Z",
-  "notes": "2026-11-14: diagnostic-only Options timings shipped in nightly 1.84.0+5babd560b6; full publication suite 4125/4125 passed. Published reply verified at https://github.com/robertpopa22/mRemoteNG/issues/232#issuecomment-6877063469. Local 96 DPI first Open 3854 ms, warm Open 246 ms; French/200% reporter environment untested and cause unproven. Await affected-session trace; keep issue open."
+  "comments_cursor": "2026-11-15T00:05:48Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-16T06:42:44Z",
+  "notes": "2026-11-16: reporter cold/warm trace isolates expensive initial page layout. New table batching regression reproduced before edit and passes after. Local candidate under full-suite and UI validation; no new build published or reply posted."
 }

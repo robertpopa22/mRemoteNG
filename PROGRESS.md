@@ -1,6 +1,16 @@
 # PROGRESS — handover
 
-Current status: responsive native layouts and the Windows app-theme default are implemented and validated in local build 3740. #210 and #211 are closed; their earlier handover history is retained below.
+Current status: the 2026-11-16 Options candidates below are committed locally and await publication approval. Earlier completed work is retained below.
+
+## Options follow-up — 2026-11-16
+
+- #232: the reporter's cold/warm trace identified initial page layout as the main measured delay. New table construction is now batched (`d2821ec4d`); a deterministic regression observed measurement with 1/20 children before and 20/20 after. Automated File > Options > Cancel > reopen succeeded. App trace observations: first Open 21,003 -> 1,956 ms, reopening 385 -> 304 ms. These are individual runs on the same guest, not a controlled benchmark; the French/200% reporter setup remains untested. Keep the remaining first-opening delay open pending a reporter retest.
+- #233: the reset-picker button now belongs to the checkbox layout (`f7396707e`). Automated UI reproduced numeric-field overlap before, then observed the button below the last checkbox and above the numeric settings at 1000x720, 800x600 and back. Three French/scaled-control cases also changed from failing to passing. Reset was not invoked and an actual 192-DPI monitor was not exercised. Closure of the reproduced overlap is proposed after publication.
+- #231: the reporter explicitly requested closure and no longer has the original file. The existing synthetic version-2.9 UI case passed again: the named connection appeared in the tree and the app exited cleanly. Original-file contents and upstream-specific field round trips remain unverified. Closure is prepared, not posted.
+- #228: existing restore-layout UI scenario passed. The last maintainer ask was still younger than seven days at intake; reply stands. #219: unsigned-build/Smart App Control limitation remains open; no ARM/SAC reproduction or signing change.
+- Full build succeeded. Git Bash full suite: 4,129/4,129, 184 s, zero crashes. Focused regression group: 9/9. Candidate Options opening, reset-picker placement and log-path UI scenarios: 3/3. All five theme/font audits passed at 96 DPI: 13 pages at 1000x720 and 800x600, 8.25/14/24 pt, Windows light/dark and manual theme. Apply remained reachable; large fonts require scrolling. Before/after placement captures and the large-font Connections capture were inspected.
+- Independent review: Grok confirmed the layout mechanism; Gemini returned temporary unavailability, so review coverage is partial. Broader reentrancy/font changes and a separate footer container were not adopted: the narrower fixes have direct regression evidence.
+- No push, release upload, GitHub reply or closure has occurred in this run. CI remains queued/paused; the last Sonar analysis is still 2026-10-08, with new-code coverage 63% against 80%. README records its two older open vulnerability findings. These stale remote checks do not validate this candidate.
 
 ## Responsive layouts and Windows theme default — 2026-10-12
 

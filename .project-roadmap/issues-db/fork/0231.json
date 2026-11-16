@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-11-12T19:47:47Z",
-  "github_updated_at": "2026-11-13T07:56:16Z",
+  "github_updated_at": "2026-11-15T00:29:59Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NotSupportedException`\r\n**Message:** Incompatible connection file format (file format version 2,9).\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.Config.Serializers.ConnectionSerializers.Xml.XmlConnectionsDeserializer.ValidateConnectionFileVersion() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs:line 185\r\n   at ConnectionTreeModel mRemoteNG.Config.Serializers.ConnectionSerializer...",
   "our_status": "testing",
   "priority": null,
@@ -37,6 +37,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-11-16",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -57,12 +67,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABmnlPxw",
+      "author": "jblion",
+      "date": "2026-11-15T00:29:59Z",
+      "snippet": "Hi.\n\nI don't have the file anymore.\nAs it is fixed and tested now, I think you can close the issue.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-11-13T07:56:16Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-11-15T00:29:59Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-11-13T07:56:22Z",
-  "notes": "2026-11-14: fix shipped 139ed48a6 in nightly 1.84.0+f7ff789c90; ask is one day old, reply stands. Automated UI loaded a synthetic ConfVersion 2.9 connection into the tree and exited cleanly. Original upstream file and upstream-specific field round-trip remain unverified; awaiting reporter confirmation."
+  "waiting_for_us": true,
+  "last_synced": "2026-11-16T06:47:07Z",
+  "notes": "2026-11-16: reporter explicitly requests closure; original file is no longer available. Existing synthetic version-2.9 UI scenario passed: connection visible and clean exit, not an original-file or upstream-field roundtrip. Acceptance already shipped in 1.84.0+5babd560b6; fixed closure drafted, not posted."
 }

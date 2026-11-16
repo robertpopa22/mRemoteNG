@@ -2,7 +2,7 @@
   "number": 3202,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Crash when opening another connection after minimizing a full-screen RDP session",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Bug",
     "UI/UX",
@@ -34,8 +34,8 @@
   ],
   "comments_cursor": "2026-11-02T22:35:50Z",
   "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-11-03T07:07:18Z",
   "notes": "RDP fullscreen crash: COM events fire on non-UI thread; _frmMain accessed without IsDisposed check and without InvokeRequired marshaling. Fixed by: (1) wrapping Fullscreen/SmartSize restore in try/catch, (2) marshaling RestoreAfterFullscreen to UI thread via BeginInvoke, (3) adding IsDisposed+IsHandleCreated guards, (4) catching ObjectDisposedException in enter-fullscreen async task."
 }

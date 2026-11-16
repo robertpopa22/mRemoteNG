@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "total_expected": 4125,
+    "total_expected": 4129,
     "min_total_threshold": 3150,
-    "last_updated": "2026-11-14",
+    "last_updated": "2026-11-16",
     "stats": {
       "unique_methods": 1555,
       "static_test_cases": 1743,
@@ -30,7 +30,7 @@
       {
         "name": "UI",
         "filter": "FullyQualifiedName~mRemoteNGTests.UI&Name!=FormBehavior&Name!=AllPagesExistWithIconsAndLoadCorrectSettings",
-        "expected": 474
+        "expected": 478
       },
       {
         "name": "Tools",

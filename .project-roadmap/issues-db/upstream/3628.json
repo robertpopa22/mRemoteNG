@@ -2,7 +2,7 @@
   "number": 3628,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "1Password credential provider freezes mRemoteNG and 1Password during CLI authorization (blocking op call on UI threa",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "herigson",
   "created_at": "2026-10-29T13:04:13Z",
@@ -27,8 +27,8 @@
   ],
   "comments_cursor": "2026-10-30T06:54:47Z",
   "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-11-02T16:11:15Z",
   "notes": ""
 }
