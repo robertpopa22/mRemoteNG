@@ -8,9 +8,9 @@
   ],
   "author": "jblion",
   "created_at": "2026-11-12T20:15:43Z",
-  "github_updated_at": "2026-11-15T00:05:48Z",
+  "github_updated_at": "2026-11-16T07:24:17Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -65,6 +65,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-11-16",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -101,14 +111,23 @@
       "date": "2026-11-15T00:05:48Z",
       "snippet": "First \"Options\" opening takes ages.\nSecond is almost instant.\n\nHere are the logs: \n\n```\n2026-11-15T01:03:48.919+01:00 mono_ms=64 pid=9644 app_session=fb1ba38eba44 [2] INFO  - [Perf] event=process_environment os_major=10 os_minor=0 os_build=26300 os_ubr=9974 os_product=Windows_10_Pro os_display=26H2 os_install=Client gdi_quota=10000 user_quota=10000\n2026-11-15T01:03:48.985+01:00 mono_ms=130 pid=9644 app_session=fb1ba38eba44 [2] INFO  - [Perf] event=process_start version=1.84.0.3788 build_id=5babd...",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABm-CZ6A",
+      "author": "robertpopa22",
+      "date": "2026-11-16T07:24:17Z",
+      "snippet": "Thank you for the first-opening/reopening comparison and the detailed trace. It shows 9,325 ms for the first Options opening, including 8,202 ms constructing its pages, versus 90 ms on reopening. The slow stages are the initial page layouts.\n\nThe candidate batches construction of each new automatic-layout table. Previously, controls were measured while the table was still being populated: a regression test caught measurement with only 1 of 20 controls present. The same test now sees all 20 befor...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-11-15T00:05:48Z",
-  "unread_comments": 1,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-11-16T06:42:44Z",
-  "notes": "2026-11-16: reporter cold/warm trace isolates expensive initial page layout. New table batching regression reproduced before edit and passes after. Local candidate under full-suite and UI validation; no new build published or reply posted."
+  "comments_cursor": "2026-11-16T07:24:17Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-11-16T07:24:47Z",
+  "notes": "2026-11-16: table construction batching d2821ec4d shipped in nightly 1.84.0+31a4433111. Full publication suite4129/4129; automated Options open/cancel/reopen first1956ms,warm304ms versus earlier21003/385ms, individual observations not controlled benchmark. Reporter French/200% setup not exercised. Reply https://github.com/robertpopa22/mRemoteNG/issues/232#issuecomment-6910155240 read back; awaiting reporter first-opening retest, remains open."
 }

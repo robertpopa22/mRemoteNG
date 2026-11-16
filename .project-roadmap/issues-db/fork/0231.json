@@ -2,7 +2,7 @@
   "number": 231,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.NotSupportedException: Incompatible connection file format (file format version 2,9).",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,9 +10,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-11-12T19:47:47Z",
-  "github_updated_at": "2026-11-15T00:29:59Z",
+  "github_updated_at": "2026-11-16T07:24:16Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NotSupportedException`\r\n**Message:** Incompatible connection file format (file format version 2,9).\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.Config.Serializers.ConnectionSerializers.Xml.XmlConnectionsDeserializer.ValidateConnectionFileVersion() in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs:line 185\r\n   at ConnectionTreeModel mRemoteNG.Config.Serializers.ConnectionSerializer...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -47,6 +47,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-11-16",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -56,8 +66,8 @@
       "date": "2026-11-12T20:01:06Z",
       "snippet": "Workaround: I modified the version manually.",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
     },
     {
       "id": "IC_kwDORKxwDc8AAAABmCMIJA",
@@ -65,7 +75,7 @@
       "date": "2026-11-13T07:56:16Z",
       "snippet": "Thank you for adding the workaround: \"the file loads once the version is edited\" is what showed this was only a version limit, not a real format difference.\n\nThe file was last saved by an upstream mRemoteNG build, which writes `ConfVersion=\"2.9\"` since October. This fork accepted 2.8 at most and refused the file. Nightly `1.84.0+f7ff789c90` (https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) accepts 2.9.\n\nWhat 2.9 adds over 2.8 is three settings per connection: TerminalBackend, Colo...",
       "is_ours": true,
-      "analyzed": false,
+      "analyzed": true,
       "action_needed": false
     },
     {
@@ -74,14 +84,23 @@
       "date": "2026-11-15T00:29:59Z",
       "snippet": "Hi.\n\nI don't have the file anymore.\nAs it is fixed and tested now, I think you can close the issue.",
       "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
+      "analyzed": true,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABm-CW0Q",
+      "author": "robertpopa22",
+      "date": "2026-11-16T07:24:15Z",
+      "snippet": "Fixed. Thank you for confirming the fix and explicitly saying this can be closed. The acceptance change is already in [nightly 1.84.0+5babd560b6](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly).\n\nThe automated UI recheck opened a synthetic version-2.9 file, observed its named connection in the tree and exited cleanly. Your original file is no longer available, so this is not a claim that its full contents were compared through an upstream/fork round trip. The previously stated li...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-11-15T00:29:59Z",
-  "unread_comments": 2,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-11-16T06:47:07Z",
-  "notes": "2026-11-16: reporter explicitly requests closure; original file is no longer available. Existing synthetic version-2.9 UI scenario passed: connection visible and clean exit, not an original-file or upstream-field roundtrip. Acceptance already shipped in 1.84.0+5babd560b6; fixed closure drafted, not posted."
+  "comments_cursor": "2026-11-16T07:24:16Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-11-16T07:24:46Z",
+  "notes": "2026-11-16: closed completed after reporter confirmation; synthetic version-2.9 UI recheck passed (named connection visible, clean exit), original-file roundtrip unavailable. Published reply https://github.com/robertpopa22/mRemoteNG/issues/231#issuecomment-6910154449; state and exact text read back."
 }

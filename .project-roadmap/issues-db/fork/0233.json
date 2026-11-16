@@ -2,15 +2,15 @@
   "number": 233,
   "repo": "robertpopa22/mRemoteNG",
   "title": "\"Reset Connections-file picker (Remember)\" button's placement is wrong",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "jblion",
   "created_at": "2026-11-15T00:18:58Z",
-  "github_updated_at": "2026-11-15T00:18:58Z",
+  "github_updated_at": "2026-11-16T07:24:20Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
-  "our_status": "triaged",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -25,13 +25,33 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-16",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-11-15T00:18:58Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABm-CbTQ",
+      "author": "robertpopa22",
+      "date": "2026-11-16T07:24:18Z",
+      "snippet": "Thank you for the screenshot and the resize detail: the reset button was positioned directly on the page, independently of its docked sections. Its bottom anchor moved it over other controls as the window changed size.\n\nThe candidate puts the button after the checkboxes in their automatic layout. In the automated UI reproduction, the old button covered the numeric settings even at 100% scaling. After the change, it stayed below the last checkbox and above the first numeric field while the window...",
+      "is_ours": true,
+      "analyzed": true,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-11-16T07:24:20Z",
   "unread_comments": 0,
-  "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-11-16T06:42:44Z",
-  "notes": "2026-11-16: overlap reproduced in automated 96-DPI UI and French/scaled control tests. Reset picker moved into checkbox flow. Local candidate under full-suite and UI validation; reporter 192-DPI environment not exercised. No new build published or reply posted."
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-11-16T07:24:47Z",
+  "notes": "2026-11-16: closed completed after layout correction f7396707e shipped in nightly1.84.0+31a4433111. Before/after automated96DPI resize showed numeric overlap removed; French1x/2x control regressions pass, actual192DPI monitor untested. Reply https://github.com/robertpopa22/mRemoteNG/issues/233#issuecomment-6910155597 and closed state read back."
 }
