@@ -355,6 +355,8 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 - **NU există `sonar-project.properties`** — SonarScanner for .NET nu-l suportă, toate setările se dau ca parametri la `dotnet-sonarscanner begin`
 
 ### Qodo Code Review:
+
+- **Status checked 2026-11-16:** trial ended 2026-09-23; reviews are paused. GitHub Actions reactivation does not reactivate this service. The historical PR helper below predates the main-only workflow; do not create a review branch merely to invoke it.
 - GitHub App `qodo-code-review` instalat pe fork — AI-powered review complementar cu static analysis
 - **On-demand only** — rulat prin `./scripts/qodo-review.sh [commits] [branch]`
 - **NU funcționează ca GitHub Action** — Qodo ignoră PR-uri create de bots
@@ -411,8 +413,8 @@ For the complete evidence trail of the AI-assisted modernization process
 | Tests | 7,321 passed, 0 failures (incl. live SQL Server, ODBC, MariaDB integration) |
 | UI battery | FlaUI acceptance scenarios run inside an isolated Hyper-V lab guest (`lab-run.ps1`) |
 | Startup time | ≤1s with 200 connections (optimized from ~10-30s) |
-| CI status | Actions paused since 2026-10-08 (no runs start); packages published locally with `scripts/Publish-Release.ps1` |
-| SonarCloud | Last scan 2026-10-08: A/A/A but gate FAILED on new-code coverage; no scan since (Actions paused, see README §6.4 row 9) |
+| CI status | Actions re-enabled 2026-11-16 after a fork usage suspension; follow each run to completion. Local publication remains a fallback, not the default assumption. See README maintenance update. |
+| SonarCloud | Resumed scan 2026-11-16 on `8153f07f1`: tests 4,101 passed / 27 skipped; Quality Gate FAILED on new-code reliability, security and coverage (58.9% versus 80%). See README §6.4 row 9. |
 | Release model | **2 live releases**: rolling `nightly` (overwritten each push to `main`) + stable `vX.Y.Z` tags (`releases/latest`). Old dated `-NB-` prereleases removed. |
 | Update check | In-app checks GitHub `releases/latest` (latest stable) and opens the release page — no Stable/Preview/Nightly channels, no `mremoteng.org` feeds |
 | MSI installer | WiX 6 SDK — auto-generated in nightly + release CI ([#24](https://github.com/robertpopa22/mRemoteNG/issues/24)) |

@@ -292,8 +292,15 @@ the change yet ([BP-019](../../docs/bp/BP-019-no-build-no-retest.md)).
 
 ### Step 7a: Publish the nightly
 
-GitHub Actions is paused on the fork, so a push publishes nothing. The nightly is built and
-uploaded locally by `scripts/Publish-Release.ps1`, from a clean detached worktree of `HEAD`.
+Check the current Actions state before choosing the publication path; do not infer it from an
+older session. Actions resumed on 2026-11-16 after a fork usage suspension. When the push starts
+`Nightly Build`, follow that run through build, tests and publication, then read back the release
+commit and assets. Do not race a local publisher against CI. `PR_Validation` only builds the
+solution/test projects and runs the configured startup checks; it does not execute the full suite
+or publish a release.
+
+If CI publication is unavailable, the authorized local fallback is
+`scripts/Publish-Release.ps1`, from a clean detached worktree of `HEAD`:
 
 ```powershell
 pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/Publish-Release.ps1 -Channel full -Tag nightly -DryRun
