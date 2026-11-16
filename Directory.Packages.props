@@ -27,7 +27,7 @@
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.291" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.1.1" />
     <PackageVersion Include="Microsoft.Data.SqlClient.SNI.runtime" Version="7.1.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.12" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
     <PackageVersion Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
