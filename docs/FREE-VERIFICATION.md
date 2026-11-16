@@ -153,6 +153,14 @@ The workflow waits for the server Quality Gate and fails when that gate fails.
 An upload, local coverage estimate or successful build alone is not a green gate;
 read back the analysis revision, conditions and remaining findings after push.
 
+Verified on 16 November 2026: analysis `162e7c9d-4982-4935-bdf4-2a3e93effa12`
+matches published product `b685313c0`. The gate passed all six conditions with
+**80.55% new-code coverage** against the unchanged 80% threshold, overall coverage
+59.5%, A/A/A ratings and zero open bugs/vulnerabilities. Eleven findings were
+fixed and one executable-name false positive was individually resolved. The
+6,786 maintainability findings and documented Semgrep parsing limits remain;
+this is not a claim of a finding-free codebase. No hosted review was invoked.
+
 ## CodeRabbit OSS
 
 The [public-repository plan](https://www.coderabbit.ai/oss) has no minimum-star
