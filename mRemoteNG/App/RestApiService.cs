@@ -50,6 +50,7 @@ namespace mRemoteNG.App
             _listener = new HttpListener();
             _listener.Prefixes.Add($"http://localhost:{Port}/");
             _cts = new CancellationTokenSource();
+            CancellationToken ct = _cts.Token;
 
             try
             {
@@ -62,7 +63,7 @@ namespace mRemoteNG.App
                 return;
             }
 
-            _listenTask = Task.Run(() => ListenLoop(_cts.Token));
+            _listenTask = Task.Run(() => ListenLoop(ct), ct);
             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
                 $"REST API started on http://localhost:{Port}/");
         }
@@ -76,7 +77,8 @@ namespace mRemoteNG.App
 
             try
             {
-                _listenTask?.Wait(TimeSpan.FromSeconds(5));
+                // The listener has already been canceled; wait for its shutdown or the timeout.
+                _listenTask?.Wait(TimeSpan.FromSeconds(5), CancellationToken.None);
             }
             catch (AggregateException)
 

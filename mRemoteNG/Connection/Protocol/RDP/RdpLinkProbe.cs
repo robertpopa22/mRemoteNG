@@ -184,7 +184,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return;
                 var cts = new CancellationTokenSource();
                 _cts = cts;
-                _ = Task.Run(() => RunAsync(ports, cts));
+                // RunAsync must execute its cleanup even when Stop cancels before the task starts.
+                _ = Task.Run(() => RunAsync(ports, cts), CancellationToken.None);
             }
         }
 
@@ -228,6 +229,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             CancellationToken ct = cts.Token;
             try
             {
+                ct.ThrowIfCancellationRequested();
                 IPEndPoint? target = await FindTargetAsync(ports, ct).ConfigureAwait(false);
                 if (target == null)
                     return;

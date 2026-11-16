@@ -5,9 +5,7 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  actions: read
+permissions: {}
 
 concurrency:
   group: nightly-${{ github.ref }}
@@ -17,6 +15,9 @@ jobs:
   nightly:
     name: Build & Test (x64)
     runs-on: windows-2025-vs2026
+    permissions:
+      contents: read
+      actions: read
     # Publishing lives in the job below with its own contents: write token. This job
     # holds only read permissions, so the token the SignPath action receives (it uses
     # github.token to fetch the artifact) cannot write to the repository.

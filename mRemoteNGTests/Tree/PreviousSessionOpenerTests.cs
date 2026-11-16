@@ -1,11 +1,16 @@
 using System;
 using System.Linq;
+using System.Threading;
+using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
+using mRemoteNG.UI;
 using mRemoteNG.UI.Controls.ConnectionTree;
+using mRemoteNG.UI.Window;
 using NSubstitute;
 using NUnit.Framework;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace mRemoteNGTests.Tree
 {
@@ -150,6 +155,49 @@ namespace mRemoteNGTests.Tree
 
             _connectionInitiator.Received(1).OpenConnection(listed);
             _connectionInitiator.ReceivedWithAnyArgs(1).OpenConnection(new ConnectionInfo());
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [NonParallelizable]
+        public void ActualPanelsDistinguishLegacyLayoutsFromEmptyListsAndIgnoreDisposedPanels()
+        {
+            WindowList originalWindows = Runtime.WindowList;
+            bool originalNoReconnect = Runtime.NoReconnectToPreviousSessions;
+            bool originalLoaded = Runtime.ConnectionsService.IsConnectionsFileLoaded;
+            try
+            {
+                Runtime.WindowList = null!;
+                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.Null);
+
+                Runtime.WindowList = new WindowList();
+                Runtime.NoReconnectToPreviousSessions = true;
+                Runtime.ConnectionsService.IsConnectionsFileLoaded = true;
+
+                using var host = new DockContent();
+                using var first = new ConnectionWindow(host);
+                using var second = new ConnectionWindow(host);
+                first.LoadConnections(["legacy"]);
+                Runtime.WindowList.Add(first);
+                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.Null);
+
+                first.LoadConnections([], listedByLayout: true);
+                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.Empty);
+
+                first.LoadConnections(["one", "two"], listedByLayout: true);
+                second.LoadConnections(["two", "ONE"], listedByLayout: true);
+                Runtime.WindowList.Add(second);
+                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.EquivalentTo(new[] { "one", "two", "ONE" }));
+
+                second.Dispose();
+                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.EquivalentTo(new[] { "one", "two" }));
+            }
+            finally
+            {
+                Runtime.WindowList = originalWindows;
+                Runtime.NoReconnectToPreviousSessions = originalNoReconnect;
+                Runtime.ConnectionsService.IsConnectionsFileLoaded = originalLoaded;
+            }
         }
 
         [Test]

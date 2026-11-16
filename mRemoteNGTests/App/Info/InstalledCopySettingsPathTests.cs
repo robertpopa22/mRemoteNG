@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using mRemoteNG.App.Info;
 using NUnit.Framework;
 
@@ -110,8 +111,9 @@ namespace mRemoteNGTests.App.Info
             }
         }
 
-        [Test]
-        public void AProgramFolderThatDiffersFromThePerUserCopyStaysForThePicker()
+        [TestCase("standard set")]
+        [TestCase("longer standard set")]
+        public void AProgramFolderThatDiffersFromThePerUserCopyStaysForThePicker(string perUserCopy)
         {
             string root = Path.Combine(Path.GetTempPath(), "mrng214-" + Path.GetRandomFileName());
             string from = Path.Combine(root, "program", "Settings");
@@ -121,7 +123,7 @@ namespace mRemoteNGTests.App.Info
                 Directory.CreateDirectory(from);
                 Directory.CreateDirectory(to);
                 File.WriteAllText(Path.Combine(from, "confCons.xml"), "elevated set");
-                File.WriteAllText(Path.Combine(to, "confCons.xml"), "standard set");
+                File.WriteAllText(Path.Combine(to, "confCons.xml"), perUserCopy);
 
                 bool retired = SettingsFileInfo.MigrateProgramFolderSettings(from, to);
 
@@ -129,12 +131,70 @@ namespace mRemoteNGTests.App.Info
                 {
                     Assert.That(retired, Is.False);
                     Assert.That(File.ReadAllText(Path.Combine(from, "confCons.xml")), Is.EqualTo("elevated set"));
-                    Assert.That(File.ReadAllText(Path.Combine(to, "confCons.xml")), Is.EqualTo("standard set"));
+                    Assert.That(File.ReadAllText(Path.Combine(to, "confCons.xml")), Is.EqualTo(perUserCopy));
                 });
             }
             finally
             {
                 Directory.Delete(root, recursive: true);
+            }
+        }
+
+        [Test]
+        public void ASecondMigrationPreservesThePreviouslyRetiredFolder()
+        {
+            DirectoryInfo root = Directory.CreateTempSubdirectory();
+            try
+            {
+                string from = root.CreateSubdirectory("Settings").FullName;
+                string retired = from + SettingsFileInfo.MigratedProgramFolderSuffix;
+                string to = Path.Combine(root.FullName, "appdata");
+                Directory.CreateDirectory(retired);
+                File.WriteAllText(Path.Combine(retired, "confCons.xml"), "first migration");
+                File.WriteAllText(Path.Combine(from, "confCons.xml"), "second migration");
+
+                Assert.That(SettingsFileInfo.MigrateProgramFolderSettings(from, to), Is.True);
+
+                DirectoryInfo secondRetired = root.GetDirectories("Settings.migrated-*").Single();
+                Assert.That(File.ReadAllText(Path.Combine(retired, "confCons.xml")), Is.EqualTo("first migration"));
+                Assert.That(File.ReadAllText(Path.Combine(secondRetired.FullName, "confCons.xml")), Is.EqualTo("second migration"));
+                Assert.That(File.ReadAllText(Path.Combine(to, "confCons.xml")), Is.EqualTo("second migration"));
+                Assert.That(Directory.Exists(from), Is.False);
+            }
+            finally
+            {
+                root.Delete(recursive: true);
+            }
+        }
+
+        [Test]
+        public void ASettingsFileThatCannotBeReadLeavesBothCopiesAvailable()
+        {
+            DirectoryInfo root = Directory.CreateTempSubdirectory();
+            try
+            {
+                string from = root.CreateSubdirectory("Settings").FullName;
+                string to = root.CreateSubdirectory("appdata").FullName;
+                string source = Path.Combine(from, "confCons.xml");
+                string target = Path.Combine(to, "confCons.xml");
+                File.WriteAllText(source, "same data");
+
+                using (File.Open(source, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    Assert.That(SettingsFileInfo.CopyMissingSettings(from, to), Is.Empty);
+                    Assert.That(File.Exists(target), Is.False);
+                    File.WriteAllText(target, "same data");
+
+                    Assert.That(SettingsFileInfo.MigrateProgramFolderSettings(from, to), Is.False);
+                }
+
+                Assert.That(File.ReadAllText(source), Is.EqualTo("same data"));
+                Assert.That(File.ReadAllText(target), Is.EqualTo("same data"));
+                Assert.That(Directory.Exists(from + SettingsFileInfo.MigratedProgramFolderSuffix), Is.False);
+            }
+            finally
+            {
+                root.Delete(recursive: true);
             }
         }
 
@@ -146,9 +206,12 @@ namespace mRemoteNGTests.App.Info
             Assert.That(SettingsFileInfo.ProgramFolderSettingsApplyFor(installed, writable), Is.EqualTo(expected));
 
         [Test]
-        public void NothingIsCopiedWhenTheProgramFolderHasNoSettings() =>
-            Assert.That(SettingsFileInfo.CopyMissingSettings(Path.Combine(Path.GetTempPath(), "mrng214-absent-" + Path.GetRandomFileName()), Path.GetTempPath()),
-                        Is.Empty);
+        public void NothingIsCopiedWhenTheProgramFolderHasNoSettings()
+        {
+            string from = Path.Combine(Path.GetTempPath(), "mrng214-absent-" + Path.GetRandomFileName());
+            Assert.That(SettingsFileInfo.CopyMissingSettings(from, Path.GetTempPath()), Is.Empty);
+            Assert.That(SettingsFileInfo.MigrateProgramFolderSettings(from, Path.GetTempPath()), Is.False);
+        }
 
         private static string RepositoryRoot()
         {

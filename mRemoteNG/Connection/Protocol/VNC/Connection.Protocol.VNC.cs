@@ -722,43 +722,42 @@ namespace mRemoteNG.Connection.Protocol.VNC
             _proxyTunnel = null;
         }
 
-        private sealed class ProxyTunnel : IDisposable
+        internal sealed class ProxyTunnel : IDisposable
         {
             private readonly TcpListener _listener;
             private readonly TcpClient _proxiedClient;
             private readonly CancellationTokenSource _cancellationTokenSource = new();
-            private TcpClient? _localClient;
-            private bool _disposed;
+            private int _disposed;
 
             public ProxyTunnel(TcpClient proxiedClient)
             {
                 _proxiedClient = proxiedClient;
                 _listener = new TcpListener(IPAddress.Loopback, 0);
                 _listener.Start(1);
-                _ = Task.Run(AcceptAndBridgeAsync);
+                _ = AcceptAndBridgeAsync(_cancellationTokenSource.Token);
             }
 
             public int LocalPort => ((IPEndPoint)_listener.LocalEndpoint).Port;
 
-            private async Task AcceptAndBridgeAsync()
+            private async Task AcceptAndBridgeAsync(CancellationToken cancellationToken)
             {
                 try
                 {
-                    _localClient = await _listener.AcceptTcpClientAsync().ConfigureAwait(false);
+                    using TcpClient localClient = await _listener.AcceptTcpClientAsync(cancellationToken).ConfigureAwait(false);
 
-                    using NetworkStream localStream = _localClient.GetStream();
+                    using NetworkStream localStream = localClient.GetStream();
                     using NetworkStream remoteStream = _proxiedClient.GetStream();
 
-                    Task upstream = PumpAsync(localStream, remoteStream, _cancellationTokenSource.Token);
-                    Task downstream = PumpAsync(remoteStream, localStream, _cancellationTokenSource.Token);
+                    Task upstream = PumpAsync(localStream, remoteStream, cancellationToken);
+                    Task downstream = PumpAsync(remoteStream, localStream, cancellationToken);
 
                     await Task.WhenAny(upstream, downstream).ConfigureAwait(false);
                 }
-                catch (ObjectDisposedException) when (_cancellationTokenSource.IsCancellationRequested)
+                catch (ObjectDisposedException) when (cancellationToken.IsCancellationRequested)
                 {
                     // Expected when disposed during accept/bridge.
                 }
-                catch (SocketException) when (_cancellationTokenSource.IsCancellationRequested)
+                catch (SocketException) when (cancellationToken.IsCancellationRequested)
                 {
                     // Expected when disposed during accept/bridge.
                 }
@@ -789,13 +788,11 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
             public void Dispose()
             {
-                if (_disposed) return;
-                _disposed = true;
+                if (Interlocked.Exchange(ref _disposed, 1) != 0) return;
 
                 _cancellationTokenSource.Cancel();
 
                 try { _listener.Stop(); } catch { /* best effort */ }
-                try { _localClient?.Close(); } catch { /* best effort */ }
                 try { _proxiedClient.Close(); } catch { /* best effort */ }
 
                 _cancellationTokenSource.Dispose();
@@ -923,8 +920,6 @@ namespace mRemoteNG.Connection.Protocol.VNC
                         onConnect.Invoke(vnc, [args]);
                     }
                 }
-
-                vnc.AutoScrollMinSize = vnc.AutoScrollMinSize; // refresh
 
                 // 5. Hook VncUpdate and start the worker thread
                 var vncUpdateEvent = vncClient.GetType().GetEvent("VncUpdate");

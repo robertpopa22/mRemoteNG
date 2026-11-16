@@ -262,6 +262,11 @@ local build/tests, Semgrep CE and Stryker when a hosted allowance is exhausted.
   when changing `MainWindowPlacement.cs` or its tests. This linked-source pilot
   covers only that source and its existing fixture. Report killed/surviving,
   uncovered, ignored and compile-error counts from JSON, not only the tool exit.
+- For Sonar coverage work, follow the C# and Pester steps in that procedure.
+  Preserve thresholds and product scope, retain missed coverage lines, and verify
+  the server Quality Gate for the published revision. A successful upload is not
+  gate acceptance. Disposition confirmed false positives individually with source
+  evidence rather than hiding them through renames or suppressions.
 - CodeRabbit OSS: check account/installation and free allowance first, then use
   `coderabbit review --agent --committed --base-commit <reviewed-base-sha>` or
   `--uncommitted` for tracked WIP. Do not create a review PR in this main-only fork,

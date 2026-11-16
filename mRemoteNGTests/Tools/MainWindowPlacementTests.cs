@@ -100,16 +100,17 @@ public class MainWindowPlacementTests
         Assert.That(result, Is.EqualTo(new Rectangle(3240, expectedY, 600, 400)));
     }
 
-    [Test]
-    public void RestoreBoundsKeepTheirSizeWhenLargerThanTheMaximizedScreen()
+    [TestCase(800, 600)]
+    [TestCase(1000, 700)]
+    public void RestoreBoundsKeepTheirSizeWhenAtLeastAsLargeAsTheMaximizedScreen(int width, int height)
     {
         Rectangle smallerScreen = new(0, 0, 800, 600);
         Rectangle largerScreen = new(800, 0, 1920, 1080);
 
         Rectangle result = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
-            smallerScreen, new Rectangle(900, 150, 1000, 700), [smallerScreen, largerScreen]);
+            smallerScreen, new Rectangle(900, 150, width, height), [smallerScreen, largerScreen]);
 
-        Assert.That(result, Is.EqualTo(new Rectangle(0, 0, 1000, 700)));
+        Assert.That(result, Is.EqualTo(new Rectangle(0, 0, width, height)));
     }
 
     [Test]

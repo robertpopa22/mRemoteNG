@@ -23,7 +23,7 @@ namespace mRemoteNG.Config.Putty
 
         public override string[] GetSessionNames(bool raw = false)
         {
-            RegistryKey? sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
+            using RegistryKey? sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
             if (sessionsKey == null) return Array.Empty<string>();
 
             List<string> sessionNames = new();
@@ -45,8 +45,8 @@ namespace mRemoteNG.Config.Putty
             if (string.IsNullOrEmpty(sessionName))
                 return null;
 
-            RegistryKey? sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
-            RegistryKey? sessionKey = sessionsKey?.OpenSubKey(sessionName);
+            using RegistryKey? sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
+            using RegistryKey? sessionKey = sessionsKey?.OpenSubKey(sessionName);
             if (sessionKey == null) return null;
 
             sessionName = PuttySessionNameDecoder.Decode(sessionName);
@@ -108,11 +108,7 @@ namespace mRemoteNG.Config.Putty
             try
             {
                 string keyName = string.Join("\\", CurrentUserSid, PuttySessionsKey).Replace("\\", "\\\\", StringComparison.Ordinal);
-                RegistryKey? sessionsKey = Registry.Users.OpenSubKey(keyName);
-                if (sessionsKey == null)
-                {
-                    Registry.Users.CreateSubKey(keyName);
-                }
+                using RegistryKey? sessionsKey = Registry.Users.OpenSubKey(keyName) ?? Registry.Users.CreateSubKey(keyName);
                 WqlEventQuery query = new($"SELECT * FROM RegistryTreeChangeEvent WHERE Hive = \'HKEY_USERS\' AND RootPath = \'{keyName}\'");
                 _eventWatcher = new ManagementEventWatcher(query);
                 _eventWatcher.EventArrived += OnManagementEventArrived;

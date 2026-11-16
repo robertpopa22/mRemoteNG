@@ -11,21 +11,33 @@ Integrate CodeRabbit OSS, Stryker.NET and Semgrep without paid subscriptions; ap
 | MRNGQA-O3 Semgrep CE | Triaged with disclosed limits | KiTTY fixed; two SQL false positives reviewed through 43 callers; 23 parser diagnostics remain |
 | MRNGQA-O4 Greptile OSS | Accepted | Repository enabled; 100 credits/month; zero reviews |
 | MRNGQA-O5 Documentation | Complete | Procedure, README badges, verification guide and handover |
+| MRNGQA-O6 Sonar Quality Gate | In progress | Resolve current findings and add measured coverage without changing thresholds or exclusions |
+| MRNGQA-O7 Mutation pilot 100% | Complete locally | 48/48 scored mutants killed, 17 tests; standard-library clamp; unchanged scope/configuration |
 
 ## În lucru
 
-None. Integration and the requested follow-up are complete.
+| Step | Owner | Progress | Status |
+|---|---|---|---|
+| MRNGQA-P12 Product findings | Coordinator | 95% | Ten source findings and workflow permissions addressed; executable-name false positive resolved on server; new analysis pending |
+| MRNGQA-P13 Coverage | Coordinator | 90% | Measured local new-code projection 80.73%; server analysis pending, thresholds unchanged |
+| MRNGQA-P16 Security review and publication | Coordinator / maintainer | 50% | Local tests PASS; maintainer approved exact workflow diff and override; commit, push and server readback pending |
+| MRNGQA-P17 Documentation and cleanup | Coordinator | 80% | README, procedure, guide and handover updated to candidate state; VM restored |
 
 ## De făcut
 
-No required task remains in this scope. Semgrep parser gaps and pre-existing
-Sonar/full-history secret findings remain disclosed follow-up work. Check live
-credits before any future hosted review; none was invoked by this plan.
+| Step | Owner | Status |
+|---|---|---|
+| Exact revision readback | Coordinator | After publication, verify CI, Sonar conditions and release artifacts, then finalize documentation |
+
+Check live credits before any hosted review; none is needed for the local checks.
 
 ## Rezolvate
 
 | Step | Evidence |
 |---|---|
+| MRNGQA-P11 Current Sonar inventory | Exact analysis, all 12 bug/vulnerability findings, 759 new coverable lines and 337 uncovered captured |
+| MRNGQA-P14 Mutation pilot | 100%, 48 killed, zero surviving/uncovered; five default ignored, one compile error; 17 tests |
+| MRNGQA-P15 Local verification | Full build PASS; 4,151/4,151 suite; Pester 7/7; guest startup 3/3; actionlint PASS; Semgrep baseline limitations retained |
 | MRNGQA-P1 Service onboarding | Exact app grants approved for this fork; Greptile OSS accepted; no payment or paid product |
 | MRNGQA-P2 Mutation testing | Stryker 5.1.0, real linked source/tests, HTML/JSON; clean-snapshot repetition |
 | MRNGQA-P3 Static scanning | CE 1.185.0 and pinned rules; Windows/Linux JSON/SARIF; scanner errors preserved |
@@ -51,3 +63,4 @@ credits before any future hosted review; none was invoked by this plan.
 - 2026-11-16: integrations verified, Greptile OSS accepted, badges and credit controls added; no hosted review completed and baseline findings remain disclosed.
 - 2026-11-16: follow-up opened to resolve Semgrep findings and improve the Stryker pilot through tests; existing credit controls retained.
 - 2026-11-16: follow-up complete and published as ff0c04c2f. README/PROGRESS record CI readback, source-specific limits and zero hosted review-credit use.
+- 2026-11-16 12:11 Europe/Bucharest: user requested Sonar gate green without relaxed thresholds and a legitimate attempt at 100% Stryker. Reopened this plan; source starts at 96faa85d2 with a clean tree. Sol/high agents handle bounded product, coverage and mutation work; coordinator reviews cross-cutting results. No hosted AI review calls planned.

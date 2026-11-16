@@ -113,14 +113,45 @@ output directory. The initial result was **62.07%**: 65 generated mutants,
 36 killed, 21 survived, 1 uncovered, 1 compile error and 6 ignored; no timeouts.
 The follow-up adds nine behavioral cases (16 total): stacked monitors, largest
 overlap, overlap/distance ties, oversized windows and nearest-screen selection on
-both axes, plus a null-screen-list assertion. The score is now **94.83%** on the
+both axes, plus a null-screen-list assertion. That raised the score to **94.83%** on the
 same 65 mutants: **55 killed, 3 survived, 0 uncovered, 1 compile error, 6 ignored**;
 no timeouts. Product logic, mutation scope, thresholds and exclusions are unchanged.
-The three survivors change comparisons in `Clamp` at equality; each branch returns
-the same bound at that point, so they are equivalent for this function. They remain
-visible in the report. A successful tool exit means the pilot ran, not that all
-mutants were killed. No project-wide quality threshold has been lowered or replaced
-by this pilot.
+The three survivors changed comparisons in `Clamp` at equality; each branch returned
+the same bound at that point. The next follow-up replaced that handwritten clamp
+with `Math.Clamp(value, min, Math.Max(min, max))`, preserving the oversized-window
+behavior, and added an exact-fit boundary case (17 cases total).
+The pilot now scores **100.00%: 48 of 48 scored mutants killed**, with 54 generated,
+5 ignored by the existing default block filter and 1 compile error. No survivors,
+uncovered mutants or timeouts remain. Fewer mutants are generated because the
+handwritten branches no longer exist; this is not a like-for-like 65-mutant run.
+Scope, thresholds and exclusions are unchanged. The report's source was compared
+with the product file. This result still covers only the placement pilot.
+
+## Sonar coverage verification
+
+Keep the existing quality thresholds and product exclusions unchanged. Resolve
+each finding from its source; an executable name such as `op.exe` is not a secret.
+Record a confirmed false positive on the individual server issue, with evidence,
+instead of hiding it by renaming code or disabling a rule.
+
+The Sonar workflow collects Visual Studio XML from the same grouped test runner
+as nightly, including the isolated UI tests. It also imports measured Pester
+coverage for `lab-msi-edition.ps1`:
+
+```powershell
+Install-Module -Name Pester -RequiredVersion 6.2.0 -Repository PSGallery -Scope CurrentUser -Force
+./scripts/Invoke-PowerShellTests.ps1 -OutputDirectory "$env:TEMP/mRemoteNG-powershell-tests"
+```
+
+The fixture lives in the test project. Its seven tests mock the VM boundary and
+check host orchestration, failure reporting and cleanup. They never execute the
+guest installer blocks. Pester measured 85/170 lines; the generic Sonar XML keeps
+every measured missed line as uncovered, and its values were checked against the
+raw Cobertura report. Reports must be written outside the checkout.
+
+The workflow waits for the server Quality Gate and fails when that gate fails.
+An upload, local coverage estimate or successful build alone is not a green gate;
+read back the analysis revision, conditions and remaining findings after push.
 
 ## CodeRabbit OSS
 

@@ -86,9 +86,17 @@ namespace mRemoteNG.App.Info
         public static Version ParseApplicationVersion(string productVersion)
         {
             string cleanedVersion = GetBaseVersion(productVersion);
-            Match build = Regex.Match(productVersion, @"\bbuild\s+(\d+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-            if (build.Success)
-                cleanedVersion = cleanedVersion + "." + build.Groups[1].Value;
+            try
+            {
+                Match build = Regex.Match(productVersion, @"\bbuild\s+(\d+)",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(250));
+                if (build.Success)
+                    cleanedVersion = cleanedVersion + "." + build.Groups[1].Value;
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                // Keep the base version when the optional local build number takes too long to parse.
+            }
 
             _ = System.Version.TryParse(cleanedVersion, out Version? parsedVersion);
             return parsedVersion ?? new Version(0, 0);

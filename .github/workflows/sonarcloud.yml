@@ -55,6 +55,8 @@ jobs:
             /d:sonar.token="$env:SONAR_TOKEN" `
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.cs.vscoveragexml.reportsPaths="**/coverage.opencover.xml" `
+            /d:sonar.coverageReportPaths="$env:RUNNER_TEMP/powershell-tests/powershell-sonar-coverage.xml" `
+            /d:sonar.qualitygate.wait=true `
             /d:sonar.exclusions="**/obj/**,**/bin/**,**/*.Designer.cs,**/Interop*.cs,ObjectListView/**,.project-roadmap/**,scripts/**,.githooks/**" `
             /d:sonar.coverage.exclusions="**/UI/**/*.cs,**/Connection/Protocol/**/*.cs,**/Themes/**/*.cs,**/TaskDialog/**/*.cs,**/App/ProgramRoot.cs,**/App/Runtime.cs,**/App/RestApiService.cs,**/App/CompatibilityChecker.cs,**/App/Diagnostics/**/*.cs,**/App/RuntimeDiagnostics.cs,**/App/DevLog.cs,**/App/Initialization/**/*.cs,**/Config/Settings/DockPanelLayoutLoader.cs,**/Config/Settings/LocalSettingsManager.cs,**/Config/Settings/ExternalAppsSaver.cs,**/Config/Settings/ExternalAppsLoader.cs,**/Config/Putty/**/*.cs,**/Config/Connections/SqlConnectionsSaver.cs,**/Config/Connections/Multiuser/**/*.cs,**/Config/Settings/QuickConnectHistoryLoader.cs,**/Connection/ConnectionInitiator.cs,**/Messages/MessageWriters/PopupMessageWriter.cs,**/Tools/PortScanner.cs,**/Tools/IeBrowserEmulation.cs,**/Tools/ProcessController.cs,ExternalConnectors/**/*.cs"
 
@@ -70,12 +72,17 @@ jobs:
       - name: Run tests with coverage
         shell: pwsh
         run: |
-          # Exclude FrmOptions tests — they require Application.Run message pump
-          # which fails in single-process dotnet test. These run isolated in run-tests-core.sh.
+          # Instrument the same grouped suite as nightly, including its isolated UI tests.
           dotnet-coverage collect `
             --output coverage.opencover.xml `
             --output-format xml `
-            "dotnet test mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll --results-directory $env:TEMP/testresults --verbosity normal --filter FullyQualifiedName!=mRemoteNGTests.UI.Forms.OptionsFormTests.FormBehavior&FullyQualifiedName!=mRemoteNGTests.UI.Forms.OptionsFormTests.AllPages"
+            "${env:ProgramFiles}/Git/bin/bash.exe" run-tests-core.sh
+
+      - name: Run PowerShell tests with coverage
+        shell: pwsh
+        run: |
+          Install-Module -Name Pester -RequiredVersion 6.2.0 -Repository PSGallery -Scope CurrentUser -Force
+          ./scripts/Invoke-PowerShellTests.ps1 -OutputDirectory "$env:RUNNER_TEMP/powershell-tests"
 
       - name: End SonarCloud analysis
         shell: pwsh

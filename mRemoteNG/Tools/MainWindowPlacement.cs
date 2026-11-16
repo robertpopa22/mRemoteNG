@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -66,13 +67,7 @@ namespace mRemoteNG.Tools
         /// Keeps the window on the monitor even when the offset it carried over does not fit there
         /// - a wider window, or bounds that were off every screen to begin with.
         /// </summary>
-        private static int Clamp(int value, int min, int max)
-        {
-            if (max < min)
-                return min;
-
-            return value < min ? min : value > max ? max : value;
-        }
+        private static int Clamp(int value, int min, int max) => Math.Clamp(value, min, Math.Max(min, max));
 
         /// <summary>
         /// Screen.FromRectangle's rule, over plain rectangles so it can be exercised without a

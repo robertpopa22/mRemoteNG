@@ -1,6 +1,17 @@
 # PROGRESS — handover
 
-Current status: CI published nightly `ff0c04c2f` with the KiTTY validation fix; all five workflows succeeded. Sonar's server-side quality gate remains red. The earlier Options fixes remain included; #231 and #233 are closed, #232 awaits the reporter's first-opening retest.
+Current status: Sonar follow-up candidate passes local build, 4,151 tests, seven PowerShell tests and three guest startup checks. Stryker placement pilot is 100%; server Quality Gate and publication are pending. Latest published product remains nightly `ff0c04c2f`, whose gate is red. The earlier Options fixes remain included; #231 and #233 are closed, #232 awaits the reporter's first-opening retest.
+
+## Sonar and mutation completion candidate — 2026-11-16
+
+- Ten product findings addressed in six files: finite regex timeout with version fallback; explicit cancellation ownership; VNC accept/dispose race and redundant property assignment; deterministic registry-handle disposal. The VNC startup race was reproduced against baseline and eliminated in a source-linked loopback probe. REST shutdown was checked over 20 cycles and an in-flight synthetic request.
+- Nightly uses empty default permissions and explicit read rights on its build job; the publisher retains its existing write rights. Sonar imports measured PowerShell coverage, runs the same grouped suite as nightly and waits for the server Quality Gate. No quality threshold, rule or product exclusion changed. Actionlint 1.7.12 passes both workflow diffs.
+- Build PASS. Full grouped suite **4,151/4,151**, zero crashes, 202 seconds, including both isolated Options tests; its child processes were instrumented with dotnet-coverage. Guest startup **3/3**, original VM state restored. New tests add 95 covered baseline lines across five C# components and 12 in SSH transfer; the PowerShell tests add 85 measured lines. Local baseline projection **616/763 = 80.73%** is not a server verdict.
+- Pester 6.2.0 **7/7**, measured **85/170 lines**, generic XML matches Cobertura; guest bodies were never executed. Test fixture is in the .NET test project's None items so it is test code. Reports remain outside checkout.
+- Stryker **100%**, 48/48 scored mutants killed; 54 generated, five ignored by the existing filter, one compile error, none surviving/uncovered/timed out. The standard-library clamp preserves oversized/exact-fit bounds, with 17 tests. Scope/configuration unchanged; report source matches the product. This is still a limited pilot.
+- Semgrep repeat retains **727 files / 15 rules / two previously reviewed SQL false positives / 23 PartialParsing diagnostics / strict exit 3**. No new findings, no suppression, not a clean scan. Existing NuGet/analyzer warnings remain outside this Sonar-finding follow-up.
+- Sonar issue `AZyj5CdyQVQk9KPgleOy` is individually resolved as a false positive, with its executable-name evidence recorded. The maintainer explicitly approved the exact workflow security diff and commit override on 16 November. Push and exact-revision CI/gate/release readback remain pending.
+- No CodeRabbit, Greptile or Qodo reviews invoked. A metadata-only native-model usage snapshot was retained with the private operations evidence; it is separate from hosted review-credit balances.
 
 ## Semgrep disposition and mutation follow-up — 2026-11-16
 
