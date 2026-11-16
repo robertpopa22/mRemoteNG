@@ -35,6 +35,8 @@ A lesson that no longer matches the charter is withdrawn, not kept beside the ne
 | [BP-026](bp/BP-026-stale-handler-frame.md) | 1 | 2026-11-09 | A crash inside a handler that only an object of a replaced tree or window can run is a leak report; find the process-lifetime event that keeps it, unsubscribe on replace, and count subscribers in a test. |
 | [BP-027](bp/BP-027-diagnostic-not-in-running-build.md) | 1 | 2026-11-10 | An issue waited thirteen days for a recurrence while a copy in use predated the diagnostic; compare `build_id` with the diagnostic's commit before waiting. |
 
+| [BP-028](bp/BP-028-suspend-the-new-layout-container.md) | 1 | 2026-11-16 | Suspending a parent did not suspend a new auto-sized table; count children at measurement time to prove repeated partial-layout work before batching it. |
+
 ## Retired
 
 | ID | When | Replacement |
