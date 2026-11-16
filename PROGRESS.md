@@ -2,6 +2,15 @@
 
 Current status: the Options changes are published in nightly `1.84.0+31a4433111`; #231 and #233 are closed, #232 remains open for the reporter's first-opening retest. Earlier completed work is retained below.
 
+## Semgrep disposition and mutation follow-up — 2026-11-16
+
+- KiTTY `GetSession` rejects paths before accessing files and preserves valid percent-encoded leaf names. A source-linked Windows probe using real temporary files reproduced acceptance of all five invalid paths before the change and rejection afterwards. It substituted application service/types; the subsequent real build and NUnit fixture passed. Normal UI enumeration already returns leaf names; filesystem-link attacks are outside this syntax fix.
+- Both SQL alerts are false positives for the current 43 command call sites across 17 files. Caller review found source-defined SQL/identifiers, bound application values and a validated database name. Raw findings remain visible, with the source review and its limits in [FREE-VERIFICATION.md](docs/FREE-VERIFICATION.md). No connector rewrites or suppressions.
+- Full Semgrep repeat: 727 files / 15 rules, 2 SQL findings, 23 PartialParsing diagnostics, strict exit 3. Focused KiTTY scan using the same pinned rules: 1 file, zero findings/errors, exit 0. The full scan remains advisory and partial.
+- Stryker: 62.07% -> 94.83% after nine behavioral cases (16 total), with identical product source, mutation scope and configuration. Same 65 mutants: 55 killed, 3 equivalent comparison survivors, zero uncovered, 1 compile error, 6 ignored; no timeouts. Report source equals the checked-in product source.
+- Full build passed (existing warnings remain). Full suite: 4,135/4,135 in 196 seconds, zero crashes. Targeted KiTTY/SQL validation/placement group: 30/30. Candidate build startup in the isolated Windows guest: 3/3; this is startup acceptance, not a KiTTY UI exploit reproduction. The guest task was restored and the VM returned to its original Saved state.
+- Security tripwire and diff checks passed without an override. No hosted CodeRabbit, Greptile or Qodo review was invoked, so this work incurred no review-credit debit. Private reports remain outside the checkout. CI/publication readback follows the product push; older Sonar and secret-scan findings remain separate.
+
 ## Free verification integrations — 2026-11-16
 
 - CodeRabbit App installed only on this public fork; permissions explicitly approved. `.coderabbit.yaml` passes the official V2 schema. Its automatic Advanced trial reverts to Free on 30 November without charge; paid usage products are disabled. No review claimed: CLI OAuth requested account-wide public-repository access and was declined.

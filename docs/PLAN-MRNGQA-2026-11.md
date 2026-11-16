@@ -2,25 +2,30 @@
 
 ## Scope and completion
 
-Integrate CodeRabbit OSS, Stryker.NET and Semgrep without paid subscriptions; apply for Greptile OSS. Verify actual results, document service activation separately from local configuration, and update the maintenance procedure and README. No product behavior changes, paid overages or private-repository access are authorized.
+Integrate CodeRabbit OSS, Stryker.NET and Semgrep without paid subscriptions; apply for Greptile OSS. Verify actual results, document service activation separately from local configuration, and update the maintenance procedure and README. The follow-up explicitly authorizes fixing the three Semgrep alerts, improving mutation tests and pushing after successful required checks. Paid overages and private-repository access remain excluded.
 
 | Objective | State | Evidence |
 |---|---|---|
 | MRNGQA-O1 CodeRabbit OSS | Integrated; no review yet | App limited to this fork, validated YAML; broader CLI OAuth declined |
-| MRNGQA-O2 Stryker.NET | Complete | Linked-source pilot, seven existing tests, reproducible 62.07% |
-| MRNGQA-O3 Semgrep CE | Complete with disclosed limits | 727 files / 15 rules; 3 findings, 23 parser diagnostics |
+| MRNGQA-O2 Stryker.NET | Complete | Linked-source pilot improved from 62.07% to 94.83%; 16 cases, same 65 mutants |
+| MRNGQA-O3 Semgrep CE | Triaged with disclosed limits | KiTTY fixed; two SQL false positives reviewed through 43 callers; 23 parser diagnostics remain |
 | MRNGQA-O4 Greptile OSS | Accepted | Repository enabled; 100 credits/month; zero reviews |
 | MRNGQA-O5 Documentation | Complete | Procedure, README badges, verification guide and handover |
 
 ## În lucru
 
-None. The scoped integration is complete; publication is recorded by the commit
-containing this plan. Hosted review execution and source-level disposition of
-baseline findings are follow-ups, not completed validations.
+Follow-up requested after integration commit `223d8f22a`:
+
+| Step | Owner | State |
+|---|---|---|
+| MRNGQA-P7 SQL alert disposition | Source investigation agent / coordinator | Complete: false positives for all 43 current callers; raw findings retained |
+| MRNGQA-P8 KiTTY path validation | Implementation agent | Implemented: five unsafe paths reproduced before fix and rejected after; encoded literal names preserved |
+| MRNGQA-P9 Mutation test improvement | Test implementation agent | Complete: 94.83%, 55 killed, 3 equivalent survivors, none uncovered; source/config unchanged |
+| MRNGQA-P10 Verification and publication | Coordinator | Build PASS; full suite 4,135/4,135; targeted 30/30; guest startup 3/3; tripwire PASS. Push/CI readback pending |
 
 ## De făcut
 
-None within the requested integration. No product changes or new CI workflows.
+Finish the follow-up steps above. No hosted review calls or paid credit use.
 
 ## Rezolvate
 
@@ -45,3 +50,4 @@ None within the requested integration. No product changes or new CI workflows.
 
 - 2026-11-16 10:41 Europe/Bucharest: plan opened; repository initially clean at `5e429aae4`.
 - 2026-11-16: integrations verified, Greptile OSS accepted, badges and credit controls added; no hosted review completed and baseline findings remain disclosed.
+- 2026-11-16: follow-up opened to resolve Semgrep findings and improve the Stryker pilot through tests; existing credit controls retained.

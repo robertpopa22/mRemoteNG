@@ -63,13 +63,15 @@ namespace mRemoteNG.Config.Putty
 
         public override PuttySessionInfo? GetSession(string sessionName)
         {
-            if (string.IsNullOrEmpty(sessionName)) return null;
+            // Validate the raw, URL-encoded filename before decoding the display name.
+            string fileName = Path.GetFileName(sessionName);
+            if (string.IsNullOrEmpty(fileName) || fileName != sessionName || fileName is "." or ".." ||
+                fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) return null;
 
             string? sessionsDir = GetSessionsDirectory();
             if (sessionsDir == null) return null;
 
-            // sessionName here is RAW filename (URL encoded) as returned by GetSessionNames(true)
-            string filePath = Path.Combine(sessionsDir, sessionName);
+            string filePath = Path.Combine(sessionsDir, fileName);
             if (!File.Exists(filePath)) return null;
 
             Dictionary<string, string> sessionData = new(StringComparer.Ordinal);

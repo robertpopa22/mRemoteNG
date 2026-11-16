@@ -41,10 +41,10 @@ If this fork is useful to you, please star it. Community tools we rely on set a 
     <img alt="Qodo reviews paused, checked 2026-11-16" src="https://img.shields.io/badge/Qodo-paused-lightgrey?style=for-the-badge">
   </a>
   <a href="docs/FREE-VERIFICATION.md#semgrep-community-edition">
-    <img alt="Semgrep CE baseline: 3 findings and partial parsing" src="https://img.shields.io/badge/Semgrep%20CE-partial%20scan-orange?style=for-the-badge&logo=semgrep">
+    <img alt="Semgrep CE: KiTTY fixed, two SQL false positives triaged; partial parsing remains" src="https://img.shields.io/badge/Semgrep%20CE-triaged%20%2F%20partial-orange?style=for-the-badge&logo=semgrep">
   </a>
   <a href="docs/FREE-VERIFICATION.md#strykernet-mutation-pilot">
-    <img alt="Stryker.NET window-placement pilot: 62.07 percent mutation score" src="https://img.shields.io/badge/Stryker.NET-pilot%2062.07%25-orange?style=for-the-badge">
+    <img alt="Stryker.NET window-placement pilot: 94.83 percent mutation score" src="https://img.shields.io/badge/Stryker.NET-pilot%2094.83%25-brightgreen?style=for-the-badge">
   </a>
   <a href="docs/FREE-VERIFICATION.md#coderabbit-oss">
     <img alt="CodeRabbit installed for this public repository; no completed review yet" src="https://img.shields.io/badge/CodeRabbit-OSS%20installed-blue?style=for-the-badge&logo=coderabbit">
@@ -515,8 +515,8 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File build.ps1 -SelfContained
 | 3 | **CodeQL** | Push to `main` + weekly — security scanning | [![CodeQL](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/robertpopa22/mRemoteNG/security/code-scanning) |
 | 4 | **.NET Analyzers** | `AnalysisLevel=latest-recommended` | Active |
 | 5 | **[Qodo Code Review](https://www.qodo.ai/)** | On-demand AI review | Paused: trial ended; checked 2026-11-16 |
-| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0; 727 files / 15 rules; 3 findings and partial parsing, not a clean gate |
-| 7 | **Stryker.NET** | Local mutation pilot on window-placement logic | Pinned 5.1.0; 62.07% baseline, seven existing tests; limited source scope |
+| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0; 727 files / 15 rules; KiTTY path fixed, 2 SQL false positives documented; 23 parser diagnostics remain |
+| 7 | **Stryker.NET** | Local mutation pilot on window-placement logic | Pinned 5.1.0; 94.83% (was 62.07%), 16 tests; same limited source scope, 3 equivalent survivors |
 | 8 | **CodeRabbit OSS** | Public-repository review | App installed only on this fork; configuration schema validated; no completed review yet; CLI OAuth not granted |
 | 9 | **Greptile OSS** | Public-repository review | Accepted 2026-11-16: 100 free credits/month; repository enabled, 0 reviews |
 

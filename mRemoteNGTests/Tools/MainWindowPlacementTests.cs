@@ -13,6 +13,12 @@ public class MainWindowPlacementTests
         new Rectangle(1920, 0, 1920, 1080)
     ];
 
+    private static readonly Rectangle[] StackedScreens =
+    [
+        new Rectangle(0, 0, 1920, 1080),
+        new Rectangle(0, 1080, 1920, 1080)
+    ];
+
     [Test]
     public void FirstRunBoundsCoverNinetyPercentOfTheWorkingAreaAndStayCentred()
     {
@@ -64,6 +70,49 @@ public class MainWindowPlacementTests
     }
 
     [Test]
+    public void RestoreBoundsKeepTheirVerticalOffsetWhenMovingBetweenStackedScreens()
+    {
+        Rectangle result = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
+            StackedScreens[0], new Rectangle(480, 1380, 974, 620), StackedScreens);
+
+        Assert.That(result, Is.EqualTo(new Rectangle(480, 300, 974, 620)));
+    }
+
+    [Test]
+    public void RestoreBoundsUseTheLargestOverlapEvenWhenAnotherScreenHasANearerCenter()
+    {
+        Rectangle smallerScreen = new(0, 0, 800, 600);
+        Rectangle largerScreen = new(800, 0, 1920, 1080);
+
+        Rectangle result = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
+            smallerScreen, new Rectangle(700, 150, 400, 300), [smallerScreen, largerScreen]);
+
+        Assert.That(result, Is.EqualTo(new Rectangle(0, 150, 400, 300)));
+    }
+
+    [TestCase(250, 250)]
+    [TestCase(1200, 680)]
+    public void RestoreBoundsPreferTheFirstScreenWhenOverlapOrDistanceTies(int restoreY, int expectedY)
+    {
+        Rectangle result = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
+            TwoScreens[1], new Rectangle(1620, restoreY, 600, 400), TwoScreens);
+
+        Assert.That(result, Is.EqualTo(new Rectangle(3240, expectedY, 600, 400)));
+    }
+
+    [Test]
+    public void RestoreBoundsKeepTheirSizeWhenLargerThanTheMaximizedScreen()
+    {
+        Rectangle smallerScreen = new(0, 0, 800, 600);
+        Rectangle largerScreen = new(800, 0, 1920, 1080);
+
+        Rectangle result = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
+            smallerScreen, new Rectangle(900, 150, 1000, 700), [smallerScreen, largerScreen]);
+
+        Assert.That(result, Is.EqualTo(new Rectangle(0, 0, 1000, 700)));
+    }
+
+    [Test]
     public void ASingleScreenNeverMovesAnything()
     {
         Rectangle restore = new(2400, 300, 974, 620);
@@ -87,20 +136,43 @@ public class MainWindowPlacementTests
         Assert.That(result, Is.EqualTo(new Rectangle(946, 300, 974, 620)));
     }
 
+    [TestCase(720, 1, 2640)]
+    [TestCase(1900, 0, 0)]
+    public void RestoreBoundsBelowBothScreensUseHorizontalCenterDistance(
+        int restoreX, int maximizedScreenIndex, int expectedX)
+    {
+        Rectangle result = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
+            TwoScreens[maximizedScreenIndex], new Rectangle(restoreX, 1200, 1000, 600), TwoScreens);
+
+        Assert.That(result, Is.EqualTo(new Rectangle(expectedX, 480, 1000, 600)));
+    }
+
+    [TestCase(500, 1, 1580)]
+    [TestCase(900, 0, 0)]
+    public void RestoreBoundsBesideStackedScreensUseVerticalCenterDistance(
+        int restoreY, int maximizedScreenIndex, int expectedY)
+    {
+        Rectangle result = MainWindowPlacement.RestoreBoundsOnMaximizedScreen(
+            StackedScreens[maximizedScreenIndex], new Rectangle(2200, restoreY, 600, 400), StackedScreens);
+
+        Assert.That(result, Is.EqualTo(new Rectangle(1320, expectedY, 600, 400)));
+    }
+
     [Test]
     public void UnknownBoundsAreLeftAlone()
     {
         Rectangle restore = new(2400, 300, 974, 620);
+        Rectangle maximized = new(-8, -8, 1936, 1048);
 
         Assert.Multiple(() =>
         {
             Assert.That(MainWindowPlacement.RestoreBoundsOnMaximizedScreen(Rectangle.Empty, restore, TwoScreens),
                         Is.EqualTo(restore));
-            Assert.That(MainWindowPlacement.RestoreBoundsOnMaximizedScreen(new Rectangle(-8, -8, 1936, 1048),
-                                                                           Rectangle.Empty, TwoScreens),
+            Assert.That(MainWindowPlacement.RestoreBoundsOnMaximizedScreen(maximized, Rectangle.Empty, TwoScreens),
                         Is.EqualTo(Rectangle.Empty));
-            Assert.That(MainWindowPlacement.RestoreBoundsOnMaximizedScreen(new Rectangle(-8, -8, 1936, 1048),
-                                                                           restore, []),
+            Assert.That(MainWindowPlacement.RestoreBoundsOnMaximizedScreen(maximized, restore, []),
+                        Is.EqualTo(restore));
+            Assert.That(MainWindowPlacement.RestoreBoundsOnMaximizedScreen(maximized, restore, null),
                         Is.EqualTo(restore));
         });
     }

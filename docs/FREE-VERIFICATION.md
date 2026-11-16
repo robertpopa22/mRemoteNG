@@ -56,11 +56,42 @@ so a partial scan cannot become a clean result.
 
 Baseline on 16 November 2026: **727 files, 15 rules, 3 findings**, approximately
 99.4% parsed lines, **23 PartialParsing diagnostics, exit 3**, no timeouts.
-The findings concern SQL passthrough in `MSSqlDatabaseConnector.cs:28` and
-`OdbcDatabaseConnector.cs:34`, and path construction in
-`PuttySessionsFileProvider.cs:78`. They require source-level triage; no suppression
-or product fix is implied. Keep this check advisory until parser gaps and findings
-have a recorded disposition. It is not an all-green CI gate.
+Follow-up on the same day: **727 files, 15 rules, 2 findings**. The KiTTY path
+finding is fixed; the two SQL findings have the disposition below. The same
+23 PartialParsing diagnostics and strict exit 3 remain. No rules, findings or
+parser errors were suppressed. This is still a partial, advisory scan, not an
+all-green CI gate.
+
+### Finding dispositions
+
+- **KiTTY path construction — fixed.** `GetSession` now accepts only a raw leaf
+  filename before accessing the Sessions directory. Rooted, traversal and nested
+  paths are rejected rather than silently redirected to another filename. A
+  source-linked Windows probe with real temporary files accepted all five invalid
+  paths before the change and rejected all five afterwards. NUnit regression
+  coverage also preserves literal percent-encoded filenames: display decoding
+  happens only after reading the file. The usual UI enumeration already supplies
+  leaf names; the regression exercises direct calls to the public provider.
+  This addresses path syntax, not filesystem links or directory permissions.
+  A focused repeat of the same 15 rules on this file passed with no findings or
+  parser diagnostics; the full scan's parser limitations above remain unchanged.
+- **`MSSqlDatabaseConnector.cs:28` and `OdbcDatabaseConnector.cs:34` — false
+  positives for the current callers.** All 43 `DbCommand` call sites in 17 files
+  were traced. These factories construct commands before callers bind their
+  parameters; the pinned CE rule taints a nonliteral string parameter inside the
+  factory without following the callers. Commands use literal SQL, code-defined
+  schema identifiers or bound application values. The only user-supplied SQL
+  identifier is the database name in `DatabaseConnectionTester.TryCreateDatabaseAsync`:
+  its validation precedes connection and command creation and prevents bracket or
+  statement-delimiter injection. `DatabaseCreationValidationTests` covers those
+  payloads. The regex's end anchor may permit a final newline; this does not allow
+  an identifier breakout and is not described as strict whole-string matching.
+  `SqlDatabaseMetaDataRetriever` uses validated fixed table names and schema
+  definitions from `DataTableSerializer`; migration batches are source constants.
+  `SqlSafeUpdateHelper` receives three literal DELETE statements, and
+  `SqlMigrationHelper` rewrites source-defined batches with bound row values.
+  Keep both raw findings visible and repeat this caller review when SQL
+  construction changes. This is source review, not live database acceptance.
 
 ## Stryker.NET mutation pilot
 
@@ -71,18 +102,25 @@ pwsh -NoProfile -File ./scripts/run-mutation-tests.ps1 -OutputDirectory "$env:TE
 ```
 
 The local tool manifest pins Stryker.NET 5.1.0. The pilot under `tests/mutation`
-links the real `MainWindowPlacement.cs` and its seven existing NUnit tests rather
+links the real `MainWindowPlacement.cs` and its NUnit tests rather
 than copying product behavior. The separate projects avoid COM build constraints
 and the application suite's WinForms startup fixture. This does **not** measure
 the entire application, its UI or RDP behavior. No production source or existing
-test is changed by the integration.
+test was changed by the initial integration.
 
 Read `reports/mutation-report.html` and `reports/mutation-report.json` under the
 output directory. The initial result was **62.07%**: 65 generated mutants,
 36 killed, 21 survived, 1 uncovered, 1 compile error and 6 ignored; no timeouts.
-Surviving mutations identify test gaps for follow-up. A successful tool exit means
-the pilot ran, not that all mutants were killed. No project-wide quality threshold
-has been lowered or replaced by this pilot.
+The follow-up adds nine behavioral cases (16 total): stacked monitors, largest
+overlap, overlap/distance ties, oversized windows and nearest-screen selection on
+both axes, plus a null-screen-list assertion. The score is now **94.83%** on the
+same 65 mutants: **55 killed, 3 survived, 0 uncovered, 1 compile error, 6 ignored**;
+no timeouts. Product logic, mutation scope, thresholds and exclusions are unchanged.
+The three survivors change comparisons in `Clamp` at equality; each branch returns
+the same bound at that point, so they are equivalent for this function. They remain
+visible in the report. A successful tool exit means the pilot ran, not that all
+mutants were killed. No project-wide quality threshold has been lowered or replaced
+by this pilot.
 
 ## CodeRabbit OSS
 

@@ -54,10 +54,10 @@ namespace mRemoteNGTests.Config.Putty
             Assert.That(names, Contains.Item("Session2"));
         }
 
-        [Test]
-        public void GetSession_ReturnsCorrectSessionInfo()
+        [TestCase("Test%20Session", "Test Session")]
+        [TestCase("%2E%2E%2FTest%5CSession%3A01.cfg", @"../Test\Session:01.cfg")]
+        public void GetSession_ReturnsCorrectSessionInfo(string sessionName, string decodedName)
         {
-            var sessionName = "Test%20Session";
             var filePath = Path.Combine(_sessionsDir, sessionName);
             File.WriteAllText(filePath, "Protocol=ssh" + Environment.NewLine + "HostName=example.com" + Environment.NewLine + "PortNumber=2222" + Environment.NewLine + "UserName=user");
 
@@ -66,11 +66,33 @@ namespace mRemoteNGTests.Config.Putty
             var session = provider.GetSession(sessionName);
 
             Assert.That(session, Is.Not.Null);
-            Assert.That(session.Name, Is.EqualTo("Test Session"));
+            Assert.That(session.Name, Is.EqualTo(decodedName));
+            Assert.That(session.PuttySession, Is.EqualTo(decodedName));
             Assert.That(session.Hostname, Is.EqualTo("example.com"));
             Assert.That(session.Port, Is.EqualTo(2222));
             Assert.That(session.Username, Is.EqualTo("user"));
             Assert.That(session.Protocol, Is.EqualTo(ProtocolType.SSH2));
+        }
+
+        [Test]
+        public void GetSession_RejectsPathsInsteadOfRawFileNames()
+        {
+            var outsideFile = Path.Combine(_tempDir, "OutsideSession");
+            File.WriteAllText(outsideFile, "Protocol=ssh");
+            var nestedDirectory = Path.Combine(_sessionsDir, "Nested");
+            Directory.CreateDirectory(nestedDirectory);
+            File.WriteAllText(Path.Combine(nestedDirectory, "Session"), "Protocol=ssh");
+
+            var provider = new PuttySessionsFileProvider();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(provider.GetSession(outsideFile), Is.Null);
+                Assert.That(provider.GetSession(@"..\OutsideSession"), Is.Null);
+                Assert.That(provider.GetSession("../OutsideSession"), Is.Null);
+                Assert.That(provider.GetSession(@"Nested\Session"), Is.Null);
+                Assert.That(provider.GetSession("Nested/Session"), Is.Null);
+            });
         }
     }
 }
