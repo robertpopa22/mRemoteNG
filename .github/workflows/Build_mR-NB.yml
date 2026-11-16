@@ -304,7 +304,7 @@ jobs:
       - name: (09b) Upload MSI artifact
         id: upload-msi
         if: matrix.platform == 'x64' && matrix.selfcontained == false
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: msi-x64
           path: mRemoteNGInstaller\bin\**\*.msi
@@ -367,7 +367,7 @@ jobs:
       # --------------------------------------------------------
       - name: (10a) Upload build artifact
         id: upload-build
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: build-${{ matrix.arch }}${{ matrix.suffix }}
           path: ${{ steps.version.outputs.zipname }}
@@ -404,7 +404,7 @@ jobs:
 
       - name: (10c) Upload signed ZIP artifact
         if: env.SIGNPATH_CONFIGURED == 'true'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: signed-${{ matrix.arch }}${{ matrix.suffix }}
           path: ${{ github.workspace }}/signed/*
@@ -428,7 +428,7 @@ jobs:
 
       - name: (10e) Upload signed MSI artifact
         if: env.SIGNPATH_CONFIGURED == 'true' && matrix.platform == 'x64' && matrix.selfcontained == false
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: signed-msi-x64
           path: ${{ github.workspace }}/signed-msi/**/*.msi

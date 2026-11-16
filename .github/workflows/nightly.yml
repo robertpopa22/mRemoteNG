@@ -153,7 +153,7 @@ jobs:
 
       - name: Upload test results artifact
         if: failure()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: test-results-${{ github.sha }}
           path: test-results-dump/
@@ -272,7 +272,7 @@ jobs:
       - name: Upload unsigned nightly ZIP
         if: env.SIGNPATH_CONFIGURED == 'true'
         id: upload-nightly-zip
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: nightly-unsigned-zip
           path: ${{ steps.meta.outputs.zipname }}
@@ -296,7 +296,7 @@ jobs:
       - name: Upload unsigned nightly MSI
         if: env.SIGNPATH_CONFIGURED == 'true' && steps.meta.outputs.msiname != ''
         id: upload-nightly-msi
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: nightly-unsigned-msi
           path: ${{ steps.meta.outputs.msiname }}
@@ -336,7 +336,7 @@ jobs:
 
       - name: Upload nightly release assets
         id: upload-release-assets
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: nightly-release-assets
           path: |
