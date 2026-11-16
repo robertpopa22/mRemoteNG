@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <ProjectReference Include="Source/mRemoteNGMutationSource.csproj" />
+    <!-- Reuse the fixture without loading the WinForms suite's assembly-wide setup. -->
+    <Compile Include="../../mRemoteNGTests/Tools/MainWindowPlacementTests.cs" Link="MainWindowPlacementTests.cs" />
+  </ItemGroup>
+</Project>

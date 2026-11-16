@@ -2,6 +2,16 @@
 
 Current status: the Options changes are published in nightly `1.84.0+31a4433111`; #231 and #233 are closed, #232 remains open for the reporter's first-opening retest. Earlier completed work is retained below.
 
+## Free verification integrations — 2026-11-16
+
+- CodeRabbit App installed only on this public fork; permissions explicitly approved. `.coderabbit.yaml` passes the official V2 schema. Its automatic Advanced trial reverts to Free on 30 November without charge; paid usage products are disabled. No review claimed: CLI OAuth requested account-wide public-repository access and was declined.
+- Greptile OSS accepted at 80 stars / GPL-2.0: repository enabled, 100 free credits/month, zero reviews. No payment method, Pro upgrade or automatic approval. Optional usage learning disabled. The setup balance shows 100 trial credits; no unseen monthly grant is added to it.
+- Semgrep CE 1.185.0 / 15 pinned rules: 727 C# files, 3 findings, 23 PartialParsing diagnostics (~99.4% parsed lines), strict exit 3. Windows and Linux JSON agree. Generated NSwag client excluded after timeout evidence; authored code remains scanned. Findings/parser gaps are disclosed, not suppressed. Complete/clean and complete/findings exit cases checked.
+- Stryker.NET 5.1.0 pilot links real placement source and seven existing tests: 65 mutants, 36 killed / 21 survived / 1 uncovered / 1 compile error / 6 ignored; no timeouts, 62.07%. Source/report readback and clean-snapshot repetition agree. Full-app mutation coverage is not claimed; COM/platform and WinForms fixture constraints remain.
+- Full build exit 0; full suite 4,124/4,124 executions in 207 seconds, zero crashes. PowerShell parsing, YAML schema and diff checks pass. No product source or existing test changes; no new product UI acceptance claimed.
+- Skill, README badges and [free verification guide](docs/FREE-VERIFICATION.md) distinguish integration from results. Live credit checks before/after hosted reviews, 20-credit Greptile reserve, no paid overages/top-ups; no unattended monitor installed.
+- Tooling/documentation uses `[skip ci]` to avoid replacing the existing nightly. No workflow/product change. SonarCloud and historical secret-scan findings remain open; local reports stay outside tracked source.
+
 ## Actions and review-service follow-up — 2026-11-16
 
 - The authenticated Actions page confirmed reactivation after identifying a fork suspension due to usage volume. Repository permissions and active workflow state had not exposed that separate block; rewriting `enabled=true` alone still returned HTTP 422 on dispatch. Maintainer UI reactivation removed it. The selected-actions allowlist is unchanged.

@@ -1,0 +1,10 @@
+{
+  "stryker-config": {
+    "project": "mRemoteNGMutationSource.csproj",
+    "configuration": "Release",
+    "concurrency": 1,
+    "mutate": ["**/MainWindowPlacement.cs"],
+    "reporters": ["html", "json"],
+    "break-on-initial-test-failure": true
+  }
+}

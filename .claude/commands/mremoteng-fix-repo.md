@@ -239,6 +239,44 @@ invalid test; **never** `[Ignore]`. The suite runner is Git Bash at
 `C:\Program Files\Git\bin\bash.exe`. `C:\Windows\System32\bash.exe` is WSL and reports 0 tests.
 Do not use `dotnet build`. Do not use `run-tests.ps1` for this gate.
 
+#### Supplementary free checks
+
+Use [the free verification procedure](../../docs/FREE-VERIFICATION.md) alongside
+the required suite, recording scope, exit code and report paths outside this
+checkout. These tools do not replace full-build, UI or security-review evidence.
+
+Before **and after** a hosted review, follow the credit-budget table in that
+procedure: read the live balance/reset date, record the actual debit in the local
+operations report and reconcile retries. Reserve 20 of Greptile's 100 monthly
+OSS credits; never double-count trial and OSS balances. Stop hosted calls if cost
+or quota is unknown, or the reserve would be consumed. CodeRabbit usage credits,
+paid add-ons, automatic top-ups and Qodo reactivation remain forbidden. Continue
+local build/tests, Semgrep CE and Stryker when a hosted allowance is exhausted.
+
+- Run `pwsh -NoProfile -File scripts/Invoke-Semgrep.ps1 -OutputDirectory <operations-report-directory>`
+  for authored C# changes. The pinned CE scan needs no login, disables metrics and
+  preserves parsing failures. Exit 10 means findings; exit 3 can mean partial
+  parsing. Inspect JSON/SARIF and disclose excluded/generated files and findings;
+  never translate a partial scan into PASS or suppress a finding to publish.
+- Run `pwsh -NoProfile -File scripts/run-mutation-tests.ps1 -OutputDirectory <operations-report-directory>`
+  when changing `MainWindowPlacement.cs` or its tests. This linked-source pilot
+  covers only that source and its existing fixture. Report killed/surviving,
+  uncovered, ignored and compile-error counts from JSON, not only the tool exit.
+- CodeRabbit OSS: check account/installation and free allowance first, then use
+  `coderabbit review --agent --committed --base-commit <reviewed-base-sha>` or
+  `--uncommitted` for tracked WIP. Do not create a review PR in this main-only fork,
+  include private/untracked operations material, or enable `--use-credits`.
+  An installed app, skipped/rate-limited review or green status alone is not
+  evidence that the selected diff was reviewed. Record the actual result.
+- Greptile: distinguish an OSS application from acceptance and active review.
+  Use only an accepted free entitlement; no trial conversion, paid plan or
+  overage. Qodo's paused status is independent of GitHub Actions availability.
+
+These are additional checks with explicit baseline limitations, not new blanket
+approval prompts. Step 7 still pauses for a newly introduced defect, an unresolved
+required check or missing specific authorization. Keep existing baseline findings
+visible and scope their disposition; do not silently mark them resolved.
+
 ### Step 5b: UI verification as a user (MANDATORY for EVERY issue, not only `fix`)
 
 Every issue in the queue gets a hands-on pass in the running application — the automated suite

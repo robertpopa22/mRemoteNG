@@ -1,0 +1,35 @@
+# Public source only. Subscription/usage-credit controls live in the service account.
+language: en-US
+early_access: false
+enable_free_tier: true
+reviews:
+  profile: chill
+  high_level_summary: true
+  poem: false
+  review_details: true
+  fail_commit_status: true
+  auto_review:
+    enabled: true
+    drafts: false
+  auto_approvals:
+    enabled: false
+  finishing_touches:
+    unit_tests:
+      enabled: false
+    autofix:
+      enabled: false
+    simplify:
+      enabled: false
+  path_instructions:
+    - path: "**/*.cs"
+      instructions: >-
+        Review correctness, resource lifetime, cancellation and WinForms thread ownership.
+        Preserve certificate validation, host-key checks and credential protection.
+        This application targets .NET 10 with COM interop; its full build uses build.ps1
+        and Visual Studio MSBuild. Do not equate test compilation with test execution.
+    - path: "tests/mutation/**"
+      instructions: >-
+        This bounded pilot links existing product source and tests. Its mutation score
+        applies only to the linked source, not the entire WinForms application.
+chat:
+  auto_reply: false
