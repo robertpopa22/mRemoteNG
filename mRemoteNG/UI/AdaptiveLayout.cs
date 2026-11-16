@@ -216,120 +216,125 @@ internal static class AdaptiveLayout
             Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink,
             Padding = new Padding(8), Margin = Padding.Empty
         };
-        for (int column = 0; column < columns; column++)
+        layout.SuspendLayout();
+        try
         {
-            bool inputColumn = rows.Any(row => row.Count > column && row[column] is TextBoxBase or ComboBox or NumericUpDown or Panel or GroupBox
-                || row.Count > column && Flexible(row[column]));
-            // Keep a usable share for captions even when a larger font changes their
-            // preferred size during layout. An AutoSize caption beside a percent
-            // input can otherwise collapse to a few pixels after font autoscaling.
-            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, inputColumn ? 2f : 1f));
-        }
-        float totalWeight = layout.ColumnStyles.Cast<ColumnStyle>().Sum(style => style.Width);
-        int minimumWidth = (int)Math.Ceiling(Enumerable.Range(0, columns).Select(column =>
-            rows.Where(row => row.Count > column && row.Count > 1)
-                .Select(row => (row[column].MinimumSize.Width + 6) * totalWeight / layout.ColumnStyles[column].Width)
-                .DefaultIfEmpty().Max()).Max()) + layout.Padding.Horizontal;
-        minimumWidth = Math.Max(minimumWidth, rows.Where(row => row.Count == 1).Select(row => row[0].MinimumSize.Width + 6).DefaultIfEmpty().Max() + layout.Padding.Horizontal);
-        layout.MinimumSize = new Size(minimumWidth, 0);
-        bool hasFlexible = children.Any(Flexible);
-        if (hasFlexible)
-        {
-            layout.AutoSize = false;
-        }
-        parent.Controls.Clear();
-        for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
-        {
-            var row = rows[rowIndex].ToArray();
-            layout.RowStyles.Add(new RowStyle(row.Any(Flexible) ? SizeType.Percent : SizeType.AutoSize, row.Any(Flexible) ? 100f : 0f));
-            if (row.All(c => c is Button))
+            for (int column = 0; column < columns; column++)
             {
-                var actions = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                    FlowDirection = FlowDirection.RightToLeft, WrapContents = true };
-                foreach (Control button in row.Reverse())
-                {
-                    button.AutoSize = true;
-                    button.Anchor = AnchorStyles.None;
-                    actions.Controls.Add(button);
-                }
-                layout.Controls.Add(actions, 0, rowIndex);
-                layout.SetColumnSpan(actions, columns);
-                continue;
+                bool inputColumn = rows.Any(row => row.Count > column && row[column] is TextBoxBase or ComboBox or NumericUpDown or Panel or GroupBox
+                    || row.Count > column && Flexible(row[column]));
+                // Keep a usable share for captions even when a larger font changes their
+                // preferred size during layout. An AutoSize caption beside a percent
+                // input can otherwise collapse to a few pixels after font autoscaling.
+                layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, inputColumn ? 2f : 1f));
             }
-            for (int column = 0; column < row.Length; column++)
+            float totalWeight = layout.ColumnStyles.Cast<ColumnStyle>().Sum(style => style.Width);
+            int minimumWidth = (int)Math.Ceiling(Enumerable.Range(0, columns).Select(column =>
+                rows.Where(row => row.Count > column && row.Count > 1)
+                    .Select(row => (row[column].MinimumSize.Width + 6) * totalWeight / layout.ColumnStyles[column].Width)
+                    .DefaultIfEmpty().Max()).Max()) + layout.Padding.Horizontal;
+            minimumWidth = Math.Max(minimumWidth, rows.Where(row => row.Count == 1).Select(row => row[0].MinimumSize.Width + 6).DefaultIfEmpty().Max() + layout.Padding.Horizontal);
+            layout.MinimumSize = new Size(minimumWidth, 0);
+            bool hasFlexible = children.Any(Flexible);
+            if (hasFlexible)
             {
-                Control child = row[column];
-                child.Margin = new Padding(3);
-                child.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                if (Flexible(child))
-                {
-                    child.Dock = DockStyle.Fill;
-                    child.MinimumSize = new Size(0, 100 * parent.DeviceDpi / 96);
-                }
-                else if (child is TextBoxBase or ComboBox or NumericUpDown)
-                    child.Dock = DockStyle.Fill;
-                else if (child is Button button)
-                {
-                    button.AutoSize = true;
-                    button.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                    button.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                }
-                else if (child is Label or CheckBox or RadioButton)
-                    child.AutoSize = true;
-                else if (child is GroupBox group)
-                {
-                    group.AutoSize = true;
-                    group.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                }
-                else if (child is Panel contentPanel)
-                {
-                    contentPanel.AutoSize = true;
-                    contentPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                }
-                else if (child is TableLayoutPanel nestedTable && !nestedTable.Controls.Cast<Control>().Any(Flexible))
-                {
-                    nestedTable.AutoSize = true;
-                    nestedTable.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                }
-                layout.Controls.Add(child, column, rowIndex);
-                if (row.Length == 1) layout.SetColumnSpan(child, columns);
+                layout.AutoSize = false;
             }
-        }
-        parent.Controls.Add(layout);
-        if (parent is GroupBox)
-            parent.MinimumSize = new Size(Math.Max(parent.MinimumSize.Width, layout.MinimumSize.Width + parent.Padding.Horizontal), parent.MinimumSize.Height);
-        if (parent is Panel && parent.Parent is TableLayoutPanel tableParent)
-        {
-            int parentColumn = tableParent.GetColumn(parent);
-            if (parentColumn >= 0 && parentColumn < tableParent.ColumnStyles.Count &&
-                tableParent.ColumnStyles[parentColumn].SizeType == SizeType.AutoSize)
-                parent.MinimumSize = new Size(Math.Max(parent.MinimumSize.Width, layout.MinimumSize.Width), parent.MinimumSize.Height);
-        }
-        if (parent is Panel panel && panel.Dock is DockStyle.Bottom or DockStyle.Top)
-        {
-            panel.AutoSize = true;
-            panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-        }
-        if (parent is ScrollableControl scroll)
-        {
-            scroll.AutoScroll = true;
-            scroll.AutoScrollMinSize = new Size(Math.Max(scroll.AutoScrollMinSize.Width, layout.MinimumSize.Width), scroll.AutoScrollMinSize.Height);
-        }
-        PrepareTable(layout);
-        if (hasFlexible)
-        {
-            void FitContent()
+            parent.Controls.Clear();
+            for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
             {
-                int height = layout.Padding.Vertical + rows.Sum(row => row.Max(child =>
-                    (Flexible(child) ? child.MinimumSize.Height : child.GetPreferredSize(new Size(layout.ClientSize.Width, 0)).Height) + child.Margin.Vertical));
-                int wanted = Math.Max(height, parent.ClientSize.Height);
-                if (layout.Height != wanted) layout.Height = wanted;
+                var row = rows[rowIndex].ToArray();
+                layout.RowStyles.Add(new RowStyle(row.Any(Flexible) ? SizeType.Percent : SizeType.AutoSize, row.Any(Flexible) ? 100f : 0f));
+                if (row.All(c => c is Button))
+                {
+                    var actions = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                        FlowDirection = FlowDirection.RightToLeft, WrapContents = true };
+                    foreach (Control button in row.Reverse())
+                    {
+                        button.AutoSize = true;
+                        button.Anchor = AnchorStyles.None;
+                        actions.Controls.Add(button);
+                    }
+                    layout.Controls.Add(actions, 0, rowIndex);
+                    layout.SetColumnSpan(actions, columns);
+                    continue;
+                }
+                for (int column = 0; column < row.Length; column++)
+                {
+                    Control child = row[column];
+                    child.Margin = new Padding(3);
+                    child.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    if (Flexible(child))
+                    {
+                        child.Dock = DockStyle.Fill;
+                        child.MinimumSize = new Size(0, 100 * parent.DeviceDpi / 96);
+                    }
+                    else if (child is TextBoxBase or ComboBox or NumericUpDown)
+                        child.Dock = DockStyle.Fill;
+                    else if (child is Button button)
+                    {
+                        button.AutoSize = true;
+                        button.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                        button.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                    }
+                    else if (child is Label or CheckBox or RadioButton)
+                        child.AutoSize = true;
+                    else if (child is GroupBox group)
+                    {
+                        group.AutoSize = true;
+                        group.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                    }
+                    else if (child is Panel contentPanel)
+                    {
+                        contentPanel.AutoSize = true;
+                        contentPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                    }
+                    else if (child is TableLayoutPanel nestedTable && !nestedTable.Controls.Cast<Control>().Any(Flexible))
+                    {
+                        nestedTable.AutoSize = true;
+                        nestedTable.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                    }
+                    layout.Controls.Add(child, column, rowIndex);
+                    if (row.Length == 1) layout.SetColumnSpan(child, columns);
+                }
             }
-            layout.Layout += (_, _) => FitContent();
-            parent.SizeChanged += (_, _) => FitContent();
-            FitContent();
+            parent.Controls.Add(layout);
+            if (parent is GroupBox)
+                parent.MinimumSize = new Size(Math.Max(parent.MinimumSize.Width, layout.MinimumSize.Width + parent.Padding.Horizontal), parent.MinimumSize.Height);
+            if (parent is Panel && parent.Parent is TableLayoutPanel tableParent)
+            {
+                int parentColumn = tableParent.GetColumn(parent);
+                if (parentColumn >= 0 && parentColumn < tableParent.ColumnStyles.Count &&
+                    tableParent.ColumnStyles[parentColumn].SizeType == SizeType.AutoSize)
+                    parent.MinimumSize = new Size(Math.Max(parent.MinimumSize.Width, layout.MinimumSize.Width), parent.MinimumSize.Height);
+            }
+            if (parent is Panel panel && panel.Dock is DockStyle.Bottom or DockStyle.Top)
+            {
+                panel.AutoSize = true;
+                panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            }
+            if (parent is ScrollableControl scroll)
+            {
+                scroll.AutoScroll = true;
+                scroll.AutoScrollMinSize = new Size(Math.Max(scroll.AutoScrollMinSize.Width, layout.MinimumSize.Width), scroll.AutoScrollMinSize.Height);
+            }
+            PrepareTable(layout);
+            if (hasFlexible)
+            {
+                void FitContent()
+                {
+                    int height = layout.Padding.Vertical + rows.Sum(row => row.Max(child =>
+                        (Flexible(child) ? child.MinimumSize.Height : child.GetPreferredSize(new Size(layout.ClientSize.Width, 0)).Height) + child.Margin.Vertical));
+                    int wanted = Math.Max(height, parent.ClientSize.Height);
+                    if (layout.Height != wanted) layout.Height = wanted;
+                }
+                layout.Layout += (_, _) => FitContent();
+                parent.SizeChanged += (_, _) => FitContent();
+                FitContent();
+            }
+            LimitTextWidth(layout);
         }
-        LimitTextWidth(layout);
+        finally { layout.ResumeLayout(true); }
     }
 
     private static void LimitTextWidth(TableLayoutPanel table)

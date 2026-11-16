@@ -10,6 +10,38 @@ namespace mRemoteNGTests.UI;
 [Apartment(ApartmentState.STA)]
 public class AdaptiveLayoutTests
 {
+    private sealed class MeasurementLabel : Label
+    {
+        public int MinimumRowCountMeasured { get; private set; } = int.MaxValue;
+
+        public override Size GetPreferredSize(Size proposedSize)
+        {
+            if (Parent is TableLayoutPanel { Name: "adaptiveContent" } table)
+                MinimumRowCountMeasured = System.Math.Min(MinimumRowCountMeasured, table.Controls.Count);
+            return base.GetPreferredSize(proposedSize);
+        }
+    }
+
+    [Test]
+    public void ReflowMeasuresContentAfterAllRowsHaveBeenAdded()
+    {
+        const int rowCount = 20;
+        using var panel = new Panel { Size = new Size(500, 700) };
+        var labels = new MeasurementLabel[rowCount];
+        for (int row = 0; row < rowCount; row++)
+        {
+            labels[row] = new MeasurementLabel { Text = $"Option {row}", Location = new Point(10, 10 + row * 30) };
+            panel.Controls.Add(labels[row]);
+        }
+
+        AdaptiveLayout.Prepare(panel);
+        panel.PerformLayout();
+
+        foreach (var label in labels)
+            Assert.That(label.MinimumRowCountMeasured, Is.EqualTo(rowCount),
+                "Adding each row must not remeasure a partially populated table");
+    }
+
     [Test]
     public void LargerFontKeepsStaggeredLabelAndInputInsideTheirCells()
     {
