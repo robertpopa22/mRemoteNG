@@ -88,7 +88,7 @@ namespace mRemoteNG.App.Info
             string cleanedVersion = GetBaseVersion(productVersion);
             try
             {
-                Match build = LocalBuildNumber().Match(productVersion);
+                Match build = LocalBuildNumber.Match(productVersion);
                 if (build.Success)
                     cleanedVersion = cleanedVersion + "." + build.Groups[1].Value;
             }
@@ -102,7 +102,7 @@ namespace mRemoteNG.App.Info
         }
 
         [GeneratedRegex(@"\bbuild\s+(\d+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, 250)]
-        private static partial Regex LocalBuildNumber();
+        private static partial Regex LocalBuildNumber { get; }
 
         private static string? ReadMetadata(Assembly assembly, string key)
         {

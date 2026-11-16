@@ -29,12 +29,16 @@ internal sealed class RdpInputTrace
             bool changed = state != last.State;
             if (reason == RdpInputReason.Sample && !changed &&
                 (!state.PeriodicActive || elapsedMs - last.ElapsedMs < HeartbeatIntervalMs(lowPower)))
+            {
                 return false;
+            }
             if (!changed && reason == last.Reason && elapsedMs - last.ElapsedMs < 1_000)
                 return false;
         }
         else if (reason == RdpInputReason.Sample && !state.PeriodicActive)
+        {
             return false;
+        }
 
         if (!_sessionBudget.TryTake(now) || !_processBudget.TryTake(now))
         {
