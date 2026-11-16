@@ -40,7 +40,7 @@ Qodo's free open-source plan requires at least 200 stars on this repository (or 
 
 **For visual/layout problems** (theme, affected monitor's scaling percentage, local or remote desktop):
 
-**Log excerpt** (`%LOCALAPPDATA%\mRemoteNG\mRemoteNG.log` or `Settings\mRemoteNG.log` for portable — the last ~30 lines around the problem):
+**Log excerpt** (`%LOCALAPPDATA%\mRemoteNG Connection Manager\mRemoteNG Connection Manager.log` when installed; for portable, `mRemoteNG Connection Manager.log` beside `mRemoteNG.exe`, or the same `%LOCALAPPDATA%` path when that folder is read-only — the last ~30 lines around the problem. A startup failure shown in a Windows/.NET dialog before the app starts leaves no line in it):
 
 Remove credentials and identifying server/account details before sharing. Do not attach your connection database.
 
