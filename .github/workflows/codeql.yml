@@ -35,7 +35,7 @@ jobs:
           vs-version: "[18.0,19.0)"
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@bb471cdcf4dda2c934c5b656f554d43c1434ed13 # v4
+        uses: github/codeql-action/init@3ea37a44b6e4e6847c46edae209410d258d548d1 # v4
         with:
           languages: csharp
           build-mode: manual
