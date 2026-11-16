@@ -12,7 +12,7 @@ using static System.Environment;
 namespace mRemoteNG.App.Info
 {
     [SupportedOSPlatform("windows")]
-    public static class GeneralAppInfo
+    public static partial class GeneralAppInfo
     {
         public const string UrlHome = "https://mremoteng.org";
         // The upstream donate URL (mremoteng.org/contribute) 404s. Donations for this fork go to
@@ -88,8 +88,7 @@ namespace mRemoteNG.App.Info
             string cleanedVersion = GetBaseVersion(productVersion);
             try
             {
-                Match build = Regex.Match(productVersion, @"\bbuild\s+(\d+)",
-                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(250));
+                Match build = LocalBuildNumber().Match(productVersion);
                 if (build.Success)
                     cleanedVersion = cleanedVersion + "." + build.Groups[1].Value;
             }
@@ -101,6 +100,9 @@ namespace mRemoteNG.App.Info
             _ = System.Version.TryParse(cleanedVersion, out Version? parsedVersion);
             return parsedVersion ?? new Version(0, 0);
         }
+
+        [GeneratedRegex(@"\bbuild\s+(\d+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, 250)]
+        private static partial Regex LocalBuildNumber();
 
         private static string? ReadMetadata(Assembly assembly, string key)
         {

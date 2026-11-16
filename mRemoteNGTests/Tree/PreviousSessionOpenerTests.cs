@@ -170,7 +170,7 @@ namespace mRemoteNGTests.Tree
                 Runtime.WindowList = null!;
                 Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.Null);
 
-                Runtime.WindowList = new WindowList();
+                Runtime.WindowList = [];
                 Runtime.NoReconnectToPreviousSessions = true;
                 Runtime.ConnectionsService.IsConnectionsFileLoaded = true;
 
@@ -184,13 +184,15 @@ namespace mRemoteNGTests.Tree
                 first.LoadConnections([], listedByLayout: true);
                 Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.Empty);
 
-                first.LoadConnections(["one", "two"], listedByLayout: true);
+                string[] firstIds = ["one", "two"];
+                string[] idsFromBothPanels = ["one", "two", "ONE"];
+                first.LoadConnections(firstIds, listedByLayout: true);
                 second.LoadConnections(["two", "ONE"], listedByLayout: true);
                 Runtime.WindowList.Add(second);
-                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.EquivalentTo(new[] { "one", "two", "ONE" }));
+                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.EquivalentTo(idsFromBothPanels));
 
                 second.Dispose();
-                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.EquivalentTo(new[] { "one", "two" }));
+                Assert.That(PreviousSessionOpener.CollectLayoutListedConnectionIds(), Is.EquivalentTo(firstIds));
             }
             finally
             {

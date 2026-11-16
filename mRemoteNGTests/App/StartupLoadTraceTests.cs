@@ -35,14 +35,22 @@ namespace mRemoteNGTests.App
         }
 
         [Test]
-        public void StartupLogsTheFileScanAndAnAssemblyLoadAfterASlowGap() =>
-            RunWithFreshTrace(nameof(CheckStartup));
+        public void StartupLogsTheFileScanAndAnAssemblyLoadAfterASlowGap()
+        {
+            string summary = RunWithFreshTrace<string>(nameof(CheckStartup));
+            Assert.That(summary, Does.Match(@"^\[Startup\]   ProgramFiles: 2 dll/exe scanned in \d+ms, 1 not on the local disk \(cloud placeholders\): offline\.EXE$"));
+        }
 
         [Test]
-        public void StartupContinuesWhenTheProgramFolderCannotBeScanned() =>
-            RunWithFreshTrace(nameof(CheckScanFailure));
+        public void StartupContinuesWhenTheProgramFolderCannotBeScanned()
+        {
+            string[] logged = RunWithFreshTrace<string[]>(nameof(CheckScanFailure));
+            Assert.That(logged, Has.Length.EqualTo(2));
+            Assert.That(logged[0], Does.EndWith(", scan failed: DirectoryNotFoundException"));
+            Assert.That(logged[1], Does.StartWith("[Startup]   AssemblyLoads: "));
+        }
 
-        private static void CheckStartup()
+        private static string CheckStartup()
         {
             DirectoryInfo programDirectory = Directory.CreateTempSubdirectory();
             var messages = new MessageCollector();
@@ -70,13 +78,13 @@ namespace mRemoteNGTests.App
                 StartupLoadTrace.Finish(messages);
 
                 IMessage[] logged = messages.Messages.ToArray();
-                Assert.That(logged[0].Text, Does.Match(@"^\[Startup\]   ProgramFiles: 2 dll/exe scanned in \d+ms, 1 not on the local disk \(cloud placeholders\): offline\.EXE$"));
                 Assert.That(logged.Select(message => message.Text), Has.Some.StartsWith("[Startup]   AssemblyLoad: DelayedStartupProbe at +"));
                 Assert.That(logged[^1].Text, Does.Match(@"^\[Startup\]   AssemblyLoads: [1-9]\d* during startup$"));
                 Assert.That(logged, Has.All.Matches<IMessage>(message => message.OnlyLog && message.Class == MessageClass.InformationMsg));
 
                 StartupLoadTrace.Finish(messages);
                 Assert.That(messages.Messages, Is.EqualTo(logged));
+                return logged[0].Text;
             }
             finally
             {
@@ -85,7 +93,7 @@ namespace mRemoteNGTests.App
             }
         }
 
-        private static void CheckScanFailure()
+        private static string[] CheckScanFailure()
         {
             DirectoryInfo programDirectory = Directory.CreateTempSubdirectory();
             var messages = new MessageCollector();
@@ -95,10 +103,7 @@ namespace mRemoteNGTests.App
                 StartupLoadTrace.LogProgramFiles(messages);
                 StartupLoadTrace.Finish(messages);
 
-                string[] logged = messages.Messages.Select(message => message.Text).ToArray();
-                Assert.That(logged, Has.Length.EqualTo(2));
-                Assert.That(logged[0], Does.EndWith(", scan failed: DirectoryNotFoundException"));
-                Assert.That(logged[1], Does.StartWith("[Startup]   AssemblyLoads: "));
+                return messages.Messages.Select(message => message.Text).ToArray();
             }
             finally
             {
@@ -122,7 +127,7 @@ namespace mRemoteNGTests.App
             }
         }
 
-        private static void RunWithFreshTrace(string testMethod)
+        private static TResult RunWithFreshTrace<TResult>(string testMethod)
         {
             // The production trace is one-shot and belongs to the app's assembly. Give each
             // scenario fresh statics without resetting the app's copy or sharing state with other tests.
@@ -131,7 +136,8 @@ namespace mRemoteNGTests.App
             {
                 Type testType = typeof(StartupLoadTraceTests);
                 Type isolatedTestType = context.LoadFromAssemblyPath(testType.Assembly.Location).GetType(testType.FullName!)!;
-                isolatedTestType.GetMethod(testMethod, BindingFlags.Static | BindingFlags.NonPublic)!.CreateDelegate<Action>()();
+                return isolatedTestType.GetMethod(testMethod, BindingFlags.Static | BindingFlags.NonPublic)!
+                    .CreateDelegate<Func<TResult>>()();
             }
             finally
             {
@@ -144,7 +150,8 @@ namespace mRemoteNGTests.App
             protected override Assembly? Load(AssemblyName assemblyName)
             {
                 Assembly app = typeof(StartupLoadTrace).Assembly;
-                return assemblyName.Name == app.GetName().Name ? LoadFromAssemblyPath(app.Location) : null;
+                return string.Equals(assemblyName.Name, app.GetName().Name, StringComparison.Ordinal)
+                    ? LoadFromAssemblyPath(app.Location) : null;
             }
         }
     }

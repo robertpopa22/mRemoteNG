@@ -31,18 +31,18 @@ public class SecureTransferHostKeyTests
         var first = new HostKeyEventArgs(new KeyHostAlgorithm("rsa-sha2-512", firstKey));
         var second = new HostKeyEventArgs(new KeyHostAlgorithm("rsa-sha2-512", secondKey));
 
-        transfer.OnHostKeyReceived(null, first);
+        transfer.OnHostKeyReceived(sender: null, first);
         Assert.That(first.CanTrust, Is.False);
         Assert.That(transfer.RejectedHostKey.Status, Is.EqualTo(SshHostKeyStatus.Unknown));
         Assert.That(transfer.RejectedHostKey.KeyType, Is.EqualTo("ssh-rsa"), "The wire key type, not the signature algorithm, is stored.");
         transfer.HostKeys.Trust(transfer.RejectedHostKey);
 
-        transfer.OnHostKeyReceived(null, second);
+        transfer.OnHostKeyReceived(sender: null, second);
         Assert.That(second.CanTrust, Is.False);
         Assert.That(transfer.RejectedHostKey.Status, Is.EqualTo(SshHostKeyStatus.Changed));
         Assert.That(transfer.RejectedHostKey.TrustedFingerprintSha256, Is.EqualTo(first.FingerPrintSHA256));
 
-        transfer.OnHostKeyReceived(null, first);
+        transfer.OnHostKeyReceived(sender: null, first);
         Assert.That(first.CanTrust, Is.True);
         Assert.That(transfer.RejectedHostKey, Is.Null);
     }
@@ -56,7 +56,7 @@ public class SecureTransferHostKeyTests
         Assert.That(received.CanTrust, Is.True, "SSH.NET defaults to accepting a host key.");
         using var locked = new FileStream(transfer.HostKeys.FilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
 
-        Assert.Throws<IOException>(() => transfer.OnHostKeyReceived(null, received));
+        Assert.Throws<IOException>(() => transfer.OnHostKeyReceived(sender: null, received));
         Assert.That(received.CanTrust, Is.False);
     }
 
@@ -70,7 +70,7 @@ public class SecureTransferHostKeyTests
         closedPort.Bind(new IPEndPoint(IPAddress.Loopback, 0));
         using var transfer = CreateTransfer(((IPEndPoint)closedPort.LocalEndPoint).Port, protocol);
         using RsaKey key = CreatePublicKey();
-        transfer.OnHostKeyReceived(null, new HostKeyEventArgs(new KeyHostAlgorithm("rsa-sha2-512", key)));
+        transfer.OnHostKeyReceived(sender: null, new HostKeyEventArgs(new KeyHostAlgorithm("rsa-sha2-512", key)));
         Assert.That(transfer.RejectedHostKey, Is.Not.Null);
 
         Assert.Throws<SocketException>(transfer.Connect);
@@ -79,15 +79,15 @@ public class SecureTransferHostKeyTests
     }
 
     private SecureTransfer CreateTransfer(int port, SecureTransfer.SSHTransferProtocol protocol) =>
-        new("127.0.0.1", "test", string.Empty, port, protocol)
+        new(host: "127.0.0.1", user: "test", pass: string.Empty, port, protocol)
         {
-            HostKeys = new SshHostKeyStore(Path.Combine(_directory.FullName, SshHostKeyStore.FileName))
+            HostKeys = new SshHostKeyStore(Path.Combine(_directory.FullName, SshHostKeyStore.FileName)),
         };
 
     private static RsaKey CreatePublicKey()
     {
         using RSA rsa = RSA.Create(2048);
-        RSAParameters parameters = rsa.ExportParameters(false);
+        RSAParameters parameters = rsa.ExportParameters(includePrivateParameters: false);
         return new RsaKey(new SshKeyData("ssh-rsa", [
             new BigInteger(parameters.Exponent, isUnsigned: true, isBigEndian: true),
             new BigInteger(parameters.Modulus, isUnsigned: true, isBigEndian: true)]));

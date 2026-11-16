@@ -22,8 +22,6 @@ namespace mRemoteNG.UI
             _graphicsProvider = graphicsProvider.ThrowIfNull(nameof(graphicsProvider));
         }
 
-        public SizeF ResolutionScalingFactor => _graphicsProvider.GetResolutionScalingFactor();
-
         /// <summary>
         /// Creates a new <see cref="DisplayProperties"/> instance with the default
         /// <see cref="IGraphicsProvider"/> of type <see cref="GdiPlusGraphicsProvider"/>
@@ -32,6 +30,8 @@ namespace mRemoteNG.UI
             : this(new GdiPlusGraphicsProvider())
         {
         }
+
+        public SizeF ResolutionScalingFactor => _graphicsProvider.GetResolutionScalingFactor();
 
         /// <summary>
         /// Scale the given nominal width value by the <see cref="ResolutionScalingFactor"/>

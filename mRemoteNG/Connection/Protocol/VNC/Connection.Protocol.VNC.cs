@@ -745,8 +745,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 {
                     using TcpClient localClient = await _listener.AcceptTcpClientAsync(cancellationToken).ConfigureAwait(false);
 
-                    using NetworkStream localStream = localClient.GetStream();
-                    using NetworkStream remoteStream = _proxiedClient.GetStream();
+                    await using NetworkStream localStream = localClient.GetStream();
+                    await using NetworkStream remoteStream = _proxiedClient.GetStream();
 
                     Task upstream = PumpAsync(localStream, remoteStream, cancellationToken);
                     Task downstream = PumpAsync(remoteStream, localStream, cancellationToken);

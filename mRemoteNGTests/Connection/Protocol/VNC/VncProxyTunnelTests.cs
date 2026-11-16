@@ -24,12 +24,12 @@ namespace mRemoteNGTests.Connection.Protocol.VNC
             using var tunnel = new ProtocolVNC.ProxyTunnel(proxiedClient);
 
             using var viewer = new TcpClient();
-            using NetworkStream peerStream = peer.GetStream();
+            await using NetworkStream peerStream = peer.GetStream();
             byte[] buffer = new byte[1];
             if (connectViewer)
             {
                 await viewer.ConnectAsync(IPAddress.Loopback, tunnel.LocalPort, timeout.Token);
-                using NetworkStream viewerStream = viewer.GetStream();
+                await using NetworkStream viewerStream = viewer.GetStream();
 
                 await viewerStream.WriteAsync(new byte[] { 0x52 }, timeout.Token);
                 await peerStream.ReadExactlyAsync(buffer, timeout.Token);
