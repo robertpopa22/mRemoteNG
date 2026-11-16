@@ -1,6 +1,6 @@
 # PROGRESS — handover
 
-Current status: the Options changes are published in nightly `1.84.0+31a4433111`; #231 and #233 are closed, #232 remains open for the reporter's first-opening retest. Earlier completed work is retained below.
+Current status: CI published nightly `ff0c04c2f` with the KiTTY validation fix; all five workflows succeeded. Sonar's server-side quality gate remains red. The earlier Options fixes remain included; #231 and #233 are closed, #232 awaits the reporter's first-opening retest.
 
 ## Semgrep disposition and mutation follow-up — 2026-11-16
 
@@ -9,7 +9,10 @@ Current status: the Options changes are published in nightly `1.84.0+31a4433111`
 - Full Semgrep repeat: 727 files / 15 rules, 2 SQL findings, 23 PartialParsing diagnostics, strict exit 3. Focused KiTTY scan using the same pinned rules: 1 file, zero findings/errors, exit 0. The full scan remains advisory and partial.
 - Stryker: 62.07% -> 94.83% after nine behavioral cases (16 total), with identical product source, mutation scope and configuration. Same 65 mutants: 55 killed, 3 equivalent comparison survivors, zero uncovered, 1 compile error, 6 ignored; no timeouts. Report source equals the checked-in product source.
 - Full build passed (existing warnings remain). Full suite: 4,135/4,135 in 196 seconds, zero crashes. Targeted KiTTY/SQL validation/placement group: 30/30. Candidate build startup in the isolated Windows guest: 3/3; this is startup acceptance, not a KiTTY UI exploit reproduction. The guest task was restored and the VM returned to its original Saved state.
-- Security tripwire and diff checks passed without an override. No hosted CodeRabbit, Greptile or Qodo review was invoked, so this work incurred no review-credit debit. Private reports remain outside the checkout. CI/publication readback follows the product push; older Sonar and secret-scan findings remain separate.
+- Security tripwire and diff checks passed without an override. No hosted CodeRabbit, Greptile or Qodo review was invoked, so this work incurred no review-credit debit. Private reports remain outside the checkout.
+- Pushed `ff0c04c2f`. All five workflows succeeded: [nightly](https://github.com/robertpopa22/mRemoteNG/actions/runs/43840944994), [validation](https://github.com/robertpopa22/mRemoteNG/actions/runs/43840944948), [CodeQL](https://github.com/robertpopa22/mRemoteNG/actions/runs/43840945009), [Sonar](https://github.com/robertpopa22/mRemoteNG/actions/runs/43840945026), [secret scan](https://github.com/robertpopa22/mRemoteNG/actions/runs/43840944900). Nightly ran 4,113/4,113, zero crashes; local/CI execution counts differ by 5 in Config.Other and 17 in Integration, where database availability controls tests. Validation passed 5/5 jobs. Sonar ran 4,112 passing tests and skipped 27.
+- Published nightly tag and target point to `ff0c04c2f70d1841d96698dc63a2e936421b2fd0`. Downloaded ZIP/MSI hashes match GitHub: `bc25464f32dd43e1e1b8258a78a30daadeb5d2254cdd43f6a27b0650976f36c6` / `dd79e108cc2e120e32dc1ebdc4875c17932c25683964804e9cb87a395bf5d78f`. ZIP has all 71 declared assemblies and no profile data. This unsigned framework-dependent x64 CI release replaces the earlier self-contained nightly; no workstation installation was changed.
+- CodeQL analysis matches the commit, with zero open alerts and an earlier dismissed result retained. Secret scan used `--log-opts=-1`, so it does not resolve historical findings. Sonar analysis `e476b8b5-6567-404a-91fa-0c6d5182f65f` matches the commit: gate ERROR, unchanged 9 bugs/3 vulnerabilities, total coverage 58.2%, new coverage 55.6% against 80%. Its comparison period changed; the previous 58.9% is not a like-for-like comparison. Documentation-only readback uses `[skip ci]` to preserve this published product build.
 
 ## Free verification integrations — 2026-11-16
 

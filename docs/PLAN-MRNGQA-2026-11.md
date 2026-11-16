@@ -14,18 +14,13 @@ Integrate CodeRabbit OSS, Stryker.NET and Semgrep without paid subscriptions; ap
 
 ## În lucru
 
-Follow-up requested after integration commit `223d8f22a`:
-
-| Step | Owner | State |
-|---|---|---|
-| MRNGQA-P7 SQL alert disposition | Source investigation agent / coordinator | Complete: false positives for all 43 current callers; raw findings retained |
-| MRNGQA-P8 KiTTY path validation | Implementation agent | Implemented: five unsafe paths reproduced before fix and rejected after; encoded literal names preserved |
-| MRNGQA-P9 Mutation test improvement | Test implementation agent | Complete: 94.83%, 55 killed, 3 equivalent survivors, none uncovered; source/config unchanged |
-| MRNGQA-P10 Verification and publication | Coordinator | Build PASS; full suite 4,135/4,135; targeted 30/30; guest startup 3/3; tripwire PASS. Push/CI readback pending |
+None. Integration and the requested follow-up are complete.
 
 ## De făcut
 
-Finish the follow-up steps above. No hosted review calls or paid credit use.
+No required task remains in this scope. Semgrep parser gaps and pre-existing
+Sonar/full-history secret findings remain disclosed follow-up work. Check live
+credits before any future hosted review; none was invoked by this plan.
 
 ## Rezolvate
 
@@ -37,6 +32,10 @@ Finish the follow-up steps above. No hosted review calls or paid credit use.
 | MRNGQA-P4 Integration validation | Full build exit 0; 4,124 tests passed, zero crashes; YAML schema and script syntax valid |
 | MRNGQA-P5 Documentation and publication | Skill, README badges, guide and PROGRESS; tooling-only publication with skip-ci |
 | MRNGQA-P6 Cleanup | Reports retained outside tracked source; CLI OAuth listeners stopped; no generated output staged |
+| MRNGQA-P7 SQL alert disposition | False positives for all 43 current callers; raw findings retained |
+| MRNGQA-P8 KiTTY path validation | Five unsafe paths reproduced before fix and rejected after; encoded literal names preserved; real NUnit regression passed |
+| MRNGQA-P9 Mutation test improvement | 94.83%, 55 killed, 3 equivalent survivors, none uncovered; source/config unchanged |
+| MRNGQA-P10 Verification and publication | Build PASS; local 4,135/4,135; targeted 30/30; guest startup 3/3; tripwire PASS. Product ff0c04c2f pushed; all five CI workflows passed; nightly 4,113/4,113 and published ZIP/MSI hashes verified. Sonar gate remains red |
 
 ## Decisions
 
@@ -51,3 +50,4 @@ Finish the follow-up steps above. No hosted review calls or paid credit use.
 - 2026-11-16 10:41 Europe/Bucharest: plan opened; repository initially clean at `5e429aae4`.
 - 2026-11-16: integrations verified, Greptile OSS accepted, badges and credit controls added; no hosted review completed and baseline findings remain disclosed.
 - 2026-11-16: follow-up opened to resolve Semgrep findings and improve the Stryker pilot through tests; existing credit controls retained.
+- 2026-11-16: follow-up complete and published as ff0c04c2f. README/PROGRESS record CI readback, source-specific limits and zero hosted review-credit use.
