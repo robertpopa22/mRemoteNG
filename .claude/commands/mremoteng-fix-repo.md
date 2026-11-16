@@ -4,13 +4,13 @@
 
 **Not for:** the unattended batch over the upstream backlog (`/mremoteng-pipeline`), a pure build/test/CI check (`/mremoteng-verify`), or importing work from other forks (`/mremoteng-fork-radar`).
 
-**Does:** one procedure. Print where the fork stands, then give every open issue a disposition, including an issue we opened and a crash report the app filed under our account with no comments. Classify, investigate, review, fix, build, test, check the UI, commit locally, write a lesson when this run learned one, then stop before push, the nightly publish and a public reply. After approval it pushes, publishes the nightly and posts the replies. Author == us is not a reason to skip it. An announcement already marked `wontfix` stays out.
+**Does:** one procedure. Print where the fork stands, then give every open issue a disposition, including an issue we opened and a crash report the app filed under our account with no comments. Classify, investigate, review, fix, build, test, check the UI, commit locally, write a lesson when this run learned one, then push, publish the nightly and post the replies when the required checks have passed. Step 7 pauses only for an unresolved problem, missing input or incomplete/failed required tests. Author == us is not a reason to skip it. An announcement already marked `wontfix` stays out.
 
 Do not keep a second queue and do not stop after the report.
 
 **Does not:** set policy ([CHARTER.md](../../CHARTER.md)), hold the lesson text ([docs/bp/](../../docs/bp/) holds it; Step 9 only requires the write), define log fields ([docs/RUNTIME_DIAGNOSTICS.md](../../docs/RUNTIME_DIAGNOSTICS.md)), merge upstream, or name the maintainer's machines, paths, or logs.
 
-Handle every open issue on the fork, whoever opened it. A zero-comment crash report filed by the app under our account is in this run. A closed issue is included only when it has a new reporter comment. The visible outcome is one Charter D10 word: `fixed`, `unanswered`, `not reproduced`, or `not a defect`. An issue we opened does not get a reply that asks that same account for more detail. It is fixed, or it is closed. If that outcome is already the latest word, do not post it again. For a new fix: investigate the root cause, get an independent counter-opinion from Grok AND Gemini (Codex as optional third when responsive), apply a minimal fix, build, run the full test suite, **verify in the running UI as a user would (FlaUI)**, and make an atomic local commit. Then **stop and ask for confirmation** before pushing, publishing the nightly, and posting any GitHub reply.
+Handle every open issue on the fork, whoever opened it. A zero-comment crash report filed by the app under our account is in this run. A closed issue is included only when it has a new reporter comment. The visible outcome is one Charter D10 word: `fixed`, `unanswered`, `not reproduced`, or `not a defect`. An issue we opened does not get a reply that asks that same account for more detail. It is fixed, or it is closed. If that outcome is already the latest word, do not post it again. For a new fix: investigate the root cause, get an independent counter-opinion from Grok AND Gemini (Codex as optional third when responsive), apply a minimal fix, build, run the full test suite, **verify in the running UI as a user would (FlaUI)**, and make an atomic local commit. Continue through Step 7 without another approval request when its readiness conditions are met.
 
 Scope is the fork (`robertpopa22/mRemoteNG`) only — this command never touches upstream tracking or merges upstream changes.
 
@@ -271,8 +271,13 @@ not put those words next to the number. The body explains the cause. **No `Co-Au
 cd /d/github/mRemoteNG && git add <changed files> && git commit -F <message-file>
 ```
 
-### Step 7: CONFIRMATION GATE — push + nightly + GitHub replies
-Do NOT push, publish or comment yet. Present to the user: a table of commits made, and the drafted GitHub reply for each issue. Ask for approval of **push + nightly + replies** in one question (AskUserQuestion). When a fix was committed, the nightly is part of the default answer: a fix that only reaches `main` cannot be retested by anyone. Only after approval, in this order:
+### Step 7: Publication readiness — push + nightly + GitHub replies
+
+Standing authorization from the maintainer (2026-11-16): when the work is ready, publish directly without a routine confirmation question. Required build, full-suite and applicable UI checks must have completed successfully; review findings must be resolved; commits and replies must stay within this run's scope. Retain the evidence and exact replies in the session report, then push, publish the nightly, read it back and post the replies/closures in that order. A fix that only reaches `main` cannot be retested by anyone.
+
+Pause the affected action only when something is wrong, required information or authorization is missing, or required tests are incomplete or unsuccessful. Name the concrete problem and ask only for the input or decision needed to resolve it; continue independent work. Existing specific security-review requirements still apply. Do not turn a failed check into a pass or claim that a paused CI ran. A previously disclosed external limitation with an already authorized alternative is not a reason to ask the same question again.
+
+Start publication with:
 ```bash
 cd /d/github/mRemoteNG && git push origin main
 ```
@@ -311,7 +316,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/Publish-Release.ps1 -Chann
 - Skip this step only when no product change was committed in this run (documentation, issue DB).
 Set `testing` only when a user-visible fix is in a build the reporter can run and the reply asks
 them to retest. A diagnostic change that leaves the issue open does not change the status.
-For `needs-info` / `wontfix` / `confirm-fixed` issues (no commit), draft the reply and include it in the same approval gate.
+For `needs-info` / `wontfix` / `confirm-fixed` issues (no commit), prepare the reply and apply the same readiness check before posting it.
 
 **Reply rules (transparency — see CLAUDE.md "Reporter Communication & Transparency" and CHARTER D7):**
 - Every public reply ends with the star closer. The wording lives in CHARTER D8 and
@@ -410,7 +415,7 @@ Write a workspace memory topic for this session: issues handled, root cause as `
 
 ### Step 9: Write the lesson this run learned
 
-Do this at the end of every execution, after the suite result is known and before the confirmation gate.
+Do this at the end of every execution, after the suite result is known and before publication.
 
 Compare what this run learned with [docs/BEST_PRACTICES.md](../../docs/BEST_PRACTICES.md). Write a lesson only when all three are true:
 
@@ -431,7 +436,7 @@ The lesson text stays in that file. Do not copy it into CHARTER.md, CLAUDE.md, o
 - **Fork-scoped only** — never edits `upstream-tracking.json` or merges upstream. Step 1b lists that gap and stops there.
 - **CHARTER D9.** A suspicion the log from the build in use cannot separate is instrumented before it is fixed. The directive is D9. The lesson is [docs/bp](../../docs/bp/). Do not copy either here.
 - **Closing keywords.** Step 6. `fix(#n)` is a close, even when the body says the issue stays open.
-- **Stops before every outward-facing action** — local commits are autonomous; push, the nightly publish (Step 7a) and GitHub comments require explicit confirmation.
+- **Publish when ready** — Step 7 authorizes push, nightly publication and the in-scope GitHub replies/closures after successful required checks. Pause only the affected action for a concrete problem, missing input/authorization or incomplete/failed required tests.
 - Replies are custom-written via `gh issue comment` (not the orchestrator's templated `update --post-comment`), so the daily comment rate limit does not gate this path.
 - **Reviewers are read-only.** `codex:codex-rescue` defaults to `--write` (it edits the working tree, auto-applied, uncommitted) unless the prompt explicitly says read-only/diagnosis. Always invoke it read-only + `--wait` for the dual review, and `git status --short` after — the main thread is the sole author of edits/builds/commits.
 - Build: `build.ps1` (NOT `dotnet build` — COM refs fail MSB4803). Tests: `C:\Program Files\Git\bin\bash.exe run-tests-core.sh`. Not `C:\Windows\System32\bash.exe`. Not `run-tests.ps1`.
