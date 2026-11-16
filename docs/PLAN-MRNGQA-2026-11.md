@@ -8,22 +8,21 @@ Integrate CodeRabbit OSS, Stryker.NET and Semgrep without paid subscriptions; ap
 |---|---|---|
 | MRNGQA-O1 CodeRabbit OSS | Integrated; no review yet | App limited to this fork, validated YAML; broader CLI OAuth declined |
 | MRNGQA-O2 Stryker.NET | Complete | Linked-source pilot improved from 62.07% through 94.83% to 100%; 17 cases, 48/48 scored mutants killed |
-| MRNGQA-O3 Semgrep CE | Triaged with disclosed limits | KiTTY fixed; two SQL false positives reviewed through 43 callers; 23 parser diagnostics remain |
+| MRNGQA-O3 Semgrep CE | Complete scan; findings triaged | KiTTY fixed; two SQL false positives reviewed through 43 callers; parser diagnostics resolved by O8 |
 | MRNGQA-O4 Greptile OSS | Accepted | Repository enabled; 100 credits/month; zero reviews |
 | MRNGQA-O5 Documentation | Complete | Procedure, README badges, verification guide and handover |
-| MRNGQA-O6 Sonar Quality Gate | Complete | Analysis 162e7c9d-4982-4935-bdf4-2a3e93effa12: gate OK, new coverage 80.55%, A/A/A, zero bugs/vulnerabilities; thresholds and exclusions unchanged |
+| MRNGQA-O6 Sonar Quality Gate | Complete | Latest analysis ca6927af-a7b8-4b37-94bd-c137f9305cb9: gate OK, new coverage 80.69%, A/A/A, zero bugs/vulnerabilities; thresholds and exclusions unchanged |
 | MRNGQA-O7 Mutation pilot 100% | Complete and published | 48/48 scored mutants killed, 17 tests; standard-library clamp; unchanged scope/configuration |
-| MRNGQA-O8 Complete Semgrep parsing | Verified locally; publication pending | 727/727 files, same 15 rules, zero errors/timeouts; two reviewed SQL findings retained; no additional exclusions |
+| MRNGQA-O8 Complete Semgrep parsing | Complete and published | 900efb02d; 727/727 files, same 15 rules, zero errors/timeouts; two reviewed SQL findings retained; no additional exclusions |
 
 ## În lucru
 
-| Step | Owner | Progress | Status |
-|---|---|---|---|
-| MRNGQA-P20 Verification and publication | Coordinator | 85% | Final build, 4,151 tests, 3 guest startup checks and full scan pass; local coverage projection 80.94%; security diff approved; publication pending |
+None. The requested parser follow-up is complete; remaining maintainability
+and historical secret findings are disclosed in PROGRESS.
 
 ## De făcut
 
-None; remaining verification and publication are in progress above.
+None within this follow-up.
 
 Check live credits before any hosted review; none is needed for the local checks.
 
@@ -31,6 +30,7 @@ Check live credits before any hosted review; none is needed for the local checks
 
 | Step | Evidence |
 |---|---|
+| MRNGQA-P20 Verification and publication | 2026-11-16 final readback: approved source diff pushed as 900efb02d; all five CI workflows pass; local 4,151/4,151, CI 4,129/4,129, guest 3/3, Semgrep 727/727 without errors. Sonar gate OK at 80.69%; release target, downloaded hashes and assembly inventory verified. VM restored; docs-only readback uses skip-ci |
 | MRNGQA-P18 Parser diagnosis | 2026-11-16 15:50 checkpoint: reproduced baseline 23 PartialParsing errors; positive before/after canary and official grammar-gap evidence identify 25 primary constructors |
 | MRNGQA-P19 Parser repair | 2026-11-16 15:50 checkpoint: explicit constructors in the same 23 source files; full 727-file/15-rule scan has zero errors, same two findings, same path set; no scanner/config changes; build passes |
 | MRNGQA-P12 Product findings | 100%: eleven fixes and one individually documented executable-name false positive; server reports zero open bugs/vulnerabilities |
@@ -68,3 +68,4 @@ Check live credits before any hosted review; none is needed for the local checks
 - 2026-11-16 12:11 Europe/Bucharest: user requested Sonar gate green without relaxed thresholds and a legitimate attempt at 100% Stryker. Reopened this plan; source starts at 96faa85d2 with a clean tree. Sol/high agents handle bounded product, coverage and mutation work; coordinator reviews cross-cutting results. No hosted AI review calls planned.
 - 2026-11-16: follow-up complete on b685313c0. All five CI workflows succeeded; exact-revision Sonar gate passed at 80.55% new-code coverage. Nightly ZIP/MSI downloaded and verified, 71/71 runtime assemblies present. Stryker placement pilot 100%; no hosted reviews invoked. Final documentation records measured results and remaining limits.
 - 2026-11-16 15:41 Europe/Bucharest: reopened for the requested complete Semgrep scan without additional exclusions. Source starts at 3b5f6b859 with a clean tree. One native Sol/high agent diagnoses parser behavior; no hosted review calls. First checkpoint within ten minutes; #ponytail: prefer supported parser configuration over product rewrites, preserve scanner failures.
+- 2026-11-16: parser follow-up published as 900efb02d after explicit source-diff security approval. Exact-revision CI/gate/release readback passes. README, procedure, verification guide and handover reconciled; no hosted review credits used.

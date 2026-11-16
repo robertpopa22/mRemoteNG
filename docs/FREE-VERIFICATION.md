@@ -174,6 +174,12 @@ fixed and one executable-name false positive was individually resolved. The
 6,786 maintainability findings and documented Semgrep analysis limits remain;
 this is not a claim of a finding-free codebase. No hosted review was invoked.
 
+After the parser follow-up, analysis `ca6927af-a7b8-4b37-94bd-c137f9305cb9`
+matches published product `900efb02d`: all six gate conditions still pass, new-code
+coverage is **80.69%**, overall coverage 59.5%, ratings A/A/A and zero open
+bugs/vulnerabilities. The maintainability total is 6,789. Nightly and Sonar each
+passed 4,129 tests; Pester passed 7/7. Thresholds and exclusions remain unchanged.
+
 ## CodeRabbit OSS
 
 The [public-repository plan](https://www.coderabbit.ai/oss) has no minimum-star
