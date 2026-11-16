@@ -41,7 +41,7 @@ If this fork is useful to you, please star it. Community tools we rely on set a 
     <img alt="Qodo reviews paused, checked 2026-11-16" src="https://img.shields.io/badge/Qodo-paused-lightgrey?style=for-the-badge">
   </a>
   <a href="docs/FREE-VERIFICATION.md#semgrep-community-edition">
-    <img alt="Semgrep CE: 727 files fully parsed; two SQL false positives retained" src="https://img.shields.io/badge/Semgrep%20CE-727%20parsed%20%2F%202%20reviewed-blue?style=for-the-badge&logo=semgrep">
+    <img alt="Semgrep CE: 728 files fully parsed, two SQL findings reviewed" src="https://img.shields.io/badge/Semgrep%20CE-728%20parsed%20%2F%202%20reviewed-blue?style=for-the-badge&logo=semgrep">
   </a>
   <a href="docs/FREE-VERIFICATION.md#strykernet-mutation-pilot">
     <img alt="Stryker.NET window-placement pilot: 100 percent mutation score" src="https://img.shields.io/badge/Stryker.NET-pilot%20100%25-brightgreen?style=for-the-badge">
@@ -112,7 +112,9 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Latest published verification — 16 November 2026.** [Product `900efb02d`](https://github.com/robertpopa22/mRemoteNG/commit/900efb02d4b774aa29dd4a41286649a49045c869) completes Semgrep parsing of the same **727 authored C# files**, with **zero parser errors and zero timeouts**, using the same 15 pinned CE rules. Twenty-five primary constructors were converted to equivalent explicit constructors in 23 files. No exclusions were added. Both previously reviewed SQL false positives remain visible, so the script returns **10: complete with findings**. Full build, **4,151/4,151 local tests** and **3/3 guest startup checks** passed; the maintainer approved the security diff.
+**Latest published verification — 16 November 2026.** Sonar marked **25 maintainability findings fixed** on `ea3ac5406`, including the 22 from the preceding two product changes and three surfaced by the first cleanup. The changes group display constructors, give the RDP trace its own file, keep the version regex timeout in the generated property and dispose VNC streams asynchronously. The full local suite passed **4,151/4,151**. Nightly and Sonar each passed **4,129/4,129**, and Sonar passed all seven Pester tests. All five workflows passed on this revision. [Commit](https://github.com/robertpopa22/mRemoteNG/commit/ea3ac54064cb09f565983249d1bd5144eae2bae9) · [CI](https://github.com/robertpopa22/mRemoteNG/actions?query=branch%3Amain) · [Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)
+
+**Earlier Semgrep verification — 16 November 2026.** [Product `900efb02d`](https://github.com/robertpopa22/mRemoteNG/commit/900efb02d4b774aa29dd4a41286649a49045c869) completes Semgrep parsing of the same **727 authored C# files**, with **zero parser errors and zero timeouts**, using the same 15 pinned CE rules. Twenty-five primary constructors were converted to equivalent explicit constructors in 23 files. No exclusions were added. Both previously reviewed SQL false positives remain visible, so the script returns **10: complete with findings**. Full build, **4,151/4,151 local tests** and **3/3 guest startup checks** passed; the maintainer approved the security diff.
 
 All five workflows passed for that revision: [nightly](https://github.com/robertpopa22/mRemoteNG/actions/runs/43882431420), [validation](https://github.com/robertpopa22/mRemoteNG/actions/runs/43882431402), [CodeQL](https://github.com/robertpopa22/mRemoteNG/actions/runs/43882431259), [Sonar](https://github.com/robertpopa22/mRemoteNG/actions/runs/43882431194) and [secret scanning](https://github.com/robertpopa22/mRemoteNG/actions/runs/43882431546). Nightly and Sonar each passed **4,129/4,129** tests; Sonar also passed Pester **7/7**. The server **Quality Gate remains green**, with **80.69% new-code coverage**, unchanged thresholds, **A/A/A** and zero open bugs/vulnerabilities. The [nightly ZIP/MSI](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) target the same commit; downloaded hashes and all 71 unique declared runtime assemblies were verified. Packages remain unsigned, x64 and framework-dependent, requiring .NET Desktop Runtime 10. No hosted review was invoked.
 
@@ -134,7 +136,7 @@ The maintenance procedure now publishes in-scope fixes and replies directly afte
 
 **Resumed CI result:** PR_Validation passed all **5/5 jobs** on `8153f07f1`: solution builds for x86/x64/ARM64, test/spec project builds for x86/x64, and the configured x64/ARM64 startup checks. CodeQL also completed successfully, its analysis was uploaded for that exact commit, and GitHub reported **zero open CodeQL alerts** at readback. Compiler/analyzer warnings remain. These validation workflows publish no release and do not replace the local full-suite/UI results above.
 
-**Quality:** analyzer checks are enabled and CI builds x64/x86/ARM64. Sonar analysis `ca6927af-a7b8-4b37-94bd-c137f9305cb9` matches `900efb02d`: **Quality Gate passed**, new-code coverage **80.69%**, overall coverage **59.5%**, ratings **A/A/A**, zero open bugs/vulnerabilities. The server still lists **6,789 maintainability findings**; passing the gate does not mean all findings are gone. CodeQL has zero open alerts and retains an earlier dismissed finding. The one-commit secret scan passed; historical findings remain separate. Qodo remains paused. Sonar CI now waits for the server gate instead of treating scan upload as acceptance.
+**Quality.** Sonar analysis `34beb9ad-e4b2-4552-b7ca-50e37c991ee5` on `ea3ac5406` passed the Quality Gate with **80.69%** new-code coverage against the existing **80%** threshold, **59.5%** overall coverage, ratings **A/A/A** and zero open bugs or vulnerabilities. The project has **6,762 open maintainability findings**, down from 6,789. Qodo remains paused. [Sonar project](https://sonarcloud.io/project/overview?id=robertpopa22_mRemoteNG)
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -331,7 +333,7 @@ unguarded dereference in a log message.
 
 **SonarCloud bugs fixed (beta.6):** S2259 (null reference ×6), S2583 (dead branch), S4275 (getter/setter mismatch ×2), S1751 (no-op loop ×2), S3903 (missing namespace ×2), S3456 (redundant ToCharArray ×3), S2674 (unchecked Read), MA0037 (stray semicolon ×4). All ObjectListView issues (25) dismissed as won't fix — vendored dependency outside our control.
 
-**SonarCloud on the fork:** analysis resumed on 16 November 2026 and now covers `ff0c04c2f`. The Quality Gate still fails reliability, security and new-code coverage (55.6% against 80%); overall coverage is 58.2%. The current analysis has 0.0% new-code duplication and 100% reviewed security hotspots. Historical passing ratings and coverage from beta.6 and September are snapshots, not the status of this commit.
+**SonarCloud on the fork.** The analysis of `ff0c04c2f` failed on reliability, security and new-code coverage when scanning resumed on 16 November 2026. The follow-up fixed the findings and restored the green gate. See the latest published verification above for the current revision and coverage.
 
 Getting there was not a matter of adjusting thresholds. The gate went red on the security rating
 with six open findings, and each was examined on its merits: the private key a credential vault
@@ -524,7 +526,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File build.ps1 -SelfContained
 | 3 | **CodeQL** | Push to `main` + weekly — security scanning | [![CodeQL](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/robertpopa22/mRemoteNG/security/code-scanning) |
 | 4 | **.NET Analyzers** | `AnalysisLevel=latest-recommended` | Active |
 | 5 | **[Qodo Code Review](https://www.qodo.ai/)** | On-demand AI review | Paused: trial ended; checked 2026-11-16 |
-| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0; 727/727 files / 15 rules; zero parser errors/timeouts; KiTTY path fixed, 2 SQL false positives documented and retained; no added exclusions |
+| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0, 728/728 files, 15 rules, zero parser errors or timeouts and 2 reviewed SQL findings |
 | 7 | **Stryker.NET** | Local mutation pilot on window-placement logic | Pinned 5.1.0; 100% (48/48 scored mutants), 17 tests; standard-library clamp, same source scope and exclusions; 5 ignored, 1 compile error |
 | 8 | **CodeRabbit OSS** | Public-repository review | App installed only on this fork; configuration schema validated; no completed review yet; CLI OAuth not granted |
 | 9 | **Greptile OSS** | Public-repository review | Accepted 2026-11-16: 100 free credits/month; repository enabled, 0 reviews |
@@ -541,7 +543,7 @@ pipeline published the verified product changes recorded above.
 The new badges report installation, entitlement or the **16 November 2026 local
 results**; they are not passing-review badges. CodeRabbit's automatic trial is
 configured by the provider to revert to Free without charge. No paid usage product
-was activated. The Sonar badge records the passing server gate for `900efb02d`,
+was activated. The Sonar badge records the passing server gate for `ea3ac5406`,
 checked on 16 November; Qodo remains paused.
 
 Hosted reviews follow a [credit budget](docs/FREE-VERIFICATION.md#credit-budget-and-stop-conditions):

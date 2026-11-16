@@ -11,20 +11,18 @@ Integrate CodeRabbit OSS, Stryker.NET and Semgrep without paid subscriptions; ap
 | MRNGQA-O3 Semgrep CE | Complete scan; findings triaged | KiTTY fixed; two SQL false positives reviewed through 43 callers; parser diagnostics resolved by O8 |
 | MRNGQA-O4 Greptile OSS | Accepted | Repository enabled; 100 credits/month; zero reviews |
 | MRNGQA-O5 Documentation | Complete | Procedure, README badges, verification guide and handover |
-| MRNGQA-O6 Sonar Quality Gate | Complete | Latest analysis ca6927af-a7b8-4b37-94bd-c137f9305cb9: gate OK, new coverage 80.69%, A/A/A, zero bugs/vulnerabilities; thresholds and exclusions unchanged |
+| MRNGQA-O6 Sonar Quality Gate | Complete | Analysis 34beb9ad-e4b2-4552-b7ca-50e37c991ee5 passed, with 80.69% new-code coverage, A/A/A and zero open bugs or vulnerabilities |
 | MRNGQA-O7 Mutation pilot 100% | Complete and published | 48/48 scored mutants killed, 17 tests; standard-library clamp; unchanged scope/configuration |
 | MRNGQA-O8 Complete Semgrep parsing | Complete and published | 900efb02d; 727/727 files, same 15 rules, zero errors/timeouts; two reviewed SQL findings retained; no additional exclusions |
-| MRNGQA-O9 Recent Sonar maintainability | In progress | Verify closure of the 22 findings from the Semgrep and Sonar follow-ups with the active rules and gate |
+| MRNGQA-O9 Recent Sonar maintainability | Complete and published | All 22 findings from the Semgrep and Sonar follow-ups and three surfaced during cleanup marked FIXED on ea3ac5406 |
 
 ## În lucru
 
-| Step | Owner | Progress | Status |
-|---|---|---|---|
-| MRNGQA-P22 Publication and readback | Coordinator | 25% | Local checks passed. Next verify CI, the 22 issue keys, Quality Gate and nightly on the published commit |
+None within the recent cleanup. The project-wide maintainability backlog is 6,762.
 
 ## De făcut
 
-None. Publication and server verification are tracked above.
+None within this follow-up.
 
 Check live credits before any hosted review; none is needed for the local checks.
 
@@ -32,6 +30,7 @@ Check live credits before any hosted review; none is needed for the local checks
 
 | Step | Evidence |
 |---|---|
+| MRNGQA-P22 Publication and readback | 2026-11-16: ea3ac5406 passed all five workflows. Sonar verified 25/25 findings fixed, no newly opened findings and all six gate conditions green. Nightly target and ZIP/MSI digests verified. See PROGRESS for the initial retry and final counts. |
 | MRNGQA-P21 Recent Sonar findings | 2026-11-16: source fixes for the 22 findings from the two latest product revisions. Build, 4,151 unit tests, 7 Pester tests and 3 guest startup checks pass. Semgrep scans 728 files without errors. Local new-code coverage projection 80.94% |
 | MRNGQA-P20 Verification and publication | 2026-11-16 final readback: approved source diff pushed as 900efb02d; all five CI workflows pass; local 4,151/4,151, CI 4,129/4,129, guest 3/3, Semgrep 727/727 without errors. Sonar gate OK at 80.69%; release target, downloaded hashes and assembly inventory verified. VM restored; docs-only readback uses skip-ci |
 | MRNGQA-P18 Parser diagnosis | 2026-11-16 15:50 checkpoint: reproduced baseline 23 PartialParsing errors; positive before/after canary and official grammar-gap evidence identify 25 primary constructors |

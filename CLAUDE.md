@@ -423,7 +423,7 @@ For the complete evidence trail of the AI-assisted modernization process
 | UI battery | FlaUI acceptance scenarios run inside an isolated Hyper-V lab guest (`lab-run.ps1`) |
 | Startup time | ≤1s with 200 connections (optimized from ~10-30s) |
 | CI status | Actions re-enabled 2026-11-16 after a fork usage suspension; follow each run to completion. Local publication remains a fallback, not the default assumption. See README maintenance update. |
-| SonarCloud | Verified 2026-11-16 on `900efb02d`: Quality Gate PASSED, 80.69% new-code coverage versus unchanged 80%; A/A/A, zero open bugs/vulnerabilities. CI suite 4,129/4,129 and Pester 7/7. Maintainability findings remain; see README maintenance update. |
+| SonarCloud | Verified 2026-11-16 on `ea3ac5406`. Quality Gate passed at 80.69% new-code coverage against 80%, with A/A/A and zero open bugs or vulnerabilities. Sonar confirmed all 25 targeted maintainability findings fixed. See README for the remaining count. |
 | Release model | **2 live releases**: rolling `nightly` (overwritten each push to `main`) + stable `vX.Y.Z` tags (`releases/latest`). Old dated `-NB-` prereleases removed. |
 | Update check | In-app checks GitHub `releases/latest` (latest stable) and opens the release page — no Stable/Preview/Nightly channels, no `mremoteng.org` feeds |
 | MSI installer | WiX 6 SDK — auto-generated in nightly + release CI ([#24](https://github.com/robertpopa22/mRemoteNG/issues/24)) |
