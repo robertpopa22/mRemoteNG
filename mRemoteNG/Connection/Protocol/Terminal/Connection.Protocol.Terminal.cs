@@ -10,16 +10,21 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.Connection.Protocol.Terminal
 {
     [SupportedOSPlatform("windows")]
-    public class ProtocolTerminal(ConnectionInfo connectionInfo) : ExternalProcessProtocolBase
+    public class ProtocolTerminal : ExternalProcessProtocolBase
     {
         #region Private Fields
 
-        private readonly ConnectionInfo _connectionInfo = connectionInfo;
+        private readonly ConnectionInfo _connectionInfo;
         private ConsoleControl.ConsoleControl? _consoleControl;
 
         #endregion
 
         #region Public Methods
+
+        public ProtocolTerminal(ConnectionInfo connectionInfo)
+        {
+            _connectionInfo = connectionInfo;
+        }
 
         public override bool Connect()
         {

@@ -7,9 +7,14 @@ using System.Web;
 
 namespace ExternalConnectors.PasswordSafe;
 
-public class PasswordSafeCliException(string message, string arguments) : Exception(message)
+public class PasswordSafeCliException : Exception
 {
-    public string Arguments { get; set; } = arguments;
+    public string Arguments { get; set; }
+
+    public PasswordSafeCliException(string message, string arguments) : base(message)
+    {
+        Arguments = arguments;
+    }
 }
 
 public static class PasswordSafeCli

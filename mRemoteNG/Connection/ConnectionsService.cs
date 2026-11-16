@@ -35,15 +35,15 @@ using mRemoteNG.Security.SymmetricEncryption;
 namespace mRemoteNG.Connection
 {
     [SupportedOSPlatform("windows")]
-    public class ConnectionsService(PuttySessionsManager puttySessionsManager)
+    public class ConnectionsService
     {
         private static readonly Lock SaveLock = new();
         private static readonly CompositeFormat ConnectionFileAlreadyOpenFormat = CompositeFormat.Parse("Connection file '{0}' is already open.");
-        private readonly PuttySessionsManager _puttySessionsManager = puttySessionsManager ?? throw new ArgumentNullException(nameof(puttySessionsManager));
-        private readonly IDataProvider<string> _localConnectionPropertiesDataProvider = new FileDataProvider(Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LocalConnectionProperties));
-        private readonly LocalConnectionPropertiesXmlSerializer _localConnectionPropertiesSerializer = new LocalConnectionPropertiesXmlSerializer();
+        private readonly PuttySessionsManager _puttySessionsManager;
+        private readonly IDataProvider<string> _localConnectionPropertiesDataProvider;
+        private readonly LocalConnectionPropertiesXmlSerializer _localConnectionPropertiesSerializer;
         private bool _batchingSaves;
-        private readonly Lock _debounceTriggerLock = new();
+        private readonly Lock _debounceTriggerLock;
         private string? _debouncedPropertyNameTrigger;
         private bool _saveRequested;
         private bool _saveAsyncRequested;
@@ -57,6 +57,14 @@ namespace mRemoteNG.Connection
         // (XML parse + PBKDF2 + batch decrypt) when only the timestamp moved (#210).
         private string? _lastLoadedContentHash;
         private string? _lastLoadedContentPath;
+
+        public ConnectionsService(PuttySessionsManager puttySessionsManager)
+        {
+            _puttySessionsManager = puttySessionsManager ?? throw new ArgumentNullException(nameof(puttySessionsManager));
+            _localConnectionPropertiesDataProvider = new FileDataProvider(Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LocalConnectionProperties));
+            _localConnectionPropertiesSerializer = new LocalConnectionPropertiesXmlSerializer();
+            _debounceTriggerLock = new();
+        }
 
         public bool IsConnectionsFileLoaded { get; set; }
 

@@ -20,12 +20,20 @@ namespace mRemoteNG.Config.Settings
     {
         private readonly QuickConnectComboBox _comboBox;
 
-        private readonly struct QuickConnectHistoryItem(string hostname, int port, ProtocolType protocol, bool connected)
+        private readonly struct QuickConnectHistoryItem
         {
-            public string Hostname { get; } = hostname;
-            public int Port { get; } = port;
-            public ProtocolType Protocol { get; } = protocol;
-            public bool Connected { get; } = connected;
+            public string Hostname { get; }
+            public int Port { get; }
+            public ProtocolType Protocol { get; }
+            public bool Connected { get; }
+
+            public QuickConnectHistoryItem(string hostname, int port, ProtocolType protocol, bool connected)
+            {
+                Hostname = hostname;
+                Port = port;
+                Protocol = protocol;
+                Connected = connected;
+            }
         }
 
         public QuickConnectHistoryLoader(QuickConnectComboBox comboBox)

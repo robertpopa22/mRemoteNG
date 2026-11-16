@@ -10,16 +10,21 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.Connection.Protocol.SSH
 {
     [SupportedOSPlatform("windows")]
-    public class ProtocolOpenSSH(ConnectionInfo connectionInfo) : ExternalProcessProtocolBase
+    public class ProtocolOpenSSH : ExternalProcessProtocolBase
     {
         #region Private Fields
 
-        private readonly ConnectionInfo _connectionInfo = connectionInfo;
+        private readonly ConnectionInfo _connectionInfo;
         private ConsoleControl.ConsoleControl? _consoleControl;
 
         #endregion
 
         #region Public Methods
+
+        public ProtocolOpenSSH(ConnectionInfo connectionInfo)
+        {
+            _connectionInfo = connectionInfo;
+        }
 
         public override bool Connect()
         {

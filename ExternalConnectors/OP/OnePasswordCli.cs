@@ -5,9 +5,14 @@ using System.Web;
 
 namespace ExternalConnectors.OP;
 
-public class OnePasswordCliException(string message, string arguments) : Exception(message)
+public class OnePasswordCliException : Exception
 {
-	public string Arguments { get; set; } = arguments;
+	public string Arguments { get; set; }
+
+	public OnePasswordCliException(string message, string arguments) : base(message)
+	{
+		Arguments = arguments;
+	}
 }
 
 public static class OnePasswordCli

@@ -12,11 +12,15 @@ namespace mRemoteNG.UI
     /// Creates a new <see cref="DisplayProperties"/> instance with the given
     /// <see cref="IGraphicsProvider"/>.
     /// </summary>
-    /// <param name="graphicsProvider"></param>
     [SupportedOSPlatform("windows")]
-    public class DisplayProperties(IGraphicsProvider graphicsProvider)
+    public class DisplayProperties
     {
-        private readonly IGraphicsProvider _graphicsProvider = graphicsProvider.ThrowIfNull(nameof(graphicsProvider));
+        private readonly IGraphicsProvider _graphicsProvider;
+
+        public DisplayProperties(IGraphicsProvider graphicsProvider)
+        {
+            _graphicsProvider = graphicsProvider.ThrowIfNull(nameof(graphicsProvider));
+        }
 
         public SizeF ResolutionScalingFactor => _graphicsProvider.GetResolutionScalingFactor();
 

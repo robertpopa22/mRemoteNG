@@ -26,11 +26,18 @@ internal readonly record struct RdpInputSnapshot(
 internal readonly record struct RdpInputSample(
     RdpInputSnapshot State, RdpInputReason Reason, long ElapsedMs, int Suppressed);
 
-internal sealed class RdpInputBudget(int limit)
+internal sealed class RdpInputBudget
 {
-    private readonly System.Threading.Lock _sync = new();
+    private readonly int _limit;
+    private readonly System.Threading.Lock _sync;
     private long _windowStart;
     private int _count;
+
+    public RdpInputBudget(int limit)
+    {
+        _limit = limit;
+        _sync = new();
+    }
 
     internal bool TryTake(long now)
     {
@@ -41,20 +48,27 @@ internal sealed class RdpInputBudget(int limit)
                 _windowStart = now;
                 _count = 0;
             }
-            if (_count >= limit) return false;
+            if (_count >= _limit) return false;
             _count++;
             return true;
         }
     }
 }
 
-internal sealed class RdpInputTrace(RdpInputBudget processBudget)
+internal sealed class RdpInputTrace
 {
     internal const int SessionLimitPerMinute = 24;
     internal const int ProcessLimitPerMinute = 120;
-    private readonly RdpInputBudget _sessionBudget = new(SessionLimitPerMinute);
+    private readonly RdpInputBudget _processBudget;
+    private readonly RdpInputBudget _sessionBudget;
     private RdpInputSample? _last;
     private int _suppressed;
+
+    public RdpInputTrace(RdpInputBudget processBudget)
+    {
+        _processBudget = processBudget;
+        _sessionBudget = new(SessionLimitPerMinute);
+    }
 
     internal static int SampleIntervalMs(bool lowPower) => lowPower ? 30_000 : 5_000;
     internal static int HeartbeatIntervalMs(bool lowPower) => lowPower ? 300_000 : 60_000;
@@ -75,7 +89,7 @@ internal sealed class RdpInputTrace(RdpInputBudget processBudget)
         else if (reason == RdpInputReason.Sample && !state.PeriodicActive)
             return false;
 
-        if (!_sessionBudget.TryTake(now) || !processBudget.TryTake(now))
+        if (!_sessionBudget.TryTake(now) || !_processBudget.TryTake(now))
         {
             if (_suppressed < int.MaxValue) _suppressed++;
             return false;

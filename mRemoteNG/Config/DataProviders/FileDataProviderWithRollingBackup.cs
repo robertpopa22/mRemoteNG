@@ -3,9 +3,13 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Config.DataProviders
 {
     [SupportedOSPlatform("windows")]
-    public class FileDataProviderWithRollingBackup(string filePath) : FileDataProvider(filePath)
+    public class FileDataProviderWithRollingBackup : FileDataProvider
     {
         private readonly FileBackupCreator _fileBackupCreator = new FileBackupCreator();
+
+        public FileDataProviderWithRollingBackup(string filePath) : base(filePath)
+        {
+        }
 
         public override void Save(string content)
         {

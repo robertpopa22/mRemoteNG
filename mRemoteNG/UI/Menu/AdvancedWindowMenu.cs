@@ -9,10 +9,16 @@ namespace mRemoteNG.UI.Menu
 {
     [SupportedOSPlatform("windows")]
     // This class creates new menu items to menu that appears when you right click the top of the app (where the window title is)
-    public class AdvancedWindowMenu(IWin32Window boundControl) : IDisposable
+    public class AdvancedWindowMenu : IDisposable
     {
-        private readonly WindowMenu _windowMenu = new WindowMenu(boundControl.Handle);
-        private readonly int[] _sysMenSubItems = new int[51];
+        private readonly WindowMenu _windowMenu;
+        private readonly int[] _sysMenSubItems;
+
+        public AdvancedWindowMenu(IWin32Window boundControl)
+        {
+            _windowMenu = new WindowMenu(boundControl.Handle);
+            _sysMenSubItems = new int[51];
+        }
 
         public Screen? GetScreenById(int id)
         {

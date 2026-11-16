@@ -56,11 +56,24 @@ so a partial scan cannot become a clean result.
 
 Baseline on 16 November 2026: **727 files, 15 rules, 3 findings**, approximately
 99.4% parsed lines, **23 PartialParsing diagnostics, exit 3**, no timeouts.
-Follow-up on the same day: **727 files, 15 rules, 2 findings**. The KiTTY path
-finding is fixed; the two SQL findings have the disposition below. The same
-23 PartialParsing diagnostics and strict exit 3 remain. No rules, findings or
-parser errors were suppressed. This is still a partial, advisory scan, not an
-all-green CI gate.
+The first follow-up fixed the KiTTY path finding, leaving two SQL findings and
+the same 23 parser diagnostics. The parser follow-up now scans **727/727 files
+with the same 15 rules, zero parser errors and zero timeouts**, exit **10** for
+the two documented SQL findings below. The scanned path set is unchanged; only
+the existing generated NSwag exclusion remains. No rules, findings or parser
+errors were suppressed. A complete scan with findings is distinct from a clean
+scan and from whole-program analysis.
+
+The 23 affected files contained 25 C# 12 primary constructors unsupported by the
+pinned CE parser. Equivalent explicit constructors retain signatures, defaults,
+base calls, validation and initialization behavior. An isolated before/after
+probe reproduced the parsing failure; all affected files then parsed with the
+same 15 rules. The full repository scan confirmed that all 23 errors disappeared.
+This matches the [upstream grammar-gap report](https://github.com/semgrep/semgrep/issues/11923).
+Until the CE parser supports this syntax, keep these constructors explicit; do
+not feed rewritten copies to the scanner or exclude the source. Re-run the
+actual pinned rules after syntax changes and inspect both `errors` and skipped
+paths, because a successful no-op rule does not prove that relevant code parsed.
 
 ### Finding dispositions
 
@@ -74,7 +87,7 @@ all-green CI gate.
   leaf names; the regression exercises direct calls to the public provider.
   This addresses path syntax, not filesystem links or directory permissions.
   A focused repeat of the same 15 rules on this file passed with no findings or
-  parser diagnostics; the full scan's parser limitations above remain unchanged.
+  parser diagnostics; the later full scan also has no parser diagnostics.
 - **`MSSqlDatabaseConnector.cs:28` and `OdbcDatabaseConnector.cs:34` — false
   positives for the current callers.** All 43 `DbCommand` call sites in 17 files
   were traced. These factories construct commands before callers bind their
@@ -158,7 +171,7 @@ matches published product `b685313c0`. The gate passed all six conditions with
 **80.55% new-code coverage** against the unchanged 80% threshold, overall coverage
 59.5%, A/A/A ratings and zero open bugs/vulnerabilities. Eleven findings were
 fixed and one executable-name false positive was individually resolved. The
-6,786 maintainability findings and documented Semgrep parsing limits remain;
+6,786 maintainability findings and documented Semgrep analysis limits remain;
 this is not a claim of a finding-free codebase. No hosted review was invoked.
 
 ## CodeRabbit OSS

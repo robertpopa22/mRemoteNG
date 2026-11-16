@@ -265,9 +265,14 @@ public static class PasswordstateInterface
 
         return ""+textWriter.ToString();
     }
-    private sealed class PasswordFinder(string password) : IPasswordFinder
+    private sealed class PasswordFinder : IPasswordFinder
     {
-        private string password = password;
+        private string password;
+
+        public PasswordFinder(string password)
+        {
+            this.password = password;
+        }
 
         public char[] GetPassword()
         {

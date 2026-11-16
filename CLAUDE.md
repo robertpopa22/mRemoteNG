@@ -344,7 +344,7 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 | 3 | CodeQL | Push to `main` + weekly (CI) | `.github/workflows/codeql.yml` |
 | 4 | Roslynator | Included in Level 1 (NuGet) | `Directory.Packages.props` |
 | 5 | Qodo Code Review | On-demand (AI review) | GitHub App + `scripts/qodo-review.sh` |
-| 6 | Semgrep CE | Local authored C# scan; partial parsing is reported | `scripts/Invoke-Semgrep.ps1` |
+| 6 | Semgrep CE | Local authored C# scan; parser errors remain blocking | `scripts/Invoke-Semgrep.ps1` |
 | 7 | Stryker.NET | Bounded linked-source mutation pilot | `scripts/run-mutation-tests.ps1`, `tests/mutation/` |
 | 8 | CodeRabbit OSS | Public-repository/CLI review; main-only workflow | `.coderabbit.yaml` |
 | 9 | Greptile OSS | Application and service activation tracked separately | `docs/FREE-VERIFICATION.md` |
@@ -352,7 +352,7 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 Free-tool commands and limitations live in [docs/FREE-VERIFICATION.md](docs/FREE-VERIFICATION.md).
 Do not enable usage credits, paid plans or automatic top-ups. Service installation
 does not establish that a diff was reviewed. The mutation pilot's score is not
-application-wide coverage; Semgrep's current parser diagnostics prevent a clean-scan claim.
+application-wide coverage; Semgrep's complete authored-code scan retains two reviewed SQL findings.
 
 ### Rules:
 - **Gradual adoption** — warnings only, NOT `TreatWarningsAsErrors` (legacy codebase)

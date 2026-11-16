@@ -7,10 +7,16 @@ using mRemoteNG.UI.Window;
 namespace mRemoteNG.Messages.MessageWriters
 {
     [SupportedOSPlatform("windows")]
-    public class NotificationPanelMessageWriter(ErrorAndInfoWindow messageWindow) : IMessageWriter
+    public class NotificationPanelMessageWriter : IMessageWriter
     {
-        private readonly ErrorAndInfoWindow _messageWindow = messageWindow ?? throw new ArgumentNullException(nameof(messageWindow));
-        private readonly NotificationMessageQueue _queue = new();
+        private readonly ErrorAndInfoWindow _messageWindow;
+        private readonly NotificationMessageQueue _queue;
+
+        public NotificationPanelMessageWriter(ErrorAndInfoWindow messageWindow)
+        {
+            _messageWindow = messageWindow ?? throw new ArgumentNullException(nameof(messageWindow));
+            _queue = new();
+        }
 
         public void Write(IMessage message)
         {

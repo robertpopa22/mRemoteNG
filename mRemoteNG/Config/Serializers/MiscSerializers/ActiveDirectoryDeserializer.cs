@@ -17,10 +17,16 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Config.Serializers.MiscSerializers
 {
     [SupportedOSPlatform("windows")]
-    public class ActiveDirectoryDeserializer(string ldapPath, bool importSubOu)
+    public class ActiveDirectoryDeserializer
     {
-        private readonly string _ldapPath = LdapPathSanitizer.SanitizeLdapPath(ldapPath.ThrowIfNullOrEmpty(nameof(ldapPath)));
-        private readonly bool _importSubOu = importSubOu;
+        private readonly string _ldapPath;
+        private readonly bool _importSubOu;
+
+        public ActiveDirectoryDeserializer(string ldapPath, bool importSubOu)
+        {
+            _ldapPath = LdapPathSanitizer.SanitizeLdapPath(ldapPath.ThrowIfNullOrEmpty(nameof(ldapPath)));
+            _importSubOu = importSubOu;
+        }
 
         public ConnectionTreeModel Deserialize()
         {

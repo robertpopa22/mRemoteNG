@@ -6,8 +6,13 @@ using VaultSharp.V1.AuthMethods;
 using VaultSharp.V1.AuthMethods.Token;
 
 namespace ExternalConnectors.VO {
-    public class VaultOpenbaoException(string message, string? arguments = null) : Exception(message) {
-        public string Arguments { get; set; } = arguments ?? string.Empty;
+    public class VaultOpenbaoException : Exception {
+        public string Arguments { get; set; }
+
+        public VaultOpenbaoException(string message, string? arguments = null) : base(message)
+        {
+            Arguments = arguments ?? string.Empty;
+        }
     }
 
     public static class VaultOpenbao {

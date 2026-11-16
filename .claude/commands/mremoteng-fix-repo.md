@@ -258,6 +258,11 @@ local build/tests, Semgrep CE and Stryker when a hosted allowance is exhausted.
   preserves parsing failures. Exit 10 means findings; exit 3 can mean partial
   parsing. Inspect JSON/SARIF and disclose excluded/generated files and findings;
   never translate a partial scan into PASS or suppress a finding to publish.
+  Compare scanned path sets before/after parser repairs. Keep the same rules and
+  exclusions; scan the real source, not rewritten scan-only copies. C# 12 primary
+  constructors need explicit constructors with CE 1.185.0; preserve initialization
+  behavior and run the full build/tests after that source change. See the guide's
+  parser follow-up for the before/after evidence and remaining SQL dispositions.
 - Run `pwsh -NoProfile -File scripts/run-mutation-tests.ps1 -OutputDirectory <operations-report-directory>`
   when changing `MainWindowPlacement.cs` or its tests. This linked-source pilot
   covers only that source and its existing fixture. Report killed/surviving,

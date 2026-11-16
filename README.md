@@ -41,7 +41,7 @@ If this fork is useful to you, please star it. Community tools we rely on set a 
     <img alt="Qodo reviews paused, checked 2026-11-16" src="https://img.shields.io/badge/Qodo-paused-lightgrey?style=for-the-badge">
   </a>
   <a href="docs/FREE-VERIFICATION.md#semgrep-community-edition">
-    <img alt="Semgrep CE: KiTTY fixed, two SQL false positives triaged; partial parsing remains" src="https://img.shields.io/badge/Semgrep%20CE-triaged%20%2F%20partial-orange?style=for-the-badge&logo=semgrep">
+    <img alt="Semgrep CE: 727 files fully parsed; two SQL false positives retained" src="https://img.shields.io/badge/Semgrep%20CE-727%20parsed%20%2F%202%20reviewed-blue?style=for-the-badge&logo=semgrep">
   </a>
   <a href="docs/FREE-VERIFICATION.md#strykernet-mutation-pilot">
     <img alt="Stryker.NET window-placement pilot: 100 percent mutation score" src="https://img.shields.io/badge/Stryker.NET-pilot%20100%25-brightgreen?style=for-the-badge">
@@ -111,6 +111,8 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 **On the road:** each RDP session measures its own link (round trip, jitter, losses) to the endpoint it is connected to, every 15 seconds, and writes it to the log. An experimental **adaptive resolution** mode, off by default, renders the session smaller while the link is struggling and zooms it back over the panel, so text and windows keep their size on screen; it returns to full resolution after five calm minutes. A fixed-resolution session smaller than its panel is now zoomed to fill the panel instead of sitting in a grey frame. Details are in [Recent work](#recent-work).
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
+
+**Semgrep parser follow-up — 16 November 2026, candidate verification.** The same **727 authored C# files** now scan with **zero parser errors and zero timeouts**, using the same 15 pinned CE rules. Twenty-five primary constructors were converted to equivalent explicit constructors in 23 files. The scanned path set is unchanged; no exclusions were added. Both previously reviewed SQL false positives remain visible, so the script returns **10: complete with findings**. Full build, **4,151/4,151 tests** and **3/3 guest startup checks** passed; the maintainer approved the security diff; publication is pending. No hosted review was invoked.
 
 **Latest published verification — 16 November 2026.** [Nightly source `b685313c0`](https://github.com/robertpopa22/mRemoteNG/commit/b685313c0544f587eaab318d899aacc3fa7f2a76) fixes cancellation, registry lifetimes, a regex timeout and VNC startup cleanup; nightly token permissions are scoped to jobs. Sonar's **Quality Gate passed**, with **80.55% new-code coverage against the unchanged 80% threshold**, ratings **A/A/A**, and **zero open bugs or vulnerabilities**. Eleven findings were fixed; the `op.exe` executable-name finding was individually resolved as a documented false positive. No quality threshold, rule or product exclusion was relaxed.
 
@@ -520,7 +522,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File build.ps1 -SelfContained
 | 3 | **CodeQL** | Push to `main` + weekly — security scanning | [![CodeQL](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/robertpopa22/mRemoteNG/security/code-scanning) |
 | 4 | **.NET Analyzers** | `AnalysisLevel=latest-recommended` | Active |
 | 5 | **[Qodo Code Review](https://www.qodo.ai/)** | On-demand AI review | Paused: trial ended; checked 2026-11-16 |
-| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0; 727 files / 15 rules; KiTTY path fixed, 2 SQL false positives documented; 23 parser diagnostics remain |
+| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0; 727/727 files / 15 rules; zero parser errors/timeouts; KiTTY path fixed, 2 SQL false positives documented and retained; no added exclusions |
 | 7 | **Stryker.NET** | Local mutation pilot on window-placement logic | Pinned 5.1.0; 100% (48/48 scored mutants), 17 tests; standard-library clamp, same source scope and exclusions; 5 ignored, 1 compile error |
 | 8 | **CodeRabbit OSS** | Public-repository review | App installed only on this fork; configuration schema validated; no completed review yet; CLI OAuth not granted |
 | 9 | **Greptile OSS** | Public-repository review | Accepted 2026-11-16: 100 free credits/month; repository enabled, 0 reviews |

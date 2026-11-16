@@ -25,26 +25,35 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 {
     [SupportedOSPlatform("windows")]
-    public class XmlConnectionsDeserializer(string connectionFileName = "", Func<Optional<SecureString>>? authenticationRequestor = null) : IDeserializer<string, ConnectionTreeModel>
+    public class XmlConnectionsDeserializer : IDeserializer<string, ConnectionTreeModel>
     {
         private XmlDocument _xmlDocument = null!;
         private double _confVersion;
         private XmlConnectionsDecryptor _decryptor = null!;
-        private readonly string ConnectionFileName = connectionFileName;
+        private readonly string ConnectionFileName;
         // Upstream saves 2.9: 2.8 plus TerminalBackend, Color and RedirectWebAuthn with their inherit
         // flags. This fork reads Color and RedirectWebAuthn at any version, has no TerminalBackend,
         // and still saves 2.8. Versions above 2.9 are refused.
         internal const double MaxSupportedConfVersion = 2.9;
         internal const double SavedConfVersion = 2.8;
-        private readonly RootNodeInfo _rootNodeInfo = new(RootNodeType.Connection);
+        private readonly RootNodeInfo _rootNodeInfo;
         private ConnectionTreeModel _connectionTreeModel = null!;
         private BlockCipherEngines _cipherEngine;
         private BlockCipherModes _cipherMode;
         private int _kdfIterations;
-        private readonly List<(Action<string> Setter, string CipherText)> _pendingDecrypts = [];
-        private readonly List<(Action<string> Setter, string StoredText)> _pendingPlainOrEncrypted = [];
+        private readonly List<(Action<string> Setter, string CipherText)> _pendingDecrypts;
+        private readonly List<(Action<string> Setter, string StoredText)> _pendingPlainOrEncrypted;
 
-        public Func<Optional<SecureString>>? AuthenticationRequestor { get; set; } = authenticationRequestor;
+        public Func<Optional<SecureString>>? AuthenticationRequestor { get; set; }
+
+        public XmlConnectionsDeserializer(string connectionFileName = "", Func<Optional<SecureString>>? authenticationRequestor = null)
+        {
+            ConnectionFileName = connectionFileName;
+            _rootNodeInfo = new(RootNodeType.Connection);
+            _pendingDecrypts = [];
+            _pendingPlainOrEncrypted = [];
+            AuthenticationRequestor = authenticationRequestor;
+        }
 
         public ConnectionTreeModel Deserialize(string xml)
         {

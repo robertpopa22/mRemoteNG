@@ -9,16 +9,21 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.Connection.Protocol.PowerShell
 {
     [SupportedOSPlatform("windows")]
-    public class ProtocolPowerShell(ConnectionInfo connectionInfo) : ExternalProcessProtocolBase
+    public class ProtocolPowerShell : ExternalProcessProtocolBase
     {
         #region Private Fields
 
-        private readonly ConnectionInfo _connectionInfo = connectionInfo;
+        private readonly ConnectionInfo _connectionInfo;
         private ConsoleControl.ConsoleControl? _consoleControl;
 
         #endregion
 
         #region Public Methods
+
+        public ProtocolPowerShell(ConnectionInfo connectionInfo)
+        {
+            _connectionInfo = connectionInfo;
+        }
 
         public override bool Connect()
         {
