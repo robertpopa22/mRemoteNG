@@ -85,7 +85,13 @@ namespace mRemoteNG.Connection
 
         public ConnectionTreeModel? ConnectionTreeModel { get; private set; }
 
-        public void NewConnectionsFile(string filename)
+        public void NewConnectionsFile(string filename) => NewConnectionsFile(filename, load: true);
+
+        /// <param name="load">
+        /// False when the caller loads the startup file itself right after (first start): loading it
+        /// here too read and authenticated the same new file twice (#232).
+        /// </param>
+        public void NewConnectionsFile(string filename, bool load)
         {
             try
             {
@@ -94,7 +100,8 @@ namespace mRemoteNG.Connection
                 ConnectionTreeModel newConnectionsModel = new();
                 newConnectionsModel.AddRootNode(new RootNodeInfo(RootNodeType.Connection));
                 SaveConnections(newConnectionsModel, false, new SaveFilter(), filename, true);
-                LoadConnections(false, false, filename);
+                if (load)
+                    LoadConnections(false, false, filename);
             }
             catch (Exception ex)
             {

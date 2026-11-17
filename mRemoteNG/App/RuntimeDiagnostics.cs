@@ -266,7 +266,38 @@ namespace mRemoteNG.App
                 Boolean("import", import),
                 Number("nodes", nodeCount),
                 Number("duration_ms", durationMs),
-                Field("outcome", SafeOutcome(outcome)));
+                Field("outcome", SafeOutcome(outcome)),
+                List("caller", CallerChain()));
+
+        /// <summary>
+        /// #232: startup loaded the connection file twice and saved it once before loading; the
+        /// record did not say who asked. This names the first three application methods on the
+        /// stack outside the connection service, as Type.Method — code identifiers only.
+        /// </summary>
+        private static string CallerChain()
+        {
+            try
+            {
+                var names = new System.Collections.Generic.List<string>(3);
+                foreach (System.Diagnostics.StackFrame frame in new System.Diagnostics.StackTrace(2, false).GetFrames())
+                {
+                    System.Reflection.MethodBase? method = frame.GetMethod();
+                    Type? type = method?.DeclaringType;
+                    if (method == null || type == null) continue;
+                    string? ns = type.Namespace;
+                    if (ns == null || !ns.StartsWith("mRemoteNG", StringComparison.Ordinal)) continue;
+                    if (type == typeof(RuntimeDiagnostics) || type.Name.Contains("ConnectionsService", StringComparison.Ordinal)) continue;
+                    string owner = type.DeclaringType != null && type.Name.StartsWith('<') ? type.DeclaringType.Name : type.Name;
+                    names.Add(owner + "." + method.Name);
+                    if (names.Count == 3) break;
+                }
+                return names.Count == 0 ? "unknown" : string.Join(",", names);
+            }
+            catch (Exception)
+            {
+                return "unknown";
+            }
+        }
 
         internal static void ConnectionSave(bool database, bool propertyTriggered, int nodeCount, long durationMs, string outcome) =>
             WriteInfo("connections_save",
@@ -274,7 +305,8 @@ namespace mRemoteNG.App
                 Field("trigger", propertyTriggered ? "property_change" : "system_or_manual"),
                 Number("nodes", nodeCount),
                 Number("duration_ms", durationMs),
-                Field("outcome", SafeOutcome(outcome)));
+                Field("outcome", SafeOutcome(outcome)),
+                List("caller", CallerChain()));
 
         internal static void RdpPhase(string rdpSession, string phase, long durationMs, string? version = null,
             int? primaryCode = null, uint? extendedCode = null, bool refreshResources = false, bool reconnect = false)
