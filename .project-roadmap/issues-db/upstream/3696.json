@@ -3,10 +3,15 @@
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Connection Frame Color has no effect in 1.78.2 NB 3782",
   "state": "open",
-  "labels": [],
+  "labels": [
+    "Bug",
+    "UI/UX",
+    "1.78.*",
+    "Nightly Build"
+  ],
   "author": "igor2x",
   "created_at": "2026-11-14T12:19:59Z",
-  "github_updated_at": "2026-11-14T12:19:59Z",
+  "github_updated_at": "2026-11-16T21:49:58Z",
   "body_snippet": "I am testing latest NB 3782 release on Windows 11:\n1. Click on connection.\n2. Display | Connection Frame Color and select _Red (Production)_.\n3. Double click on connection and new connection tab is opened. The issue appears. I expect frame to be in red color, but it stays in blue.\n\n<img width=\"761\" height=\"235\" alt=\"image\" src=\"https://github.com/user-attachments/assets/92e9d148-b84a-4555-a2eb-48356346054e\" />",
   "our_status": "new",
   "priority": null,
@@ -15,10 +20,10 @@
   "our_pr": null,
   "iterations": [],
   "comments": [],
-  "comments_cursor": "2026-11-14T12:19:59Z",
+  "comments_cursor": "2026-11-16T21:49:58Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": true,
-  "last_synced": "2026-11-16T06:27:02Z",
+  "last_synced": "2026-11-17T09:28:09Z",
   "notes": ""
 }

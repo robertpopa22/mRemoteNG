@@ -2,15 +2,15 @@
   "number": 228,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Error Session restore at startup: 2nd RDP tab fails with \"RDP ActiveX control creation timed out after 10 seconds.\" (1.84.0 build 3752)",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug"
   ],
   "author": "vansanper",
   "created_at": "2026-11-06T09:15:13Z",
-  "github_updated_at": "2026-11-09T18:06:02Z",
+  "github_updated_at": "2026-11-16T20:20:07Z",
   "body_snippet": "**What happens** (and what you expected instead):\n\nAfter restarting the app (and when it is auto-started at logon), mRemoteNG reopens the previously open sessions. The first RDP tab connects fine. The second RDP tab never gets its ActiveX control and a modal error dialog appears: `RDP ActiveX control creation timed out after 10 seconds.` (screenshot attached). The tab stays stuck in \"initializing\" (log: `initialize_failed`, duration 326640 ms) until I click OK on the dialog, which then closes it...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -55,6 +55,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-11-16",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -75,12 +85,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABnCpOCw",
+      "author": "vansanper",
+      "date": "2026-11-16T11:20:42Z",
+      "snippet": "Fixed since the nightly 1.84.0+a982dd6773 you published, thanks.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABnPMrZQ",
+      "author": "robertpopa22",
+      "date": "2026-11-16T20:20:07Z",
+      "snippet": "Thank you for coming back to confirm it on your own restart with your two tabs; that is the check our lab could not replace. Fixed in nightly `1.84.0+a982dd6773` and later builds. If the timeout comes back, a comment here reopens the issue.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\nQodo's free open-source plan requires at least 200 stars on this repository (or on another public repository in the same GitHub organization). Other tools we use ask for mor...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-11-09T18:06:02Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-11-16T20:20:07Z",
+  "unread_comments": 1,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-11-12T08:00:05Z",
-  "notes": "2026-11-14: retest ask of 2026-11-09 is 5 days old, reply stands; unanswered close due after 2026-11-16 if silent (fix 09e9c0f1c, nightly 1.84.0+a982dd6773 or later). Automated RDP layout-restore UI check passed today; reporter environment still unconfirmed."
+  "last_synced": "2026-11-17T09:28:09Z",
+  "notes": "reporter confirmed fixed on 1.84.0+a982dd6773; closed by reporter 2026-11-16"
 }

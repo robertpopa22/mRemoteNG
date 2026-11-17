@@ -8,9 +8,9 @@
   ],
   "author": "jblion",
   "created_at": "2026-11-12T20:15:43Z",
-  "github_updated_at": "2026-11-16T07:24:17Z",
+  "github_updated_at": "2026-11-16T20:20:11Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
-  "our_status": "testing",
+  "our_status": "triaged",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -75,6 +75,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 7,
+      "date": "2026-11-16",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -122,12 +132,30 @@
       "is_ours": true,
       "analyzed": true,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABnOpM4g",
+      "author": "jblion",
+      "date": "2026-11-16T19:58:37Z",
+      "snippet": "Hi, \n\nHere are the logs with the latest nightly build (version=1.84.0.3791 build_id=nogit)\nThe version you recommended is not available anymore.\n\nThe first load is still long. \nThe second one is still quick.\n\n```\n2026-11-16T20:55:54.309+01:00 mono_ms=63 pid=20312 app_session=27d8af009131 [2] INFO  - [Perf] event=process_environment os_major=10 os_minor=0 os_build=26300 os_ubr=9974 os_product=Windows_10_Pro os_display=26H2 os_install=Client gdi_quota=10000 user_quota=10000\n2026-11-16T20:55:54.369...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABnPMxzQ",
+      "author": "robertpopa22",
+      "date": "2026-11-16T20:20:11Z",
+      "snippet": "Thank you for testing again the same day, and sorry that the build named in our last reply had already been replaced on the release page when you went to download it.\n\nYour new trace shows the first Options opening at 3,316 ms, against 9,325 ms in your previous trace; reopening stays fast (75 ms). The largest remaining stages are loading the Appearance page's settings (625 ms) and laying out the Connections, Tabs & Panels and Notifications pages (about 220–260 ms each at 200%). No new change is ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-11-16T07:24:17Z",
-  "unread_comments": 0,
-  "needs_action": false,
+  "comments_cursor": "2026-11-16T20:20:11Z",
+  "unread_comments": 1,
+  "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-11-16T07:24:47Z",
-  "notes": "2026-11-16: table construction batching d2821ec4d shipped in nightly 1.84.0+31a4433111. Full publication suite4129/4129; automated Options open/cancel/reopen first1956ms,warm304ms versus earlier21003/385ms, individual observations not controlled benchmark. Reporter French/200% setup not exercised. Reply https://github.com/robertpopa22/mRemoteNG/issues/232#issuecomment-6910155240 read back; awaiting reporter first-opening retest, remains open."
+  "last_synced": "2026-11-17T09:28:09Z",
+  "notes": "Options first open 9325->3316 ms on reporter trace; remaining stages AppearancePage settings 625 ms, page layouts ~250 ms"
 }

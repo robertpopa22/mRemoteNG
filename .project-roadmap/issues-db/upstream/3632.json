@@ -6,7 +6,7 @@
   "labels": [],
   "author": "SmearODeer",
   "created_at": "2026-11-02T21:38:51Z",
-  "github_updated_at": "2026-11-02T21:38:51Z",
+  "github_updated_at": "2026-11-17T09:28:13Z",
   "body_snippet": "Follow-up to #3249, as discussed there. This issue is for agreeing on a design before anyone writes code. Everything below is a proposal; please correct or reject any part of it.\n\n## Goal (from #3249)\n\n- Admins define named database servers (\"providers\"), for example DEV-TEST and PROD.\n- No passwords are stored in profiles or settings, only a reference to a secret in a vault.\n- Users without a vault get a basic local store, encrypted for the machine (section 2 proposes per user instead).\n- Each ...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +14,57 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-11-02T21:38:51Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABnT4GVg",
+      "author": "SmearODeer",
+      "date": "2026-11-16T23:54:38Z",
+      "snippet": "### Password exposure (addition to the design)\n\n@Kvarkas, this follows your note on #3655 about storing links to a credential store and an admin \"Allow retrieve password\" setting. There are three different risks, and each needs its own answer.\n\n**1. A stolen file or table**\n- Today, connection passwords are encrypted with a key derived from the master password. Without a custom master password, the built-in default key is used, and that key is public. Anyone who copies `confCons.xml` or reads th...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABnV3TAg",
+      "author": "SmearODeer",
+      "date": "2026-11-17T01:37:14Z",
+      "snippet": "## Access model: scopes and roles\n\nPart of the database providers design (#3632), and follows the RBAC discussion in #3249, #3653 and #3655.\n\n### Summary\n- Connections are split into **scopes**.\n- Each person's Windows login decides which scopes they see and what they may do in each one.\n- mRemoteNG passes that login through to the database, and **the database enforces the rules**. This holds even when someone opens the database with another tool.\n- Control is handed down one level at a time, an...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABnV70YA",
+      "author": "SmearODeer",
+      "date": "2026-11-17T01:41:00Z",
+      "snippet": "@Kvarkas, a question before we go further with the access model above: what does your planned database design look like so far? Table definitions would help most, even rough ones, so we build on your design rather than beside it.\n\nHere is what I found in `v1.78.2-dev`. Please correct anything I have wrong.\n\n**Shared SQL database** (SQL Server / MySQL, `SqlDatabaseMetaDataRetriever`)\n- `tblCons`: one row per connection or folder, 168 columns. The tree comes from `ConstantID` / `ParentID` / `Posit...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABnW-vOw",
+      "author": "SmearODeer",
+      "date": "2026-11-17T02:38:44Z",
+      "snippet": "## Setup tool: building the enterprise database\n\nFollows the access model above. That model needs a database with tables, row-level security, stored procedures and group logins. This section describes the tool that builds it. It is written so that an enterprise can approve it under its security and audit rules: least privilege, segregation of duties, a review before any change, and a record of what was done.\n\n### When it starts\n- An admin points mRemoteNG at a server and database name, and the d...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABneZdsQ",
+      "author": "Kvarkas",
+      "date": "2026-11-17T09:28:13Z",
+      "snippet": "will reply more at evening, but main idea what we should have kind of hub where we atach mR actions like read, write, search etc. and then we have a plugins what extends from where to what db engine this will be landing. Not sure how exactly whis could be done - but for flexibility i think its will be extra super good to have, where was a discusion about same a long lond time ago (will try to find and link there) so for now we have 2 flows - internal one - what is used for home users so we keep ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-17T09:28:13Z",
+  "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-03T07:07:18Z",
+  "last_synced": "2026-11-17T09:28:09Z",
   "notes": ""
 }

@@ -1,0 +1,74 @@
+{
+  "number": 252,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Tab Name when connecting via an SSH Tunnel",
+  "state": "open",
+  "labels": [],
+  "author": "vndnua",
+  "created_at": "2026-11-16T12:55:35Z",
+  "github_updated_at": "2026-11-17T08:42:31Z",
+  "body_snippet": "If the connection is established via an SSH tunnel, the tab does not display the name specified in that connection's settings, but rather “login@host:~ (login )” as shown in the screenshot.\nThis makes it difficult to navigate between tabs, especially when there are several of them.\nIs there a way to configure this? I haven't been able to find one.\n\n<img width=\"1491\" height=\"499\" alt=\"Clipboard\" src=\"https://github.com/user-attachments/assets/86db5d35-85d7-46f1-902a-0d73ebe08fa0\" />\n\nNightly Buil...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-16",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-17",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-11-17",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABnZF4Rg",
+      "author": "robertpopa22",
+      "date": "2026-11-17T04:39:00Z",
+      "snippet": "Thank you for the screenshot; six tabs all named `admin@...:~ (admin)` made the cause easy to find.\n\nThis is a defect, not a setting. A connection opened through an SSH tunnel shares its tab with the hidden PuTTY session that carries the tunnel. That hidden session replaced the tab caption with its own shell title, as a normal SSH tab does. The hidden tunnel session no longer changes the caption, so the tab shows the same caption as the same connection opened without a tunnel. An SSH connection ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABndeImA",
+      "author": "vndnua",
+      "date": "2026-11-17T08:42:31Z",
+      "snippet": "Yes, I can confirm that the tab caption now displays the correct information.\nThank you.\n<img width=\"1534\" height=\"332\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1bfb737a-133d-428e-9211-afd806de2679\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-17T08:42:31Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-17T09:29:10Z",
+  "notes": "reporter confirmed nightly 1.84.0+11aa862a15; closed fixed 2026-11-17"
+}

@@ -1,0 +1,66 @@
+{
+  "number": 251,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "mRemoteNG fails to start and displays an error message indicating that Microsoft.NETCore.App 10.0.0 is required but not found, even though it is already installed on the system",
+  "state": "closed",
+  "labels": [
+    "bug"
+  ],
+  "author": "vansanper",
+  "created_at": "2026-11-16T12:26:38Z",
+  "github_updated_at": "2026-11-17T08:57:18Z",
+  "body_snippet": "\n**What happens** (and what you expected instead):\n\nmRemoteNG fails to start and displays an error message indicating that Microsoft.NETCore.App 10.0.0 is required but not found, even though it is already installed on the system. The user has repaired the .NET installation and restarted the computer, but the same error persists.\n\n**Expected behavior**: mRemoteNG should start normally since the required .NET runtime is installed.\n\n**Actual behavior**: mRemoteNG shows an error dialog stating it ne...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-16",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-11-17",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABnPMv-w",
+      "author": "robertpopa22",
+      "date": "2026-11-16T20:20:10Z",
+      "snippet": "Thank you for both screenshots and for pointing out the wrong log path in the issue form. You were right: the log is `mRemoteNG Connection Manager.log`, and a failure in this dialog happens before the app starts, so it never reaches the log. The form now says both.\n\nWe could produce the same dialog here. The current nightly is a framework-dependent build: it uses the .NET 10 Desktop Runtime you have installed (10.0.15 includes `Microsoft.NETCore.App`). Extracted into an empty folder, it started ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABndw0wQ",
+      "author": "vansanper",
+      "date": "2026-11-17T08:57:18Z",
+      "snippet": "Effectively, the leftover files were causing the error. I'm now updating from the zip using an automated .ps1 script since the nightlies you're publishing are manual builds without .msi installers (I assume when you reactivate git publishing like before, the regular nightlies will return).\n\nAfter tweaking the script to clean the folder before extracting the zip, it worked fine.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-17T08:57:18Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-17T09:29:10Z",
+  "notes": "reporter confirmed leftover hostfxr cause; MSI returns with CI nightly"
+}
