@@ -1,0 +1,26 @@
+# Gitleaks findings reviewed and accepted. Each line is one fingerprint
+# (commit:file:rule:line). Only these exact findings are ignored; any new
+# finding, in any commit, still fails the scan.
+#
+# All eight are in upstream mRemoteNG history from 2016, inherited by this
+# fork. None of the files exists in the current tree. Removing them would
+# mean rewriting shared history, which would break the link with upstream
+# and every existing clone. Reviewed 2026-11-17.
+
+# Property assignments in converted C# code, not secret values.
+6b4f2d3e181bd1ec224baea3aff8ad822df20c2a:mRemoteV1.ConvertedToC#/App/App.Runtime.cs:generic-api-key:770
+6b4f2d3e181bd1ec224baea3aff8ad822df20c2a:mRemoteV1.ConvertedToC#/App/App.Runtime.cs:generic-api-key:833
+f8dfc3c652d102a476e78ac3e51aaf1c78ecccfc:mRemoteV1.ConvertedToC#/App/App.Runtime.cs:generic-api-key:773
+f8dfc3c652d102a476e78ac3e51aaf1c78ecccfc:mRemoteV1.ConvertedToC#/App/App.Runtime.cs:generic-api-key:836
+
+# Old project website: a Stripe publishable test-mode key, public by design.
+6b3df21d0ab1c14223b7a72f1cdd8e74a44d5890:contribute2.html:generic-api-key:16
+
+# Old project website: an upstream maintainer's GitHub token, public since
+# 2016. Not ours, and GitHub revokes leaked tokens it detects.
+c41ae6ce6d829b87de6265497f22a57063eca081:_config.yaml:generic-api-key:7
+
+# An upstream developer's 2016 test connections file (one RDP entry, password
+# encrypted with the default key). Public since 2016; not our data.
+2f90496a6ebce340f543fff2fb0c94bb4be324b0:mRemoteV1/bin/Debug Portable/confCons.xml:generic-api-key:3
+2f90496a6ebce340f543fff2fb0c94bb4be324b0:mRemoteV1/bin/Debug Portable/confCons.xml.backup:generic-api-key:3
