@@ -151,7 +151,7 @@ a call that differs from it is checked with the CLI's own `--help` first.
 |---|---|---|---|
 | Antigravity (`agy`) | `agy -p <prompt> --model <model> --dangerously-skip-permissions --sandbox --print-timeout <N>m`, started detached and read from its output file | a separate worktree of this repository, never the orchestrator's checkout | Without those flags a headless run denied `read_file`, exited 0 and printed nothing; `--mode plan` and `--settings` allow-rules did not fix it. A run of about 50 minutes delivered a complete implementation. |
 | Codex | the Codex companion with `--write --wait` for an implementation, without `--write` for an opinion | a worktree inside this repository's folder (its sandbox writes only there), excluded in `.git/info/exclude` | A worktree under the system temp folder was refused. Diagnosis took about 5 minutes, five small fixes with tests about 7. |
-| Grok Build | the Grok runner, default limit 45 minutes; narrow the files to read for a long review | read-only for opinions; a worktree like the others when it implements | The old 900-second limit cut two multi-file reviews before their last sections. |
+| Grok Build | the Grok runner, no time limit by default (`--timeout 0`); narrow the files to read for a long review | read-only for opinions; a worktree like the others when it implements | The old 900-second limit cut two multi-file reviews before their last sections. |
 | Claude Code | a subagent with a written brief and explicit model | the orchestrator's session, or a worktree when it writes | — |
 | Mistral Vibe | `--agent accept-edits --trust`, `--output-dir` for the run export | a worktree like the others | Not used on 2026-11-17; the call is the one recorded for the CLI. |
 
@@ -181,7 +181,8 @@ observed working.
 An agent asked for an opinion or an implementation runs until it answers or until its
 transcript stops moving. The heartbeat of a runner only says that the process is alive; the
 session transcript says whether it is still reading and writing, and that is what the
-orchestrator watches. Grok Build runs with a 45-minute limit, and no reviewer is abandoned at
+orchestrator watches. Grok Build runs without a time limit until it answers (its tool-turn cap
+still stops a runaway loop), and no reviewer is abandoned at
 10 or 15 minutes while its transcript still advances. The orchestrator works on something else
 meanwhile and does not start a second copy of the same request. An implementation agent works
 in its own worktree, so its edits cannot mix with the orchestrator's; the orchestrator brings
