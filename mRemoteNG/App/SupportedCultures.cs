@@ -28,13 +28,53 @@ namespace mRemoteNG.App
         }
 
 
+        // #232: the shipped languages are static. Creating each CultureInfo and reading its
+        // NativeName loads that culture's ICU data, about 300 ms for the 23 of them on first use;
+        // these strings are exactly what that code produced (TextInfo.ToTitleCase of NativeName).
+        // A culture added to SupportedUICultures without a row here still works, at the old cost.
+        private static readonly Dictionary<string, string> KnownNativeNames = new(StringComparer.Ordinal)
+        {
+            ["cs-CZ"] = "Čeština (Česko)",
+            ["de"] = "Deutsch",
+            ["el"] = "Ελληνικά",
+            ["en"] = "English",
+            ["en-US"] = "English (United States)",
+            ["es-AR"] = "Español (Argentina)",
+            ["es"] = "Español",
+            ["fr"] = "Français",
+            ["hu"] = "Magyar",
+            ["it"] = "Italiano",
+            ["lt"] = "Lietuvių",
+            ["ja-JP"] = "日本語 (日本)",
+            ["ko-KR"] = "한국어(대한민국)",
+            ["nb-NO"] = "Norsk Bokmål (Norge)",
+            ["nl"] = "Nederlands",
+            ["pt"] = "Português",
+            ["pt-BR"] = "Português (Brasil)",
+            ["pl"] = "Polski",
+            ["ru"] = "Русский",
+            ["uk"] = "Українська",
+            ["tr-TR"] = "Türkçe (Türkiye)",
+            ["zh-CN"] = "中文（中国）",
+            ["zh-TW"] = "中文（台灣）",
+        };
+
+        internal static IReadOnlyDictionary<string, string> KnownNativeNamesForTests => KnownNativeNames;
+
         private SupportedCultures()
         {
             foreach (string CultureName in Properties.AppUI.Default.SupportedUICultures.Split(','))
             {
+                string name = CultureName.Trim();
+                if (KnownNativeNames.TryGetValue(name, out string? nativeName))
+                {
+                    if (!ContainsKey(name)) Add(name, nativeName);
+                    continue;
+                }
+
                 try
                 {
-                    CultureInfo CultureInfo = new(CultureName.Trim());
+                    CultureInfo CultureInfo = new(name);
                     Add(CultureInfo.Name, CultureInfo.TextInfo.ToTitleCase(CultureInfo.NativeName));
                 }
                 catch (Exception ex)
