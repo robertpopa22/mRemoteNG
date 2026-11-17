@@ -79,19 +79,7 @@ namespace mRemoteNG.App
                         break;
                     case WindowType.Options:
                     {
-                        using var open = new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.Open);
-                        if (OptionsFormWindow == null || OptionsFormWindow.IsDisposed)
-                            using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.WindowCreate))
-                                OptionsFormWindow = new OptionsWindow();
-                        using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.SelectPage))
-                            OptionsFormWindow.SetActivatedPage(Language.StartupExit);
-                        // Reload controls from stored settings before every show so that any
-                        // edits left over from a previous hide (Tab-X without Apply/OK) are
-                        // discarded.  Safe on first call — no-op until FrmOptions is embedded.
-                        using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.Refresh))
-                            OptionsFormWindow.RefreshSettings();
-                        using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.DockShow))
-                            OptionsFormWindow.Show(dockPanel);
+                        ShowOptions(Language.StartupExit, dockPanel);
                         break;
                     }
                     case WindowType.SSHTransfer:
@@ -134,6 +122,53 @@ namespace mRemoteNG.App
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("App.Runtime.Windows.Show() failed.", ex);
+            }
+        }
+
+        public static void ShowOptions(string? pageName = null)
+        {
+            try
+            {
+                ShowOptions(pageName ?? Language.StartupExit, FrmMain.Default.pnlDock);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("App.Runtime.Windows.ShowOptions() failed.", ex);
+            }
+        }
+
+        private static void ShowOptions(string pageName, WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel)
+        {
+            using var open = new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.Open);
+            if (OptionsFormWindow == null || OptionsFormWindow.IsDisposed)
+            {
+                using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.WindowCreate))
+                {
+                    OptionsFormWindow = new OptionsWindow();
+                }
+            }
+
+            if (!OptionsFormWindow.IsHandleCreated && dockPanel.ClientSize is { Width: > 0, Height: > 0 })
+            {
+                OptionsFormWindow.ClientSize = dockPanel.ClientSize;
+            }
+
+            using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.SelectPage))
+            {
+                OptionsFormWindow.SetActivatedPage(pageName);
+            }
+
+            // Reload controls from stored settings before every show so that any
+            // edits left over from a previous hide (Tab-X without Apply/OK) are
+            // discarded. Safe on first call — no-op until FrmOptions is embedded.
+            using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.Refresh))
+            {
+                OptionsFormWindow.RefreshSettings();
+            }
+
+            using (new Diagnostics.OptionsLoadSpan(Diagnostics.OptionsLoadStage.DockShow))
+            {
+                OptionsFormWindow.Show(dockPanel);
             }
         }
     }

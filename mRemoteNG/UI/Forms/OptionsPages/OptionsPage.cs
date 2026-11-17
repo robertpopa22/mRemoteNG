@@ -30,6 +30,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         [Browsable(false)]
         public bool HasChanges { get; set; }
 
+        /// <summary>
+        /// True while programmatic initialization or reload is populating controls,
+        /// suppressing <see cref="HasChanges"/> tracking.
+        /// </summary>
+        [Browsable(false)]
+        internal bool IsLoadingSettings { get; set; }
+
         #endregion
 
         #region Public Methods

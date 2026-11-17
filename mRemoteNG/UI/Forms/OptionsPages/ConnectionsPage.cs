@@ -86,9 +86,17 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private void ConnectionsPage_VisibleChanged(object sender, EventArgs e)
         {
-            if (Visible)
+            if (Visible && !HasChanges && !IsLoadingSettings)
             {
-                LoadSettings();
+                IsLoadingSettings = true;
+                try
+                {
+                    LoadSettings();
+                }
+                finally
+                {
+                    IsLoadingSettings = false;
+                }
             }
         }
 

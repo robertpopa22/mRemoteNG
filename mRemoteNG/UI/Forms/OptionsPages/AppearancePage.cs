@@ -20,10 +20,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private string? _pendingFontFamily;
         private float? _pendingFontSize;
         private FontStyle? _pendingFontStyle;
+        private bool _languagesPopulated;
         public AppearancePage()
         {
             InitializeComponent();
             btnChooseInterfaceFont.Click += btnChooseInterfaceFont_Click;
+            cboLanguage.DropDown += cboLanguage_DropDown;
             ApplyTheme();
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.Panel_16x);
         }
@@ -54,30 +56,32 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         public override void LoadSettings()
         {
-            IList<string> nativeNames;
-            using (new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LanguageList, nameof(AppearancePage)))
-                nativeNames = SupportedCultures.CultureNativeNames;
+            ClearPendingInterfaceFont();
 
-            using (new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LanguageCombo, nameof(AppearancePage)))
+            string defaultLanguageText = Language.LanguageDefault;
+            string overrideCulture = Settings.Default.OverrideUICulture;
+            cboLanguage.BeginUpdate();
+            try
             {
                 cboLanguage.Items.Clear();
-                cboLanguage.Items.Add(Language.LanguageDefault);
+                cboLanguage.Items.Add(defaultLanguageText);
+                _languagesPopulated = false;
 
-                foreach (string nativeName in nativeNames)
+                if (!string.IsNullOrEmpty(overrideCulture) &&
+                    SupportedCultures.IsNameSupported(overrideCulture))
                 {
-                    cboLanguage.Items.Add(nativeName);
+                    string activeNativeName = SupportedCultures.GetCultureNativeName(overrideCulture);
+                    cboLanguage.Items.Add(activeNativeName);
+                    cboLanguage.SelectedItem = activeNativeName;
                 }
-
-                if (!string.IsNullOrEmpty(Settings.Default.OverrideUICulture) &&
-                    SupportedCultures.IsNameSupported(Settings.Default.OverrideUICulture))
+                else
                 {
-                    cboLanguage.SelectedItem = SupportedCultures.GetCultureNativeName(Settings.Default.OverrideUICulture);
+                    cboLanguage.SelectedItem = defaultLanguageText;
                 }
-
-                if (cboLanguage.SelectedIndex == -1)
-                {
-                    cboLanguage.SelectedIndex = 0;
-                }
+            }
+            finally
+            {
+                cboLanguage.EndUpdate();
             }
 
             using var fields = new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.AppearanceFields, nameof(AppearancePage));
@@ -95,7 +99,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         public override void SaveSettings()
         {
             var selectedItemStr = Convert.ToString(cboLanguage.SelectedItem, CultureInfo.InvariantCulture) ?? string.Empty;
-            if (cboLanguage.SelectedIndex > 0 &&
+            if (!string.IsNullOrEmpty(selectedItemStr) &&
+                !string.Equals(selectedItemStr, Language.LanguageDefault, StringComparison.Ordinal) &&
                 SupportedCultures.IsNativeNameSupported(selectedItemStr))
             {
                 Settings.Default.OverrideUICulture = SupportedCultures.GetCultureName(selectedItemStr);
@@ -137,6 +142,65 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             SaveInterfaceFont();
         }
 
+        public override void RevertSettings()
+        {
+            base.RevertSettings();
+            ClearPendingInterfaceFont();
+        }
+
+        internal void EnsureLanguagesPopulated()
+        {
+            if (_languagesPopulated)
+                return;
+
+            string defaultLanguageText = Language.LanguageDefault;
+            string selected = Convert.ToString(cboLanguage.SelectedItem, CultureInfo.InvariantCulture) ?? defaultLanguageText;
+            bool wasLoading = IsLoadingSettings;
+            bool hadChanges = HasChanges;
+            IsLoadingSettings = true;
+            using var span = new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LanguageList, nameof(AppearancePage));
+            cboLanguage.BeginUpdate();
+            try
+            {
+                cboLanguage.Items.Clear();
+                cboLanguage.Items.Add(defaultLanguageText);
+                foreach (string nativeName in SupportedCultures.CultureNativeNames)
+                {
+                    cboLanguage.Items.Add(nativeName);
+                }
+
+                _languagesPopulated = true;
+                cboLanguage.SelectedItem = cboLanguage.Items.Contains(selected) ? selected : defaultLanguageText;
+            }
+            finally
+            {
+                cboLanguage.EndUpdate();
+                IsLoadingSettings = wasLoading;
+                HasChanges = hadChanges;
+            }
+        }
+
+        private void cboLanguage_DropDown(object? sender, EventArgs e)
+        {
+            EnsureLanguagesPopulated();
+        }
+
+        private void ClearPendingInterfaceFont()
+        {
+            _pendingFontFamily = null;
+            _pendingFontSize = null;
+            _pendingFontStyle = null;
+        }
+
+        internal void SetPendingInterfaceFont(string family, float sizeInPoints, FontStyle style)
+        {
+            _pendingFontFamily = family;
+            _pendingFontSize = sizeInPoints;
+            _pendingFontStyle = InterfaceFont.AllowedStyle(style);
+            HasChanges = true;
+            ShowInterfaceFont();
+        }
+
         private void ShowInterfaceFont()
         {
             using Font font = InterfaceFont.Create(
@@ -163,10 +227,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             if (dialog.ShowDialog(FindForm()) != DialogResult.OK)
                 return;
 
-            _pendingFontFamily = dialog.Font.FontFamily.Name;
-            _pendingFontSize = dialog.Font.SizeInPoints;
-            _pendingFontStyle = InterfaceFont.AllowedStyle(dialog.Font.Style);
-            ShowInterfaceFont();
+            SetPendingInterfaceFont(dialog.Font.FontFamily.Name, dialog.Font.SizeInPoints, dialog.Font.Style);
         }
 
         private void SaveInterfaceFont()
@@ -177,6 +238,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsAppearancePage.Default.UIFontFamily = _pendingFontFamily;
             Properties.OptionsAppearancePage.Default.UIFontSize = _pendingFontSize.Value;
             Properties.OptionsAppearancePage.Default.UIFontStyle = (int)InterfaceFont.AllowedStyle(_pendingFontStyle.Value);
+            ClearPendingInterfaceFont();
             InterfaceFont.ApplyToOpenForms();
         }
 

@@ -59,7 +59,10 @@ public class OptionsOpeningAcceptanceTests : UiAcceptanceTestBase
         Assert.That(log, Does.Contain("event=process_stop"));
         Assert.That(log, Does.Contain("stage=FormCreate page=none phase=begin"));
         Assert.That(log, Does.Contain("stage=Reload page=none phase=leave"));
-        Assert.That(log, Does.Contain("stage=PageSettings page=AdvancedPage phase=leave"));
+        // #232: pages are built on selection or, a few seconds after startup, one per idle moment.
+        Assert.That(log, Does.Contain("stage=PageLayout page=StartupExitPage phase=leave"));
+        Assert.That(log, Does.Contain("stage=Prebuild page=AdvancedPage phase=leave"),
+            "the Advanced page should have been built while the application was idle");
         Assert.That(log, Does.Contain("stage=WindowFont page=none phase=leave"));
     }
 }

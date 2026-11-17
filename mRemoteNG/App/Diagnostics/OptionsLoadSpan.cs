@@ -94,5 +94,7 @@ internal enum OptionsLoadStage
     PageListAdd, PageTrack, LanguageList, LanguageCombo, AppearanceFields,
     ThemeList, ThemeSelect, ThemeApply,
     // The base-class OnLoad tail of the Options window and form (BaseWindow, ResponsiveForm).
-    WindowLoadHandlers, LoadFontApply, LoadAdaptive, LoadFit
+    WindowLoadHandlers, LoadFontApply, LoadAdaptive, LoadFit,
+    // A page built ahead of time, one per idle moment after startup.
+    Prebuild
 }

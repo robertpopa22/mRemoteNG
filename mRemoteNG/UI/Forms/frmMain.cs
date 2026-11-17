@@ -724,7 +724,45 @@ namespace mRemoteNG.UI.Forms
                 LogDpiState("startup after fit", DeviceDpi, DeviceDpi);
 
             PromptForUpdatesPreference();
+            StartOptionsPrebuild();
             await CheckForUpdates();
+        }
+
+        /// <summary>
+        /// #232: the Options pages are few, so after startup they are built while the application
+        /// is idle, one page per idle moment, and the first Options open finds them ready. The UI
+        /// thread is the only thread that may create them; one page costs at most ~90 ms measured
+        /// at 96 DPI, which keeps each step below a noticeable pause. Starts a few seconds after the
+        /// window is shown, so restored connections and the first paint go first.
+        /// </summary>
+        private void StartOptionsPrebuild()
+        {
+            var delay = new System.Windows.Forms.Timer { Interval = 3000 };
+            delay.Tick += (_, _) =>
+            {
+                delay.Stop();
+                delay.Dispose();
+                if (IsDisposed || IsShuttingDown) return;
+                Application.Idle += PrebuildOptionsOnIdle;
+            };
+            delay.Start();
+        }
+
+        private void PrebuildOptionsOnIdle(object? sender, EventArgs e)
+        {
+            bool more;
+            try
+            {
+                more = !IsDisposed && !IsShuttingDown && OptionsForm is { } form && form.PrebuildNextPage();
+            }
+            catch (Exception ex)
+            {
+                // Prebuilding is an optimisation: a page that fails here is built on selection.
+                Runtime.MessageCollector.AddExceptionStackTrace("Options page prebuild stopped", ex, Messages.MessageClass.WarningMsg);
+                more = false;
+            }
+            if (!more)
+                Application.Idle -= PrebuildOptionsOnIdle;
         }
 
         /// <summary>
@@ -927,9 +965,7 @@ namespace mRemoteNG.UI.Forms
                 // Customize: let the user configure update settings manually, then open Options
                 Properties.OptionsUpdatesPage.Default.CheckForUpdatesAsked = true;
                 Properties.OptionsUpdatesPage.Default.Save();
-                AppWindows.Show(WindowType.Options);
-                if (AppWindows.OptionsFormWindow != null)
-                    AppWindows.OptionsFormWindow.SetActivatedPage(Language.Updates);
+                AppWindows.ShowOptions(Language.Updates);
             }
             // For "Ask Later" (button 2), CheckForUpdatesAsked remains false so the dialog will show again next startup
         }

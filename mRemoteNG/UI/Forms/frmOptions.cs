@@ -1,17 +1,16 @@
 #region  Usings
-using mRemoteNG.App;
-using mRemoteNG.App.Diagnostics;
-using mRemoteNG.UI.Forms.OptionsPages;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Forms;
-using mRemoteNG.Themes;
 using System.Configuration;
+using System.Linq;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
+using mRemoteNG.App;
+using mRemoteNG.App.Diagnostics;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
-using System.Runtime.Versioning;
+using mRemoteNG.Themes;
+using mRemoteNG.UI.Forms.OptionsPages;
 #endregion
 
 namespace mRemoteNG.UI.Forms
@@ -19,11 +18,9 @@ namespace mRemoteNG.UI.Forms
     [SupportedOSPlatform("windows")]
     public partial class FrmOptions : ResponsiveForm
     {
-        private readonly List<OptionsPage> _optionPages = [];
-        private string _pageName;
+        private readonly OptionsPageLifecycle _lifecycle;
         private readonly DisplayProperties _display = new();
-        private readonly List<string> _optionPageObjectNames;
-        private bool _isLoading = true;
+        private string _pageName;
         private bool _isInitialized;
         private bool _isFontOverrideApplied;
         private bool _isHandlingSelectionChange; // Guard flag to prevent recursive event handling
@@ -37,7 +34,7 @@ namespace mRemoteNG.UI.Forms
         {
         }
 
-        private FrmOptions(string pageName)
+        public FrmOptions(string pageName)
         {
             using var construct = new OptionsLoadSpan(OptionsLoadStage.FormCreate);
             Cursor.Current = Cursors.WaitCursor;
@@ -50,23 +47,7 @@ namespace mRemoteNG.UI.Forms
             Cursor.Current = Cursors.Default;
             DoubleBuffered = true;
 
-            _optionPageObjectNames =
-            [
-                nameof(StartupExitPage),
-                nameof(AppearancePage),
-                nameof(ConnectionsPage),
-                nameof(TabsPanelsPage),
-                nameof(NotificationsPage),
-                nameof(CredentialsPage),
-                nameof(SqlServerPage),
-                nameof(UpdatesPage),
-                nameof(ThemePage),
-                nameof(SecurityPage),
-                nameof(AdvancedPage),
-                nameof(BackupPage),
-                nameof(ConfigurationPage)
-            ];
-
+            _lifecycle = new OptionsPageLifecycle(CreateDefaultDescriptors());
             using (new OptionsLoadSpan(OptionsLoadStage.FormPages))
                 InitOptionsPagesToListView();
             lstOptionPages.FontChanged += (_, _) => FitPageNavigation();
@@ -75,11 +56,156 @@ namespace mRemoteNG.UI.Forms
                 FitPageNavigation();
         }
 
+        internal OptionsPageLifecycle PageLifecycle => _lifecycle;
+
+        internal OptionsPage? CurrentPage => _lifecycle.ActiveDescriptor?.Page;
+
+        internal void SetInitialPage(string pageName)
+        {
+            if (string.IsNullOrEmpty(pageName))
+            {
+                return;
+            }
+
+            if (_isInitialized)
+            {
+                SetActivatedPage(pageName);
+            }
+            else
+            {
+                _pageName = pageName;
+            }
+        }
+
+        internal static List<OptionsPageDescriptor> CreateDefaultDescriptors()
+        {
+            bool isAdmin = string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal);
+            List<OptionsPageDescriptor> descriptors = new(13);
+
+            if (isAdmin || Properties.OptionsStartupExitPage.Default.cbStartupExitPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(StartupExitPage),
+                    Language.StartupExit,
+                    static () => Properties.Resources.StartupProject_16x,
+                    static () => new StartupExitPage()));
+            }
+
+            if (isAdmin || Properties.OptionsAppearancePage.Default.cbAppearancePageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(AppearancePage),
+                    Language.Appearance,
+                    static () => Properties.Resources.Panel_16x,
+                    static () => new AppearancePage()));
+            }
+
+            if (isAdmin || Properties.OptionsConnectionsPage.Default.cbConnectionsPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(ConnectionsPage),
+                    Language.Connections,
+                    static () => Properties.Resources.ASPWebSite_16x,
+                    static () => new ConnectionsPage()));
+            }
+
+            if (isAdmin || Properties.OptionsTabsPanelsPage.Default.cbTabsPanelsPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(TabsPanelsPage),
+                    Language.TabsAndPanels.Replace("&&", "&", StringComparison.Ordinal),
+                    static () => Properties.Resources.Tab_16x,
+                    static () => new TabsPanelsPage()));
+            }
+
+            if (isAdmin || Properties.OptionsNotificationsPage.Default.cbNotificationsPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(NotificationsPage),
+                    Language.Notifications,
+                    static () => Properties.Resources.LogError_16x,
+                    static () => new NotificationsPage()));
+            }
+
+            if (isAdmin || Properties.OptionsCredentialsPage.Default.cbCredentialsPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(CredentialsPage),
+                    Language.Credentials,
+                    static () => Properties.Resources.Key_16x,
+                    static () => new CredentialsPage()));
+            }
+
+            if (isAdmin || Properties.OptionsDBsPage.Default.cbDBsPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(SqlServerPage),
+                    Language.SQLServer.TrimEnd(':'),
+                    static () => Properties.Resources.SQLDatabase_16x,
+                    static () => new SqlServerPage()));
+            }
+
+            if (isAdmin || Properties.OptionsUpdatesPage.Default.cbUpdatesPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(UpdatesPage),
+                    Language.Updates,
+                    static () => Properties.Resources.RunUpdate_16x,
+                    static () => new UpdatesPage()));
+            }
+
+            if (isAdmin || Properties.OptionsThemePage.Default.cbThemePageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(ThemePage),
+                    Language.Theme,
+                    static () => Properties.Resources.AppearanceEditor_16x,
+                    static () => new ThemePage()));
+            }
+
+            if (isAdmin || Properties.OptionsSecurityPage.Default.cbSecurityPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(SecurityPage),
+                    Language.TabSecurity,
+                    static () => Properties.Resources.Lock_16x,
+                    static () => new SecurityPage()));
+            }
+
+            if (isAdmin || Properties.OptionsAdvancedPage.Default.cbAdvancedPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(AdvancedPage),
+                    Language.Advanced,
+                    static () => Properties.Resources.Settings_16x,
+                    static () => new AdvancedPage()));
+            }
+
+            if (isAdmin || Properties.OptionsBackupPage.Default.cbBacupPageInOptionMenu)
+            {
+                descriptors.Add(new OptionsPageDescriptor(
+                    nameof(BackupPage),
+                    Language.strBackup,
+                    static () => Properties.Resources.DocumentsFolder_16x,
+                    static () => new BackupPage()));
+            }
+
+            descriptors.Add(new OptionsPageDescriptor(
+                nameof(ConfigurationPage),
+                Language.Config,
+                static () => Properties.Resources.Settings_16x,
+                static () => new ConfigurationPage()));
+
+            return descriptors;
+        }
+
         private void FitPageNavigation()
         {
             int padding = 40 * DeviceDpi / 96;
-            int wanted = _optionPages.Select(page => TextRenderer.MeasureText(page.PageName, lstOptionPages.Font).Width)
-                .DefaultIfEmpty(120).Max() + padding;
+            int wanted = _lifecycle.Descriptors
+                .Select(descriptor => TextRenderer.MeasureText(descriptor.PageName, lstOptionPages.Font).Width)
+                .DefaultIfEmpty(120)
+                .Max() + padding;
             lstOptionPages.Width = Math.Min(wanted, Math.Max(120 * DeviceDpi / 96, ClientSize.Width / 3));
             lstOptionPages.RowHeight = Math.Max(25 * DeviceDpi / 96, lstOptionPages.Font.Height + 8 * DeviceDpi / 96);
         }
@@ -92,17 +218,9 @@ namespace mRemoteNG.UI.Forms
         {
             if (disposing)
             {
-                // Dispose all option pages to prevent resource leaks (GDI handles, etc.)
-                // This is critical as inactive pages are not in the Controls collection
-                // and would otherwise not be disposed.
-                foreach (var page in _optionPages)
-                {
-                    if (page != null && !page.IsDisposed)
-                    {
-                        page.Dispose();
-                    }
-                }
-                _optionPages.Clear();
+                // Dispose all built option pages to prevent resource leaks (GDI handles, etc.)
+                // Inactive pages are not in the Controls collection and would otherwise leak.
+                _lifecycle.DisposeAll();
 
                 if (components != null)
                 {
@@ -115,32 +233,25 @@ namespace mRemoteNG.UI.Forms
         private void FrmOptions_Load(object sender, EventArgs e)
         {
             using var load = new OptionsLoadSpan(OptionsLoadStage.FormLoad);
-            Logger.Instance.Log?.Debug($"[FrmOptions_Load] START - IsInitialized: {_isInitialized}, Visible: {this.Visible}, Handle: {this.Handle}");
+            Logger.Instance.Log?.Debug($"[FrmOptions_Load] START - IsInitialized: {_isInitialized}, Visible: {Visible}, Handle: {Handle}");
 
             // Only initialize once to prevent multiple event subscriptions and page reloading
             if (_isInitialized)
             {
-                Logger.Instance.Log?.Debug($"[FrmOptions_Load] Already initialized - fast path");
+                Logger.Instance.Log?.Debug("[FrmOptions_Load] Already initialized - fast path");
                 return;
             }
 
-            Logger.Instance.Log?.Debug($"[FrmOptions_Load] First initialization");
-            //ApplyLanguage();
-            // Handle the main page here and the individual pages in
-            // AddOptionsPagesToListView()  -- one less foreach loop....
+            Logger.Instance.Log?.Debug("[FrmOptions_Load] First initialization");
             Text = Language.OptionsPageTitle;
             btnOK.Text = Language._Ok;
             btnCancel.Text = Language._Cancel;
             btnApply.Text = Language.Apply;
-            //ApplyTheme();
-            //ThemeManager.getInstance().ThemeChanged += ApplyTheme;
-            lstOptionPages.SelectedIndexChanged += LstOptionPages_SelectedIndexChanged;
             SetActivatedPage(_pageName);
-            Logger.Instance.Log?.Debug($"[FrmOptions_Load] Selected page set");
+            Logger.Instance.Log?.Debug("[FrmOptions_Load] Selected page set");
 
-            // Mark as initialized
             _isInitialized = true;
-            Logger.Instance.Log?.Debug($"[FrmOptions_Load] END (first initialization complete)");
+            Logger.Instance.Log?.Debug("[FrmOptions_Load] END (first initialization complete)");
         }
 
         private void FrmOptions_Shown(object sender, EventArgs e)
@@ -164,186 +275,57 @@ namespace mRemoteNG.UI.Forms
             }));
         }
 
-        private void ApplyTheme()
-        {
-            var themeManager = ThemeManager.getInstance();
-            if (!themeManager.ActiveAndExtended) return;
-            BackColor = themeManager.ActiveTheme.ExtendedPalette?.getColor("Dialog_Background") ?? BackColor;
-            ForeColor = themeManager.ActiveTheme.ExtendedPalette?.getColor("Dialog_Foreground") ?? ForeColor;
-        }
-
-#if false
-        private void ApplyLanguage()
-        {
-            Text = Language.OptionsPageTitle;
-            foreach (var optionPage in _pages.Values)
-            {
-                optionPage.ApplyLanguage();
-            }
-        }
-#endif
-
         private void InitOptionsPagesToListView()
         {
-            Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] START - Loading {_optionPageObjectNames.Count} pages");
+            Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] START - Registering {_lifecycle.Descriptors.Count} page descriptors");
 
             lstOptionPages.RowHeight = _display.ScaleHeight(lstOptionPages.RowHeight);
             lstOptionPages.AllColumns.First().ImageGetter = ImageGetter;
 
-            // Suspend layout to prevent flickering during batch loading
             lstOptionPages.BeginUpdate();
             try
             {
-                // Load all pages synchronously for faster, more responsive loading
-                // This is especially important when the form is recreated (second+ open)
-                foreach (var pageName in _optionPageObjectNames)
-                {
-                    Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] Loading page: {pageName}");
-                    InitOptionsPage(pageName);
-                }
-
-                // All pages loaded, now start tracking changes
-                _isLoading = false;
-                Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] All {_optionPageObjectNames.Count} pages loaded");
+                lstOptionPages.SetObjects(_lifecycle.Descriptors);
             }
             finally
             {
                 lstOptionPages.EndUpdate();
             }
 
-            Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] END");
+            lstOptionPages.SelectedIndexChanged += LstOptionPages_SelectedIndexChanged;
+            Logger.Instance.Log?.Debug("[InitOptionsPagesToListView] END");
         }
 
-        private void InitOptionsPage(string pageName)
+        private static void PrepareBuiltPage(string pageKey, OptionsPage page)
         {
-            OptionsPage? page = null;
-
-            using (new OptionsLoadSpan(OptionsLoadStage.PageCreate, pageName))
-            switch (pageName)
+            using (new OptionsLoadSpan(OptionsLoadStage.PageLayout, pageKey))
             {
-                case "StartupExitPage":
-                    {
-                        if (Properties.OptionsStartupExitPage.Default.cbStartupExitPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new StartupExitPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "AppearancePage":
-                    {
-                        if (Properties.OptionsAppearancePage.Default.cbAppearancePageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new AppearancePage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "ConnectionsPage":
-                    {
-                        if (Properties.OptionsConnectionsPage.Default.cbConnectionsPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new ConnectionsPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "TabsPanelsPage":
-                    {
-                        if (Properties.OptionsTabsPanelsPage.Default.cbTabsPanelsPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new TabsPanelsPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "NotificationsPage":
-                    {
-                        if (Properties.OptionsNotificationsPage.Default.cbNotificationsPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new NotificationsPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "CredentialsPage":
-                    {
-                        if (Properties.OptionsCredentialsPage.Default.cbCredentialsPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new CredentialsPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "SqlServerPage":
-                    {
-                        if (Properties.OptionsDBsPage.Default.cbDBsPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new SqlServerPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "UpdatesPage":
-                    {
-                        if (Properties.OptionsUpdatesPage.Default.cbUpdatesPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new UpdatesPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "ThemePage":
-                    {
-                        if (Properties.OptionsThemePage.Default.cbThemePageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new ThemePage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "SecurityPage":
-                    {
-                        if (Properties.OptionsSecurityPage.Default.cbSecurityPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new SecurityPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "AdvancedPage":
-                    {
-                        if (Properties.OptionsAdvancedPage.Default.cbAdvancedPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new AdvancedPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "BackupPage":
-                    {
-                        if (Properties.OptionsBackupPage.Default.cbBacupPageInOptionMenu ||
-                            string.Equals(Properties.OptionsRbac.Default.ActiveRole, "AdminRole", StringComparison.Ordinal))
-                            page = new BackupPage { Dock = DockStyle.Fill };
-                        break;
-                    }
-                case "ConfigurationPage":
-                    {
-                        page = new ConfigurationPage { Dock = DockStyle.Fill };
-                        break;
-                    }
+                System.Drawing.Font font;
+                using (new OptionsLoadSpan(OptionsLoadStage.PageFontCreate, pageKey))
+                    font = InterfaceFont.Create(
+                        Properties.OptionsAppearancePage.Default.UIFontFamily,
+                        Properties.OptionsAppearancePage.Default.UIFontSize,
+                        (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
+                using (font)
+                {
+                    using (new OptionsLoadSpan(OptionsLoadStage.PageFontApply, pageKey))
+                        InterfaceFont.Apply(page, font);
+                    using (new OptionsLoadSpan(OptionsLoadStage.PageAdaptive, pageKey))
+                        AdaptiveLayout.Prepare(page);
+                }
             }
 
-            if (page == null) return;
-            using (new OptionsLoadSpan(OptionsLoadStage.PageLanguage, pageName))
-                page.ApplyLanguage();
-            using (new OptionsLoadSpan(OptionsLoadStage.PageRegistry, pageName))
-                page.LoadRegistrySettings();
-            using (new OptionsLoadSpan(OptionsLoadStage.PageSettings, pageName))
-                page.LoadSettings();
-            using var layout = new OptionsLoadSpan(OptionsLoadStage.PageLayout, pageName);
-            System.Drawing.Font font;
-            using (new OptionsLoadSpan(OptionsLoadStage.PageFontCreate, pageName))
-                font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
-                    Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
-            using (font)
-            {
-                using (new OptionsLoadSpan(OptionsLoadStage.PageFontApply, pageName))
-                    InterfaceFont.Apply(page, font);
-                using (new OptionsLoadSpan(OptionsLoadStage.PageAdaptive, pageName))
-                    AdaptiveLayout.Prepare(page);
-            }
-            layout.Dispose();
-            using var register = new OptionsLoadSpan(OptionsLoadStage.PageRegister, pageName);
-            _optionPages.Add(page);
-            using (new OptionsLoadSpan(OptionsLoadStage.PageListAdd, pageName))
-                lstOptionPages.AddObject(page);
-
-            // Track changes in all controls on the page
-            using (new OptionsLoadSpan(OptionsLoadStage.PageTrack, pageName))
+            using (new OptionsLoadSpan(OptionsLoadStage.PageTrack, pageKey))
                 TrackChangesInControls(page);
         }
 
         private object ImageGetter(object rowobject)
         {
+            if (rowobject is OptionsPageDescriptor descriptor)
+            {
+                return descriptor.GetScaledIcon(_display);
+            }
+
             OptionsPage? page = rowobject as OptionsPage;
             return page?.PageIcon == null ? _display.ScaleImage(Properties.Resources.F1Help_16x) : _display.ScaleImage(page.PageIcon);
         }
@@ -352,116 +334,150 @@ namespace mRemoteNG.UI.Forms
         {
             _pageName = pageName ?? Language.StartupExit;
 
-            // Ensure we have items loaded before trying to access them
             if (lstOptionPages.Items.Count == 0)
             {
                 Logger.Instance.Log?.Warn($"[SetActivatedPage] No items in lstOptionPages, cannot set active page to '{_pageName}'");
                 return;
             }
 
-            // Skip if the requested page is already selected (avoid redundant layout work)
-            if (lstOptionPages.SelectedObject is OptionsPage selectedPage && selectedPage.PageName == _pageName)
+            if (lstOptionPages.SelectedObject is OptionsPageDescriptor selectedDescriptor &&
+                string.Equals(selectedDescriptor.PageName, _pageName, StringComparison.Ordinal) &&
+                selectedDescriptor.IsBuilt &&
+                !selectedDescriptor.NeedsReload &&
+                pnlMain.Controls.Count > 0 &&
+                ReferenceEquals(pnlMain.Controls[0], selectedDescriptor.Page))
             {
                 Logger.Instance.Log?.Debug($"[SetActivatedPage] Page '{_pageName}' already selected - skipping");
                 return;
             }
 
-            bool isSet = false;
+            int targetIndex = 0;
             for (int i = 0; i < lstOptionPages.Items.Count; i++)
             {
-                if (!lstOptionPages.Items[i].Text.Equals(_pageName, StringComparison.Ordinal)) continue;
-                lstOptionPages.Items[i].Selected = true;
-                isSet = true;
-                break;
+                if (string.Equals(lstOptionPages.Items[i].Text, _pageName, StringComparison.Ordinal))
+                {
+                    targetIndex = i;
+                    break;
+                }
             }
 
-            if (!isSet && lstOptionPages.Items.Count > 0)
-                lstOptionPages.Items[0].Selected = true;
+            if (lstOptionPages.SelectedIndex == targetIndex)
+            {
+                ActivateSelectedPage();
+            }
+            else
+            {
+                lstOptionPages.Items[targetIndex].Selected = true;
+            }
+        }
+
+        /// <summary>
+        /// Builds the next page that is not built yet, without showing it, and reports whether
+        /// one was built. Called one page per idle moment after startup (#232), so the first
+        /// Options open finds its controls ready. The page is left marked for reload: it loads
+        /// the stored settings when it is first shown and saves nothing until then.
+        /// </summary>
+        internal bool PrebuildNextPage()
+        {
+            if (IsDisposed) return false;
+            foreach (OptionsPageDescriptor descriptor in _lifecycle.Descriptors)
+            {
+                if (descriptor.IsBuilt) continue;
+                using (new OptionsLoadSpan(OptionsLoadStage.Prebuild, descriptor.PageKey))
+                    descriptor.EnsureReady(builtPage => PrepareBuiltPage(descriptor.PageKey, builtPage));
+                // A page built here is not "loaded" for saving: OK saves only built-and-loaded
+                // pages, and the first open does not reload anything, so without this the first OK
+                // wrote every prebuilt page the user never opened (Theme turned theming on, Updates
+                // and SQL re-encrypted their passwords). It loads again when it is first shown.
+                descriptor.MarkNeedsReload();
+                return true;
+            }
+            return false;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            Logger.Instance.Log?.Debug($"[BtnOK_Click] START");
-            SaveOptions();
-            ClearChangeFlags();
+            Logger.Instance.Log?.Debug("[BtnOK_Click] START");
+            SaveAllOptions();
+            _lifecycle.InvalidateInactiveBuiltPages();
             CloseRequested?.Invoke(this, EventArgs.Empty);
-            Logger.Instance.Log?.Debug($"[BtnOK_Click] END");
+            Logger.Instance.Log?.Debug("[BtnOK_Click] END");
         }
 
         private void BtnApply_Click(object sender, EventArgs e)
         {
-            Logger.Instance.Log?.Debug($"[BtnApply_Click] START");
-            SaveOptions();
-            // Clear change flags after applying
-            ClearChangeFlags();
-            Logger.Instance.Log?.Debug($"[BtnApply_Click] END");
+            Logger.Instance.Log?.Debug("[BtnApply_Click] START");
+            SaveAllOptions();
+            Logger.Instance.Log?.Debug("[BtnApply_Click] END");
         }
 
-        private void SaveOptions()
+        private static void PersistSettings()
         {
-            foreach (OptionsPage page in _optionPages)
+            if (Logger.Instance.Log?.IsDebugEnabled == true)
             {
-                Logger.Instance.Log?.Debug($"[SaveOptions] Saving page: {page.PageName}");
-                page.SaveSettings();
+                Logger.Instance.Log.Debug($"[SaveOptions] Configuration file: {ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath}");
             }
 
-            Logger.Instance.Log?.Debug($"[SaveOptions] Configuration file: {(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)).FilePath}");
             Settings.Default.Save();
         }
 
         private void LstOptionPages_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ActivateSelectedPage();
+        }
+
+        private void ActivateSelectedPage()
+        {
             // Guard against recursive calls that can cause infinite loops
             if (_isHandlingSelectionChange)
             {
-                Logger.Instance.Log?.Warn($"[LstOptionPages_SelectedIndexChanged] RECURSIVE CALL BLOCKED - Preventing infinite loop");
+                Logger.Instance.Log?.Warn("[LstOptionPages_SelectedIndexChanged] RECURSIVE CALL BLOCKED - Preventing infinite loop");
                 return;
             }
 
             _isHandlingSelectionChange = true;
             try
             {
-                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] START - IsLoading: {_isLoading}, SelectedIndex: {lstOptionPages.SelectedIndex}, Items.Count: {lstOptionPages.Items.Count}");
+                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] START - SelectedIndex: {lstOptionPages.SelectedIndex}, Items.Count: {lstOptionPages.Items.Count}");
 
-                if (lstOptionPages.SelectedObject is OptionsPage page)
+                if (lstOptionPages.SelectedObject is not OptionsPageDescriptor descriptor)
                 {
-                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] SelectedObject: {page.PageName}");
-                }
-                else
-                {
-                    Logger.Instance.Log?.Warn($"[LstOptionPages_SelectedIndexChanged] Page is NULL - cannot display. This may indicate a selection issue.");
+                    Logger.Instance.Log?.Warn("[LstOptionPages_SelectedIndexChanged] Descriptor is NULL - cannot display.");
                     return;
                 }
 
+                OptionsPage page = _lifecycle.Activate(
+                    descriptor,
+                    builtPage => PrepareBuiltPage(descriptor.PageKey, builtPage));
+
+                if (page.IsDisposed)
+                {
+                    Logger.Instance.Log?.Error($"[LstOptionPages_SelectedIndexChanged] Page '{descriptor.PageName}' is disposed - cannot display");
+                    return;
+                }
+
+                if (pnlMain.Controls.Count == 1 && ReferenceEquals(pnlMain.Controls[0], page))
+                {
+                    return;
+                }
+
+                bool wasLoading = page.IsLoadingSettings;
+                page.IsLoadingSettings = true;
                 pnlMain.SuspendLayout();
                 try
                 {
                     pnlMain.Controls.Clear();
-                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] pnlMain.Controls cleared");
-
-                    if (page.IsDisposed)
-                    {
-                        Logger.Instance.Log?.Error($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' is disposed - cannot display");
-                        return;
-                    }
-
-                    if (!page.IsHandleCreated)
-                    {
-                        Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' has no handle - creating handle");
-                        var handle = page.Handle;
-                        Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Handle created: {handle}");
-                    }
-
-                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Adding page '{page.PageName}' to pnlMain");
+                    // No early page.Handle here: created before the page has a parent, that handle
+                    // was destroyed and built again by Controls.Add.
                     pnlMain.Controls.Add(page);
-                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page added successfully. pnlMain.Controls.Count: {pnlMain.Controls.Count}");
                 }
                 finally
                 {
                     pnlMain.ResumeLayout(true);
+                    page.IsLoadingSettings = wasLoading;
                 }
 
-                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] END");
+                Logger.Instance.Log?.Debug("[LstOptionPages_SelectedIndexChanged] END");
             }
             finally
             {
@@ -471,52 +487,32 @@ namespace mRemoteNG.UI.Forms
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            Logger.Instance.Log?.Debug($"[BtnCancel_Click] START");
+            Logger.Instance.Log?.Debug("[BtnCancel_Click] START");
             ReloadAllSettings();
             CloseRequested?.Invoke(this, EventArgs.Empty);
-            Logger.Instance.Log?.Debug($"[BtnCancel_Click] END");
+            Logger.Instance.Log?.Debug("[BtnCancel_Click] END");
         }
 
         /// <summary>
-        /// Returns true if any options page has been modified.
+        /// Returns true if any built options page has been modified.
         /// </summary>
-        internal bool HasUnsavedChanges() => _optionPages.Any(page => page.HasChanges);
+        internal bool HasUnsavedChanges() => _lifecycle.HasUnsavedChanges();
 
         /// <summary>
-        /// Saves all option page settings to disk.
+        /// Saves all built and loaded option page settings to disk.
         /// </summary>
         internal void SaveAllOptions()
         {
-            SaveOptions();
-            ClearChangeFlags();
+            _lifecycle.SaveBuiltAndLoaded(PersistSettings);
         }
 
         /// <summary>
-        /// Reloads all pages from the stored settings, discarding any pending control edits.
-        /// Call this on Cancel or any close path that should not persist changes.
+        /// Reverts built pages and reloads the active page from stored settings, marking
+        /// inactive built pages for reload on next selection.
         /// </summary>
         internal void ReloadAllSettings()
         {
-            using var reload = new OptionsLoadSpan(OptionsLoadStage.Reload);
-            // Suppress HasChanges tracking while we programmatically restore control values
-            var wasLoading = _isLoading;
-            _isLoading = true;
-            try
-            {
-                foreach (OptionsPage page in _optionPages)
-                {
-                    // Undo live previews (the theme page applies them before Save) first
-                    using (new OptionsLoadSpan(OptionsLoadStage.PageRevert, page.GetType().Name))
-                        page.RevertSettings();
-                    using (new OptionsLoadSpan(OptionsLoadStage.PageSettings, page.GetType().Name))
-                        page.LoadSettings();
-                }
-            }
-            finally
-            {
-                _isLoading = wasLoading;
-            }
-            ClearChangeFlags();
+            _lifecycle.ReloadAll();
         }
 
         /// <summary>
@@ -524,37 +520,35 @@ namespace mRemoteNG.UI.Forms
         /// </summary>
         internal void DiscardChanges() => ReloadAllSettings();
 
-        private void TrackChangesInControls(Control control)
+        private static void TrackChangesInControls(Control control)
         {
             foreach (Control childControl in control.Controls)
             {
-                // Track changes for common input controls
                 if (childControl is TextBox textBox)
                 {
-                    textBox.TextChanged += (s, e) => MarkPageAsChanged(control);
+                    textBox.TextChanged += (_, _) => MarkPageAsChanged(control);
                 }
                 else if (childControl is CheckBox checkBox)
                 {
-                    checkBox.CheckedChanged += (s, e) => MarkPageAsChanged(control);
+                    checkBox.CheckedChanged += (_, _) => MarkPageAsChanged(control);
                 }
                 else if (childControl is RadioButton radioButton)
                 {
-                    radioButton.CheckedChanged += (s, e) => MarkPageAsChanged(control);
+                    radioButton.CheckedChanged += (_, _) => MarkPageAsChanged(control);
                 }
                 else if (childControl is ComboBox comboBox)
                 {
-                    comboBox.SelectedIndexChanged += (s, e) => MarkPageAsChanged(control);
+                    comboBox.SelectedIndexChanged += (_, _) => MarkPageAsChanged(control);
                 }
                 else if (childControl is NumericUpDown numericUpDown)
                 {
-                    numericUpDown.ValueChanged += (s, e) => MarkPageAsChanged(control);
+                    numericUpDown.ValueChanged += (_, _) => MarkPageAsChanged(control);
                 }
                 else if (childControl is ListBox listBox)
                 {
-                    listBox.SelectedIndexChanged += (s, e) => MarkPageAsChanged(control);
+                    listBox.SelectedIndexChanged += (_, _) => MarkPageAsChanged(control);
                 }
-                
-                // Recursively track changes in nested controls
+
                 if (childControl.Controls.Count > 0)
                 {
                     TrackChangesInControls(childControl);
@@ -562,29 +556,17 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        private void MarkPageAsChanged(Control control)
+        private static void MarkPageAsChanged(Control control)
         {
-            // Don't track changes during initial loading
-            if (_isLoading) return;
-            
-            // Find the parent OptionsPage
             Control? current = control;
             while (current != null && current is not OptionsPage)
             {
                 current = current.Parent;
             }
-            
-            if (current is OptionsPage page)
+
+            if (current is OptionsPage { IsLoadingSettings: false } page)
             {
                 page.HasChanges = true;
-            }
-        }
-
-        private void ClearChangeFlags()
-        {
-            foreach (OptionsPage page in _optionPages)
-            {
-                page.HasChanges = false;
             }
         }
     }

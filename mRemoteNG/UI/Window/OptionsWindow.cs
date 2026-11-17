@@ -14,6 +14,7 @@ namespace mRemoteNG.UI.Window
     public partial class OptionsWindow : BaseWindow
     {
         private FrmOptions? _optionsForm;
+        private string? _pendingPageName;
         private bool _isInitialized;
         private bool _isFontOverrideApplied;
 
@@ -36,16 +37,19 @@ namespace mRemoteNG.UI.Window
 
         #region Form Stuff
 
-        private void Options_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            // Run BaseWindow.OnLoad before embedding _optionsForm so BaseWindow does not
+            // perform a redundant recursive font/layout pass over FrmOptions (which runs
+            // its own ResponsiveForm.OnLoad during _optionsForm.Show()).
+            base.OnLoad(e);
+
             using var load = new OptionsLoadSpan(OptionsLoadStage.WindowLoad);
-            // On reopen of a previously initialized window, nothing to do —
-            // FrmOptions is a child control and auto-shows with its parent
             if (_isInitialized && _optionsForm != null && !_optionsForm.IsDisposed)
                 return;
 
-            // First-time initialization
             ThemeManager.getInstance().ThemeChanged += ApplyTheme;
+            Disposed += (_, _) => ThemeManager.getInstance().ThemeChanged -= ApplyTheme;
 
             using (new OptionsLoadSpan(OptionsLoadStage.WindowTheme))
                 ApplyTheme();
@@ -108,9 +112,17 @@ namespace mRemoteNG.UI.Window
                 if (_optionsForm == null || _optionsForm.IsDisposed)
                     return;
 
+                if (_pendingPageName != null)
+                {
+                    _optionsForm.SetInitialPage(_pendingPageName);
+                    _pendingPageName = null;
+                }
+
                 _optionsForm.TopLevel = false;
                 _optionsForm.FormBorderStyle = FormBorderStyle.None;
                 _optionsForm.MinimumSize = System.Drawing.Size.Empty;
+                if (ClientSize is { Width: > 0, Height: > 0 })
+                    _optionsForm.Size = ClientSize;
                 _optionsForm.Dock = DockStyle.Fill;
                 _optionsForm.CloseRequested += OnOptionsFormCloseRequested;
                 Controls.Add(_optionsForm);
@@ -176,7 +188,15 @@ namespace mRemoteNG.UI.Window
 
         public void SetActivatedPage(string pageName)
         {
-            _optionsForm?.SetActivatedPage(pageName);
+            if (_optionsForm != null && !_optionsForm.IsDisposed)
+            {
+                _pendingPageName = null;
+                _optionsForm.SetActivatedPage(pageName);
+            }
+            else
+            {
+                _pendingPageName = pageName;
+            }
         }
 
         #endregion
@@ -192,7 +212,6 @@ namespace mRemoteNG.UI.Window
             Name = "OptionsWindow";
             Text = Language.Options;
             TabText = Language.Options;
-            Load += Options_Load;
             Shown += Options_Shown;
             ResumeLayout(false);
         }
