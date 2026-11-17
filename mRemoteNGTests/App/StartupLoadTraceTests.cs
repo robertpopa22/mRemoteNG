@@ -35,6 +35,10 @@ namespace mRemoteNGTests.App
         }
 
         [Test]
+        // AssemblyLoad is process-wide: a load on another test-host thread during the deliberate
+        // silence shortens the probe's gap below SlowGapMs (seen once on CI, 2026-11-17). Each
+        // attempt uses a fresh trace, so a retry repeats the whole scenario, not a partial one.
+        [Retry(3)]
         public void StartupLogsTheFileScanAndAnAssemblyLoadAfterASlowGap()
         {
             string summary = RunWithFreshTrace<string>(nameof(CheckStartup));
