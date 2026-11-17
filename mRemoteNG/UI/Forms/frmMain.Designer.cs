@@ -90,10 +90,10 @@ namespace mRemoteNG.UI.Forms
             this.msMain.Size = new System.Drawing.Size(212, 25);
             this.msMain.AccessibleName = "Main Menu";
             this.msMain.AccessibleDescription = "Main menu bar with File, Sessions, View, Connections, Tools, and Help menus";
-            this.msMain.Stretch = true;
-            this.msMain.CanOverflow = true;
-            foreach (System.Windows.Forms.ToolStripItem item in this.msMain.Items)
-                item.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
+            // #253: Stretch gives the menu a row of its own, so no toolbar could join it. With
+            // overflow on, a menu narrower than its items kept Help in the overflow for good.
+            this.msMain.Stretch = false;
+            this.msMain.CanOverflow = false;
             this.msMain.TabIndex = 0;
             this.msMain.Text = "Main Toolbar";
             // 
