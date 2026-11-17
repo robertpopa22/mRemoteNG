@@ -426,19 +426,29 @@ internal static class AdaptiveLayout
         int[] inputRows = Enumerable.Range(0, table.RowStyles.Count)
             .Where(row => table.RowStyles[row].SizeType == SizeType.AutoSize &&
                 table.Controls.Cast<Control>().Any(c => table.GetRow(c) == row && c is ComboBox)).ToArray();
+        bool measuring = false;
         void MeasureInputRows()
         {
-            foreach (int row in inputRows)
+            measuring = true;
+            try
             {
-                int height = table.Controls.Cast<Control>().Where(c => table.GetRow(c) == row && table.GetRowSpan(c) == 1)
-                    .Select(c => Math.Max(c.GetPreferredSize(new Size(Math.Max(1, c.Width), 0)).Height,
-                        c is ComboBox ? c.Height : 0) + c.Margin.Vertical).DefaultIfEmpty().Max();
-                if (table.RowStyles[row].SizeType != SizeType.Absolute || Math.Abs(table.RowStyles[row].Height - height) > 0.5f)
-                    table.RowStyles[row] = new RowStyle(SizeType.Absolute, height);
+                foreach (int row in inputRows)
+                {
+                    int height = table.Controls.Cast<Control>().Where(c => table.GetRow(c) == row && table.GetRowSpan(c) == 1)
+                        .Select(c => Math.Max(c.GetPreferredSize(new Size(Math.Max(1, c.Width), 0)).Height,
+                            c is ComboBox ? c.Height : 0) + c.Margin.Vertical).DefaultIfEmpty().Max();
+                    if (table.RowStyles[row].SizeType != SizeType.Absolute || Math.Abs(table.RowStyles[row].Height - height) > 0.5f)
+                        table.RowStyles[row] = new RowStyle(SizeType.Absolute, height);
+                }
             }
+            finally { measuring = false; }
         }
         table.Layout += (_, _) => MeasureInputRows();
-        foreach (ComboBox combo in table.Controls.OfType<ComboBox>()) combo.SizeChanged += (_, _) => table.PerformLayout();
+        // #232: a combo resized by the layout that is measuring this table must not start a
+        // nested layout of the same table; the running layout places it. A combo that changes
+        // size on its own (a font change) still asks for a layout.
+        foreach (ComboBox combo in table.Controls.OfType<ComboBox>())
+            combo.SizeChanged += (_, _) => { if (!measuring) table.PerformLayout(); };
         MeasureInputRows();
     }
 

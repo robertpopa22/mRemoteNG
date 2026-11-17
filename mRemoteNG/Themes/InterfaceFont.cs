@@ -82,7 +82,8 @@ namespace mRemoteNG.Themes
         public static void Apply(Control root, Font font, bool layoutWhenUnchanged)
         {
             bool changed = ApplyControl(root, font);
-            if (changed || layoutWhenUnchanged)
+            bool layout = changed || layoutWhenUnchanged;
+            if (layout)
                 LayoutChildren(root);
             if (root is UI.TaskDialog.frmTaskDialog dialog)
                 dialog.LayoutToContent();
@@ -90,7 +91,10 @@ namespace mRemoteNG.Themes
                 root.BeginInvoke((Action)(() =>
                 {
                     if (root.IsDisposed) return;
-                    LayoutChildren(root);
+                    // The deferred pass repeats the recursive layout for a font that changed;
+                    // with nothing changed it only fits the window, as before.
+                    if (layout)
+                        LayoutChildren(root);
                     if (root is UI.TaskDialog.frmTaskDialog taskDialog) taskDialog.LayoutToContent();
                     if (root is UI.ResponsiveForm || root is UI.Window.BaseWindow and not UI.Window.ConnectionWindow)
                         UI.AdaptiveLayout.FitWorkingArea((Form)root);
