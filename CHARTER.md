@@ -142,6 +142,63 @@ We are a fork of a living project, and we intend to keep being able to take its 
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
 
+### D14 — 2026-11-17 · A reviewer that is still working is not cut
+
+An agent asked for an opinion or an implementation runs until it answers or until its
+transcript stops moving. The heartbeat of a runner only says that the process is alive; the
+session transcript says whether it is still reading and writing, and that is what the
+orchestrator watches. Grok Build runs with a 45-minute limit, and no reviewer is abandoned at
+10 or 15 minutes while its transcript still advances. The orchestrator works on something else
+meanwhile and does not start a second copy of the same request. An implementation agent works
+in its own worktree, so its edits cannot mix with the orchestrator's; the orchestrator brings
+the diff over with a three-way apply and resolves conflicts itself.
+
+*Why:* on 2026-11-17 two Grok reviews of #232 stopped at the old 900-second limit with their
+last sections missing, while the work was still going. The maintainer decided that a working
+reviewer is given the time it needs.
+
+*Reverses if:* the maintainer sets a different limit.
+
+### D13 — 2026-11-17 · Performance work follows the measured spans, and a pattern found once is fixed everywhere
+
+These rules come from #232, where the first Options open went from 1788 ms to 315 ms in the lab
+without a single change made on a guess.
+
+1. **Measure before changing.** A slow path gets spans first. Every span records elapsed time,
+   JIT time and methods compiled, allocation and garbage collections, so slow code is told apart
+   from a cold start. When a span has time its children do not explain, the next change is a
+   finer span, not a fix (D9).
+2. **Static data is computed once, not at run time.** Data that does not change between runs
+   (the shipped language names) is a table in the source, with a test that fails when the
+   runtime would produce something else.
+3. **Build only what is shown.** Content the user has not opened is not constructed. Whatever
+   is built lazily keeps saving correct: only parts that were built and loaded are saved, Cancel
+   reverts what was built, and a part never opened never writes its default control state over
+   stored settings. A lab scenario proves those three cases before the change ships.
+4. **Skip work when nothing changed.** A step that re-applies a value already in place does not
+   trigger the expensive follow-up (a full recursive layout after a font that did not change).
+   Paths where the size really changes, such as a DPI change, keep the work.
+5. **Batch list updates.** A list is filled in one call (`SetObjects`, or `BeginUpdate` /
+   `EndUpdate` around the loop), never rebuilt once per item.
+6. **Subscribe once.** A method that runs more than once in an object's life (load, reload,
+   refresh, show) does not add an event handler without removing it first.
+7. **No nested layout.** A control resized by the layout that is measuring its container does
+   not start a second layout of that container.
+8. **No early handles.** A window handle is not forced on a control that has no parent yet;
+   adding it to its parent would build it again.
+9. **Lab before and after.** A performance change is measured with the same lab scenario
+   before and after it, and the commit states both numbers and what was not measured (another
+   DPI, another machine).
+10. **A pattern found once is searched for everywhere.** When a fix exposes a class of defect,
+    the whole code base is searched for the same pattern in the same session, and every hit is
+    fixed or recorded with the reason it stays.
+
+*Why:* the maintainer, 2026-11-17: an i9 should not take seconds to open a window, the impact
+is not only in Options, and every rule found here belongs in the charter.
+
+*Reverses if:* a rule is shown to cost more than it saves on a measured case; that rule then
+gets an exception, not the whole list.
+
 ### D12 — 2026-11-17 · Five agents may write code here; Gemini may not
 
 The agents authorized to work on this code are Claude Code, Codex, Grok Build, Antigravity
