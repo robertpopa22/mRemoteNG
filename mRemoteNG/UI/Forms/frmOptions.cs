@@ -41,8 +41,11 @@ namespace mRemoteNG.UI.Forms
         {
             using var construct = new OptionsLoadSpan(OptionsLoadStage.FormCreate);
             Cursor.Current = Cursors.WaitCursor;
-            InitializeComponent();
-            Icon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.Settings_16x);
+            using (new OptionsLoadSpan(OptionsLoadStage.FormInit))
+            {
+                InitializeComponent();
+                Icon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.Settings_16x);
+            }
             _pageName = pageName;
             Cursor.Current = Cursors.Default;
             DoubleBuffered = true;
@@ -64,10 +67,12 @@ namespace mRemoteNG.UI.Forms
                 nameof(ConfigurationPage)
             ];
 
-            InitOptionsPagesToListView();
+            using (new OptionsLoadSpan(OptionsLoadStage.FormPages))
+                InitOptionsPagesToListView();
             lstOptionPages.FontChanged += (_, _) => FitPageNavigation();
             SizeChanged += (_, _) => FitPageNavigation();
-            FitPageNavigation();
+            using (new OptionsLoadSpan(OptionsLoadStage.FormFit))
+                FitPageNavigation();
         }
 
         private void FitPageNavigation()
@@ -315,17 +320,26 @@ namespace mRemoteNG.UI.Forms
             using (new OptionsLoadSpan(OptionsLoadStage.PageSettings, pageName))
                 page.LoadSettings();
             using var layout = new OptionsLoadSpan(OptionsLoadStage.PageLayout, pageName);
-            using var font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
-                Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
-            InterfaceFont.Apply(page, font);
-            AdaptiveLayout.Prepare(page);
+            System.Drawing.Font font;
+            using (new OptionsLoadSpan(OptionsLoadStage.PageFontCreate, pageName))
+                font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
+                    Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
+            using (font)
+            {
+                using (new OptionsLoadSpan(OptionsLoadStage.PageFontApply, pageName))
+                    InterfaceFont.Apply(page, font);
+                using (new OptionsLoadSpan(OptionsLoadStage.PageAdaptive, pageName))
+                    AdaptiveLayout.Prepare(page);
+            }
             layout.Dispose();
             using var register = new OptionsLoadSpan(OptionsLoadStage.PageRegister, pageName);
             _optionPages.Add(page);
-            lstOptionPages.AddObject(page);
-            
+            using (new OptionsLoadSpan(OptionsLoadStage.PageListAdd, pageName))
+                lstOptionPages.AddObject(page);
+
             // Track changes in all controls on the page
-            TrackChangesInControls(page);
+            using (new OptionsLoadSpan(OptionsLoadStage.PageTrack, pageName))
+                TrackChangesInControls(page);
         }
 
         private object ImageGetter(object rowobject)

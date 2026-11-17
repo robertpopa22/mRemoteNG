@@ -77,6 +77,12 @@ operation token and `page` is a whitelisted class name, never a caption, path or
 `FormCreate` and `PageCreate` identify cold construction; `Refresh` / `Reload` distinguish warm
 opens and Cancel reloads. Per-page language, registry, settings, layout and registration have
 separate spans. These records diagnose #232; they are not a performance fix.
+Every `leave` record also carries `jit_ms` and `jit_methods` (JIT compilation on the span's
+thread), `alloc_kb` (bytes that thread allocated, in KiB), and `gc0` / `gc2` (collections that
+ran during the span), so cold-start compilation can be told apart from slow code. Finer stages
+split the first open: `FormInit` (designer and icon), `FormPages` (all pages), `FormFit`,
+`WindowTheme`, per page `PageFontCreate`, `PageFontApply`, `PageAdaptive`, `PageListAdd` and
+`PageTrack`, and on the Appearance page `LanguageList`, `LanguageCombo` and `AppearanceFields`.
 
 A begin without a matching leave locates an operation that had not returned at the last recorded
 instant. Compare the same process/session and subsequent crash or shutdown records: a truncated

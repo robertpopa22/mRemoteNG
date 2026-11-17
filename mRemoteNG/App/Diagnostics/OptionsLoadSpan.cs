@@ -15,6 +15,11 @@ internal sealed class OptionsLoadSpan : IDisposable
     private readonly OptionsLoadStage _stage;
     private readonly string _page;
     private readonly long _started;
+    private readonly TimeSpan _jitStarted;
+    private readonly long _jitMethodsStarted;
+    private readonly long _allocStarted;
+    private readonly int _gc0Started;
+    private readonly int _gc2Started;
     private bool _disposed;
 
     internal static int CurrentId => _currentId;
@@ -34,17 +39,35 @@ internal sealed class OptionsLoadSpan : IDisposable
             _ => "other"
         };
         _currentId = _id;
-        _started = Stopwatch.GetTimestamp();
         Write("begin", 0);
+        _jitStarted = System.Runtime.JitInfo.GetCompilationTime(currentThread: true);
+        _jitMethodsStarted = System.Runtime.JitInfo.GetCompiledMethodCount(currentThread: true);
+        _allocStarted = GC.GetAllocatedBytesForCurrentThread();
+        _gc0Started = GC.CollectionCount(0);
+        _gc2Started = GC.CollectionCount(2);
+        _started = Stopwatch.GetTimestamp();
     }
 
     public void Dispose()
     {
         if (_disposed) return;
         _disposed = true;
+        long elapsed = (long)Stopwatch.GetElapsedTime(_started).TotalMilliseconds;
         _currentId = _previousId;
         // "leave" is not success: using also exits while a product exception propagates.
-        Write("leave", (long)Stopwatch.GetElapsedTime(_started).TotalMilliseconds);
+        try
+        {
+            RuntimeDiagnostics.RecordOptionsLoadLeave(_id, _parent, _stage, _page, elapsed,
+                (long)(System.Runtime.JitInfo.GetCompilationTime(currentThread: true) - _jitStarted).TotalMilliseconds,
+                System.Runtime.JitInfo.GetCompiledMethodCount(currentThread: true) - _jitMethodsStarted,
+                (GC.GetAllocatedBytesForCurrentThread() - _allocStarted) / 1024,
+                GC.CollectionCount(0) - _gc0Started,
+                GC.CollectionCount(2) - _gc2Started);
+        }
+        catch (Exception)
+        {
+            // Diagnostic failure must neither skip the operation nor replace its exception.
+        }
     }
 
     private void Write(string phase, long elapsedMs)
@@ -65,5 +88,9 @@ internal enum OptionsLoadStage
 {
     Open, WindowCreate, SelectPage, Refresh, DockShow, WindowLoad, EmbedForm,
     FormCreate, FormLoad, FormShow, FormFont, WindowFont, PageCreate, PageLanguage,
-    PageRegistry, PageSettings, PageLayout, PageRegister, Reload, PageRevert
+    PageRegistry, PageSettings, PageLayout, PageRegister, Reload, PageRevert,
+    // #232 finer split of the first open.
+    FormInit, FormPages, FormFit, WindowTheme, PageFontCreate, PageFontApply, PageAdaptive,
+    PageListAdd, PageTrack, LanguageList, LanguageCombo, AppearanceFields,
+    ThemeList, ThemeSelect, ThemeApply
 }

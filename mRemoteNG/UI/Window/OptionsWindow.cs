@@ -47,7 +47,8 @@ namespace mRemoteNG.UI.Window
             // First-time initialization
             ThemeManager.getInstance().ThemeChanged += ApplyTheme;
 
-            ApplyTheme();
+            using (new OptionsLoadSpan(OptionsLoadStage.WindowTheme))
+                ApplyTheme();
             ApplyLanguage();
             LoadOptionsForm();
 

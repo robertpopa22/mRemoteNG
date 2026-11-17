@@ -70,7 +70,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             if (!_themeManager.ThemingActive)
                 return;
             base.ApplyTheme();
-            if (Properties.OptionsThemePage.Default.FollowOsTheme && cboTheme.Items.Count > 0)
+            // Only when the OS theme actually moved the selection: LoadSettings has just selected
+            // the active theme and filled its palette, and refilling it here doubled that work.
+            if (Properties.OptionsThemePage.Default.FollowOsTheme && cboTheme.Items.Count > 0 &&
+                !ReferenceEquals(cboTheme.SelectedItem, _themeManager.ActiveTheme))
             {
                 cboTheme.SelectedItem = _themeManager.ActiveTheme;
                 cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
@@ -83,11 +86,14 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnThemeNew.Enabled = false;
             btnThemeDelete.Enabled = false;
             //Load the list of themes
-            cboTheme.Items.Clear();
-            cboTheme.DisplayMember = "Name";
-            // ReSharper disable once CoVariantArrayConversion
-            cboTheme.Items.AddRange(_themeManager.LoadThemes().OrderBy(x => x.Name, StringComparer.Ordinal).ToArray());
-            cboTheme.SelectedItem = _themeManager.ActiveTheme;
+            using (new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.ThemeList, nameof(ThemePage)))
+            {
+                cboTheme.Items.Clear();
+                cboTheme.DisplayMember = "Name";
+                // ReSharper disable once CoVariantArrayConversion
+                cboTheme.Items.AddRange(_themeManager.LoadThemes().OrderBy(x => x.Name, StringComparer.Ordinal).ToArray());
+                cboTheme.SelectedItem = _themeManager.ActiveTheme;
+            }
             // Store the original state for reverting, unless a preview is still pending
             if (!_previewPending)
                 CaptureCommittedState();
@@ -98,12 +104,17 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 _followOsChanging = false;
                 cboTheme.Enabled = !chkFollowOsTheme.Checked;
             }
-            cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
+            using (new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.ThemeSelect, nameof(ThemePage)))
+                cboTheme_SelectionChangeCommitted(this, EventArgs.Empty);
 
+            // Every load used to add one more copy of this handler (each reopen and each Cancel),
+            // so after N loads every palette cell was formatted N times.
+            listPalette.FormatCell -= ListPalette_FormatCell;
             listPalette.FormatCell += ListPalette_FormatCell; //Color cell formatter
 
             // Apply the current theme to the panel on load
-            ApplyTheme();
+            using (new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.ThemeApply, nameof(ThemePage)))
+                ApplyTheme();
         }
 
         private void ListPalette_FormatCell(object sender, FormatCellEventArgs e)
@@ -301,8 +312,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private void ColorMeList(ThemeInfo ti)
         {
             if (ti.ExtendedPalette == null) return;
+            // #232: one SetObjects instead of an AddObject per colour. Each AddObject rebuilt the
+            // list, which made filling the palette about 100 ms on every Options open and Cancel.
+            List<PseudoKeyColor> colours = [];
             foreach (KeyValuePair<string, System.Drawing.Color> colorElem in ti.ExtendedPalette.ExtColorPalette)
-                listPalette.AddObject(new PseudoKeyColor(colorElem.Key, colorElem.Value));
+                colours.Add(new PseudoKeyColor(colorElem.Key, colorElem.Value));
+            listPalette.SetObjects(colours);
         }
 
         private void btnThemeNew_Click(object sender, EventArgs e)

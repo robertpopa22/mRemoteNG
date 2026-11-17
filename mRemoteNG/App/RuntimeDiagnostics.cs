@@ -914,6 +914,19 @@ namespace mRemoteNG.App
                 new FieldValue("stage", stage.ToString()), new FieldValue("page", page),
                 new FieldValue("phase", phase), Number("elapsed_ms", elapsedMs));
 
+        /// <summary>
+        /// #232: the leave record also says how much of the span was JIT compilation on this
+        /// thread, how many methods were compiled, how much this thread allocated and whether a
+        /// gen-0/gen-2 collection ran, so cold start can be told apart from slow code.
+        /// </summary>
+        internal static void RecordOptionsLoadLeave(int id, int parent, OptionsLoadStage stage, string page, long elapsedMs,
+            long jitMs, long jitMethods, long allocKb, int gc0, int gc2) =>
+            WriteInfo("options_load", Number("span", id), Number("parent", parent),
+                new FieldValue("stage", stage.ToString()), new FieldValue("page", page),
+                new FieldValue("phase", "leave"), Number("elapsed_ms", elapsedMs),
+                Number("jit_ms", jitMs), Number("jit_methods", jitMethods),
+                Number("alloc_kb", allocKb), Number("gc0", gc0), Number("gc2", gc2));
+
         private static void WriteInfo(string eventName, params FieldValue[] fields) => Write(DiagnosticLevel.Info, eventName, fields);
         private static void WriteWarn(string eventName, params FieldValue[] fields) => Write(DiagnosticLevel.Warning, eventName, fields);
         private static void WriteError(string eventName, params FieldValue[] fields) => Write(DiagnosticLevel.Error, eventName, fields);

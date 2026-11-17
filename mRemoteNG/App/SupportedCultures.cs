@@ -12,11 +12,19 @@ namespace mRemoteNG.App
     [SupportedOSPlatform("windows")]
     public sealed class SupportedCultures : Dictionary<string, string>
     {
-        private static SupportedCultures? _Instance;
+        // #232: building the list creates ~30 CultureInfo objects and reads their native names,
+        // about 300 ms the first time (culture data, not JIT). Startup warms it on a pool thread;
+        // Lazy makes a caller that arrives first wait for that one build instead of racing it.
+        private static readonly Lazy<SupportedCultures> _instance =
+            new(() => new SupportedCultures(), System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
 
-        private static SupportedCultures SingletonInstance
+        private static SupportedCultures SingletonInstance => _instance.Value;
+
+        /// <summary>Builds the list off the UI thread so the first Options open does not pay for it.</summary>
+        public static void Warm()
         {
-            get { return _Instance ?? (_Instance = new SupportedCultures()); }
+            try { _ = _instance.Value; }
+            catch (Exception ex) { Debug.Print($"SupportedCultures warm-up failed: {ex.Message}"); }
         }
 
 

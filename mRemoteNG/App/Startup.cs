@@ -104,6 +104,9 @@ namespace mRemoteNG.App
             // since plugins are not needed until user explicitly uses them.
             // PluginManager.RegisterMenu() already handles InvokeRequired for UI marshaling.
             Task.Run(() => PluginManager.Instance.LoadPlugins());
+
+            // #232: the language list of the Options window, built off the UI thread.
+            Task.Run(SupportedCultures.Warm);
         }
 
         private void ParseCommandLineArgs(MessageCollector messageCollector)

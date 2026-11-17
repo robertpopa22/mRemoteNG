@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -53,25 +54,33 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         public override void LoadSettings()
         {
-            cboLanguage.Items.Clear();
-            cboLanguage.Items.Add(Language.LanguageDefault);
+            IList<string> nativeNames;
+            using (new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LanguageList, nameof(AppearancePage)))
+                nativeNames = SupportedCultures.CultureNativeNames;
 
-            foreach (string nativeName in SupportedCultures.CultureNativeNames)
+            using (new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LanguageCombo, nameof(AppearancePage)))
             {
-                cboLanguage.Items.Add(nativeName);
+                cboLanguage.Items.Clear();
+                cboLanguage.Items.Add(Language.LanguageDefault);
+
+                foreach (string nativeName in nativeNames)
+                {
+                    cboLanguage.Items.Add(nativeName);
+                }
+
+                if (!string.IsNullOrEmpty(Settings.Default.OverrideUICulture) &&
+                    SupportedCultures.IsNameSupported(Settings.Default.OverrideUICulture))
+                {
+                    cboLanguage.SelectedItem = SupportedCultures.GetCultureNativeName(Settings.Default.OverrideUICulture);
+                }
+
+                if (cboLanguage.SelectedIndex == -1)
+                {
+                    cboLanguage.SelectedIndex = 0;
+                }
             }
 
-            if (!string.IsNullOrEmpty(Settings.Default.OverrideUICulture) &&
-                SupportedCultures.IsNameSupported(Settings.Default.OverrideUICulture))
-            {
-                cboLanguage.SelectedItem = SupportedCultures.GetCultureNativeName(Settings.Default.OverrideUICulture);
-            }
-
-            if (cboLanguage.SelectedIndex == -1)
-            {
-                cboLanguage.SelectedIndex = 0;
-            }
-
+            using var fields = new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.AppearanceFields, nameof(AppearancePage));
             chkShowDescriptionTooltipsInTree.Checked = Properties.OptionsAppearancePage.Default.ShowDescriptionTooltipsInTree;
             chkShowFullConnectionsFilePathInTitle.Checked = Properties.OptionsAppearancePage.Default.ShowCompleteConsPathInTitle;
             chkReplaceIconOnConnect.Checked = Properties.OptionsAppearancePage.Default.ReplaceIconOnConnect;
