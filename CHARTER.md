@@ -148,9 +148,11 @@ When a Google model gives an opinion on this code — a counter-opinion on a fix
 review, a design alternative — it runs as the Antigravity CLI (`agy`) started in a checkout of
 this repository, with read access to the real source, the tests and the build scripts. A
 runner that sends Gemini a summary written by the orchestrator, without the files, is not used
-for code. The Antigravity reviewer gets the goal, the question and the files to start from, not
-the orchestrator's conclusion, and stays read-only like every other reviewer: the main thread
-alone edits, builds and commits.
+for code. Antigravity gets the goal, the question and the files to start from, not the
+orchestrator's conclusion. It is a read-write agent, like Claude Code and Codex: when it is asked
+for an opinion it answers without editing, and when it is given an implementation it edits the
+working tree itself. Commits, pushes and publication stay with the orchestrator, which reviews the
+diff, builds and runs the suite before anything is committed.
 
 *Why:* on 2026-11-17 the maintainer decided this after two #252/#232 reviews went through a
 summary-only Gemini route. A reviewer that cannot open the files can only agree or disagree
