@@ -21,8 +21,8 @@ Usage:
     python fork_intel.py diverge    [--all-branches] [--limit N]
     python fork_intel.py screen     [--limit N]
     python fork_intel.py upstream   [--limit N] [--refresh] [--base <ref>]
-    python fork_intel.py triage     [--agent claude|codex|gemini] [--shard i/n]
-    python fork_intel.py preapprove [--reviewers codex,gemini] [--arbiter grok]
+    python fork_intel.py triage     [--agent claude|codex] [--shard i/n]
+    python fork_intel.py preapprove [--reviewers claude,codex,grok] [--arbiter grok]
     python fork_intel.py report
     python fork_intel.py export-ideas
     python fork_intel.py mark --sha <sha> --decision imported|rejected|deferred [--note "..."]
@@ -915,11 +915,11 @@ def cmd_upstream(args):
 
 # Prompts are fed through stdin, never as arguments: a diff-sized prompt blows past
 # the Windows command-line limit (WinError 206). Executables are resolved with
-# shutil.which so npm shims (codex.cmd, gemini.cmd) are found too.
+# shutil.which so npm shims (codex.cmd) are found too.
 AGENT_ARGS = {
     "claude": ["-p", "--output-format", "json"],
     "codex": ["exec"],
-    "gemini": ["-y"],
+    # Gemini is not permitted for this code (Charter D12).
 }
 
 
@@ -1171,7 +1171,7 @@ def cmd_triage(args):
             chunk = group[i:i + args.batch]
             prompt = build_triage_prompt([c for _, c in chunk], issue_titles)
             verdicts = None
-            for agent in [args.agent] + [a for a in ("codex", "gemini", "claude") if a != args.agent]:
+            for agent in [args.agent] + [a for a in ("codex", "claude") if a != args.agent]:
                 verdicts = extract_json_array(agent_run(agent, prompt))
                 if verdicts:
                     break

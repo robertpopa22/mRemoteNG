@@ -198,21 +198,21 @@ class PreApprovalConsensusTests(unittest.TestCase):
         return {"reviewer": reviewer, "vote": verdict, "aligned": aligned}
 
     def test_unanimous_approval_on_a_clean_change_pre_approves(self):
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE")]
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "APPROVE")]
         self.assertEqual("pre-approved", fi.consensus_decision(votes, False))
 
     def test_one_dissent_forces_manual_review(self):
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "NEEDS_HUMAN")]
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "NEEDS_HUMAN")]
         self.assertEqual("manual-review", fi.consensus_decision(votes, False))
 
     def test_rejection_forces_manual_review(self):
-        votes = [self.vote("codex", "REJECT"), self.vote("gemini", "APPROVE")]
+        votes = [self.vote("codex", "REJECT"), self.vote("mistral", "APPROVE")]
         self.assertEqual("manual-review", fi.consensus_decision(votes, False))
 
     def test_reviewer_that_did_not_answer_leaves_no_quorum(self):
         # Silence is neither consent nor dissent. One answered ballot is not a panel,
         # so the candidate is held rather than approved or sent on as a judgement.
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "NO_ANSWER")]
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "NO_ANSWER")]
         self.assertEqual("held", fi.consensus_decision(votes, False))
 
     def test_a_broken_reviewer_can_never_produce_an_approval(self):
@@ -223,11 +223,11 @@ class PreApprovalConsensusTests(unittest.TestCase):
         self.assertNotEqual("pre-approved", fi.consensus_decision(votes, False))
 
     def test_misalignment_with_our_direction_blocks_pre_approval(self):
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE", aligned=False)]
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "APPROVE", aligned=False)]
         self.assertEqual("manual-review", fi.consensus_decision(votes, False))
 
     def test_security_flag_blocks_pre_approval_even_when_unanimous(self):
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE")]
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "APPROVE")]
         self.assertEqual("manual-review", fi.consensus_decision(votes, True))
 
     def test_no_votes_is_not_approval(self):
@@ -244,44 +244,44 @@ class ArbitrationTests(unittest.TestCase):
 
     def test_disagreement_is_a_split(self):
         self.assertTrue(fi.votes_are_split(
-            [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT")]))
+            [self.vote("codex", "APPROVE"), self.vote("mistral", "REJECT")]))
 
     def test_unanimous_approval_is_not_a_split(self):
         self.assertFalse(fi.votes_are_split(
-            [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE")]))
+            [self.vote("codex", "APPROVE"), self.vote("mistral", "APPROVE")]))
 
     def test_unanimous_refusal_is_not_a_split(self):
         self.assertFalse(fi.votes_are_split(
-            [self.vote("codex", "REJECT"), self.vote("gemini", "NEEDS_HUMAN")]))
+            [self.vote("codex", "REJECT"), self.vote("mistral", "NEEDS_HUMAN")]))
 
     def test_silence_from_one_reviewer_is_not_a_split(self):
         # Nothing was said, so there is nothing to arbitrate.
         self.assertFalse(fi.votes_are_split(
-            [self.vote("codex", "APPROVE"), self.vote("gemini", "NO_ANSWER")]))
+            [self.vote("codex", "APPROVE"), self.vote("mistral", "NO_ANSWER")]))
 
     def test_a_majority_does_not_pass_the_gate(self):
         # Superseded policy: a third family used to break a split by majority. The gate
         # is unanimity now. A split goes to a second round on anonymised arguments, and
         # if that round is still not unanimous a human decides - a false APPROVE into a
         # credential manager costs far more than a false hold.
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT"),
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "REJECT"),
                  self.vote("grok", "APPROVE", arbiter=True)]
         self.assertEqual("manual-review", fi.consensus_decision(votes, False))
 
     def test_arbiter_siding_with_the_objection_keeps_it_manual(self):
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT"),
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "REJECT"),
                  self.vote("grok", "REJECT", arbiter=True)]
         self.assertEqual("manual-review", fi.consensus_decision(votes, False))
 
     def test_majority_without_an_arbiter_is_not_enough(self):
         # Two reviewers alone must be unanimous; majority only counts once a
         # third family was deliberately brought in.
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE"),
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "APPROVE"),
                  self.vote("claude", "REJECT")]
         self.assertEqual("manual-review", fi.consensus_decision(votes, False))
 
     def test_arbiter_cannot_override_a_security_flag(self):
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT"),
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "REJECT"),
                  self.vote("grok", "APPROVE", arbiter=True)]
         self.assertEqual("manual-review", fi.consensus_decision(votes, True))
 
@@ -299,7 +299,7 @@ class ArbitrationTests(unittest.TestCase):
         self.assertLess(len(distinct_approvals), 2)
 
     def test_arbiter_cannot_override_misalignment(self):
-        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT", aligned=False),
+        votes = [self.vote("codex", "APPROVE"), self.vote("mistral", "REJECT", aligned=False),
                  self.vote("grok", "APPROVE", arbiter=True)]
         self.assertEqual("manual-review", fi.consensus_decision(votes, False))
 

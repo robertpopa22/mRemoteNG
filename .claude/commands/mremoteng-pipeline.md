@@ -1,7 +1,7 @@
 # /mremoteng-pipeline — Unattended batch over the upstream backlog: run, status, stop, start
 
 **Use when:** you want the headless orchestrator (`iis_orchestrator.py`, which calls `claude -p` /
-Codex / Gemini as sub-agents) to sweep many issues or analyzer warnings without a human in the loop,
+Codex as sub-agents; Gemini is not permitted, Charter D12) to sweep many issues or analyzer warnings without a human in the loop,
 or you want to see, stop or restart such a run.
 
 **Not for:** answering or fixing a fork issue. That is `/mremoteng-fix-repo` (interactive, with

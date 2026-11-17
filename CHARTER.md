@@ -142,25 +142,29 @@ We are a fork of a living project, and we intend to keep being able to take its 
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
 
-### D12 — 2026-11-17 · Google models review code only through Antigravity, inside the repository
+### D12 — 2026-11-17 · Five agents may write code here; Gemini may not
 
-When a Google model gives an opinion on this code — a counter-opinion on a fix, a performance
-review, a design alternative — it runs as the Antigravity CLI (`agy`) started in a checkout of
-this repository, with read access to the real source, the tests and the build scripts. A
-runner that sends Gemini a summary written by the orchestrator, without the files, is not used
-for code. Antigravity gets the goal, the question and the files to start from, not the
-orchestrator's conclusion. It is a read-write agent, like Claude Code and Codex: when it is asked
-for an opinion it answers without editing, and when it is given an implementation it edits the
-working tree itself. Commits, pushes and publication stay with the orchestrator, which reviews the
-diff, builds and runs the suite before anything is committed.
+The agents authorized to work on this code are Claude Code, Codex, Grok Build, Antigravity
+(`agy`) and Mistral Vibe. Each runs in a checkout of this repository with access to the real
+source, the tests and the build scripts, and each may edit the working tree when it is called:
+an implementation is done by the agent it is given to, in the files. A counter-opinion request
+says in its prompt whether edits are wanted; the agent gets the goal, the question and the files
+to start from, not the orchestrator's conclusion. Google models are used only through
+Antigravity. Gemini — the Gemini CLI, the Gemini API and any runner that sends Gemini a summary
+instead of the files — is not permitted for this code.
+
+Commits, pushes, publication and public replies stay with the orchestrator. Before anything is
+committed it reads the diff an agent left, builds, runs the suite and runs the security lens.
+The tripwire still applies to every agent's change; only a human authorizes the override.
 
 *Why:* on 2026-11-17 the maintainer decided this after two #252/#232 reviews went through a
 summary-only Gemini route. A reviewer that cannot open the files can only agree or disagree
 with the summary it was given; it cannot find what the summary left out. It cost two paid
-calls for one question, and one reply had to say it "saw no source code". Antigravity has full
-access to the repository, which is what an independent review of code needs.
+calls for one question, and one reply had to say it "saw no source code". The five agents
+above have full access to the repository, which is what independent review and implementation
+of code need.
 
-*Reverses if:* the maintainer names another route for Google models on this repository.
+*Reverses if:* the maintainer adds or removes an agent from that list.
 
 ### D11 — 2026-10-08 · A solution is proven separately before it enters the product
 

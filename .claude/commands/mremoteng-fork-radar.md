@@ -34,7 +34,7 @@ If a stage reports API failures, check the budget with `gh api rate_limit` befor
 ### Step 2: Pre-approve through counter-opinions
 
 ```bash
-python .project-roadmap/fork-intel/fork_intel.py preapprove --reviewers codex,gemini
+python .project-roadmap/fork-intel/fork_intel.py preapprove --reviewers codex,grok
 ```
 
 Every tier A/B candidate goes to two independent model families as a **read-only, opinion-only** review, with our project direction in the prompt. The consensus rule is strict and lives in code:
