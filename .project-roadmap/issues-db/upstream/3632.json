@@ -6,7 +6,7 @@
   "labels": [],
   "author": "SmearODeer",
   "created_at": "2026-11-02T21:38:51Z",
-  "github_updated_at": "2026-11-17T09:28:13Z",
+  "github_updated_at": "2026-11-17T10:30:15Z",
   "body_snippet": "Follow-up to #3249, as discussed there. This issue is for agreeing on a design before anyone writes code. Everything below is a proposal; please correct or reject any part of it.\n\n## Goal (from #3249)\n\n- Admins define named database servers (\"providers\"), for example DEV-TEST and PROD.\n- No passwords are stored in profiles or settings, only a reference to a secret in a vault.\n- Users without a vault get a basic local store, encrypted for the machine (section 2 proposes per user instead).\n- Each ...",
   "our_status": "new",
   "priority": null,
@@ -59,12 +59,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABne_aFg",
+      "author": "Kvarkas",
+      "date": "2026-11-17T09:56:37Z",
+      "snippet": "3b. Where permissions are enforced (the main open question)\n\nin short - mR is a manager and should not enforce anything (idealy) but have minimum set of controls to alow basic level of access and security. Owerwise we will grove into a hudge monster what will need a separate server, kuberneties, a docker, tons of ram, etc, what I wish to avoid. :) \n\nOne of fundumental requst I am receiving from many corp users - rbac user access to connections. e.g. curently db structured this way what 2 separat...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABnffm1g",
+      "author": "Kvarkas",
+      "date": "2026-11-17T10:20:30Z",
+      "snippet": "in regards 3c. Creating the database\n\nwe have such scenarios:\n1.0. new db onboarding\n1.1. make it from scratch - wizard ask for sa level user / password (do not store them) and db name (port, cert etc.) and run a script to create a strucutre we need for mR\n1.2. empty db with a required structure created by db admin - wisard will check if all structure is correct and not missing anything - if dont like anything drop error log and ask to correct. \n\nwe need to keep in mind what potentialy it could ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-11-17T09:28:13Z",
-  "unread_comments": 5,
+  "comments_cursor": "2026-11-17T10:30:15Z",
+  "unread_comments": 7,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-17T09:28:09Z",
+  "last_synced": "2026-11-17T15:16:26Z",
   "notes": ""
 }

@@ -8,9 +8,9 @@
   ],
   "author": "jblion",
   "created_at": "2026-11-12T20:15:43Z",
-  "github_updated_at": "2026-11-16T20:20:11Z",
+  "github_updated_at": "2026-11-17T14:57:44Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -85,6 +85,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 8,
+      "date": "2026-11-17",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -150,12 +160,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABnkKQgw",
+      "author": "jblion",
+      "date": "2026-11-17T13:57:15Z",
+      "snippet": "Test done with ```mRemoteNG Connection Manager 1.84.0 (Release 3792) x64 Édition portable.```\nWay faster, but panel's layout is totally broken on first load : \n\n<img width=\"3032\" height=\"2034\" alt=\"image\" src=\"https://github.com/user-attachments/assets/546d103f-ee97-4231-b09a-e31883317523\" />\n\nIcons are overlapping labels.\nRezsing the window fixes the panel's layout but not the options menu.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-11-16T20:20:11Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-11-17T14:57:44Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-11-17T09:28:09Z",
-  "notes": "Options first open 9325->3316 ms on reporter trace; remaining stages AppearancePage settings 625 ms, page layouts ~250 ms"
+  "waiting_for_us": true,
+  "last_synced": "2026-11-17T17:22:25Z",
+  "notes": "caption width fix f3354a227 in nightly 415fdc4; icons overlap + main-window first-load layout still open"
 }

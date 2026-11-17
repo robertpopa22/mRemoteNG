@@ -305,7 +305,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (checked 2026-11-16).** Since the fork started accepting reports directly,
-**112 issues have been opened by external reporters and 109 are closed**; 3 issues are open,
+**115 issues have been opened by external reporters and 112 are closed**; 3 issues are open,
 including investigations and fixes awaiting reporter confirmation. An older upstream tracker snapshot
 lists 873 issues followed and 841 open upstream.
 
@@ -571,7 +571,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**4,129 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**4,181 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 

@@ -2,11 +2,11 @@
   "number": 252,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Tab Name when connecting via an SSH Tunnel",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-11-16T12:55:35Z",
-  "github_updated_at": "2026-11-17T08:42:31Z",
+  "github_updated_at": "2026-11-17T09:29:06Z",
   "body_snippet": "If the connection is established via an SSH tunnel, the tab does not display the name specified in that connection's settings, but rather “login@host:~ (login )” as shown in the screenshot.\nThis makes it difficult to navigate between tabs, especially when there are several of them.\nIs there a way to configure this? I haven't been able to find one.\n\n<img width=\"1491\" height=\"499\" alt=\"Clipboard\" src=\"https://github.com/user-attachments/assets/86db5d35-85d7-46f1-902a-0d73ebe08fa0\" />\n\nNightly Buil...",
   "our_status": "released",
   "priority": null,
@@ -63,12 +63,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABneal3A",
+      "author": "robertpopa22",
+      "date": "2026-11-17T09:29:05Z",
+      "snippet": "Thank you for testing the nightly the same day and for the screenshot: it shows the connection names back on the tunnelled tabs, which is the part we could not check with your gateway.\n\nClosing as fixed. If a tab name goes wrong again, for example with several tunnelled tabs at once, comment here and it reopens.\n\nIf this project helps you, please star it: https://github.com/robertpopa22/mRemoteNG\nQodo's free open-source plan requires at least 200 stars on this repository (or on another public re...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-11-17T08:42:31Z",
+  "comments_cursor": "2026-11-17T09:29:06Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-11-17T09:29:10Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-11-17T15:16:26Z",
   "notes": "reporter confirmed nightly 1.84.0+11aa862a15; closed fixed 2026-11-17"
 }

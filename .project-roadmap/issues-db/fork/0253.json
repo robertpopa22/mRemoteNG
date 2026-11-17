@@ -1,0 +1,45 @@
+{
+  "number": 253,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Interface Issues: Panel Layout",
+  "state": "open",
+  "labels": [],
+  "author": "vndnua",
+  "created_at": "2026-11-17T11:04:06Z",
+  "github_updated_at": "2026-11-17T13:49:47Z",
+  "body_snippet": "Something's broken, and I can't arrange the panels on the same line: when I try to drag the second panel onto the same line where the first panel is already located, they just switch places while remaining on different lines.\n\n<img width=\"729\" height=\"136\" alt=\"image\" src=\"https://github.com/user-attachments/assets/20425c56-9104-4867-ace9-ab8cff869ac6\" />\n<br><br>\n<img width=\"738\" height=\"98\" alt=\"image\" src=\"https://github.com/user-attachments/assets/f8c9e0d1-3f16-4e4c-a58a-5499245e595d\" />",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-17",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABnj_F_Q",
+      "author": "jblion",
+      "date": "2026-11-17T13:49:47Z",
+      "snippet": "Issue also present in this environment: \n\n```\n2026-11-17T14:44:55.134+01:00 mono_ms=1443 pid=22712 app_session=685763e4187d [2] INFO  - mRemoteNG Connection Manager 1.84.0 (Release 3791) x64 Édition portable starting.\n2026-11-17T14:44:55.138+01:00 mono_ms=1447 pid=22712 app_session=685763e4187d [2] INFO  - User settings file: D:\\Downloads\\mRemoteNG-nightly-20261116-v1.84.0-ea3ac54-x64\\Settings\\mRemoteNG.settings (size: 23504 bytes, modified: 2026-11-17 01:18:29)\n2026-11-17T14:44:55.138+01:00 mon...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-17T13:49:47Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-17T17:22:26Z",
+  "notes": "msMain Stretch reverted f0df6cd31, lab before/after; nightly 415fdc4; awaiting drag confirm"
+}
