@@ -12,14 +12,19 @@ namespace mRemoteNG.UI.Window
     {
         protected override void OnLoad(System.EventArgs e)
         {
-            base.OnLoad(e);
+            bool options = this is OptionsWindow;
+            using (options ? new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.WindowLoadHandlers) : null)
+                base.OnLoad(e);
             if (this is not ConnectionWindow)
             {
-                using var font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
-                    Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
-                InterfaceFont.Apply(this, font);
-                AdaptiveLayout.Prepare(this);
-                AdaptiveLayout.FitWorkingArea(this);
+                using (var font = InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
+                    Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle))
+                using (options ? new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LoadFontApply) : null)
+                    InterfaceFont.Apply(this, font, layoutWhenUnchanged: false);
+                using (options ? new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LoadAdaptive) : null)
+                    AdaptiveLayout.Prepare(this);
+                using (options ? new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LoadFit) : null)
+                    AdaptiveLayout.FitWorkingArea(this);
             }
         }
 

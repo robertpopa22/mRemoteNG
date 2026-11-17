@@ -17,13 +17,17 @@ public class ResponsiveForm : Form
     {
         base.OnLoad(e);
         if (Controls.Count == 0) return;
-        using var font = Themes.InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
-            Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle);
-        Themes.InterfaceFont.Apply(this, font);
-        AdaptiveLayout.Prepare(this);
+        bool options = this is Forms.FrmOptions;
+        using (var font = Themes.InterfaceFont.Create(Properties.OptionsAppearancePage.Default.UIFontFamily,
+            Properties.OptionsAppearancePage.Default.UIFontSize, (System.Drawing.FontStyle)Properties.OptionsAppearancePage.Default.UIFontStyle))
+        using (options ? new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LoadFontApply) : null)
+            Themes.InterfaceFont.Apply(this, font, layoutWhenUnchanged: false);
+        using (options ? new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LoadAdaptive) : null)
+            AdaptiveLayout.Prepare(this);
         if (FormBorderStyle is FormBorderStyle.FixedDialog or FormBorderStyle.FixedSingle or FormBorderStyle.FixedToolWindow)
             FormBorderStyle = FormBorderStyle.Sizable;
-        AdaptiveLayout.FitWorkingArea(this);
+        using (options ? new App.Diagnostics.OptionsLoadSpan(App.Diagnostics.OptionsLoadStage.LoadFit) : null)
+            AdaptiveLayout.FitWorkingArea(this);
     }
 
     protected override void OnDpiChanged(DpiChangedEventArgs e)

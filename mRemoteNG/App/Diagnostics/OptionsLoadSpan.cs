@@ -92,5 +92,7 @@ internal enum OptionsLoadStage
     // #232 finer split of the first open.
     FormInit, FormPages, FormFit, WindowTheme, PageFontCreate, PageFontApply, PageAdaptive,
     PageListAdd, PageTrack, LanguageList, LanguageCombo, AppearanceFields,
-    ThemeList, ThemeSelect, ThemeApply
+    ThemeList, ThemeSelect, ThemeApply,
+    // The base-class OnLoad tail of the Options window and form (BaseWindow, ResponsiveForm).
+    WindowLoadHandlers, LoadFontApply, LoadAdaptive, LoadFit
 }

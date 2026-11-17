@@ -70,10 +70,20 @@ namespace mRemoteNG.Themes
             return text;
         }
 
-        public static void Apply(Control root, Font font)
+        public static void Apply(Control root, Font font) => Apply(root, font, layoutWhenUnchanged: true);
+
+        /// <summary>
+        /// With <paramref name="layoutWhenUnchanged"/> false, the synchronous recursive layout is
+        /// skipped when no font actually changed. The form Load wrappers use that: on every window
+        /// open they re-applied the font the designer had already set, then forced PerformLayout on
+        /// every control (#232). A DPI change keeps the layout, because sizes change while the
+        /// point size stays the same.
+        /// </summary>
+        public static void Apply(Control root, Font font, bool layoutWhenUnchanged)
         {
-            ApplyControl(root, font);
-            LayoutChildren(root);
+            bool changed = ApplyControl(root, font);
+            if (changed || layoutWhenUnchanged)
+                LayoutChildren(root);
             if (root is UI.TaskDialog.frmTaskDialog dialog)
                 dialog.LayoutToContent();
             if (root.IsHandleCreated)
@@ -110,37 +120,53 @@ namespace mRemoteNG.Themes
             }
         }
 
-        private static void ApplyControl(Control control, Font font)
+        /// <returns>Whether any font in the tree was replaced.</returns>
+        private static bool ApplyControl(Control control, Font font)
         {
+            bool changed = false;
             bool arrow = control.Parent is NumericUpDown && control is Button { Text: "▲" or "▼" };
             bool symbol = string.Equals(control.Font.FontFamily.Name, "Marlett", StringComparison.OrdinalIgnoreCase);
             if (!arrow && !symbol && !Same(control.Font, font))
+            {
                 control.Font = (Font)font.Clone();
+                changed = true;
+            }
             if (control.ContextMenuStrip != null)
-                ApplyStrip(control.ContextMenuStrip, font);
+                changed |= ApplyStrip(control.ContextMenuStrip, font);
             // PropertyGrid owns the fonts and row metrics of its internal view.
-            if (control is PropertyGrid) return;
+            if (control is PropertyGrid) return changed;
             foreach (Control child in control.Controls)
-                ApplyControl(child, font);
+                changed |= ApplyControl(child, font);
+            return changed;
         }
 
-        private static void ApplyStrip(ToolStrip strip, Font font)
+        private static bool ApplyStrip(ToolStrip strip, Font font)
         {
+            bool changed = false;
             if (!Same(strip.Font, font))
+            {
                 strip.Font = (Font)font.Clone();
+                changed = true;
+            }
             foreach (ToolStripItem item in strip.Items)
-                ApplyItem(item, font);
+                changed |= ApplyItem(item, font);
+            return changed;
         }
 
-        private static void ApplyItem(ToolStripItem item, Font font)
+        private static bool ApplyItem(ToolStripItem item, Font font)
         {
+            bool changed = false;
             if (!Same(item.Font, font))
+            {
                 item.Font = (Font)font.Clone();
+                changed = true;
+            }
             if (item is ToolStripDropDownItem drop)
             {
                 foreach (ToolStripItem child in drop.DropDownItems)
-                    ApplyItem(child, font);
+                    changed |= ApplyItem(child, font);
             }
+            return changed;
         }
 
         private static bool Same(Font current, Font chosen) =>
