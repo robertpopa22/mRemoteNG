@@ -10,7 +10,7 @@ Do not keep a second queue and do not stop after the report.
 
 **Does not:** set policy ([CHARTER.md](../../CHARTER.md)), hold the lesson text ([docs/bp/](../../docs/bp/) holds it; Step 9 only requires the write), define log fields ([docs/RUNTIME_DIAGNOSTICS.md](../../docs/RUNTIME_DIAGNOSTICS.md)), merge upstream, or name the maintainer's machines, paths, or logs.
 
-Handle every open issue on the fork, whoever opened it. A zero-comment crash report filed by the app under our account is in this run. A closed issue is included only when it has a new reporter comment. The visible outcome is one Charter D10 word: `fixed`, `unanswered`, `not reproduced`, or `not a defect`. An issue we opened does not get a reply that asks that same account for more detail. It is fixed, or it is closed. If that outcome is already the latest word, do not post it again. For a new fix: investigate the root cause, get an independent counter-opinion from Grok AND Gemini (Codex as optional third when responsive), apply a minimal fix, build, run the full test suite, **verify in the running UI as a user would (FlaUI)**, and make an atomic local commit. Continue through Step 7 without another approval request when its readiness conditions are met.
+Handle every open issue on the fork, whoever opened it. A zero-comment crash report filed by the app under our account is in this run. A closed issue is included only when it has a new reporter comment. The visible outcome is one Charter D10 word: `fixed`, `unanswered`, `not reproduced`, or `not a defect`. An issue we opened does not get a reply that asks that same account for more detail. It is fixed, or it is closed. If that outcome is already the latest word, do not post it again. For a new fix: investigate the root cause, get an independent counter-opinion from Grok AND Antigravity (`agy`, Charter D12) (Codex as optional third when responsive), apply a minimal fix, build, run the full test suite, **verify in the running UI as a user would (FlaUI)**, and make an atomic local commit. Continue through Step 7 without another approval request when its readiness conditions are met.
 
 Scope is the fork (`robertpopa22/mRemoteNG`) only — this command never touches upstream tracking or merges upstream changes.
 
@@ -171,7 +171,7 @@ Before marking such an issue `confirm-fixed` / `released`, or closing it:
    `gh pr list --state all --search ...`. Include duplicates closed with "Dupe #N" and external
    contributor PRs that fix the same thing (an open PR from a contributor is itself a prior report,
    and its review comments are prior evidence — read them).
-2. **Run the COMPLETE panel, not the usual pair:** `grok:grok-rescue` + `gemini:gemini-rescue` +
+2. **Run the COMPLETE panel, not the usual pair:** `grok:grok-rescue` + Antigravity (`agy`, Charter D12) +
    `codex:codex-rescue` (read-only, `--wait`), all with the same prompt. The prompt hands them the
    shipped fix AND every prior fix/PR side by side, and asks them to re-derive from source whether
    the shipped fix is correct and *complete* — the edge cases the earlier rounds raised (cancel
@@ -190,7 +190,7 @@ shipped fix also carries. The reporter's "works now" could not have seen it.
 
 ### Step 4: Investigate + dual counter-opinion (only for `fix`)
 1. Root-cause from source first; cite `file:line`. Verify the premise against the actual code (sources are authoritative, not the comment's framing).
-2. Get TWO independent opinions — spawn both `grok:grok-rescue` and `gemini:gemini-rescue` as **READ-ONLY diagnosis** (do not feed them your conclusion). Grok replaced Codex as a mandatory reviewer (2026-08-31): Codex reviews repeatedly hung or returned nothing (2026-08-10, 2026-07-17) while Grok found real defects the others missed (#148 primary cause, #143 denylist kill); `codex:codex-rescue` may still be added as an optional third when it is responsive. Give ALL reviewers the **same** prompt, opening with this framing verbatim and requiring the identical output template (so the answers are directly comparable side-by-side):
+2. Get TWO independent opinions — run both `grok:grok-rescue` and Antigravity (`agy -p` started in this checkout, read-only; Charter D12 — never a summary-only Gemini runner) as **READ-ONLY diagnosis** (do not feed them your conclusion). Grok replaced Codex as a mandatory reviewer (2026-08-31): Codex reviews repeatedly hung or returned nothing (2026-08-10, 2026-07-17) while Grok found real defects the others missed (#148 primary cause, #143 denylist kill); `codex:codex-rescue` may still be added as an optional third when it is responsive. Give ALL reviewers the **same** prompt, opening with this framing verbatim and requiring the identical output template (so the answers are directly comparable side-by-side):
    > Read-only review — this is a COUNTER-OPINION ONLY. Do NOT modify any files, do NOT build, do NOT run `git add`/`git commit`/`git push` or any other repository-mutating command — the main thread is the sole author of edits, commits, and pushes. Re-derive the premise from source independently. Return EXACTLY these four sections and nothing else:
    > ```
    > ## ROOT CAUSE

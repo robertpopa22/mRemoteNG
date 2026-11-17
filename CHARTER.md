@@ -142,6 +142,24 @@ We are a fork of a living project, and we intend to keep being able to take its 
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
 
+### D12 — 2026-11-17 · Google models review code only through Antigravity, inside the repository
+
+When a Google model gives an opinion on this code — a counter-opinion on a fix, a performance
+review, a design alternative — it runs as the Antigravity CLI (`agy`) started in a checkout of
+this repository, with read access to the real source, the tests and the build scripts. A
+runner that sends Gemini a summary written by the orchestrator, without the files, is not used
+for code. The Antigravity reviewer gets the goal, the question and the files to start from, not
+the orchestrator's conclusion, and stays read-only like every other reviewer: the main thread
+alone edits, builds and commits.
+
+*Why:* on 2026-11-17 the maintainer decided this after two #252/#232 reviews went through a
+summary-only Gemini route. A reviewer that cannot open the files can only agree or disagree
+with the summary it was given; it cannot find what the summary left out. It cost two paid
+calls for one question, and one reply had to say it "saw no source code". Antigravity has full
+access to the repository, which is what an independent review of code needs.
+
+*Reverses if:* the maintainer names another route for Google models on this repository.
+
 ### D11 — 2026-10-08 · A solution is proven separately before it enters the product
 
 Every solution is first built and exercised separately, in the lab and not on anyone's working
