@@ -49,6 +49,7 @@ namespace mRemoteNG.Connection.Protocol
         private string _initialTerminalTitle = string.Empty;
         private string _lastTerminalTitle = string.Empty;
         private bool _terminalTitleTrackingEnabled;
+        private bool _suppressTerminalTitleTracking;
         private bool _postOpenLayoutResizePending;
         private bool _postOpenLayoutResizeHooked;
         private bool _isResizing;
@@ -253,8 +254,18 @@ namespace mRemoteNG.Connection.Protocol
             }
         }
 
+        // A hidden SSH tunnel session shares the tab of the connection it carries; its shell title
+        // must not replace that connection's caption (#252).
+        internal void SuppressTerminalTitleTracking()
+        {
+            _suppressTerminalTitleTracking = true;
+        }
+
         protected void StartTerminalTitleTracking()
         {
+            if (_suppressTerminalTitleTracking)
+                return;
+
             StopTerminalTitleTracking();
 
             if (InterfaceControl.Parent is not ConnectionTab connectionTab)

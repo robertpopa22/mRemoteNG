@@ -144,6 +144,22 @@ namespace mRemoteNGTests.Connection.Protocol
         }
 
         [Test]
+        public void SuppressedTerminalTitleTracking_LeavesTheTabCaptionAlone()
+        {
+            _puttyProtocol.SuppressTerminalTitleTracking();
+            _puttyProtocol.QueueTerminalTitle("example-host - PuTTY");
+            _puttyProtocol.StartTrackingForTest();
+
+            _connectionTab.TabText = "target via tunnel";
+            _puttyProtocol.QueueTerminalTitle("admin@gateway:~");
+            _puttyProtocol.RefreshTitleForTest();
+            Assert.That(_connectionTab.TabText, Is.EqualTo("target via tunnel"));
+
+            _puttyProtocol.StopTrackingForTest();
+            Assert.That(_connectionTab.TabText, Is.EqualTo("target via tunnel"));
+        }
+
+        [Test]
         public void SchedulePostOpenLayoutResizePass_WaitsForHandleCreationThenResizes()
         {
             Assert.That(_interfaceControl.IsHandleCreated, Is.False);

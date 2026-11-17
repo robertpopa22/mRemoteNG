@@ -346,6 +346,7 @@ namespace mRemoteNG.Connection
                             return;
                         }
 
+                        puttyBaseSshTunnel.SuppressTerminalTitleTracking();
                         SetConnectionFormEventHandlers(protocolSshTunnel, connectionForm);
                         SetConnectionEventHandlers(protocolSshTunnel);
                         connectionContainer = SetConnectionContainer(connectionInfo, connectionForm, switchToConnection);
