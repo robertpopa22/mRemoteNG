@@ -27,6 +27,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private NumericUpDown numSQLReloadInterval;
         private MrngLabel lblSQLReloadInterval;
         private bool _loadingSettings;
+        private bool _schemaFilesLoaded;
 
         private static readonly (string TypeKey, string DisplayName)[] SqlTypeOptions =
         {
@@ -658,21 +659,14 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private void SqlServerPage_Load(object sender, EventArgs e)
         {
-            // Initial load
-            RefreshSchemaFiles();
-
-            // Attach the DropDown event handler
-            DCMSetupddschema.DropDown += DCMSetupddschema_DropDown;
-        }
-
-        private void DCMSetupddschema_DropDown(object? sender, EventArgs e)
-        {
-            // Refresh files each time dropdown is opened
             RefreshSchemaFiles();
         }
 
         private void RefreshSchemaFiles()
         {
+            if (_schemaFilesLoaded) return;
+            _schemaFilesLoaded = true;
+
             try
             {
                 // Store the currently selected item
@@ -764,12 +758,20 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private void LoadProfilesList()
         {
-            lstProfiles.Items.Clear();
-            foreach (var profile in DatabaseProfileManager.Profiles)
+            lstProfiles.BeginUpdate();
+            try
             {
-                lstProfiles.Items.Add(profile);
+                lstProfiles.Items.Clear();
+                foreach (var profile in DatabaseProfileManager.Profiles)
+                {
+                    lstProfiles.Items.Add(profile);
+                }
+                lstProfiles.DisplayMember = "Name";
             }
-            lstProfiles.DisplayMember = "Name";
+            finally
+            {
+                lstProfiles.EndUpdate();
+            }
         }
 
         private void lstProfiles_SelectedIndexChanged(object sender, EventArgs e)

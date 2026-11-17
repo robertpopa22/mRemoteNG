@@ -148,6 +148,17 @@ namespace mRemoteNG.UI.Forms
 
         #region Private Methods
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _themeManager != null)
+            {
+                _themeManager.ThemeChanged -= ApplyTheme;
+                _themeManager = null;
+            }
+
+            base.Dispose(disposing);
+        }
+
         #region Event Handlers
 
         private void ExportForm_Load(object sender, EventArgs e)
@@ -159,6 +170,7 @@ namespace mRemoteNG.UI.Forms
             cboFileFormat.Items.Add(new ExportFormat(SaveFormat.RDP));
             cboFileFormat.SelectedIndex = 0;
             ApplyTheme();
+            ThemeManager.getInstance().ThemeChanged -= ApplyTheme;
             ThemeManager.getInstance().ThemeChanged += ApplyTheme;
             ApplyLanguage();
         }

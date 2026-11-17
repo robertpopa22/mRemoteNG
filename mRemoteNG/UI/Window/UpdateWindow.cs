@@ -19,6 +19,7 @@ namespace mRemoteNG.UI.Window
     public partial class UpdateWindow : BaseWindow
     {
         private AppUpdater? _appUpdate;
+        private ThemeManager? _themeManager;
         //private bool _isUpdateDownloadHandlerDeclared;
 
         #region Public Methods
@@ -49,10 +50,23 @@ namespace mRemoteNG.UI.Window
 
         #region Form Stuff
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _themeManager != null)
+            {
+                _themeManager.ThemeChanged -= ApplyTheme;
+                _themeManager = null;
+            }
+
+            base.Dispose(disposing);
+        }
+
         private async void Update_Load(object sender, EventArgs e)
         {
             ApplyTheme();
-            ThemeManager.getInstance().ThemeChanged += ApplyTheme;
+            _themeManager = ThemeManager.getInstance();
+            _themeManager.ThemeChanged -= ApplyTheme;
+            _themeManager.ThemeChanged += ApplyTheme;
             ApplyLanguage();
         }
 

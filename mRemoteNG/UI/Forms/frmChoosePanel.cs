@@ -53,13 +53,21 @@ namespace mRemoteNG.UI.Forms
 
         private void AddAvailablePanels()
         {
-            cbPanels.Items.Clear();
-
-            for (int i = 0; i <= Runtime.WindowList.Count - 1; i++)
+            cbPanels.BeginUpdate();
+            try
             {
-                var window = Runtime.WindowList[i];
-                if (window is null) continue;
-                cbPanels.Items.Add(window.Text.Replace("&&", "&", StringComparison.Ordinal));
+                cbPanels.Items.Clear();
+
+                for (int i = 0; i <= Runtime.WindowList.Count - 1; i++)
+                {
+                    var window = Runtime.WindowList[i];
+                    if (window is null) continue;
+                    cbPanels.Items.Add(window.Text.Replace("&&", "&", StringComparison.Ordinal));
+                }
+            }
+            finally
+            {
+                cbPanels.EndUpdate();
             }
 
             if (cbPanels.Items.Count > 0)

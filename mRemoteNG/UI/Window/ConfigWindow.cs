@@ -720,6 +720,7 @@ namespace mRemoteNG.UI.Window
         private void Config_Load(object sender, EventArgs e)
         {
             _themeManager = ThemeManager.getInstance();
+            _themeManager.ThemeChanged -= ApplyTheme;
             _themeManager.ThemeChanged += ApplyTheme;
             ApplyTheme();
             AddToolStripItems();
@@ -825,7 +826,7 @@ namespace mRemoteNG.UI.Window
                 if (_pGrid.SelectedConnectionInfos == null || !_pGrid.SelectedConnectionInfos.Any()) return;
                 if (_pGrid.SelectedConnectionInfos.Any(c => c is PuttySessionInfo)) return;
                 
-                CMenIcons.Items.Clear();
+                ClearIconMenuItems();
 
                 foreach (string iStr in ConnectionIcon.Icons)
                 {
@@ -846,6 +847,34 @@ namespace mRemoteNG.UI.Window
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ConfigPropertyGridButtonIconClickFailed + Environment.NewLine + ex.Message, true);
             }
+        }
+
+        private void ClearIconMenuItems()
+        {
+            while (CMenIcons.Items.Count > 0)
+            {
+                ToolStripItem item = CMenIcons.Items[0];
+                CMenIcons.Items.RemoveAt(0);
+                item.Image?.Dispose();
+                item.Dispose();
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_themeManager != null)
+                {
+                    _themeManager.ThemeChanged -= ApplyTheme;
+                    _themeManager = null;
+                }
+
+                ClearIconMenuItems();
+                _components?.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         private void IconMenu_Click(object sender, EventArgs e)

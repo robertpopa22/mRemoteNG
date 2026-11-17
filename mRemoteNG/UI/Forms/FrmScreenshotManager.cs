@@ -79,21 +79,26 @@ namespace mRemoteNG.UI.Forms
 
         private void LoadScreenshots()
         {
-            _listView.Items.Clear();
-
-            if (!Directory.Exists(_screenshotDir))
+            _listView.BeginUpdate();
+            try
             {
-                UpdateButtonStates();
-                return;
+                _listView.Items.Clear();
+
+                if (Directory.Exists(_screenshotDir))
+                {
+                    foreach (string file in Directory.GetFiles(_screenshotDir, "*.png"))
+                    {
+                        var fi = new FileInfo(file);
+                        var item = new ListViewItem(fi.Name) { Tag = fi.FullName };
+                        item.SubItems.Add(fi.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+                        item.SubItems.Add($"{Math.Max(1, fi.Length / 1024)} KB");
+                        _listView.Items.Add(item);
+                    }
+                }
             }
-
-            foreach (string file in Directory.GetFiles(_screenshotDir, "*.png"))
+            finally
             {
-                var fi = new FileInfo(file);
-                var item = new ListViewItem(fi.Name) { Tag = fi.FullName };
-                item.SubItems.Add(fi.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
-                item.SubItems.Add($"{Math.Max(1, fi.Length / 1024)} KB");
-                _listView.Items.Add(item);
+                _listView.EndUpdate();
             }
 
             UpdateButtonStates();

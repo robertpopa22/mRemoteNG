@@ -373,6 +373,7 @@ namespace mRemoteNG.UI.Tabs
         {
             if (disposing)
             {
+                ClearWindowListItems();
                 if(Components != null)
                     Components.Dispose();
 
@@ -1471,7 +1472,7 @@ namespace mRemoteNG.UI.Tabs
 
         private void WindowList_Click(object sender, EventArgs e)
         {
-            SelectMenu.Items.Clear();
+            ClearWindowListItems();
             foreach (Tab tab1 in Tabs)
             {
                 MremoteNGTab tab = (MremoteNGTab)tab1;
@@ -1513,6 +1514,17 @@ namespace mRemoteNG.UI.Tabs
                 {
                     SelectMenu.Show(newPoint);
                 }
+            }
+        }
+
+        private void ClearWindowListItems()
+        {
+            while (SelectMenu.Items.Count > 0)
+            {
+                ToolStripItem item = SelectMenu.Items[0];
+                SelectMenu.Items.RemoveAt(0);
+                item.Image?.Dispose();
+                item.Dispose();
             }
         }
 

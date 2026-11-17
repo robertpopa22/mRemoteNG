@@ -165,7 +165,6 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                         BrowsableProperties = rootProperties.ToArray();
                     }
 
-                    Refresh();
                     return;
                 }
 
@@ -233,7 +232,6 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                 }
 
                 HiddenProperties = commonExclusions?.ToArray();
-                Refresh();
             } catch (Exception ex) {
                 Runtime.MessageCollector.AddMessage(
                     MessageClass.ErrorMsg,
@@ -251,7 +249,6 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     strHide.Add(nameof(AbstractConnectionRecord.Name));
              }
              HiddenProperties = strHide.ToArray();
-             Refresh();
         }
 
         private IEnumerable<PropertyInfo> GetPropertiesForGridObject(object currentGridObject) {
