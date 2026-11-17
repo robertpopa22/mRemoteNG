@@ -217,6 +217,66 @@ namespace mRemoteNGSpecs.Fixtures
         }
 
         /// <summary>
+        /// Qodo's finding on PR #158: the tab menu's Disconnect marks the tab disconnect-only so
+        /// KeepTabsOpenAfterDisconnect (default on) keeps it with a Connect button. The mark was
+        /// never cleared, so after Connect reused that tab, closing it only disconnected again and
+        /// the tab stayed. Disconnect, Connect, then middle-click close: the tab must go.
+        /// </summary>
+        [Test]
+        public void ClosingATabReconnectedAfterADisconnectClosesIt()
+        {
+            SkipUnless(LabTargets.LinuxHost, LabTargets.Ssh, "lab SSH target");
+
+            AutomationElement row = RequireRow("lab-linux-ssh");
+            row.DoubleClick();
+            UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(45));
+            UiWait.Until(() => TabCount() > 0, "a session tab to open", TimeSpan.FromSeconds(30));
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(15));
+            int before = TabCount();
+
+            Support.Win32Mouse.RightClick(SessionTab());
+            UiWait.FindRequired(Driver.Automation.GetDesktop(),
+                                cf => cf.ByName("Disconnect").And(cf.ByControlType(ControlType.MenuItem)),
+                                "tab menu Disconnect", TimeSpan.FromSeconds(10)).Click();
+            UiWait.Settle(MainWindow);
+            // Under ConfirmCloseConnection = All this asks once; it used to ask twice (tab menu,
+            // then the tab's close). The answered prompts are listed in the test output.
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(15));
+            AssertNoCrash("after Disconnect from the tab menu");
+
+            // Search inside the tab: the Quick Connect toolbar has its own "Connect" button, and a
+            // window-wide search found that one first (first lab run clicked it; nothing happened).
+            AutomationElement document = UiWait.FindRequired(
+                MainWindow, cf => cf.ByAutomationId("ConnectionTab"), "the kept session tab", TimeSpan.FromSeconds(15));
+            AutomationElement connect = UiWait.FindRequired(
+                document, cf => cf.ByName("Connect").And(cf.ByControlType(ControlType.Button)),
+                "the kept tab's Connect button", TimeSpan.FromSeconds(15));
+            Assert.That(TabCount(), Is.EqualTo(before), "Disconnect should keep the tab open.");
+
+            Support.Win32Mouse.LeftClick(connect);
+            UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(30));
+            UiWait.Until(() => document.FindFirstDescendant(
+                                   cf => cf.ByName("Connect").And(cf.ByControlType(ControlType.Button))) is null,
+                         "the reconnected session to replace the Connect button", TimeSpan.FromSeconds(30));
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(10));
+            Assert.That(TabCount(), Is.EqualTo(before), "Connect should reuse the kept tab.");
+
+            Support.Win32Mouse.MiddleClick(SessionTab());
+            UiWait.Settle(MainWindow);
+            AnswerExpectedPrompts(TimeSpan.FromSeconds(5));
+            AssertNoCrash("after closing the reconnected tab");
+
+            UiWait.Until(() => TabCount() == before - 1, "the reconnected tab to close",
+                         TimeSpan.FromSeconds(15));
+        }
+
+        private AutomationElement SessionTab() =>
+            MainWindow.FindAllDescendants(cf => cf.ByControlType(ControlType.TabItem))
+                      .First(t => LabTargets.IsLinuxSshTab(SafeName(t), "lab-linux-ssh"));
+
+        /// <summary>
         /// Stress coverage for #166. Opening a real VNC session and exiting cleanly exercises the
         /// dispose ordering, but #166 is a race between VncSharpCore's polling thread and handle
         /// destruction: one clean exit means "did not reproduce this time", not "the race is gone".

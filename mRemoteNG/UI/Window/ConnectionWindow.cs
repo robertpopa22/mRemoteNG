@@ -1964,25 +1964,8 @@ namespace mRemoteNG.UI.Window
 
             try
             {
-                ConnectionInfo? connectionInfo = GetConnectionInfoForTab(selectedTab);
-                if (connectionInfo != null && Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All)
-                {
-                    string confirmMessage = string.Format(CultureInfo.CurrentCulture, Language.ConfirmDisconnectConnection, connectionInfo.Name);
-                    DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName,
-                                                        confirmMessage, "", "", "",
-                                                        Language.CheckboxDoNotShowThisMessageAgain,
-                                                        ETaskDialogButtons.YesNo, ESysIcons.Question,
-                                                        ESysIcons.Question);
-                    if (CTaskDialog.VerificationChecked)
-                    {
-                        Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
-                        Settings.Default.Save();
-                    }
-
-                    if (result == DialogResult.No)
-                        return;
-                }
-
+                // No confirmation here: ConnectionTab.OnFormClosing asks once under
+                // ConfirmCloseEnum.All. Asking here too showed two dialogs for one Disconnect.
                 selectedTab.disconnectOnly = true;
                 selectedTab.Close();
             }

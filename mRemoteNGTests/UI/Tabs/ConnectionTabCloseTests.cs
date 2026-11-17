@@ -85,6 +85,23 @@ namespace mRemoteNGTests.UI.Tabs
         }
 
         [Test]
+        public void ClosingATabKeptOpenByAnEarlierDisconnectClosesTheTab()
+        {
+            _connectionTab.disconnectOnly = true;
+            FormClosingEventArgs disconnectArgs = InvokeFormClosing();
+
+            FormClosingEventArgs closeArgs = InvokeFormClosing();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(disconnectArgs.Cancel, Is.True, "The disconnect should keep the tab open.");
+                Assert.That(closeArgs.Cancel, Is.False,
+                            "A later close must close the tab - the earlier disconnect request must not stick to it.");
+                Assert.That(_connectionTab.disconnectOnly, Is.False);
+            });
+        }
+
+        [Test]
         public void DisconnectingFromTheTabMenuClosesTheTabWhenTabsAreNotKeptOpenAfterDisconnect()
         {
             OptionsTabsPanelsPage.Default.KeepTabsOpenAfterDisconnect = false;

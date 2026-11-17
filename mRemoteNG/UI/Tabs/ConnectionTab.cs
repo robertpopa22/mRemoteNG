@@ -256,6 +256,10 @@ namespace mRemoteNG.UI.Tabs
 
             ClosePathDiagnostics.Log($"tab '{TabText}' FormClosing: cancel {e.Cancel}");
             base.OnFormClosing(e);
+
+            // A disconnect request covers this one close only. A tab kept open and reconnected
+            // must close normally the next time the user closes it.
+            disconnectOnly = false;
         }
 
         /// <summary>
