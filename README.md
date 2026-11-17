@@ -78,6 +78,8 @@ Two live releases, always:
 | **[Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)** | rolling | Published changes from `main`. Check the release's commit and assets: local FULL/MINI packages and CI packages have different packaging. |
 | **[Legacy](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.76.20)** | v1.76.20 | Last .NET Framework 4.x release. |
 
+**Code signing:** current builds are unsigned. We have applied to the [SignPath Foundation](https://signpath.org/) for free code signing of open-source projects; once approved, releases will be signed through SignPath Foundation. Status: [docs/CODE_SIGNING_POLICY.md](docs/CODE_SIGNING_POLICY.md).
+
 ### Download matrix — Stable v1.84.0
 
 | Variant | x64 | x86 | ARM64 |
