@@ -142,6 +142,40 @@ We are a fork of a living project, and we intend to keep being able to take its 
 
 Newest first. Each entry records what was decided, why, and what would reverse it.
 
+### D15 — 2026-11-17 · How each agent CLI is called on this repository
+
+The agents of D12 are called the way below. Each was observed working that way on 2026-11-17;
+a call that differs from it is checked with the CLI's own `--help` first.
+
+| Agent | Call | Where it works | What was observed |
+|---|---|---|---|
+| Antigravity (`agy`) | `agy -p <prompt> --model <model> --dangerously-skip-permissions --sandbox --print-timeout <N>m`, started detached and read from its output file | a separate worktree of this repository, never the orchestrator's checkout | Without those flags a headless run denied `read_file`, exited 0 and printed nothing; `--mode plan` and `--settings` allow-rules did not fix it. A run of about 50 minutes delivered a complete implementation. |
+| Codex | the Codex companion with `--write --wait` for an implementation, without `--write` for an opinion | a worktree inside this repository's folder (its sandbox writes only there), excluded in `.git/info/exclude` | A worktree under the system temp folder was refused. Diagnosis took about 5 minutes, five small fixes with tests about 7. |
+| Grok Build | the Grok runner, default limit 45 minutes; narrow the files to read for a long review | read-only for opinions; a worktree like the others when it implements | The old 900-second limit cut two multi-file reviews before their last sections. |
+| Claude Code | a subagent with a written brief and explicit model | the orchestrator's session, or a worktree when it writes | — |
+| Mistral Vibe | `--agent accept-edits --trust`, `--output-dir` for the run export | a worktree like the others | Not used on 2026-11-17; the call is the one recorded for the CLI. |
+
+For every one of them:
+
+- The prompt gives the goal, the measured data, the files to start from and the rule for edits
+  (opinion: no edits; implementation: edit the tree, no git state changes). It never hands over
+  the orchestrator's conclusion as the expected answer.
+- No agent commits, pushes, publishes or posts. The orchestrator brings an implementation over
+  with `git apply --3way`, resolves conflicts, builds, runs the suite, runs the lab and the
+  security lens, and commits in groups it stages by explicit path.
+- An agent's exit code 0 proves nothing: the orchestrator reads the output and the diff. Two
+  implementations on 2026-11-17 each carried one compile error (`WFO1000` in a test helper),
+  because the agents were told not to build; the orchestrator's build is the gate.
+- The orchestrator does not stage an agent's diff and then commit something else: one commit on
+  2026-11-17 swallowed an earlier staged merge and had to be undone before it was pushed.
+
+*Why:* the maintainer, 2026-11-17, asked for the way each CLI is used to be written down after
+`agy` failed twice before it ran, and Codex once, for reasons that had nothing to do with the
+task.
+
+*Reverses if:* a CLI changes how it runs headless; the row is updated after the new call is
+observed working.
+
 ### D14 — 2026-11-17 · A reviewer that is still working is not cut
 
 An agent asked for an opinion or an implementation runs until it answers or until its
