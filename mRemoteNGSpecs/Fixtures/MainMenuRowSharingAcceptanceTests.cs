@@ -34,7 +34,9 @@ public class MainMenuRowSharingAcceptanceTests : UiAcceptanceTestBase
     [Issues("#253")]
     public void ExternalToolsToolbarSavedBesideTheMenuStartsOnTheMenuRow()
     {
-        AutomationElement menu = UiWait.FindRequired(MainWindow, cf => cf.ByAutomationId("msMain"), "main menu");
+        // The Connections panel has its own menu strip, also named msMain: match the main one by name.
+        AutomationElement menu = UiWait.FindRequired(MainWindow,
+            cf => cf.ByAutomationId("msMain").And(cf.ByName("Main Menu")), "main menu");
         AutomationElement tools = UiWait.FindRequired(MainWindow, cf => cf.ByAutomationId("_externalToolsToolStrip"), "External Tools toolbar");
         var menuBounds = menu.BoundingRectangle;
         var toolsBounds = tools.BoundingRectangle;
