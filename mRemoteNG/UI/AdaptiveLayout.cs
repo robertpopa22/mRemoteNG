@@ -452,6 +452,30 @@ internal static class AdaptiveLayout
         MeasureInputRows();
     }
 
+    /// <summary>
+    /// The width of the given columns when every one of them is a Percent column, as a share of
+    /// the width the table has now; otherwise null. Layout is raised before the table recomputes
+    /// its columns, so GetColumnWidths still holds the previous pass: after a first layout in a
+    /// narrow panel, captions measured from it stayed a few letters wide when the panel grew (#232).
+    /// </summary>
+    private static int? PercentShare(TableLayoutPanel table, int column, int span, int available)
+    {
+        if (column + span > table.ColumnStyles.Count) return null;
+        float total = 0, share = 0;
+        for (int i = 0; i < table.ColumnStyles.Count; i++)
+        {
+            bool inSpan = i >= column && i < column + span;
+            if (table.ColumnStyles[i].SizeType != SizeType.Percent)
+            {
+                if (inSpan) return null;
+                continue;
+            }
+            total += table.ColumnStyles[i].Width;
+            if (inSpan) share += table.ColumnStyles[i].Width;
+        }
+        return total > 0 && share > 0 ? (int)(available * share / total) : null;
+    }
+
     private static void LimitCellTextWidth(TableLayoutPanel table)
     {
         int[] widths = table.GetColumnWidths();
@@ -469,8 +493,14 @@ internal static class AdaptiveLayout
             }
             int column = table.GetColumn(child);
             int span = table.GetColumnSpan(child);
-            if (column < 0 || column >= widths.Length) continue;
-            int width = widths.Skip(column).Take(span).Sum();
+            if (column < 0) continue;
+            int width;
+            if (PercentShare(table, column, span, available) is int share)
+                width = share;
+            else if (column < widths.Length)
+                width = widths.Skip(column).Take(span).Sum();
+            else
+                continue;
             if (span == 1 && column < table.ColumnStyles.Count && table.ColumnStyles[column].SizeType == SizeType.AutoSize)
                 width = available / Math.Min(3, table.ColumnCount);
             width = Math.Max(child.MinimumSize.Width, Math.Max(32, Math.Min(width, available) - child.Margin.Horizontal));
