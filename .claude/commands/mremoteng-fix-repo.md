@@ -329,6 +329,11 @@ Start publication with:
 ```bash
 cd /d/github/mRemoteNG && git push origin main
 ```
+As soon as the push succeeds, shut down the lab guests with the command in
+[docs/LAB-GUEST.md](../../docs/LAB-GUEST.md) section 7, and confirm none is still running. A running
+guest keeps its memory locked on the host. Do this on every push, including a documentation push.
+If another session's lab run is in progress, leave the guests up and say so in the session report.
+
 Then publish the nightly (Step 7a), then post the replies:
 ```bash
 gh issue comment <n> --repo robertpopa22/mRemoteNG -F <reply-file>

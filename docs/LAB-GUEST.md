@@ -251,6 +251,14 @@ indirect display is gone before the ordinary battery.
 
 ## 7. When done
 
-Leave the guest running if another run is coming; otherwise `Stop-VM -Name 'mRNG-Lab-WinSrv2025'`.
-Nothing on the host changes: the scenario copies live under
+A running guest keeps its memory locked on the host. Leave guests running only while another run
+is coming, and never past a push. After every push, shut down all of them:
+
+```powershell
+Get-VM -Name 'mRNG-Lab-*' | Where-Object State -ne 'Off' | Stop-VM -Force
+Get-VM -Name 'mRNG-Lab-*' | Select-Object Name, State
+```
+
+The name filter matters: other virtual machines on the host are not part of this lab. Apart from
+that memory, nothing on the host changes: the scenario copies live under
 `mRemoteNGSpecs\bin\x64\Release\_uiscenarios` on the guest and are swept after four hours.
