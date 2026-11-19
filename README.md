@@ -32,7 +32,7 @@ If this fork is useful to you, please star it. Community tools we rely on set a 
     <img alt="Nightly" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/nightly.yml?style=for-the-badge&label=Nightly&color=blueviolet">
   </a>
   <a href="https://sonarcloud.io/project/overview?id=robertpopa22_mRemoteNG">
-    <img alt="SonarCloud quality gate passed, checked 2026-11-16" src="https://img.shields.io/badge/Sonar-gate%20passed-brightgreen?style=for-the-badge">
+    <img alt="SonarCloud quality gate failed on new-code coverage, checked 2026-11-19" src="https://img.shields.io/badge/Sonar-gate%20failed-red?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/security/code-scanning">
     <img alt="CodeQL" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?style=for-the-badge&label=CodeQL">
@@ -128,7 +128,8 @@ The full local suite passed **4,151/4,151**, Pester **7/7**, and candidate guest
 
 **Earlier maintenance update — 16 November 2026.** Nightly `1.84.0+31a4433111` was published as a self-contained x64 FULL package and has since been replaced by the CI build above. Thanks to jblion's trace, screenshot and follow-up:
 
-- **Options opens with less repeated layout work** ([#232](https://github.com/robertpopa22/mRemoteNG/issues/232)). New automatic-layout tables are populated before measuring their contents. Individual automated lab runs recorded first opening at 21,003 ms before and 1,956 ms after, with reopening at 385/304 ms; this is not a controlled benchmark or a guarantee for another computer. The issue remains open for the reporter's first-opening retest.
+- **Options opens with less repeated layout work** ([#232](https://github.com/robertpopa22/mRemoteNG/issues/232)). New automatic-layout tables are populated before measuring their contents. Individual automated lab runs recorded first opening at 21,003 ms before and 1,956 ms after, with reopening at 385/304 ms. The reporter confirmed that opening time is now acceptable. The Options navigation icons still overlap their labels in the reporter's setup, so the issue remains open.
+- **The main menu can share its toolbar row again.** Two reporters confirmed that they could arrange the panels side by side. The lab also verified that the External Tools toolbar and the main menu stay on their saved shared row at startup. [#253, closed](https://github.com/robertpopa22/mRemoteNG/issues/253)
 - **The reset connections-file picker button follows the checkbox layout** ([#233](https://github.com/robertpopa22/mRemoteNG/issues/233), closed). The automated reproduction showed overlap with numeric fields before the change and none after resizing between 1000×720 and 800×600. French/scaled-control checks passed too; the reporter's actual 200% monitor setup was not exercised.
 - **The version-2.9 connection-file rejection is closed after reporter confirmation** ([#231](https://github.com/robertpopa22/mRemoteNG/issues/231)). A synthetic file loaded its named connection into the tree and the application exited cleanly. The original upstream file is unavailable: this does not establish a full field round trip. Unsupported `TerminalBackend` data remains unsupported, and saves use version 2.8.
 
@@ -138,7 +139,7 @@ The maintenance procedure now publishes in-scope fixes and replies directly afte
 
 **Resumed CI result:** PR_Validation passed all **5/5 jobs** on `8153f07f1`: solution builds for x86/x64/ARM64, test/spec project builds for x86/x64, and the configured x64/ARM64 startup checks. CodeQL also completed successfully, its analysis was uploaded for that exact commit, and GitHub reported **zero open CodeQL alerts** at readback. Compiler/analyzer warnings remain. These validation workflows publish no release and do not replace the local full-suite/UI results above.
 
-**Quality.** Sonar analysis `34beb9ad-e4b2-4552-b7ca-50e37c991ee5` on `ea3ac5406` passed the Quality Gate with **80.69%** new-code coverage against the existing **80%** threshold, **59.5%** overall coverage, ratings **A/A/A** and zero open bugs or vulnerabilities. The project has **6,762 open maintainability findings**, down from 6,789. Qodo remains paused. [Sonar project](https://sonarcloud.io/project/overview?id=robertpopa22_mRemoteNG)
+**Quality.** The Sonar run for `2edf6db3b` failed the Quality Gate at **78.5% new-code coverage** against the **80%** threshold. Build validation, nightly, CodeQL and secret scanning passed on that revision. Qodo remains paused. [Sonar run](https://github.com/robertpopa22/mRemoteNG/actions/runs/44136303444)
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -402,7 +403,7 @@ user's connections.
 *Rewritten 2026-08-15. The previous version of this table described the March 2026 upstream-PR
 push and had gone stale — items were listed as unsolved that were fixed months ago, and the
 genuinely open problems below were missing entirely. The six open security findings that headed
-this list the same day are now resolved and the SonarCloud gate is green; that entry is gone,
+this list the same day were resolved, and that entry was removed,
 which is the most useful thing that can happen to a row in this table.*
 
 | # | Problem | Status | Why it's hard |
@@ -415,8 +416,9 @@ which is the most useful thing that can happen to a row in this table.*
 | 6 | **Upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) still open** | Waiting, understandably | 765 files, ~64K insertions. A diff that size is genuinely hard to review responsibly, and the upstream maintainers built this project — their caution is reasonable. The lesson is on our side: future contributions go upstream as smaller, focused PRs |
 | 7 | **Reporter confirmation is the bottleneck** | Structural | Of the fork's closed external issues, a large share were closed on code and test evidence without the reporter ever replying. Those fixes are probably right, but "probably" is the honest word. There is no way around this other than making it easy and worthwhile to reply — which is what the transparency work is for |
 | 8 | **Unsigned binaries: Smart App Control blocks every build, Defender cloud-checks every new one** ([#219](https://github.com/robertpopa22/mRemoteNG/issues/219)) | Blocked on signing, no code fix | No binary this fork publishes carries an Authenticode signature (SignPath Foundation declined on 2026-03-05; status in [docs/CODE_SIGNING_POLICY.md](docs/CODE_SIGNING_POLICY.md)). Smart App Control runs an app only if it is signed by a publicly trusted certificate or has positive cloud reputation; a fresh unsigned build has neither, so on Windows 11 with Smart App Control on, mRemoteNG is blocked (reported on ARM64 v1.84.0). Self-signed certificates do not satisfy it. The same missing signature makes Defender cloud-check every new build on first start (up to 10 s on a slow link, measured 2026-10-15). Closes only when releases are signed with a publicly trusted certificate |
+| 9 | **Sonar new-code coverage below the Quality Gate threshold** | Open | The analysis of `2edf6db3b` measured 78.5% against the 80% threshold. [CI result](https://github.com/robertpopa22/mRemoteNG/actions/runs/44136303444) |
 
-The Actions suspension and failed Sonar gate are resolved as of 16 November 2026. The analysis of `b685313c0` passed after eleven fixes, one evidence-backed executable-name false-positive disposition, and measured coverage improvements; thresholds remain unchanged. Separately, the resumed [full-history secret scan](https://github.com/robertpopa22/mRemoteNG/actions/runs/43830437771) failed on 8 detections in 2016 history. Four are confirmed property assignments rather than literal secrets. The other four were reviewed on 17 November 2026: a Stripe publishable test key and an upstream maintainer's token on the old project website, and an upstream developer's 2016 test connections file. None of the reported paths exists in the current tracked tree, and removing them would mean rewriting history shared with upstream. Exactly these eight fingerprints are listed, each with its reason, in [`.gitleaksignore`](.gitleaksignore); any new detection still fails the scan.
+The Actions suspension was resolved on 16 November 2026. The analysis of `b685313c0` passed after eleven fixes, one evidence-backed executable-name false-positive disposition, and measured coverage improvements. Separately, the resumed [full-history secret scan](https://github.com/robertpopa22/mRemoteNG/actions/runs/43830437771) failed on 8 detections in 2016 history. Four are confirmed property assignments rather than literal secrets. The other four were reviewed on 17 November 2026: a Stripe publishable test key and an upstream maintainer's token on the old project website, and an upstream developer's 2016 test connections file. None of the reported paths exists in the current tracked tree, and removing them would mean rewriting history shared with upstream. Exactly these eight fingerprints are listed, each with its reason, in [`.gitleaksignore`](.gitleaksignore); any new detection still fails the scan.
 
 ### 6.5. Gen 5 — Adversarial Verification and Bounded Autonomy (current)
 
@@ -545,8 +547,8 @@ pipeline published the verified product changes recorded above.
 The new badges report installation, entitlement or the **16 November 2026 local
 results**; they are not passing-review badges. CodeRabbit's automatic trial is
 configured by the provider to revert to Free without charge. No paid usage product
-was activated. The Sonar badge records the passing server gate for `ea3ac5406`,
-checked on 16 November; Qodo remains paused.
+was activated. The Sonar badge records the failed coverage gate for `2edf6db3b`,
+checked on 19 November. Qodo remains paused.
 
 Hosted reviews follow a [credit budget](docs/FREE-VERIFICATION.md#credit-budget-and-stop-conditions):
 live balance checks before and after use, a 20-credit Greptile reserve and no paid
