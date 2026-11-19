@@ -70,6 +70,6 @@
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-11-12T08:00:04Z",
-  "notes": "2026-11-14: reply stands; open on signing (README 6.4 row 8). Windows ARM Smart App Control environment unavailable; the x64 lab cannot certify this scenario. No security policy or signing change."
+  "last_synced": "2026-11-19T17:11:30Z",
+  "notes": "2026-11-14: reply stands; open on signing (README 6.4 row 8). Windows ARM Smart App Control environment unavailable; the x64 lab cannot certify this scenario. No security policy or signing change.\n2026-11-19: Nightly 77a7e5f26 MSI Authenticode status NotSigned. The existing reply stands pending public-trust signing."
 }

@@ -193,6 +193,6 @@
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-19T15:55:35Z",
-  "notes": "caption width fix f3354a227 in nightly 415fdc4; icons overlap + main-window first-load layout still open"
+  "last_synced": "2026-11-19T17:11:31Z",
+  "notes": "Caption width fix f3354a227 shipped in nightly 415fdc4.\n2026-11-19: PuTTY chrome and Options speed confirmed by reporter. Navigation overlap reproduced at 192 DPI and corrected in nightly 77a7e5f26. Lab 2/2 at 192 DPI and 1/1 at 96 DPI. French 4K first-open and separate main-window layout observations still await reporter verification. Reply draft pending publication."
 }

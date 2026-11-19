@@ -8,17 +8,28 @@
   "created_at": "2026-11-19T11:35:10Z",
   "github_updated_at": "2026-11-19T11:35:10Z",
   "body_snippet": "I'm a little confused that arguments are passed to external tools in quotes, even though I specify them without quotes.\nNot all external applications are designed to accept arguments in quotes.\nHere’s an example to test this. I created a batch file:\n```\n@echo %*\n@pause>nul\n```\nI registered this batch file as an external tool, as shown in the screenshot:\n\n<img width=\"1088\" height=\"526\" alt=\"image\" src=\"https://github.com/user-attachments/assets/8b3bbdf6-4b79-4ecb-8b96-cd9829412276\" />\n\nAs a resul...",
-  "our_status": "new",
+  "our_status": "wontfix",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-11-19",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [],
   "comments_cursor": "2026-11-19T11:35:10Z",
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-19T15:55:35Z",
-  "notes": ""
+  "last_synced": "2026-11-19T17:11:31Z",
+  "notes": "2026-11-19: Expected batch quoting. The screenshot shows %* displaying quotes added by ExternalTool.SetProcessProperties. A synthetic cmd check confirmed %~n yields the individual values; ExternalToolTests 16/16. Reply and proposed not-planned closure remain drafts."
 }
