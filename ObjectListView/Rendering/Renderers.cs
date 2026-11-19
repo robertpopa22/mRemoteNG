@@ -1619,7 +1619,8 @@ namespace BrightIdeasSoftware {
                 r.Y = this.AlignVertically(r, new Rectangle(Point.Empty, image.Size));
 
             if (this.ListItem.Enabled)
-                g.DrawImageUnscaled(image, r.X, r.Y);
+                // Use the same pixel width for painting and the label offset, regardless of bitmap DPI.
+                g.DrawImage(image, new Rectangle(r.Location, image.Size), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
             else
                 ControlPaint.DrawImageDisabled(g, image, r.X, r.Y, GetBackgroundColor());
 

@@ -41,7 +41,7 @@ If this fork is useful to you, please star it. Community tools we rely on set a 
     <img alt="Qodo reviews paused, checked 2026-11-16" src="https://img.shields.io/badge/Qodo-paused-lightgrey?style=for-the-badge">
   </a>
   <a href="docs/FREE-VERIFICATION.md#semgrep-community-edition">
-    <img alt="Semgrep CE: 728 files fully parsed, two SQL findings reviewed" src="https://img.shields.io/badge/Semgrep%20CE-728%20parsed%20%2F%202%20reviewed-blue?style=for-the-badge&logo=semgrep">
+    <img alt="Semgrep CE: 729 files fully parsed, two SQL findings reviewed" src="https://img.shields.io/badge/Semgrep%20CE-729%20parsed%20%2F%202%20reviewed-blue?style=for-the-badge&logo=semgrep">
   </a>
   <a href="docs/FREE-VERIFICATION.md#strykernet-mutation-pilot">
     <img alt="Stryker.NET window-placement pilot: 100 percent mutation score" src="https://img.shields.io/badge/Stryker.NET-pilot%20100%25-brightgreen?style=for-the-badge">
@@ -128,7 +128,7 @@ The full local suite passed **4,151/4,151**, Pester **7/7**, and candidate guest
 
 **Earlier maintenance update — 16 November 2026.** Nightly `1.84.0+31a4433111` was published as a self-contained x64 FULL package and has since been replaced by the CI build above. Thanks to jblion's trace, screenshot and follow-up:
 
-- **Options opens with less repeated layout work** ([#232](https://github.com/robertpopa22/mRemoteNG/issues/232)). New automatic-layout tables are populated before measuring their contents. Individual automated lab runs recorded first opening at 21,003 ms before and 1,956 ms after, with reopening at 385/304 ms. The reporter confirmed that opening time is now acceptable. The Options navigation icons still overlap their labels in the reporter's setup, so the issue remains open.
+- **Options opens with less repeated layout work** ([#232](https://github.com/robertpopa22/mRemoteNG/issues/232)). New automatic-layout tables are populated before measuring their contents. Individual automated lab runs recorded first opening at 21,003 ms before and 1,956 ms after, with reopening at 385/304 ms. The reporter confirmed that opening time is now acceptable.
 - **The main menu can share its toolbar row again.** Two reporters confirmed that they could arrange the panels side by side. The lab also verified that the External Tools toolbar and the main menu stay on their saved shared row at startup. [#253, closed](https://github.com/robertpopa22/mRemoteNG/issues/253)
 - **The reset connections-file picker button follows the checkbox layout** ([#233](https://github.com/robertpopa22/mRemoteNG/issues/233), closed). The automated reproduction showed overlap with numeric fields before the change and none after resizing between 1000×720 and 800×600. French/scaled-control checks passed too; the reporter's actual 200% monitor setup was not exercised.
 - **The version-2.9 connection-file rejection is closed after reporter confirmation** ([#231](https://github.com/robertpopa22/mRemoteNG/issues/231)). A synthetic file loaded its named connection into the tree and the application exited cleanly. The original upstream file is unavailable: this does not establish a full field round trip. Unsupported `TerminalBackend` data remains unsupported, and saves use version 2.8.
@@ -139,7 +139,9 @@ The maintenance procedure now publishes in-scope fixes and replies directly afte
 
 **Resumed CI result:** PR_Validation passed all **5/5 jobs** on `8153f07f1`: solution builds for x86/x64/ARM64, test/spec project builds for x86/x64, and the configured x64/ARM64 startup checks. CodeQL also completed successfully, its analysis was uploaded for that exact commit, and GitHub reported **zero open CodeQL alerts** at readback. Compiler/analyzer warnings remain. These validation workflows publish no release and do not replace the local full-suite/UI results above.
 
-**Quality.** The Sonar run for `2edf6db3b` failed the Quality Gate at **78.5% new-code coverage** against the **80%** threshold. Build validation, nightly, CodeQL and secret scanning passed on that revision. Qodo remains paused. [Sonar run](https://github.com/robertpopa22/mRemoteNG/actions/runs/44136303444)
+**Options navigation at 200% scaling — 19 November 2026.** The lab reproduced icons covering the labels on the first Options opening at 192 DPI. The renderer now uses the same pixel width to draw the icon and position the label. The candidate passed opening, cancelling, reopening and the Connections page resize check at 192 DPI. Opening and reopening also passed at 96 DPI. App timings were **191/42 ms** at 192 DPI and **211/66 ms** at 96 DPI. Reporter verification is pending. [#232](https://github.com/robertpopa22/mRemoteNG/issues/232)
+
+**Quality.** The Sonar run for `2edf6db3b` failed the Quality Gate at **78.5% new-code coverage** against the **80%** threshold. Build validation, nightly, CodeQL and secret scanning passed on that revision. The new Pester coverage exercises the MSI lab script's installer, upgrade detection, configuration fingerprints and startup diagnostics with synthetic data. It measures **145/170 lines** with **8/8 tests passing**. [Baseline Sonar run](https://github.com/robertpopa22/mRemoteNG/actions/runs/44136303444)
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -530,7 +532,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File build.ps1 -SelfContained
 | 3 | **CodeQL** | Push to `main` + weekly — security scanning | [![CodeQL](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/robertpopa22/mRemoteNG/security/code-scanning) |
 | 4 | **.NET Analyzers** | `AnalysisLevel=latest-recommended` | Active |
 | 5 | **[Qodo Code Review](https://www.qodo.ai/)** | On-demand AI review | Paused: trial ended; checked 2026-11-16 |
-| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0, 728/728 files, 15 rules, zero parser errors or timeouts and 2 reviewed SQL findings |
+| 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0, 729/729 files, 15 rules, zero parser errors or timeouts and 2 reviewed SQL findings |
 | 7 | **Stryker.NET** | Local mutation pilot on window-placement logic | Pinned 5.1.0; 100% (48/48 scored mutants), 17 tests; standard-library clamp, same source scope and exclusions; 5 ignored, 1 compile error |
 | 8 | **CodeRabbit OSS** | Public-repository review | App installed only on this fork; configuration schema validated; no completed review yet; CLI OAuth not granted |
 | 9 | **Greptile OSS** | Public-repository review | Accepted 2026-11-16: 100 free credits/month; repository enabled, 0 reviews |
@@ -544,8 +546,9 @@ pipeline published the verified product changes recorded above.
 
 [![Greptile: The War on Bugs](https://www.greptile.com/badge.svg)](https://www.greptile.com/?utm_source=oss_badge&utm_medium=readme&utm_campaign=greptile_for_open_source)
 
-The new badges report installation, entitlement or the **16 November 2026 local
-results**; they are not passing-review badges. CodeRabbit's automatic trial is
+The provider badges report installation and entitlement. The local-tool badges
+report the Semgrep scan from 19 November and the Stryker pilot from 16 November.
+CodeRabbit's automatic trial is
 configured by the provider to revert to Free without charge. No paid usage product
 was activated. The Sonar badge records the failed coverage gate for `2edf6db3b`,
 checked on 19 November. Qodo remains paused.
