@@ -21,8 +21,8 @@ Usage:
     python fork_intel.py diverge    [--all-branches] [--limit N]
     python fork_intel.py screen     [--limit N]
     python fork_intel.py upstream   [--limit N] [--refresh] [--base <ref>]
-    python fork_intel.py triage     [--agent claude|codex] [--shard i/n]
-    python fork_intel.py preapprove [--reviewers claude,codex,grok] [--arbiter grok]
+    python fork_intel.py triage     --review-root <worktree> [--agent claude|codex|grok]
+    python fork_intel.py preapprove --review-root <worktree> [--sha <sha>]
     python fork_intel.py report
     python fork_intel.py export-ideas
     python fork_intel.py mark --sha <sha> --decision imported|rejected|deferred [--note "..."]
@@ -36,10 +36,10 @@ if sys.platform == "win32":
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 import argparse
+import hashlib
 import json
 import os
 import re
-import shutil
 import subprocess
 import tempfile
 import time
@@ -48,7 +48,10 @@ from pathlib import Path
 
 # ---------------------------------------------------------------- paths/config
 
-REPO_ROOT = Path(r"D:\github\mRemoteNG")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / ".project-roadmap" / "scripts"))
+from workspace_agent import detached_base, run_agent
+
 BASE_DIR = REPO_ROOT / ".project-roadmap" / "fork-intel"
 DB_DIR = BASE_DIR / "db"
 FORKS_DIR = DB_DIR / "forks"
@@ -121,7 +124,39 @@ def read_json(path, default=None):
 def write_json(path, data):
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=p.parent, delete=False) as handle:
+        temp_path = Path(handle.name)
+        try:
+            handle.write(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+            handle.close()
+            temp_path.replace(p)
+        finally:
+            handle.close()
+            temp_path.unlink(missing_ok=True)
+
+
+def reviewed_patch(detail, sha):
+    """Reject omitted or partial textual patches using commit and file totals."""
+    files = detail.get("files") or []
+    stats = detail.get("stats") or {}
+    patch = "\n".join(f"--- {f.get('filename')}\n{f.get('patch') or '(no text diff)'}"
+                      for f in files[:20])[:60000]
+    complete = detail.get("sha") == sha and bool(files) and len(files) <= 20 and len(patch) < 60000
+    for kind, prefix in (("additions", "+"), ("deletions", "-")):
+        if any(type(f.get(kind)) is not int for f in files):
+            complete = False
+            continue
+        complete = complete and stats.get(kind) == sum(f[kind] for f in files)
+        complete = complete and all(
+            f.get("patch") and sum(line.startswith(prefix) for line in f["patch"].splitlines()) == f[kind]
+            for f in files
+        )
+    return {"patch": patch, "patch_complete": complete}
+
+
+def prior_reviews(candidate):
+    return {key: candidate[key] for key in ("triage", "preapproval")
+            if candidate and key in candidate}
 
 
 def utc_now():
@@ -735,9 +770,8 @@ def cmd_screen(args):
                 "files": [{"filename": f.get("filename"), "status": f.get("status"),
                            "additions": f.get("additions"), "deletions": f.get("deletions")}
                           for f in files],
-                "patch": "\n".join(
-                    f"--- {f.get('filename')}\n{f.get('patch') or '(no text diff)'}"
-                    for f in files[:20])[:60000],
+                **reviewed_patch(detail, sha),
+                **prior_reviews(existing),
                 "security_flags": flags,
                 "status": status,
                 "screened_at": utc_now(),
@@ -887,9 +921,8 @@ def cmd_upstream(args):
             "files": [{"filename": f.get("filename"), "status": f.get("status"),
                        "additions": f.get("additions"), "deletions": f.get("deletions")}
                       for f in files],
-            "patch": "\n".join(
-                f"--- {f.get('filename')}\n{f.get('patch') or '(no text diff)'}"
-                for f in files[:20])[:60000],
+            **reviewed_patch(detail, sha),
+            **prior_reviews(existing),
             "security_flags": flags,
             "status": status,
             "screened_at": utc_now(),
@@ -913,101 +946,72 @@ def cmd_upstream(args):
 
 # ---------------------------------------------------------------------- triage
 
-# Prompts are fed through stdin, never as arguments: a diff-sized prompt blows past
-# the Windows command-line limit (WinError 206). Executables are resolved with
-# shutil.which so npm shims (codex.cmd) are found too.
-AGENT_ARGS = {
-    "claude": ["-p", "--output-format", "json"],
-    "codex": ["exec"],
-    # Gemini is not permitted for this code (Charter D12).
-}
+REVIEW_PROVIDERS = ("claude", "codex", "grok")
 
 
-# No model name is pinned here: unset = Grok Build's own default (its newest model).
-# Optional override through the environment, e.g. FORK_INTEL_GROK_MODEL=<model>.
-GROK_MODEL = os.environ.get("FORK_INTEL_GROK_MODEL", "").strip() or None
+def digest(data):
+    content = json.dumps(data, sort_keys=True, ensure_ascii=False).encode("utf-8")
+    return hashlib.sha256(content).hexdigest()
 
 
-def grok_run(prompt, timeout=600, model=None):
-    """Ask Grok through the official Grok Build CLI.
+def review_context(args, providers):
+    if args.review_root is None:
+        raise ValueError("--review-root must name a clean detached review worktree")
+    if args.timeout < 1:
+        raise ValueError("transcript idle interval must be positive")
+    args.review_root = args.review_root.resolve()
+    args.review_base = detached_base(args.review_root)
+    if args.review_base != git(["rev-parse", "HEAD"]).strip():
+        raise ValueError("review checkout and Radar base revisions differ")
+    args.models = {}
+    for provider in providers:
+        if provider not in REVIEW_PROVIDERS:
+            raise ValueError(f"unsupported review provider: {provider}")
+        prefix = f"FORK_INTEL_{provider.upper()}"
+        model = os.environ.get(f"{prefix}_MODEL", "").strip()
+        effort = os.environ.get(f"{prefix}_EFFORT", "").strip()
+        if not model or not effort:
+            raise ValueError(f"explicit {prefix}_MODEL and {prefix}_EFFORT are required")
+        args.models[provider] = model, effort
 
-    Grok used to have no CLI and this went out as a REST call with curl. It has one
-    now, and the difference is not cosmetic: with XAI_API_KEY present in the
-    environment the CLI announces "You are using XAI_API_KEY" and bills the metered
-    API, while without it the same binary reports "You are logged in with grok.com"
-    and draws on the subscription. A review pass over several hundred candidates is
-    exactly where that distinction stops being academic, so the key is stripped from
-    the child's environment here.
 
-    The prompt goes through a file rather than an argument: a diff-sized payload does
-    not fit on a command line, and the shell available here mangles '$' inside inline
-    text.
-    """
-    exe = shutil.which("grok")
-    if not exe:
-        log("  ! grok CLI is not on PATH, skipping")
-        return None
+def run_review(args, provider, prompt, identity):
+    """Record dispatch before execution so an uncertain result cannot be retried implicitly."""
+    model, effort = args.models[provider]
+    key = digest([args.review_base, provider, model, effort, identity, prompt])
+    path = DB_DIR / "reviews" / f"{key}.json"
+    if path.exists():
+        prior = read_json(path) or {}
+        if prior.get("state") == "completed" and prior.get("model") == model and prior.get("session"):
+            return prior.get("answer"), model, prior["session"]
+        return None, prior.get("model"), prior.get("session")
+    record = {"provider": provider, "requested_model": model, "effort": effort,
+              "state": "dispatched", "at": utc_now()}
+    write_json(path, record)
 
-    env = dict(os.environ)
-    env.pop("XAI_API_KEY", None)  # subscription, not metered API
+    def progress(session, kind):
+        record.update(session=session, last_event=kind, updated_at=utc_now())
+        write_json(path, record)
 
-    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False,
-                                     encoding="utf-8") as handle:
-        handle.write(prompt)
-        prompt_path = handle.name
-    try:
-        model = model or GROK_MODEL
-        proc = subprocess.run(
-            [exe, "--prompt-file", prompt_path, "--output-format", "json",
-             *(["--model", model] if model else []), "--no-subagents"],
-            capture_output=True, text=True, timeout=timeout,
-            encoding="utf-8", errors="replace", env=env)
-    except (subprocess.TimeoutExpired, OSError) as exc:
-        log(f"  ! grok failed: {exc}")
-        return None
-    finally:
+    result = run_agent(provider, prompt, args.review_root, model, effort, args.timeout, progress=progress)
+    state = result.state
+    if state == "completed":
         try:
-            os.unlink(prompt_path)
-        except OSError:
-            pass
-
-    if proc.returncode != 0:
-        log(f"  ! grok exit {proc.returncode}: {(proc.stderr or '').strip()[:160]}")
-        return None
-    try:
-        return json.loads(proc.stdout).get("text")
-    except (json.JSONDecodeError, AttributeError):
-        # Older builds print the answer directly rather than wrapping it.
-        return (proc.stdout or "").strip() or None
+            if detached_base(args.review_root) != args.review_base:
+                state = "review-base-changed"
+        except (OSError, ValueError, subprocess.SubprocessError):
+            state = "review-worktree-changed"
+    record.update(state=state, model=result.model, session=result.session, usage=result.usage,
+                  answer=result.text if state == "completed" else None)
+    write_json(path, record)
+    log(f"  {provider}: {state}")
+    return record["answer"], result.model, result.session
 
 
-def agent_run(agent, prompt, timeout=600):
-    """Run one AI CLI with the prompt on stdin. Returns its text answer, or None."""
-    if agent == "grok":
-        return grok_run(prompt, timeout=timeout)
-    args = AGENT_ARGS.get(agent)
-    if args is None:
-        return None
-    exe = shutil.which(agent)
-    if not exe:
-        log(f"  ! {agent} is not on PATH, skipping")
-        return None
-    try:
-        proc = subprocess.run([exe] + args, input=prompt, capture_output=True, text=True,
-                              timeout=timeout, encoding="utf-8", errors="replace")
-    except (subprocess.TimeoutExpired, OSError) as exc:
-        log(f"  ! {agent} failed: {exc}")
-        return None
-    if proc.returncode != 0:
-        log(f"  ! {agent} exit {proc.returncode}: {(proc.stderr or '').strip()[:160]}")
-        return None
-    out = (proc.stdout or "").strip()
-    if agent == "claude":
-        try:
-            return json.loads(out).get("result", out)
-        except json.JSONDecodeError:
-            return out
-    return out
+def candidate_input(candidate, rules):
+    return digest([candidate.get(key) for key in
+                   ("sha", "fork", "subject", "files", "patch", "patch_complete", "security_flags")]
+                  + [rules])
 
 
 def extract_json_array(text):
@@ -1128,10 +1132,17 @@ def build_triage_prompt(batch, issue_titles):
 
 def cmd_triage(args):
     """Ask an AI agent to judge each screened commit against our fork."""
+    try:
+        review_context(args, (args.agent,))
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        log(f"Cannot start triage: {exc}")
+        return 2
     meta = load_meta()
+    rules = load_rules()
     pending = [(p, c) for p, c in iter_candidates()
                if c.get("status") in ("screened", "quarantine") and
-               (args.refresh or not c.get("triage"))]
+               (args.refresh or (c.get("triage") or {}).get("base") != args.review_base
+                or (c.get("triage") or {}).get("input") != candidate_input(c, rules))]
 
     # Sharding lets several triage processes run at once against different
     # providers without treading on each other: the split is by SHA, so a
@@ -1170,12 +1181,9 @@ def cmd_triage(args):
         for i in range(0, len(group), args.batch):
             chunk = group[i:i + args.batch]
             prompt = build_triage_prompt([c for _, c in chunk], issue_titles)
-            verdicts = None
-            for agent in [args.agent] + [a for a in ("codex", "claude") if a != args.agent]:
-                verdicts = extract_json_array(agent_run(agent, prompt))
-                if verdicts:
-                    break
-                log(f"  ! {agent} returned no usable JSON, trying next agent")
+            identity = [candidate_input(c, rules) for _, c in chunk]
+            answer, model, session = run_review(args, args.agent, prompt, identity)
+            verdicts = extract_json_array(answer)
             if not verdicts:
                 failed += len(chunk)
                 continue
@@ -1196,7 +1204,11 @@ def cmd_triage(args):
                     "applies_cleanly": verdict.get("applies_cleanly"),
                     "action": verdict.get("action"),
                     "rationale": verdict.get("rationale"),
-                    "agent": agent,
+                    "agent": args.agent,
+                    "model": model,
+                    "session": session,
+                    "base": args.review_base,
+                    "input": candidate_input(cand, rules),
                     "at": utc_now(),
                 }
                 write_json(path, cand)
@@ -1208,7 +1220,7 @@ def cmd_triage(args):
 
     log(f"  judged: {judged}   failed: {failed}")
     save_meta(meta, "triage", {"judged": judged, "failed": failed, "agent": args.agent})
-    return 0
+    return int(failed > 0)
 
 
 # ------------------------------------------------------------------ preapprove
@@ -1397,7 +1409,9 @@ def consensus_decision(votes, has_security_flags):
     answered = answered_votes(votes)
     if len(answered) < 2:
         return "held"
-    if any(v.get("aligned") is False for v in answered):
+    if len({v.get("reviewer") for v in answered}) != len(answered):
+        return "held"
+    if any(v.get("aligned") is not True for v in answered):
         return "manual-review"
     if all(v.get("vote") == "APPROVE" for v in answered):
         return "pre-approved"
@@ -1406,7 +1420,11 @@ def consensus_decision(votes, has_security_flags):
 
 def patch_was_truncated(cand, limit):
     """Whether the reviewers were shown less than the whole diff."""
-    return len(cand.get("patch") or "") > limit
+    return cand.get("patch_complete") is not True or len(cand.get("patch") or "") > limit
+
+
+def review_input(candidate, rules):
+    return digest([candidate_input(candidate, rules), candidate.get("triage")])
 
 
 def revert_subject(subject):
@@ -1474,8 +1492,8 @@ def cmd_preapprove(args):
     meta = load_meta()
     rules = load_rules()
     reviewers = [a.strip() for a in args.reviewers.split(",") if a.strip()]
-    if len(reviewers) < 2:
-        log("! pre-approval needs at least two independent reviewers")
+    if set(reviewers) != set(REVIEW_PROVIDERS):
+        log("! configure the three D6 reviewer families; the triage family is rotated out")
         return 2
     if len(set(reviewers)) != len(reviewers):
         log("! the same reviewer is listed twice - that is one opinion, not two")
@@ -1485,22 +1503,23 @@ def cmd_preapprove(args):
     # or the check is the same model agreeing with itself. With three families and the
     # triage family rotated out of each panel, the rotated-out one is exactly that
     # outsider - no fourth subscription required.
-    arbiter = args.arbiter.strip()
-    if arbiter and arbiter in reviewers:
-        log(f"! {arbiter} also votes; the rotated-out family will audit instead")
-        arbiter = ""
+    if args.arbiter or args.audit_every < 1:
+        log("! D6 audit uses the rotated-out family and stays enabled")
+        return 2
+    try:
+        review_context(args, reviewers)
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        log(f"Cannot start panel: {exc}")
+        return 2
 
     pending = []
     for path, cand in iter_candidates():
-        if cand.get("status") == "dropped" or not cand.get("triage"):
+        triage = cand.get("triage") or {}
+        if cand.get("status") == "dropped" or triage.get("base") != args.review_base:
             continue
-        existing = cand.get("preapproval")
-        if existing and args.only_incomplete:
-            if not any(v.get("vote") == ERROR_VOTE for v in existing.get("votes", [])):
-                continue
-        elif existing and not args.refresh:
-            continue
-        if args.sha and not cand["sha"].startswith(args.sha):
+        if (triage.get("input") != candidate_input(cand, rules)
+                or triage.get("agent") not in REVIEW_PROVIDERS
+                or not triage.get("model") or not triage.get("session")):
             continue
         _, tier, _ = score_candidate(cand, rules)
         # Quarantined changes are reviewed too. They can never be pre-approved
@@ -1509,7 +1528,20 @@ def cmd_preapprove(args):
         if tier in ("A", "B", "Q"):
             pending.append((path, cand, tier))
 
-    chains = build_chains(pending)
+    chains = []
+    for unit in build_chains(pending):
+        if args.sha and not any(cand["sha"].startswith(args.sha) for _, cand, _ in unit):
+            continue
+        inputs = {cand["sha"]: review_input(cand, rules) for _, cand, _ in unit}
+        previous = [cand.get("preapproval") or {} for _, cand, _ in unit]
+        current = all(pre.get("base") == args.review_base and pre.get("inputs") == inputs
+                      for pre in previous)
+        if current and not args.refresh:
+            missing = any(vote.get("vote") == ERROR_VOTE for pre in previous
+                          for vote in pre.get("votes", []))
+            if not args.only_incomplete or not missing:
+                continue
+        chains.append(unit)
     if args.limit:
         chains = chains[:args.limit]
     if not chains:
@@ -1518,8 +1550,7 @@ def cmd_preapprove(args):
 
     total = sum(len(c) for c in chains)
     log(f"Pre-approving {total} candidates in {len(chains)} units "
-        f"with reviewers: {', '.join(reviewers)}"
-        + (f" (audit/arbiter: {arbiter})" if arbiter else ""))
+        f"with reviewers: {', '.join(reviewers)}")
 
     approved = manual = held = audited = flipped = 0
     for unit in chains:
@@ -1533,10 +1564,7 @@ def cmd_preapprove(args):
         triaged_by = {(c.get("triage") or {}).get("agent") for _, c, _ in unit}
         panel = [r for r in reviewers if r not in triaged_by]
         skipped = [r for r in reviewers if r in triaged_by]
-        if len(panel) < 2:
-            # Rotating everyone out would leave no panel at all; fall back to the full
-            # list and record that this verdict is not rotation-clean.
-            panel, skipped = reviewers, []
+        inputs = {cand["sha"]: review_input(cand, rules) for _, cand, _ in unit}
 
         def render(template, blind=False, **extra):
             if len(unit) > 1:
@@ -1549,9 +1577,12 @@ def cmd_preapprove(args):
                         dels=st.get("deletions"),
                         files=", ".join(f["filename"] for f in c.get("files", [])[:12]),
                         patch=(c.get("patch") or "")[:PATCH_REVIEW_LIMIT]))
-                return REVIEW_TEMPLATE_CHAIN.format(
+                text = REVIEW_TEMPLATE_CHAIN.format(
                     direction=PROJECT_DIRECTION, fork=lead["fork"],
                     chain="\n".join(entries))
+                if extra.get("arguments"):
+                    text += "\nRe-evaluate using these anonymous arguments:\n" + extra["arguments"]
+                return text
             st = lead.get("stats") or {}
             fields = dict(
                 direction=PROJECT_DIRECTION, fork=lead["fork"], sha=lead["sha"],
@@ -1566,13 +1597,17 @@ def cmd_preapprove(args):
             return template.format(**fields)
 
         def collect(reviewer, prompt, blind=False, arbiter_vote=False, round_no=1):
-            verdict = extract_json_object(agent_run(reviewer, prompt, timeout=args.timeout))
+            answer, model, session = run_review(args, reviewer, prompt, inputs)
+            verdict = extract_json_object(answer) or {}
+            vote = verdict.get("vote")
             return {
                 "reviewer": reviewer,
-                "vote": (verdict or {}).get("vote", ERROR_VOTE),
-                "aligned": (verdict or {}).get("aligned_with_direction"),
-                "concern": (verdict or {}).get("concern"),
-                "reason": (verdict or {}).get("reason"),
+                "vote": vote if vote in ("APPROVE", "REJECT", "NEEDS_HUMAN") else ERROR_VOTE,
+                "aligned": verdict.get("aligned_with_direction"),
+                "concern": verdict.get("concern"),
+                "reason": verdict.get("reason"),
+                "model": model,
+                "session": session,
                 "arbiter": arbiter_vote,
                 "blind": blind,
                 "round": round_no,
@@ -1582,8 +1617,9 @@ def cmd_preapprove(args):
         # verdict every other reviewer is reading.
         informed_prompt = render(REVIEW_TEMPLATE)
         blind_prompt = render(REVIEW_TEMPLATE_BLIND, blind=True)
-        votes = [collect(r, blind_prompt if i == 0 else informed_prompt, blind=(i == 0))
-                 for i, r in enumerate(panel)]
+        votes = ([collect(r, blind_prompt if i == 0 else informed_prompt, blind=(i == 0))
+                  for i, r in enumerate(panel)]
+                 if len(panel) >= 2 and not truncated and not security else [])
 
         # Round two: only on a split, arguments anonymised, sessions fresh.
         if votes_are_split(votes):
@@ -1606,25 +1642,27 @@ def cmd_preapprove(args):
         decision = consensus_decision(decision_votes, security)
 
         # Nobody votes on a patch they were only shown part of.
-        if truncated and decision == "pre-approved":
+        if truncated:
             decision = "manual-review"
 
         # Unanimity is the one outcome the panel never challenges, which is exactly how
         # "unanimous and wrong" stays invisible. A slice of it goes to the family that
         # sat this one out, to produce a measured disagreement rate rather than a
         # reassurance. Deterministic sampling: no RNG, so a re-run audits the same set.
-        auditor = skipped[0] if skipped else arbiter
+        auditor = skipped[0] if len(skipped) == 1 else None
         audit = None
         if (auditor and decision == "pre-approved" and args.audit_every > 0
                 and int(lead["sha"][:8], 16) % args.audit_every == 0):
             audit = collect(auditor, informed_prompt, arbiter_vote=True)
             audited += 1
             votes = votes + [audit]
-            if audit["vote"] != "APPROVE":
+            if audit["vote"] != "APPROVE" or audit["aligned"] is not True:
                 decision = "manual-review"
 
         lead["preapproval"] = {
             "decision": decision,
+            "base": args.review_base,
+            "inputs": inputs,
             "tier": tier,
             "panel": panel,
             "rotated_out": skipped,
@@ -1657,7 +1695,7 @@ def cmd_preapprove(args):
         log(f"  second round changed at least one vote on {flipped} unit(s)")
     save_meta(meta, "preapprove", {"pre_approved": approved, "manual": manual,
                                    "held": held, "audited": audited,
-                                   "reviewers": reviewers, "arbiter": arbiter})
+                                   "reviewers": reviewers})
     return 0
 
 
@@ -1719,7 +1757,9 @@ def _tier_candidates(rules, decided, kind):
     """
     tiers = {t: [] for t in TIER_TITLES}
     untriaged = 0
-    for _, cand in iter_candidates():
+    candidates = {cand["sha"]: cand for _, cand in iter_candidates()}
+    base = git(["rev-parse", "HEAD"]).strip()
+    for cand in candidates.values():
         if candidate_kind(cand) != kind:
             continue
         if cand.get("status") == "dropped":
@@ -1731,6 +1771,13 @@ def _tier_candidates(rules, decided, kind):
             continue
         score, tier, why = score_candidate(cand, rules)
         cand["_score"], cand["_tier"], cand["_why"] = score, tier, why
+        pre = cand.get("preapproval") or {}
+        inputs = pre.get("inputs") or {}
+        cand["_current_preapproval"] = bool(
+            base and pre.get("base") == base and cand["sha"] in inputs
+            and all(sha in candidates and fingerprint == review_input(candidates[sha], rules)
+                    for sha, fingerprint in inputs.items())
+        )
         tiers[tier].append(cand)
 
     for tier in tiers:
@@ -1775,7 +1822,8 @@ def _tier_detail_lines(tiers):
             pre = cand.get("preapproval")
             if pre:
                 votes = " / ".join(f"{v['reviewer']}:{v['vote']}" for v in pre["votes"])
-                lines.append(f"- **pre-approval:** **{pre['decision'].upper()}** ({votes})")
+                label = pre["decision"].upper() if cand.get("_current_preapproval") else "HISTORICAL"
+                lines.append(f"- **pre-approval:** **{label}** ({votes})")
                 for line in pre.get("dissent", []):
                     lines.append(f"  - dissent - {line}")
             if cand.get("security_flags"):
@@ -1834,9 +1882,9 @@ def cmd_report(args):
         "",
         f"Generated {today} from the fork radar. **Nothing is applied automatically.**",
         "",
-        "Both mRemoteNG and its forks are GPL-2.0, so importing is licence-compatible. "
-        "`git cherry-pick` preserves the original author and `-x` records the source commit; "
-        "add a `Ported-from:` trailer with the upstream URL so the origin stays visible.",
+        "Confirm licence, provenance and authorization for the exact SHA. "
+        "Follow [the import procedure](../../.agents/skills/mremoteng-fork-radar/SKILL.md#import-one-approved-sha) "
+        "to verify the candidate in an isolated worktree before integration.",
         "",
         "After a decision, record it so future runs stop proposing it:",
         "",
@@ -1855,13 +1903,12 @@ def cmd_report(args):
         queue.append("")
         for cand in tiers[tier]:
             triage = cand.get("triage") or {}
-            owner = cand["owner"]
             pre = cand.get("preapproval")
             badge = ""
             if pre:
-                badge = " - **PRE-APPROVED**" if pre["decision"] == "pre-approved" \
-                    else " - needs manual review"
-            queue.append(f"### `{cand['sha'][:10]}` {cand.get('subject')}{badge}")
+                badge = (" - **PRE-APPROVED**" if cand.get("_current_preapproval")
+                         and pre["decision"] == "pre-approved" else " - review required")
+            queue.append(f"### `{cand['sha']}` {cand.get('subject')}{badge}")
             queue.append("")
             queue.append(f"{triage.get('rationale', '')}  ")
             queue.append(f"Source: {cand.get('html_url')}")
@@ -1872,14 +1919,7 @@ def cmd_report(args):
                 for line in pre.get("dissent", []):
                     queue.append(f"- {line}")
             queue.append("")
-            if tier == "A":
-                queue.append("```bash")
-                queue.append(f"git remote add fi-{owner} https://github.com/{cand['fork']}.git")
-                queue.append(f"git fetch fi-{owner} --depth=50 {cand['sha']}")
-                queue.append(f"git cherry-pick -x {cand['sha']}")
-                queue.append("# then: build.ps1 + run-tests.ps1 -Headless before committing anything")
-                queue.append("```")
-            else:
+            if tier == "B":
                 queue.append("Port by hand - the patch will not apply cleanly over our tree. "
                              "Read the source diff, reimplement, and credit the original author "
                              "in the commit body.")
@@ -2141,8 +2181,10 @@ def build_parser():
     p_tri = sub.add_parser("triage", help="AI judgement on screened commits")
     p_tri.add_argument("--limit", type=int, default=0, help="stop after N candidates")
     p_tri.add_argument("--batch", type=int, default=5, help="commits per AI call (default 5)")
-    p_tri.add_argument("--agent", default="claude", choices=list(AGENT_ARGS),
-                       help="primary agent (others are used as fallback)")
+    p_tri.add_argument("--agent", default="claude", choices=REVIEW_PROVIDERS,
+                       help="triage provider")
+    p_tri.add_argument("--review-root", type=Path, help="clean detached review worktree")
+    p_tri.add_argument("--timeout", type=int, default=600, help="seconds without transcript progress")
     p_tri.add_argument("--refresh", action="store_true", help="re-triage already judged commits")
     p_tri.add_argument("--shard", default="",
                        help="process only shard i/n (split by SHA) so several triage "
@@ -2152,18 +2194,15 @@ def build_parser():
     p_pre = sub.add_parser("preapprove",
                            help="independent counter-opinions vote on import candidates")
     p_pre.add_argument("--reviewers", default="claude,codex,grok",
-                       help="comma-separated model families on flat subscriptions, at "
-                            "least two after rotation (default claude,codex,grok)")
-    p_pre.add_argument("--arbiter", default="",
-                       help="family used to audit unanimous approvals; by default this "
-                            "is whichever reviewer was rotated out for running triage, "
-                            "so no fourth subscription is needed")
+                       help="three D6 families on approved subscriptions (claude,codex,grok)")
+    p_pre.add_argument("--arbiter", default="", help=argparse.SUPPRESS)
     p_pre.add_argument("--audit-every", type=int, default=10,
                        help="audit roughly one in N unanimous approvals with the "
                             "rotated-out family (default 10; sampling is deterministic "
                             "on the SHA, so a re-run audits the same set)")
     p_pre.add_argument("--limit", type=int, default=0, help="stop after N candidates")
-    p_pre.add_argument("--timeout", type=int, default=600, help="per-reviewer timeout in seconds")
+    p_pre.add_argument("--review-root", type=Path, help="clean detached review worktree")
+    p_pre.add_argument("--timeout", type=int, default=600, help="seconds without transcript progress")
     p_pre.add_argument("--refresh", action="store_true", help="re-run on already voted candidates")
     p_pre.add_argument("--only-incomplete", action="store_true",
                        help="re-run only candidates where a reviewer failed to answer")
@@ -2193,10 +2232,23 @@ def build_parser():
 
 
 def main(argv=None):
-    for d in (FORKS_DIR, CANDIDATES_DIR, REPORTS_DIR):
-        d.mkdir(parents=True, exist_ok=True)
     args = build_parser().parse_args(argv)
-    return args.func(args)
+    if args.func is cmd_status:
+        return args.func(args)
+    DB_DIR.mkdir(parents=True, exist_ok=True)
+    lock = DB_DIR / "writer.lock"
+    try:
+        with lock.open("x", encoding="utf-8") as handle:
+            handle.write(str(os.getpid()))
+    except FileExistsError:
+        log("Fork Radar cache already owns a write lock. Verify its owner before recovery.")
+        return 2
+    try:
+        for directory in (FORKS_DIR, CANDIDATES_DIR, REPORTS_DIR):
+            directory.mkdir(parents=True, exist_ok=True)
+        return args.func(args)
+    finally:
+        lock.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

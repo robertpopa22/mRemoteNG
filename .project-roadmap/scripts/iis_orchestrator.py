@@ -52,7 +52,7 @@ import time
 from pathlib import Path
 
 # ── CONFIG ──────────────────────────────────────────────────────────────────
-REPO_ROOT = Path(r"D:\github\mRemoteNG")
+REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = REPO_ROOT / ".project-roadmap" / "scripts"
 ISSUES_DB_DIR = REPO_ROOT / ".project-roadmap" / "issues-db" / "upstream"
 ISSUES_DB_ROOT = REPO_ROOT / ".project-roadmap" / "issues-db"
@@ -70,7 +70,6 @@ TIMEOUT_MAX_MULTIPLIER = 2.0      # cap — don't let timeouts grow past 2x esti
 TIMEOUT_MIN = 60                  # absolute minimum (seconds)
 TIMEOUT_MAX = 1200                # absolute cap (20 min, was 3600)
 TIMEOUT_HISTORY_MAX_SAMPLES = 50  # keep last N durations per agent/task for p80
-TEST_PASS_THRESHOLD = 0.99        # accept commit if ≥99% tests pass (1-3 failures OK)
 TEST_MIN_DURATION_SECS = 10       # tests taking less than this = phantom (didn't run)
 # TEST_MIN_COUNT: read from test-config.json (single source of truth)
 _test_cfg_path = REPO_ROOT / "test-config.json"
@@ -210,7 +209,7 @@ CLAUDE_ENV = {k: v for k, v in os.environ.items()
               if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
 
 # ── AGENT CONFIG ──────────────────────────────────────────────────────────
-# Which AI agent to use for each task type: "codex", "claude", or "gemini"
+# Legacy task provider map. Candidate mode selects its provider explicitly.
 AGENT_CONFIG = {
     "triage":               "codex",    # ai_triage() — JSON analysis
     "implement":            "codex",    # implement_issue() — full code fix
@@ -222,29 +221,17 @@ AGENT_FALLBACK_ENABLED = True           # enable fallback when the Codex primary
 
 # ── DUAL-MODEL STRATEGY (all agents) ─────────────────────────────────────
 # Each agent uses a fast/cheap model for triage and a powerful model for implementation.
-# This applies uniformly to Gemini, Codex, and Claude.
+# Legacy model selection for Codex and Claude.
 
 # Model names are NOT written here: pinned names go stale as providers ship new models.
 # Unset (default) = no -m/--model is passed and each CLI's own configuration picks the model.
-# Optional overrides, read at start-up: environment variables below or --codex-model/--gemini-model.
+# Optional overrides are read at start-up from environment variables.
 def _env_model(name):
     """Model override from the environment; unset or empty means "let the CLI config decide"."""
     value = os.environ.get(name, "").strip()
     return value or None
 
 
-# Gemini: IIS_GEMINI_MODEL (implementation, analysis), IIS_GEMINI_MODEL_FLASH (triage; falls back
-# to IIS_GEMINI_MODEL).
-GEMINI_MODEL = _env_model("IIS_GEMINI_MODEL")
-GEMINI_MODEL_FLASH = _env_model("IIS_GEMINI_MODEL_FLASH")
-GEMINI_FAST_TASKS = frozenset({"triage", "pre_analysis"})
-
-
-def gemini_model_for(task_type):
-    """Gemini model for a task, resolved at call time so CLI overrides apply; None = CLI default."""
-    if task_type in GEMINI_FAST_TASKS:
-        return GEMINI_MODEL_FLASH or GEMINI_MODEL
-    return GEMINI_MODEL
 
 
 # Codex: IIS_CODEX_MODEL (primary, all tasks) and IIS_CODEX_MODEL_FALLBACK (second level, used
@@ -344,7 +331,6 @@ def _set_token_context(issue_num=None, operation=None):
 
 
 # Resolve full paths to CLI tools (Windows needs .CMD extension for subprocess)
-GEMINI_CMD = shutil.which("gemini") or "gemini"
 CODEX_CMD = shutil.which("codex") or "codex"
 
 
@@ -604,7 +590,7 @@ def setup_logging():
     return logging.getLogger("iis-orchestrator")
 
 
-log = setup_logging()
+log = logging.getLogger("iis-orchestrator")
 
 
 # ── STATUS TRACKER ──────────────────────────────────────────────────────────
@@ -1423,106 +1409,13 @@ def run_tests(return_details=False):
             log.error("    [TEST] PHANTOM output: %s", out.strip()[:500])
             return _result(False, out, [], phantom=True)
 
-        # run-tests.ps1 non-zero exit means hard failure (including uncovered tests)
-        if r.returncode != 0:
-            is_phantom = r.returncode in (96, 99) or "PHANTOM_TEST_RUN" in out or "PHANTOM_GROUPS" in out
-            if r.returncode == 96:
-                log.warning("    [TEST] COVERAGE GAP: some groups returned 0 tests (phantom) but no real failures [%.0fs]", elapsed)
-                # P7: Parse passed count — only accept if enough tests actually ran
-                m = re.search(r"Passed:\s+(\d+)", out)
-                passed_count = int(m.group(1)) if m else 0
-                if passed_count >= TEST_MIN_COUNT:
-                    log.warning("    [TEST] Exit 96 accepted: %d tests passed (>= %d min) — __COVERAGE_GAP__",
-                                passed_count, TEST_MIN_COUNT)
-                    kill_stale_processes()
-                    if _group_results:
-                        update_test_config(_group_results)
-                    return _result(True, out + "\n__COVERAGE_GAP__", [])
-                else:
-                    log.error("    [TEST] Exit 96 REJECTED: only %d tests passed (< %d min) — treating as phantom",
-                              passed_count, TEST_MIN_COUNT)
-                    kill_stale_processes()
-                    return _result(False, out, [], phantom=True)
-            # Non-zero exit code — but don't reject yet; fall through to threshold parsing
-            # so that pre-existing flaky failures (within threshold) don't reject valid fixes
-            log.warning("    [TEST] run-tests.ps1 exit code %d — checking threshold [%.0fs]", r.returncode, elapsed)
+        from iis_candidate import suite_complete
 
-        # Parse run-tests.ps1 output — supports two formats:
-        # Format A (inline): "Total: 1926/1926 passed, 0 failed"
-        # Format B (separate lines): "Total:   5967\nPassed:  5965\nFailed:     2"
-        passed = total = failed = None
-        total_m = re.search(r"Total:\s+(\d+)/(\d+)\s+passed,\s+(\d+)\s+failed", out)
-        if total_m:
-            passed, total, failed = int(total_m.group(1)), int(total_m.group(2)), int(total_m.group(3))
-        else:
-            t_m = re.search(r"Total:\s+(\d+)", out)
-            p_m = re.search(r"Passed:\s+(\d+)", out)
-            f_m = re.search(r"Failed:\s+(\d+)", out)
-            if t_m and p_m:
-                total = int(t_m.group(1))
-                passed = int(p_m.group(1))
-                failed = int(f_m.group(1)) if f_m else total - passed
-        if passed is not None and total is not None:
-
-            # ── SANITY: reject impossible pass rates (>100% = garbled output) ──
-            if total > 0 and passed > total:
-                log.error("    [TEST] GARBLED: %d/%d passed (%.1f%%) — concurrent output corruption!",
-                          passed, total, (passed / total) * 100)
-                return _result(False, out, [], phantom=True)
-
-            # ── SANITY: reject suspiciously low test counts ──
-            if total < TEST_MIN_COUNT:
-                log.error("    [TEST] SUSPICIOUS: only %d tests found (min %d) — DLL may be stale",
-                          total, TEST_MIN_COUNT)
-                return _result(False, out, [], phantom=True)
-
-            pass_rate = passed / total if total > 0 else 0
-            if failed > 0 and pass_rate < TEST_PASS_THRESHOLD:
-                log.error("    [TEST] FAILED: %d/%d passed, %d failed (%.1f%% < %.0f%% threshold) [%.0fs]",
-                          passed, total, failed, pass_rate * 100, TEST_PASS_THRESHOLD * 100, elapsed)
-                return _result(False, out, _parse_failed_tests(out))
-            if failed > 0:
-                log.warning("    [TEST] OK: %d/%d passed, %d failed — within threshold [%.0fs]",
-                            passed, total, failed, elapsed)
-            else:
-                log.info("    [TEST] OK (%d/%d passed, parallel) [%.0fs]", passed, total, elapsed)
-            kill_stale_processes()
-            if _group_results:
-                update_test_config(_group_results)
-            return _result(True, out, _parse_failed_tests(out) if failed > 0 else [])
-
-        # Fallback: parse single-process dotnet test output
-        if "Failed!" in out or r.returncode != 0:
-            m = re.search(r"Failed:\s+(\d+)", out)
-            if m and int(m.group(1)) > 0:
-                log.error("    [TEST] FAILED: %s [%.0fs]", m.group(0), elapsed)
-                return _result(False, out, _parse_failed_tests(out))
-        m = re.search(r"Passed:\s+(\d+)", out)
-        if m:
-            log.info("    [TEST] OK (%s passed) [%.0fs]", m.group(1), elapsed)
-
-        # Also check for "ALL TESTS PASSED" from run-tests.ps1
-        if "ALL TESTS PASSED" in out:
-            log.info("    [TEST] OK (all tests passed) [%.0fs]", elapsed)
-            kill_stale_processes()
-            if _group_results:
-                update_test_config(_group_results)
-            return _result(True, out)
-        # Check for "TESTS FAILED" from run-tests.ps1
-        if "TESTS FAILED" in out:
-            log.error("    [TEST] FAILED (run-tests.ps1 reported failure) [%.0fs]", elapsed)
-            kill_stale_processes()
-            return _result(False, out, _parse_failed_tests(out))
-
-        # ── NO PARSEABLE OUTPUT: likely phantom ──
-        if r.returncode != 0:
-            log.error("    [TEST] NO PARSEABLE OUTPUT: exit code %d in %.1fs — likely infrastructure error",
-                      r.returncode, elapsed)
-            log.error("    [TEST] Output snippet: %s", out.strip()[:500])
-
-        kill_stale_processes()
-        ok = r.returncode == 0
-        return _result(ok, out, [] if ok else _parse_failed_tests(out))
+        ok = suite_complete(r.returncode, out, TEST_MIN_COUNT)
+        failed_tests = [] if ok else _parse_failed_tests(out)
+        if not ok:
+            log.error("    [TEST] Incomplete or failed suite (exit %d)", r.returncode)
+        return _result(ok, out, failed_tests, phantom=not ok and not failed_tests)
     except subprocess.TimeoutExpired:
         log.error("    [TEST] TIMEOUT (%ds)", TEST_TIMEOUT)
         kill_stale_processes()
@@ -1637,8 +1530,6 @@ def git_commit(message):
             co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL or 'default model'}) <noreply@openai.com>")
         if "claude" in _session_agents_used:
             co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
-        if "gemini" in _session_agents_used:
-            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL or 'default model'}) <noreply@google.com>")
         co_author_str = "\n".join(co_authors) if co_authors else "Co-Authored-By: AI Agent <noreply@example.com>"
         # Add token cost summary if available for this issue
         token_line = ""
@@ -1765,8 +1656,6 @@ def git_squash_last(n, message):
             co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL or 'default model'}) <noreply@openai.com>")
         if "claude" in _session_agents_used:
             co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
-        if "gemini" in _session_agents_used:
-            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL or 'default model'}) <noreply@google.com>")
         co_author_str = "\n".join(co_authors) if co_authors else "Co-Authored-By: AI Agent <noreply@example.com>"
         full_msg = f"{message}\n\n{co_author_str}"
         _run(["git", "reset", "--soft", f"HEAD~{n}"])
@@ -1882,58 +1771,6 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
     return None
 
 
-# ── CORE: GEMINI SUB-AGENT ────────────────────────────────────────────────
-def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
-               retries=CLAUDE_RETRIES, model=None):
-    """Call gemini -p (headless) with retry.  Returns stdout string.
-    Uses -y for auto-approve, -m for model selection."""
-    use_model = model or GEMINI_MODEL
-    cmd = [GEMINI_CMD, "-p", prompt, "-y"]
-    if use_model:
-        cmd += ["-m", use_model]
-    if json_output:
-        cmd += ["-o", "json"]
-
-    for attempt in range(1, retries + 1):
-        try:
-            rc, stdout, stderr = _run_with_timeout(
-                cmd, timeout=timeout, cwd=str(REPO_ROOT),
-            )
-            kill_stale_processes()
-            if rc != 0:
-                err_detail = (stderr or "")[:200] or (stdout or "")[:200] or "(empty output)"
-                log.error("    [GEMINI] attempt %d/%d exit %d: %s",
-                          attempt, retries, rc, err_detail)
-                if attempt < retries:
-                    log.info("    [GEMINI] Retrying in 5s ...")
-                    time.sleep(5)
-                    continue
-                return None
-            return stdout or ""
-        except subprocess.TimeoutExpired as exc:
-            global _last_dispatch_timed_out, _last_dispatch_partial_output
-            _last_dispatch_timed_out = True
-            log.error("    [GEMINI] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
-            kill_stale_processes()
-            partial = ""
-            if hasattr(exc, "output") and exc.output:
-                partial = exc.output if isinstance(exc.output, str) else exc.output.decode("utf-8", errors="replace")
-            _last_dispatch_partial_output = (partial or "")[:3000]
-            if partial:
-                log.info("    [GEMINI] Captured %d chars of partial output before timeout", len(partial))
-            if attempt < retries:
-                log.info("    [GEMINI] Retrying in 5s ...")
-                time.sleep(5)
-                continue
-            return None
-        except Exception as e:
-            log.error("    [GEMINI] attempt %d/%d ERROR: %s", attempt, retries, e)
-            kill_stale_processes()
-            if attempt < retries:
-                time.sleep(5)
-                continue
-            return None
-    return None
 
 
 # ── CORE: CODEX SUB-AGENT ─────────────────────────────────────────────────
@@ -2152,57 +1989,9 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
             return codex_run(prompt, timeout=timeout, retries=min(retries, CODEX_RETRIES),
                              model=codex_model, reasoning=codex_reasoning)
 
-        if agent == "gemini":
-            gemini_model = gemini_model_for(task_type)
-            # Check per-model rate limit (e.g. the pro model may be limited while flash works)
-            model_rate_key = f"gemini:{gemini_model or 'default'}"
-            is_model_limited, model_available = _is_agent_rate_limited(model_rate_key)
-            if is_model_limited:
-                log.info("    [RATE] Skipping %s model %s (rate-limited until %s)",
-                         agent, gemini_model, model_available)
-                return None
-            log.info("    [GEMINI] model=%s task=%s", gemini_model, task_type or "default")
-            prompt_file = _write_prompt_file(prompt)
-            try:
-                rc, stdout, stderr = _run_with_timeout(
-                    [GEMINI_CMD, "-p", "", "-y", "-m", gemini_model],
-                    timeout=timeout, cwd=str(REPO_ROOT),
-                    stdin_path=prompt_file,
-                )
-                kill_stale_processes()
-                if rc == 0 and stdout:
-                    return stdout
-                all_output = (stderr or "") + "\n" + (stdout or "")
-                err_head = all_output.strip()[:200]
-                err_tail = all_output.strip()[-300:]
-                err_detail = err_head if err_head == err_tail else f"{err_head} [...] {err_tail}"
-                err_detail = err_detail or "(empty)"
-                log.error("    [GEMINI] dispatch exit %d (model=%s): %s", rc, gemini_model, err_detail)
-                # Log full output for rate-limit diagnosis (max 1000 chars)
-                if len(all_output.strip()) > 200:
-                    log.info("    [GEMINI] full error output (%d chars): %s",
-                             len(all_output.strip()), all_output.strip()[:1000])
-                # Detect rate limiting — mark per-model, not blanket agent
-                rate_reset = _parse_rate_limit_from_output(all_output)
-                if rate_reset:
-                    rate_key = f"gemini:{gemini_model}"
-                    _mark_agent_rate_limited(rate_key, rate_reset)
-                    log.warning("    [GEMINI] Rate-limited model %s until %s (other models may still work)",
-                                gemini_model, rate_reset)
-                return None
-            except subprocess.TimeoutExpired:
-                log.error("    [GEMINI] dispatch TIMEOUT (%ds)", timeout)
-                kill_stale_processes()
-                return None
-            except Exception as e:
-                log.error("    [GEMINI] dispatch ERROR: %s", e)
-                kill_stale_processes()
-                return None
-            finally:
-                try:
-                    os.unlink(prompt_file)
-                except OSError:
-                    pass
+        if agent != "claude":
+            return None
+
 
         # Default: claude
         use_claude_model = claude_model or (CLAUDE_MODEL_BY_TASK.get(task_type) if task_type else None)
@@ -2264,16 +2053,6 @@ def agent_run(task_type, prompt, max_turns=15, json_output=False,
 
 
 # ── CORE: AGENT CHAIN ─────────────────────────────────────────────────────
-def _write_prompt_file(prompt):
-    """Write prompt to a temp file (Gemini handles long prompts better via stdin)."""
-    import tempfile
-    f = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False,
-                                    encoding="utf-8", dir=str(REPO_ROOT / ".project-roadmap" / "scripts"))
-    f.write(prompt)
-    f.close()
-    return f.name
-
-
 def chain_triage(issue):
     """Chain-of-agents triage: loops through AGENT_CHAIN until valid JSON.
     Each subsequent agent gets context from previous attempts.
@@ -3379,9 +3158,12 @@ def parse_analyzer_warnings(build_output, target_codes=None):
         if target_codes and code not in target_codes:
             continue
         # Exclude external library directories
-        rel = os.path.relpath(fpath, REPO_ROOT)
-        if any(rel.startswith(d + os.sep) or rel.startswith(d + "/")
-               for d in ANALYZER_EXCLUDE_DIRS):
+        path = Path(fpath)
+        try:
+            relative = path.relative_to(REPO_ROOT) if path.is_absolute() else path
+        except ValueError:
+            relative = path
+        if any(relative.as_posix().startswith(d + "/") for d in ANALYZER_EXCLUDE_DIRS):
             continue
         result.setdefault(fpath, []).append(
             {"line": lineno, "code": code, "message": msg}
@@ -3513,13 +3295,6 @@ def _count_available_agents():
         is_limited, _ = _is_agent_rate_limited(agent)
         if not is_limited:
             available.append(agent)
-        else:
-            # For gemini, check if at least Flash model is available
-            if agent == "gemini":
-                flash_key = f"gemini:{gemini_model_for('triage') or 'default'}"
-                flash_limited, _ = _is_agent_rate_limited(flash_key)
-                if not flash_limited:
-                    available.append(agent)
     return len(available), available
 
 
@@ -3569,21 +3344,13 @@ def load_actionable_issues():
                 attempt_count = _count_impl_attempts(data["number"])
                 if attempt_count >= IMPL_MAX_RETRIES_PER_ISSUE:
                     log.info("  [SKIP] #%d — %d failed attempts (max %d), marking needs_human",
-                             data["number"], attempt_count, IMPL_MAX_RETRIES_PER_ISSUE)
-                    update_issue_json(data["number"], "triaged",
-                                      f"Skipped: {attempt_count} failed auto-fix attempts",
-                                      impl_failed=False,
-                                      notes=f"Needs human intervention after {attempt_count} AI attempts")
+                              data["number"], attempt_count, IMPL_MAX_RETRIES_PER_ISSUE)
                     continue
                 # Skip issues with excessive timeouts (agents waste time on these)
                 timeout_count = _count_issue_timeouts(data["number"])
                 if timeout_count >= 3:
                     log.info("  [SKIP] #%d — %d timeouts, marking needs_human",
                              data["number"], timeout_count)
-                    update_issue_json(data["number"], "triaged",
-                                      f"Skipped: {timeout_count} timeouts across sessions",
-                                      impl_failed=False,
-                                      notes=f"Needs human intervention ({timeout_count} timeouts)")
                     continue
                 data["_is_retry"] = True  # marker for chain_implement to know
                 issues.append(data)
@@ -4933,11 +4700,16 @@ def print_summary(status):
 
 def show_status():
     """Read and display the current status file."""
-    if not STATUS_FILE.exists():
+    try:
+        s = iis_read_json(STATUS_FILE)
+        if not isinstance(s, dict):
+            raise ValueError("status must be a JSON object")
+    except FileNotFoundError:
         print("No status file found.  Orchestrator has not run yet.")
-        return
-
-    s = json.loads(STATUS_FILE.read_text(encoding="utf-8"))
+        return 0
+    except (OSError, ValueError) as exc:
+        print(f"Cannot read IIS status: {exc}", file=sys.stderr)
+        return 1
     running = s.get("running", False)
     phase = s.get("current_phase", "?")
     task = s.get("current_task")
@@ -4978,6 +4750,7 @@ def show_status():
         for e in errors[-3:]:
             print(f"    [{e['time']}] {e['task']}: {e['step']} -- {e['error'][:60]}")
     print()
+    return 0
 
 
 # ── IIS: JSON DB HELPERS ───────────────────────────────────────────────────
@@ -6284,13 +6057,106 @@ def iis_report(include_all=False, no_save=False):
 
 
 # ── MAIN ────────────────────────────────────────────────────────────────────
+def preview_batch(args):
+    """Select cached work without entering any execution or recovery path."""
+    incomplete = False
+    if args.mode in ("all", "issues"):
+        if not ISSUES_DB_DIR.is_dir():
+            print("Upstream issue cache unavailable.")
+            incomplete = True
+        else:
+            issues = load_actionable_issues()
+            selected = issues[:args.max_issues]
+            print(f"Cached upstream issues: {len(selected)} of {len(issues)} eligible")
+            for issue in selected:
+                state = "retry" if issue.get("_is_retry") else "triage"
+                print(f"  #{issue['number']}: {state}")
+
+    if args.mode in ("all", "warnings", "analyzer-warnings"):
+        if args.warning_log is None or not args.warning_revision:
+            print("Warning preview unavailable: provide --warning-log and its --warning-revision.")
+            return 1
+        try:
+            output = args.warning_log.read_text(encoding="utf-8-sig", errors="replace")
+        except OSError as exc:
+            print(f"Cannot read warning evidence: {exc}", file=sys.stderr)
+            return 1
+        print(f"Warning evidence: {args.warning_log} (supplied revision {args.warning_revision})")
+        if args.mode in ("all", "warnings"):
+            warnings = parse_warnings(output)
+            print_warning_preview("Compiler", warnings, args.max_files)
+        if args.mode in ("all", "analyzer-warnings"):
+            rules = {rule.strip().upper() for rule in args.rules.split(",")} if args.rules else None
+            warnings = parse_analyzer_warnings(output, rules)
+            print_warning_preview("Analyzer", warnings, args.max_files)
+    return int(incomplete)
+
+
+def print_warning_preview(label, warnings, limit):
+    files = list(warnings.items())[:limit]
+    print(f"{label} warning files: {len(files)} of {len(warnings)} from supplied evidence")
+    for filename, entries in files:
+        codes = ", ".join(sorted({entry["code"] for entry in entries}))
+        print(f"  {filename!r}: {codes}")
+
+
+def run_candidate_mode(args):
+    import iis_candidate
+    from workspace_agent import read_git
+
+    root = args.candidate_root.resolve()
+    base = read_git(REPO_ROOT, "rev-parse", "HEAD").strip()
+    if args.candidate_digest:
+        state = iis_candidate.verify(root, base, args.candidate_digest, args.review_note or "")
+        print(f"IIS candidate: {state}")
+        return int(state != "awaiting-required-verification")
+
+    model = args.codex_model or CODEX_MODEL
+    if not model or not args.agent_effort or args.idle_seconds < 1:
+        raise ValueError("set an explicit Codex model, effort and positive transcript idle interval")
+    if args.mode == "issues":
+        queued = [issue for issue in load_actionable_issues()
+                  if args.issue is None or issue["number"] == args.issue]
+        if not queued:
+            raise ValueError("no eligible cached issue for this candidate")
+        issue = queued[0]
+        number = issue["number"]
+        if _count_impl_attempts(number) >= 2:
+            raise ValueError("prior attempts require diagnostic or maintainer review")
+        task = {"key": f"issue-{number}", "number": number,
+                "title": issue.get("title"), "body": issue.get("body_snippet"),
+                "comments": [comment.get("snippet") for comment in (issue.get("comments") or [])],
+                "retry": bool(issue.get("_is_retry"))}
+    else:
+        if args.warning_log is None or args.warning_revision != base:
+            raise ValueError("provide existing warning evidence for the full candidate base SHA")
+        output = args.warning_log.read_text(encoding="utf-8-sig", errors="replace")
+        rules = {rule.strip().upper() for rule in args.rules.split(",")} if args.rules else None
+        warnings = (parse_warnings(output) if args.mode == "warnings"
+                    else parse_analyzer_warnings(output, rules))
+        if not warnings:
+            raise ValueError("no matching warnings in the supplied evidence")
+        filename, entries = next(iter(warnings.items()))
+        path = Path(filename)
+        if path.is_absolute():
+            path = path.resolve()
+            path = path.relative_to(root if path.is_relative_to(root) else REPO_ROOT)
+        path = (root / path).resolve().relative_to(root)
+        if not path.as_posix().startswith(iis_candidate.ALLOWED_ROOTS) or not (root / path).is_file():
+            raise ValueError("warning does not refer to a file in the candidate scope")
+        task = {"key": f"{args.mode}:{path.as_posix()}", "file": path.as_posix(), "warnings": entries}
+    state, digest = iis_candidate.prepare(root, base, task, model, args.agent_effort, args.idle_seconds)
+    print(f"IIS candidate: {state}" + (f" (SHA-256 {digest})" if digest else ""))
+    return int(state != "awaiting-diff-review")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="IIS Orchestrator — mRemoteNG Issue Intelligence System"
                     " + automated issue & warning resolution",
     )
     parser.add_argument(
-        "mode", nargs="?", default="all",
+        "mode", nargs="?", default="status",
         choices=["all", "issues", "warnings", "analyzer-warnings", "status", "test-hygiene",
                  "sync", "analyze", "update", "ack", "report", "fix-status", "promote-released"],
         help="sync/analyze/update/ack/report/fix-status/promote-released (IIS), or all/issues/warnings/analyzer-warnings/status/test-hygiene (orchestrator)",
@@ -6298,6 +6164,18 @@ def main():
     # ── Orchestrator args ──
     parser.add_argument("--dry-run", action="store_true",
                         help="Simulate without making changes")
+    parser.add_argument("--warning-log", type=Path,
+                        help="Existing build output used by the warning preview")
+    parser.add_argument("--warning-revision",
+                        help="Revision supplied by the operator for --warning-log")
+    parser.add_argument("--candidate-root", type=Path,
+                        help="Prepare or verify one candidate in a detached worktree")
+    parser.add_argument("--candidate-digest",
+                        help="Exact candidate SHA-256 to verify after review")
+    parser.add_argument("--review-note", help="Security and diff disposition for the verified candidate")
+    parser.add_argument("--agent-effort", help="Explicit reasoning effort for candidate implementation")
+    parser.add_argument("--idle-seconds", type=int, default=600,
+                        help="Maximum interval without agent transcript progress")
     parser.add_argument("--max-issues", type=int, default=None,
                         help="Max issues to process (orchestrator)")
     parser.add_argument("--max-files", type=int, default=None,
@@ -6312,10 +6190,8 @@ def main():
                         help="Comma-separated analyzer rule codes (e.g. CA1507,CA1822)")
     # ── Agent args ──
     parser.add_argument("--agent", default=None,
-                        choices=["codex", "claude", "gemini"],
-                        help="Override agent for ALL tasks (ignores AGENT_CONFIG)")
-    parser.add_argument("--gemini-model", default=None,
-                        help="Override Gemini model (default: IIS_GEMINI_MODEL, else the Gemini CLI config)")
+                        choices=["codex"],
+                        help="Provider for isolated implementation")
     parser.add_argument("--codex-model", default=None,
                         help="Override Codex model (default: IIS_CODEX_MODEL, else the Codex CLI config)")
     # ── IIS sync args ──
@@ -6371,6 +6247,30 @@ def main():
 
     args = parser.parse_args()
 
+    batch_modes = ("all", "issues", "warnings", "analyzer-warnings")
+    if args.mode == "status":
+        return show_status()
+    if args.dry_run and args.mode in batch_modes:
+        if any(limit is not None and limit < 1 for limit in (args.max_issues, args.max_files)):
+            parser.error("preview limits must be positive")
+        return preview_batch(args)
+    if args.dry_run and args.mode not in ("fix-status", "promote-released", "analyze", "report"):
+        parser.error("this mode has no read-only preview")
+    if args.candidate_root is not None and args.mode in ("issues", "warnings", "analyzer-warnings"):
+        if args.agent not in (None, "codex") or args.squash or args.parallel or args.force:
+            parser.error("candidate mode requires a single isolated Codex run without overrides")
+        if any(limit not in (None, 1) for limit in (args.max_issues, args.max_files)):
+            parser.error("candidate mode handles one item")
+        try:
+            return run_candidate_mode(args)
+        except (OSError, ValueError, subprocess.SubprocessError) as exc:
+            print(f"IIS candidate blocked: {exc}", file=sys.stderr)
+            return 1
+    if args.mode in (*batch_modes, "test-hygiene"):
+        parser.error("legacy write batches are disabled; use --dry-run or a bounded --candidate-root")
+    if args.mode not in ("analyze", "report") and not args.dry_run:
+        setup_logging()
+
     # ── IIS subcommands (no Claude/build preflight needed) ──
     if args.mode == "sync":
         issue_numbers = None
@@ -6419,7 +6319,7 @@ def main():
         return
 
     if args.mode == "report":
-        iis_report(include_all=args.include_all, no_save=args.no_save)
+        iis_report(include_all=args.include_all, no_save=args.no_save or args.dry_run)
         return
 
     if args.mode == "fix-status":
@@ -6437,157 +6337,7 @@ def main():
         show_status()
         return
 
-    # ── Orchestrator modes (all, issues, warnings) ──
-    # Apply agent CLI overrides
-    global GEMINI_MODEL, CODEX_MODEL
-    if args.agent:
-        for key in AGENT_CONFIG:
-            AGENT_CONFIG[key] = args.agent
-        log.info("Agent override: ALL tasks using %s", args.agent)
-    if args.gemini_model:
-        GEMINI_MODEL = args.gemini_model
-        log.info("Gemini model override: %s", GEMINI_MODEL)
-    if args.codex_model:
-        CODEX_MODEL = args.codex_model
-        log.info("Codex model override: %s", CODEX_MODEL)
-
-    # ── P2: CHECK IF SUPERVISOR IS ACTIVE ──
-    # If a supervisor is managing the orchestrator, refuse to start manually.
-    supervisor_lock = SCRIPTS_DIR / "supervisor.lock"
-    if supervisor_lock.exists():
-        try:
-            sup_data = json.loads(supervisor_lock.read_text(encoding="utf-8"))
-            sup_pid = sup_data.get("pid", 0)
-            try:
-                os.kill(sup_pid, 0)
-                sup_alive = True
-            except (OSError, ProcessLookupError):
-                sup_alive = False
-
-            if sup_alive and not args.force:
-                print(f"ERROR: Supervisor is active (PID {sup_pid}, started {sup_data.get('started', 'unknown')})")
-                print("       The orchestrator is managed by the supervisor.")
-                print("       Use --force to override, or stop the supervisor first.")
-                sys.exit(1)
-            elif sup_alive:
-                log.warning("  [LOCK] Supervisor active (PID %d) — overriding with --force", sup_pid)
-        except (json.JSONDecodeError, OSError):
-            pass  # Corrupt or unreadable — ignore
-
-    # ── SINGLE INSTANCE LOCK ──
-    # Prevent multiple orchestrator instances from running simultaneously.
-    # Concurrent instances cause race conditions on git, garbled test output,
-    # and wrong-issue-attribution (discovered in 31h run, 2026-02-16).
-    lock_file = SCRIPTS_DIR / "orchestrator.lock"
-    if lock_file.exists():
-        try:
-            lock_data = json.loads(lock_file.read_text(encoding="utf-8"))
-            lock_pid = lock_data.get("pid", 0)
-            lock_time = lock_data.get("started", "unknown")
-            # Check if the PID is still alive
-            pid_alive = False
-            try:
-                os.kill(lock_pid, 0)  # signal 0 = check if process exists
-                pid_alive = True
-            except (OSError, ProcessLookupError):
-                pid_alive = False
-
-            if pid_alive:
-                print(f"ERROR: Another orchestrator instance is running (PID {lock_pid}, started {lock_time})")
-                print(f"       If this is stale, delete: {lock_file}")
-                sys.exit(1)
-            else:
-                log.warning("  [LOCK] Stale lock found (PID %d dead) — removing", lock_pid)
-                lock_file.unlink()
-        except Exception as e:
-            log.warning("  [LOCK] Corrupt lock file — removing: %s", e)
-            lock_file.unlink()
-
-    # Create lock file
-    lock_file.write_text(
-        json.dumps({"pid": os.getpid(), "started": _now_iso()}, indent=2),
-        encoding="utf-8",
-    )
-
-    # P8: atexit handler for lock file (guards against os._exit() from libraries)
-    import atexit
-    atexit.register(lambda: lock_file.unlink(missing_ok=True))
-
-    # Preflight checks
-    agents_needed = set(AGENT_CONFIG.values())
-    if "codex" in agents_needed and not shutil.which("codex"):
-        print("ERROR: 'codex' CLI not found in PATH.  Install: npm i -g @openai/codex")
-        lock_file.unlink(missing_ok=True)
-        sys.exit(1)
-    if "claude" in agents_needed and not shutil.which("claude"):
-        print("ERROR: 'claude' CLI not found in PATH.  Install Claude Code first.")
-        lock_file.unlink(missing_ok=True)
-        sys.exit(1)
-    if "gemini" in agents_needed and not shutil.which("gemini"):
-        print("ERROR: 'gemini' CLI not found in PATH.  Install Gemini CLI first.")
-        lock_file.unlink(missing_ok=True)
-        sys.exit(1)
-    if AGENT_FALLBACK_ENABLED:
-        for cli_name in ("codex", "claude", "gemini"):
-            if not shutil.which(cli_name):
-                log.warning("%s CLI not found — fallback to %s disabled", cli_name, cli_name)
-    if not shutil.which("gh"):
-        print("ERROR: 'gh' CLI not found in PATH.  Install GitHub CLI first.")
-        lock_file.unlink(missing_ok=True)
-        sys.exit(1)
-    if not REPO_ROOT.exists():
-        print(f"ERROR: Repo not found at {REPO_ROOT}")
-        lock_file.unlink(missing_ok=True)
-        sys.exit(1)
-
-    status = Status()
-
-    try:
-        # ── Pre-flight test hygiene ──
-        if args.mode in ("all", "issues", "test-hygiene"):
-            status.set_phase("test_hygiene_pre")
-            flux_test_hygiene(status, phase="pre-flight")
-
-        if args.mode in ("all", "issues"):
-            status.set_phase("issues")
-            flux_issues(status, dry_run=args.dry_run, max_issues=args.max_issues)
-
-        if args.mode in ("all", "warnings"):
-            status.set_phase("warnings")
-            flux_warnings(status, dry_run=args.dry_run, max_files=args.max_files,
-                          squash=args.squash, max_passes=args.max_passes,
-                          parallel=args.parallel)
-
-        if args.mode in ("all", "analyzer-warnings"):
-            status.set_phase("analyzer_warnings")
-            flux_analyzer_warnings(status, dry_run=args.dry_run,
-                                   max_files=args.max_files,
-                                   rules=args.rules, squash=args.squash,
-                                   max_passes=args.max_passes)
-
-        # ── Post-flight test hygiene ──
-        if args.mode in ("all", "issues", "test-hygiene"):
-            status.set_phase("test_hygiene_post")
-            flux_test_hygiene(status, phase="post-flight")
-
-        status.finish()
-        log.info("=== Orchestrator finished ===")
-        print_summary(status)
-
-    except KeyboardInterrupt:
-        log.warning("Interrupted by user (Ctrl+C)")
-        status.finish()
-        print_summary(status)
-
-    except Exception as e:
-        log.error("FATAL: %s", e, exc_info=True)
-        status.add_error("orchestrator", "fatal", str(e))
-        status.finish()
-
-    finally:
-        # Always remove lock file on exit
-        lock_file.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

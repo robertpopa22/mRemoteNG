@@ -374,6 +374,8 @@ class PanelIndependenceTests(unittest.TestCase):
         # Nobody votes on a patch they were only shown part of.
         big = self.candidate("aaa1", "Huge", patch="x" * (fi.PATCH_REVIEW_LIMIT + 1))
         small = self.candidate("bbb2", "Small", patch="x" * 10)
+        self.assertTrue(fi.patch_was_truncated(small, fi.PATCH_REVIEW_LIMIT))
+        big["patch_complete"] = small["patch_complete"] = True
         self.assertTrue(fi.patch_was_truncated(big, fi.PATCH_REVIEW_LIMIT))
         self.assertFalse(fi.patch_was_truncated(small, fi.PATCH_REVIEW_LIMIT))
 

@@ -45,7 +45,7 @@ from pathlib import Path
 from typing import Optional
 
 # ── CONFIG ──────────────────────────────────────────────────────────────────
-REPO_ROOT = Path(r"D:\github\mRemoteNG")
+REPO_ROOT = Path(__file__).resolve().parents[2]
 GIT_DIR = REPO_ROOT / ".git"
 SCRIPTS_DIR = REPO_ROOT / ".project-roadmap" / "scripts"
 CHAIN_CONTEXT_DIR = SCRIPTS_DIR / "chain-context"
@@ -127,7 +127,7 @@ def setup_logging():
     return logging.getLogger("supervisor")
 
 
-log = setup_logging()
+log = logging.getLogger("supervisor")
 
 
 # ── DATA CLASSES ────────────────────────────────────────────────────────────
@@ -272,7 +272,7 @@ class HealthChecker:
                                        f"No status update for {age_min:.0f}min "
                                        f"(last task: {task})")
                 status.details["status_age_min"] = round(age_min, 1)
-        except (json.JSONDecodeError, OSError):
+        except (ValueError, TypeError, OSError):
             pass  # Handled by _check_status_file
 
     def _check_phantom_tests(self, status: HealthStatus):
@@ -353,14 +353,21 @@ class HealthChecker:
         try:
             data = json.loads(STATUS_FILE.read_text(encoding="utf-8"))
             # Validate required fields
+            if not isinstance(data, dict):
+                raise ValueError("status must be a JSON object")
             required = ["started_at", "running", "last_updated"]
             missing = [f for f in required if f not in data]
             if missing:
                 status.add_failure(FailureMode.FM5_STATUS_CORRUPTION,
                                    f"Missing fields: {missing}")
-        except json.JSONDecodeError as e:
+            else:
+                if not isinstance(data["running"], bool):
+                    raise ValueError("running must be a boolean")
+                for field in ("started_at", "last_updated"):
+                    datetime.datetime.fromisoformat(data[field])
+        except (ValueError, TypeError) as e:
             status.add_failure(FailureMode.FM5_STATUS_CORRUPTION,
-                               f"Corrupt JSON: {e}")
+                               f"Corrupt status: {e}")
         except OSError as e:
             status.add_failure(FailureMode.FM5_STATUS_CORRUPTION,
                                f"Cannot read: {e}")
@@ -433,7 +440,7 @@ class HealthChecker:
                 continue  # Handled by FM4
 
         # Determine base agent names (strip model suffixes)
-        base_agents = {"codex", "gemini", "claude"}
+        base_agents = {"codex", "claude"}
         blocked_base = set()
         for key in blocked_agents:
             base = key.split(":")[0]  # "gemini:gemini-3-pro" → "gemini"
@@ -1377,43 +1384,36 @@ class Supervisor:
         except Exception:
             pass
 
-    def one_shot_check(self) -> HealthStatus:
-        """Run a single health check and return results.
-        P1: Acquires/releases supervisor lock for the check."""
-        if not _acquire_supervisor_lock():
-            log.error("[CHECK] Another supervisor is running — cannot check")
-            return HealthStatus(healthy=False,
-                                failures=[{"mode": "supervisor_conflict",
-                                           "detail": "Another supervisor is running"}])
 
-        try:
-            orch_running = self._is_orchestrator_running()
-            health = self.checker.check_all(orchestrator_running=orch_running)
 
-            if health.healthy:
-                log.info("[CHECK] All healthy")
-            else:
-                log.warning("[CHECK] %d issues found:", len(health.failures))
-                for f in health.failures:
-                    log.warning("  - %s: %s", f["mode"], f["detail"])
-
-                # Auto-recover
-                for failure in health.failures:
-                    result = self.recovery.recover(failure)
-                    status = "OK" if result.success else "FAILED"
-                    verified = " (verified)" if result.verified else ""
-                    log.info("[RECOVERY] %s: %s — %s%s",
-                             result.mode.value, status,
-                             result.action_taken, verified)
-
-            return health
-        finally:
-            _release_supervisor_lock()
+    @staticmethod
+    def one_shot_check() -> HealthStatus:
+        return HealthChecker().check_all(orchestrator_running=bool(_find_orchestrator_pids()))
 
 
 # ── UTILITIES ───────────────────────────────────────────────────────────────
 def _is_pid_alive(pid: int) -> bool:
     """Check if a process with given PID exists."""
+    if type(pid) is not int or not 0 < pid <= 0xFFFFFFFF:
+        return False
+    if sys.platform == "win32":
+        # On Windows os.kill(pid, 0) is not a read-only existence probe.
+        import ctypes
+        from ctypes import wintypes
+
+        kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel.OpenProcess.argtypes = (wintypes.DWORD, wintypes.BOOL, wintypes.DWORD)
+        kernel.OpenProcess.restype = wintypes.HANDLE
+        kernel.WaitForSingleObject.argtypes = (wintypes.HANDLE, wintypes.DWORD)
+        kernel.WaitForSingleObject.restype = wintypes.DWORD
+        kernel.CloseHandle.argtypes = (wintypes.HANDLE,)
+        handle = kernel.OpenProcess(0x00100000, False, pid)  # SYNCHRONIZE
+        if not handle:
+            return ctypes.get_last_error() == 5  # Access denied is not proof of exit.
+        try:
+            return kernel.WaitForSingleObject(handle, 0) != 0
+        finally:
+            kernel.CloseHandle(handle)
     try:
         os.kill(pid, 0)
         return True
@@ -1424,25 +1424,17 @@ def _is_pid_alive(pid: int) -> bool:
 def _find_orchestrator_pids() -> list:
     """Find all Python processes running iis_orchestrator.py."""
     try:
-        result = subprocess.run(
-            ["wmic", "process", "where",
-             "name='python.exe' or name='python3.exe'",
-             "get", "processid,commandline"],
-            capture_output=True, text=True, timeout=10,
+        query = (
+            "Get-CimInstance Win32_Process -Filter \"Name = 'python.exe' OR Name = 'python3.exe' "
+            "OR Name = 'pythonw.exe'\" | "
+            "Where-Object { $_.CommandLine -match 'iis_orchestrator\\.py' } | "
+            "Select-Object -ExpandProperty ProcessId"
         )
-        pids = []
-        for line in result.stdout.splitlines():
-            if "iis_orchestrator" in line and "supervisor" not in line.lower():
-                # Extract PID (last number on line)
-                parts = line.strip().split()
-                if parts:
-                    try:
-                        pid = int(parts[-1])
-                        pids.append(pid)
-                    except ValueError:
-                        pass
-        return sorted(pids)
-    except Exception:
+        result = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", query],
+                                capture_output=True, text=True, timeout=10, check=True)
+        return sorted(int(line) for line in result.stdout.splitlines() if line.strip().isdigit())
+    except (OSError, subprocess.SubprocessError):
+        log.warning("Cannot read the IIS process inventory")
         return []
 
 
@@ -1492,7 +1484,7 @@ def _run_git(args: list) -> tuple:
     """Run a git command in the repo root. Returns (returncode, stdout)."""
     try:
         result = subprocess.run(
-            ["git"] + args,
+            ["git", "--no-optional-locks"] + args,
             capture_output=True, text=True, timeout=30,
             cwd=str(REPO_ROOT),
         )
@@ -1507,7 +1499,8 @@ def _safe_read_status() -> Optional[dict]:
         try:
             if not STATUS_FILE.exists():
                 return None
-            return json.loads(STATUS_FILE.read_text(encoding="utf-8"))
+            data = json.loads(STATUS_FILE.read_text(encoding="utf-8"))
+            return data if isinstance(data, dict) else None
         except (json.JSONDecodeError, OSError):
             if attempt < 2:
                 time.sleep(0.2)
@@ -1657,26 +1650,25 @@ def _cleanup_old_stashes(max_age_days: int = 7):
 # ── MAIN ────────────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser(
-        description="Self-healing supervisor for iis_orchestrator.py")
+        description="Health inspection for iis_orchestrator.py")
     parser.add_argument("--check", action="store_true",
-                        help="One-shot health check + recovery (no loop)")
+                        help="One-shot read-only health check")
     parser.add_argument("--max-restarts", type=int, default=0,
                         help="Max restarts before exit (0 = unlimited)")
     parser.add_argument("--orchestrator-args", type=str, default="",
                         help="Arguments to pass to orchestrator")
     args = parser.parse_args()
 
-    if args.check:
-        supervisor = Supervisor()
-        health = supervisor.one_shot_check()
-        sys.exit(0 if health.healthy else 1)
+    if not args.check:
+        parser.error("legacy automatic recovery is disabled; use --check for inspection")
+    health = Supervisor.one_shot_check()
+    if health.healthy:
+        print("IIS health check: no findings")
     else:
-        supervisor = Supervisor(
-            orchestrator_args=args.orchestrator_args,
-            max_restarts=args.max_restarts,
-        )
-        supervisor.run()
+        for failure in health.failures:
+            print(f"{failure['mode']}: {failure['detail']}")
+    return int(not health.healthy)
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

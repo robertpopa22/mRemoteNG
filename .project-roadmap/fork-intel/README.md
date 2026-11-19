@@ -10,10 +10,15 @@ Nothing is ever imported automatically. The pipeline proposes; a human decides.
 python .project-roadmap/fork-intel/fork_intel.py discover --since-months 6
 python .project-roadmap/fork-intel/fork_intel.py diverge
 python .project-roadmap/fork-intel/fork_intel.py screen
-python .project-roadmap/fork-intel/fork_intel.py triage
-python .project-roadmap/fork-intel/fork_intel.py preapprove
+python .project-roadmap/fork-intel/fork_intel.py triage --review-root "$review_root"
+python .project-roadmap/fork-intel/fork_intel.py preapprove --review-root "$review_root"
 python .project-roadmap/fork-intel/fork_intel.py report
 ```
+
+For the agent steps use a clean detached review worktree at the same SHA.
+Set `FORK_INTEL_<PROVIDER>_MODEL` and `FORK_INTEL_<PROVIDER>_EFFORT` as described
+in the [Fork Radar skill](../../.agents/skills/mremoteng-fork-radar/SKILL.md).
+Verify the native route and subscription before a live batch.
 
 Then read `reports/<date>_fork-radar.md` and `IMPORT_QUEUE.md`.
 
@@ -132,30 +137,27 @@ A hit does **not** mean the change is malicious — most of the flagged commits 
 
 ### 4. `triage`
 
-Batches the survivors to an AI agent (`claude` by default, falling back to `codex` and `gemini`). Each commit is presented with its diff, touched files, our open issue titles, and commit subjects from our own history that share keywords — so the model can tell "we already did this" from "this is new". The model returns strict JSON per commit: category, mapped issue, whether we already have it, value/effort/risk on 1–5, whether the patch is likely to apply, and a recommended action.
+Batches the survivors to the selected provider. Each commit is presented with
+its diff, touched files, public issue titles and related history. The verdict
+records the actual model, session, base and input digest. An inconclusive
+dispatch is retained for reconciliation.
 
 ### 5. `preapprove`
 
-Reviewing every candidate by hand is the bottleneck the pipeline exists to remove, so candidates are put to a vote before they reach a human.
-
-Each tier A/B candidate — and every quarantined one — goes to two independent model families (`codex` and `gemini` by default) as a **read-only, opinion-only** review, with our project direction in the prompt: .NET 10, `build.ps1`, no new dependencies, no telemetry, no interactive tests, 6341 tests must stay green. Each reviewer returns a single JSON verdict.
-
-**When the reviewers disagree, a third family arbitrates.** A split verdict is exactly the case an outside opinion can settle, so `grok-4.5` (xAI REST API, no CLI) is asked — but only then. Unanimous approval or unanimous refusal needs no arbiter and does not pay for one.
-
-The decision rule is deliberately one-sided:
+Charter D6 uses Claude Code, Codex and Grok Build. The triage family rotates
+out, one ballot is blind and a split between approval and dissent triggers
+one fresh round with anonymous arguments. A deterministic sample of unanimous
+approvals is audited by the rotated-out family.
 
 | Situation | Result |
 |---|---|
-| every reviewer approves, all aligned, no security flag | `pre-approved` |
-| reviewers split, arbiter fetched, clear majority approves | `pre-approved` |
-| any dissent without an arbiter | `manual-review` |
-| a reviewer did not answer | `manual-review` — silence is never consent |
-| any security flag | `manual-review` — cannot be voted away |
-| any reviewer says it does not fit our direction | `manual-review` |
+| At least two eligible approvals in the deciding round, explicit alignment, complete patch and passing audit when selected | `pre-approved` |
+| Fewer than two eligible answers | `held` |
+| Missing or negative alignment, unresolved dissent, missing audit result, security flag or incomplete patch | `manual-review` |
 
-Quarantined changes are reviewed but can never be pre-approved. The votes only tell the maintainer whether the diff is worth their reading time.
-
-**Pre-approved still means a human lands it.** It means "decide quickly", not "no decision needed".
+The verdict is bound to the reviewed SHA, patch, comparison base, screening
+rules and triage evidence. A pre-approval still requires authorization for
+the exact SHA and candidate verification before integration.
 
 ### 6. `report`
 
@@ -176,7 +178,8 @@ Hard gates run first and cannot be overridden by an enthusiastic model:
 
 Tiers: **A** ready to cherry-pick · **B** worth porting by hand · **C** watch list · **Q** security review first · **D** rejected.
 
-`IMPORT_QUEUE.md` carries ready-to-run commands for tier A and porting notes for tier B.
+`IMPORT_QUEUE.md` lists exact SHAs and links the verification-first import
+procedure. Older evidence is shown as historical when its inputs change.
 
 ### 7. `mark`
 

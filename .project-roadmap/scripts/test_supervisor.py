@@ -345,7 +345,7 @@ class TestFM6HungProcess(TempFilesMixin, unittest.TestCase):
 
     def test_old_update_detected(self):
         old = (datetime.datetime.now()
-               - datetime.timedelta(minutes=20)).isoformat()
+               - datetime.timedelta(minutes=sup.HUNG_TIMEOUT_MINUTES + 1)).isoformat()
         self._write_json(sup.STATUS_FILE, {
             "running": True,
             "last_updated": old,
@@ -620,11 +620,13 @@ class TestSupervisor(TempFilesMixin, unittest.TestCase):
     @patch("orchestrator_supervisor._run_git", return_value=(0, ""))
     def test_one_shot_check_with_stale_lock(self, mock_git):
         self._write_json(sup.LOCK_FILE, {"pid": 99999999, "started": "2026-01-01"})
-        supervisor = sup.Supervisor()
-        # one_shot_check auto-recovers
-        health = supervisor.one_shot_check()
-        # After recovery, lock should be gone
-        self.assertFalse(sup.LOCK_FILE.exists())
+        before = sup.LOCK_FILE.read_bytes()
+        with patch.object(sup.RecoveryEngine, "recover") as recovery:
+            health = sup.Supervisor.one_shot_check()
+        self.assertFalse(health.healthy)
+        self.assertEqual(before, sup.LOCK_FILE.read_bytes())
+        self.assertFalse(sup.SUPERVISOR_LOCK_FILE.exists())
+        recovery.assert_not_called()
 
 
 # ── UTILITY FUNCTIONS ───────────────────────────────────────────────────────

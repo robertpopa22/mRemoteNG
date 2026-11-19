@@ -44,23 +44,27 @@ deterministic sample of approvals with the rotated-out family. Require the
 charter's independent agreement, alignment and security conditions. Record missing
 votes and disagreement. Treat pre-approval as evidence for a human decision.
 
-Before invoking the automatic `triage` or `preapprove` stages, verify that
-the selected route can identify the actual model and follow D12–D15. The
-current runner uses a hard subprocess timeout (600 seconds by default for
-`preapprove`) and cannot tell whether a live transcript is still advancing.
-While that limitation applies, use cached evidence for reports or arrange
-authorized read-only CLI reviews under D15 with the actual source and full
-candidate diff. Watch transcript progress and record any manual findings
-separately from the tool's cached votes. Leave candidates pending when the
-required review evidence is unavailable.
+For `triage` and `preapprove`, use `--review-root` for a clean linked worktree
+detached at the Radar revision. Set explicit `FORK_INTEL_<PROVIDER>_MODEL`
+and `FORK_INTEL_<PROVIDER>_EFFORT` for the selected providers. Confirm access,
+subscription terms and native CLI evidence with a limited probe before running
+against live candidates. The runner uses the absence of transcript events,
+measured by `--timeout`, to detect a stall. It records the model and session
+and keeps an uncertain dispatch for review instead of replaying it.
+
+Refresh older screened entries to establish patch completeness. A verdict
+whose base, patch, screening rules or triage evidence changed is historical.
+Use cached reports or approved manual review when evidence or provider access
+is missing.
 
 ```powershell
 python .project-roadmap/fork-intel/fork_intel.py report
 ```
 
 Report the counts by tier, the strongest candidates with exact SHA and source,
-and any missing review or security disposition. The generated queue may
-contain direct cherry-pick commands. Use the procedure below for integration.
+and any missing review or security disposition. Use the procedure below for
+integration. Older generated queues may still contain immediate cherry-pick
+commands and must be regenerated before use.
 Keep outreach to fork authors within its separate authorization.
 
 ## Import one approved SHA

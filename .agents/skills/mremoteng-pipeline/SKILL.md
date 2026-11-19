@@ -16,32 +16,29 @@ verification use [mremoteng-verify](../mremoteng-verify/SKILL.md).
 
 | Argument | Action |
 | --- | --- |
-| `status` | Read status, logs, lock owners and process state. |
+| `status` | Read IIS status and the supervisor's health findings. |
 | No arguments | Report the cached backlog and current status. |
 | `quick` | Sync issue metadata, analyze it and print a report. This updates the local issue DB. |
-| `issues\|warnings\|analyzer-warnings\|all [--max-issues N] [--max-files N] --dry-run` | Preview from cached issue data or existing analyzer evidence. State which requested bounds apply and which data is missing. |
-| `issues\|warnings\|analyzer-warnings\|all` without `--dry-run`, or `start "<orchestrator args>"` | Execution request. Check runtime readiness below before launching. |
+| `issues\|warnings\|analyzer-warnings\|all [--max-issues N] [--max-files N] --dry-run` | Preview cached issue data or a supplied build log without starting a worker. |
+| `issues\|warnings\|analyzer-warnings --candidate-root <path>` | Prepare or verify one candidate after the checks below. |
+| `start "<orchestrator args>"` or an unattended write batch | Legacy supervisor and write batches remain disabled. |
 | `stop` | Stop only the identified supervisor and orchestrator from the requested run. |
 
 ## Read status and prepare a preview
 
-From PowerShell, read the existing files under `.project-roadmap/scripts/`:
-`orchestrator-status.json`, the tails of `orchestrator.log` and
-`supervisor.log`, and the PID metadata in `orchestrator.lock` and
-`supervisor.lock`. Compare them to live process IDs and creation times. Report
-missing or stale evidence and duplicate processes without changing them.
+Use the read-only entry points. A health finding exits nonzero and preserves
+the lock and other evidence. For a warning preview pass the existing build
+log and its source SHA. A missing log or revision leaves the preview incomplete.
 
 ```powershell
-Get-CimInstance Win32_Process -Filter "Name = 'python.exe' OR Name = 'pythonw.exe'" |
-  Where-Object { $_.CommandLine -match '(iis_orchestrator|orchestrator_supervisor)\.py' } |
-  Select-Object ProcessId, ParentProcessId, CreationDate, Name
+python .project-roadmap/scripts/iis_orchestrator.py status
+python .project-roadmap/scripts/orchestrator_supervisor.py --check
+python .project-roadmap/scripts/iis_orchestrator.py issues --dry-run --max-issues 2
+python .project-roadmap/scripts/iis_orchestrator.py analyzer-warnings --dry-run --warning-log $buildLog --warning-revision $baseSha --max-files 2
 ```
 
-For cached counts use the issue DB, or use the IIS reporting commands when an
-operational log is acceptable. These Python entries open the IIS log. Neither
-needs a test preflight or agent. Include unfinished maintainer actions and
-label the cache date. For warning previews, use the most recent matching
-build log and identify its revision. If there is no matching log, report the gap.
+For a detailed cached report use the IIS reporting commands below. Include
+unfinished maintainer actions and the cache date.
 
 ```powershell
 python .project-roadmap/scripts/iis_orchestrator.py analyze --repos upstream --show-all
@@ -55,28 +52,32 @@ the run ownership, stop its supervisor before its child can be restarted,
 verify both PIDs exited, and clear only that run's proven stale locks when
 needed. Never treat a stale status file as proof of a running process.
 
-## Runtime readiness
+## Prepare and verify one isolated candidate
 
-The current implementation does not meet the charter for automated writes.
-Report the blocker for the requested run using the matching source:
+Use a clean linked worktree detached at the orchestrator's current SHA,
+with no local post-build hook. The current implementation route is Codex
+in its workspace sandbox, with explicit model and effort. Verify subscription
+scope and actual provider/model evidence in a limited native probe before
+using this mode with real issue data. Use `--issue` to select an exact cached
+issue or provide a revision-matched build log for one warning file.
 
-- [The supervisor](../../../.project-roadmap/scripts/orchestrator_supervisor.py)
-  implements `--check` as health check with recovery. Recovery can stop
-  processes and change Git state. Use the status procedure for observation.
-- [IIS](../../../.project-roadmap/scripts/iis_orchestrator.py) calls test
-  hygiene before and after `issues` and `all`, including `--dry-run`. Hygiene
-  can run agents and commit. Use the preview procedure above.
-- Legacy IIS can select a provider excluded by D12, works against a fixed
-  checkout, stages whole source directories and can publish through Git.
-  Selecting an allowed provider or finding a clean Git status alone leaves
-  those risks in place. Preserve WIP without stashing it to launch this runner.
+```powershell
+python .project-roadmap/scripts/iis_orchestrator.py issues --issue $issueNumber --candidate-root $candidateRoot --codex-model $model --agent-effort $effort
+python .project-roadmap/scripts/iis_orchestrator.py issues --candidate-root $candidateRoot --candidate-digest $candidateHash --review-note $diffReview
+```
 
-Resume unattended execution only after the owning runtime proves the requested
-mode uses approved providers and explicit models, isolates implementation,
-preserves WIP and stages exact paths, follows the required verification and
-publication gates, and respects D14 when waiting for an active agent. Verify
-the actual configuration and a bounded isolated run before suggesting
-supervised operation. A phantom or zero-test result leaves verification incomplete.
+The first command records a claim and writes the candidate patch and state to
+the linked worktree's Git directory. A prior claim requires reconciliation
+instead of redispatch. Inspect the exact patch before the second command.
+Verification reruns the tripwire, full build and canonical suite against
+the reviewed hash. The resulting state is `awaiting-required-verification`.
+Follow [mremoteng-verify](../mremoteng-verify/SKILL.md) for the remaining review
+and applicable lab and scope-based checks before integration. These commands
+leave commit, push and public replies to the coordinator.
+
+Resume supervised or unattended batches only after the applicable checkpoint
+in [the runtime plan](../../../docs/PLAN-MRNGRUN-2026-11.md) has evidence.
+A phantom, crashed or zero-test result leaves verification incomplete.
 
 For authorized runtime maintenance, locate the affected symbol and reproduce
 the orchestration defect through a controlled fixture or mocked boundary. An
