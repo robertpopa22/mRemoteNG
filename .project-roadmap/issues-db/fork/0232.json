@@ -8,7 +8,7 @@
   ],
   "author": "jblion",
   "created_at": "2026-11-12T20:15:43Z",
-  "github_updated_at": "2026-11-17T14:57:44Z",
+  "github_updated_at": "2026-11-17T20:02:47Z",
   "body_snippet": "<!--\nThank you! A few honest words about how this fork works, so you know what to expect:\n\nThis fork uses automated development and verification, and we use mRemoteNG ourselves daily.\nEach reply should name the tests and UI checks actually performed, their limits, and the exact\npublished build to try. Our lab cannot reproduce every network, server, locale or display setup.\nThat means:\n\n  * your report below is the start of the fix,\n  * your retest establishes whether the reported symptom is reso...",
   "our_status": "testing",
   "priority": null,
@@ -169,12 +169,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABnpUj0g",
+      "author": "robertpopa22",
+      "date": "2026-11-17T17:22:24Z",
+      "snippet": "Thank you for testing again and for the full-size screenshot: the captions broken every two or three letters were exactly what we needed to find this one.\n\nWhat it was: when a page is laid out the first time in a panel that is still almost zero wide, each caption's maximum width was measured from the column widths of that first, narrow pass, and every later pass read those same stale widths. The page itself grew to the full width, but the captions stayed about 34 pixels wide, which is why resizi...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABntA5bw",
+      "author": "jblion",
+      "date": "2026-11-17T20:02:47Z",
+      "snippet": "Options load time is now acceptable.\n\nFull screenshot showing the overlapping: \n<img width=\"3840\" height=\"2064\" alt=\"image\" src=\"https://github.com/user-attachments/assets/3e1d7cf3-e280-4550-b59e-2b702eaa7244\" />\n\nLogs with latest version: while doing the actions to the options panel \n```\n2026-11-17T21:01:05.345+01:00 mono_ms=68 pid=22668 app_session=083824354dbf [2] INFO  - [Perf] event=process_environment os_major=10 os_minor=0 os_build=26300 os_ubr=9974 os_product=Windows_10_Pro os_display=26...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-11-17T14:57:44Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-11-17T20:02:47Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-11-17T17:22:25Z",
+  "last_synced": "2026-11-19T15:55:35Z",
   "notes": "caption width fix f3354a227 in nightly 415fdc4; icons overlap + main-window first-load layout still open"
 }

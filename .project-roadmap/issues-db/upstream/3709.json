@@ -1,0 +1,52 @@
+{
+  "number": 3709,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Question: why is the General panel always open and unclosable?",
+  "state": "open",
+  "labels": [],
+  "author": "SmearODeer",
+  "created_at": "2026-11-18T01:46:19Z",
+  "github_updated_at": "2026-11-18T19:46:11Z",
+  "body_snippet": "@Kvarkas, a question about the permanent \"General\" panel added in 91ff4282 (Sep 15).\n\nIn the current dev build, mRemoteNG always opens a \"General\" panel at startup. It can't be closed: the close button and the Close menu item are hidden, and closing it is cancelled. It also stays open when it has no connections in it.\n\nFrom a user's view, this clutters the screen and doesn't seem to do anything. In 1.76, a panel only appeared when a connection opened in it, and closed with its last connection. W...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABn3p1Cg",
+      "author": "Er4twXz",
+      "date": "2026-11-18T06:03:39Z",
+      "snippet": "if one adds a panel it is automatically also named \"General\". If one renames those panels they can be deleted.\n\nMy goal would be to hide the panels header row. But i could not find a way.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABoJjhWw",
+      "author": "SmearODeer",
+      "date": "2026-11-18T19:33:00Z",
+      "snippet": "Thanks @Er4twXz, that's the cause. I checked the code: a panel counts as \"the General panel\" only because of its title. `ConnectionWindow.IsGeneralPanel` compares `TabText` with `PanelAdder.DefaultPanelName` (\"General\"), and every new panel gets that name by default. So:\n\n- every panel left with the default name is permanent: no close button, and closing is cancelled\n- renaming any panel *to* \"General\" makes it permanent too\n- renaming the real one makes it closable\n\nThis also affects #3710 (emp...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABoJzpbw",
+      "author": "Er4twXz",
+      "date": "2026-11-18T19:44:57Z",
+      "snippet": "From my perspective:\n\n- if there is only one panel do not show any panel header or panel name\n- naming them Panel2, Panel 3 ... could cause trouble because of the keybindings 1 ...10 --- maybe it's better to directly force the user to enter a panel name \n- one panel should always be left - warn user if he tries to delete the last remaining panel\n\n- panels with name should be removable, unique panel names should be enforced\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-11-18T19:46:11Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-11-19T15:55:35Z",
+  "notes": ""
+}

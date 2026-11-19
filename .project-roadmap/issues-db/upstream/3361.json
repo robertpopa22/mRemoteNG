@@ -2,7 +2,7 @@
   "number": 3361,
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Security vulnerability responsible disclosure",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "Security Vuln",
     "Security",
@@ -85,8 +85,8 @@
   ],
   "comments_cursor": "2026-11-02T18:50:03Z",
   "unread_comments": 7,
-  "needs_action": true,
-  "waiting_for_us": true,
+  "needs_action": false,
+  "waiting_for_us": false,
   "last_synced": "2026-11-03T07:07:18Z",
   "notes": ""
 }
