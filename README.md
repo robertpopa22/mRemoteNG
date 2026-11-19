@@ -32,13 +32,13 @@ If this fork is useful to you, please star it. Community tools we rely on set a 
     <img alt="Nightly" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/nightly.yml?style=for-the-badge&label=Nightly&color=blueviolet">
   </a>
   <a href="https://sonarcloud.io/project/overview?id=robertpopa22_mRemoteNG">
-    <img alt="SonarCloud quality gate failed on new-code coverage, checked 2026-11-19" src="https://img.shields.io/badge/Sonar-gate%20failed-red?style=for-the-badge">
+    <img alt="SonarCloud Quality Gate" src="https://sonarcloud.io/api/project_badges/measure?project=robertpopa22_mRemoteNG&amp;metric=alert_status">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/security/code-scanning">
     <img alt="CodeQL" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?style=for-the-badge&label=CodeQL">
   </a>
   <a href="https://www.qodo.ai/">
-    <img alt="Qodo reviews paused, checked 2026-11-16" src="https://img.shields.io/badge/Qodo-paused-lightgrey?style=for-the-badge">
+    <img alt="Qodo trial ended, checked 2026-11-19" src="https://img.shields.io/badge/Qodo-paused-lightgrey?style=for-the-badge">
   </a>
   <a href="docs/FREE-VERIFICATION.md#semgrep-community-edition">
     <img alt="Semgrep CE: 729 files fully parsed, two SQL findings reviewed" src="https://img.shields.io/badge/Semgrep%20CE-729%20parsed%20%2F%202%20reviewed-blue?style=for-the-badge&logo=semgrep">
@@ -47,7 +47,7 @@ If this fork is useful to you, please star it. Community tools we rely on set a 
     <img alt="Stryker.NET window-placement pilot: 100 percent mutation score" src="https://img.shields.io/badge/Stryker.NET-pilot%20100%25-brightgreen?style=for-the-badge">
   </a>
   <a href="docs/FREE-VERIFICATION.md#coderabbit-oss">
-    <img alt="CodeRabbit installed for this public repository; no completed review yet" src="https://img.shields.io/badge/CodeRabbit-OSS%20installed-blue?style=for-the-badge&logo=coderabbit">
+    <img alt="CodeRabbit GitHub review verified on PR 245" src="https://img.shields.io/badge/CodeRabbit-review%20verified-blue?style=for-the-badge&logo=coderabbit">
   </a>
   <a href="docs/FREE-VERIFICATION.md#greptile-oss">
     <img alt="Greptile OSS accepted: 100 free credits per month" src="https://img.shields.io/badge/Greptile-OSS%20100%20credits%2Fmonth-blue?style=for-the-badge">
@@ -141,7 +141,7 @@ The maintenance procedure now publishes in-scope fixes and replies directly afte
 
 **Options navigation at 200% scaling — 19 November 2026.** The lab reproduced icons covering the labels on the first Options opening at 192 DPI. The renderer now uses the same pixel width to draw the icon and position the label. The candidate passed opening, cancelling, reopening and the Connections page resize check at 192 DPI. Opening and reopening also passed at 96 DPI. App timings were **191/42 ms** at 192 DPI and **211/66 ms** at 96 DPI. Reporter verification is pending. [#232](https://github.com/robertpopa22/mRemoteNG/issues/232)
 
-**Quality.** The Sonar run for `2edf6db3b` failed the Quality Gate at **78.5% new-code coverage** against the **80%** threshold. Build validation, nightly, CodeQL and secret scanning passed on that revision. The new Pester coverage exercises the MSI lab script's installer, upgrade detection, configuration fingerprints and startup diagnostics with synthetic data. It measures **145/170 lines** with **8/8 tests passing**. [Baseline Sonar run](https://github.com/robertpopa22/mRemoteNG/actions/runs/44136303444)
+**Quality — 19 November 2026.** Sonar passed the Quality Gate on `77a7e5f26` at **85.63% new-code coverage**, up from **78.5%**, against the existing **80%** threshold. The Pester suite exercises the MSI lab script's installer, upgrade detection, configuration fingerprints and startup diagnostics with synthetic data. It covers **145/170 lines** with **8/8 tests passing**. The local suite passed **4,178/4,178** and the nightly suite passed **4,156/4,156**. [Sonar](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287330) · [Nightly build](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287265) · [Published ZIP and MSI](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/) — that
 manual covers upstream mRemoteNG. For what this fork adds on top of it (WebAuthn/FIDO2 redirection,
@@ -418,7 +418,6 @@ which is the most useful thing that can happen to a row in this table.*
 | 6 | **Upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) still open** | Waiting, understandably | 765 files, ~64K insertions. A diff that size is genuinely hard to review responsibly, and the upstream maintainers built this project — their caution is reasonable. The lesson is on our side: future contributions go upstream as smaller, focused PRs |
 | 7 | **Reporter confirmation is the bottleneck** | Structural | Of the fork's closed external issues, a large share were closed on code and test evidence without the reporter ever replying. Those fixes are probably right, but "probably" is the honest word. There is no way around this other than making it easy and worthwhile to reply — which is what the transparency work is for |
 | 8 | **Unsigned binaries: Smart App Control blocks every build, Defender cloud-checks every new one** ([#219](https://github.com/robertpopa22/mRemoteNG/issues/219)) | Blocked on signing, no code fix | No binary this fork publishes carries an Authenticode signature (SignPath Foundation declined on 2026-03-05; status in [docs/CODE_SIGNING_POLICY.md](docs/CODE_SIGNING_POLICY.md)). Smart App Control runs an app only if it is signed by a publicly trusted certificate or has positive cloud reputation; a fresh unsigned build has neither, so on Windows 11 with Smart App Control on, mRemoteNG is blocked (reported on ARM64 v1.84.0). Self-signed certificates do not satisfy it. The same missing signature makes Defender cloud-check every new build on first start (up to 10 s on a slow link, measured 2026-10-15). Closes only when releases are signed with a publicly trusted certificate |
-| 9 | **Sonar new-code coverage below the Quality Gate threshold** | Open | The analysis of `2edf6db3b` measured 78.5% against the 80% threshold. [CI result](https://github.com/robertpopa22/mRemoteNG/actions/runs/44136303444) |
 
 The Actions suspension was resolved on 16 November 2026. The analysis of `b685313c0` passed after eleven fixes, one evidence-backed executable-name false-positive disposition, and measured coverage improvements. Separately, the resumed [full-history secret scan](https://github.com/robertpopa22/mRemoteNG/actions/runs/43830437771) failed on 8 detections in 2016 history. Four are confirmed property assignments rather than literal secrets. The other four were reviewed on 17 November 2026: a Stripe publishable test key and an upstream maintainer's token on the old project website, and an upstream developer's 2016 test connections file. None of the reported paths exists in the current tracked tree, and removing them would mean rewriting history shared with upstream. Exactly these eight fingerprints are listed, each with its reason, in [`.gitleaksignore`](.gitleaksignore); any new detection still fails the scan.
 
@@ -531,11 +530,11 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File build.ps1 -SelfContained
 | 2 | **SonarCloud** | Push to `main` — quality gate | [![SonarCloud](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/sonarcloud.yml?label=SonarCloud&style=flat-square)](https://sonarcloud.io/project/overview?id=robertpopa22_mRemoteNG) |
 | 3 | **CodeQL** | Push to `main` + weekly — security scanning | [![CodeQL](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/robertpopa22/mRemoteNG/security/code-scanning) |
 | 4 | **.NET Analyzers** | `AnalysisLevel=latest-recommended` | Active |
-| 5 | **[Qodo Code Review](https://www.qodo.ai/)** | On-demand AI review | Paused: trial ended; checked 2026-11-16 |
+| 5 | **[Qodo Code Review](https://www.qodo.ai/)** | On-demand AI review | Trial ended, confirmed in the portal on 19 November |
 | 6 | **Semgrep CE** | Local authored C# security scan | Pinned 1.185.0, 729/729 files, 15 rules, zero parser errors or timeouts and 2 reviewed SQL findings |
 | 7 | **Stryker.NET** | Local mutation pilot on window-placement logic | Pinned 5.1.0; 100% (48/48 scored mutants), 17 tests; standard-library clamp, same source scope and exclusions; 5 ignored, 1 compile error |
-| 8 | **CodeRabbit OSS** | Public-repository review | App installed only on this fork; configuration schema validated; no completed review yet; CLI OAuth not granted |
-| 9 | **Greptile OSS** | Public-repository review | Accepted 2026-11-16: 100 free credits/month; repository enabled, 0 reviews |
+| 8 | **CodeRabbit OSS** | Public-repository review | GitHub App installed only on this fork. [Review on PR #245](https://github.com/robertpopa22/mRemoteNG/pull/245#issuecomment-6913568679). CLI authentication is inactive. |
+| 9 | **Greptile OSS** | Public-repository review | Accepted for 100 free credits/month. [Review on PR #245](https://github.com/robertpopa22/mRemoteNG/pull/245#issuecomment-6944500903). |
 
 [Commands, scope, baseline findings and no-cost controls](docs/FREE-VERIFICATION.md)
 are documented separately. Semgrep runs locally without an account or source
@@ -546,12 +545,10 @@ pipeline published the verified product changes recorded above.
 
 [![Greptile: The War on Bugs](https://www.greptile.com/badge.svg)](https://www.greptile.com/?utm_source=oss_badge&utm_medium=readme&utm_campaign=greptile_for_open_source)
 
-The provider badges report installation and entitlement. The local-tool badges
+The provider badges report review verification and entitlement. The local-tool badges
 report the Semgrep scan from 19 November and the Stryker pilot from 16 November.
-CodeRabbit's automatic trial is
-configured by the provider to revert to Free without charge. No paid usage product
-was activated. The Sonar badge records the failed coverage gate for `2edf6db3b`,
-checked on 19 November. Qodo remains paused.
+CodeRabbit's automatic trial is configured by the provider to revert to Free
+without charge. Qodo remains paused.
 
 Hosted reviews follow a [credit budget](docs/FREE-VERIFICATION.md#credit-budget-and-stop-conditions):
 live balance checks before and after use, a 20-credit Greptile reserve and no paid
@@ -559,7 +556,7 @@ overages or automatic top-ups. Trial and OSS credits are not counted twice.
 
 **Analyzer warnings remain in the resumed November CI build**, including product code, connector/vendor code and test support. A successful build is not a zero-warning result. `TreatWarningsAsErrors` is enforced for selected compiler rules (CS0168, CS0219, CS0162, CS0164); legacy analyzer suppressions remain in `.editorconfig`.
 
-**Qodo Code Review** previously supplied complementary findings, including a SQL INSERT missing 6 columns and a URL scheme injection vulnerability (upstream [#3177](https://github.com/mRemoteNG/mRemoteNG/issues/3177)). It is **not currently an active gate**: the account dashboard checked on 16 November 2026 reports that the trial ended on 23 September and reviews are paused. Re-enabling GitHub Actions does not reactivate Qodo. Its [open-source program](https://docs.qodo.ai/open-source-program) requires at least 200 stars on the repository or another public repository in the same GitHub organization; this fork had 80 at the check. The historical `scripts/qodo-review.sh` PR flow also predates the maintainer's main-only workflow.
+**Qodo Code Review** previously supplied complementary findings, including a SQL INSERT missing 6 columns and a URL scheme injection vulnerability (upstream [#3177](https://github.com/mRemoteNG/mRemoteNG/issues/3177)). Reviews remain paused. The portal still showed **Trial ended** on 19 November 2026. The fork had 79 stars at that check. Qodo requires at least 200 stars on the repository or another public repository in the same GitHub organization. [Qodo OSS eligibility](https://docs.qodo.ai/open-source-program)
 
 ---
 

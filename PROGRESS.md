@@ -1,6 +1,11 @@
 # PROGRESS — handover
 
-Current status: `ea3ac5406` is pushed and published as nightly. All five CI workflows passed. Sonar marked 25 tracked maintainability findings fixed and recorded zero newly opened findings on the final analysis. Quality Gate is green at 80.69% new-code coverage, A/A/A and zero open bugs or vulnerabilities. The project-wide maintainability backlog is 6,762. Semgrep scanned 728 files with zero errors and the same two reviewed SQL findings. #232 still awaits the reporter's first-opening retest.
+## Sonar coverage and Options navigation — 2026-11-19
+
+- Product revision `77a7e5f26` is on `main` and published as nightly. Sonar analysis `288908ca-5ead-43f4-8a60-48529a24e73f` passed all six gate conditions. It measured 721/842 covered new lines (85.63%), with the existing 80% threshold, 59.8% overall coverage and zero open bugs or vulnerabilities. Pester passed 8/8 and covered 145/170 lines, up from 85/170, through the MSI lab's guest startup, upgrade detection and configuration fingerprints.
+- The lab reproduced [#232](https://github.com/robertpopa22/mRemoteNG/issues/232) at 192 DPI before the fix. The renderer now paints the bitmap at the same pixel width used to offset the label. The graphics regression passes at 96 and 192 DPI. Lab scenarios passed 2/2 at 192 DPI and 1/1 at 96 DPI. App timings for first open/reopen were 191/42 ms at 192 DPI and 211/66 ms at 96 DPI. The lab settings were restored and the guests shut down. Reporter verification is pending.
+- Full build and suite passed 4,178/4,178 in 198 seconds with zero crashes. Semgrep scanned 729 authored files with zero parser errors and two previously reviewed SQL findings. Stryker's 100% result covers the unchanged window-placement pilot. No hosted review was invoked for this revision.
+- GitHub nightly passed 4,156/4,156. The tag targets `77a7e5f26`, ZIP and MSI sizes and SHA-256 digests match the release metadata, and all 71 declared runtime assemblies are in the x64 ZIP. [Nightly](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287265) · [Validation](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287328) · [Sonar](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287330) · [CodeQL](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287288) · [Secret scanning](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287040)
 
 ## Recent Sonar maintainability — 2026-11-16
 

@@ -199,7 +199,9 @@ CLI 0.9.5 is installed locally, but its OAuth login requests `public_repo` acces
 across the account in both regions. That broader grant was declined: the
 maintainer authorized only this repository. CLI authentication/review is therefore
 **not active**. Use the commands below only after a suitably scoped authentication
-method has been separately verified. No PR or successful AI review is claimed.
+method has been verified.
+The repository-scoped GitHub App published a walkthrough and review result on
+[Dependabot PR #245](https://github.com/robertpopa22/mRemoteNG/pull/245#issuecomment-6913568679).
 
 The fork uses `main` directly: do not create an artificial branch or PR just to
 invoke a reviewer. After installing the official CLI and authenticating the
@@ -227,9 +229,11 @@ repository and do not create PRs merely to exercise the service.
 
 **Accepted on 16 November 2026:** Greptile confirmed GPL-2.0/public-repository
 eligibility at 80 stars, enrolled the repository, and grants **100 credits each
-month** to the organization's shared balance. The repository is enabled and
-marked Open source, with **0 completed reviews**. This entitlement is separate
-from the provider's initial 100-credit trial through 30 November. No payment
+month** to the organization's shared balance. The organization displays Open Source
+and reviews are enabled for this repository. Greptile published a review on
+[Dependabot PR #245](https://github.com/robertpopa22/mRemoteNG/pull/245#issuecomment-6944500903).
+Greptile now pauses reviews for Dependabot. The initial trial credits expire on
+30 November. Use the displayed balance for spending decisions. No payment
 method or Pro upgrade was added. Automatic approvals remain disabled and optional
 learning from usage was turned off. Both GitHub App grants are restricted to this
 one repository; the maintainer explicitly approved their displayed code/workflow
