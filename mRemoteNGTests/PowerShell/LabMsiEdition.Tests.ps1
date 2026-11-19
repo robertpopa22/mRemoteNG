@@ -44,6 +44,7 @@ Describe 'MSI edition lab orchestration' {
             CandidateExit = 0
             UpgradeDetected = $true
             CleanupFails = $false
+            RunGuestStartup = $false
             Fingerprints = @('confCons.xml=abc', $null, 'confCons.xml=abc')
             FingerprintIndex = 0
             Observations = @(
@@ -76,6 +77,7 @@ Describe 'MSI edition lab orchestration' {
                 }
                 'Start-Process msiexec\.exe -ArgumentList ''/i''' {
                     $lab.Calls.Add($ArgumentList[0])
+                    if ($lab.RunGuestStartup) { return & $ScriptBlock @ArgumentList }
                     switch ($ArgumentList[0]) {
                         'C:\mRemoteNG-baseline.msi' { return $lab.BaselineExit }
                         'C:\mRemoteNG-candidate.msi' { return $lab.CandidateExit }
@@ -84,18 +86,28 @@ Describe 'MSI edition lab orchestration' {
                 }
                 'Start-ScheduledTask' {
                     $lab.Calls.Add("$($ArgumentList[0]) [$($ArgumentList[1])]")
+                    if ($lab.RunGuestStartup) {
+                        $observation = $lab.Observations[$lab.ObservationIndex++]
+                        return & $ScriptBlock @ArgumentList
+                    }
                     return $lab.Observations[$lab.ObservationIndex++]
                 }
                 'WIX_UPGRADE_DETECTED' {
                     $lab.Calls.Add('detect upgrade')
+                    if ($lab.RunGuestStartup) { return & $ScriptBlock }
                     return $lab.UpgradeDetected
                 }
                 'Get-FileHash' {
                     $lab.Calls.Add($ArgumentList[0])
+                    if ($lab.RunGuestStartup) {
+                        $fingerprint = $lab.Fingerprints[$lab.FingerprintIndex++]
+                        return & $ScriptBlock @ArgumentList
+                    }
                     return $lab.Fingerprints[$lab.FingerprintIndex++]
                 }
                 'Copy-Item .*mRNG-portable' {
                     $lab.Calls.Add('prepare portable')
+                    if ($lab.RunGuestStartup) { & $ScriptBlock }
                     break
                 }
                 'Remove-LocalUser' {
@@ -135,6 +147,70 @@ Describe 'MSI edition lab orchestration' {
 
         { & $subject @arguments } | Should -Throw '*Set MRNG_LAB_GUEST_PASSWORD*'
         Should -Invoke New-PSSession -Exactly -Times 0
+    }
+
+    It 'parses guest startup diagnostics and runs both task registration modes' {
+        $lab.RunGuestStartup = $true
+        Mock Get-Process {}
+        Mock Stop-Process { throw 'The fixture must not stop any real process.' }
+        Mock Unregister-ScheduledTask {}
+        Mock New-ScheduledTaskPrincipal { [Microsoft.Management.Infrastructure.CimInstance]::new('MSFT_TaskPrincipal') }
+        Mock Start-Process {
+            if ($FilePath -ne 'msiexec.exe' -or $ArgumentList[0] -ne '/i') { throw 'Unexpected process request.' }
+            [pscustomobject]@{ ExitCode = 0 }
+        }
+        Mock Register-ScheduledTask {}
+        Mock Start-ScheduledTask {}
+        Mock Start-Sleep {}
+        Mock Add-Type {}
+        Mock Get-ScheduledTaskInfo { [pscustomobject]@{ LastTaskResult = 0 } }
+        Mock Remove-Item { throw 'Unexpected file removal.' }
+        Mock Remove-Item {} -ParameterFilter { $Path -like '*mRemoteNG Connection Manager.log' -or $Path[0] -like 'C:\mRNG-portable\*' }
+        Mock Select-String { $true } -ParameterFilter { $Path -eq 'C:\msi-candidate.log' -and $Quiet }
+        Mock Get-ChildItem { [pscustomobject]@{ Name = 'mRemoteNG.settings' } } -ParameterFilter { $Path -like 'C:\Users*' }
+        Mock Get-ChildItem {
+            [pscustomobject]@{ FullName = $observation.Log; LastWriteTime = (Get-Date).AddMinutes(-5) }
+            [pscustomobject]@{ FullName = $observation.Log; LastWriteTime = Get-Date }
+        } -ParameterFilter { $Path -like 'C:\Users\*\AppData\Local\mRemoteNG Connection Manager' }
+        Mock Get-ChildItem { [pscustomobject]@{ Name = 'confCons.xml'; FullName = 'C:\Synthetic\confCons.xml' } } -ParameterFilter { $Path -like "$programSettings*" }
+        $installerHashes = @{}
+        foreach ($installer in $baseline, $candidate) { $installerHashes[$installer] = Get-FileHash $installer }
+        Mock Get-FileHash {
+            if ($Path -eq 'C:\Synthetic\confCons.xml') { return [pscustomobject]@{ Hash = ($fingerprint -split '=', 2)[1] } }
+            if ($installerHashes.ContainsKey($Path[0])) { return $installerHashes[$Path[0]] }
+            throw 'Unexpected file hash request.'
+        }
+        Mock Test-Path {
+            if ($Path -in @($baseline, $candidate)) { return [IO.File]::Exists($Path) }
+            if ($Path -in @($programSettings, "$programSettings.migrated")) { return $null -ne $fingerprint }
+            $Path -eq $observation.Log -or ($observation.Marker -and $Path -like '*mRemoteNG.installed')
+        }
+        Mock Get-Content {
+            "INFO - mRemoteNG Connection Manager $($observation.Starting)"
+            "User settings file: $($observation.SettingsFile) (size: 1)"
+            "event=connections_load nodes=$($observation.Nodes) duration_ms=1"
+        } -ParameterFilter { $Path -like '*mRemoteNG Connection Manager.log' -or $Path -like '*mRemoteNG.log' }
+
+        # Use the real guest startup block with mocked Windows operations and synthetic logs.
+        # The session boundary still intercepts guest provisioning and cleanup.
+        $lab.Observations[0].Log = 'C:\Program Files\mRemoteNG\mRemoteNG Connection Manager.log'
+        $lab.Observations[1].Log = $lab.Observations[0].Log
+        $lab.Observations[2].Log = $lab.Observations[0].Log
+        $lab.Observations[3].Log = 'C:\Users\TEMP\AppData\Local\mRemoteNG Connection Manager\mRemoteNG Connection Manager.log'
+        $lab.Observations[4].Log = "C:\Users\$env:USERNAME\AppData\Local\mRemoteNG Connection Manager\mRemoteNG Connection Manager.log"
+        $lab.Observations[5].Log = 'C:\mRNG-portable\mRemoteNG Connection Manager.log'
+        & $subject @arguments
+        $LASTEXITCODE | Should -Be 0
+
+        Should -Invoke Register-ScheduledTask -Exactly -Times 2 -ParameterFilter { $RunLevel -eq 'Limited' }
+        Should -Invoke New-ScheduledTaskPrincipal -Exactly -Times 4 -ParameterFilter { $RunLevel -eq 'Highest' }
+        Should -Invoke Start-ScheduledTask -Exactly -Times 6
+        Should -Invoke Start-Process -Exactly -Times 2 -ParameterFilter { '/norestart' -in $ArgumentList -and $Wait -and $PassThru }
+        Should -Invoke Select-String -Exactly -Times 1 -ParameterFilter { $Pattern -eq 'Adding WIX_UPGRADE_DETECTED property' }
+        Should -Invoke Copy-Item -Exactly -Times 1 -ParameterFilter { $Destination -eq 'C:\mRNG-portable' -and $Recurse }
+        Should -Invoke Remove-Item -Exactly -Times 1 -ParameterFilter { $Path -contains 'C:\mRNG-portable\mRemoteNG.installed' }
+        Should -Invoke Get-Content -Exactly -Times 1 -ParameterFilter { $Path -like 'C:\Users\TEMP\*' }
+        Should -Invoke Remove-PSSession -Exactly -Times 1
     }
 
     It 'rejects a missing installer before connecting' {
