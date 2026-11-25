@@ -139,7 +139,7 @@ The maintenance procedure now publishes in-scope fixes and replies directly afte
 
 **Resumed CI result:** PR_Validation passed all **5/5 jobs** on `8153f07f1`: solution builds for x86/x64/ARM64, test/spec project builds for x86/x64, and the configured x64/ARM64 startup checks. CodeQL also completed successfully, its analysis was uploaded for that exact commit, and GitHub reported **zero open CodeQL alerts** at readback. Compiler/analyzer warnings remain. These validation workflows publish no release and do not replace the local full-suite/UI results above.
 
-**Options navigation at 200% scaling — 19 November 2026.** The lab reproduced icons covering the labels on the first Options opening at 192 DPI. The renderer now uses the same pixel width to draw the icon and position the label. The candidate passed opening, cancelling, reopening and the Connections page resize check at 192 DPI. Opening and reopening also passed at 96 DPI. App timings were **191/42 ms** at 192 DPI and **211/66 ms** at 96 DPI. Reporter verification is pending. [#232](https://github.com/robertpopa22/mRemoteNG/issues/232)
+**Options navigation at 200% scaling — 19 November 2026.** The lab reproduced icons covering the labels on the first Options opening at 192 DPI. The renderer now uses the same pixel width to draw the icon and position the label. The candidate passed opening, cancelling, reopening and the Connections page resize check at 192 DPI. Opening and reopening also passed at 96 DPI. App timings were **191/42 ms** at 192 DPI and **211/66 ms** at 96 DPI. On 20 November, jblion confirmed on portable x64 build 3795 that the icons no longer overlapped, the layout stayed aligned after resizing, Options opened at an acceptable speed, and PuTTY was embedded correctly. The issue was closed as fixed. [#232](https://github.com/robertpopa22/mRemoteNG/issues/232)
 
 **Quality — 19 November 2026.** Sonar passed the Quality Gate on `77a7e5f26` at **85.63% new-code coverage**, up from **78.5%**, against the existing **80%** threshold. The Pester suite exercises the MSI lab script's installer, upgrade detection, configuration fingerprints and startup diagnostics with synthetic data. It covers **145/170 lines** with **8/8 tests passing**. The local suite passed **4,178/4,178** and the nightly suite passed **4,156/4,156**. [Sonar](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287330) · [Nightly build](https://github.com/robertpopa22/mRemoteNG/actions/runs/44565287265) · [Published ZIP and MSI](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)
 
@@ -308,7 +308,7 @@ triaged and classified:
 - **duplicate** — merged with another issue tracking the same root cause
 
 **The fork's own inbox (checked 2026-11-16).** Since the fork started accepting reports directly,
-**115 issues have been opened by external reporters and 112 are closed**; 3 issues are open,
+**117 issues have been opened by external reporters and 115 are closed**; 2 issues are open,
 including investigations and fixes awaiting reporter confirmation. An older upstream tracker snapshot
 lists 873 issues followed and 841 open upstream.
 
@@ -573,7 +573,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**4,181 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**4,178 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
