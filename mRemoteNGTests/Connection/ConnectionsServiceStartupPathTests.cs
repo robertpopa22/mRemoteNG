@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using mRemoteNG.Config.Putty;
 using mRemoteNG.Connection;
+using mRemoteNG.Properties;
 using NUnit.Framework;
 
 namespace mRemoteNGTests.Connection;
@@ -10,6 +12,39 @@ namespace mRemoteNGTests.Connection;
 [NonParallelizable]
 public class ConnectionsServiceStartupPathTests
 {
+    [TestCase(true)]
+    [TestCase(false)]
+    public void NewConnectionsFileLoadsOnlyWhenRequested(bool load)
+    {
+        var directory = Directory.CreateTempSubdirectory();
+        string path = Path.Combine(directory.FullName, "connections.xml");
+        var connectionSettings = OptionsConnectionsPage.Default;
+        var backupSettings = OptionsBackupPage.Default;
+        string originalPath = connectionSettings.ConnectionFilePath;
+        bool originalLoadFromCustomLocation = backupSettings.LoadConsFromCustomLocation;
+        string originalBackupLocation = backupSettings.BackupLocation;
+        try
+        {
+            var service = new ConnectionsService(PuttySessionsManager.Instance);
+            // Prevent LoadConnections from saving the test path to the user profile.
+            connectionSettings.ConnectionFilePath = path;
+            if (load)
+                service.NewConnectionsFile(path);
+            else
+                service.NewConnectionsFile(path, load: false);
+
+            Assert.That(File.Exists(path), Is.True);
+            Assert.That(service.IsConnectionsFileLoaded, Is.EqualTo(load));
+        }
+        finally
+        {
+            connectionSettings.ConnectionFilePath = originalPath;
+            backupSettings.LoadConsFromCustomLocation = originalLoadFromCustomLocation;
+            backupSettings.BackupLocation = originalBackupLocation;
+            directory.Delete(recursive: true);
+        }
+    }
+
     // Test-only prompt factory — always cancels, so the resolver returns null and
     // GetStartupConnectionFileName falls through to the saved-path / default path.
     // Having an injected factory keeps the unit tests headless (no ShowDialog).

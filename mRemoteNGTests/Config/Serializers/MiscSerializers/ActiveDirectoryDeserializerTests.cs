@@ -1,3 +1,4 @@
+using System;
 using mRemoteNG.Config.Serializers.MiscSerializers;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
@@ -7,6 +8,18 @@ namespace mRemoteNGTests.Config.Serializers.MiscSerializers;
 
 public class ActiveDirectoryDeserializerTests
 {
+    [Test]
+    public void ConstructorAcceptsAnLdapPathWithoutContactingADomain()
+    {
+        Assert.DoesNotThrow(() => new ActiveDirectoryDeserializer("LDAP://DC=example,DC=com", importSubOu: true));
+    }
+
+    [Test]
+    public void ConstructorRejectsANonLdapPath()
+    {
+        Assert.Throws<ArgumentException>(() => new ActiveDirectoryDeserializer("https://example.com", importSubOu: false));
+    }
+
     [Test]
     public void ImportedComputerKeepsItsOwnHostnameUnderAFolderWithoutOne()
     {

@@ -563,7 +563,7 @@ overages or automatic top-ups. Trial and OSS credits are not counted twice.
 ## Testing
 
 ```powershell
-# Recommended (bash runner, 9 groups, max 2 concurrent, ~80s):
+# Recommended (bash runner, 9 groups, max 2 concurrent):
 bash run-tests-core.sh
 
 # PowerShell wrapper (builds first):
@@ -573,26 +573,26 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**4,178 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**4,183 test executions**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures in the local coverage run on 26 November 2026.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
-The total counts test executions across the runner's overlapping groups, not unique discovered cases.
+The group filters partition the suite. Totals can differ by environment because some integration cases require a live database.
 
 | Group | Namespace | Tests |
 |-------|-----------|-------|
-| 1 | Connection | 1,301 |
-| 2 | Config.Xml | 153 |
-| 3 | Config.Other | 949 |
-| 4 | UI | 463 |
-| 5 | Tools | 552 |
-| 6 | Security | 178 |
-| 7 | Tree + Container + Credential | 191 |
-| 8 | Remaining | 3,834 |
+| 1 | Connection | 1,459 |
+| 2 | Config.Xml | 160 |
+| 3 | Config.Other | 810 |
+| 4 | UI | 503 |
+| 5 | Tools | 596 |
+| 6 | Security | 180 |
+| 7 | Tree + Container + Credential | 206 |
+| 8 | Remaining | 223 |
 | 9 | Integration | 44 |
 | Isolated | FrmOptions (GDI handle leak) | 2 |
 
-Counts live in `test-config.json`, which is the single source of truth.
+The runner reads its filters and minimum test count from `test-config.json`.
 
 ### Three levels of verification
 
@@ -721,7 +721,7 @@ This section records the 21 October 2026 snapshot since the v1.84.0 tag (25 Sept
 
 **Reopening the previous session ([#172](https://github.com/robertpopa22/mRemoteNG/issues/172)).** In 1.84.0 a tab closed during the session came back on the next start unless the connections had been saved. The autosave stopped rewriting the connections file when nothing was edited, and the file's "connected" marks went stale; the startup path reopened them next to the tabs the saved layout restored. The layout, written on every exit, now decides; a marked connection is reopened only if the layout named it and did not open it. A lab scenario reproduced it before the change (two tabs after the restart, one expected) and passed after it. The reporter confirmed it on the 17 October nightly, the same day.
 
-**Dependencies.** `main` is on the .NET 10.0.12 line ([`b19c9d35f`](https://github.com/robertpopa22/mRemoteNG/commit/b19c9d35f)). Direct packages moved to their then-current stable releases, including NUnit 5, Reqnroll 3.3.4 (SpecFlow is gone), FlaUI 5, WiX 7, SqlClient 7.1.1, and MySql.Data 26.7.0. The unused `Renci.SshNet.Async` package was removed. Certificate checks, credential storage, and authentication behavior were not changed. The suite recorded for that move was 7414 passed.
+**Dependencies.** `main` is on the .NET 10.0.12 line ([`b19c9d35f`](https://github.com/robertpopa22/mRemoteNG/commit/b19c9d35f)). Direct packages moved to their then-current stable releases, including NUnit 5, Reqnroll 3.3.4 (SpecFlow is gone), FlaUI 5, WiX 7, SqlClient 7.1.1, and MySql.Data 26.7.0. The unused `Renci.SshNet.Async` package was removed. Certificate checks, credential storage, and authentication behavior were not changed. The runner recorded 7,414 passing executions with overlapping filters. The [October runner correction](https://github.com/robertpopa22/mRemoteNG/commit/c85b41a3234e40ac124351d59ffd4820c6cf400f) eliminated repeat executions and measured 4,039 cases across disjoint groups at that revision.
 
 **RDP retention ([#182](https://github.com/robertpopa22/mRemoteNG/issues/182)).** The issue is closed as not reproduced at the reported size. That close is not a finding that the retained memory is gone. A log from nightly 20261001 or later, with the per-close lines and no session names, reopens it. Two public measurements on nightly 20260929 do not match each other. On Windows 10 21H2 the later closes kept about 96 MB of private memory each, and the first close left about 171 MB. On Windows 11 25H2 the later closes kept about 4 MB each. Both pastes show a completed dispose. The sentence "An internal error has occurred." is what the client returns for disconnect code 2 with extended code 12 (a remote logoff). It does not, by itself, mean dispose failed.
 
