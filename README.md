@@ -114,7 +114,11 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 **Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
 
-**Latest published verification — 16 November 2026.** Sonar marked **25 maintainability findings fixed** on `ea3ac5406`, including the 22 from the preceding two product changes and three surfaced by the first cleanup. The changes group display constructors, give the RDP trace its own file, keep the version regex timeout in the generated property and dispose VNC streams asynchronously. The full local suite passed **4,151/4,151**. Nightly and Sonar each passed **4,129/4,129**, and Sonar passed all seven Pester tests. All five workflows passed on this revision. [Commit](https://github.com/robertpopa22/mRemoteNG/commit/ea3ac54064cb09f565983249d1bd5144eae2bae9) · [CI](https://github.com/robertpopa22/mRemoteNG/actions?query=branch%3Amain) · [Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)
+**Latest published verification — 26 November 2026.** Nightly x64 build 3805 (`ffc98bc47`) passed all five GitHub Actions workflows. The Sonar Quality Gate passed with **86.4% coverage on new code** against the **80%** threshold. The corresponding local coverage run passed **4,183 test executions**. The ZIP and MSI hashes match the release digests. [Commit](https://github.com/robertpopa22/mRemoteNG/commit/ffc98bc4717daf8571e3d0fb456ce6c6eb3f2ff3) · [Nightly CI](https://github.com/robertpopa22/mRemoteNG/actions/runs/45813549112) · [Release](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)
+
+**Panel layout import — 26 November 2026.** On build 3805, an automated Windows UI run imported synthetic XML with a `Connections` root and saw the invalid-layout dialog. The Connections tree stayed in place, and the panel layouts exported before and after were identical. This verified the reported path for the clean test profile and #256 was closed. [Issue and test result](https://github.com/robertpopa22/mRemoteNG/issues/256)
+
+**Earlier published verification — 16 November 2026.** Sonar marked **25 maintainability findings fixed** on `ea3ac5406`, including the 22 from the preceding two product changes and three surfaced by the first cleanup. The changes group display constructors, give the RDP trace its own file, keep the version regex timeout in the generated property and dispose VNC streams asynchronously. The full local suite passed **4,151/4,151**. Nightly and Sonar each passed **4,129/4,129**, and Sonar passed all seven Pester tests. All five workflows passed on this revision. [Commit](https://github.com/robertpopa22/mRemoteNG/commit/ea3ac54064cb09f565983249d1bd5144eae2bae9) · [CI](https://github.com/robertpopa22/mRemoteNG/actions?query=branch%3Amain) · [Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)
 
 **Earlier Semgrep verification — 16 November 2026.** [Product `900efb02d`](https://github.com/robertpopa22/mRemoteNG/commit/900efb02d4b774aa29dd4a41286649a49045c869) completes Semgrep parsing of the same **727 authored C# files**, with **zero parser errors and zero timeouts**, using the same 15 pinned CE rules. Twenty-five primary constructors were converted to equivalent explicit constructors in 23 files. No exclusions were added. Both previously reviewed SQL false positives remain visible, so the script returns **10: complete with findings**. Full build, **4,151/4,151 local tests** and **3/3 guest startup checks** passed; the maintainer approved the security diff.
 
@@ -307,8 +311,8 @@ triaged and classified:
 - **wontfix** — classified as out-of-scope (upstream limitation, requires hardware, or not reproducible)
 - **duplicate** — merged with another issue tracking the same root cause
 
-**The fork's own inbox (checked 2026-11-16).** Since the fork started accepting reports directly,
-**117 issues have been opened by external reporters and 115 are closed**; 2 issues are open,
+**The fork's own inbox (checked 2026-11-27).** Since the fork started accepting reports directly,
+**118 issues have been opened by external reporters and 115 are closed**; 3 issues are open,
 including investigations and fixes awaiting reporter confirmation. An older upstream tracker snapshot
 lists 873 issues followed and 841 open upstream.
 
